@@ -1,0 +1,82 @@
+﻿@using System.Dynamic
+@using Codeer.LowCode.Blazor.Components
+@using Codeer.LowCode.Blazor.Components.Fields
+@using Codeer.LowCode.Blazor.Repository.Design
+@using Codeer.LowCode.Blazor.RequestInterfaces
+@using Codeer.LowCode.Blazor.OperatingModel
+@using IgniteUI.Blazor.Controls
+@inherits FieldComponentBase<ListField>
+@inject Services Services
+
+@if (ModuleDesign != null) {
+    <div class="container vertical">
+        <div class="legend">
+            <IgbLegend
+                Name="Legend"
+                @ref="_legend"
+                Orientation="LegendOrientation.Horizontal">
+            </IgbLegend>
+        </div>
+        <div class="container vertical fill">
+            <IgbCategoryChart
+                Name="chart"
+                @ref="_chart"
+                ChartType="CategoryChartType.Line"
+                IsHorizontalZoomEnabled="false"
+                IsVerticalZoomEnabled="false"
+                DataSource="_data"
+                IncludedProperties="_keys"
+                XAxisTitle="@XAxisTitle"
+                XAxisTitleTopMargin="10"
+                XAxisTitleBottomMargin="5"
+                XAxisLabelBottomMargin="0"
+                YAxisTitle="@YAxisTitle"
+                YAxisTitleLeftMargin="10"
+                YAxisTitleRightMargin="5"
+                YAxisLabelLeftMargin="0"
+                ComputedPlotAreaMarginMode="ComputedPlotAreaMarginMode.Series"
+                Height="@Height">
+            </IgbCategoryChart>
+        </div>
+    </div>
+} else {
+    <ConfigurationRequiredBanner>
+        ModuleName is not set
+    </ConfigurationRequiredBanner>
+}
+
+@code {
+    private IgbCategoryChart? _chart;
+    private IgbLegend? _legend;
+    private ModuleDesign? ModuleDesign { get; set; }
+    private List<Dictionary<string, object?>> _data = new();
+    private string[] _keys = [];
+    
+    private string Height => ((IgbLineChartFieldDesign)Field.Design).Height;
+    private string XAxisTitle => ((IgbLineChartFieldDesign)Field.Design).XAxisTitle;
+    private string YAxisTitle => ((IgbLineChartFieldDesign)Field.Design).YAxisTitle;
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        var legend = _legend;
+        var chart = _chart;
+        if (chart is not null && legend is not null) {
+            chart.Legend = legend;
+        }
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await base.OnParametersSetAsync();
+
+        var formDesignName = Field.Design.SearchCondition.ModuleName;
+        if (!string.IsNullOrEmpty(formDesignName))
+            ModuleDesign = Services.AppInfoService.GetDesignData().Modules.FirstOrDefault(e => e.Name == formDesignName);
+
+        Field.SetStateChangedReceiver(StateHasChanged);
+        var data = Field.GetListData(Services, Field.LayoutName);
+        _data = data;
+        _keys = data.Select(e => e.Keys).FirstOrDefault()?.ToArray() ?? [];
+    }
+
+}

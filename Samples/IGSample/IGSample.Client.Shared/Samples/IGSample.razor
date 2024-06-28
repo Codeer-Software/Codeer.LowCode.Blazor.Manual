@@ -1,0 +1,132 @@
+﻿@using IgniteUI.Blazor.Controls
+@using Microsoft.AspNetCore.Components.Web
+@using Codeer.LowCode.Blazor.ProCode
+
+@inherits ProCodeModuleBase
+
+<PageTitle>IG Sample</PageTitle>
+
+<IgbCard style="width:350px">
+  <IgbCardMedia>
+    <img src="https://images.unsplash.com/photo-1541516160071-4bb0c5af65ba?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=350&q=80" />
+  </IgbCardMedia>
+  <IgbCardHeader>
+    <h4>Jane Doe</h4>
+    <h6>Professional Photographer</h6>
+  </IgbCardHeader>
+  <IgbCardContent>
+    Hi! I'm Jane, photographer and filmmaker.
+    Photography is a way of feeling, of touching,
+    of loving. What you have caught on film is captured forever...
+    it remembers little things, long after you have
+    forgotten everything.
+  </IgbCardContent>
+  <IgbCardActions>
+    <IgbButton>More Info</IgbButton>
+  </IgbCardActions>
+</IgbCard>
+
+<div class="container vertical ig-typography">
+  <div class="container vertical fill">
+    <IgbGrid AutoGenerate="false"
+             Data="TestData"
+             PrimaryKey="ProductID"
+             DisplayDensity="DisplayDensity.Cosy"
+             AllowFiltering="true"
+             FilterMode="FilterMode.ExcelStyleFilter"
+             Name="grid1"
+             @ref="grid1">
+      <IgbPaginator PerPage="10">
+      </IgbPaginator>
+
+      <IgbColumn Field="ProductName"
+                 Header="Product Name"
+                 DataType="GridColumnDataType.String"
+                 Sortable="true"
+                 HasSummary="true"
+                 Editable="true"
+                 Resizable="true">
+      </IgbColumn>
+
+      <IgbColumn Field="UnitPrice"
+                 Header="Unit Price"
+                 DataType="GridColumnDataType.Number"
+                 Sortable="true"
+                 HasSummary="true"
+                 Editable="true"
+                 Resizable="true">
+      </IgbColumn>
+
+      <IgbColumn Field="UnitsInStock"
+                 Header="Units in Stock"
+                 DataType="GridColumnDataType.Number"
+                 Sortable="true"
+                 HasSummary="true"
+                 Editable="true"
+                 Resizable="true">
+      </IgbColumn>
+
+      <IgbColumn Field="OrderDate"
+                 Header="Order Date"
+                 DataType="GridColumnDataType.Date"
+                 Sortable="true"
+                 HasSummary="true"
+                 Editable="true"
+                 Resizable="true">
+      </IgbColumn>
+
+      <IgbColumn Field="Discontinued"
+                 Header="Discontinued"
+                 DataType="GridColumnDataType.Boolean"
+                 Sortable="true"
+                 HasSummary="true"
+                 Editable="true"
+                 BodyTemplateScript="WebGridBooleanCellTemplate"
+                 Name="column1"
+                 @ref="column1">
+      </IgbColumn>
+
+      <IgbColumn Field="ReorderLevel"
+                 Header="Reorder Level"
+                 DataType="GridColumnDataType.Number"
+                 Sortable="true"
+                 HasSummary="true"
+                 Editable="true"
+                 Filterable="true">
+      </IgbColumn>
+
+    </IgbGrid>
+
+  </div>
+</div>
+
+@code {
+  private IgbGrid? grid1;
+  private IgbColumn? column1;
+
+  List<Dictionary<string, object>> _list = new();
+
+  public List<Dictionary<string, object>> TestData
+  {
+    get
+    {
+      if (_list.Any()) return _list;
+
+      for (int i = 0; i < 100; i++)
+      {
+        var dic = new Dictionary<string, object>();
+        dic["ProductName"] = "a";
+        dic["UnitPrice"] = 100 + i;
+        dic["UnitsInStock"] = 200 + i;
+        dic["OrderDate"] = DateTime.Now;
+        dic["Discontinued"] = true;
+        dic["ReorderLevel"] = 300 + i;
+        _list.Add(dic);
+      }
+
+      return _list;
+
+    }
+  }
+
+}

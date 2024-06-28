@@ -1,0 +1,105 @@
+CREATE TABLE temporary_files (
+    id SERIAL PRIMARY KEY,
+    guid uuid NOT NULL,
+    created_date_time timestamp without time zone NULL
+);
+CREATE TABLE menu_files (
+    id SERIAL PRIMARY KEY,
+    name text NULL,
+	price numeric,
+    file_guid uuid NULL,
+    file_name text NULL,
+    file_size integer NULL
+);
+CREATE TABLE authors (
+    id SERIAL PRIMARY KEY,
+    full_name TEXT,
+    email TEXT NOT NULL UNIQUE,
+    profile TEXT
+);
+
+CREATE TABLE recipes (
+    id SERIAL PRIMARY KEY,
+    author_email TEXT,
+    recipe_name TEXT,
+    description TEXT,
+    serving_size TEXT
+);
+
+CREATE TABLE ingredients (
+    id SERIAL PRIMARY KEY,
+    recipe_id INTEGER,
+    ingredient_name TEXT,
+    quantity numeric,
+    measurement TEXT,
+    preparation TEXT,
+    note TEXT,
+    sort_index INTEGER
+);
+
+CREATE TABLE cooking_steps (
+    id SERIAL PRIMARY KEY,
+    recipe_id INTEGER,
+    step_number INTEGER,
+    instruction TEXT
+);
+
+CREATE TABLE colors (
+    id SERIAL PRIMARY KEY,
+    name TEXT,
+    color TEXT
+);
+CREATE TABLE electric_power (
+    id SERIAL PRIMARY KEY,
+    year TEXT,
+    europe NUMERIC,
+    china NUMERIC,
+    america NUMERIC
+);
+
+CREATE TABLE contacts (
+    id SERIAL PRIMARY KEY,
+    first_name TEXT,
+    last_name TEXT,
+    email TEXT,
+    phone_number TEXT,
+    address TEXT,
+    city TEXT,
+    state TEXT,
+    zip_code TEXT,
+    country TEXT,
+    birthday DATE,
+    company TEXT,
+    job_title TEXT,
+    industry TEXT,
+    notes TEXT
+);
+----data--------
+INSERT INTO recipes (recipe_name, description, serving_size) VALUES
+('Tomato Spaghetti', 'Simple and delicious tomato spaghetti', 'Serves 2'),
+('Chicken Curry', 'Spicy and authentic chicken curry', 'Serves 4'),
+('Vegetable Salad', 'Fresh and healthy vegetable salad', 'Serves 2');
+
+INSERT INTO ingredients (recipe_id, ingredient_name, quantity, measurement, preparation, note, sort_index) VALUES
+(1, 'Spaghetti', 200, 'g', '', '', 0),
+(1, 'Tomato', 3, 'pcs', 'diced', '', 1),
+(1, 'Olive Oil', 2, 'tbsp', '', '', 2),
+(1, 'Garlic', 1, 'clove', 'minced', '', 3),
+(2, 'Chicken Thigh', 400, 'g', 'cut into pieces', '', 0),
+(2, 'Onion', 2, 'pcs', 'chopped', '', 1),
+(2, 'Curry Powder', 3, 'tbsp', '', 'adjust to taste', 2),
+(2, 'Canned Tomatoes', 1, 'can', '', '', 3),
+(3, 'Lettuce', 1, 'head', 'torn', '', 0),
+(3, 'Tomato', 2, 'pcs', 'wedges', '', 1),
+(3, 'Cucumber', 1, 'pc', 'sliced', '', 2),
+(3, 'Dressing', 3, 'tbsp', '', 'as per taste', 3);
+
+INSERT INTO cooking_steps (recipe_id, step_number, instruction) VALUES
+(1, 1, 'Boil the spaghetti'),
+(1, 2, 'Sauté garlic and tomatoes in olive oil'),
+(1, 3, 'Mix the cooked spaghetti with the sautéed tomatoes and garlic'),
+(2, 1, 'Sauté the chicken pieces'),
+(2, 2, 'Add onions and curry powder and sauté further'),
+(2, 3, 'Add water and canned tomatoes and simmer'),
+(3, 1, 'Prepare and cut the vegetables'),
+(3, 2, 'Toss the vegetables with dressing in a bowl');

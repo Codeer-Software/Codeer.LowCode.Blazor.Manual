@@ -1,0 +1,101 @@
+﻿@using System.Text
+@using Codeer.LowCode.Blazor.Repository.Design
+@using Codeer.LowCode.Blazor.Components.AppParts.Loading
+@using Codeer.LowCode.Blazor.Components.AppParts.PageFrame
+
+@inject PageFrameContext PageFrameContext
+
+<div class="page">
+    <header>
+        <Navbar Design="_pageFrame?.Header" />
+    </header>
+    <div class="content">
+        <div class="sidebar" style="@GetStyleString(_pageFrame?.Left)">
+            <Sidebar Design="@_pageFrame?.Left" />
+        </div>
+        <main>
+            <article class="content px-4">
+                <Loading />
+                @ChildContent
+            </article>
+        </main>
+    </div>
+    <footer class="footer">
+        <div class="fluid-container">
+            <p class="text-muted">There is footer text from CustomLayout.</p>
+        </div>
+    </footer>
+</div>
+
+@code {
+    PageFrameDesign? _pageFrame;
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        PageFrameContext.OnPageFrameChanged += PageFrameChanged;
+    }
+
+    private void PageFrameChanged(object? sender, PageFrameDesign? e)
+    {
+        _pageFrame = e;
+        StateHasChanged();
+    }
+
+    private static string? GetStyleString(SideBarDesign? sideBar)
+    {
+        if (sideBar is null) return null;
+
+        var sb = new StringBuilder();
+        if (!string.IsNullOrEmpty(sideBar.Foreground))
+        {
+            sb.Append("--foreground-color:");
+            sb.Append(HexToRgb(sideBar.Foreground));
+        }
+
+        if (!string.IsNullOrEmpty(sideBar.BackgroundStart))
+        {
+            sb.Append(";--background-start:");
+            sb.Append(sideBar.BackgroundStart);
+        }
+
+        if (!string.IsNullOrEmpty(sideBar.BackgroundEnd))
+        {
+            sb.Append(";--background-end:");
+            sb.Append(sideBar.BackgroundEnd);
+        }
+
+        return sb.Length > 0 ? sb.ToString() : null;
+    }
+
+    private static string HexToRgb(string hex)
+    {
+        var rgb = ParseRgb(hex);
+        var r = rgb[0];
+        var g = rgb[1];
+        var b = rgb[2];
+        return $"{r}, {g}, {b}";
+    }
+
+    private static int[] ParseRgb(string hex)
+    {
+        if (!hex.StartsWith("#")) throw new ArgumentException("Invalid hex color format");
+        // expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
+        if (hex.Length == 4)
+        {
+            var r1 = hex[1].ToString();
+            var g1 = hex[2].ToString();
+            var b1 = hex[3].ToString();
+            hex = $"#{r1}{r1}{g1}{g1}{b1}{b1}";
+        }
+
+        if (hex.Length != 7) throw new ArgumentException("Invalid hex color format");
+        var r = Convert.ToInt32(hex.Substring(1, 2), 16);
+        var g = Convert.ToInt32(hex.Substring(3, 2), 16);
+        var b = Convert.ToInt32(hex.Substring(5, 2), 16);
+        return [r, g, b];
+    }
+}

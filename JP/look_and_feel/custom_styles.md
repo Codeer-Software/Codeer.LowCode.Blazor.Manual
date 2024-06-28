@@ -1,0 +1,111 @@
+# カスタムスタイル
+
+`app.css` にカスタムスタイルを追加して好みのスタイルに調整できます。
+このサンプルはGoogle Fontsを使用しているので、`app.css` の先頭に次の `@import` を追加してください。
+
+```css
+@import url('https://fonts.googleapis.com/css2?family=Red+Hat+Display:ital,wght@0,300..900;1,300..900&family=Noto+Sans+JP:wght@100..900&family=Paytone+One&display=swap');
+```
+
+`app.css` の任意の位置(末尾など) に次の内容をすべて追加してください。
+
+```css
+body {
+  font-family: "Red Hat Display", "Noto Sans JP";
+  color: #222;
+  --bs-border-color: #cbd0d6;
+}
+
+div#app {
+  background: linear-gradient(to bottom, hsla(200, 10%, 91%, 0.8) 0%, hsla(200, 10%, 81%, 0) 100%),
+  linear-gradient(to right, hsla(210, 14%, 86%, 0.8) 0%, hsla(210, 10%, 76%, 0) 100%),
+  linear-gradient(to left top, hsla(340, 10%, 91%, 0.8) 0%, hsla(340, 20%, 81%, 0) 100%);
+  background-blend-mode: overlay;
+}
+
+.sidebar {
+  background: rgba(255, 255, 255, 0.8) !important;
+  backdrop-filter: blur(30px) saturate(10);
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  --bs-nav-link-color: #202020;
+  --bs-nav-link-hover-color: #404040;
+}
+
+.sidebar::-webkit-scrollbar {
+  width: 10px;
+  position: fixed;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  content: "";
+  width: 10px;
+  background: rgb(245 245 245 / 0.5);
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  content: "";
+  width: 10px;
+  border-radius: 5px;
+  background: rgb(66 60 70 / 0.5);
+}
+
+.sidebar .top-row {
+  background: rgb(255 255 255 / 0.8) !important;
+  --bs-navbar-brand-color: #202020;
+  --bs-navbar-brand-hover-color: #404040;
+  position: sticky;
+  top: 0;
+  backdrop-filter: blur(20px) saturate(5);
+  z-index: 1;
+  box-shadow: 2px 2px 8px rgba(0 0 0 / 0.1);
+}
+
+.sidebar .navbar-brand {
+  font-weight: 400;
+  font-family: "Paytone One";
+  background: rgba(244, 244, 244, 0) !important;
+}
+
+.nav-item a {
+  transition: box-shadow 0.2s, background 0.2s;
+  border-radius: 20px !important;
+}
+
+.nav-item a:hover {
+  background: rgba(222, 222, 222, 0.05) !important;
+  backdrop-filter: blur(120px) saturate(2);
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.nav-item a.active {
+  background: rgba(244, 244, 244, 0.2) !important;
+  backdrop-filter: blur(120px) saturate(5);
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1), 2px 4px 10px 5px rgba(128,128,128, 0.08);
+  font-weight: 800;
+}
+
+.card {
+  background: rgba(255 255 255 / 0.7);
+  backdrop-filter: blur(120px) saturate(3);
+  padding: 10px;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1), 2px 4px 10px 5px rgba(128,128,128, 0.08);
+}
+
+.card .card {
+  box-shadow: none;
+}
+
+.table {
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1), 2px 4px 10px 5px rgba(128,128,128, 0.08);
+}
+
+label.form-label {
+  font-weight: 500;
+}
+
+.overflow-auto[data-name]:has(>.table) {
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1), 2px 4px 10px 5px rgba(128,128,128, 0.08);
+}
+
+```

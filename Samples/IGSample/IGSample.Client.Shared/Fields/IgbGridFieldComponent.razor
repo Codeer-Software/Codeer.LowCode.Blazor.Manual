@@ -1,0 +1,78 @@
+@using Codeer.LowCode.Blazor.Components
+@using Codeer.LowCode.Blazor.Components.Fields
+@using Microsoft.AspNetCore.Components.Web
+@using Codeer.LowCode.Blazor.Repository.Design
+@using Codeer.LowCode.Blazor.OperatingModel;
+@using Codeer.LowCode.Blazor.RequestInterfaces
+@using Codeer.LowCode.Blazor.DesignLogic
+@using Codeer.LowCode.Blazor.Components.Renderer.Table
+@using Codeer.LowCode.Blazor.Components.Primitives
+@using Codeer.LowCode.Blazor.Repository.Match
+@using Codeer.LowCode.Blazor.Utils
+@using Codeer.LowCode.Blazor.Properties
+@using IgniteUI.Blazor.Controls
+@inherits FieldComponentBase<ListField>
+@inject Services Services
+
+@if (ModuleDesign != null)
+{
+    <div class="container vertical ig-typography">
+        <div class="container vertical fill">
+            <IgbGrid AutoGenerate="false"
+                     Data="_data"
+                     PrimaryKey="ProductID"
+                     DisplayDensity="DisplayDensity.Cosy"
+                     AllowFiltering="true"
+                     FilterMode="FilterMode.ExcelStyleFilter"
+                     @ref="_grid"
+                     Height="@Height">
+                @foreach (var e in ModuleDesign.GetIgColumn(Field.LayoutName))
+                {
+                    <IgbColumn Field="@(e.Name)"
+                               Header="@(e.DisplayName)"
+                               DataType="@(e.Type)"
+                               Sortable="false"
+                               Editable="false"
+                               Resizable="true">
+                    </IgbColumn>
+                }
+            </IgbGrid>
+        </div>
+    </div>
+}
+else
+{
+    <ConfigurationRequiredBanner>
+        ModuleName is not set
+    </ConfigurationRequiredBanner>
+}
+
+@code {
+
+    ModuleDesign? ModuleDesign { get; set; }
+    private IgbGrid? _grid;
+    private List<Dictionary<string, object?>> _data = new();
+    private string Height => ((IgbGridFieldDesign)Field.Design).Height;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await base.OnParametersSetAsync();
+
+        var formDesignName = Field.Design.SearchCondition.ModuleName;
+        if (!string.IsNullOrEmpty(formDesignName))
+            ModuleDesign = Services.AppInfoService.GetDesignData().Modules.FirstOrDefault(e => e.Name == formDesignName);
+
+        Field.SetStateChangedReceiver(StateHasChanged);
+        _data = Field.GetListData(Services, Field.LayoutName);
+    }
+
+    private async void SelectRow(int index)
+    {
+        if (Field.Design.CanSelect != true) return;
+        if (await Field.CanChangeSelectedIndex(index) != true) return;
+        await Field.SetSelectedIndex(index);
+        StateHasChanged();
+    }
+
+    private Task Paging(int page) => Field.PagingAsync(page);
+}
