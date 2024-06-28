@@ -10,78 +10,144 @@
 @inject IAppInfoService AppInfoService
 @inject INavigationService NavigationService
 
-<StyleLoader Href="/css/mdb/mdb.min.css" />
 <StyleLoader>
-  html, body {
-    font-family: 'Noto Sans Japanese', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  @@import url('https://fonts.googleapis.com/css2?family=Red+Hat+Display:ital,wght@0,300..900;1,300..900&family=Noto+Sans+JP:wght@100..900&family=Paytone+One&display=swap');
+  body {
+    font-family: "Red Hat Display", "Noto Sans JP";
+    color: #222;
+    --bs-border-color: #cbd0d6;
   }
-  .navbar-brand {
-    --mdb-navbar-brand-color: white;
-    --mdb-navbar-brand-hover-color: white;
+
+  div#app {
+    background: linear-gradient(to bottom, hsla(200, 10%, 91%, 0.8) 0%, hsla(200, 10%, 81%, 0) 100%),
+    linear-gradient(to right, hsla(210, 14%, 86%, 0.8) 0%, hsla(210, 10%, 76%, 0) 100%),
+    linear-gradient(to left top, hsla(340, 10%, 91%, 0.8) 0%, hsla(340, 20%, 81%, 0) 100%);
+    background-blend-mode: overlay;
   }
-  .was-validated .form-control:invalid, .form-control.is-invalid {
-    margin-bottom: 0;
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc4c64'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc4c64' stroke='none'/%3e%3c/svg%3e");
-  }
-  .table>:not(caption)>*>* {
-    padding: .5rem .5rem;
-  }
-  table.table tr.can-select.selected {
-    --mdb-table-bg: #d9ecff;
-  }
+
   .sidebar {
-    --mdb-nav-link-padding-x: 1rem;
-    --mdb-nav-link-padding-y: 0.5rem;
+    background: rgba(255, 255, 255, 0.8) !important;
+    backdrop-filter: blur(30px) saturate(10);
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    --bs-nav-link-color: #202020;
+    --bs-nav-link-hover-color: #404040;
   }
-  .form-select {
-    padding-block: .27rem;
+
+  .sidebar::-webkit-scrollbar {
+    width: 10px;
+    position: fixed;
   }
-  .input-group > .form-select {
-    height: calc(2.08rem + 2px);
+
+  .sidebar::-webkit-scrollbar-track {
+    content: "";
+    width: 10px;
+    background: rgb(245 245 245 / 0.5);
+  }
+
+  .sidebar::-webkit-scrollbar-thumb {
+    content: "";
+    width: 10px;
+    border-radius: 5px;
+    background: rgb(66 60 70 / 0.5);
+  }
+
+  .sidebar .top-row {
+    background: rgb(255 255 255 / 0.8) !important;
+    --bs-navbar-brand-color: #202020;
+    --bs-navbar-brand-hover-color: #404040;
+    position: sticky;
+    top: 0;
+    backdrop-filter: blur(20px) saturate(5);
+    z-index: 1;
+    box-shadow: 2px 2px 8px rgba(0 0 0 / 0.1);
+  }
+
+  .sidebar .navbar-brand {
+    font-weight: 400;
+    font-family: "Paytone One";
+    background: rgba(244, 244, 244, 0) !important;
+  }
+
+  .nav-item a {
+    transition: box-shadow 0.2s, background 0.2s;
+    border-radius: 20px !important;
+  }
+
+  .nav-item a:hover {
+    background: rgba(222, 222, 222, 0.05) !important;
+    backdrop-filter: blur(120px) saturate(2);
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.08);
+  }
+
+  .nav-item a.active {
+    background: rgba(244, 244, 244, 0.2) !important;
+    backdrop-filter: blur(120px) saturate(5);
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1), 2px 4px 10px 5px rgba(128,128,128, 0.08);
+    font-weight: 800;
+  }
+
+  .card {
+    background: rgba(255 255 255 / 0.7);
+    backdrop-filter: blur(120px) saturate(3);
+    padding: 10px;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1), 2px 4px 10px 5px rgba(128,128,128, 0.08);
+  }
+
+  .card .card {
+    box-shadow: none;
+  }
+
+  .table {
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1), 2px 4px 10px 5px rgba(128,128,128, 0.08);
+  }
+
+  label.form-label {
+    font-weight: 500;
+  }
+
+  .overflow-auto[data-name]:has(>.table) {
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1), 2px 4px 10px 5px rgba(128,128,128, 0.08);
   }
 </StyleLoader>
 
-@if (_isValid)
-{
-  <LowCodePageComponent ModuleDesignName="@ModuleDesignName" PageFrameName="@PageFrameName" Id="@Id" Guid="@(AppInfoService.AsImplement().Guid)"></LowCodePageComponent>
+@if (_isValid) {
+    <LowCodePageComponent ModuleDesignName="@ModuleDesignName" PageFrameName="@PageFrameName" Id="@Id" Guid="@(AppInfoService.AsImplement().Guid)"></LowCodePageComponent>
 }
 
 @code {
-  public string PageFrameName => "CustomDesign";
+    public string PageFrameName => "CustomDesign";
 
-  [Parameter]
-  public string? ModuleDesignName { get; set; }
+    [Parameter]
+    public string? ModuleDesignName { get; set; }
 
-  [Parameter]
-  public string? Id { get; set; }
+    [Parameter]
+    public string? Id { get; set; }
 
-  bool _isValid = false;
+    bool _isValid = false;
 
-  protected override async Task OnInitializedAsync()
-  {
-    await base.OnInitializedAsync();
-    AppInfoService.AsImplement().OnHotReload += PageBase_OnHotReload;
-  }
+    protected override async Task OnInitializedAsync() {
+        await base.OnInitializedAsync();
+        AppInfoService.AsImplement().OnHotReload += PageBase_OnHotReload;
+    }
 
-  public void Dispose() => AppInfoService.AsImplement().OnHotReload -= PageBase_OnHotReload;
+    public void Dispose() => AppInfoService.AsImplement().OnHotReload -= PageBase_OnHotReload;
 
-  protected override async Task OnParametersSetAsync()
-  {
-    await base.OnParametersSetAsync();
-    await InitPage();
-  }
+    protected override async Task OnParametersSetAsync() {
+        await base.OnParametersSetAsync();
+        await InitPage();
+    }
 
-  private void PageBase_OnHotReload(object? sender, EventArgs e)
-  {
-    if (string.IsNullOrEmpty(PageFrameName))
-      NavigationService.ReplaceTo(NavigationService.GetTopPageUrl());
-    StateHasChanged();
-  }
+    private void PageBase_OnHotReload(object? sender, EventArgs e) {
+        if (string.IsNullOrEmpty(PageFrameName))
+            NavigationService.ReplaceTo(NavigationService.GetTopPageUrl());
+        StateHasChanged();
+    }
 
-  private async Task InitPage()
-  {
-    _isValid = false;
-    await AppInfoService.AsImplement().InitializeAppAsync();
-    _isValid = true;
-  }
+    private async Task InitPage() {
+        _isValid = false;
+        await AppInfoService.AsImplement().InitializeAppAsync();
+        _isValid = true;
+    }
+
 }
