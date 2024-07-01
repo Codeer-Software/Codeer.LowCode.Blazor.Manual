@@ -1,0 +1,261 @@
+{
+  "Name": "Sepmra",
+  "DisplayName": "",
+  "PageTitle": "",
+  "DataSourceName": "Sap",
+  "DbTable": "SEPMRA_C_POAPV_PurOrd",
+  "CanCreate": true,
+  "CanUpdate": true,
+  "CanDelete": true,
+  "CanBulkDataUpdate": false,
+  "CanBulkDataDownload": false,
+  "Fields": [
+    {
+      "DbColumn": "DeliveryAddress",
+      "IsMultiline": false,
+      "Placeholder": "",
+      "DisplayName": "",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "OnSearchDataChanged": "",
+      "Name": "DeliveryAddress",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
+    },
+    {
+      "DbColumn": "Etag",
+      "IsMultiline": false,
+      "Placeholder": "",
+      "DisplayName": "",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "OnSearchDataChanged": "",
+      "Name": "Etag",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
+    },
+    {
+      "IsUtc": false,
+      "HasTimeZone": false,
+      "DbColumn": "EarliestDeliveryDate",
+      "DisplayName": "",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "OnSearchDataChanged": "",
+      "Name": "EarliestDeliveryDate",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.DateTimeFieldDesign"
+    },
+    {
+      "IsUtc": false,
+      "HasTimeZone": false,
+      "DbColumn": "LastChangedDate",
+      "DisplayName": "",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "OnSearchDataChanged": "",
+      "Name": "LastChangedDate",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.DateTimeFieldDesign"
+    },
+    {
+      "IsUtc": false,
+      "HasTimeZone": false,
+      "DbColumn": "LatestDeliveryDate",
+      "DisplayName": "",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "OnSearchDataChanged": "",
+      "Name": "LatestDeliveryDate",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.DateTimeFieldDesign"
+    },
+    {
+      "Placeholder": "",
+      "DbColumn": "NetAmount",
+      "DisplayName": "Amount",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "OnSearchDataChanged": "",
+      "Name": "NetAmount",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.NumberFieldDesign"
+    },
+    {
+      "DbColumn": "PurchaseOrder",
+      "IsMultiline": false,
+      "Placeholder": "",
+      "DisplayName": "",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "OnSearchDataChanged": "",
+      "Name": "PurchaseOrder",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
+    }
+  ],
+  "UserWriteCondition": {
+    "ModuleName": ""
+  },
+  "UserReadCondition": {
+    "ModuleName": ""
+  },
+  "DataWriteCondition": {
+    "ModuleName": ""
+  },
+  "DataReadCondition": {
+    "ModuleName": ""
+  },
+  "OnTransaction": "",
+  "DetailLayouts": {
+    "": {
+      "OnBeforeInitialization": "",
+      "OnAfterInitialization": "",
+      "DataOnlyFields": [],
+      "Layout": {
+        "Rows": [
+          {
+            "IsRowMarginRemoved": false,
+            "IsWrap": false,
+            "Columns": [
+              {
+                "CanResize": false
+              },
+              {
+                "CanResize": false
+              },
+              {
+                "CanResize": false
+              },
+              {
+                "CanResize": false
+              }
+            ]
+          }
+        ],
+        "IsFlowLayout": false,
+        "IsBordered": false,
+        "IsFillAvailable": false,
+        "Name": "",
+        "IsViewOnly": false,
+        "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
+      }
+    }
+  },
+  "ListLayouts": {
+    "": {
+      "OnBeforeInitialization": "",
+      "OnAfterInitialization": "",
+      "HeaderTitle": "",
+      "Elements": [
+        [
+          {
+            "Label": "",
+            "FieldName": "DeliveryAddress",
+            "IsViewOnly": false,
+            "FontFamily": "",
+            "Color": "",
+            "ColumnSpan": 1,
+            "RowSpan": 1
+          },
+          {
+            "Label": "",
+            "FieldName": "PurchaseOrder",
+            "IsViewOnly": false,
+            "FontFamily": "",
+            "Color": "",
+            "ColumnSpan": 1,
+            "RowSpan": 1
+          },
+          {
+            "Label": "",
+            "FieldName": "EarliestDeliveryDate",
+            "IsViewOnly": false,
+            "FontFamily": "",
+            "Color": "",
+            "ColumnSpan": 1,
+            "RowSpan": 1
+          },
+          {
+            "Label": "",
+            "FieldName": "LastChangedDate",
+            "IsViewOnly": false,
+            "FontFamily": "",
+            "Color": "",
+            "ColumnSpan": 1,
+            "RowSpan": 1
+          },
+          {
+            "Label": "",
+            "FieldName": "LatestDeliveryDate",
+            "IsViewOnly": false,
+            "FontFamily": "",
+            "Color": "",
+            "ColumnSpan": 1,
+            "RowSpan": 1
+          },
+          {
+            "Label": "",
+            "FieldName": "NetAmount",
+            "IsViewOnly": false,
+            "FontFamily": "",
+            "Color": "",
+            "ColumnSpan": 1,
+            "RowSpan": 1
+          }
+        ]
+      ],
+      "DataOnlyFields": []
+    }
+  },
+  "SearchLayouts": {
+    "": {
+      "OnSearchInitialization": "",
+      "Layout": {
+        "Operator": "And",
+        "Rows": [
+          {
+            "IsRowMarginRemoved": false,
+            "IsWrap": false,
+            "Columns": [
+              {
+                "CanResize": false
+              },
+              {
+                "CanResize": false
+              },
+              {
+                "CanResize": false
+              },
+              {
+                "CanResize": false
+              }
+            ]
+          }
+        ],
+        "IsFlowLayout": false,
+        "IsBordered": false,
+        "IsFillAvailable": false,
+        "Name": "SearchGridLayout",
+        "IsViewOnly": false,
+        "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.SearchGridLayoutDesign"
+      }
+    }
+  },
+  "LinkFieldNames": [],
+  "ListPageFieldDesign": {
+    "CanNavigateToDetail": true,
+    "DisplayName": "",
+    "SearchCondition": {
+      "SortFieldVariable": "",
+      "SortDescending": false,
+      "SelectFields": [],
+      "ModuleName": ""
+    },
+    "LayoutName": "",
+    "UseIndexSort": false,
+    "DeleteTogether": false,
+    "CanCreate": false,
+    "CanUpdate": false,
+    "CanDelete": false,
+    "CanSelect": false,
+    "OnDataChanged": "",
+    "OnSelectedIndexChanged": "",
+    "OnSelectedIndexChanging": "",
+    "Name": "",
+    "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ListFieldDesign"
+  }
+}
