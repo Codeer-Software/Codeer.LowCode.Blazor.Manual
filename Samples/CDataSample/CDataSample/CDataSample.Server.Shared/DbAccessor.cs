@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage;
 using Npgsql;
 using Oracle.ManagedDataAccess.Client;
 using System.Data;
+using System.Data.CData.SAPGateway;
 using System.Data.Common;
 using System.Data.SQLite;
 
@@ -45,8 +46,82 @@ namespace CDataSample.Server.Shared
 
         public async Task<List<DbTableDefinition>?> GetCustomTableDefinitionsAsync(string dataSourceName)
         {
-            await Task.CompletedTask;
-            return null;
+            if (!dataSourceName.StartsWith("Sap")) return null;
+
+            var conn = GetConnection(dataSourceName) as SAPGatewayConnection;
+            if (conn == null) return null;
+
+            var columnTable = await conn.GetSchemaAsync("Columns");
+            var ret = columnTable.Rows.Cast<DataRow>()
+                .Select(r => new
+                {
+                    TableName = r["TABLE_NAME"].ToString() ?? "",
+                    ColumnName = r["COLUMN_NAME"].ToString() ?? "",
+                    RawDbTypeName = r["DATA_TYPE"].ToString() ?? "",
+                    IsNullable = (r["IS_NULLABLE"].ToString() ?? "").ToLower() == "yes"
+                }).GroupBy(r => r.TableName)
+                .Select(g => new DbTableDefinition
+                {
+                    Name = g.Key,
+                    Columns = g.Select(gg => new DbColumnDefinition
+                    {
+                        Name = gg.ColumnName,
+                        RawDbTypeName = gg.RawDbTypeName,
+                        NetTypeFullName = ConvertToNetType(gg.RawDbTypeName),
+                        IsNullable = gg.IsNullable
+                    }).ToList()
+                }).ToList();
+
+            return ret;
+        }
+
+        static string ConvertToNetType(string? type)
+        {
+            switch (type)
+            {
+                case "bigint":
+                    return typeof(long).FullName!;
+                case "bit":
+                    return typeof(bool).FullName!;
+                case "char":
+                case "nchar":
+                case "ntext":
+                case "nvarchar":
+                case "text":
+                case "varchar":
+                case "xml":
+                    return typeof(string).FullName!;
+                case "datetime":
+                case "datetime2":
+                case "smalldatetime":
+                case "date":
+                case "time":
+                    return typeof(DateTime).FullName!;
+                case "decimal":
+                case "money":
+                case "smallmoney":
+                case "numeric":
+                    return typeof(decimal).FullName!;
+                case "float":
+                    return typeof(double).FullName!;
+                case "int":
+                    return typeof(int).FullName!;
+                case "real":
+                    return typeof(float).FullName!;
+                case "uniqueidentifier":
+                    return typeof(Guid).FullName!;
+                case "smallint":
+                    return typeof(short).FullName!;
+                case "tinyint":
+                    return typeof(byte).FullName!;
+                case "variant":
+                case "udt":
+                    return typeof(object).FullName!;
+                case "timestamp":
+                    return typeof(byte[]).FullName!;
+                default:
+                    return string.Empty;
+            };
         }
 
         public DataSource? GetDataSource(string dataSourceName)
@@ -137,7 +212,9 @@ namespace CDataSample.Server.Shared
                 switch (dataSource.DataSourceType)
                 {
                     case DataSourceType.SQLServer:
-                        conn = new SqlConnection(dataSource.ConnectionString);
+                        conn = dataSourceName.StartsWith("Sap") ?
+                            new SAPGatewayConnection(dataSource.ConnectionString) :
+                            new SqlConnection(dataSource.ConnectionString);
                         break;
                     case DataSourceType.PostgreSQL:
                         conn = new NpgsqlConnection(dataSource.ConnectionString);
