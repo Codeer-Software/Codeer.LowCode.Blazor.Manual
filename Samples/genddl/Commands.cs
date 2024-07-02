@@ -16,6 +16,7 @@ namespace genddl
             Console.WriteLine($"  --output <OutputDirectory>     Set output directory.");
             Console.WriteLine($"  --ddl <DDLFileName>            Set output ddl file name.");
             Console.WriteLine($"  --datasource <DataSourceName>  Set DataSource name.");
+            Console.WriteLine($"  --clprj <ProjectPath>          Supply project file path.");
             Console.WriteLine($"  --help                         Print this help.");
         }
     }
