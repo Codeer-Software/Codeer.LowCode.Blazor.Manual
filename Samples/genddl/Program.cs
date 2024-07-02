@@ -81,7 +81,7 @@ for (var i = 0; i < workbook.Worksheets.Count; i++)
         .Select(r => $"  {r.name} {MapToColumnType(databaseType, r.type)}");
     ddl.AppendLine($"CREATE TABLE {tableName} (");
     ddl.AppendLine(string.Join(",\n", databaseColumnDefinitions));
-    ddl.AppendLine(")");
+    ddl.AppendLine(");");
     ddl.AppendLine("");
 
     // Module
@@ -112,6 +112,8 @@ for (var i = 0; i < workbook.Worksheets.Count; i++)
     {
         switch (def.type)
         {
+            case "Id":
+                break;
             case "RadioGroup":
                 defaultLayout.AddRadioGroup(module, def.name, def.args.Length);
                 break;
