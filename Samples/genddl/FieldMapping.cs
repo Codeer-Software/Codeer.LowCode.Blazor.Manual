@@ -48,6 +48,9 @@ namespace genddl
             var fieldName = PascalCase(name) + "List" + args.GetOrDefault(0);
             var field = new ListFieldDesign
             {
+                CanCreate = true,
+                CanDelete = true,
+                CanUpdate = true,
                 Name = fieldName,
                 SearchCondition =
                 {
@@ -69,8 +72,8 @@ namespace genddl
                             [
                                 new FieldVariableMatchCondition
                                 {
-                                    SearchTargetVariable = condition[0],
-                                    Variable = condition[1],
+                                    SearchTargetVariable = condition[0].Trim(),
+                                    Variable = condition[1].Trim(),
                                     Comparison = MatchComparison.Equal
                                 }
                             ]

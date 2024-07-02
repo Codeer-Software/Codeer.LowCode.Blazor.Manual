@@ -59,8 +59,9 @@
             {"RadioGroup", "VARCHAR2(4000)"}
         };
 
-        public static string MapToColumnType(string databaseType, string fieldType)
+        public static string MapToColumnType(string databaseType, string fieldType, string name)
         {
+            if (name != "Id" && fieldType == "Id") fieldType = "Number";
             return databaseType switch
             {
                 "sqlite" => SqliteTypeMapping[fieldType],

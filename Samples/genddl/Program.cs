@@ -91,7 +91,12 @@ if (!string.IsNullOrEmpty(outputDirectory))
     catch { }
 }
 
-var workbook = new XLWorkbook(inputFile);
+XLWorkbook workbook;
+using (var fileStream = new FileStream(inputFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+{
+    workbook = new XLWorkbook(fileStream);
+}
+
 var ddl = new StringBuilder();
 var modules = new List<string>();
 for (var i = 0; i < workbook.Worksheets.Count; i++)
@@ -106,7 +111,7 @@ for (var i = 0; i < workbook.Worksheets.Count; i++)
 
     // DDL
     var databaseColumnDefinitions = definitions.Where(r => !string.IsNullOrEmpty(r.Name))
-        .Select(r => $"  {r.Name} {MapToColumnType(databaseType, r.Type)}");
+        .Select(r => $"  {r.Name} {MapToColumnType(databaseType, r.Type, r.Name)}");
     ddl.AppendLine($"CREATE TABLE {tableName} (");
     ddl.AppendLine(string.Join(",\n", databaseColumnDefinitions));
     ddl.AppendLine(");");
