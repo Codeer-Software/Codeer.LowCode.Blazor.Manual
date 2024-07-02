@@ -45,27 +45,35 @@ namespace genddl
 
         private static ListFieldDesign CreateListFieldDesign(string name, string[] args)
         {
+            var fieldName = PascalCase(name) + "List" + args.GetOrDefault(0);
             var field = new ListFieldDesign
             {
-                Name = PascalCase(name) + "List" + args.GetOrDefault(0),
+                Name = fieldName,
                 SearchCondition =
                 {
                     ModuleName = args.GetOrDefault(0)
                 }
             };
 
-            var condition = args.GetOrDefault(0).Split(",");
+            var condition = args.GetOrDefault(1).Split(",");
             if (condition.Length >= 2)
             {
-                field.SearchCondition.Condition = new MultiMatchCondition
+                field.SearchCondition.Condition = new MultiMatchCondition()
                 {
                     Children =
                     [
-                        new FieldVariableMatchCondition
+                        new FieldMatchCondition
                         {
-                            SearchTargetVariable = condition[0],
-                            Variable = condition[1],
-                            Comparison = MatchComparison.Equal
+                            FieldName = fieldName,
+                            Children =
+                            [
+                                new FieldVariableMatchCondition
+                                {
+                                    SearchTargetVariable = condition[0],
+                                    Variable = condition[1],
+                                    Comparison = MatchComparison.Equal
+                                }
+                            ]
                         }
                     ]
                 };
