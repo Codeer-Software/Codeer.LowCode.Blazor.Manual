@@ -73,7 +73,8 @@ for (var i = 0; i < workbook.Worksheets.Count; i++)
     var moduleName = PascalCase(tableName);
 
     var definitions = worksheet.RowsUsed(IsRowUsed)
-        .Select(r => new Row(CellValue(r.Cell(1)), CellValue(r.Cell(2)), r.Cells(3, 128).TakeWhile(c => !c.Value.IsBlank).Select(CellValue).ToArray())).ToList();
+        .Select(r => new Row(CellValue(r.Cell(1)), CellValue(r.Cell(2)),
+            r.Cells(3, 128).TakeWhile(c => !c.Value.IsBlank).Select(CellValue).ToArray())).ToList();
 
     // DDL
     var databaseColumnDefinitions = definitions.Where(r => !string.IsNullOrEmpty(r.name))
@@ -115,14 +116,24 @@ for (var i = 0; i < workbook.Worksheets.Count; i++)
                 defaultLayout.AddRadioGroup(module, def.name, def.args.Length);
                 break;
             case "List":
-                defaultLayout.AddList(def.name);
+                defaultLayout.AddList(def.name, def.args.GetOrDefault(0));
                 break;
             default:
                 defaultLayout.AddField(module, def.name);
                 break;
         }
     }
+
     defaultLayout.AddSubmitLayout(module);
+
+    var listLayout = module.ListLayouts[""];
+    listLayout.Elements =
+    [
+        definitions.Where(def => (def.type != "Id") && (def.type != "List")).Select(def => new ListElement
+        {
+            FieldName = PascalCase(def.name),
+        }).ToList()
+    ];
 
     File.WriteAllText(Path.Combine(outputDirectory, $"{moduleName}.mod.json"), JsonConverterEx.SerializeObject(module));
 }

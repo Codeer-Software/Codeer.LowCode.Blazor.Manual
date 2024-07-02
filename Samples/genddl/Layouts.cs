@@ -74,6 +74,7 @@ namespace genddl
                 Text = PascalCase(name)
             };
             module.Fields.Add(field);
+            design.DataOnlyFields.Add(PascalCase(name));
 
             ((GridLayoutDesign)design.Layout).Rows.Add(new GridRow
             {
@@ -106,13 +107,13 @@ namespace genddl
             });
         }
 
-        public static void AddList(this DetailLayoutDesign design, string name)
+        public static void AddList(this DetailLayoutDesign design, string name, string module)
         {
             ((GridLayoutDesign)design.Layout).Rows.Add(new GridRow
             {
                 Columns = [new GridColumn
                 {
-                    Layout = new FieldLayoutDesign(PascalCase(name)),
+                    Layout = new FieldLayoutDesign(PascalCase(name) + "List" + module),
                 }]
             });
         }
