@@ -15,6 +15,7 @@ var databaseType = "sqlserver";
 var inputFile = "";
 var outputDirectory = ".";
 var ddlFileName = "ddl.txt";
+var dataSourceName = "";
 
 for (var i = 0; i < args.Length; ++i)
 {
@@ -28,6 +29,9 @@ for (var i = 0; i < args.Length; ++i)
             continue;
         case "--ddl":
             ddlFileName = args.GetOrDefault(++i);
+            continue;
+        case "--datasource":
+            dataSourceName = args.GetOrDefault(++i);
             continue;
         case "--help":
         case "-help":
@@ -46,11 +50,25 @@ if (string.IsNullOrEmpty(inputFile) || !File.Exists(inputFile))
     return;
 }
 
+if (string.IsNullOrEmpty(dataSourceName))
+{
+    dataSourceName = Path.GetFileNameWithoutExtension(inputFile);
+}
+
+if (!string.IsNullOrEmpty(outputDirectory))
+{
+    try
+    {
+        Directory.CreateDirectory(outputDirectory);
+    }
+    catch { }
+}
+
 var workbook = new XLWorkbook(inputFile);
 var ddl = new StringBuilder();
 for (var i = 0; i < workbook.Worksheets.Count; i++)
 {
-    var worksheet = workbook.Worksheets.Worksheet(i+1);
+    var worksheet = workbook.Worksheets.Worksheet(i + 1);
     var tableName = worksheet.Name;
     var moduleName = PascalCase(tableName);
 
@@ -68,7 +86,9 @@ for (var i = 0; i < workbook.Worksheets.Count; i++)
     // Module
     var module = new ModuleDesign
     {
-        Name = moduleName
+        Name = moduleName,
+        DataSourceName = dataSourceName,
+        DbTable = tableName,
     };
     foreach (var def in definitions)
     {
