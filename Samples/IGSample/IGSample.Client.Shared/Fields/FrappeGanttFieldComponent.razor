@@ -1,0 +1,48 @@
+﻿@using Codeer.LowCode.Blazor.Components
+@using Codeer.LowCode.Blazor.RequestInterfaces
+@using Codeer.LowCode.Blazor.OperatingModel
+@using Codeer.LowCode.Blazor.Repository.Design
+@using FrappeGanttJS.Blazor
+@inherits FieldComponentBase<ListField>
+@inject Services Services
+
+<FrappeGantt DataSource="@TaskCollection"/>
+
+@code {
+
+    private ModuleDesign? ModuleDesign { get; set; }
+    private List<GanttTaskData> TaskCollection { get; set; } = [];
+
+    protected override async Task OnParametersSetAsync() {
+        await base.OnParametersSetAsync();
+
+        var formDesignName = Field.Design.SearchCondition.ModuleName;
+        if (!string.IsNullOrEmpty(formDesignName))
+            ModuleDesign = Services.AppInfoService.GetDesignData().Modules.FirstOrDefault(e => e.Name == formDesignName);
+
+        Field.SetStateChangedReceiver(StateHasChanged);
+        var data = Field.GetListData(Services, Field.LayoutName);
+        TaskCollection = data.Select(ConvertToGanttTaskData).ToList();
+    }
+    
+    private GanttTaskData ConvertToGanttTaskData(Dictionary<string, object?> data) {
+        var taskData = new GanttTaskData();
+        var design = (FrappeGanttFieldDesign)Field.Design;
+        taskData.Id = TryGetValue<int?>(data, design.IdField)?.ToString();
+        taskData.Name = TryGetValue<string?>(data, design.NameField);
+        taskData.Start = TryGetValue<DateTime?>(data, design.StartDateField);
+        taskData.End = TryGetValue<DateTime?>(data, design.EndDateField);
+        taskData.Progress = (int?)(TryGetValue<decimal?>(data, design.ProgressField));
+        taskData.Dependencies = TryGetValue<int?>(data, design.DependenciesField)?.ToString();
+        
+        return taskData;
+    }
+
+    private string GetFieldName(string variableName) => variableName.Split('.')[0];
+    
+    private T? TryGetValue<T>(Dictionary<string, object?> data, string variableName) {
+        var fieldName = GetFieldName(variableName);
+        return data.TryGetValue(fieldName, out var result) ? (T?)result : default;
+    }
+
+}

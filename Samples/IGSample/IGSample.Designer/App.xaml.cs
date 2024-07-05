@@ -29,7 +29,11 @@ namespace IGSample.Designer
       InstallContentCss("IgniteUI.Blazor", "themes/light/bootstrap.css");
       InstallContentCss("IgniteUI.Blazor", "themes/grid/light/bootstrap.css");
       InstallContentScript("IgniteUI.Blazor", "app.bundle.js");
+      InstallContentCss("FrappeGanttJS.Blazor", "frappe-gantt.min.css");
+      InstallContentScript("FrappeGanttJS.Blazor", "frappe-gantt.min.js");
+      InstallContentScript("FrappeGanttJS.Blazor", "main.js");
       InstallBundleCss("IGSample.Client.Shared");
+      InstallBundleCss("FrappeGanttJS.Blazor");
 
       IconCandidate.Icons.AddRange(IGSample.Designer.Properties.Resources.bootstrap_icons.Split(["\r\n", "\n"], StringSplitOptions.RemoveEmptyEntries).Order());
 

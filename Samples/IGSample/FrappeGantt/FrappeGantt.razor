@@ -1,0 +1,80 @@
+﻿@using Microsoft.JSInterop
+@implements IAsyncDisposable
+@inject IJSRuntime JsRuntime
+
+<div class="gantt-wrap @(DarkMode ? "dark" : "")">
+    <svg id="@_elementId"/>
+</div>
+
+@code {
+    private string _elementId = ("gantt_" + Guid.NewGuid()).Replace("-", "");
+    private IJSObjectReference? _module;
+    private DotNetObjectReference<FrappeGantt>? _dotNetObjectRef;
+
+    [Parameter]
+    public bool DarkMode { get; set; }
+
+    [Parameter]
+    public List<GanttTaskData> DataSource { get; set; } = new();
+
+    protected override async Task OnInitializedAsync() {
+        await base.OnInitializedAsync();
+        _dotNetObjectRef = DotNetObjectReference.Create(this);
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender) {
+        await base.OnAfterRenderAsync(firstRender);
+        if (firstRender) {
+            _module = await JsRuntime.InvokeAsync<IJSObjectReference>(
+                "window.FrappeGanttModule.create", _dotNetObjectRef, "#" + _elementId, DataSource);
+        }
+    }
+
+    public override async Task SetParametersAsync(ParameterView parameters) {
+        var module = _module;
+        var paramsDictionary = parameters.ToDictionary();
+        var hasOtherKeys = paramsDictionary.Keys.Any(k => k != nameof(DataSource));
+
+        if (parameters.TryGetValue<List<GanttTaskData>>(nameof(DataSource), out var dataSource)) {
+            if (module is not null) {
+                await module.InvokeVoidAsync("setDataSource", dataSource);
+            }
+        }
+
+        if (hasOtherKeys) {
+            await base.SetParametersAsync(parameters);
+        } else {
+            await base.SetParametersAsync(ParameterView.Empty);
+        }
+    }
+
+    public async ValueTask DisposeAsync() {
+        var module = _module;
+        if (module is not null) {
+            await module.DisposeAsync();
+        }
+
+        _dotNetObjectRef?.Dispose();
+    }
+
+    [JSInvokable]
+    public void OnClick(string taskId) {
+        Console.WriteLine($"Task {taskId} clicked");
+    }
+
+    [JSInvokable]
+    public void OnDateChange(string taskId, DateTime start, DateTime end) {
+        Console.WriteLine($"Task {taskId} date changed to {start} - {end}");
+    }
+
+    [JSInvokable]
+    public void OnProgressChange(string taskId, double progress) {
+        Console.WriteLine($"Task {taskId} progress changed to {progress}");
+    }
+
+    [JSInvokable]
+    public void OnViewChange(string viewMode) {
+        Console.WriteLine($"View changed to {viewMode}");
+    }
+
+}
