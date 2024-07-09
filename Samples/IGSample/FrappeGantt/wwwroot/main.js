@@ -1,7 +1,5 @@
 (function () {
     function create(dotnetRef, id, tasks) {
-        console.log(document.querySelector(id));
-        console.log(tasks);
         return new class {
             constructor(id, tasks) {
                 this.gantt = new Gantt(id, tasks, {

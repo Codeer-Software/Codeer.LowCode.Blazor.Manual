@@ -12,28 +12,28 @@
 
     private ModuleDesign? ModuleDesign { get; set; }
     private List<GanttTaskData> TaskCollection { get; set; } = [];
-
+    
     protected override async Task OnParametersSetAsync() {
         await base.OnParametersSetAsync();
-
         var formDesignName = Field.Design.SearchCondition.ModuleName;
         if (!string.IsNullOrEmpty(formDesignName))
             ModuleDesign = Services.AppInfoService.GetDesignData().Modules.FirstOrDefault(e => e.Name == formDesignName);
 
         Field.SetStateChangedReceiver(StateHasChanged);
-        var data = Field.GetListData(Services, Field.LayoutName);
+        var data = Field.GetListData(Services, Field.Design.LayoutName);
         TaskCollection = data.Select(ConvertToGanttTaskData).ToList();
     }
     
     private GanttTaskData ConvertToGanttTaskData(Dictionary<string, object?> data) {
         var taskData = new GanttTaskData();
         var design = (FrappeGanttFieldDesign)Field.Design;
-        taskData.Id = TryGetValue<int?>(data, design.IdField)?.ToString();
+        taskData.Id = TryGetValue<string?>(data, design.IdField);
         taskData.Name = TryGetValue<string?>(data, design.NameField);
         taskData.Start = TryGetValue<DateTime?>(data, design.StartDateField);
         taskData.End = TryGetValue<DateTime?>(data, design.EndDateField);
-        taskData.Progress = (int?)(TryGetValue<decimal?>(data, design.ProgressField));
-        taskData.Dependencies = TryGetValue<int?>(data, design.DependenciesField)?.ToString();
+        taskData.Progress = (int?)TryGetValue<decimal?>(data, design.ProgressField);
+        var deps = TryGetValue<string?>(data, design.DependenciesField);
+        taskData.Dependencies = string.IsNullOrEmpty(deps) ? null : [deps];
         
         return taskData;
     }

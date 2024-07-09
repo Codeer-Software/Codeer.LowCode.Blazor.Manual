@@ -6,6 +6,9 @@ namespace IGSample.Client.Shared.Fields
 {
     public class FrappeGanttFieldDesign() : ListFieldDesignBase(typeof(FrappeGanttFieldDesign).FullName!)
     {
+        [Designer(CandidateType = CandidateType.ListLayout)]
+        public override string LayoutName { get; set; } = "";
+        
         [Designer(CandidateType = CandidateType.Variable)]
         [ModuleMember(Member = $"{nameof(SearchCondition)}.{nameof(SearchCondition.ModuleName)}")]
         public string IdField { get; set; } = "";

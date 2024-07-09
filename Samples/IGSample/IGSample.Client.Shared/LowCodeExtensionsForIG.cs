@@ -14,8 +14,6 @@ namespace IGSample.Client.Shared
 
     static class LowCodeExtensionsForIG
     {
-
-
         internal static List<IgColumn> GetIgColumn(this ModuleDesign x, string layoutName)
         {
             var result = new List<IgColumn>();
@@ -26,7 +24,7 @@ namespace IGSample.Client.Shared
                 if (fieldDesign == null) continue;
                 column.Name = fieldDesign.Name;
                 column.DisplayName = !string.IsNullOrEmpty(e.Label) ? e.Label :
-                              (fieldDesign is IDisplayName displayName) ? displayName.DisplayName : fieldDesign.Name;
+                    (fieldDesign is IDisplayName displayName) ? displayName.DisplayName : fieldDesign.Name;
                 if (fieldDesign is NumberFieldDesign) column.Type = GridColumnDataType.Number;
                 else if (fieldDesign is DateFieldDesign) column.Type = GridColumnDataType.Date;
                 else if (fieldDesign is DateTimeFieldDesign) column.Type = GridColumnDataType.DateTime;
@@ -35,11 +33,13 @@ namespace IGSample.Client.Shared
                 else column.Type = GridColumnDataType.String;
                 result.Add(column);
             }
+
             return result;
         }
 
 
-        internal static List<Dictionary<string, object?>> GetListData(this ListField field, Codeer.LowCode.Blazor.RequestInterfaces.Services services, string layoutName)
+        internal static List<Dictionary<string, object?>> GetListData(this ListField field,
+            Codeer.LowCode.Blazor.RequestInterfaces.Services services, string layoutName)
         {
             var formDesignName = field.Design.SearchCondition.ModuleName;
             if (string.IsNullOrEmpty(formDesignName)) return new();
@@ -52,7 +52,7 @@ namespace IGSample.Client.Shared
             {
                 var dic = new Dictionary<string, object?>();
                 foreach (var e in module.ListLayouts[layoutName].Elements.SelectMany(e => e))
-                { 
+                {
                     var f = row.GetField(e.FieldName);
                     if (f is TextField text) dic[e.FieldName] = text.Value;
                     else if (f is NumberField number) dic[e.FieldName] = number.Value;
@@ -61,9 +61,13 @@ namespace IGSample.Client.Shared
                     else if (f is TimeField time) dic[e.FieldName] = time.Value;
                     else if (f is BooleanField boolean) dic[e.FieldName] = boolean.Value;
                     else if (f is ListNumberField) dic[e.FieldName] = ret.Count + 1;
+                    else if (f is IdField id) dic[e.FieldName] = id.Value;
+                    else if (f is LinkField link) dic[e.FieldName] = link.Value;
                 }
+
                 ret.Add(dic);
             }
+
             return ret;
         }
     }
