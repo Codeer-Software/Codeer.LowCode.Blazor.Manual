@@ -24,6 +24,10 @@
             setDataSource(tasks) {
                 this.gantt.refresh(tasks);
             }
+            
+            setViewMode(mode){
+                this.gantt.change_view_mode(mode);
+            }
         }(id, tasks);
     }
 

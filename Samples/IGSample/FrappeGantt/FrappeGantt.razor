@@ -1,13 +1,50 @@
 ﻿@using Microsoft.JSInterop
+@using Microsoft.AspNetCore.Components.Web
+@using Microsoft.AspNetCore.Components.Forms
 @implements IAsyncDisposable
 @inject IJSRuntime JsRuntime
 
 <div class="gantt-wrap @(DarkMode ? "dark" : "")">
     <svg id="@_elementId"/>
 </div>
+<div class="btn-group mt-2" role="group">
+    <InputRadioGroup TValue="ViewMode" @bind-Value:get="_viewMode" @bind-Value:set="SetViewMode">
+        <InputRadio Value="ViewMode.QuarterDay" class="btn-check" id="@(_elementId + "_v_qd")"/>
+        <label class="btn btn-outline-primary" for="@(_elementId + "_v_qd")">
+            Quarter Day
+        </label>
+        <InputRadio Value="ViewMode.HalfDay" class="btn-check" id="@(_elementId + "_v_hd")"/>
+        <label class="btn btn-outline-primary" for="@(_elementId + "_v_hd")">
+            Half Day
+        </label>
+        <InputRadio Value="ViewMode.Day" class="btn-check" id="@(_elementId + "_v_d")"/>
+        <label class="btn btn-outline-primary" for="@(_elementId + "_v_d")">
+            Day
+        </label>
+        <InputRadio Value="ViewMode.Week" class="btn-check" id="@(_elementId + "_v_w")"/>
+        <label class="btn btn-outline-primary" for="@(_elementId + "_v_w")">
+            Week
+        </label>
+        <InputRadio Value="ViewMode.Month" class="btn-check" id="@(_elementId + "_v_m")"/>
+        <label class="btn btn-outline-primary" for="@(_elementId + "_v_m")">
+            Month
+        </label>
+    </InputRadioGroup>
+</div>
 
 @code {
+
+    private enum ViewMode {
+        Hour,
+        QuarterDay,
+        HalfDay,
+        Day,
+        Week,
+        Month,
+    }
+
     private string _elementId = ("gantt_" + Guid.NewGuid()).Replace("-", "");
+    private ViewMode _viewMode = ViewMode.Day;
     private List<GanttTaskData> _currentDataSource = new();
     private IJSObjectReference? _module;
     private DotNetObjectReference<FrappeGantt>? _dotNetObjectRef;
@@ -49,6 +86,22 @@
         }
 
         _dotNetObjectRef?.Dispose();
+    }
+
+    private async void SetViewMode(ViewMode viewMode) {
+        _viewMode = viewMode;
+        var module = _module;
+        if (module is not null) {
+            await module.InvokeVoidAsync("setViewMode", viewMode switch {
+                ViewMode.Hour => "Hour",
+                ViewMode.QuarterDay => "Quarter Day",
+                ViewMode.HalfDay => "Half Day",
+                ViewMode.Day => "Day",
+                ViewMode.Week => "Week",
+                ViewMode.Month => "Month",
+                _ => throw new ArgumentOutOfRangeException(nameof(viewMode))
+            });
+        }
     }
 
     [JSInvokable]
