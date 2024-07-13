@@ -23,5 +23,7 @@ namespace LowCodeSamples.Client.Shared.Fields
         public override FieldBase CreateField() => new ListField(this);
 
         public override FieldDataBase? CreateData() => new ListFieldData();
+
+        public override string LayoutName { get; set; }
     }
 }
