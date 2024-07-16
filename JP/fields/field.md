@@ -21,6 +21,15 @@ System Fieldはシステム内で特別な役割を持つFieldです。名前で
 |Updater|Link|更新者です。認証があるときでなければ利用できません。CurrentUserModuleを設定してください。|
 |OptimisticLocking|OptimisticLockingField|楽観ロック用のデータです。それぞれのDBで更新があったときに値が変わるカラムを指定してください。DBにその機能がない場合はトリガなどで代用してください。|
 
+## ツールボックスからのドロップ、ダブルクリック
+Fieldはツールボックスからドロップ、もしくはダブルクリックすることで作成されます。
+
+### Db Fields
+Db FieldsはモジュールのDataSourceのテーブルに存在するカラムです。DB上での定義に応じて型と名前が決まります。これは変更することができます。
+名前はDBでの定義名をパスカルケースに変換したものになります。
+前述のように名前も変更できるのですが、System Field の名前には変更することができません。
+System Field の名前とDBでの定義名がマッチしない場合は System Field から作成してDBのカラムを設定するという方法で作成してください。
+
 ## Fields
 - [AnchorTag](AnchorTag.md)
 - [Boolean](Boolean.md)
