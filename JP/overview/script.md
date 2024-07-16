@@ -31,6 +31,17 @@ C#の基本的な構文で記述できます。イベントをトリガとして
 - decimal
 - string
 
+### その他使える.NETの型
+- MemoryStream
+- Math
+- DateTime
+- DateOnly
+- TimeOnly
+- TimeSpan
+- DateTimeOffset
+- Guid
+- MidpointRounding
+
 ### Module, 各Field
 
 - [module](../module/module.md)
