@@ -35,6 +35,7 @@ https://lowcodedemo.azurewebsites.net/
 - [PageFrame](designer/page_frame.md)
 - [app.clprj](designer/app_clprj.md)
 - [designer.settings](designer/designer_settings.md)
+- [認証/認可](authorization/authorization.md)
 - [スクリプト](overview/script.md)
 - [プロコード](overview/procode.md)
 - [css](look_and_feel/css.md)
