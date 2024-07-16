@@ -46,9 +46,6 @@ CREATE TABLE post
 <img src="images/1-1_UI.png" width="400" alt="1対1" title="1対1" style="border: 1px solid;">
 
 ## 1 - N  (1 - 0..N)
-- <s>参照Module </s>
-  - <s>参照するModule（`Post`）に`Link`フィールドを配置し，参照先のModule(`Blog`)を設定します.(1対1のLinkフィールドと同じ)</s>
- 
 
 - 被参照Module
   - 被参照Moduleに(`Blog`)に`List`(`DetailList`, `TileList`)フィールドを配置
