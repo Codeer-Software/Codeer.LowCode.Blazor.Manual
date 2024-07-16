@@ -4,6 +4,11 @@ Codeer.LowCode.Blazorは、Blazorアプリにローコード機能を追加す�
 
 <img src="../Image/lc_logo.png">
 
+## 製品ページ
+ご購入、その他お問合せはこちらからお願いします。
+
+https://www.codeer.co.jp/LowCode
+
 ## ライセンス情報
 Codeer.LowCode.Blazorの使用ライセンスの詳細については、[こちら](https://www.nuget.org/packages/Codeer.LowCode.Blazor/1.0.9/License)をご覧ください。
 日本語版は[こちら](LicenseJP.md)です。本契約の英語版とその翻訳版の間に何らかの齟齬または相違が生じた場合、英語版が優先され本契約の意味を規律するものとします。
@@ -68,6 +73,7 @@ C#とほぼ同じ構文で記述できます。僅かな実装で機能を実現
 
 ## Getting Started
 Visual Studio拡張機能を使用してプロジェクトを作成できます。 
+
 [Codeer.LowCode.Blazor.Templates](https://marketplace.visualstudio.com/items?itemName=Codeer.LowCodeBlazor)
 
 ### Step1
