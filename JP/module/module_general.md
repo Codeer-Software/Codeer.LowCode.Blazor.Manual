@@ -24,7 +24,7 @@
 | DataSource    | DBとテーブルを指定することによりEntityとして設定します。<br/>DataSourceは[designer.settings](../designer/designer_settings.md)で設定。|
 | ListPageField | 一覧ページでのリスト設定です。|
 | Option        | `作成`, `更新`, `削除`, `一括ダウンロード`, `一括更新` の有無を設定します。|
-| Access        |ユーザーとデータ内容によるアクセス制御を設定します。[認証/認可](authorization/authorization.md)を参照してください。|
+| Access        |ユーザーとデータ内容によるアクセス制御を設定します。[認証/認可](../authorization/authorization.md)を参照してください。|
 | Fields        | Module内で使用するFieldをToolBoxから定義します。|
 | Scripts       | Scriptを定義します。|
 
