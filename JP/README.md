@@ -66,12 +66,6 @@ C#とほぼ同じ構文で記述できます。僅かな実装で機能を実現
 ## こだわりの機能はプロコードで実装
 場合によっては特殊な画面/機能が必要になることもあります。Codeer.LowCodeはBlazorのライブラリなので、そのような場合は.NETのコードを追加して作りこみが可能です。さらにField単位で作っておけばそれを様々な箇所で利用することができます。
 
-## ライセンス情報
-Codeer.LowCode.Blazorの使用ライセンスの詳細については、[こちら](https://www.nuget.org/packages/Codeer.LowCode.Blazor/1.0.0/License) をご覧ください。
-- このソフトウェアの試用版は、製品の評価目的のみで使用できます。
-- 商用目的でのソフトウェアの使用には開発ライセンスの購入が必要です。製品の開発時の利用も商用利用に含まれます。
-- コミュニティ利用を希望される方には、申請により無償利用ライセンスを発行する予定です。
-
 ## Getting Started
 Visual Studio拡張機能を使用してプロジェクトを作成できます。 
 [Codeer.LowCode.Blazor.Templates](https://marketplace.visualstudio.com/items?itemName=Codeer.LowCodeBlazor)
