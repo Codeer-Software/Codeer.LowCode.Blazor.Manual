@@ -40,3 +40,14 @@ Codeer.LowCode.Blazorは、BlazorアプリにNugetで実行エンジン型のロ
 - CodeBehind
 - Custom Field
 - スクリプトからプロコード機能呼び出し
+
+## ユーザーコードを含む全体像
+[ユーザーコード](../user_code/user_code.md)を含むした全体像です。[テンプレート](https://marketplace.visualstudio.com/items?itemName=Codeer.LowCodeBlazor)を使ってプロジェクトを作成するとユーザーコードの部分も出力されます。
+Codeer.LowCode.Blazor以外のユーザーコードも重要な役割を果たしています。この部分をカスタマイズすることでプロジェクト毎の要件を満たすことができます。
+
+Webアプリ<br>
+![Webアプリ](../user_code/images/webapp.png)
+
+Windowsアプリ（クライアントサーバー）<br>
+![Windowsアプリ](../user_code/images/winapp.png)
+
