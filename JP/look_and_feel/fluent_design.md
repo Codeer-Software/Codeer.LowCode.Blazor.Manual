@@ -2,15 +2,15 @@
 
 ## ダウンロード
 
-ここでは(Fluent Design)[https://mdbootstrap.com/freebies/fluent-design/] からテーマをダウンロードします。
+ここでは[Fluent Design](https://mdbootstrap.com/freebies/fluent-design/) からテーマをダウンロードします。
 
-![image](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Manual/assets/347017/d04bb477-c934-441d-a184-99614f9501d3)
+![image](images/fluent_download.png)
 
 ## ファイルを投入
 
 `wwwroot`内の任意のフォルダを作成し、CSSを追加します。 ここでは、`wwwroot/css/mdb`に追加しています。
 
-![image](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Manual/assets/347017/eb052f7e-c84f-4ac5-a150-2c76ab0ac766)
+![image](images/fluent_folder.png)
 
 ## index.html を編集する
 

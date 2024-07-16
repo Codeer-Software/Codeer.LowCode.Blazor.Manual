@@ -2,15 +2,15 @@
 
 ## ダウンロード
 
-ここでは(Material Design for Bootstrap)[https://mdbootstrap.com/] からテーマをダウンロードします。
+ここでは[Material Design for Bootstrap](https://mdbootstrap.com/) からテーマをダウンロードします。
 
-![image](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Manual/assets/347017/948dc289-e7f0-4a5f-88e9-3cae05fdb870)
+![image](images/material_download.png)
 
 ## ファイルを投入
 
 `wwwroot`内の任意のフォルダを作成し、CSSを追加します。 ここでは、`wwwroot/css/mdb`に追加しています。
 
-![image](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Manual/assets/347017/eb052f7e-c84f-4ac5-a150-2c76ab0ac766)
+![image](images/material_folder.png)
 
 ## index.html を編集する
 
