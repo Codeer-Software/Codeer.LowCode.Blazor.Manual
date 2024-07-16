@@ -1,7 +1,7 @@
 # プロコード
 Codeer.LowCode.BlazorはBlazorに組み込むライブラリですので、もちろん通常のBlazorや.NETの実装も可能です。
 
-## Designerで作成したModuleのイベント部分をC#で実装する
+## コードビハインド
 <img src="images/procode_codebehinde.png">
 
 Designerで作成したModuleと同名のクラスを作成してProCodeBehindBaseを継承させます。
