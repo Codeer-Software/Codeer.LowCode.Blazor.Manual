@@ -1,6 +1,6 @@
 # RadioGroup
 
-ラジオボタンをあらわすフィールド．
+ラジオボタンのグループをあらわすフィールド．
 
 <img src="images/RadioGroup表示.png" alt="RadioGroup表示" title="RadioGroup表示" style="border: 1px solid;">
 
