@@ -116,7 +116,6 @@ Row には特殊なレイアウトモードとして、 `FillAvailable` があ�
 | FontSize   | フォントサイズを設定する  |
 | FontWeight | フォントウェイトを設定する |
 | FontStyle  | フォントスタイルを設定する |
-| FontFamily | フォントを設定する     |
 | Color      | 色を設定する        |
 
 ### Canvas
