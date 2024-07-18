@@ -47,7 +47,7 @@ Entityの一覧画面の設定をします.
 
 <img src="images/list_multiple.png" alt="一覧複数" title="一覧複数" width="400" style="border: 1px solid;">
 
-追加ボタンをクリックしてデフォルトとは異なるレイアウトを作成することができます．
+追加ボタンをクリックしてデフォルトとは異なるレイアウトを作成できます．
 
 `LinkField` にdefaultを含む作成済みのすべてのレイアウトから, 適用するレイアウトを指定できます.
 
