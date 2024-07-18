@@ -31,6 +31,29 @@ Entityの一覧画面の設定をします.
 ## プロパティ
 選択しているFieldのプロパティが表示されます
 
+### List
+| プロパティ名                 | 説明             |
+|------------------------|----------------| 
+| DataOnlyFields         | TODO           |
+| OnBeforeInitialization | UI初期化前の処理を設定する |
+| OnAfterInitialization  | UI初期化後の処理を設定する |
+
+### Element
+| プロパティ名     | 説明                            |
+|------------|-------------------------------| 
+| Label      | ラベル                           |
+| Width      | 幅を設定する                        |
+| ColumnSpan | 列の結合の設定                       |
+| RawSpan    | 行の結合の設定                       |
+| IsViewOnly | 読取専用の設定                       |
+| TextWrap   | 改行設定<br/>unset/break/Ellipsis |
+| canResize  | サイズの変更可否を設定する                 |
+| FontFamily | フォントを設定する                     |
+| FontSize   | フォントサイズを設定する                  |
+| FontWeight | フォントウェイトを設定する                 |
+| FontStyle  | フォントスタイルを設定する                 |
+| Color      | 色を設定する                        |
+
 ## レイアウト設定
 
 <img src="images/list.png" alt="一覧" title="一覧" width="400" style="border: 1px solid;">
