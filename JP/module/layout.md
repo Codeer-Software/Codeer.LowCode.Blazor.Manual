@@ -68,3 +68,59 @@ Row には特殊なレイアウトモードとして、 `FillAvailable` があ�
 デザイナ上では、GridやCanvasの配置を確認することができますが正確にブラウザ上での表示と同一にはなっていません。
 最終的な表示を確認するには、デプロイ後のページを確認してください。
 
+
+## プロパティ
+### Detail
+| プロパティ名                 | 説明             |
+|------------------------|----------------| 
+| OnBeforeInitialization | UI初期化前の処理を設定する |
+| OnAfterInitialization  | UI初期化後の処理を設定する |
+| DataOnlyFields         | TODO           |
+
+
+### Grid
+| プロパティ名                  | 説明                   |
+|-------------------------|----------------------| 
+| Name                    | フィールド名を設定する          |
+| IsViewOnly              | 読取専用を設定する            |
+| IsBordered              | 枠を設定する               |
+| IsFlowLayout            | フローレイアウトを設定する        |
+| IsFillAvailable         | TODO                 |
+| IsExpandable            | 開閉を設定する              |
+| ExpanderLabel           | 開閉ラベルを設定する           |
+| IsExpanderDefaultOpened | デフォルトで開いているかどうかを設定する |
+
+### Row
+| プロパティ名             | 説明            |
+|--------------------|---------------| 
+| IsWrap             | TODO          |
+| Height             | 行の高さを設定する     |
+| IsRowMarginRemoved | 行のマージン有無を設定する |
+
+### Column
+| プロパティ名              | 説明                                        |
+|---------------------|-------------------------------------------| 
+| Width               | 列の幅を設定する                                  |
+| BackGround          | 背景色を設定する                                  |
+| Border              | 罫線を設定する                                   |
+| HorizontalAlignment | 水平方向の位置を設定する<br/>start/center/end/stretch |
+| VerticalAlignment   | 垂直方向の位置を設定する<br/>top/middle/end/stretch   |
+| canResize           | サイズの変更可否を設定する                             |
+
+
+### Field 
+| プロパティ名     | 説明            |
+|------------|---------------| 
+| IsViewOnly | 読取専用を設定する     |
+| FontFamily | フォントを設定する     |
+| FontSize   | フォントサイズを設定する  |
+| FontWeight | フォントウェイトを設定する |
+| FontStyle  | フォントスタイルを設定する |
+| FontFamily | フォントを設定する     |
+| Color      | 色を設定する        |
+
+### Grid
+| プロパティ名                  | 説明                   |
+|-------------------------|----------------------| 
+| IsViewOnly              | 読取専用を設定する            |
+| IsBordered              | 枠を設定する               |
