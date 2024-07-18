@@ -23,6 +23,14 @@
 
 [レイアウトの詳細](layout.md)はこちらを参照してください。
 
+## 検索条件設定
+Grid単位で`And検索`，`Or検索`, もしくは`ユーザーの指定による検索`を設定します．
+- デフォルトは`And検索`です．
+- Grid単位で設定するので，Gridを入れ子にすることにより，検索条件を組み合わせます．
+- 下記の例では `NAMEの条件 AND ProductNameの条件 AND (PurchaseDateの条件 OR ShippingDateの条件)` を表します.
+  - <img src="images/検索条件設定1.png" alt="検索条件設定1" title="検索条件設定1" width="400" style="border: 1px solid;">
+  - <img src="images/検索条件設定2.png" alt="検索条件設定2" title="検索条件設定2" width="400" style="border: 1px solid;">
+
 ## プロパティ
 選択しているFieldのプロパティが表示されます
 
