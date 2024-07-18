@@ -22,6 +22,12 @@ Entityの一覧画面の設定をします.
 列，段の数を指定して一覧表示の設定をします．
 追加ボタンをクリックして複数のレイアウトを作成できます.
 
+一覧に表示するフィールドが多い場合，多段リストを使えます．
+
+<img src="images/多段List設定.png" alt="多段List設定" title="多段List設定" width="400" style="border: 1px solid;">
+<img src="images/多段リスト表示.png" alt="多段リスト表示" title="多段リスト表示" width="400" style="border: 1px solid;">
+
+
 ## プロパティ
 選択しているFieldのプロパティが表示されます
 
