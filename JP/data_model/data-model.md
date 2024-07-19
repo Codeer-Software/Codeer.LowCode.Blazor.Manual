@@ -37,7 +37,7 @@ CREATE TABLE post
 ```
 
 ## 1 - 1  (1 - 0..1)
-参照するModule（`Blog`）に`Link`フィールドを配置し，参照先のModule(`User`)を設定します.
+参照するModule（`Blog`）に`Link`(`Select`)フィールドを配置し，参照先のModule(`User`)を設定します.
 
 <img src="images/1-1_data_model.png" width="400" alt="1対1" title="1対1" style="border: 1px solid;">
 
