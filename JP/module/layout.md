@@ -19,9 +19,15 @@ ModuleやSearchのRoot要素はGridレイアウトが設定されているため
 しかし、いくつかのField（Date, DateTime など）はUserAgent（ここではブラウザ）のスタイルシートなどでそれ以上小さくできない幅を持っている場合があります。
 これらの最低幅を持ったFieldがColumnに含まれている場合、ほかのColumnに割り当てられる幅がRow全体を等分したものより小さくなることがあります。
 
+<img src="images/layout/grid_design.png" alt="grid_design" title="grid_design" width="400" style="border: 1px solid;">
+<img src="images/layout/grid.png" alt="grid" title="grid" width="400" style="border: 1px solid;">
+
 ### Canvas
 
 Canvasレイアウトは自由な配置が可能なレイアウトです。ドラッグドロップで要素を配置することができ、要素のサイズ・配置を自由に変更することができます。
+
+<img src="images/layout/canvas_design.png" alt="canvas_design" title="canvas_design" width="400" style="border: 1px solid;">
+<img src="images/layout/canvas.png" alt="canvas" title="canvas" width="400" style="border: 1px solid;">
 
 ## マージンとパディング
 
@@ -57,11 +63,16 @@ Canvasレイアウトは標準状態でマージンやパディングを含み�
 Grid レイアウトには特殊なレイアウトモードとして、 `IsFlowLayout` があります。
 このモードが有効になっている場合、Gridの要素は左から右へ順番に配置され、右端に達した場合は次の行に配置されます。
 
+<img src="images/layout/flow_design.png" alt="flow_design" title="flow_design" width="400" style="border: 1px solid;">
+<img src="images/layout/flow.png" alt="flow" title="flow" width="400" style="border: 1px solid;">
+
 ### Row.FillAvailable
 
 Row には特殊なレイアウトモードとして、 `FillAvailable` があります。
 このモードが有効になっているRowが、そのGridの末尾要素の場合にページボディの空き領域をすべて埋める高さまでRowが広げられます。
 
+<img src="images/layout/FillAvailable_design.png" alt="FillAvailable_design" title="FillAvailable_design" width="400" style="border: 1px solid;">
+<img src="images/layout/FillAvailable.png" alt="FillAvailable" title="FillAvailable" width="400" style="border: 1px solid;">
 
 ## デザイナ上の表示との差異
 
