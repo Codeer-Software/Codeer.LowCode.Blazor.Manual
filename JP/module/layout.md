@@ -90,16 +90,16 @@ Row には特殊なレイアウトモードとして、 `FillAvailable` があ�
 
 
 ### Grid
-| プロパティ名                  | 説明                   |
-|-------------------------|----------------------| 
-| Name                    | フィールド名を設定する          |
-| IsViewOnly              | 読取専用を設定する            |
-| IsBordered              | 枠を設定する               |
-| IsFlowLayout            | フローレイアウトを設定する        |
-| IsFillAvailable         | TODO                 |
-| IsExpandable            | 開閉を設定する              |
-| ExpanderLabel           | 開閉ラベルを設定する           |
-| IsExpanderDefaultOpened | デフォルトで開いているかどうかを設定する |
+| プロパティ名                  | 説明                                         |
+|-------------------------|--------------------------------------------| 
+| Name                    | フィールド名を設定する                                |
+| IsViewOnly              | 読取専用を設定する                                  |
+| IsBordered              | 枠を設定する                                     |
+| IsFlowLayout            | フローレイアウトを設定する                              |
+| IsFillAvailable         | Gridの末尾要素の場合にページボディの空き領域をすべて埋める高さまでRowが広げる |
+| IsExpandable            | 開閉を設定する                                    |
+| ExpanderLabel           | 開閉ラベルを設定する                                 |
+| IsExpanderDefaultOpened | デフォルトで開いているかどうかを設定する                       |
 
 ### Row
 | プロパティ名             | 説明            |
