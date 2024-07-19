@@ -134,3 +134,16 @@ Row には特殊なレイアウトモードとして、 `FillAvailable` があ�
 |-------------------------|----------------------| 
 | IsViewOnly              | 読取専用を設定する            |
 | IsBordered              | 枠を設定する               |
+
+
+## スクリプト
+| プロパティ名                 | 型                | 説明            |
+|------------------------|------------------|---------------|
+| AllowNotifyStateChange | bool             | TODO          | 
+| IsEnabled              | bool             | TODO          |
+| IsExpanded             | bool             | Gridが開いているか   |
+| IsViewOnly             | bool             | Gridが読み取り専用か  |
+| IsVisible              | bool             | Gridが表示されているか |
+| LayoutName             | string           | レイアウト名        |
+| ModuleLayoutType       | ModuleLayoutType | レイアウトのタイプ     |
+| Name                   | string           | 名前            |
