@@ -82,6 +82,8 @@ Row には特殊なレイアウトモードとして、 `FillAvailable` があ�
 
 ## プロパティ
 ### Detail
+<img src="images/layout/detail_property.png" alt="detail_property" title="detail_property" width="400" style="border: 1px solid;">
+
 | プロパティ名                 | 説明             |
 |------------------------|----------------| 
 | OnBeforeInitialization | UI初期化前の処理を設定する |
@@ -90,6 +92,8 @@ Row には特殊なレイアウトモードとして、 `FillAvailable` があ�
 
 
 ### Grid
+<img src="images/layout/grid_property.png" alt="grid_property" title="grid_property" width="400" style="border: 1px solid;">
+
 | プロパティ名                  | 説明                                         |
 |-------------------------|--------------------------------------------| 
 | Name                    | フィールド名を設定する                                |
@@ -102,13 +106,17 @@ Row には特殊なレイアウトモードとして、 `FillAvailable` があ�
 | IsExpanderDefaultOpened | デフォルトで開いているかどうかを設定する                       |
 
 ### Row
+<img src="images/layout/row_property.png" alt="row_property" title="row_property" width="400" style="border: 1px solid;">
+
 | プロパティ名             | 説明            |
 |--------------------|---------------| 
-| IsWrap             | TODO          |
+| IsWrap             | 行を自動で折り返す     |
 | Height             | 行の高さを設定する     |
 | IsRowMarginRemoved | 行のマージン有無を設定する |
 
 ### Column
+<img src="images/layout/column_property.png" alt="column_property" title="column_property" width="400" style="border: 1px solid;">
+
 | プロパティ名              | 説明                                        |
 |---------------------|-------------------------------------------| 
 | Width               | 列の幅を設定する                                  |
@@ -120,6 +128,8 @@ Row には特殊なレイアウトモードとして、 `FillAvailable` があ�
 
 
 ### Field 
+<img src="images/layout/field_property.png" alt="field_property" title="field_property" width="400" style="border: 1px solid;">
+
 | プロパティ名     | 説明            |
 |------------|---------------| 
 | IsViewOnly | 読取専用を設定する     |
@@ -130,20 +140,36 @@ Row には特殊なレイアウトモードとして、 `FillAvailable` があ�
 | Color      | 色を設定する        |
 
 ### Canvas
+<img src="images/layout/canvas_property.png" alt="canvas_property" title="canvas_property" width="400" style="border: 1px solid;">
+
 | プロパティ名                  | 説明                   |
 |-------------------------|----------------------| 
 | IsViewOnly              | 読取専用を設定する            |
 | IsBordered              | 枠を設定する               |
 
+### Element
+<img src="images/layout/element_property.png" alt="element_property" title="element_property" width="400" style="border: 1px solid;">
+
+| プロパティ名 | 説明          |
+|--------|-------------| 
+| width  | 幅を設定する      |
+| height | 高さを設定する     |
+| zindex | zindexを設定する |
 
 ## スクリプト
+### Layout
 | プロパティ名                 | 型                | 説明            |
 |------------------------|------------------|---------------|
-| AllowNotifyStateChange | bool             | TODO          | 
-| IsEnabled              | bool             | TODO          |
+| IsEnabled              | bool             | 一括で有効/無効を変更する |
 | IsExpanded             | bool             | Gridが開いているか   |
 | IsViewOnly             | bool             | Gridが読み取り専用か  |
 | IsVisible              | bool             | Gridが表示されているか |
 | LayoutName             | string           | レイアウト名        |
 | ModuleLayoutType       | ModuleLayoutType | レイアウトのタイプ     |
 | Name                   | string           | 名前            |
+
+### GridLayout
+
+
+### SearchLayout
+
