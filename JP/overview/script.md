@@ -108,3 +108,5 @@ foreach(var e in data)
     WeatherForecastList.AddRow(row);
 }    
 ```
+
+### その他スクリプトから使えるAPI
