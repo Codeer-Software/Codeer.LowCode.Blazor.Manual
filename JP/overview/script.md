@@ -110,3 +110,191 @@ foreach(var e in data)
 ```
 
 ### その他スクリプトから使えるAPI
+- Module
+
+  | プロパティ名           | 型                | 説明        |
+  |------------------|------------------|-----------|
+  | BackGroundColor  | string?          | 背景色を取得する  |
+  | ForeGroundColor  | string?          | 前面色を取得する  |
+  | IsDeleted        | bool             | 削除済みか     |
+  | IsEnabled        | bool             | 有効/無効     |
+  | IsViewOnly       | bool             | 読み取り専用か   |
+  | IsModified       | bool             | 変更済か      |
+  | IsNewData        | bool             | 新しいデータか   |
+  | PageTitle        | string           | ページタイトル   |
+  | IsVisible        | bool             | 表示されているか  |
+  | LayoutName       | string           | レイアウト名    |
+  | ModuleLayoutType | ModuleLayoutType | レイアウトのタイプ |
+  | Name             | string           | 名前        |
+
+  | メソッド名                       | 戻り値          | 説明              |
+  |-----------------------------|--------------|-----------------|
+  | CloseDialog()               | Task         | objectをシリアライズする |
+  | Delete()                    | Task<bool>   | jsonを返却する       |
+  | ReloadWithLock()            | Task         | jsonを返却する       |
+  | SetJsonObject()             | Task         | jsonを返却する       |
+  | ShowDialog()                | Task<string> | jsonObjectを返却する |
+  | Submit()                    | Task<bool?>  | jsonを返却する       |
+  | ToJsonObject()              | JsonObject   | jsonを返却する       |
+  | ValidateInput()             | bool         | validateする      |
+  | NotifyStateChanged()        | void         | 状態の変更を通知する      |
+  | SuspendNotifyStateChanged() | void         | 状態の変更を中止する      |
+ 
+- Layout
+
+  | プロパティ名                 | 型                | 説明            |
+  |------------------------|------------------|---------------|
+  | IsEnabled              | bool             | 一括で有効/無効を変更する |
+  | IsExpanded             | bool             | Gridが開いているか   |
+  | IsViewOnly             | bool             | Gridが読み取り専用か  |
+  | IsVisible              | bool             | Gridが表示されているか |
+  | LayoutName             | string           | レイアウト名        |
+  | ModuleLayoutType       | ModuleLayoutType | レイアウトのタイプ     |
+  | Name                   | string           | 名前            |
+
+- GridLayout
+
+  | プロパティ名           | 型                | 説明            |
+  |------------------|------------------|---------------|
+  | IsEnabled        | bool             | 一括で有効/無効を変更する |
+  | IsExpanded       | bool             | Gridが開いているか   |
+  | IsViewOnly       | bool             | Gridが読み取り専用か  |
+  | IsVisible        | bool             | Gridが表示されているか |
+  | LayoutName       | string           | レイアウト名        |
+  | ModuleLayoutType | ModuleLayoutType | レイアウトのタイプ     |
+  | Name             | string           | 名前            |
+  | IsExpanded       | bool             | 開いているかどうか     |
+
+- SearchGridLayout
+
+  | プロパティ名           | 型                | 説明            |
+  |------------------|------------------|---------------|
+  | IsEnabled        | bool             | 一括で有効/無効を変更する |
+  | IsExpanded       | bool             | Gridが開いているか   |
+  | IsViewOnly       | bool             | Gridが読み取り専用か  |
+  | IsVisible        | bool             | Gridが表示されているか |
+  | LayoutName       | string           | レイアウト名        |
+  | ModuleLayoutType | ModuleLayoutType | レイアウトのタイプ     |
+  | Name             | string           | 名前            |
+  | IsExpanded       | bool             | 開いているかどうか     |
+  | IsOrMatch        | bool?            | OR検索かどうか      |
+
+- JsonObject
+
+  | メソッド名             | 戻り値        | 説明              |
+  |-------------------|------------|-----------------|
+  | SerializeObject() | void       | objectをシリアライズする |
+  | ToJsonObject()    | JsonObject | jsonObjectを返却する |
+  | ToJsonString()    | string     | jsonを返却する       |
+- Logger
+
+  | メソッド名   | 戻り値  | 説明               |
+  |---------|------|------------------|
+  | Error() | void | errorレベルでログを出力する |
+  | Warn()  | void | warnレベルでログを出力する  |
+  | Log()   | void | infoレベルでログを出力する  |
+- MessageBox
+
+  | メソッド名  | 戻り値    | 説明             |
+  |--------|--------|----------------|
+  | Show() | string | メッセージボックスを表示する |
+- NavigationService
+
+  | メソッド名                | 戻り値                              | 説明                 |
+  |----------------------|----------------------------------|--------------------|
+  | GetModuleUrl()       | string                           | ModuleUrlを取得する     |
+  | GetModuleDataUrl()   | string                           | ModuleDataUrlを取得する |
+  | NavigateTo()         | void                             | 画面遷移する             |
+  | ReplaceTo()          | void                             | 画面を入れ替える           |
+  | GetQueryParameters() | Dictionary<string, List<string>> | クエリーパラメーターを取得する    |
+  | Logout()             | Task                             | ログアウトする            |
+
+- Resources
+
+  | メソッド名             | 戻り値                 | 説明                |
+  |-------------------|---------------------|-------------------|
+  | GetMemoryStream() | Task<MemoryStream?> | MemoryStreamを取得する |
+
+- ModuleSearcher
+
+  | プロパティ名    | 型    | 説明       |
+  |-----------|------|----------|
+  | IsOrMatch | bool | OR検索かどうか |
+
+  | メソッド名                   | 戻り値  | 説明        |
+  |-------------------------|------|-----------|
+  | AddEquals()             | void | 検索条件を追加する |
+  | AddLessThan()           | void | 検索条件を追加する |
+  | AddLessThanOrEqual()    | void | 検索条件を追加する |
+  | AddGreaterThan()        | void | 検索条件を追加する |
+  | AddGreaterThanOrEqual() | void | 検索条件を追加する |
+  | AddLike()               | void | 検索条件を追加する |
+  | AddConditions()         | void | 検索条件を追加する |
+  | OrderBy()               | void | 検索条件を追加する |
+  | OrderByDescending()     | void | 検索条件を追加する |
+  | Execute()               | void | 検索を実行する   |
+  | ExecuteWithLock()       | void | 検索を実行する   |
+ 
+---
+- ModuleLayoutType
+- 
+  | 区分     | 説明 |
+  |--------|----|
+  | None   | なし |
+  | Detail | 詳細 |
+  | List   | 一覧 |
+  | Search | 検索 |
+- MatchComparison
+
+  | 区分                 | 説明     |
+  |--------------------|--------|
+  | Equal              | 同じ     |
+  | NotEqual           | 同じでない  |
+  | LessThan           | 未満     |
+  | LessThanOrEqual    | 以下     |
+  | GreaterThan        | より大きい  |
+  | GreaterThanOrEqual | 以上     |
+  | Like               | あいまい検索 |
+  | Exists             | 存在する   |
+  | NotExists          | 存在しない  |
+ 
+- TransactionMode
+
+  | 区分     | 説明 |
+  |--------|----|
+  | Insert | 登録 |
+  | Update | 更新 |
+  | Delete | 削除 |
+ 
+- ResumeNotifyStateChangedInvoker
+ 
+  | メソッド名            | 戻り値             | 説明           |
+  |------------------|-----------------|--------------|
+  | Dispose()        | void            | 破棄する         |
+----
+- Excel
+ 
+  | メソッド名            | 戻り値             | 説明           |
+  |------------------|-----------------|--------------|
+  | CopyCells()      | void            | セルをコピーする     |
+  | Dispose()        | void            | 破棄する         |
+  | Download()       | Task<bool>      | ダウンロードする     |
+  | DownloadPdf()    | Task<bool>      | pdfをダウンロードする |
+  | FindCellByText() | ExcelCellIndex? | セルを検索する      |
+  | Overwrite()      | Task            | 上書きする        |
+  | SetCellValue()   | void            | セルの値を設定する    |
+ 
+- WebApiResult
+
+  | メソッド名        | 戻り値        | 説明              |
+  |--------------|------------|-----------------|
+  | JsonObject() | JsonObject | JsonObjectを取得する |
+  | StatusCode() | int        | Statusコードを取得する  |
+
+- Toaster
+ 
+  | メソッド名     | 戻り値  | 説明           |
+  |-----------|------|--------------|
+  | Success() | void | 成功メッセージを表示する |
+  | Error()   | void | 失敗メッセージを表示する |
+  | Warn()    | void | 警告メッセージを表示する |
