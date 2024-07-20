@@ -170,6 +170,27 @@ Row には特殊なレイアウトモードとして、 `FillAvailable` があ�
 
 ### GridLayout
 
+  | プロパティ名           | 型                | 説明            |
+  |------------------|------------------|---------------|
+  | IsEnabled        | bool             | 一括で有効/無効を変更する |
+  | IsExpanded       | bool             | Gridが開いているか   |
+  | IsViewOnly       | bool             | Gridが読み取り専用か  |
+  | IsVisible        | bool             | Gridが表示されているか |
+  | LayoutName       | string           | レイアウト名        |
+  | ModuleLayoutType | ModuleLayoutType | レイアウトのタイプ     |
+  | Name             | string           | 名前            |
+  | IsExpanded       | bool             | 開いているかどうか     |
 
 ### SearchLayout
 
+  | プロパティ名           | 型                | 説明            |
+  |------------------|------------------|---------------|
+  | IsEnabled        | bool             | 一括で有効/無効を変更する |
+  | IsExpanded       | bool             | Gridが開いているか   |
+  | IsViewOnly       | bool             | Gridが読み取り専用か  |
+  | IsVisible        | bool             | Gridが表示されているか |
+  | LayoutName       | string           | レイアウト名        |
+  | ModuleLayoutType | ModuleLayoutType | レイアウトのタイプ     |
+  | Name             | string           | 名前            |
+  | IsExpanded       | bool             | 開いているかどうか     |
+  | IsOrMatch        | bool?            | OR検索かどうか      |
