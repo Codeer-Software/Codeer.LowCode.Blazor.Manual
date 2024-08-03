@@ -22,8 +22,37 @@ Entityの一覧画面の設定をします.
 列，段の数を指定して一覧表示の設定をします．
 追加ボタンをクリックして複数のレイアウトを作成できます.
 
+一覧に表示するフィールドが多い場合，多段リストを使えます．
+
+<img src="images/多段List設定.png" alt="多段List設定" title="多段List設定" width="400" style="border: 1px solid;">
+<img src="images/多段リスト表示.png" alt="多段リスト表示" title="多段リスト表示" width="400" style="border: 1px solid;">
+
+
 ## プロパティ
 選択しているFieldのプロパティが表示されます
+
+### List
+| プロパティ名                 | 説明             |
+|------------------------|----------------| 
+| DataOnlyFields         | TODO           |
+| OnBeforeInitialization | UI初期化前の処理を設定する |
+| OnAfterInitialization  | UI初期化後の処理を設定する |
+
+### Element
+| プロパティ名     | 説明                            |
+|------------|-------------------------------| 
+| Label      | ラベル                           |
+| Width      | 幅を設定する                        |
+| ColumnSpan | 列の結合の設定                       |
+| RawSpan    | 行の結合の設定                       |
+| IsViewOnly | 読取専用の設定                       |
+| TextWrap   | 改行設定<br/>unset/break/Ellipsis |
+| canResize  | サイズの変更可否を設定する                 |
+| FontFamily | フォントを設定する                     |
+| FontSize   | フォントサイズを設定する                  |
+| FontWeight | フォントウェイトを設定する                 |
+| FontStyle  | フォントスタイルを設定する                 |
+| Color      | 色を設定する                        |
 
 ## レイアウト設定
 
@@ -41,7 +70,7 @@ Entityの一覧画面の設定をします.
 
 <img src="images/list_multiple.png" alt="一覧複数" title="一覧複数" width="400" style="border: 1px solid;">
 
-追加ボタンをクリックしてデフォルトとは異なるレイアウトを作成することができます．
+追加ボタンをクリックしてデフォルトとは異なるレイアウトを作成できます．
 
 `LinkField` にdefaultを含む作成済みのすべてのレイアウトから, 適用するレイアウトを指定できます.
 
