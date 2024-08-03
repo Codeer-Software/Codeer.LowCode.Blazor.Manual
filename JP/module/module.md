@@ -37,3 +37,37 @@ Moduleは画面レイアウトを設定することで画面を表示できま�
 | 一覧レイアウト | 一覧ページ(defaultレイアウト), LinkField                                                  |
 | 詳細レイアウト | 詳細ページ(defaultレイアウト), ダイアログ, ListField, DetailList, TileList, ModuleField |
 | 検索レイアウト | 一覧ページ(defaultレイアウト), SearchField                                                |
+
+
+### プロパティ
+
+| プロパティ名           | 型                | 説明        |
+|------------------|------------------|-----------|
+| BackGroundColor  | string?          | 背景色を取得する  |
+| ForeGroundColor  | string?          | 前面色を取得する  |
+| IsDeleted        | bool             | 削除済みか     |
+| IsEnabled        | bool             | 有効/無効     |
+| IsViewOnly       | bool             | 読み取り専用か   |
+| IsModified       | bool             | 変更済か      |
+| IsNewData        | bool             | 新しいデータか   |
+| PageTitle        | string           | ページタイトル   |
+| IsVisible        | bool             | 表示されているか  |
+| LayoutName       | string           | レイアウト名    |
+| ModuleLayoutType | ModuleLayoutType | レイアウトのタイプ |
+| Name             | string           | 名前        |
+
+
+### Script 
+
+| メソッド名                       | 戻り値          | 説明              |
+|-----------------------------|--------------|-----------------|
+| CloseDialog()               | Task         | objectをシリアライズする |
+| Delete()                    | Task<bool>   | jsonを返却する       |
+| ReloadWithLock()            | Task         | jsonを返却する       |
+| SetJsonObject()             | Task         | jsonを返却する       |
+| ShowDialog()                | Task<string> | jsonObjectを返却する |
+| Submit()                    | Task<bool?>  | jsonを返却する       |
+| ToJsonObject()              | JsonObject   | jsonを返却する       |
+| ValidateInput()             | bool         | validateする      |
+| NotifyStateChanged()        | void         | 状態の変更を通知する      |
+| SuspendNotifyStateChanged() | void         | 状態の変更を中止する      |
