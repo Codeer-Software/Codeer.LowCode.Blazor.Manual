@@ -73,8 +73,7 @@
 
   private void PageBase_OnHotReload(object? sender, EventArgs e)
   {
-    if (string.IsNullOrEmpty(PageFrameName))
-      NavigationService.ReplaceTo(NavigationService.GetTopPageUrl());
+    NavigationService.CompleteUrl(AppInfoService, PageFrameName, ModuleDesignName);
     StateHasChanged();
   }
 

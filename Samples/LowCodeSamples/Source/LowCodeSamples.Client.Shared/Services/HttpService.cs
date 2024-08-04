@@ -70,7 +70,7 @@ namespace LowCodeSamples.Client.Shared.Services
 
         async Task<HttpResponseMessage?> ExecuteReturnHttpResponseMessage(Func<Task<HttpResponseMessage>> a)
         {
-            _loadingService.Loading = true;
+            using var loadingScope = _loadingService.StartLoading();
             try
             {
                 var response = await a();
@@ -81,10 +81,6 @@ namespace LowCodeSamples.Client.Shared.Services
             {
                 await Error(HttpStatusCode.InternalServerError, e.Message);
                 return null;
-            }
-            finally
-            {
-                _loadingService.Loading = false;
             }
         }
 
