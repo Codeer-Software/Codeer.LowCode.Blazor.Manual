@@ -26,10 +26,10 @@ namespace LowCodeSamples.Designer
       ScriptRuntimeTypeManager.AddService(new WebApiService(null!, null!));
       ScriptRuntimeTypeManager.AddType<WebApiResult>();
 
-      InstallContentCss("IgniteUI.Blazor", "themes/light/bootstrap.css");
-      InstallContentCss("IgniteUI.Blazor", "themes/grid/light/bootstrap.css");
-      InstallContentScript("IgniteUI.Blazor", "app.bundle.js");
-      InstallBundleCss("LowCodeSamples.Client.Shared");
+      BlazorRuntime.InstallContentCss("IgniteUI.Blazor", "themes/light/bootstrap.css");
+      BlazorRuntime.InstallContentCss("IgniteUI.Blazor", "themes/grid/light/bootstrap.css");
+      BlazorRuntime.InstallContentScript("IgniteUI.Blazor", "app.bundle.js");
+      BlazorRuntime.InstallBundleCss("LowCodeSamples.Client.Shared");
 
       IconCandidate.Icons.AddRange(LowCodeSamples.Designer.Properties.Resources.bootstrap_icons.Split(["\r\n", "\n"], StringSplitOptions.RemoveEmptyEntries).Order());
 

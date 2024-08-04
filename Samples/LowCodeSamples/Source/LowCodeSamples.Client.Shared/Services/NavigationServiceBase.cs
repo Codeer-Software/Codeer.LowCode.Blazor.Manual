@@ -21,22 +21,6 @@ namespace LowCodeSamples.Client.Shared.Services
             _appInfo = appInfo;
         }
 
-        public string GetTopPageUrl()
-        {
-            var mainLayout = _appInfo.GetDesignData().GetMainPageFrameDesign();
-            if (mainLayout == null) return string.Empty;
-            return GetModuleUrl(mainLayout.Name, mainLayout.TopPageModule);
-        }
-
-        public string GetUrl(PageLink pageLink)
-        {
-            var pageFrame = string.IsNullOrEmpty(pageLink.PageFrame) ? GetCurrentPageFrame() : pageLink.PageFrame;
-            var url = $"/{pageFrame}/{pageLink.Module}";
-            var search = _appInfo.GetDesignData().GetDefaultListPageSearchParameter(pageLink.Module);
-            if (!string.IsNullOrEmpty(search)) return url + "?" + search;
-            return url;
-        }
-
         public string GetModuleUrl(string module) => $"/{GetCurrentPageFrame()}/{module}";
 
         public string GetModuleUrl(string pageFrame, string module) => $"/{pageFrame}/{module}";
