@@ -60,18 +60,3 @@ CREATE TABLE post
     <img src="images/1-N_UI.png" width="400" alt="1対NUI" title="1対NUI" style="border: 1px solid;">
 
 
-## N - N
-
-多対多の関係
-
-- 従業員は複数の部署を兼務
-- 部署には複数の従業員が所属
-
-```mermaid
----
-title: employees assigned multiple depatrments
----
-erDiagram
-    Employee }|--o| Assignment : inChargeOf
-  Assignment |o--|{ Department : belong
-```
