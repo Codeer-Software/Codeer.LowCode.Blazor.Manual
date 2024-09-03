@@ -20,7 +20,9 @@ namespace LowCodeSamples.Server.Services
     internal static DesignData GetDesignDataForFront()
     {
       var data = GetDesignData().JsonClone();
-      data.Modules = data.ModulesWithoutDataSourceInfo;
+      data.Modules.Clear();
+      data.Modules.AddRange(data.ModulesWithoutDataSourceInfo);
+      data.ModulesWithoutDataSourceInfo.Clear();
       return data;
     }
 
