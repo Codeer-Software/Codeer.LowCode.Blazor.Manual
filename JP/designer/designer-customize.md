@@ -21,6 +21,11 @@ ScriptRuntimeTypeManager.AddService(new WebApiService(null!, null!));
 Designerにメニューとその処理を追加できます。<br/>
 DesignerEnvironment.AAddMainMenu(Action handler, params string[] menuLocation);<br/>
 handlerはメニューをクリックしたときの処理で、menuLocationは階層型でメニューを指定できます。
+
+ [Codeer.LowCode.Blazor.Templates](https://marketplace.visualstudio.com/items? から作成したコードには以下のメニュー機能がコードで追加されています。実装時のサンプルとして参照してください。
+- [mport Module from Excel](import_module_from_excel.md)
+- [Export PageObject](export_pageobject.md)
+
 ```cs
 DesignerEnvironment.AddMainMenu(ImportExcel, "Tools", "Import Module from Excel");
 DesignerEnvironment.AddMainMenu(ExportPageObject, "Tools", "Export PageObject");
