@@ -17,9 +17,17 @@
 ScriptRuntimeTypeManager.AddType(typeof(ExcelCellIndex));
 ScriptRuntimeTypeManager.AddService(new WebApiService(null!, null!));
 ```
-
+## メニューの追加
+Designerにメニューとその処理を追加できます。<br/>
+DesignerEnvironment.AAddMainMenu(Action handler, params string[] menuLocation);<br/>
+handlerはメニューをクリックしたときの処理で、menuLocationは階層型でメニューを指定できます。
+```cs
+DesignerEnvironment.AddMainMenu(ImportExcel, "Tools", "Import Module from Excel");
+DesignerEnvironment.AddMainMenu(ExportPageObject, "Tools", "Export PageObject");
+```
 DesignerEnvironmentクラスからDesignerのデータにアクセスできます。
 
+### DesignerEnvironment
 | プロパティ名          | 型            | 説明             |
 |-----------------|--------------|----------------|
 | CurrentFileDirectory       | string         | 現在開いている app.clprj のフォルダ       |
@@ -30,14 +38,9 @@ DesignerEnvironmentクラスからDesignerのデータにアクセスできま�
 | void AddMainMenu(Action handler, params string[] menuLocation) | Designerにメニューを追加<br/>hander - 実行する処理<br/>menuLocation - メニュー表示文字、階層型で指定できる
 | void ShowToast(string message, bool isSuccess)                 | Designerでトーストを表示する<br/>message - メッセージ<br/>isSuccess - 成功メッセージ/エラーメッセージ 成功メッセージの場合は緑で表示 |
 
-## メニューの追加
-Designerにメニューとその処理を追加できます。<br/>
-DesignerEnvironment.AAddMainMenu(Action handler, params string[] menuLocation);<br/>
-handlerはメニューをクリックしたときの処理で、menuLocationは階層型でメニューを指定できます。
-```cs
-DesignerEnvironment.AddMainMenu(ImportExcel, "Tools", "Import Module from Excel");
-DesignerEnvironment.AddMainMenu(ExportPageObject, "Tools", "Export PageObject");
-```
+
+
+
 
 ## テンプレートの追加
 
