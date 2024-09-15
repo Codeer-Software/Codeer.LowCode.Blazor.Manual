@@ -9,6 +9,35 @@
 
 このドキュメントで特に記載がない場合、`App`クラスの`OnStartup`メソッドに対して処理を追加してください。
 
+## スクリプトAPIの追加
+
+スクリプトに公開するAPIを追加できます。Designerではスクリプトは実行されませんがスクリプトエディタのインテリセンスに追加されます。スクリプトの追加方法の詳細は[こちら](../overview/script.md)を参照してください。
+
+```cs
+ScriptRuntimeTypeManager.AddType(typeof(ExcelCellIndex));
+ScriptRuntimeTypeManager.AddService(new WebApiService(null!, null!));
+```
+
+DesignerEnvironmentクラスからDesignerのデータにアクセスできます。
+
+| プロパティ名          | 型            | 説明             |
+|-----------------|--------------|----------------|
+| CurrentFileDirectory       | string         | 現在開いている app.clprj のフォルダ       |
+
+| メソッド名                                   | 説明                |
+|---------------------------------------------|---------------------|
+| DesignData GetDesignData()                                     | Designerの現在編集中のデザインデータの取得  |
+| void AddMainMenu(Action handler, params string[] menuLocation) | Designerにメニューを追加<br/>hander - 実行する処理<br/>menuLocation - メニュー表示文字、階層型で指定できる
+| void ShowToast(string message, bool isSuccess)                 | Designerでトーストを表示する<br/>message - メッセージ<br/>isSuccess - 成功メッセージ/エラーメッセージ 成功メッセージの場合は緑で表示 |
+
+## メニューの追加
+Designerにメニューとその処理を追加できます。<br/>
+DesignerEnvironment.AAddMainMenu(Action handler, params string[] menuLocation);<br/>
+handlerはメニューをクリックしたときの処理で、menuLocationは階層型でメニューを指定できます。
+```cs
+DesignerEnvironment.AddMainMenu(ImportExcel, "Tools", "Import Module from Excel");
+DesignerEnvironment.AddMainMenu(ExportPageObject, "Tools", "Export PageObject");
+```
 
 ## テンプレートの追加
 
@@ -47,7 +76,7 @@ Scoped CSSを含んだアセンブリを読み込む場合は、必ず `InstallB
 
 ```cs
 // 外部アセンブリの名前が Your.External.Assembly.Name の場合
-InstallBundleCss("Your.External.Assembly.Name");
+BlazorRuntime.InstallBundleCss("Your.External.Assembly.Name");
 ```
 
 ### 外部アセンブリにコンテンツとして含まれているCSSを読み込む場合
@@ -76,8 +105,8 @@ InstallContentScript("Your.External.Assembly.Name", "path/to/your/js/file.js");
 `IconCandidate.Icons` に対して、追加したいアイコンのクラス名を追加してください。
 
 ```cs
-IconCandidate.Add("fa-solid fa-house");
-IconCandidate.Add("fa-regular fa-comment");
+IconCandidate.Icons.Add("fa-solid fa-house");
+IconCandidate.Icons.Add("fa-regular fa-comment");
 ```
 
 ### スタイルの追加
@@ -86,7 +115,7 @@ IconCandidate.Add("fa-regular fa-comment");
 ここではアイコンを `WebApp.Client.Shared` プロジェクトの `wwwroot/css` へ `additional-icon.css` という名前で追加した例を示します。
 
 ```cs
-InstallContentCss("WebApp.Client.Shared", "css/additional-icon.css");
+BlazorRuntime.InstallContentCss("WebApp.Client.Shared", "css/additional-icon.css");
 ```
 
 ## ウィンドウタイトルの変更
