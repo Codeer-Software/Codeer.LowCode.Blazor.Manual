@@ -39,6 +39,8 @@ https://lowcodedemo.azurewebsites.net/
 - [スクリプト](overview/script.md)
 - [プロコード](overview/procode.md)
 - [ユーザーコード(プロコード)](user_code/user_code.md)
+- [Excelから画面とDDLを作成する](designer/import_module_from_excel.md)
+- [自動テストのサポート](designer/export_pageobject.md)
 - [css](look_and_feel/css.md)
 - [破壊的変更](breaking_changes/breaking_changes.md)
 
