@@ -5,7 +5,7 @@ Excelから画面とDDLを作成します。
 
 <img src="./images/excel_import_format.png" style="border: 1px solid;">
 
-|||
+||説明|
 |-----|-----|
 |DataSourceName.xlsx|ファイル名はデータソース名を表します|
 |ModuleName|DbTable|シート名はモジュール名とDBのテーブル名を表します|
