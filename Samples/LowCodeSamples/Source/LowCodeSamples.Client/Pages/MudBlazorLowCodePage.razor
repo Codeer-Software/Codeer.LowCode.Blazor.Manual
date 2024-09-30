@@ -1,0 +1,58 @@
+@page "/MudBlazor/{ModuleDesignName}"
+@page "/MudBlazor/{ModuleDesignName}/{Id}"
+@using LowCodeSamples.Client.Shared.Services
+@using Codeer.LowCode.Blazor.Repository.Design
+@using Codeer.LowCode.Blazor.Components.AppParts.PageFrame
+@using Codeer.LowCode.Blazor.Components.AppParts.Page
+@using Codeer.LowCode.Blazor.RequestInterfaces
+@using Codeer.LowCode.Blazor.Components.Primitives
+@implements IDisposable
+@inject IAppInfoService AppInfoService
+@inject INavigationService NavigationService
+
+<StyleLoader Href="_content/MudBlazor/MudBlazor.min.css" />
+<StyleLoader Href="_content/Heron.MudCalendar/Heron.MudCalendar.min.css" />
+
+@if (_isValid)
+{
+  <LowCodePageComponent ModuleDesignName="@ModuleDesignName" PageFrameName="@PageFrameName" Id="@Id" Guid="@(AppInfoService.AsImplement().Guid)"></LowCodePageComponent>
+}
+
+@code {
+  public string PageFrameName => "SmallFont";
+
+  [Parameter]
+  public string? ModuleDesignName { get; set; }
+
+  [Parameter]
+  public string? Id { get; set; }
+
+  bool _isValid = false;
+
+  protected override async Task OnInitializedAsync()
+  {
+    await base.OnInitializedAsync();
+    AppInfoService.AsImplement().OnHotReload += PageBase_OnHotReload;
+  }
+
+  public void Dispose() => AppInfoService.AsImplement().OnHotReload -= PageBase_OnHotReload;
+
+  protected override async Task OnParametersSetAsync()
+  {
+    await base.OnParametersSetAsync();
+    await InitPage();
+  }
+
+  private void PageBase_OnHotReload(object? sender, EventArgs e)
+  {
+    NavigationService.CompleteUrl(AppInfoService, PageFrameName, ModuleDesignName);
+    StateHasChanged();
+  }
+
+  private async Task InitPage()
+  {
+    _isValid = false;
+    await AppInfoService.AsImplement().InitializeAppAsync();
+    _isValid = true;
+  }
+}
