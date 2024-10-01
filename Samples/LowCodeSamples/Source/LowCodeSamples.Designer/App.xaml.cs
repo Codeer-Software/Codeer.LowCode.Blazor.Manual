@@ -7,7 +7,11 @@ using System.Configuration;
 using System.IO;
 using System.IO.Compression;
 using System.Windows;
+using Codeer.LowCode.Bindings.MudBlazor.Designs;
+using Codeer.LowCode.Bindings.Radzen.Blazor.Designs;
 using IgniteUI.Blazor.Controls;
+using MudBlazor.Services;
+using Radzen;
 
 namespace LowCodeSamples.Designer
 {
@@ -20,6 +24,8 @@ namespace LowCodeSamples.Designer
       Services.AddSingleton<IDbAccessorFactory, DbAccessorFactory>();
       Services.AddIgniteUIBlazor();
       Services.AddIgniteUIBlazor(typeof(IgbGridModule), typeof(IgbLegendModule), typeof(IgbCategoryChartModule));
+      Services.AddMudServices();
+      Services.AddRadzenComponents();
       ScriptRuntimeTypeManager.AddType(typeof(ExcelCellIndex));
       ScriptRuntimeTypeManager.AddType(typeof(LowCodeSamples.Client.Shared.ScriptObjects.Excel));
       ScriptRuntimeTypeManager.AddService(new Toaster(null!));
@@ -30,6 +36,8 @@ namespace LowCodeSamples.Designer
       BlazorRuntime.InstallContentCss("IgniteUI.Blazor", "themes/grid/light/bootstrap.css");
       BlazorRuntime.InstallContentScript("IgniteUI.Blazor", "app.bundle.js");
       BlazorRuntime.InstallBundleCss("LowCodeSamples.Client.Shared");
+      BlazorRuntime.InstallAssemblyInitializer(typeof(RadzenTextFieldDesign).Assembly);
+      BlazorRuntime.InstallAssemblyInitializer(typeof(MudTextFieldDesign).Assembly);
 
       IconCandidate.Icons.AddRange(LowCodeSamples.Designer.Properties.Resources.bootstrap_icons.Split(["\r\n", "\n"], StringSplitOptions.RemoveEmptyEntries).Order());
 

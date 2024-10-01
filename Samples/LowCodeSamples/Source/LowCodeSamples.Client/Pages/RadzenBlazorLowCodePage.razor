@@ -6,11 +6,13 @@
 @using Codeer.LowCode.Blazor.Components.AppParts.Page
 @using Codeer.LowCode.Blazor.RequestInterfaces
 @using Codeer.LowCode.Blazor.Components.Primitives
+@using Codeer.LowCode.Bindings.Radzen.Blazor.Installer
 @implements IDisposable
 @inject IAppInfoService AppInfoService
 @inject INavigationService NavigationService
 
 <StyleLoader Href="_content/Radzen.Blazor/css/material-base.css" />
+<RadzenInstaller />
 
 @if (_isValid)
 {
@@ -18,7 +20,7 @@
 }
 
 @code {
-  public string PageFrameName => "SmallFont";
+  public string PageFrameName => "RadzenBlazor";
 
   [Parameter]
   public string? ModuleDesignName { get; set; }

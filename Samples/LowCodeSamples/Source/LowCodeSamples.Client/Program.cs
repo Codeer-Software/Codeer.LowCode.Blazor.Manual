@@ -5,6 +5,8 @@ using LowCodeSamples.Client.Shared;
 using LowCodeSamples.Client.Shared.Services;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using MudBlazor.Services;
+using Radzen;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
@@ -15,6 +17,9 @@ builder.Services.AddSharedServices();
 builder.Services.AddScoped<INavigationService, NavigationService>();
 
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+
+builder.Services.AddMudServices();
+builder.Services.AddRadzenComponents();
 
 using (var client = new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) })
 {
