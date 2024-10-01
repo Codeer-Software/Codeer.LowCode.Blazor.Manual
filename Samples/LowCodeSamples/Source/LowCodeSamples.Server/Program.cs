@@ -8,9 +8,17 @@ using LowCodeSamples.Server.Services.FileManagement;
 using PdfSharp.Fonts;
 using System.Globalization;
 using System.Text.Json.Serialization;
+using Codeer.LowCode.Bindings.MudBlazor.Designs;
+using Codeer.LowCode.Bindings.Radzen.Blazor.Designs;
+using Heron.MudCalendar;
 
 //load dll.
 typeof(ColorPickerField).ToString();
+typeof(MudBlazor.Variant).ToString();
+typeof(MudTextFieldDesign).ToString();
+typeof(MudCalendar).ToString();
+typeof(Radzen.Variant).ToString();
+typeof(RadzenTextFieldDesign).ToString();
 
 var builder = WebApplication.CreateBuilder(args);
 

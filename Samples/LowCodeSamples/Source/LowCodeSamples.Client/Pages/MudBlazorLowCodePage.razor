@@ -6,12 +6,14 @@
 @using Codeer.LowCode.Blazor.Components.AppParts.Page
 @using Codeer.LowCode.Blazor.RequestInterfaces
 @using Codeer.LowCode.Blazor.Components.Primitives
+@using Codeer.LowCode.Bindings.MudBlazor.Installer
 @implements IDisposable
 @inject IAppInfoService AppInfoService
 @inject INavigationService NavigationService
 
 <StyleLoader Href="_content/MudBlazor/MudBlazor.min.css" />
 <StyleLoader Href="_content/Heron.MudCalendar/Heron.MudCalendar.min.css" />
+<MudBlazorInstaller />
 
 @if (_isValid)
 {
@@ -19,7 +21,7 @@
 }
 
 @code {
-  public string PageFrameName => "SmallFont";
+  public string PageFrameName => "MudBlazor";
 
   [Parameter]
   public string? ModuleDesignName { get; set; }
