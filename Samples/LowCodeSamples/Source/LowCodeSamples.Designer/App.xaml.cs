@@ -8,6 +8,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Windows;
 using Codeer.LowCode.Bindings.MudBlazor.Designs;
+using Codeer.LowCode.Bindings.MudBlazor.Installer;
 using Codeer.LowCode.Bindings.Radzen.Blazor.Designs;
 using IgniteUI.Blazor.Controls;
 using MudBlazor.Services;
@@ -38,6 +39,7 @@ namespace LowCodeSamples.Designer
       BlazorRuntime.InstallBundleCss("LowCodeSamples.Client.Shared");
       BlazorRuntime.InstallAssemblyInitializer(typeof(RadzenTextFieldDesign).Assembly);
       BlazorRuntime.InstallAssemblyInitializer(typeof(MudTextFieldDesign).Assembly);
+      BlazorRuntime.InstallRenderProvider(typeof(MudBlazorInstaller));
 
       IconCandidate.Icons.AddRange(LowCodeSamples.Designer.Properties.Resources.bootstrap_icons.Split(["\r\n", "\n"], StringSplitOptions.RemoveEmptyEntries).Order());
 
