@@ -74,6 +74,13 @@ CREATE TABLE contacts (
     industry TEXT,
     notes TEXT
 );
+
+CREATE TABLE chart_data (
+    id SERIAL PRIMARY KEY,
+    a NUMERIC NULL,
+    b NUMERIC NULL,
+    c NUMERIC NULL
+);
 ----data--------
 INSERT INTO recipes (recipe_name, description, serving_size) VALUES
 ('Tomato Spaghetti', 'Simple and delicious tomato spaghetti', 'Serves 2'),
