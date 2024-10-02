@@ -1,0 +1,247 @@
+{
+  "Name": "SampleFile",
+  "DisplayName": "",
+  "PageTitle": "",
+  "DataSourceName": "Main",
+  "DbTable": "menu_files",
+  "CanCreate": true,
+  "CanUpdate": true,
+  "CanDelete": true,
+  "CanBulkDataUpdate": false,
+  "CanBulkDataDownload": false,
+  "Fields": [
+    {
+      "DbColumn": "id",
+      "Placeholder": "",
+      "IsManualInput": false,
+      "CompositeIdVariables": [],
+      "CompositeIdSeparator": "",
+      "DisplayName": "",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "OnSearchDataChanged": "",
+      "Name": "Id",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.IdFieldDesign"
+    },
+    {
+      "DbColumn": "name",
+      "IsMultiline": false,
+      "Placeholder": "",
+      "DisplayName": "",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "OnSearchDataChanged": "",
+      "Name": "Name",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
+    },
+    {
+      "Placeholder": "",
+      "Format": "",
+      "DbColumn": "price",
+      "DisplayName": "",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "OnSearchDataChanged": "",
+      "Name": "Price",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.NumberFieldDesign"
+    },
+    {
+      "DisplayName": "",
+      "ShowPreview": true,
+      "StorageName": "Azure",
+      "DbColumnFileName": "file_name",
+      "DbColumnFileSize": "file_size",
+      "DbColumnFileGuid": "file_guid",
+      "OnDataChanged": "",
+      "OnSearchDataChanged": "",
+      "Name": "File",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FileFieldDesign"
+    },
+    {
+      "Text": "Submit",
+      "Icon": "",
+      "Name": "SubmitButton",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.SubmitButtonFieldDesign"
+    }
+  ],
+  "UserWriteCondition": {
+    "ModuleName": ""
+  },
+  "UserReadCondition": {
+    "ModuleName": ""
+  },
+  "DataWriteCondition": {
+    "ModuleName": ""
+  },
+  "DataReadCondition": {
+    "ModuleName": ""
+  },
+  "OnTransaction": "",
+  "DetailLayouts": {
+    "": {
+      "OnBeforeInitialization": "",
+      "OnAfterInitialization": "",
+      "DataOnlyFields": [],
+      "Layout": {
+        "Name": "",
+        "IsBordered": false,
+        "IsFlowLayout": false,
+        "IsFillAvailable": false,
+        "IsExpandable": false,
+        "ExpanderLabel": "",
+        "IsExpanderDefaultOpened": false,
+        "Rows": [
+          {
+            "IsWrap": false,
+            "IsRowMarginRemoved": false,
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "Name",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "CanResize": false
+              },
+              {
+                "Layout": {
+                  "FieldName": "Price",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "CanResize": false
+              },
+              {
+                "Layout": {
+                  "FieldName": "File",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "CanResize": false
+              },
+              {
+                "Layout": {
+                  "FieldName": "SubmitButton",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "CanResize": false
+              }
+            ]
+          }
+        ],
+        "IsViewOnly": false,
+        "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
+      }
+    }
+  },
+  "ListLayouts": {
+    "": {
+      "HeaderTitle": "",
+      "DataOnlyFields": [],
+      "OnBeforeInitialization": "",
+      "OnAfterInitialization": "",
+      "Elements": [
+        [
+          {
+            "FieldName": "Name",
+            "Label": "",
+            "ColumnSpan": 1,
+            "RowSpan": 1,
+            "IsViewOnly": false,
+            "IsEllipsis": false,
+            "IsBreakAll": false,
+            "CanResize": false,
+            "FontFamily": "",
+            "Color": ""
+          },
+          {
+            "FieldName": "File",
+            "Label": "",
+            "ColumnSpan": 1,
+            "RowSpan": 1,
+            "IsViewOnly": false,
+            "IsEllipsis": false,
+            "IsBreakAll": false,
+            "CanResize": false,
+            "FontFamily": "",
+            "Color": ""
+          }
+        ]
+      ]
+    }
+  },
+  "SearchLayouts": {
+    "": {
+      "OnSearchInitialization": "",
+      "Layout": {
+        "Operator": "And",
+        "Name": "SearchGridLayout",
+        "IsBordered": false,
+        "IsFlowLayout": false,
+        "IsFillAvailable": false,
+        "IsExpandable": true,
+        "ExpanderLabel": "検索条件",
+        "IsExpanderDefaultOpened": false,
+        "Rows": [
+          {
+            "IsWrap": false,
+            "IsRowMarginRemoved": false,
+            "Columns": [
+              {
+                "CanResize": false
+              },
+              {
+                "CanResize": false
+              },
+              {
+                "CanResize": false
+              },
+              {
+                "CanResize": false
+              }
+            ]
+          }
+        ],
+        "IsViewOnly": false,
+        "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.SearchGridLayoutDesign"
+      }
+    }
+  },
+  "LinkFieldNames": [],
+  "ListPageFieldDesign": {
+    "LayoutName": "",
+    "CanNavigateToDetail": true,
+    "DisplayName": "",
+    "SearchCondition": {
+      "SortFieldVariable": "",
+      "SortDescending": false,
+      "SelectFields": [],
+      "ModuleName": ""
+    },
+    "UseIndexSort": false,
+    "DeleteTogether": false,
+    "CanCreate": false,
+    "CanUpdate": false,
+    "CanDelete": false,
+    "CanSelect": false,
+    "OnDataChanged": "",
+    "OnSearchDataChanged": "",
+    "OnSelectedIndexChanged": "",
+    "OnSelectedIndexChanging": "",
+    "Name": "",
+    "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ListFieldDesign"
+  }
+}

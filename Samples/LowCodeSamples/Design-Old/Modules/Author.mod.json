@@ -1,0 +1,417 @@
+{
+  "Name": "Author",
+  "DisplayName": "",
+  "PageTitle": "",
+  "DataSourceName": "Main",
+  "DbTable": "authors",
+  "CanCreate": true,
+  "CanUpdate": true,
+  "CanDelete": true,
+  "CanBulkDataUpdate": true,
+  "CanBulkDataDownload": true,
+  "Fields": [
+    {
+      "DbColumn": "id",
+      "Placeholder": "",
+      "IsManualInput": false,
+      "CompositeIdVariables": [],
+      "CompositeIdSeparator": "",
+      "OnSearchDataChanged": "",
+      "DisplayName": "",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "Id",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.IdFieldDesign"
+    },
+    {
+      "DbColumn": "email",
+      "IsMultiline": false,
+      "Placeholder": "",
+      "OnSearchDataChanged": "",
+      "DisplayName": "",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "Email",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
+    },
+    {
+      "DbColumn": "full_name",
+      "IsMultiline": false,
+      "Placeholder": "",
+      "OnSearchDataChanged": "",
+      "DisplayName": "",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "Fullname",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
+    },
+    {
+      "DbColumn": "profile",
+      "IsMultiline": true,
+      "Placeholder": "",
+      "OnSearchDataChanged": "",
+      "DisplayName": "",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "Profile",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
+    },
+    {
+      "Text": "Author",
+      "Style": "H2",
+      "RelativeField": "",
+      "Name": "LabelTitle",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Text": "Submit",
+      "Icon": "",
+      "Name": "SubmitButton",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.SubmitButtonFieldDesign"
+    },
+    {
+      "Text": "",
+      "Style": "Default",
+      "RelativeField": "Email",
+      "Name": "EmailLabel",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Text": "",
+      "Style": "Default",
+      "RelativeField": "Fullname",
+      "Name": "FullnameLabel",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Text": "",
+      "Style": "Default",
+      "RelativeField": "Profile",
+      "Name": "ProfileLabel",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Name": "ListNumber",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ListNumberFieldDesign"
+    }
+  ],
+  "UserWriteCondition": {
+    "ModuleName": ""
+  },
+  "UserReadCondition": {
+    "ModuleName": ""
+  },
+  "DataWriteCondition": {
+    "ModuleName": ""
+  },
+  "DataReadCondition": {
+    "ModuleName": ""
+  },
+  "OnTransaction": "",
+  "DetailLayouts": {
+    "": {
+      "OnBeforeInitialization": "",
+      "OnAfterInitialization": "",
+      "DataOnlyFields": [],
+      "Layout": {
+        "Name": "",
+        "IsBordered": false,
+        "IsFlowLayout": false,
+        "IsFillAvailable": false,
+        "IsExpandable": false,
+        "ExpanderLabel": "",
+        "IsExpanderDefaultOpened": false,
+        "Rows": [
+          {
+            "IsWrap": false,
+            "IsRowMarginRemoved": false,
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "LabelTitle",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "HorizontalAlignment": "Center",
+                "CanResize": false
+              }
+            ]
+          },
+          {
+            "IsWrap": false,
+            "IsRowMarginRemoved": false,
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "EmailLabel",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Width": 110,
+                "VerticalAlignment": "Middle",
+                "CanResize": false
+              },
+              {
+                "Layout": {
+                  "FieldName": "Email",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "CanResize": false
+              }
+            ]
+          },
+          {
+            "IsWrap": false,
+            "IsRowMarginRemoved": false,
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "FullnameLabel",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Width": 110,
+                "VerticalAlignment": "Middle",
+                "CanResize": false
+              },
+              {
+                "Layout": {
+                  "FieldName": "Fullname",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "CanResize": false
+              }
+            ]
+          },
+          {
+            "IsWrap": false,
+            "IsRowMarginRemoved": false,
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "ProfileLabel",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Width": 110,
+                "VerticalAlignment": "Middle",
+                "CanResize": false
+              },
+              {
+                "Layout": {
+                  "FieldName": "Profile",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "CanResize": false
+              }
+            ]
+          },
+          {
+            "IsWrap": false,
+            "IsRowMarginRemoved": false,
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "SubmitButton",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "HorizontalAlignment": "Center",
+                "CanResize": false
+              }
+            ]
+          }
+        ],
+        "IsViewOnly": false,
+        "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
+      }
+    }
+  },
+  "ListLayouts": {
+    "": {
+      "HeaderTitle": "Authors",
+      "DataOnlyFields": [],
+      "OnBeforeInitialization": "",
+      "OnAfterInitialization": "",
+      "Elements": [
+        [
+          {
+            "FieldName": "ListNumber",
+            "Label": "No.",
+            "Width": 100,
+            "ColumnSpan": 1,
+            "RowSpan": 1,
+            "IsViewOnly": false,
+            "TextWrap": "Unset",
+            "CanResize": false,
+            "FontFamily": "",
+            "Color": ""
+          },
+          {
+            "FieldName": "Email",
+            "Label": "",
+            "ColumnSpan": 1,
+            "RowSpan": 1,
+            "IsViewOnly": false,
+            "TextWrap": "Unset",
+            "CanResize": false,
+            "FontFamily": "",
+            "Color": ""
+          },
+          {
+            "FieldName": "Fullname",
+            "Label": "",
+            "ColumnSpan": 1,
+            "RowSpan": 1,
+            "IsViewOnly": false,
+            "TextWrap": "Unset",
+            "CanResize": false,
+            "FontFamily": "",
+            "Color": ""
+          },
+          {
+            "FieldName": "Profile",
+            "Label": "",
+            "ColumnSpan": 1,
+            "RowSpan": 1,
+            "IsViewOnly": false,
+            "TextWrap": "Unset",
+            "CanResize": false,
+            "FontFamily": "",
+            "Color": ""
+          }
+        ]
+      ]
+    }
+  },
+  "SearchLayouts": {
+    "": {
+      "OnSearchInitialization": "",
+      "Layout": {
+        "Operator": "And",
+        "Name": "",
+        "IsBordered": false,
+        "IsFlowLayout": false,
+        "IsFillAvailable": false,
+        "IsExpandable": false,
+        "ExpanderLabel": "",
+        "IsExpanderDefaultOpened": false,
+        "Rows": [
+          {
+            "IsWrap": false,
+            "IsRowMarginRemoved": false,
+            "Columns": [
+              {
+                "Layout": {
+                  "Name": "",
+                  "IsBordered": false,
+                  "IsFlowLayout": false,
+                  "IsFillAvailable": false,
+                  "IsExpandable": false,
+                  "ExpanderLabel": "",
+                  "IsExpanderDefaultOpened": false,
+                  "Rows": [
+                    {
+                      "IsWrap": false,
+                      "IsRowMarginRemoved": true,
+                      "Columns": [
+                        {
+                          "Layout": {
+                            "FieldName": "FullnameLabel",
+                            "FontFamily": "",
+                            "Color": "",
+                            "Name": "",
+                            "IsViewOnly": false,
+                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                          },
+                          "VerticalAlignment": "Bottom",
+                          "CanResize": false
+                        }
+                      ]
+                    },
+                    {
+                      "IsWrap": false,
+                      "IsRowMarginRemoved": false,
+                      "Columns": [
+                        {
+                          "Layout": {
+                            "FieldName": "Fullname",
+                            "FontFamily": "",
+                            "Color": "",
+                            "Name": "",
+                            "IsViewOnly": false,
+                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                          },
+                          "CanResize": false
+                        }
+                      ]
+                    }
+                  ],
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
+                },
+                "CanResize": false
+              },
+              {
+                "CanResize": false
+              }
+            ]
+          }
+        ],
+        "IsViewOnly": false,
+        "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.SearchGridLayoutDesign"
+      }
+    }
+  },
+  "LinkFieldNames": [],
+  "ListPageFieldDesign": {
+    "LayoutName": "",
+    "CanNavigateToDetail": true,
+    "DisplayName": "",
+    "SearchCondition": {
+      "SortFieldVariable": "",
+      "SortDescending": false,
+      "SelectFields": [],
+      "ModuleName": ""
+    },
+    "UseIndexSort": false,
+    "DeleteTogether": false,
+    "CanCreate": false,
+    "CanUpdate": false,
+    "CanDelete": false,
+    "CanSelect": false,
+    "OnDataChanged": "",
+    "OnSearchDataChanged": "",
+    "OnSelectedIndexChanged": "",
+    "OnSelectedIndexChanging": "",
+    "Name": "",
+    "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ListFieldDesign"
+  }
+}
