@@ -81,6 +81,29 @@ CREATE TABLE chart_data (
     b NUMERIC NULL,
     c NUMERIC NULL
 );
+CREATE TABLE field_data (
+  id BIGSERIAL PRIMARY KEY,
+  check_ BOOLEAN NULL,
+  toggle BOOLEAN NULL,
+  switch BOOLEAN NULL,
+  date_ DATE NULL,
+  date_time TIMESTAMP NULL,
+  link TEXT NULL,
+  number_ INTEGER NULL,
+  radio TEXT NULL,
+  select_ TEXT NULL,
+  select_link TEXT NULL,
+  text_ TEXT NULL,
+  time_ TIME NULL,
+  file_guid uuid NULL,
+  file_name text NULL,
+  file_size integer NULL
+);
+CREATE TABLE link_data (
+  id BIGSERIAL PRIMARY KEY,
+  code TEXT NULL,
+  name TEXT NULL
+);
 ----data--------
 INSERT INTO recipes (recipe_name, description, serving_size) VALUES
 ('Tomato Spaghetti', 'Simple and delicious tomato spaghetti', 'Serves 2'),
