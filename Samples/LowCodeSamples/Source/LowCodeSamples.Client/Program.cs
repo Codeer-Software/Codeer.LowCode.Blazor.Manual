@@ -9,6 +9,7 @@ using LowCodeSamples.Client.Shared.Samples.ColorPicker;
 using LowCodeSamples.Client.Shared.Services;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using MudBlazor;
 using MudBlazor.Services;
 using Radzen;
 
@@ -19,6 +20,7 @@ typeof(MudTextFieldDesign).ToString();
 typeof(MudCalendar).ToString();
 typeof(Radzen.Variant).ToString();
 typeof(RadzenTextFieldDesign).ToString();
+new MudChart();
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
