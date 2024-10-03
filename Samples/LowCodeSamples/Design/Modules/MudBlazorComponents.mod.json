@@ -14,7 +14,7 @@
       "Variant": "Text",
       "Color": "Default",
       "UIType": "CheckBox",
-      "Text": "Boolean",
+      "Text": "Check_Default",
       "DbColumn": "",
       "IsUpdateProtected": false,
       "OnSearchDataChanged": "",
@@ -27,7 +27,7 @@
     {
       "MudVariant": "Outlined",
       "Color": "Primary",
-      "Text": "Button",
+      "Text": "Outline_Primary",
       "Icon": "",
       "Variant": "Primary",
       "OnClick": "MudButton_OnClick",
@@ -62,7 +62,7 @@
       "TypeFullName": "Codeer.LowCode.Bindings.MudBlazor.Designs.MudDateTimeFieldDesign"
     },
     {
-      "Variant": "Filled",
+      "Variant": "Text",
       "Color": "Default",
       "IsUpdateProtected": false,
       "DisplayName": "",
@@ -76,21 +76,6 @@
       "OnSearchDataChanged": "",
       "Name": "MudFile",
       "TypeFullName": "Codeer.LowCode.Bindings.MudBlazor.Designs.MudFileFieldDesign"
-    },
-    {
-      "Variant": "Text",
-      "DbColumn": "",
-      "Placeholder": "",
-      "IsManualInput": false,
-      "CompositeIdVariables": [],
-      "CompositeIdSeparator": "",
-      "IsUpdateProtected": false,
-      "OnSearchDataChanged": "",
-      "DisplayName": "",
-      "IsRequired": false,
-      "OnDataChanged": "",
-      "Name": "MudId",
-      "TypeFullName": "Codeer.LowCode.Bindings.MudBlazor.Designs.MudIdFieldDesign"
     },
     {
       "Variant": "Text",
@@ -114,8 +99,8 @@
       "TypeFullName": "Codeer.LowCode.Bindings.MudBlazor.Designs.MudPasswordFieldDesign"
     },
     {
-      "Color": "Default",
-      "Text": "Radio1",
+      "Color": "Primary",
+      "Text": "Primary",
       "Value": "1",
       "GroupField": "RadioGroup",
       "Name": "MudRadioButton",
@@ -155,9 +140,9 @@
       "TypeFullName": "Codeer.LowCode.Bindings.MudBlazor.Designs.MudSelectFieldDesign"
     },
     {
-      "Variant": "Outlined",
+      "Variant": "Text",
       "DbColumn": "",
-      "IsMultiline": true,
+      "IsMultiline": false,
       "Placeholder": "",
       "IsUpdateProtected": false,
       "OnSearchDataChanged": "",
@@ -185,7 +170,7 @@
       "Variant": "Outlined",
       "Color": "Primary",
       "UIType": "ToggleButton",
-      "Text": "Boolean",
+      "Text": "Toggle_Primary",
       "DbColumn": "",
       "IsUpdateProtected": false,
       "OnSearchDataChanged": "",
@@ -199,7 +184,7 @@
       "Variant": "Outlined",
       "Color": "Tertiary",
       "UIType": "Switch",
-      "Text": "Boolean",
+      "Text": "Switch_Tertiary",
       "DbColumn": "",
       "IsUpdateProtected": false,
       "OnSearchDataChanged": "",
@@ -212,7 +197,7 @@
     {
       "MudVariant": "Filled",
       "Color": "Success",
-      "Text": "Button",
+      "Text": "Filled_Success",
       "Icon": "",
       "Variant": "Primary",
       "OnClick": "MudButton_OnClick",
@@ -222,7 +207,7 @@
     {
       "MudVariant": "Text",
       "Color": "Secondary",
-      "Text": "Button",
+      "Text": "Text_Secondary",
       "Icon": "",
       "Variant": "Primary",
       "OnClick": "MudButton_OnClick",
@@ -230,16 +215,16 @@
       "TypeFullName": "Codeer.LowCode.Bindings.MudBlazor.Designs.MudButtonFieldDesign"
     },
     {
-      "Color": "Default",
-      "Text": "Radio2",
+      "Color": "Secondary",
+      "Text": "Secondary",
       "Value": "2",
       "GroupField": "RadioGroup",
       "Name": "MudRadioButton1",
       "TypeFullName": "Codeer.LowCode.Bindings.MudBlazor.Designs.MudRadioButtonFieldDesign"
     },
     {
-      "Color": "Default",
-      "Text": "Radio3",
+      "Color": "Tertiary",
+      "Text": "Tertiary",
       "Value": "3",
       "GroupField": "RadioGroup",
       "Name": "MudRadioButton2",
@@ -257,20 +242,19 @@
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.RadioGroupFieldDesign"
     },
     {
-      "Text": "Components",
-      "Style": "H2",
-      "RelativeField": "",
-      "Name": "Label",
-      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
-    },
-    {
-      "Variant": "Outlined",
+      "Variant": "Text",
       "Color": "Default",
       "SearchCondition": {
         "SortFieldVariable": "",
         "SortDescending": false,
         "SelectFields": [],
-        "ModuleName": "ChartData"
+        "ModuleName": "LinkData",
+        "Condition": {
+          "IsOrMatch": false,
+          "Children": [],
+          "Name": "",
+          "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
+        }
       },
       "ValueVariable": "Id.Value",
       "DisplayTextVariable": "A.Value",
@@ -284,6 +268,380 @@
       "OnDataChanged": "",
       "Name": "MudLink",
       "TypeFullName": "Codeer.LowCode.Bindings.MudBlazor.Designs.MudLinkFieldDesign"
+    },
+    {
+      "Text": "Date",
+      "Style": "Default",
+      "RelativeField": "MudDate",
+      "Name": "MudDateLabel",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Text": "DateTime",
+      "Style": "Default",
+      "RelativeField": "MudDateTime",
+      "Name": "MudDateTimeLabel",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Text": "File",
+      "Style": "Default",
+      "RelativeField": "MudFile",
+      "Name": "MudFileLabel",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Text": "Number",
+      "Style": "Default",
+      "RelativeField": "MudNumber",
+      "Name": "MudNumberLabel",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Text": "Select",
+      "Style": "Default",
+      "RelativeField": "MudSelect",
+      "Name": "MudSelectLabel",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Text": "Text",
+      "Style": "Default",
+      "RelativeField": "MudText",
+      "Name": "MudTextLabel",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Text": "Time",
+      "Style": "Default",
+      "RelativeField": "MudTime",
+      "Name": "MudTimeLabel",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Text": "Link",
+      "Style": "Default",
+      "RelativeField": "MudLink",
+      "Name": "MudLinkLabel",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Text": "Radio",
+      "Style": "Default",
+      "RelativeField": "",
+      "Name": "Label1",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Text": "Password",
+      "Style": "Default",
+      "RelativeField": "",
+      "Name": "Label2",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Variant": "Outlined",
+      "Color": "Default",
+      "StandardInput": false,
+      "Format": "",
+      "DbColumn": "",
+      "IsUpdateProtected": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "MudDate1",
+      "TypeFullName": "Codeer.LowCode.Bindings.MudBlazor.Designs.MudDateFieldDesign"
+    },
+    {
+      "Variant": "Filled",
+      "Color": "Default",
+      "StandardInput": false,
+      "Format": "",
+      "DbColumn": "",
+      "IsUpdateProtected": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "MudDate2",
+      "TypeFullName": "Codeer.LowCode.Bindings.MudBlazor.Designs.MudDateFieldDesign"
+    },
+    {
+      "Variant": "Outlined",
+      "SaveAsUtc": false,
+      "Format": "",
+      "DbColumn": "",
+      "IsUpdateProtected": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "MudDateTime1",
+      "TypeFullName": "Codeer.LowCode.Bindings.MudBlazor.Designs.MudDateTimeFieldDesign"
+    },
+    {
+      "Variant": "Filled",
+      "SaveAsUtc": false,
+      "Format": "",
+      "DbColumn": "",
+      "IsUpdateProtected": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "MudDateTime2",
+      "TypeFullName": "Codeer.LowCode.Bindings.MudBlazor.Designs.MudDateTimeFieldDesign"
+    },
+    {
+      "Variant": "Outlined",
+      "Color": "Default",
+      "IsUpdateProtected": false,
+      "DisplayName": "",
+      "ShowPreview": true,
+      "StorageName": "Local",
+      "DbColumnFileName": "",
+      "DbColumnFileSize": "",
+      "DbColumnFileGuid": "",
+      "ObjectFit": "Contain",
+      "OnDataChanged": "",
+      "OnSearchDataChanged": "",
+      "Name": "MudFile1",
+      "TypeFullName": "Codeer.LowCode.Bindings.MudBlazor.Designs.MudFileFieldDesign"
+    },
+    {
+      "Variant": "Filled",
+      "Color": "Default",
+      "IsUpdateProtected": false,
+      "DisplayName": "",
+      "ShowPreview": true,
+      "StorageName": "Local",
+      "DbColumnFileName": "",
+      "DbColumnFileSize": "",
+      "DbColumnFileGuid": "",
+      "ObjectFit": "Contain",
+      "OnDataChanged": "",
+      "OnSearchDataChanged": "",
+      "Name": "MudFile2",
+      "TypeFullName": "Codeer.LowCode.Bindings.MudBlazor.Designs.MudFileFieldDesign"
+    },
+    {
+      "Variant": "Outlined",
+      "Placeholder": "",
+      "Format": "",
+      "DbColumn": "",
+      "IsUpdateProtected": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "MudNumber1",
+      "TypeFullName": "Codeer.LowCode.Bindings.MudBlazor.Designs.MudNumberFieldDesign"
+    },
+    {
+      "Variant": "Filled",
+      "Placeholder": "",
+      "Format": "",
+      "DbColumn": "",
+      "IsUpdateProtected": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "MudNumber2",
+      "TypeFullName": "Codeer.LowCode.Bindings.MudBlazor.Designs.MudNumberFieldDesign"
+    },
+    {
+      "Variant": "Outlined",
+      "Color": "Primary",
+      "Candidates": [
+        "a",
+        "b",
+        "c"
+      ],
+      "SearchCondition": {
+        "SortFieldVariable": "",
+        "SortDescending": false,
+        "SelectFields": [],
+        "ModuleName": "",
+        "Condition": {
+          "IsOrMatch": false,
+          "Children": [],
+          "Name": "",
+          "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
+        }
+      },
+      "ValueVariable": "",
+      "DisplayTextVariable": "",
+      "DbColumn": "",
+      "EmptyCandidateType": "StringEmpty",
+      "AllowOrSearch": false,
+      "IsUpdateProtected": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "MudSelect1",
+      "TypeFullName": "Codeer.LowCode.Bindings.MudBlazor.Designs.MudSelectFieldDesign"
+    },
+    {
+      "Variant": "Filled",
+      "Color": "Primary",
+      "Candidates": [
+        "a",
+        "b",
+        "c"
+      ],
+      "SearchCondition": {
+        "SortFieldVariable": "",
+        "SortDescending": false,
+        "SelectFields": [],
+        "ModuleName": "",
+        "Condition": {
+          "IsOrMatch": false,
+          "Children": [],
+          "Name": "",
+          "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
+        }
+      },
+      "ValueVariable": "",
+      "DisplayTextVariable": "",
+      "DbColumn": "",
+      "EmptyCandidateType": "StringEmpty",
+      "AllowOrSearch": false,
+      "IsUpdateProtected": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "MudSelect2",
+      "TypeFullName": "Codeer.LowCode.Bindings.MudBlazor.Designs.MudSelectFieldDesign"
+    },
+    {
+      "Variant": "Outlined",
+      "DbColumn": "",
+      "IsMultiline": false,
+      "Placeholder": "",
+      "IsUpdateProtected": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "MudText1",
+      "TypeFullName": "Codeer.LowCode.Bindings.MudBlazor.Designs.MudTextFieldDesign"
+    },
+    {
+      "Variant": "Filled",
+      "DbColumn": "",
+      "IsMultiline": false,
+      "Placeholder": "",
+      "IsUpdateProtected": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "MudText2",
+      "TypeFullName": "Codeer.LowCode.Bindings.MudBlazor.Designs.MudTextFieldDesign"
+    },
+    {
+      "Variant": "Outlined",
+      "Color": "Default",
+      "StandardInput": false,
+      "SaveAsUtc": false,
+      "DbColumn": "",
+      "IsUpdateProtected": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "MudTime1",
+      "TypeFullName": "Codeer.LowCode.Bindings.MudBlazor.Designs.MudTimeFieldDesign"
+    },
+    {
+      "Variant": "Filled",
+      "Color": "Default",
+      "StandardInput": false,
+      "SaveAsUtc": false,
+      "DbColumn": "",
+      "IsUpdateProtected": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "MudTime2",
+      "TypeFullName": "Codeer.LowCode.Bindings.MudBlazor.Designs.MudTimeFieldDesign"
+    },
+    {
+      "Variant": "Outlined",
+      "Color": "Default",
+      "SearchCondition": {
+        "SortFieldVariable": "",
+        "SortDescending": false,
+        "SelectFields": [],
+        "ModuleName": "LinkData",
+        "Condition": {
+          "IsOrMatch": false,
+          "Children": [],
+          "Name": "",
+          "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
+        }
+      },
+      "ValueVariable": "Id.Value",
+      "DisplayTextVariable": "A.Value",
+      "DbColumn": "",
+      "ListLayoutName": "",
+      "SearchLayoutName": "",
+      "IsUpdateProtected": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "MudLink1",
+      "TypeFullName": "Codeer.LowCode.Bindings.MudBlazor.Designs.MudLinkFieldDesign"
+    },
+    {
+      "Variant": "Filled",
+      "Color": "Default",
+      "SearchCondition": {
+        "SortFieldVariable": "",
+        "SortDescending": false,
+        "SelectFields": [],
+        "ModuleName": "LinkData",
+        "Condition": {
+          "IsOrMatch": false,
+          "Children": [],
+          "Name": "",
+          "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
+        }
+      },
+      "ValueVariable": "Id.Value",
+      "DisplayTextVariable": "A.Value",
+      "DbColumn": "",
+      "ListLayoutName": "",
+      "SearchLayoutName": "",
+      "IsUpdateProtected": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "MudLink2",
+      "TypeFullName": "Codeer.LowCode.Bindings.MudBlazor.Designs.MudLinkFieldDesign"
+    },
+    {
+      "Variant": "Outlined",
+      "DisplayName": "",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "MudPassword1",
+      "TypeFullName": "Codeer.LowCode.Bindings.MudBlazor.Designs.MudPasswordFieldDesign"
+    },
+    {
+      "Variant": "Filled",
+      "DisplayName": "",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "MudPassword2",
+      "TypeFullName": "Codeer.LowCode.Bindings.MudBlazor.Designs.MudPasswordFieldDesign"
     }
   ],
   "UserWriteCondition": {
@@ -315,25 +673,6 @@
         "ExpanderLabel": "",
         "IsExpanderDefaultOpened": false,
         "Rows": [
-          {
-            "IsWrap": false,
-            "IsRowMarginRemoved": false,
-            "Columns": [
-              {
-                "Layout": {
-                  "FieldName": "Label",
-                  "FontFamily": "",
-                  "Color": "",
-                  "Name": "",
-                  "IsViewOnly": false,
-                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                },
-                "Border": "None",
-                "HorizontalAlignment": "Center",
-                "CanResize": false
-              }
-            ]
-          },
           {
             "IsWrap": false,
             "IsRowMarginRemoved": false,
@@ -424,7 +763,45 @@
             "Columns": [
               {
                 "Layout": {
+                  "FieldName": "MudDateLabel",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Width": 100,
+                "Border": "None",
+                "VerticalAlignment": "Middle",
+                "CanResize": false
+              },
+              {
+                "Layout": {
                   "FieldName": "MudDate",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Border": "None",
+                "CanResize": false
+              },
+              {
+                "Layout": {
+                  "FieldName": "MudDate1",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Border": "None",
+                "CanResize": false
+              },
+              {
+                "Layout": {
+                  "FieldName": "MudDate2",
                   "FontFamily": "",
                   "Color": "",
                   "Name": "",
@@ -440,6 +817,20 @@
             "IsWrap": false,
             "IsRowMarginRemoved": false,
             "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "MudDateTimeLabel",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Width": 100,
+                "Border": "None",
+                "VerticalAlignment": "Middle",
+                "CanResize": false
+              },
               {
                 "Layout": {
                   "FieldName": "MudDateTime",
@@ -451,6 +842,30 @@
                 },
                 "Border": "None",
                 "CanResize": false
+              },
+              {
+                "Layout": {
+                  "FieldName": "MudDateTime1",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Border": "None",
+                "CanResize": false
+              },
+              {
+                "Layout": {
+                  "FieldName": "MudDateTime2",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Border": "None",
+                "CanResize": false
               }
             ]
           },
@@ -458,6 +873,20 @@
             "IsWrap": false,
             "IsRowMarginRemoved": false,
             "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "MudFileLabel",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Width": 100,
+                "Border": "None",
+                "VerticalAlignment": "Middle",
+                "CanResize": false
+              },
               {
                 "Layout": {
                   "FieldName": "MudFile",
@@ -469,16 +898,22 @@
                 },
                 "Border": "None",
                 "CanResize": false
-              }
-            ]
-          },
-          {
-            "IsWrap": false,
-            "IsRowMarginRemoved": false,
-            "Columns": [
+              },
               {
                 "Layout": {
-                  "FieldName": "MudId",
+                  "FieldName": "MudFile1",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Border": "None",
+                "CanResize": false
+              },
+              {
+                "Layout": {
+                  "FieldName": "MudFile2",
                   "FontFamily": "",
                   "Color": "",
                   "Name": "",
@@ -494,6 +929,20 @@
             "IsWrap": false,
             "IsRowMarginRemoved": false,
             "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "MudNumberLabel",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Width": 100,
+                "Border": "None",
+                "VerticalAlignment": "Middle",
+                "CanResize": false
+              },
               {
                 "Layout": {
                   "FieldName": "MudNumber",
@@ -505,16 +954,22 @@
                 },
                 "Border": "None",
                 "CanResize": false
-              }
-            ]
-          },
-          {
-            "IsWrap": false,
-            "IsRowMarginRemoved": false,
-            "Columns": [
+              },
               {
                 "Layout": {
-                  "FieldName": "MudPassword",
+                  "FieldName": "MudNumber1",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Border": "None",
+                "CanResize": false
+              },
+              {
+                "Layout": {
+                  "FieldName": "MudNumber2",
                   "FontFamily": "",
                   "Color": "",
                   "Name": "",
@@ -530,6 +985,243 @@
             "IsWrap": false,
             "IsRowMarginRemoved": false,
             "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "MudSelectLabel",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Width": 100,
+                "Border": "None",
+                "VerticalAlignment": "Middle",
+                "CanResize": false
+              },
+              {
+                "Layout": {
+                  "FieldName": "MudSelect",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Border": "None",
+                "CanResize": false
+              },
+              {
+                "Layout": {
+                  "FieldName": "MudSelect1",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Border": "None",
+                "CanResize": false
+              },
+              {
+                "Layout": {
+                  "FieldName": "MudSelect2",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Border": "None",
+                "CanResize": false
+              }
+            ]
+          },
+          {
+            "IsWrap": false,
+            "IsRowMarginRemoved": false,
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "MudTextLabel",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Width": 100,
+                "Border": "None",
+                "VerticalAlignment": "Middle",
+                "CanResize": false
+              },
+              {
+                "Layout": {
+                  "FieldName": "MudText",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Border": "None",
+                "CanResize": false
+              },
+              {
+                "Layout": {
+                  "FieldName": "MudText1",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Border": "None",
+                "CanResize": false
+              },
+              {
+                "Layout": {
+                  "FieldName": "MudText2",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Border": "None",
+                "CanResize": false
+              }
+            ]
+          },
+          {
+            "IsWrap": false,
+            "IsRowMarginRemoved": false,
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "MudTimeLabel",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Width": 100,
+                "Border": "None",
+                "VerticalAlignment": "Middle",
+                "CanResize": false
+              },
+              {
+                "Layout": {
+                  "FieldName": "MudTime",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Border": "None",
+                "CanResize": false
+              },
+              {
+                "Layout": {
+                  "FieldName": "MudTime1",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Border": "None",
+                "CanResize": false
+              },
+              {
+                "Layout": {
+                  "FieldName": "MudTime2",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Border": "None",
+                "CanResize": false
+              }
+            ]
+          },
+          {
+            "IsWrap": false,
+            "IsRowMarginRemoved": false,
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "MudLinkLabel",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Width": 100,
+                "Border": "None",
+                "VerticalAlignment": "Middle",
+                "CanResize": false
+              },
+              {
+                "Layout": {
+                  "FieldName": "MudLink",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Border": "None",
+                "CanResize": false
+              },
+              {
+                "Layout": {
+                  "FieldName": "MudLink1",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Border": "None",
+                "CanResize": false
+              },
+              {
+                "Layout": {
+                  "FieldName": "MudLink2",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Border": "None",
+                "CanResize": false
+              }
+            ]
+          },
+          {
+            "IsWrap": false,
+            "IsRowMarginRemoved": false,
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "Label1",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Width": 100,
+                "Border": "None",
+                "CanResize": false
+              },
               {
                 "Layout": {
                   "FieldName": "MudRadioButton",
@@ -574,7 +1266,20 @@
             "Columns": [
               {
                 "Layout": {
-                  "FieldName": "MudSelect",
+                  "FieldName": "Label2",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Width": 100,
+                "Border": "None",
+                "CanResize": false
+              },
+              {
+                "Layout": {
+                  "FieldName": "MudPassword",
                   "FontFamily": "",
                   "Color": "",
                   "Name": "",
@@ -583,16 +1288,10 @@
                 },
                 "Border": "None",
                 "CanResize": false
-              }
-            ]
-          },
-          {
-            "IsWrap": false,
-            "IsRowMarginRemoved": false,
-            "Columns": [
+              },
               {
                 "Layout": {
-                  "FieldName": "MudText",
+                  "FieldName": "MudPassword1",
                   "FontFamily": "",
                   "Color": "",
                   "Name": "",
@@ -601,34 +1300,10 @@
                 },
                 "Border": "None",
                 "CanResize": false
-              }
-            ]
-          },
-          {
-            "IsWrap": false,
-            "IsRowMarginRemoved": false,
-            "Columns": [
+              },
               {
                 "Layout": {
-                  "FieldName": "MudTime",
-                  "FontFamily": "",
-                  "Color": "",
-                  "Name": "",
-                  "IsViewOnly": false,
-                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                },
-                "Border": "None",
-                "CanResize": false
-              }
-            ]
-          },
-          {
-            "IsWrap": false,
-            "IsRowMarginRemoved": false,
-            "Columns": [
-              {
-                "Layout": {
-                  "FieldName": "MudLink",
+                  "FieldName": "MudPassword2",
                   "FontFamily": "",
                   "Color": "",
                   "Name": "",
