@@ -14,7 +14,7 @@
       "Variant": "Filled",
       "Color": "Primary",
       "UIType": "CheckBox",
-      "Text": "Boolean",
+      "Text": "Check",
       "DbColumn": "",
       "IsUpdateProtected": false,
       "OnSearchDataChanged": "",
@@ -27,7 +27,7 @@
     {
       "RadzenVariant": "Filled",
       "Color": "Primary",
-      "Text": "Button",
+      "Text": "Filled",
       "Icon": "",
       "Variant": "Primary",
       "OnClick": "",
@@ -39,7 +39,7 @@
       "DbColumn": "",
       "IsUpdateProtected": false,
       "OnSearchDataChanged": "",
-      "DisplayName": "",
+      "DisplayName": "Date",
       "IsRequired": false,
       "OnDataChanged": "",
       "Name": "RadzenDate",
@@ -51,25 +51,11 @@
       "DbColumn": "",
       "IsUpdateProtected": false,
       "OnSearchDataChanged": "",
-      "DisplayName": "",
+      "DisplayName": "Time",
       "IsRequired": false,
       "OnDataChanged": "",
       "Name": "RadzenDateTime",
       "TypeFullName": "Codeer.LowCode.Bindings.Radzen.Blazor.Designs.RadzenDateTimeFieldDesign"
-    },
-    {
-      "DbColumn": "",
-      "Placeholder": "",
-      "IsManualInput": false,
-      "CompositeIdVariables": [],
-      "CompositeIdSeparator": "",
-      "IsUpdateProtected": false,
-      "OnSearchDataChanged": "",
-      "DisplayName": "",
-      "IsRequired": false,
-      "OnDataChanged": "",
-      "Name": "RadzenId",
-      "TypeFullName": "Codeer.LowCode.Bindings.Radzen.Blazor.Designs.RadzenIdFieldDesign"
     },
     {
       "ButtonVariant": "Filled",
@@ -78,13 +64,7 @@
         "SortFieldVariable": "",
         "SortDescending": false,
         "SelectFields": [],
-        "ModuleName": "",
-        "Condition": {
-          "IsOrMatch": false,
-          "Children": [],
-          "Name": "",
-          "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
-        }
+        "ModuleName": "LinkData"
       },
       "ValueVariable": "",
       "DisplayTextVariable": "",
@@ -105,7 +85,7 @@
       "DbColumn": "",
       "IsUpdateProtected": false,
       "OnSearchDataChanged": "",
-      "DisplayName": "",
+      "DisplayName": "Number",
       "IsRequired": false,
       "OnDataChanged": "",
       "Name": "RadzenNumber",
@@ -126,7 +106,12 @@
       "TypeFullName": "Codeer.LowCode.Bindings.Radzen.Blazor.Designs.RadzenRadioButtonFieldDesign"
     },
     {
-      "Candidates": [],
+      "Candidates": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
       "SearchCondition": {
         "SortFieldVariable": "",
         "SortDescending": false,
@@ -146,7 +131,7 @@
       "AllowOrSearch": false,
       "IsUpdateProtected": false,
       "OnSearchDataChanged": "",
-      "DisplayName": "",
+      "DisplayName": "Select",
       "IsRequired": false,
       "OnDataChanged": "",
       "Name": "RadzenSelect",
@@ -158,7 +143,7 @@
       "Placeholder": "",
       "IsUpdateProtected": false,
       "OnSearchDataChanged": "",
-      "DisplayName": "",
+      "DisplayName": "Text",
       "IsRequired": false,
       "OnDataChanged": "",
       "Name": "RadzenText",
@@ -169,7 +154,7 @@
       "DbColumn": "",
       "IsUpdateProtected": false,
       "OnSearchDataChanged": "",
-      "DisplayName": "",
+      "DisplayName": "Time",
       "IsRequired": false,
       "OnDataChanged": "",
       "Name": "RadzenTime",
@@ -179,7 +164,7 @@
       "Variant": "Filled",
       "Color": "Primary",
       "UIType": "ToggleButton",
-      "Text": "Boolean",
+      "Text": "Toggle",
       "DbColumn": "",
       "IsUpdateProtected": false,
       "OnSearchDataChanged": "",
@@ -193,7 +178,7 @@
       "Variant": "Filled",
       "Color": "Primary",
       "UIType": "Switch",
-      "Text": "Boolean",
+      "Text": "Switch",
       "DbColumn": "",
       "IsUpdateProtected": false,
       "OnSearchDataChanged": "",
@@ -206,7 +191,7 @@
     {
       "RadzenVariant": "Flat",
       "Color": "Primary",
-      "Text": "Button",
+      "Text": "Flat",
       "Icon": "",
       "Variant": "Primary",
       "OnClick": "",
@@ -216,7 +201,7 @@
     {
       "RadzenVariant": "Outlined",
       "Color": "Primary",
-      "Text": "Button",
+      "Text": "Outlined",
       "Icon": "",
       "Variant": "Primary",
       "OnClick": "",
@@ -226,7 +211,7 @@
     {
       "RadzenVariant": "Text",
       "Color": "Primary",
-      "Text": "Button",
+      "Text": "Text",
       "Icon": "",
       "Variant": "Primary",
       "OnClick": "",
@@ -280,7 +265,7 @@
       "SearchLayoutName": "",
       "IsUpdateProtected": false,
       "OnSearchDataChanged": "",
-      "DisplayName": "",
+      "DisplayName": "Link",
       "IsRequired": false,
       "OnDataChanged": "",
       "Name": "RadzenLink1",
@@ -290,7 +275,7 @@
       "Variant": "Filled",
       "Color": "Primary",
       "IsUpdateProtected": false,
-      "DisplayName": "",
+      "DisplayName": "File",
       "ShowPreview": true,
       "StorageName": "Local",
       "DbColumnFileName": "",
@@ -301,6 +286,62 @@
       "OnSearchDataChanged": "",
       "Name": "RadzenFile",
       "TypeFullName": "Codeer.LowCode.Bindings.Radzen.Blazor.Designs.RadzenFileFieldDesign"
+    },
+    {
+      "Text": "",
+      "Style": "Default",
+      "RelativeField": "RadzenDate",
+      "Name": "RadzenDateLabel",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Text": "",
+      "Style": "Default",
+      "RelativeField": "RadzenDateTime",
+      "Name": "RadzenDateTimeLabel",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Text": "",
+      "Style": "Default",
+      "RelativeField": "RadzenNumber",
+      "Name": "RadzenNumberLabel",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Text": "",
+      "Style": "Default",
+      "RelativeField": "RadzenSelect",
+      "Name": "RadzenSelectLabel",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Text": "",
+      "Style": "Default",
+      "RelativeField": "RadzenText",
+      "Name": "RadzenTextLabel",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Text": "",
+      "Style": "Default",
+      "RelativeField": "RadzenTime",
+      "Name": "RadzenTimeLabel",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Text": "",
+      "Style": "Default",
+      "RelativeField": "RadzenLink1",
+      "Name": "RadzenLink1Label",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Text": "",
+      "Style": "Default",
+      "RelativeField": "RadzenFile",
+      "Name": "RadzenFileLabel",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
     }
   ],
   "UserWriteCondition": {
@@ -434,6 +475,20 @@
             "Columns": [
               {
                 "Layout": {
+                  "FieldName": "RadzenDateLabel",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Width": 100,
+                "Border": "None",
+                "VerticalAlignment": "Middle",
+                "CanResize": false
+              },
+              {
+                "Layout": {
                   "FieldName": "RadzenDate",
                   "FontFamily": "",
                   "Color": "",
@@ -450,6 +505,20 @@
             "IsWrap": false,
             "IsRowMarginRemoved": false,
             "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "RadzenDateTimeLabel",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Width": 100,
+                "Border": "None",
+                "VerticalAlignment": "Middle",
+                "CanResize": false
+              },
               {
                 "Layout": {
                   "FieldName": "RadzenDateTime",
@@ -470,22 +539,18 @@
             "Columns": [
               {
                 "Layout": {
-                  "FieldName": "RadzenId",
+                  "FieldName": "RadzenNumberLabel",
                   "FontFamily": "",
                   "Color": "",
                   "Name": "",
                   "IsViewOnly": false,
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
+                "Width": 100,
                 "Border": "None",
+                "VerticalAlignment": "Middle",
                 "CanResize": false
-              }
-            ]
-          },
-          {
-            "IsWrap": false,
-            "IsRowMarginRemoved": false,
-            "Columns": [
+              },
               {
                 "Layout": {
                   "FieldName": "RadzenNumber",
@@ -506,7 +571,149 @@
             "Columns": [
               {
                 "Layout": {
-                  "FieldName": "RadzenPassword",
+                  "FieldName": "RadzenSelectLabel",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Width": 100,
+                "Border": "None",
+                "VerticalAlignment": "Middle",
+                "CanResize": false
+              },
+              {
+                "Layout": {
+                  "FieldName": "RadzenSelect",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Border": "None",
+                "CanResize": false
+              }
+            ]
+          },
+          {
+            "IsWrap": false,
+            "IsRowMarginRemoved": false,
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "RadzenTextLabel",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Width": 100,
+                "Border": "None",
+                "VerticalAlignment": "Middle",
+                "CanResize": false
+              },
+              {
+                "Layout": {
+                  "FieldName": "RadzenText",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Border": "None",
+                "CanResize": false
+              }
+            ]
+          },
+          {
+            "IsWrap": false,
+            "IsRowMarginRemoved": false,
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "RadzenTimeLabel",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Width": 100,
+                "Border": "None",
+                "VerticalAlignment": "Middle",
+                "CanResize": false
+              },
+              {
+                "Layout": {
+                  "FieldName": "RadzenTime",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Border": "None",
+                "CanResize": false
+              }
+            ]
+          },
+          {
+            "IsWrap": false,
+            "IsRowMarginRemoved": false,
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "RadzenLink1Label",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Width": 100,
+                "Border": "None",
+                "VerticalAlignment": "Middle",
+                "CanResize": false
+              },
+              {
+                "Layout": {
+                  "FieldName": "RadzenLink1",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Border": "None",
+                "CanResize": false
+              }
+            ]
+          },
+          {
+            "IsWrap": false,
+            "IsRowMarginRemoved": false,
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "RadzenFileLabel",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Width": 100,
+                "Border": "None",
+                "VerticalAlignment": "Middle",
+                "CanResize": false
+              },
+              {
+                "Layout": {
+                  "FieldName": "RadzenFile",
                   "FontFamily": "",
                   "Color": "",
                   "Name": "",
@@ -531,6 +738,7 @@
                   "IsViewOnly": false,
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
+                "Width": 125,
                 "Border": "None",
                 "CanResize": false
               },
@@ -543,6 +751,7 @@
                   "IsViewOnly": false,
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
+                "Width": 125,
                 "Border": "None",
                 "CanResize": false
               },
@@ -566,79 +775,7 @@
             "Columns": [
               {
                 "Layout": {
-                  "FieldName": "RadzenSelect",
-                  "FontFamily": "",
-                  "Color": "",
-                  "Name": "",
-                  "IsViewOnly": false,
-                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                },
-                "Border": "None",
-                "CanResize": false
-              }
-            ]
-          },
-          {
-            "IsWrap": false,
-            "IsRowMarginRemoved": false,
-            "Columns": [
-              {
-                "Layout": {
-                  "FieldName": "RadzenText",
-                  "FontFamily": "",
-                  "Color": "",
-                  "Name": "",
-                  "IsViewOnly": false,
-                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                },
-                "Border": "None",
-                "CanResize": false
-              }
-            ]
-          },
-          {
-            "IsWrap": false,
-            "IsRowMarginRemoved": false,
-            "Columns": [
-              {
-                "Layout": {
-                  "FieldName": "RadzenTime",
-                  "FontFamily": "",
-                  "Color": "",
-                  "Name": "",
-                  "IsViewOnly": false,
-                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                },
-                "Border": "None",
-                "CanResize": false
-              }
-            ]
-          },
-          {
-            "IsWrap": false,
-            "IsRowMarginRemoved": false,
-            "Columns": [
-              {
-                "Layout": {
-                  "FieldName": "RadzenLink1",
-                  "FontFamily": "",
-                  "Color": "",
-                  "Name": "",
-                  "IsViewOnly": false,
-                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                },
-                "Border": "None",
-                "CanResize": false
-              }
-            ]
-          },
-          {
-            "IsWrap": false,
-            "IsRowMarginRemoved": false,
-            "Columns": [
-              {
-                "Layout": {
-                  "FieldName": "RadzenFile",
+                  "FieldName": "RadzenPassword",
                   "FontFamily": "",
                   "Color": "",
                   "Name": "",
