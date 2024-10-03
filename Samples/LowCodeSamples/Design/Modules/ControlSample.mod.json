@@ -85,6 +85,7 @@
       "UIType": "CheckBox",
       "Text": "CheckBox",
       "DbColumn": "",
+      "IsUpdateProtected": false,
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
@@ -96,6 +97,7 @@
       "UIType": "ToggleButton",
       "Text": "Toggle",
       "DbColumn": "",
+      "IsUpdateProtected": false,
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
@@ -107,6 +109,7 @@
       "UIType": "Switch",
       "Text": "Switch",
       "DbColumn": "",
+      "IsUpdateProtected": false,
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
@@ -146,6 +149,7 @@
     {
       "Format": "",
       "DbColumn": "",
+      "IsUpdateProtected": false,
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
@@ -164,6 +168,7 @@
       "SaveAsUtc": false,
       "Format": "",
       "DbColumn": "",
+      "IsUpdateProtected": false,
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
@@ -172,6 +177,7 @@
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.DateTimeFieldDesign"
     },
     {
+      "IsUpdateProtected": false,
       "DisplayName": "",
       "ShowPreview": false,
       "StorageName": "",
@@ -185,19 +191,11 @@
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FileFieldDesign"
     },
     {
-      "DbColumn": "",
-      "OnSearchDataChanged": "",
-      "DisplayName": "",
-      "IsRequired": false,
-      "OnDataChanged": "",
-      "Name": "ModuleSelect",
-      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ModuleSelectFieldDesign"
-    },
-    {
       "ModuleName": "Author",
       "LayoutName": "",
       "OnDataChanged": "",
       "DbColumn": "",
+      "IsUpdateProtected": false,
       "Name": "Module",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ModuleFieldDesign"
     },
@@ -219,6 +217,7 @@
       "DbColumn": "",
       "ListLayoutName": "",
       "SearchLayoutName": "",
+      "IsUpdateProtected": false,
       "OnSearchDataChanged": "",
       "DisplayName": "リンク",
       "IsRequired": false,
@@ -230,6 +229,7 @@
       "DbColumn": "",
       "IsMultiline": false,
       "Placeholder": "",
+      "IsUpdateProtected": false,
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
@@ -250,6 +250,7 @@
       "Min": 3,
       "Format": "",
       "DbColumn": "",
+      "IsUpdateProtected": false,
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": true,
@@ -300,7 +301,7 @@
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.RadioButtonFieldDesign"
     },
     {
-      "ListFieldName": "著者List",
+      "ResultsViewFieldName": "著者List",
       "LayoutName": "",
       "Name": "Search",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.SearchFieldDesign"
@@ -331,6 +332,8 @@
       "DisplayTextVariable": "",
       "DbColumn": "",
       "EmptyCandidateType": "StringEmpty",
+      "AllowOrSearch": false,
+      "IsUpdateProtected": false,
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
@@ -349,6 +352,7 @@
       "IsMultiline": false,
       "Placeholder": "Placeholder",
       "MaxLength": 12,
+      "IsUpdateProtected": false,
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
@@ -359,6 +363,7 @@
     {
       "SaveAsUtc": false,
       "DbColumn": "",
+      "IsUpdateProtected": false,
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
@@ -381,70 +386,6 @@
       "OnDataChanged": "",
       "Name": "ColorPicker",
       "TypeFullName": "Design.Samples.ColorPicker.ColorPickerFieldDesign"
-    },
-    {
-      "CanNavigateToDetail": false,
-      "Height": "500px",
-      "DisplayName": "",
-      "SearchCondition": {
-        "SortFieldVariable": "",
-        "SortDescending": false,
-        "SelectFields": [],
-        "ModuleName": "",
-        "Condition": {
-          "IsOrMatch": false,
-          "Children": [],
-          "Name": "",
-          "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
-        }
-      },
-      "LayoutName": "",
-      "PagerPosition": "Bottom",
-      "UseIndexSort": false,
-      "DeleteTogether": false,
-      "CanCreate": false,
-      "CanUpdate": false,
-      "CanDelete": false,
-      "CanSelect": false,
-      "OnDataChanged": "",
-      "OnSearchDataChanged": "",
-      "OnSelectedIndexChanged": "",
-      "OnSelectedIndexChanging": "",
-      "Name": "IgbGrid",
-      "TypeFullName": "LowCodeSamples.Client.Shared.Fields.IgbGridFieldDesign"
-    },
-    {
-      "Keys": [],
-      "XAxisTitle": "",
-      "YAxisTitle": "",
-      "Height": "500px",
-      "DisplayName": "",
-      "SearchCondition": {
-        "SortFieldVariable": "",
-        "SortDescending": false,
-        "SelectFields": [],
-        "ModuleName": "",
-        "Condition": {
-          "IsOrMatch": false,
-          "Children": [],
-          "Name": "",
-          "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
-        }
-      },
-      "LayoutName": "",
-      "PagerPosition": "Bottom",
-      "UseIndexSort": false,
-      "DeleteTogether": false,
-      "CanCreate": false,
-      "CanUpdate": false,
-      "CanDelete": false,
-      "CanSelect": false,
-      "OnDataChanged": "",
-      "OnSearchDataChanged": "",
-      "OnSelectedIndexChanged": "",
-      "OnSelectedIndexChanging": "",
-      "Name": "IgbLineChart",
-      "TypeFullName": "LowCodeSamples.Client.Shared.Fields.IgbLineChartFieldDesign"
     },
     {
       "Text": "Search",
@@ -563,13 +504,6 @@
       "Style": "H4",
       "RelativeField": "セレクト",
       "Name": "セレクトLabel",
-      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
-    },
-    {
-      "Text": "",
-      "Style": "H4",
-      "RelativeField": "ModuleSelect",
-      "Name": "ModuleSelectLabel",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
     },
     {
@@ -1708,7 +1642,7 @@
                                 "Columns": [
                                   {
                                     "Layout": {
-                                      "FieldName": "ModuleSelect",
+                                      "FieldName": "",
                                       "FontFamily": "",
                                       "Color": "",
                                       "Name": "",
