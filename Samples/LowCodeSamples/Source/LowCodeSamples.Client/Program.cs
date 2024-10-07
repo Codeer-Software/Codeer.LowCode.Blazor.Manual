@@ -1,7 +1,6 @@
-using Codeer.LowCode.Bindings.MudBlazor.Designs;
-using Codeer.LowCode.Bindings.Radzen.Blazor.Designs;
+using Codeer.LowCode.Bindings.MudBlazor.Installer;
+using Codeer.LowCode.Bindings.Radzen.Blazor.Installer;
 using Codeer.LowCode.Blazor.RequestInterfaces;
-using Heron.MudCalendar;
 using IgniteUI.Blazor.Controls;
 using LowCodeSamples.Client;
 using LowCodeSamples.Client.Shared;
@@ -15,12 +14,8 @@ using Radzen;
 
 //load dll.
 typeof(ColorPickerField).ToString();
-typeof(MudBlazor.Variant).ToString();
-typeof(MudTextFieldDesign).ToString();
-typeof(MudCalendar).ToString();
-typeof(Radzen.Variant).ToString();
-typeof(RadzenTextFieldDesign).ToString();
-new MudChart();
+MudBlazorLoader.LoadAssemblies();
+RadzenLoader.LoadAssemblies();
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");

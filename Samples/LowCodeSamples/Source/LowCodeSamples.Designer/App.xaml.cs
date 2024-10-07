@@ -13,6 +13,7 @@ using Codeer.LowCode.Bindings.Radzen.Blazor.Designs;
 using IgniteUI.Blazor.Controls;
 using MudBlazor.Services;
 using Radzen;
+using Codeer.LowCode.Bindings.Radzen.Blazor.Installer;
 
 namespace LowCodeSamples.Designer
 {
@@ -20,6 +21,9 @@ namespace LowCodeSamples.Designer
   {
     protected override void OnStartup(StartupEventArgs e)
     {
+      MudBlazorLoader.LoadAssemblies();
+      RadzenLoader.LoadAssemblies();
+
       Codeer.LowCode.Blazor.License.LicenseManager.IsAutoUpdate = bool.TryParse(ConfigurationManager.AppSettings["IsLicenseAutoUpdate"], out var val) ? val : true;
 
       Services.AddSingleton<IDbAccessorFactory, DbAccessorFactory>();
