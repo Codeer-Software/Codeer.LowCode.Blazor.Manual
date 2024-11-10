@@ -43,7 +43,7 @@ namespace LowCodeSamples.Client.Shared
             var formDesignName = field.Design.SearchCondition.ModuleName;
             if (string.IsNullOrEmpty(formDesignName)) return new();
 
-            var module = services.AppInfoService.GetDesignData().Modules.FirstOrDefault(e => e.Name == formDesignName);
+            var module = services.AppInfoService.GetDesignData().Modules.Find(formDesignName);
             if (module == null) return new();
 
             var ret = new List<Dictionary<string, object?>>();

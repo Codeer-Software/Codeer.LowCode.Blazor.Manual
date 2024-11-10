@@ -34,7 +34,7 @@ namespace LowCodeSamples.Server.Services
 
     protected override async Task<string> AddAsync(Guid transactionId, Guid moduleSubmitId, ModuleData data)
     {
-      var moduleDesign = _designData.Modules.FirstOrDefault(e => e.Name == data.Name);
+      var moduleDesign = _designData.Modules.Find(data.Name);
       if (moduleDesign == null) throw LowCodeException.Create("invalid design");
 
       var id = await base.AddAsync(transactionId, moduleSubmitId, data);
@@ -55,7 +55,7 @@ namespace LowCodeSamples.Server.Services
 
     protected async override Task UpdateAsync(Guid transactionId, Guid moduleSubmitId, ModuleData data)
     {
-      var moduleDesign = _designData.Modules.FirstOrDefault(e => e.Name == data.Name);
+      var moduleDesign = _designData.Modules.Find(data.Name);
       if (moduleDesign == null) throw LowCodeException.Create("invalid design");
 
       var id = data.Fields.TryGetValue(SystemFieldNames.Id, out var field) ? (field as IdFieldData)?.Value ?? string.Empty : string.Empty;
@@ -76,7 +76,7 @@ namespace LowCodeSamples.Server.Services
 
     protected async override Task DeleteAsync(Guid transactionId, Guid moduleSubmitId, ModuleDeleteInfo moduleDeleteInfo)
     {
-      var moduleDesign = _designData.Modules.FirstOrDefault(e => e.Name == moduleDeleteInfo.ModuleName);
+      var moduleDesign = _designData.Modules.Find(moduleDeleteInfo.ModuleName);
       if (moduleDesign == null) throw LowCodeException.Create("invalid design");
 
       await _dataChangeHistory.AddDataChangeHistory(moduleDesign.DataSourceName, new ModuleDataChangeHistoryRecord()
