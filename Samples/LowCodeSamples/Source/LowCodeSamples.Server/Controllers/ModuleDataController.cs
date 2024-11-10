@@ -36,10 +36,10 @@ namespace LowCodeSamples.Server.Controllers
         => new ValueWrapper<bool>(SystemConfig.Instance.UseHotReload);
 
     [HttpGet("design")]
-    public async Task<DesignData> GetDesignData()
+    public async Task<IActionResult> GetDesignData()
     {
       await _moduleDataIO.CheckAppAuthorization();
-      return DesignerService.GetDesignDataForFront();
+      return File(DesignerService.GetDesignDataForFront(await _moduleDataIO.GetCurrentUser()), "application/octet-stream");
     }
 
     [HttpPost("list")]

@@ -38,5 +38,13 @@ namespace LowCodeSamples.Client.Shared.Services
 
         public string GetCurrentPageFrame()
             => _navigationManager.Uri.Substring(_navigationManager.BaseUri.Length).Split('/').FirstOrDefault() ?? string.Empty;
-    }
+  }
+
+  public class PageLinkUrlResolver : IPageLinkUrlResolver
+  {
+    public string GetModuleUrl(string currentPageFrame, PageLink pageLink)
+        => string.IsNullOrEmpty(pageLink.PageFrame) ?
+            $"/{currentPageFrame}/{pageLink.Module}" :
+            $"/{pageLink.PageFrame}/{pageLink.Module}";
+  }
 }

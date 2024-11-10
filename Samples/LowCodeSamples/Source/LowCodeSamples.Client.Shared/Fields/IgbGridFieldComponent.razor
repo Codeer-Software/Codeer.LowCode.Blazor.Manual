@@ -60,7 +60,7 @@ else
 
         var formDesignName = Field.Design.SearchCondition.ModuleName;
         if (!string.IsNullOrEmpty(formDesignName))
-            ModuleDesign = Services.AppInfoService.GetDesignData().Modules.FirstOrDefault(e => e.Name == formDesignName);
+            ModuleDesign = Services.AppInfoService.GetDesignData().Modules.Find(formDesignName);
 
         Field.SetStateChangedReceiver(StateHasChanged);
         _data = Field.GetListData(Services, Field.LayoutName);
