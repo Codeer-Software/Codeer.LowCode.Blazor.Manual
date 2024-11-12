@@ -1,7 +1,7 @@
 
 # ダブルリストサンプル
 
-## 実現する効果
+## 完成イメージ
 RecipeとCooking Step　2つのリストがあります。
 
 Recipeの項目を選択しますと、選択されたRecipeのCookingリストが表示されます。
@@ -14,14 +14,14 @@ Recipeの項目を選択しますと、選択されたRecipeのCookingリスト�
 - RecipeとCooking Stepのモジュールが存在する
 
 ## 1. [デザイナ](../designer/designer.md)フィールドプロパティ設定
-### Recipe Listの設定
+### 1-1. Recipe Listの設定
 <img width=800 src="../../Image/DoubleLists_Recipe_List.png">
 
-### Cooking Step Listの設定
+### 1-2. Cooking Step Listの設定
 <img width=800 src="../../Image/DoubleLists_CookingStep_List.png">
 
 ## 2. [Script](../overview/script.md)を追加
-### モジュール全体のスクリプト
+### 2-1. モジュール全体のスクリプト
 <img width=800 src="../../Image/DoubleLists_Module_Property.png">
 
 ```csharp
@@ -33,7 +33,7 @@ void DetailLayoutDesign_OnBeforeInitialization()
 }
 ```
 
-### Recipe リストのスクリプト
+### 2-2. Recipe リストのスクリプト
 1. デザイナでRecipeリストをクリックします
 2. 右側の**プロパティパネル** → **OnSelectedIndexChanged**項目でOnSelectedIndexChangedイベントを作成します
 3. Script編集Windowで以下のコードを追加します
