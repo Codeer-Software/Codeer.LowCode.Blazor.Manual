@@ -76,7 +76,7 @@ Visual Studio拡張機能を使用してプロジェクトを作成できます�
 
 [Codeer.LowCode.Blazor.Templates](https://marketplace.visualstudio.com/items?itemName=Codeer.LowCodeBlazor)
 
-### ご購入、その他お問合せは[こちら](https://www.codeer.co.jp/LowCode)からお願いします。
+### ご購入、その他お問合せは[こちら](https://www.codeer.co.jp/LowCode)からお願いします
 
 ## Getting Started
 ### Step1
