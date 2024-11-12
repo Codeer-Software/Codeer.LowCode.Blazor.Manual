@@ -8,19 +8,19 @@ Recipeの項目を選択しますと、選択されたRecipeのCookingリスト�
 <img width=600 src="../../Image/DoubleLists.gif">
 
 
-## サンプル環境
-このサンプルは以下の環境にて作成されています。
+## 0. サンプル環境
+このサンプルを実行するには以下の環境が必要です：
 - Codeer.LowCode.Blazor DesignerのGettingStartedテンプレートでデザイナプロジェクトを作成されている
 - RecipeとCooking Stepのモジュールが存在する
 
-## デザイナフィールドプロパティ設定
+## 1. [デザイナ](../designer/designer.md)フィールドプロパティ設定
 ### Recipe Listの設定
 <img width=800 src="../../Image/DoubleLists_Recipe_List.png">
 
 ### Cooking Step Listの設定
 <img width=800 src="../../Image/DoubleLists_CookingStep_List.png">
 
-## [Script](../overview/script.md)を追加
+## 2. [Script](../overview/script.md)を追加
 ### モジュール全体のスクリプト
 <img width=800 src="../../Image/DoubleLists_Module_Property.png">
 
@@ -54,3 +54,9 @@ void ListRecipe_OnSelectedIndexChanged()
     ListCookingStep.Reload();
 }
 ```
+
+## 参考情報： 関連するページ
+- [デザイナ](../designer/designer.md)
+- [Module](../module/module.md)
+- [Field](../fields/field.md)
+- [Script](../overview/script.md)
