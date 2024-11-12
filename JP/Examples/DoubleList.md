@@ -21,7 +21,7 @@ Recipeの項目を選択しますと、選択されたRecipeのCookingリスト�
 <img width=800 src="../../Image/DoubleLists_CookingStep_List.png">
 
 ## [Script](../overview/script.md)を追加
-## モジュール全体のスクリプト
+### モジュール全体のスクリプト
 <img width=800 src="../../Image/DoubleLists_Module_Property.png">
 
 ```csharp
@@ -33,7 +33,7 @@ void DetailLayoutDesign_OnBeforeInitialization()
 }
 ```
 
-## Recipe リストのスクリプト
+### Recipe リストのスクリプト
 1. デザイナでRecipeリストをクリックします
 2. 右側の**プロパティパネル** → **OnSelectedIndexChanged**項目でOnSelectedIndexChangedイベントを作成します
 3. Script編集Windowで以下のコードを追加します
