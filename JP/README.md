@@ -128,7 +128,7 @@ BlazorアプリとWPFのデザイナアプリをビルドして起動
         - [IgniteUI]()
 - [サンプル・チュートリアル]()
     - [サンプルギャラリー](https://lowcodedemo.azurewebsites.net/)
-    - [ダブルリスト](Examples/DoubleList.md)
+    - [リストの連携](Examples/DoubleList.md)
 - [リリースノート]()
     - [破壊的変更](breaking_changes/breaking_changes.md)
 - [Q&A]()
