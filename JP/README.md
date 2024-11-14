@@ -91,14 +91,17 @@ BlazorアプリとWPFのデザイナアプリをビルドして起動
 
 ### Step3
 デザイナーで新しいプロジェクトを作成します。サンプルを含むプロジェクトが作成されます。
+
 <img width=800 src="../Image/step3.png">
 
 ### Step4
 それをWebアプリにデプロイします。画面がホットリロードされ、デザイナーの設定に従って画面が表示されます。
+
 <img width=800 src="../Image/step4.png">
 
 ### Step5
 デザイナーの設定を確認し、小さな変更を加えてWebアプリに送信して、感覚をつかんでください。
+
 <img width=1200 src="../Image/PartsOverView.png">
 
 
@@ -110,7 +113,7 @@ BlazorアプリとWPFのデザイナアプリをビルドして起動
     - [デザイナ](designer/designer.md)
         - [Module](module/module.md)
             - [Field](fields/field.md)
-            - [Document Outline](module/DocumentOutline.md)
+            - [Document OutlineとPropertyパネル](module/DocumentOutline.md)
         - [データモデルとModule](data_model/data-model.md)
         - [PageFrame](designer/page_frame.md)
         - [app.clprj](designer/app_clprj.md)
@@ -127,8 +130,9 @@ BlazorアプリとWPFのデザイナアプリをビルドして起動
         - [MudBlazor]()
         - [Radzen.Blazor]()
         - [IgniteUI]()
-- [サンプル・チュートリアル]()
+- [サンプル・Tips]()
     - [サンプルギャラリー](https://lowcodedemo.azurewebsites.net/)
+    - [TextFieldを読み取り専用にする](Examples/Tips_IsViewOnly.md)
     - [リストの連携](Examples/DoubleList.md)
 - [リリースノート]()
     - [破壊的変更](breaking_changes/breaking_changes.md)
