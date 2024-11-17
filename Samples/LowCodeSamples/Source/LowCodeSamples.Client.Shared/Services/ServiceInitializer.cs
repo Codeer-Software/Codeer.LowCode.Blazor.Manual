@@ -2,6 +2,7 @@ using Codeer.LowCode.Blazor.Components.AppParts.Loading;
 using Codeer.LowCode.Blazor.Components.AppParts.PageFrame;
 using Codeer.LowCode.Blazor.Components.Dialog;
 using Codeer.LowCode.Blazor.RequestInterfaces;
+using LowCodeSamples.Client.Shared.AITextAnalyzer;
 using Microsoft.Extensions.DependencyInjection;
 using Sotsera.Blazor.Toaster.Core.Models;
 using System.Globalization;
@@ -31,6 +32,7 @@ namespace LowCodeSamples.Client.Shared.Services
             });
             services.AddScoped<ToasterEx>();
             services.AddScoped<HttpService>();
+            services.AddScoped<IAITextAnalyzerCore, AITextAnalyzerCore>();
 
             var cultureName = CultureInfo.CurrentCulture.Name;
             if (cultureName == "ja") cultureName = "ja-JP";

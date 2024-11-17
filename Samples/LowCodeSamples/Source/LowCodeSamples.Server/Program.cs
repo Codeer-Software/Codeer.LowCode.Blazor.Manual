@@ -11,6 +11,7 @@ using System.Text.Json.Serialization;
 using Heron.MudCalendar;
 using Codeer.LowCode.Bindings.MudBlazor.Installer;
 using Codeer.LowCode.Bindings.Radzen.Blazor.Installer;
+using LowCodeSamples.Server.Services.AI;
 
 //load dll.
 typeof(ColorPickerField).ToString();
@@ -31,6 +32,7 @@ SystemConfig.Instance.DataChangeHistoryTableInfo = builder.Configuration.GetSect
 SystemConfig.Instance.TemporaryFileTableInfo = builder.Configuration.GetSection("TemporaryFileTableInfo").Get<TemporaryFileTableInfo[]>() ?? [];
 SystemConfig.Instance.DesignFileDirectory = builder.Configuration["DesignFileDirectory"] ?? string.Empty;
 SystemConfig.Instance.FontFileDirectory = builder.Configuration["FontFileDirectory"] ?? string.Empty;
+SystemConfig.Instance.AISettings = builder.Configuration.GetSection("AISettings").Get<AISettings>() ?? new();
 SystemConfig.Instance.DataSources.ToList().ForEach(e => e.ConnectionString = builder.Configuration.GetConnectionString(e.Name) ?? string.Empty);
 SystemConfig.Instance.FileStorages.ToList().ForEach(e => e.ConnectionString = builder.Configuration.GetConnectionString(e.Name) ?? string.Empty);
 
@@ -40,27 +42,29 @@ builder.Services.AddRazorPages();
 builder.Services.AddControllers()
       .AddJsonOptions(options =>
       {
-        options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
-        options.JsonSerializerOptions.Converters.AddJsonConverters();
+          options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+          options.JsonSerializerOptions.Converters.AddJsonConverters();
       });
 
 if (SystemConfig.Instance.UseHotReload)
 {
-  builder.Services.AddSignalR();
-  builder.Services.AddHostedService<FileWatcherService>();
+    builder.Services.AddSignalR();
+    builder.Services.AddHostedService<FileWatcherService>();
 }
 
 //Localize
 builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 builder.Services.Configure<RequestLocalizationOptions>(options =>
 {
-  var supportedCultures = new[]
-  {
+    var supportedCultures = new[]
+    {
         new CultureInfo("ja-JP")
     };
-  options.SupportedCultures = supportedCultures;
-  options.SupportedUICultures = supportedCultures;
+    options.SupportedCultures = supportedCultures;
+    options.SupportedUICultures = supportedCultures;
 });
+
+builder.Services.AddScoped<DataService>();
 
 var app = builder.Build();
 
@@ -69,13 +73,13 @@ app.UseRequestLocalization();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-  app.UseWebAssemblyDebugging();
+    app.UseWebAssemblyDebugging();
 }
 else
 {
-  app.UseExceptionHandler("/Error");
-  // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-  app.UseHsts();
+    app.UseExceptionHandler("/Error");
+    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+    app.UseHsts();
 }
 
 app.UseHttpsRedirection();
@@ -87,7 +91,7 @@ app.UseRouting();
 
 if (SystemConfig.Instance.UseHotReload)
 {
-  app.MapHub<HotReloadHub>("/hot_reload_hub");
+    app.MapHub<HotReloadHub>("/hot_reload_hub");
 }
 
 app.MapRazorPages();
