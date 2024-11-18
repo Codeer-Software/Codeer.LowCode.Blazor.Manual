@@ -39,7 +39,10 @@ namespace LowCodeSamples.Server.Controllers
 
         [HttpPost]
         public async Task<List<ModuleSubmitResult>> SubmitAsync(List<ModuleSubmitData>? data)
-            => await _dataService.ModuleDataIO.SubmitWithTransactionAsync(data!);
+        {
+            if (!SystemConfig.Instance.CanUpdate) throw new Exception("デモ用のためデータの更新はできません");
+            return await _dataService.ModuleDataIO.SubmitWithTransactionAsync(data!);
+        }
 
         [HttpPost("excel_download")]
         public async Task<IActionResult> ExcelDownloadFileAsync(SearchCondition? condition)
@@ -48,6 +51,7 @@ namespace LowCodeSamples.Server.Controllers
         [HttpPost("excel_upload")]
         public async Task<List<ModuleSubmitResult>> ExcelUploadFileAsync(string? moduleName)
         {
+            if (!SystemConfig.Instance.CanUpdate) throw new Exception("デモ用のためデータの更新はできません");
             var texts = await ExcelUtils.ReadAllTextsFromExcelBinary(Request.Body);
             if (500 < texts.Count) throw LowCodeException.Create("Excel has a maximum of 500 rows");
             return await _dataService.ModuleDataIO.SubmitWithTransactionByTableTextsAsync(moduleName, texts);
@@ -68,6 +72,7 @@ namespace LowCodeSamples.Server.Controllers
         [HttpPost("upload")]
         public async Task<Codeer.LowCode.Blazor.DataIO.FileInfo> UploadFileAsync(string? moduleName, string? fieldName, string? fileName)
         {
+            if (!SystemConfig.Instance.CanUpdate) throw new Exception("デモ用のためデータの更新はできません");
             var info = _dataService.ModuleDataIO.FileFieldDataIO.GetFileSaveInfo(moduleName ?? string.Empty, fieldName ?? string.Empty);
             return await _dataService.TemporaryFileManager.AddFileAsync(info, fileName, Request.Body);
         }
