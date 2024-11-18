@@ -9,6 +9,7 @@
   "CanDelete": true,
   "CanBulkDataUpdate": true,
   "CanBulkDataDownload": true,
+  "UseListPageSubmitButton": false,
   "Fields": [
     {
       "DbColumn": "id",
@@ -16,6 +17,7 @@
       "IsManualInput": false,
       "CompositeIdVariables": [],
       "CompositeIdSeparator": "",
+      "IsUpdateProtected": false,
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
@@ -27,6 +29,7 @@
       "DbColumn": "email",
       "IsMultiline": false,
       "Placeholder": "",
+      "IsUpdateProtected": false,
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
@@ -38,6 +41,7 @@
       "DbColumn": "full_name",
       "IsMultiline": false,
       "Placeholder": "",
+      "IsUpdateProtected": false,
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
@@ -49,6 +53,7 @@
       "DbColumn": "profile",
       "IsMultiline": true,
       "Placeholder": "",
+      "IsUpdateProtected": false,
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
@@ -66,6 +71,8 @@
     {
       "Text": "Submit",
       "Icon": "",
+      "Variant": "Primary",
+      "IsBlock": true,
       "Name": "SubmitButton",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.SubmitButtonFieldDesign"
     },
@@ -135,6 +142,7 @@
                   "IsViewOnly": false,
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
+                "Border": "None",
                 "HorizontalAlignment": "Center",
                 "CanResize": false
               }
@@ -154,6 +162,7 @@
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
                 "Width": 110,
+                "Border": "None",
                 "VerticalAlignment": "Middle",
                 "CanResize": false
               },
@@ -166,6 +175,7 @@
                   "IsViewOnly": false,
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
+                "Border": "None",
                 "CanResize": false
               }
             ]
@@ -184,6 +194,7 @@
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
                 "Width": 110,
+                "Border": "None",
                 "VerticalAlignment": "Middle",
                 "CanResize": false
               },
@@ -196,6 +207,7 @@
                   "IsViewOnly": false,
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
+                "Border": "None",
                 "CanResize": false
               }
             ]
@@ -214,6 +226,7 @@
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
                 "Width": 110,
+                "Border": "None",
                 "VerticalAlignment": "Middle",
                 "CanResize": false
               },
@@ -226,6 +239,7 @@
                   "IsViewOnly": false,
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
+                "Border": "None",
                 "CanResize": false
               }
             ]
@@ -243,6 +257,7 @@
                   "IsViewOnly": false,
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
+                "Border": "None",
                 "HorizontalAlignment": "Center",
                 "CanResize": false
               }
@@ -351,6 +366,7 @@
                             "IsViewOnly": false,
                             "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                           },
+                          "Border": "None",
                           "VerticalAlignment": "Bottom",
                           "CanResize": false
                         }
@@ -369,6 +385,7 @@
                             "IsViewOnly": false,
                             "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                           },
+                          "Border": "None",
                           "CanResize": false
                         }
                       ]
@@ -377,9 +394,11 @@
                   "IsViewOnly": false,
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
                 },
+                "Border": "None",
                 "CanResize": false
               },
               {
+                "Border": "None",
                 "CanResize": false
               }
             ]
@@ -401,6 +420,7 @@
       "SelectFields": [],
       "ModuleName": ""
     },
+    "PagerPosition": "Bottom",
     "UseIndexSort": false,
     "DeleteTogether": false,
     "CanCreate": false,
