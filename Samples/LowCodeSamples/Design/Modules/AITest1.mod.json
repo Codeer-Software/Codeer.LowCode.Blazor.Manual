@@ -160,6 +160,21 @@
       "OnDataChanged": "",
       "Name": "IsMVP",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.BooleanFieldDesign"
+    },
+    {
+      "Text": "名刺",
+      "Style": "H2",
+      "RelativeField": "",
+      "Name": "TitleLabel",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Text": "Clear",
+      "Icon": "",
+      "Variant": "OutlineSecondary",
+      "OnClick": "ClearButton_OnClick",
+      "Name": "ClearButton",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ButtonFieldDesign"
     }
   ],
   "UserWriteCondition": {
@@ -195,216 +210,45 @@
             "Columns": [
               {
                 "Layout": {
+                  "FieldName": "TitleLabel",
+                  "FontFamily": "",
+                  "Color": "",
                   "Name": "",
-                  "IsBordered": false,
-                  "IsFlowLayout": false,
-                  "IsFillAvailable": false,
-                  "IsExpandable": false,
-                  "ExpanderLabel": "",
-                  "IsExpanderDefaultOpened": false,
-                  "Rows": [
-                    {
-                      "IsWrap": false,
-                      "IsRowMarginRemoved": true,
-                      "Columns": [
-                        {
-                          "Layout": {
-                            "FieldName": "NameLabel",
-                            "FontFamily": "",
-                            "Color": "",
-                            "Name": "",
-                            "IsViewOnly": false,
-                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                          },
-                          "Border": "None",
-                          "VerticalAlignment": "Bottom",
-                          "CanResize": false
-                        }
-                      ]
-                    },
-                    {
-                      "IsWrap": false,
-                      "IsRowMarginRemoved": false,
-                      "Columns": [
-                        {
-                          "Layout": {
-                            "FieldName": "Name",
-                            "FontFamily": "",
-                            "Color": "",
-                            "Name": "",
-                            "IsViewOnly": false,
-                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                          },
-                          "Border": "None",
-                          "CanResize": false
-                        }
-                      ]
-                    }
-                  ],
                   "IsViewOnly": false,
-                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
                 "Border": "None",
+                "HorizontalAlignment": "Center",
+                "CanResize": false
+              }
+            ]
+          },
+          {
+            "IsWrap": false,
+            "IsRowMarginRemoved": false,
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "CompanyLabel",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Width": 110,
+                "Border": "None",
+                "VerticalAlignment": "Middle",
                 "CanResize": false
               },
               {
                 "Layout": {
+                  "FieldName": "Company",
+                  "FontFamily": "",
+                  "Color": "",
                   "Name": "",
-                  "IsBordered": false,
-                  "IsFlowLayout": false,
-                  "IsFillAvailable": false,
-                  "IsExpandable": false,
-                  "ExpanderLabel": "",
-                  "IsExpanderDefaultOpened": false,
-                  "Rows": [
-                    {
-                      "IsWrap": false,
-                      "IsRowMarginRemoved": true,
-                      "Columns": [
-                        {
-                          "Layout": {
-                            "FieldName": "CompanyLabel",
-                            "FontFamily": "",
-                            "Color": "",
-                            "Name": "",
-                            "IsViewOnly": false,
-                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                          },
-                          "Border": "None",
-                          "VerticalAlignment": "Bottom",
-                          "CanResize": false
-                        }
-                      ]
-                    },
-                    {
-                      "IsWrap": false,
-                      "IsRowMarginRemoved": false,
-                      "Columns": [
-                        {
-                          "Layout": {
-                            "FieldName": "Company",
-                            "FontFamily": "",
-                            "Color": "",
-                            "Name": "",
-                            "IsViewOnly": false,
-                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                          },
-                          "Border": "None",
-                          "CanResize": false
-                        }
-                      ]
-                    }
-                  ],
                   "IsViewOnly": false,
-                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
-                },
-                "Border": "None",
-                "CanResize": false
-              },
-              {
-                "Layout": {
-                  "Name": "",
-                  "IsBordered": false,
-                  "IsFlowLayout": false,
-                  "IsFillAvailable": false,
-                  "IsExpandable": false,
-                  "ExpanderLabel": "",
-                  "IsExpanderDefaultOpened": false,
-                  "Rows": [
-                    {
-                      "IsWrap": false,
-                      "IsRowMarginRemoved": true,
-                      "Columns": [
-                        {
-                          "Layout": {
-                            "FieldName": "PostLabel",
-                            "FontFamily": "",
-                            "Color": "",
-                            "Name": "",
-                            "IsViewOnly": false,
-                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                          },
-                          "Border": "None",
-                          "VerticalAlignment": "Bottom",
-                          "CanResize": false
-                        }
-                      ]
-                    },
-                    {
-                      "IsWrap": false,
-                      "IsRowMarginRemoved": false,
-                      "Columns": [
-                        {
-                          "Layout": {
-                            "FieldName": "Post",
-                            "FontFamily": "",
-                            "Color": "",
-                            "Name": "",
-                            "IsViewOnly": false,
-                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                          },
-                          "Border": "None",
-                          "CanResize": false
-                        }
-                      ]
-                    }
-                  ],
-                  "IsViewOnly": false,
-                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
-                },
-                "Border": "None",
-                "CanResize": false
-              },
-              {
-                "Layout": {
-                  "Name": "",
-                  "IsBordered": false,
-                  "IsFlowLayout": false,
-                  "IsFillAvailable": false,
-                  "IsExpandable": false,
-                  "ExpanderLabel": "",
-                  "IsExpanderDefaultOpened": false,
-                  "Rows": [
-                    {
-                      "IsWrap": false,
-                      "IsRowMarginRemoved": true,
-                      "Columns": [
-                        {
-                          "Layout": {
-                            "FieldName": "EMailLabel",
-                            "FontFamily": "",
-                            "Color": "",
-                            "Name": "",
-                            "IsViewOnly": false,
-                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                          },
-                          "Border": "None",
-                          "VerticalAlignment": "Bottom",
-                          "CanResize": false
-                        }
-                      ]
-                    },
-                    {
-                      "IsWrap": false,
-                      "IsRowMarginRemoved": false,
-                      "Columns": [
-                        {
-                          "Layout": {
-                            "FieldName": "EMail",
-                            "FontFamily": "",
-                            "Color": "",
-                            "Name": "",
-                            "IsViewOnly": false,
-                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                          },
-                          "Border": "None",
-                          "CanResize": false
-                        }
-                      ]
-                    }
-                  ],
-                  "IsViewOnly": false,
-                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
                 "Border": "None",
                 "CanResize": false
@@ -417,54 +261,26 @@
             "Columns": [
               {
                 "Layout": {
+                  "FieldName": "NameLabel",
+                  "FontFamily": "",
+                  "Color": "",
                   "Name": "",
-                  "IsBordered": false,
-                  "IsFlowLayout": false,
-                  "IsFillAvailable": false,
-                  "IsExpandable": false,
-                  "ExpanderLabel": "",
-                  "IsExpanderDefaultOpened": false,
-                  "Rows": [
-                    {
-                      "IsWrap": false,
-                      "IsRowMarginRemoved": true,
-                      "Columns": [
-                        {
-                          "Layout": {
-                            "FieldName": "AddressLabel",
-                            "FontFamily": "",
-                            "Color": "",
-                            "Name": "",
-                            "IsViewOnly": false,
-                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                          },
-                          "Border": "None",
-                          "VerticalAlignment": "Bottom",
-                          "CanResize": false
-                        }
-                      ]
-                    },
-                    {
-                      "IsWrap": false,
-                      "IsRowMarginRemoved": false,
-                      "Columns": [
-                        {
-                          "Layout": {
-                            "FieldName": "Address",
-                            "FontFamily": "",
-                            "Color": "",
-                            "Name": "",
-                            "IsViewOnly": false,
-                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                          },
-                          "Border": "None",
-                          "CanResize": false
-                        }
-                      ]
-                    }
-                  ],
                   "IsViewOnly": false,
-                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Width": 110,
+                "Border": "None",
+                "VerticalAlignment": "Middle",
+                "CanResize": false
+              },
+              {
+                "Layout": {
+                  "FieldName": "Name",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
                 "Border": "None",
                 "CanResize": false
@@ -477,110 +293,168 @@
             "Columns": [
               {
                 "Layout": {
+                  "FieldName": "EMailLabel",
+                  "FontFamily": "",
+                  "Color": "",
                   "Name": "",
-                  "IsBordered": false,
-                  "IsFlowLayout": false,
-                  "IsFillAvailable": false,
-                  "IsExpandable": false,
-                  "ExpanderLabel": "",
-                  "IsExpanderDefaultOpened": false,
-                  "Rows": [
-                    {
-                      "IsWrap": false,
-                      "IsRowMarginRemoved": true,
-                      "Columns": [
-                        {
-                          "Layout": {
-                            "FieldName": "TELLabel",
-                            "FontFamily": "",
-                            "Color": "",
-                            "Name": "",
-                            "IsViewOnly": false,
-                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                          },
-                          "Border": "None",
-                          "VerticalAlignment": "Bottom",
-                          "CanResize": false
-                        }
-                      ]
-                    },
-                    {
-                      "IsWrap": false,
-                      "IsRowMarginRemoved": false,
-                      "Columns": [
-                        {
-                          "Layout": {
-                            "FieldName": "TEL",
-                            "FontFamily": "",
-                            "Color": "",
-                            "Name": "",
-                            "IsViewOnly": false,
-                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                          },
-                          "Border": "None",
-                          "CanResize": false
-                        }
-                      ]
-                    }
-                  ],
                   "IsViewOnly": false,
-                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
+                "Width": 110,
                 "Border": "None",
+                "VerticalAlignment": "Middle",
                 "CanResize": false
               },
               {
                 "Layout": {
+                  "FieldName": "EMail",
+                  "FontFamily": "",
+                  "Color": "",
                   "Name": "",
-                  "IsBordered": false,
-                  "IsFlowLayout": false,
-                  "IsFillAvailable": false,
-                  "IsExpandable": false,
-                  "ExpanderLabel": "",
-                  "IsExpanderDefaultOpened": false,
-                  "Rows": [
-                    {
-                      "IsWrap": false,
-                      "IsRowMarginRemoved": true,
-                      "Columns": [
-                        {
-                          "Layout": {
-                            "FieldName": "URLLabel",
-                            "FontFamily": "",
-                            "Color": "",
-                            "Name": "",
-                            "IsViewOnly": false,
-                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                          },
-                          "Border": "None",
-                          "VerticalAlignment": "Bottom",
-                          "CanResize": false
-                        }
-                      ]
-                    },
-                    {
-                      "IsWrap": false,
-                      "IsRowMarginRemoved": false,
-                      "Columns": [
-                        {
-                          "Layout": {
-                            "FieldName": "URL",
-                            "FontFamily": "",
-                            "Color": "",
-                            "Name": "",
-                            "IsViewOnly": false,
-                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                          },
-                          "Border": "None",
-                          "CanResize": false
-                        }
-                      ]
-                    }
-                  ],
                   "IsViewOnly": false,
-                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
                 "Border": "None",
+                "CanResize": false
+              }
+            ]
+          },
+          {
+            "IsWrap": false,
+            "IsRowMarginRemoved": false,
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "AddressLabel",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Width": 110,
+                "Border": "None",
+                "VerticalAlignment": "Middle",
+                "CanResize": false
+              },
+              {
+                "Layout": {
+                  "FieldName": "Address",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Border": "None",
+                "CanResize": false
+              }
+            ]
+          },
+          {
+            "IsWrap": false,
+            "IsRowMarginRemoved": false,
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "PostLabel",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Width": 110,
+                "Border": "None",
+                "VerticalAlignment": "Middle",
+                "CanResize": false
+              },
+              {
+                "Layout": {
+                  "FieldName": "Post",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Border": "None",
+                "CanResize": false
+              }
+            ]
+          },
+          {
+            "IsWrap": false,
+            "IsRowMarginRemoved": false,
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "TELLabel",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Width": 110,
+                "Border": "None",
+                "VerticalAlignment": "Middle",
+                "CanResize": false
+              },
+              {
+                "Layout": {
+                  "FieldName": "TEL",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Border": "None",
+                "CanResize": false
+              }
+            ]
+          },
+          {
+            "IsWrap": false,
+            "IsRowMarginRemoved": false,
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "URLLabel",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Width": 110,
+                "Border": "None",
+                "VerticalAlignment": "Middle",
+                "CanResize": false
+              },
+              {
+                "Layout": {
+                  "FieldName": "URL",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Border": "None",
+                "CanResize": false
+              }
+            ]
+          },
+          {
+            "IsWrap": false,
+            "IsRowMarginRemoved": false,
+            "Columns": [
+              {
+                "Width": 110,
+                "Border": "None",
+                "VerticalAlignment": "Middle",
                 "CanResize": false
               },
               {
@@ -594,10 +468,6 @@
                 },
                 "Border": "None",
                 "CanResize": false
-              },
-              {
-                "Border": "None",
-                "CanResize": false
               }
             ]
           },
@@ -605,10 +475,6 @@
             "IsWrap": false,
             "IsRowMarginRemoved": false,
             "Columns": [
-              {
-                "Border": "None",
-                "CanResize": false
-              },
               {
                 "Layout": {
                   "FieldName": "AITextAnalyzer",
@@ -619,36 +485,20 @@
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
                 "Border": "None",
+                "HorizontalAlignment": "Center",
                 "CanResize": false
               },
               {
+                "Layout": {
+                  "FieldName": "ClearButton",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
                 "Border": "None",
-                "CanResize": false
-              },
-              {
-                "Border": "None",
-                "CanResize": false
-              }
-            ]
-          },
-          {
-            "IsWrap": false,
-            "IsRowMarginRemoved": false,
-            "Columns": [
-              {
-                "Border": "None",
-                "CanResize": false
-              },
-              {
-                "Border": "None",
-                "CanResize": false
-              },
-              {
-                "Border": "None",
-                "CanResize": false
-              },
-              {
-                "Border": "None",
+                "HorizontalAlignment": "Center",
                 "CanResize": false
               }
             ]
