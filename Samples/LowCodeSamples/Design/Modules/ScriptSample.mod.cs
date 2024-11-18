@@ -65,16 +65,35 @@ void QuotaionSample_OnClick()
     QuotationDetailList.DeleteAllRows();
     
     var row = QuotationDetailList.AddRow();
-    row.Title.Value = "Yellowtail";
-    row.Detail.Value = "Fresh";
-    row.Price.Value = 1000;
+    row.Title.Value = "リンゴ";
+    row.Detail.Value = "2個入り";
+    row.Price.Value = 600;
     row.Discount.Value = 0;
     
     row = QuotationDetailList.AddRow();
-    row.Title.Value = "Sea bream";
-    row.Detail.Value = "A little old";
-    row.Price.Value = 2000;
+    row.Title.Value = "洋ナシ";
+    row.Detail.Value = "6個入り";
+    row.Price.Value = 880;
     row.Discount.Value = 100;    
+    
+    row = QuotationDetailList.AddRow();
+    row.Title.Value = "バナナ";
+    row.Detail.Value = "1パック";
+    row.Price.Value = 300;
+    row.Discount.Value = 0;   
+    
+    row = QuotationDetailList.AddRow();
+    row.Title.Value = "柿";
+    row.Detail.Value = "4個入り";
+    row.Price.Value = 480;
+    row.Discount.Value = 0;
+    
+    row = QuotationDetailList.AddRow();
+    row.Title.Value = "アボカド";
+    row.Detail.Value = "1個入り";
+    row.Price.Value = 250;
+    row.Discount.Value = 0;
+    
 }
 
 void ExcelDownload_OnClick()
