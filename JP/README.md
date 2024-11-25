@@ -108,8 +108,7 @@ BlazorアプリとWPFのデザイナアプリをビルドして起動
 ## Codeer.LowCode.Blazorを使いこなす
 - [各部分紹介]()
     - [概略](overview/overview.md)
-    - [Visual Studioソリューション](overview/vs_projects.md)
-    - Blazor/WPF/WinFormsアプリ
+    - [Visual Studioソリューションおよびデプロイ](overview/vs_projects.md)
     - [デザイナ](designer/designer.md)
         - [app.clprj](designer/app_clprj.md)
         - [designer.settings](designer/designer_settings.md)
