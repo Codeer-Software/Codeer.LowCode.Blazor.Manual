@@ -1,4 +1,4 @@
-# Visual Studio ソリューション
+# Visual Studio ソリューションおよびデプロイ
 ## 概要
 [Codeer.LowCode.Blazor.Templates](https://marketplace.visualstudio.com/items?itemName=Codeer.LowCodeBlazor)を使ってVisual Studioソリューションを作成すれば、複数のプロジェクトに含まれる「**ユーザーコード**」が出力されます。
 テンプレートのタイプはBlazor/WPF/WinFormsになります。
@@ -25,7 +25,16 @@ WPF/WinFormsソリューションでは、ServerおよびClientプロジェク�
 
 <img width=800 src="../../Image/Wpf_WinForms_Solutions.png">
 
+## デプロイ方法
+### Blazor/WPF/WinFormsアプリの部分
+成果物としてアプリをデプロイするには、Server/WPF/WinFormsプロジェクトを選択したうえで、Visual Studioの「**ビルド**」メニューから「**発行**」あるいは「**公開**」してください。
+### Designerの部分
+同上。
+
+```注意：Debug構成でデザイナをビルドしますと、正常に動作しない場合がありますので、必ずRelease設定でビルドしてください。```
+### Designerプロジェクトの部分
+デザイナメニュー「ファイル」→「デプロイ」を選んでください。デザイナプロジェクトの関連ファイルは[デプロイフォルダ](deploy_folder.md)に出力されます。
 
 ## 関連ページ
 - [プロコード](overview/procode.md)
-
+- [デプロイフォルダ](deploy_folder.md)
