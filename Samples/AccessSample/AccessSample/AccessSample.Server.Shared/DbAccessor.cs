@@ -11,6 +11,7 @@ using Npgsql;
 using Oracle.ManagedDataAccess.Client;
 using System.Data;
 using System.Data.Common;
+using System.Data.OleDb;
 using System.Data.SQLite;
 
 namespace AccessSample.Server.Shared
@@ -47,7 +48,69 @@ namespace AccessSample.Server.Shared
         public async Task<List<DbTableDefinition>?> GetCustomTableDefinitionsAsync(string dataSourceName)
         {
             await Task.CompletedTask;
-            return null;
+
+            // Accessの場合、データソース名の特定条件で動作を制御したい場合
+            if (!dataSourceName.StartsWith("Access")) return null;
+
+            var conn = GetConnection(dataSourceName) as OleDbConnection;
+            if (conn == null) return null;
+
+            // OleDbConnectionでスキーマ情報を取得
+#pragma warning disable CA1416 // プラットフォームの互換性を検証
+            var columnTable = conn.GetSchema("Columns");
+#pragma warning restore CA1416 // プラットフォームの互換性を検証
+            if (columnTable == null) return new();
+
+            var ret = columnTable.Rows.Cast<DataRow>()
+                .Select(r => new
+                {
+                    TableName = r["TABLE_NAME"].ToString() ?? "",
+                    ColumnName = r["COLUMN_NAME"].ToString() ?? "",
+                    RawDbTypeName = r["DATA_TYPE"].ToString() ?? "",
+                    IsNullable = (r["IS_NULLABLE"].ToString() ?? "").ToLower() == "yes"
+                }).GroupBy(r => r.TableName)
+                .Select(g => new DbTableDefinition
+                {
+                    Name = g.Key,
+                    Columns = g.Select(gg => new DbColumnDefinition
+                    {
+                        Name = gg.ColumnName,
+                        RawDbTypeName = gg.RawDbTypeName,
+                        NetTypeFullName = ConvertToNetType(gg.RawDbTypeName),
+                        IsNullable = gg.IsNullable
+                    }).ToList()
+                }).ToList();
+
+            return ret;
+        }
+
+        static string ConvertToNetType(string? type)
+        {
+            // Accessでのデータ型を.NET型に変換
+            switch (type)
+            {
+                case "3":  // Long Integer
+                    return typeof(int).FullName!;
+                case "4":  // Single
+                    return typeof(float).FullName!;
+                case "5":  // Double
+                    return typeof(double).FullName!;
+                case "6":  // Currency
+                    return typeof(decimal).FullName!;
+                case "7":  // Date/Time
+                    return typeof(DateTime).FullName!;
+                case "11": // Yes/No
+                    return typeof(bool).FullName!;
+                case "130": // Text
+                    return typeof(string).FullName!;
+                case "128": // Binary
+                    return typeof(byte[]).FullName!;
+                case "204": // Memo (OLE object)
+                case "205":
+                    return typeof(byte[]).FullName!;
+                default:
+                    return string.Empty;
+            }
         }
 
         public DataSource? GetDataSource(string dataSourceName)
@@ -138,7 +201,11 @@ namespace AccessSample.Server.Shared
                 switch (dataSource.DataSourceType)
                 {
                     case DataSourceType.SQLServer:
-                        conn = new SqlConnection(dataSource.ConnectionString);
+#pragma warning disable CA1416 // プラットフォームの互換性を検証
+                        conn = dataSourceName.StartsWith("Access") ?
+                            new OleDbConnection(dataSource.ConnectionString) :
+                            new SqlConnection(dataSource.ConnectionString);
+#pragma warning restore CA1416 // プラットフォームの互換性を検証
                         break;
                     case DataSourceType.PostgreSQL:
                         conn = new NpgsqlConnection(dataSource.ConnectionString);
@@ -193,6 +260,13 @@ namespace AccessSample.Server.Shared
 
         public async Task<List<IDictionary<string, object>>> QueryAsync(string dataSourceName, string query, Dictionary<string, ParamAndRawDbTypeName> args)
         {
+            //Access対応
+            if (dataSourceName.StartsWith("Access"))
+            {
+                var offset = query.IndexOf("offset ");
+                if (offset != -1) query = query.Substring(0, offset);
+            }
+
             var conn = GetConnection(dataSourceName);
             return (await conn.QueryAsync<object>(query, CreateParameter(args), GetTransaction(dataSourceName))).Select(e => (IDictionary<string, object>)e).ToList();
         }
