@@ -87,20 +87,22 @@ Visual Studio拡張機能を使用してプロジェクトを作成できます�
 ### Step2
 BlazorアプリとWPFのデザイナアプリをビルドして起動
 
+```Designerアプリは必ずRelease設定でビルドし、Windows Explorerから起動してください。Debugでビルドされる場合は正常に動作しない場合があります```
+
 <img width=800 src="../Image/step2.png">
 
 ### Step3
-デザイナーで新しいプロジェクトを作成します。サンプルを含むプロジェクトが作成されます。
+デザイナで新しいプロジェクトを作成します。サンプルを含むプロジェクトが作成されます。
 
 <img width=800 src="../Image/step3.png">
 
 ### Step4
-それをWebアプリにデプロイします。画面がホットリロードされ、デザイナーの設定に従って画面が表示されます。
+それをWebアプリにデプロイします。画面がホットリロードされ、デザイナの設定に従って画面が表示されます。
 
 <img width=800 src="../Image/step4.png">
 
 ### Step5
-デザイナーの設定を確認し、小さな変更を加えてWebアプリに送信して、感覚をつかんでください。
+デザイナの設定を確認し、小さな変更を加えてWebアプリに送信して、感覚をつかんでください。
 
 <img width=1200 src="../Image/PartsOverView.png">
 
@@ -108,8 +110,7 @@ BlazorアプリとWPFのデザイナアプリをビルドして起動
 ## Codeer.LowCode.Blazorを使いこなす
 - [各部分紹介]()
     - [概略](overview/overview.md)
-    - [Visual Studioプロジェクト](overview/vs_projects.md)
-    - Blazor/WPF/WinFormsアプリ
+    - [Visual Studioソリューションおよびデプロイ](overview/vs_projects.md)
     - [デザイナ](designer/designer.md)
         - [app.clprj](designer/app_clprj.md)
         - [designer.settings](designer/designer_settings.md)
