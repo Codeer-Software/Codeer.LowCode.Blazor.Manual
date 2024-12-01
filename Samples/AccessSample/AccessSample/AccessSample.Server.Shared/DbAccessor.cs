@@ -84,6 +84,13 @@ namespace AccessSample.Server.Shared
             return ret;
         }
 
+        public async Task<List<DbTableDefinition>?> GetCustomTableDefinitionsAsync(string dataSourceName, List<string> tableNames)
+        {
+            await Task.CompletedTask;
+            var definitions = await GetCustomTableDefinitionsAsync(dataSourceName);
+            return definitions?.Where(e=> tableNames.Contains(e.Name)).ToList();
+        }
+
         static string ConvertToNetType(string? type)
         {
             // Access‚Å‚Ìƒf[ƒ^Œ^‚ğ.NETŒ^‚É•ÏŠ·
