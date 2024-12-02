@@ -136,6 +136,7 @@ BlazorアプリとWPFのデザイナアプリをビルドして起動
     - [サンプルギャラリー](https://lowcodedemo.azurewebsites.net/)
     - [TextFieldを読み取り専用にする](Examples/Tips_IsViewOnly.md)
     - [リストの連携](Examples/DoubleList.md)
+    - [ScriptからWebApiを使う](Examples/WebApiFromScript.md)
 - [リリースノート]()
     - [破壊的変更](breaking_changes/breaking_changes.md)
 - [Q&A]()
