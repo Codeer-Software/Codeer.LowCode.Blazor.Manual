@@ -87,7 +87,7 @@ Visual Studio拡張機能を使用してプロジェクトを作成できます�
 ### Step2
 BlazorアプリとWPFのデザイナアプリをビルドして起動
 
-```Designerアプリは必ずRelease設定でビルドし、Windows Explorerから起動してください。Debugでビルドされる場合は正常に動作しない場合があります```
+```Designerアプリは必ず"発行"でビルドし、Windows Explorerから起動してください。通常ビルドの場合は正常に動作しない場合があります```
 
 <img width=800 src="../Image/step2.png">
 
