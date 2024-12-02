@@ -1,0 +1,52 @@
+@using Codeer.LowCode.Blazor.Components
+@using Microsoft.AspNetCore.Components.Web
+@using Codeer.LowCode.Blazor.Components.Fields
+@using System.Text
+@inherits FieldComponentBase<ColorPickerField>
+
+@if (IsViewMode == true) {
+  <div class="d-flex py-2">
+    <div class="color-tip" style="background:@(Value)"></div>
+    <span class="d-block" style="@GetStyleString()">@Value</span>
+  </div>
+} else {
+  <label class="d-flex align-items-center">
+    <input class="color-picker"
+           type="color"
+           disabled="@IsDisabled"
+           id="@WebElementId"
+           @bind:get="@Value"
+           @bind:set="RaiseOnValueChanged"
+           @ref="Element"/>
+    <span style="@GetStyleString()">@Value</span>
+  </label>
+}
+
+@code {
+  public bool? IsDisabled => Field?.IsEnabled == false;
+
+  public bool? IsViewMode => Field?.IsViewOnly;
+
+  public string? Value => string.IsNullOrEmpty(Field.Value) ? Field.Design?.Default : Field.Value;
+
+  private async Task RaiseOnValueChanged(string? value) {
+    await Field.SetValueAsync(value);
+  }
+
+  string? GetStyleString()
+  {
+    var style = new StringBuilder();
+    if (!string.IsNullOrEmpty(Field.BackgroundColor))
+    {
+      style.Append($"--background: {Field.BackgroundColor};");
+    }
+
+    if (!string.IsNullOrEmpty(Field.Color))
+    {
+      style.Append($"--foreground: {Field.Color};");
+    }
+
+    return style.Length == 0 ? null : style.ToString();
+  }
+}
+
