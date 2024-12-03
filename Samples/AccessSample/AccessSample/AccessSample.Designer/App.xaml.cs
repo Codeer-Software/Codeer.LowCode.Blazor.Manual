@@ -5,6 +5,7 @@ using AccessSample.Designer.Lib.AI;
 using AccessSample.Designer.Lib.DbTableToModule;
 using AccessSample.Designer.Lib.ExcelToModule;
 using AccessSample.Designer.Lib.SeleniumPageObject;
+using Codeer.LowCode.Bindings.ApexCharts.Designs;
 using Codeer.LowCode.Blazor.DataIO.Db.Definition;
 using Codeer.LowCode.Blazor.Designer;
 using Codeer.LowCode.Blazor.Designer.Extensibility;
@@ -30,6 +31,8 @@ namespace AccessSample.Designer
     {
         protected override void OnStartup(StartupEventArgs e)
         {
+            typeof(ApexChartFieldDesign).ToString();
+
             AISettings.Instance.OpenAIEndPoint = Environment.GetEnvironmentVariable("AZURE_OPENAI_API_ENDPOINT") ?? string.Empty;
             AISettings.Instance.OpenAIKey = Environment.GetEnvironmentVariable("AZURE_OPENAI_API_KEY") ?? string.Empty;
             AISettings.Instance.ChatModel = "gpt-4o";

@@ -3,6 +3,8 @@ using AccessSample.Server.Services;
 using AccessSample.Server.Services.AI;
 using AccessSample.Server.Services.DataChangeHistory;
 using AccessSample.Server.Services.FileManagement;
+using ApexCharts;
+using Codeer.LowCode.Bindings.ApexCharts.Designs;
 using Codeer.LowCode.Blazor.Json;
 using Codeer.LowCode.Blazor.License;
 using Codeer.LowCode.Blazor.SystemSettings;
@@ -12,6 +14,8 @@ using System.Text.Json.Serialization;
 
 //load dll.
 typeof(ColorPickerField).ToString();
+typeof(ApexChartFieldDesign).ToString();
+typeof(SeriesType).ToString();
 
 var builder = WebApplication.CreateBuilder(args);
 
