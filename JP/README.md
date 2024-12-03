@@ -87,7 +87,7 @@ Visual Studio拡張機能を使用してプロジェクトを作成できます�
 ### Step2
 BlazorアプリとWPFのデザイナアプリをビルドして起動
 
-```Designerアプリは必ずRelease設定でビルドし、Windows Explorerから起動してください。Debugでビルドされる場合は正常に動作しない場合があります```
+```Designerアプリは必ず"発行"でビルドし、Windows Explorerから起動してください。通常ビルドの場合は正常に動作しない場合があります```
 
 <img width=800 src="../Image/step2.png">
 
@@ -135,6 +135,9 @@ BlazorアプリとWPFのデザイナアプリをビルドして起動
 - [サンプル・Tips]()
     - [サンプルギャラリー](https://lowcodedemo.azurewebsites.net/)
     - [TextFieldを読み取り専用にする](Examples/Tips_IsViewOnly.md)
+    - [AnchorTagのサイズを調整する](Examples/Tips_AnchorTagSizeSetting.md)
+    - [Labelの位置を調整する](Examples/Tips_LabelPositionSetting.md)
+    - [検索条件に初期値を設定する](Examples/Tips_SearchCriteriaInitialValueSetting.md)
     - [リストの連携](Examples/DoubleList.md)
 - [リリースノート]()
     - [破壊的変更](breaking_changes/breaking_changes.md)
