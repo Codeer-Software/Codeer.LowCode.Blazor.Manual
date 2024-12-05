@@ -21,11 +21,14 @@
     - 変更のスクリプト
 7. ValueVariable
     - 値に使用するカラム
-8. DbColumn
+8. DisplayTextVariable
+    - 検索欄に表示するカラム
+    - 空白にすると検索欄に直接値を入力して検索することが可能
+9. DbColumn
     - テーブルの列
-9. ListLayoutName
+10. ListLayoutName
     - テーブルの列
-10. SelectLayoutName
+11. SelectLayoutName
 
 ### CONDITION
 - ModuleName
