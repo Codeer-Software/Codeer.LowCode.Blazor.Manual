@@ -1,0 +1,202 @@
+{
+  "Name": "Salse",
+  "DisplayName": "",
+  "PageTitle": "",
+  "DataSourceName": "AccessMain",
+  "DbTable": "sales",
+  "CanCreate": false,
+  "CanUpdate": false,
+  "CanDelete": false,
+  "CanBulkDataUpdate": false,
+  "CanBulkDataDownload": false,
+  "UseListPageSubmitButton": false,
+  "Fields": [
+    {
+      "SaveAsUtc": false,
+      "Format": "",
+      "DbColumn": "sale_date",
+      "IsUpdateProtected": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "SaleDate",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.DateTimeFieldDesign"
+    },
+    {
+      "Placeholder": "",
+      "Format": "",
+      "DbColumn": "amount",
+      "IsUpdateProtected": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "Amount",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.NumberFieldDesign"
+    }
+  ],
+  "UserWriteCondition": {
+    "ModuleName": ""
+  },
+  "UserReadCondition": {
+    "ModuleName": ""
+  },
+  "DataWriteCondition": {
+    "ModuleName": ""
+  },
+  "DataReadCondition": {
+    "ModuleName": ""
+  },
+  "OnTransaction": "",
+  "DetailLayouts": {
+    "": {
+      "OnBeforeInitialization": "",
+      "OnAfterInitialization": "",
+      "DataOnlyFields": [],
+      "Layout": {
+        "Name": "",
+        "IsBordered": false,
+        "IsFlowLayout": false,
+        "IsFillAvailable": false,
+        "IsExpandable": false,
+        "ExpanderLabel": "",
+        "IsExpanderDefaultOpened": false,
+        "Rows": [
+          {
+            "IsWrap": false,
+            "IsRowMarginRemoved": false,
+            "Columns": [
+              {
+                "Border": "None",
+                "CanResize": false
+              },
+              {
+                "Border": "None",
+                "CanResize": false
+              },
+              {
+                "Border": "None",
+                "CanResize": false
+              },
+              {
+                "Border": "None",
+                "CanResize": false
+              }
+            ]
+          }
+        ],
+        "IsViewOnly": false,
+        "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
+      }
+    }
+  },
+  "ListLayouts": {
+    "": {
+      "HeaderTitle": "",
+      "DataOnlyFields": [],
+      "OnBeforeInitialization": "",
+      "OnAfterInitialization": "",
+      "Elements": [
+        [
+          {
+            "FieldName": "SaleDate",
+            "Label": "",
+            "ColumnSpan": 1,
+            "RowSpan": 1,
+            "IsViewOnly": false,
+            "TextWrap": "Unset",
+            "CanResize": false,
+            "FontFamily": "",
+            "Color": ""
+          },
+          {
+            "FieldName": "Amount",
+            "Label": "",
+            "ColumnSpan": 1,
+            "RowSpan": 1,
+            "IsViewOnly": false,
+            "TextWrap": "Unset",
+            "CanResize": false,
+            "FontFamily": "",
+            "Color": ""
+          }
+        ]
+      ]
+    }
+  },
+  "SearchLayouts": {
+    "": {
+      "OnSearchInitialization": "",
+      "Layout": {
+        "Operator": "And",
+        "Name": "SearchGridLayout",
+        "IsBordered": false,
+        "IsFlowLayout": false,
+        "IsFillAvailable": false,
+        "IsExpandable": true,
+        "ExpanderLabel": "検索条件",
+        "IsExpanderDefaultOpened": false,
+        "Rows": [
+          {
+            "IsWrap": false,
+            "IsRowMarginRemoved": false,
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "SaleDate",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Border": "None",
+                "CanResize": false
+              },
+              {
+                "Border": "None",
+                "CanResize": false
+              },
+              {
+                "Border": "None",
+                "CanResize": false
+              },
+              {
+                "Border": "None",
+                "CanResize": false
+              }
+            ]
+          }
+        ],
+        "IsViewOnly": false,
+        "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.SearchGridLayoutDesign"
+      }
+    }
+  },
+  "LinkFieldNames": [],
+  "ListPageFieldDesign": {
+    "LayoutName": "",
+    "CanNavigateToDetail": false,
+    "DisplayName": "",
+    "SearchCondition": {
+      "SortFieldVariable": "",
+      "SortDescending": false,
+      "SelectFields": [],
+      "ModuleName": ""
+    },
+    "PagerPosition": "Bottom",
+    "UseIndexSort": false,
+    "DeleteTogether": false,
+    "CanCreate": false,
+    "CanUpdate": false,
+    "CanDelete": false,
+    "CanSelect": false,
+    "OnDataChanged": "",
+    "OnSearchDataChanged": "",
+    "OnSelectedIndexChanged": "",
+    "OnSelectedIndexChanging": "",
+    "Name": "",
+    "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ListFieldDesign"
+  }
+}
