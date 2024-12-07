@@ -9,6 +9,7 @@
   "CanDelete": true,
   "CanBulkDataUpdate": false,
   "CanBulkDataDownload": false,
+  "UseListPageSubmitButton": false,
   "Fields": [
     {
       "Text": "Hello world, This is Codeer.LowCode.Blazor!",
@@ -19,6 +20,7 @@
     },
     {
       "ResourcePath": "lc_logo_256.png",
+      "ObjectFit": "Contain",
       "Name": "LCLogo",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ImageViewerFieldDesign"
     },
@@ -26,6 +28,12 @@
       "ResourcePath": "home.txt",
       "RawHtml": "",
       "Name": "MarkupString",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.MarkupStringFieldDesign"
+    },
+    {
+      "ResourcePath": "home_youtube.txt",
+      "RawHtml": "",
+      "Name": "MarkupString1",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.MarkupStringFieldDesign"
     }
   ],
@@ -69,6 +77,7 @@
                   "IsViewOnly": false,
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
+                "Border": "None",
                 "HorizontalAlignment": "Center",
                 "CanResize": false
               }
@@ -87,6 +96,26 @@
                   "IsViewOnly": false,
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
+                "Border": "None",
+                "HorizontalAlignment": "Center",
+                "CanResize": false
+              }
+            ]
+          },
+          {
+            "IsWrap": false,
+            "IsRowMarginRemoved": false,
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "MarkupString1",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "IsViewOnly": false,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Border": "None",
                 "HorizontalAlignment": "Center",
                 "CanResize": false
               }
@@ -105,6 +134,7 @@
                   "IsViewOnly": false,
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
+                "Border": "None",
                 "CanResize": false
               }
             ]
@@ -142,15 +172,19 @@
             "IsRowMarginRemoved": false,
             "Columns": [
               {
+                "Border": "None",
                 "CanResize": false
               },
               {
+                "Border": "None",
                 "CanResize": false
               },
               {
+                "Border": "None",
                 "CanResize": false
               },
               {
+                "Border": "None",
                 "CanResize": false
               }
             ]
@@ -172,6 +206,7 @@
       "SelectFields": [],
       "ModuleName": ""
     },
+    "PagerPosition": "Bottom",
     "UseIndexSort": false,
     "DeleteTogether": false,
     "CanCreate": false,
