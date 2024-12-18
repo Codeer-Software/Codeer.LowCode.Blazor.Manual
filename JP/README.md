@@ -79,7 +79,7 @@ Visual Studio拡張機能を使用してプロジェクトを作成できます�
 ### ご購入、その他お問合せは[こちら](https://www.codeer.co.jp/LowCode)からお願いします
 
 ## Getting Started
-[![GettingStarted](../Image/step1.png)](https://www.youtube.com/watch?v=4Neyew4_tp0)
+[![GettingStarted](../Image/GettingStarted_YtCover.png)](https://youtu.be/4Neyew4_tp0)
 ### Step1
 プロジェクト新規作成
 
@@ -127,6 +127,7 @@ BlazorアプリとWPFのデザイナアプリをビルドして起動
     - [プロコード](overview/procode.md)
     - [ユーザーコード(プロコード)](user_code/user_code.md)
     - [Excelから画面とDDLを作成する](designer/import_module_from_excel.md)
+    - [Databaseからモジュール作成する](designer/import_modules_from_db.md)
     - [自動テストのサポート](designer/export_pageobject.md)
     - [css](look_and_feel/css.md)
     - [第三者ライブラリとの連携]()
