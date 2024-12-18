@@ -79,7 +79,7 @@ Visual Studio拡張機能を使用してプロジェクトを作成できます�
 ### ご購入、その他お問合せは[こちら](https://www.codeer.co.jp/LowCode)からお願いします
 
 ## Getting Started
-[![GettingStarted]](https://youtu.be/4Neyew4_tp0)
+[![GettingStarted](../Image/step1.png)](https://youtu.be/4Neyew4_tp0)
 ### Step1
 プロジェクト新規作成
 
