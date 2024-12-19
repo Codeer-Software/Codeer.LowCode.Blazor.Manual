@@ -20,4 +20,4 @@
 
 ## 関連ページ
 - [DesignerSettings](../designer/designer_settings.md)
-- [Module](module/module.md)
+- [Module](../module/module.md)
