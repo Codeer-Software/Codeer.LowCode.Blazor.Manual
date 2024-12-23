@@ -59,3 +59,60 @@ appsettings.jsonに上記の一部の設定を置かずにサーバー側で設�
 
 **ターゲットサイト → 構成エディター → セッション:System.webServer/aspNetCore → environmentVariables**
 <img width=800 src="../../Image/Deploy_IIS.png">
+
+### Nginx (Linux)
+
+#### Nginx, Asp.NET Coreのruntime等はインストール済みの環境とします。
+#### 1. 上記「発行」されたフォルダ```publish```をLinuxの```/var/www/```にコピーします。
+#### 2. Designerがデプロイしたファイル: デフォルトとして開発機の```C:\Codeer.LowCode.Blazor.Local```下にあるファイルを```/var/www/publish/wwwroot/serverdata```にコピーします。
+この際はappsettings.jsonでも``` "DesignFileDirectory": "wwwroot/serverdata/Designs",```になっていることを確認します。
+コピー後はフォルダーに適宜なアクセス権限を設定してください。
+#### 3. 発行されたアプリのdllを実行するためのサービスを作成します。この例ではMyLowCodeApp.Server.dll
+```shell
+sudo nano /etc/systemd/system/blazorapp.service
+```
+
+```conf
+[Unit]
+Description=BlazorApp
+
+[Service]
+WorkingDirectory=/var/www/publish
+ExecStart=/usr/bin/dotnet /var/www/publish/MyLowCodeApp.Server.dll
+Restart=always
+RestartSec=10
+SyslogIdentifier=blazorapp
+User=www-data
+Environment=ASPNETCORE_ENVIRONMENT=Production
+
+[Install]
+WantedBy=multi-user.target
+```
+
+#### 4. Nginxの設定ファイルを変更します
+
+```shell
+sudo nano /etc/nginx/sites-available/default
+```
+ここでの設定変更は最小限としています。
+BlazorのNginxの設定については[マイクロソフトのドキュメント](https://learn.microsoft.com/ja-jp/aspnet/core/blazor/host-and-deploy/server?view=aspnetcore-8.0)をご参考ください。
+```conf
+server {
+        listen 80 default_server;
+        index index.html index.htm index.nginx-debian.html;
+        server_name _;
+
+        location / {
+                try_files $uri $uri/ /index.html =404;
+                proxy_pass http://localhost:5000;
+        }
+}
+```
+#### 5. BlazorAppのサービスを起動し、Nginxを再起動して完了です
+```shell
+sudo systemctl start blazorapp
+sudo systemctl enable blazorapp
+
+sudo systemctl restart nginx
+```
+これでNginxの80ポートを経由してBlazorAppをアクセスできます。
