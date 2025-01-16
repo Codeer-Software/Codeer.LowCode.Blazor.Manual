@@ -14,6 +14,7 @@ Codeer.LowCode.Blazorは、Blazorアプリにローコード機能を追加す�
     - ライセンス管理
         - オフライン（WEB経由）
             - [登録](overview/license_web_registration.md)
+            - [解除](overview/license_web_cancellation.md)
 
 ## Codeer.LowCode.Blazorへようこそ
 <img width=800 src="../Image/BlazorDesignerVs.png">
