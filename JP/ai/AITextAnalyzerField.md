@@ -7,7 +7,7 @@ Textボタンではフォーマットされていないテキストデータを�
 <img width=800 src="../../Image/ai_AITextAnalyzerField_image.png">
 
 ## 使用方法
-1. [AIを使うための設定](ai_setup.md)は完了していない場合はまず行ってください
+1. [AIを使うための設定](ai_setup.md)が完了していない場合はまず行ってください
 2. 作成するモジュールの「詳細」詳細画面に```AITextAnalyzerField```と分析後データの受け皿となる各データフィールドを配置します
 <img width=800 src="../../Image/ai_AITextAnalzer_module.png">
 
