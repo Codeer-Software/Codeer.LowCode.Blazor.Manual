@@ -9,6 +9,7 @@ AIの機能はテンプレートで出力したコードで実現しています
 ## 設定方法
 以下のステップは、Azure Open AI等のEndPointとKeyが取得済みであることを前提とします。
 
+## Desingerで開発時に利用するAIの設定
 ### 開発Windowsの環境変数の設定
 1. Windowsの環境変数エディタを開きます：スタートメニュー　→　「環境変数」で検索
 2. ユーザー環境変数リストに以下２つの項目を新規追加します：
@@ -32,7 +33,7 @@ AIの機能はテンプレートで出力したコードで実現しています
             //...
            }
    ```
-### Codeer.LowCode.Blazorのサーバープロジェクトの設定(開発環境)
+## Codeer.LowCode.Blazorのサーバープロジェクトの設定(開発環境)
 1. Codeer.LowCode.Blazorのテンプレートで作成されたソリューションをVisual Studioで開きます
 2. サーバープロジェクトのappsettings.Development.jsonをひらきます
 3. 以下の項目を実際の値に設定します
