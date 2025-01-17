@@ -11,6 +11,7 @@ Codeer.LowCode.Blazorは、Blazorアプリにローコード機能を追加す�
 - [Getting Started](#getting-started)
 - [使いこなす](#codeerlowcodeblazorを使いこなす)
 - [ライセンス情報](#ライセンス情報)
+    - [ライセンスについて](overview/about_license.md)
 
 ## Codeer.LowCode.Blazorへようこそ
 <img width=800 src="../Image/BlazorDesignerVs.png">
