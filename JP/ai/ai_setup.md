@@ -1,4 +1,5 @@
 # AIを使うための設定
+AIの機能はテンプレートで出力したコードで実現しています。デフォルトでは Azure OpenAI を使うようになっていますが、ここを書き換えることでその他のサービスに変更できます。プロンプトもそれぞれの用途に合わせて調整してください。
 
 ## 必要なものと設定
 - OpenAIやAzure Open AI等のサブスクリプション
@@ -6,7 +7,7 @@
 - Codeer.LowCode.BlazorのサーバープロジェクトでEndPointとKeyの登録
 - PDF/画像分析を使用する場合はDocumentAnalysisEndPoint及びDocumentAnalysisKeyの登録も必要
 ## 設定方法
-以下のステップは、Open AiやAzure Open AI等のEndPointとKeyが取得済みであることを前提とします。
+以下のステップは、Azure Open AI等のEndPointとKeyが取得済みであることを前提とします。
 
 ### 開発Windowsの環境変数の設定
 1. Windowsの環境変数エディタを開きます：スタートメニュー　→　「環境変数」で検索
