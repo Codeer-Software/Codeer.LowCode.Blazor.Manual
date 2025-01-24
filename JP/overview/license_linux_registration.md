@@ -28,6 +28,8 @@ dotnet ./LicenseRegisterCli.dll deactivate
 Docker上のLinuxベースシステムでライセンス使用する場合、コンテナ上の `/etc/machine-id` にホストマシンのIDを設定する必要があります。
 コンテナ実行時にホストマシンの `/etc/machine-id` をマウントするか、コンテナ内で `/etc/machine-id` を設定してください。
 
+マルチコンテナアプリケーション（WebアプリとWebサーバーソフト等が別々）の場合は、Webアプリが実行されるコンテナでmachine-idを設定してください。
+
 ```bash
 # ホストマシンの /etc/machine-id をマウントする場合
 $ docker run -v /etc/machine-id:/etc/machine-id:ro ...
