@@ -13,7 +13,7 @@ void DetailLayoutDesign_OnAfterInitialization()
 void txtBarcodeInput_OnDataChanged()
 {
      
-    if(string.IsNullOrEmpty(txtBarcodeInput.Value.Trim()) return;
+    if(string.IsNullOrEmpty(txtBarcodeInput.Value.Trim())) return;
     
     listProduct.AllowLoad = true;
     
