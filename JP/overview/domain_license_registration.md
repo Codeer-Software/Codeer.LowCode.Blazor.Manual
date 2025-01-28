@@ -15,4 +15,5 @@
 ### 6.登録したドメインを選択し、署名取得をクリックする
 ### 7.署名をコピーし、該当の環境の環境変数のDomainLicenseに署名の値を設定する
 
-<img width=800 src="../../Image/license_management_detail_regist3.png">
+<img width=800 src="../../Image/license_management_detail_regist_domain2.png">
+<img width=800 src="../../Image/license_management_detail_regist_domain3.png">
