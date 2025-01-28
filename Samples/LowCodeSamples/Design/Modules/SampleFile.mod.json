@@ -9,6 +9,7 @@
   "CanDelete": true,
   "CanBulkDataUpdate": false,
   "CanBulkDataDownload": false,
+  "UseListPageSubmitButton": false,
   "Fields": [
     {
       "DbColumn": "id",
@@ -16,10 +17,12 @@
       "IsManualInput": false,
       "CompositeIdVariables": [],
       "CompositeIdSeparator": "",
+      "IsUpdateProtected": false,
+      "IsSearchParameter": false,
+      "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
       "OnDataChanged": "",
-      "OnSearchDataChanged": "",
       "Name": "Id",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.IdFieldDesign"
     },
@@ -27,10 +30,12 @@
       "DbColumn": "name",
       "IsMultiline": false,
       "Placeholder": "",
+      "IsUpdateProtected": false,
+      "IsSearchParameter": false,
+      "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
       "OnDataChanged": "",
-      "OnSearchDataChanged": "",
       "Name": "Name",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
     },
@@ -38,20 +43,24 @@
       "Placeholder": "",
       "Format": "",
       "DbColumn": "price",
+      "IsUpdateProtected": false,
+      "IsSearchParameter": false,
+      "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
       "OnDataChanged": "",
-      "OnSearchDataChanged": "",
       "Name": "Price",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.NumberFieldDesign"
     },
     {
+      "IsUpdateProtected": false,
       "DisplayName": "",
       "ShowPreview": true,
       "StorageName": "Azure",
       "DbColumnFileName": "file_name",
       "DbColumnFileSize": "file_size",
       "DbColumnFileGuid": "file_guid",
+      "ObjectFit": "Contain",
       "OnDataChanged": "",
       "OnSearchDataChanged": "",
       "Name": "File",
@@ -59,7 +68,10 @@
     },
     {
       "Text": "Submit",
+      "ImageResourcePath": "",
       "Icon": "",
+      "Variant": "Primary",
+      "IsBlock": true,
       "Name": "SubmitButton",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.SubmitButtonFieldDesign"
     }
@@ -94,16 +106,20 @@
           {
             "IsWrap": false,
             "IsRowMarginRemoved": false,
+            "GridRowType": "Normal",
+            "BackgroundColor": "",
             "Columns": [
               {
                 "Layout": {
                   "FieldName": "Name",
                   "FontFamily": "",
                   "Color": "",
+                  "BackgroundColor": "",
                   "Name": "",
-                  "IsViewOnly": false,
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
+                "BackgroundColor": "",
+                "Border": "None",
                 "CanResize": false
               },
               {
@@ -111,10 +127,12 @@
                   "FieldName": "Price",
                   "FontFamily": "",
                   "Color": "",
+                  "BackgroundColor": "",
                   "Name": "",
-                  "IsViewOnly": false,
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
+                "BackgroundColor": "",
+                "Border": "None",
                 "CanResize": false
               },
               {
@@ -122,10 +140,12 @@
                   "FieldName": "File",
                   "FontFamily": "",
                   "Color": "",
+                  "BackgroundColor": "",
                   "Name": "",
-                  "IsViewOnly": false,
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
+                "BackgroundColor": "",
+                "Border": "None",
                 "CanResize": false
               },
               {
@@ -133,16 +153,17 @@
                   "FieldName": "SubmitButton",
                   "FontFamily": "",
                   "Color": "",
+                  "BackgroundColor": "",
                   "Name": "",
-                  "IsViewOnly": false,
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
+                "BackgroundColor": "",
+                "Border": "None",
                 "CanResize": false
               }
             ]
           }
         ],
-        "IsViewOnly": false,
         "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
       }
     }
@@ -160,24 +181,22 @@
             "Label": "",
             "ColumnSpan": 1,
             "RowSpan": 1,
-            "IsViewOnly": false,
-            "IsEllipsis": false,
-            "IsBreakAll": false,
+            "TextWrap": "Unset",
             "CanResize": false,
             "FontFamily": "",
-            "Color": ""
+            "Color": "",
+            "BackgroundColor": ""
           },
           {
             "FieldName": "File",
             "Label": "",
             "ColumnSpan": 1,
             "RowSpan": 1,
-            "IsViewOnly": false,
-            "IsEllipsis": false,
-            "IsBreakAll": false,
+            "TextWrap": "Unset",
             "CanResize": false,
             "FontFamily": "",
-            "Color": ""
+            "Color": "",
+            "BackgroundColor": ""
           }
         ]
       ]
@@ -199,23 +218,32 @@
           {
             "IsWrap": false,
             "IsRowMarginRemoved": false,
+            "GridRowType": "Normal",
+            "BackgroundColor": "",
             "Columns": [
               {
+                "BackgroundColor": "",
+                "Border": "None",
                 "CanResize": false
               },
               {
+                "BackgroundColor": "",
+                "Border": "None",
                 "CanResize": false
               },
               {
+                "BackgroundColor": "",
+                "Border": "None",
                 "CanResize": false
               },
               {
+                "BackgroundColor": "",
+                "Border": "None",
                 "CanResize": false
               }
             ]
           }
         ],
-        "IsViewOnly": false,
         "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.SearchGridLayoutDesign"
       }
     }
@@ -231,6 +259,7 @@
       "SelectFields": [],
       "ModuleName": ""
     },
+    "PagerPosition": "Bottom",
     "UseIndexSort": false,
     "DeleteTogether": false,
     "CanCreate": false,
