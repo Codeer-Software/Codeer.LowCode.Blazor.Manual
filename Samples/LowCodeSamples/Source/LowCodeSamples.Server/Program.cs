@@ -8,12 +8,15 @@ using LowCodeSamples.Server.Services.FileManagement;
 using PdfSharp.Fonts;
 using System.Globalization;
 using System.Text.Json.Serialization;
-using Heron.MudCalendar;
 using Codeer.LowCode.Bindings.MudBlazor.Installer;
 using Codeer.LowCode.Bindings.Radzen.Blazor.Installer;
 using LowCodeSamples.Server.Services.AI;
+using ApexCharts;
+using Codeer.LowCode.Bindings.ApexCharts.Designs;
 
 //load dll.
+typeof(ApexChartFieldDesign).ToString();
+typeof(SeriesType).ToString();
 typeof(ColorPickerField).ToString();
 MudBlazorLoader.LoadAssemblies();
 RadzenLoader.LoadAssemblies();

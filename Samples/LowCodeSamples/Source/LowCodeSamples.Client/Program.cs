@@ -1,3 +1,5 @@
+using ApexCharts;
+using Codeer.LowCode.Bindings.ApexCharts.Designs;
 using Codeer.LowCode.Bindings.MudBlazor.Installer;
 using Codeer.LowCode.Bindings.Radzen.Blazor.Installer;
 using Codeer.LowCode.Blazor.RequestInterfaces;
@@ -13,6 +15,8 @@ using MudBlazor.Services;
 using Radzen;
 
 //load dll.
+typeof(ApexChartFieldDesign).ToString();
+typeof(SeriesType).ToString();
 typeof(ColorPickerField).ToString();
 MudBlazorLoader.LoadAssemblies();
 RadzenLoader.LoadAssemblies();
