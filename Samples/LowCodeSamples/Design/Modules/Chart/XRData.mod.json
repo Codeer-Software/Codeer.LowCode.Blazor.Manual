@@ -1,0 +1,418 @@
+{
+  "Name": "XRData",
+  "DisplayName": "",
+  "PageTitle": "",
+  "DataSourceName": "Main",
+  "DbTable": "",
+  "CanCreate": true,
+  "CanUpdate": true,
+  "CanDelete": true,
+  "CanBulkDataUpdate": false,
+  "CanBulkDataDownload": true,
+  "UseListPageSubmitButton": false,
+  "Fields": [
+    {
+      "QuerySetting": {
+        "QueryText": "WITH group_stats AS (\r\n    SELECT \r\n        sample_group,\r\n        AVG(measurement) AS sample_mean,\r\n        MAX(measurement) - MIN(measurement) AS sample_range\r\n    FROM measurement_samples\r\n    GROUP BY sample_group\r\n),\r\noverall_stats AS (\r\n    SELECT \r\n        AVG(sample_mean) AS x_bar,\r\n        AVG(sample_range) AS R_bar\r\n    FROM group_stats\r\n),\r\ncontrol_limits AS (\r\n    SELECT\r\n        x_bar,\r\n        R_bar,\r\n        x_bar + 0.577 * R_bar AS xbar_ucl, -- A_2 = 0.577 (グループサイズ5の場合)\r\n        x_bar - 0.577 * R_bar AS xbar_lcl,\r\n        R_bar AS R_cl,\r\n        2.114 * R_bar AS R_ucl,           -- D_4 = 2.114\r\n        0 * R_bar AS R_lcl                -- D_3 = 0\r\n    FROM overall_stats\r\n)\r\nSELECT \r\n    g.sample_group,\r\n    g.sample_mean,\r\n    g.sample_range,\r\n    c.x_bar AS xbar_cl,\r\n    c.xbar_ucl,\r\n    c.xbar_lcl,\r\n    c.R_cl,\r\n    c.R_ucl,\r\n    c.R_lcl\r\nFROM group_stats g\r\nCROSS JOIN control_limits c\r\nORDER BY g.sample_group;\r\n",
+        "Parameters": [
+          {
+            "IsParameter": false,
+            "Name": "sample_group",
+            "DbType": "INTEGER"
+          },
+          {
+            "IsParameter": false,
+            "Name": "sample_mean",
+            "DbType": ""
+          },
+          {
+            "IsParameter": false,
+            "Name": "sample_range",
+            "DbType": ""
+          },
+          {
+            "IsParameter": false,
+            "Name": "xbar_cl",
+            "DbType": ""
+          },
+          {
+            "IsParameter": false,
+            "Name": "xbar_ucl",
+            "DbType": ""
+          },
+          {
+            "IsParameter": false,
+            "Name": "xbar_lcl",
+            "DbType": ""
+          },
+          {
+            "IsParameter": false,
+            "Name": "R_cl",
+            "DbType": ""
+          },
+          {
+            "IsParameter": false,
+            "Name": "R_ucl",
+            "DbType": ""
+          },
+          {
+            "IsParameter": false,
+            "Name": "R_lcl",
+            "DbType": ""
+          }
+        ]
+      },
+      "Name": "Query",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.QueryFieldDesign"
+    },
+    {
+      "Placeholder": "",
+      "Format": "",
+      "DbColumn": "sample_group",
+      "IsUpdateProtected": false,
+      "IsSearchParameter": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "sample_group",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.NumberFieldDesign"
+    },
+    {
+      "Placeholder": "",
+      "Format": "",
+      "DbColumn": "sample_mean",
+      "IsUpdateProtected": false,
+      "IsSearchParameter": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "sample_mean",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.NumberFieldDesign"
+    },
+    {
+      "Placeholder": "",
+      "Format": "",
+      "DbColumn": "sample_range",
+      "IsUpdateProtected": false,
+      "IsSearchParameter": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "sample_range",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.NumberFieldDesign"
+    },
+    {
+      "Placeholder": "",
+      "Format": "",
+      "DbColumn": "xbar_cl",
+      "IsUpdateProtected": false,
+      "IsSearchParameter": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "XCL",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "xbar_cl",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.NumberFieldDesign"
+    },
+    {
+      "Placeholder": "",
+      "Format": "",
+      "DbColumn": "xbar_ucl",
+      "IsUpdateProtected": false,
+      "IsSearchParameter": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "xbar_ucl",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.NumberFieldDesign"
+    },
+    {
+      "Placeholder": "",
+      "Format": "",
+      "DbColumn": "xbar_lcl",
+      "IsUpdateProtected": false,
+      "IsSearchParameter": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "xbar_lcl",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.NumberFieldDesign"
+    },
+    {
+      "Placeholder": "",
+      "Format": "",
+      "DbColumn": "R_cl",
+      "IsUpdateProtected": false,
+      "IsSearchParameter": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "R_cl",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.NumberFieldDesign"
+    },
+    {
+      "Placeholder": "",
+      "Format": "",
+      "DbColumn": "R_ucl",
+      "IsUpdateProtected": false,
+      "IsSearchParameter": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "R_ucl",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.NumberFieldDesign"
+    },
+    {
+      "Placeholder": "",
+      "Format": "",
+      "DbColumn": "R_lcl",
+      "IsUpdateProtected": false,
+      "IsSearchParameter": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "R_lcl",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.NumberFieldDesign"
+    },
+    {
+      "SeriesType": "Bar",
+      "Series": {
+        "Series": []
+      },
+      "FullWidthBar": false,
+      "ShowXAxisGrid": false,
+      "ShowYAxisGrid": true,
+      "SearchCondition": {
+        "SortFieldVariable": "",
+        "SortDescending": false,
+        "SelectFields": [],
+        "ModuleName": "",
+        "Condition": {
+          "IsOrMatch": false,
+          "Children": [],
+          "Name": "",
+          "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
+        }
+      },
+      "DisplayName": "",
+      "SeriesFractionDigits": 2,
+      "ShowLegend": true,
+      "Name": "ApexChart",
+      "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexChartFieldDesign"
+    }
+  ],
+  "UserWriteCondition": {
+    "ModuleName": ""
+  },
+  "UserReadCondition": {
+    "ModuleName": ""
+  },
+  "DataWriteCondition": {
+    "ModuleName": ""
+  },
+  "DataReadCondition": {
+    "ModuleName": ""
+  },
+  "OnTransaction": "",
+  "DetailLayouts": {
+    "": {
+      "OnBeforeInitialization": "",
+      "OnAfterInitialization": "",
+      "DataOnlyFields": [],
+      "Layout": {
+        "Name": "",
+        "IsBordered": false,
+        "IsFlowLayout": false,
+        "IsFillAvailable": false,
+        "IsExpandable": false,
+        "ExpanderLabel": "",
+        "IsExpanderDefaultOpened": false,
+        "Rows": [
+          {
+            "IsWrap": false,
+            "IsRowMarginRemoved": false,
+            "GridRowType": "Normal",
+            "BackgroundColor": "",
+            "Columns": [
+              {
+                "BackgroundColor": "",
+                "Border": "None",
+                "CanResize": false,
+                "Background": ""
+              },
+              {
+                "BackgroundColor": "",
+                "Border": "None",
+                "CanResize": false,
+                "Background": ""
+              },
+              {
+                "BackgroundColor": "",
+                "Border": "None",
+                "CanResize": false,
+                "Background": ""
+              },
+              {
+                "BackgroundColor": "",
+                "Border": "None",
+                "CanResize": false,
+                "Background": ""
+              }
+            ]
+          }
+        ],
+        "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
+      }
+    }
+  },
+  "ListLayouts": {
+    "": {
+      "HeaderTitle": "",
+      "DataOnlyFields": [],
+      "OnBeforeInitialization": "",
+      "OnAfterInitialization": "",
+      "Elements": [
+        [
+          {
+            "FieldName": "R_cl",
+            "Label": "",
+            "ColumnSpan": 1,
+            "RowSpan": 1,
+            "TextWrap": "Unset",
+            "CanResize": false,
+            "FontFamily": "",
+            "Color": "",
+            "BackgroundColor": ""
+          },
+          {
+            "FieldName": "R_lcl",
+            "Label": "",
+            "ColumnSpan": 1,
+            "RowSpan": 1,
+            "TextWrap": "Unset",
+            "CanResize": false,
+            "FontFamily": "",
+            "Color": "",
+            "BackgroundColor": ""
+          },
+          {
+            "FieldName": "R_ucl",
+            "Label": "",
+            "ColumnSpan": 1,
+            "RowSpan": 1,
+            "TextWrap": "Unset",
+            "CanResize": false,
+            "FontFamily": "",
+            "Color": "",
+            "BackgroundColor": ""
+          },
+          {
+            "FieldName": "sample_group",
+            "Label": "",
+            "ColumnSpan": 1,
+            "RowSpan": 1,
+            "TextWrap": "Unset",
+            "CanResize": false,
+            "FontFamily": "",
+            "Color": "",
+            "BackgroundColor": ""
+          },
+          {
+            "FieldName": "sample_mean",
+            "Label": "",
+            "ColumnSpan": 1,
+            "RowSpan": 1,
+            "TextWrap": "Unset",
+            "CanResize": false,
+            "FontFamily": "",
+            "Color": "",
+            "BackgroundColor": ""
+          }
+        ]
+      ]
+    }
+  },
+  "SearchLayouts": {
+    "": {
+      "OnSearchInitialization": "",
+      "Layout": {
+        "Operator": "And",
+        "Name": "SearchGridLayout",
+        "IsBordered": false,
+        "IsFlowLayout": false,
+        "IsFillAvailable": false,
+        "IsExpandable": true,
+        "ExpanderLabel": "検索条件",
+        "IsExpanderDefaultOpened": false,
+        "Rows": [
+          {
+            "IsWrap": false,
+            "IsRowMarginRemoved": false,
+            "GridRowType": "Normal",
+            "BackgroundColor": "",
+            "Columns": [
+              {
+                "BackgroundColor": "",
+                "Border": "None",
+                "CanResize": false,
+                "Background": ""
+              },
+              {
+                "BackgroundColor": "",
+                "Border": "None",
+                "CanResize": false,
+                "Background": ""
+              },
+              {
+                "BackgroundColor": "",
+                "Border": "None",
+                "CanResize": false,
+                "Background": ""
+              },
+              {
+                "BackgroundColor": "",
+                "Border": "None",
+                "CanResize": false,
+                "Background": ""
+              }
+            ]
+          }
+        ],
+        "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.SearchGridLayoutDesign"
+      }
+    }
+  },
+  "LinkFieldNames": [],
+  "ListPageFieldDesign": {
+    "LayoutName": "",
+    "CanNavigateToDetail": true,
+    "DisplayName": "",
+    "SearchCondition": {
+      "SortFieldVariable": "",
+      "SortDescending": false,
+      "SelectFields": [],
+      "ModuleName": ""
+    },
+    "PagerPosition": "Bottom",
+    "UseIndexSort": false,
+    "DeleteTogether": false,
+    "CanCreate": false,
+    "CanUpdate": false,
+    "CanDelete": false,
+    "CanSelect": false,
+    "OnDataChanged": "",
+    "OnSearchDataChanged": "",
+    "OnSelectedIndexChanged": "",
+    "OnSelectedIndexChanging": "",
+    "Name": "",
+    "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ListFieldDesign"
+  }
+}
