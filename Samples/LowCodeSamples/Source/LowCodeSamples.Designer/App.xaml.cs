@@ -17,6 +17,8 @@ using Codeer.LowCode.Bindings.Radzen.Blazor.Installer;
 using LowCodeSamples.Client.Shared.AITextAnalyzer;
 using Codeer.LowCode.Blazor.Repository.Data;
 using System.Net.Http;
+using ApexCharts;
+using Codeer.LowCode.Bindings.ApexCharts.Designs;
 
 namespace LowCodeSamples.Designer
 {
@@ -24,6 +26,9 @@ namespace LowCodeSamples.Designer
     {
         protected override void OnStartup(StartupEventArgs e)
         {
+            typeof(ApexChartFieldDesign).ToString();
+            typeof(SeriesType).ToString();
+
             MudBlazorLoader.LoadAssemblies();
             RadzenLoader.LoadAssemblies();
 
