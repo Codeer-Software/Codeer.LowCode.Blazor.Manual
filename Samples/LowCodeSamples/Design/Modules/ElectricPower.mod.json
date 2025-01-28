@@ -9,15 +9,18 @@
   "CanDelete": true,
   "CanBulkDataUpdate": true,
   "CanBulkDataDownload": true,
+  "UseListPageSubmitButton": false,
   "Fields": [
     {
       "DbColumn": "year",
       "IsMultiline": false,
       "Placeholder": "",
+      "IsUpdateProtected": false,
+      "IsSearchParameter": false,
+      "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
       "OnDataChanged": "",
-      "OnSearchDataChanged": "",
       "Name": "Year",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
     },
@@ -25,10 +28,12 @@
       "Placeholder": "",
       "Format": "",
       "DbColumn": "europe",
+      "IsUpdateProtected": false,
+      "IsSearchParameter": false,
+      "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
       "OnDataChanged": "",
-      "OnSearchDataChanged": "",
       "Name": "Europe",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.NumberFieldDesign"
     },
@@ -36,10 +41,12 @@
       "Placeholder": "",
       "Format": "",
       "DbColumn": "china",
+      "IsUpdateProtected": false,
+      "IsSearchParameter": false,
+      "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
       "OnDataChanged": "",
-      "OnSearchDataChanged": "",
       "Name": "China",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.NumberFieldDesign"
     },
@@ -47,10 +54,12 @@
       "Placeholder": "",
       "Format": "",
       "DbColumn": "america",
+      "IsUpdateProtected": false,
+      "IsSearchParameter": false,
+      "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
       "OnDataChanged": "",
-      "OnSearchDataChanged": "",
       "Name": "America",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.NumberFieldDesign"
     },
@@ -60,10 +69,12 @@
       "IsManualInput": false,
       "CompositeIdVariables": [],
       "CompositeIdSeparator": "",
+      "IsUpdateProtected": false,
+      "IsSearchParameter": false,
+      "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
       "OnDataChanged": "",
-      "OnSearchDataChanged": "",
       "Name": "Id",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.IdFieldDesign"
     }
@@ -98,23 +109,32 @@
           {
             "IsWrap": false,
             "IsRowMarginRemoved": false,
+            "GridRowType": "Normal",
+            "BackgroundColor": "",
             "Columns": [
               {
+                "BackgroundColor": "",
+                "Border": "None",
                 "CanResize": false
               },
               {
+                "BackgroundColor": "",
+                "Border": "None",
                 "CanResize": false
               },
               {
+                "BackgroundColor": "",
+                "Border": "None",
                 "CanResize": false
               },
               {
+                "BackgroundColor": "",
+                "Border": "None",
                 "CanResize": false
               }
             ]
           }
         ],
-        "IsViewOnly": false,
         "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
       }
     }
@@ -132,48 +152,44 @@
             "Label": "",
             "ColumnSpan": 1,
             "RowSpan": 1,
-            "IsViewOnly": false,
-            "IsEllipsis": false,
-            "IsBreakAll": false,
+            "TextWrap": "Unset",
             "CanResize": false,
             "FontFamily": "",
-            "Color": ""
+            "Color": "",
+            "BackgroundColor": ""
           },
           {
             "FieldName": "Europe",
             "Label": "",
             "ColumnSpan": 1,
             "RowSpan": 1,
-            "IsViewOnly": false,
-            "IsEllipsis": false,
-            "IsBreakAll": false,
+            "TextWrap": "Unset",
             "CanResize": false,
             "FontFamily": "",
-            "Color": ""
+            "Color": "",
+            "BackgroundColor": ""
           },
           {
             "FieldName": "China",
             "Label": "",
             "ColumnSpan": 1,
             "RowSpan": 1,
-            "IsViewOnly": false,
-            "IsEllipsis": false,
-            "IsBreakAll": false,
+            "TextWrap": "Unset",
             "CanResize": false,
             "FontFamily": "",
-            "Color": ""
+            "Color": "",
+            "BackgroundColor": ""
           },
           {
             "FieldName": "America",
             "Label": "",
             "ColumnSpan": 1,
             "RowSpan": 1,
-            "IsViewOnly": false,
-            "IsEllipsis": false,
-            "IsBreakAll": false,
+            "TextWrap": "Unset",
             "CanResize": false,
             "FontFamily": "",
-            "Color": ""
+            "Color": "",
+            "BackgroundColor": ""
           }
         ]
       ]
@@ -195,23 +211,32 @@
           {
             "IsWrap": false,
             "IsRowMarginRemoved": false,
+            "GridRowType": "Normal",
+            "BackgroundColor": "",
             "Columns": [
               {
+                "BackgroundColor": "",
+                "Border": "None",
                 "CanResize": false
               },
               {
+                "BackgroundColor": "",
+                "Border": "None",
                 "CanResize": false
               },
               {
+                "BackgroundColor": "",
+                "Border": "None",
                 "CanResize": false
               },
               {
+                "BackgroundColor": "",
+                "Border": "None",
                 "CanResize": false
               }
             ]
           }
         ],
-        "IsViewOnly": false,
         "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.SearchGridLayoutDesign"
       }
     }
@@ -227,6 +252,7 @@
       "SelectFields": [],
       "ModuleName": ""
     },
+    "PagerPosition": "Bottom",
     "UseIndexSort": false,
     "DeleteTogether": false,
     "CanCreate": false,

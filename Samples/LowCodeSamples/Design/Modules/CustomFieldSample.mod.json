@@ -9,9 +9,11 @@
   "CanDelete": true,
   "CanBulkDataUpdate": false,
   "CanBulkDataDownload": false,
+  "UseListPageSubmitButton": false,
   "Fields": [
     {
       "Text": "Name",
+      "Icon": "",
       "Style": "Default",
       "RelativeField": "",
       "Name": "Label",
@@ -23,6 +25,8 @@
       "IsManualInput": false,
       "CompositeIdVariables": [],
       "CompositeIdSeparator": "",
+      "IsUpdateProtected": false,
+      "IsSearchParameter": false,
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
@@ -34,6 +38,8 @@
       "DbColumn": "name",
       "IsMultiline": false,
       "Placeholder": "",
+      "IsUpdateProtected": false,
+      "IsSearchParameter": false,
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
@@ -52,6 +58,7 @@
     },
     {
       "Text": "Color",
+      "Icon": "",
       "Style": "Default",
       "RelativeField": "",
       "Name": "Label1",
@@ -59,7 +66,10 @@
     },
     {
       "Text": "Submit",
+      "ImageResourcePath": "",
       "Icon": "",
+      "Variant": "Primary",
+      "IsBlock": true,
       "Name": "SubmitButton",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.SubmitButtonFieldDesign"
     }
@@ -94,17 +104,21 @@
           {
             "IsWrap": false,
             "IsRowMarginRemoved": false,
+            "GridRowType": "Normal",
+            "BackgroundColor": "",
             "Columns": [
               {
                 "Layout": {
                   "FieldName": "Label",
                   "FontFamily": "",
                   "Color": "",
+                  "BackgroundColor": "",
                   "Name": "",
-                  "IsViewOnly": false,
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
                 "Width": 100,
+                "BackgroundColor": "",
+                "Border": "None",
                 "CanResize": false
               },
               {
@@ -112,10 +126,12 @@
                   "FieldName": "Name",
                   "FontFamily": "",
                   "Color": "",
+                  "BackgroundColor": "",
                   "Name": "",
-                  "IsViewOnly": false,
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
+                "BackgroundColor": "",
+                "Border": "None",
                 "CanResize": false
               }
             ]
@@ -123,17 +139,21 @@
           {
             "IsWrap": false,
             "IsRowMarginRemoved": false,
+            "GridRowType": "Normal",
+            "BackgroundColor": "",
             "Columns": [
               {
                 "Layout": {
                   "FieldName": "Label1",
                   "FontFamily": "",
                   "Color": "",
+                  "BackgroundColor": "",
                   "Name": "",
-                  "IsViewOnly": false,
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
                 "Width": 100,
+                "BackgroundColor": "",
+                "Border": "None",
                 "CanResize": false
               },
               {
@@ -141,10 +161,12 @@
                   "FieldName": "Color",
                   "FontFamily": "",
                   "Color": "",
+                  "BackgroundColor": "",
                   "Name": "",
-                  "IsViewOnly": false,
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
+                "BackgroundColor": "",
+                "Border": "None",
                 "CanResize": false
               }
             ]
@@ -152,23 +174,26 @@
           {
             "IsWrap": false,
             "IsRowMarginRemoved": false,
+            "GridRowType": "Normal",
+            "BackgroundColor": "",
             "Columns": [
               {
                 "Layout": {
                   "FieldName": "SubmitButton",
                   "FontFamily": "",
                   "Color": "",
+                  "BackgroundColor": "",
                   "Name": "",
-                  "IsViewOnly": false,
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
+                "BackgroundColor": "",
+                "Border": "None",
                 "HorizontalAlignment": "Center",
                 "CanResize": false
               }
             ]
           }
         ],
-        "IsViewOnly": false,
         "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
       }
     }
@@ -186,33 +211,33 @@
             "Label": "",
             "ColumnSpan": 1,
             "RowSpan": 1,
-            "IsViewOnly": false,
             "TextWrap": "Unset",
             "CanResize": false,
             "FontFamily": "",
-            "Color": ""
+            "Color": "",
+            "BackgroundColor": ""
           },
           {
             "FieldName": "Name",
             "Label": "",
             "ColumnSpan": 1,
             "RowSpan": 1,
-            "IsViewOnly": false,
             "TextWrap": "Unset",
             "CanResize": false,
             "FontFamily": "",
-            "Color": ""
+            "Color": "",
+            "BackgroundColor": ""
           },
           {
             "FieldName": "Color",
             "Label": "",
             "ColumnSpan": 1,
             "RowSpan": 1,
-            "IsViewOnly": false,
             "TextWrap": "Unset",
             "CanResize": false,
             "FontFamily": "",
-            "Color": ""
+            "Color": "",
+            "BackgroundColor": ""
           }
         ]
       ]
@@ -234,23 +259,32 @@
           {
             "IsWrap": false,
             "IsRowMarginRemoved": false,
+            "GridRowType": "Normal",
+            "BackgroundColor": "",
             "Columns": [
               {
+                "BackgroundColor": "",
+                "Border": "None",
                 "CanResize": false
               },
               {
+                "BackgroundColor": "",
+                "Border": "None",
                 "CanResize": false
               },
               {
+                "BackgroundColor": "",
+                "Border": "None",
                 "CanResize": false
               },
               {
+                "BackgroundColor": "",
+                "Border": "None",
                 "CanResize": false
               }
             ]
           }
         ],
-        "IsViewOnly": false,
         "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.SearchGridLayoutDesign"
       }
     }
@@ -266,6 +300,7 @@
       "SelectFields": [],
       "ModuleName": ""
     },
+    "PagerPosition": "Bottom",
     "UseIndexSort": false,
     "DeleteTogether": false,
     "CanCreate": false,

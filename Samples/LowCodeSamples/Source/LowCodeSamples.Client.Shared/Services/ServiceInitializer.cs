@@ -21,7 +21,6 @@ namespace LowCodeSamples.Client.Shared.Services
             services.AddSingleton<ModuleDialogService>();
             services.AddSingleton<MessageBoxService>();
             services.AddSingleton<LoadingService>();
-            services.AddSingleton<PageFrameContext>();
             services.AddToaster(config =>
             {
                 config.PositionClass = Defaults.Classes.Position.BottomRight;

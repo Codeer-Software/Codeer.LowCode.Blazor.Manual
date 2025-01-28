@@ -13,6 +13,7 @@
   "Fields": [
     {
       "Text": "バーコードによる商品出庫",
+      "Icon": "",
       "Style": "H2",
       "RelativeField": "",
       "Name": "Label",
@@ -20,6 +21,7 @@
     },
     {
       "Text": "バーコード",
+      "Icon": "",
       "Style": "Default",
       "RelativeField": "",
       "Name": "バーコード",
@@ -30,6 +32,7 @@
       "IsMultiline": false,
       "Placeholder": "ここをクリックしてバーコードをスキャンしてください",
       "IsUpdateProtected": false,
+      "IsSearchParameter": false,
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
@@ -39,6 +42,7 @@
     },
     {
       "Text": "商品名",
+      "Icon": "",
       "Style": "Default",
       "RelativeField": "",
       "Name": "Label1",
@@ -70,6 +74,7 @@
       "ListLayoutName": "",
       "SearchLayoutName": "",
       "IsUpdateProtected": false,
+      "IsSearchParameter": false,
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
@@ -79,6 +84,7 @@
     },
     {
       "Text": "在庫数",
+      "Icon": "",
       "Style": "Default",
       "RelativeField": "",
       "Name": "在庫数",
@@ -89,6 +95,7 @@
       "Format": "",
       "DbColumn": "datetime",
       "IsUpdateProtected": false,
+      "IsSearchParameter": false,
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
@@ -101,6 +108,7 @@
       "Format": "",
       "DbColumn": "quantity",
       "IsUpdateProtected": false,
+      "IsSearchParameter": false,
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
@@ -134,6 +142,7 @@
       "ListLayoutName": "",
       "SearchLayoutName": "",
       "IsUpdateProtected": false,
+      "IsSearchParameter": false,
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
@@ -143,6 +152,7 @@
     },
     {
       "Text": "出庫",
+      "ImageResourcePath": "",
       "Icon": "",
       "Variant": "Primary",
       "IsBlock": true,
@@ -151,6 +161,7 @@
     },
     {
       "Text": "出庫数",
+      "Icon": "",
       "Style": "Default",
       "RelativeField": "",
       "Name": "Label2",
@@ -163,6 +174,7 @@
       "Format": "",
       "DbColumn": "quantity",
       "IsUpdateProtected": false,
+      "IsSearchParameter": false,
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
@@ -175,6 +187,7 @@
       "IsMultiline": false,
       "Placeholder": "",
       "IsUpdateProtected": false,
+      "IsSearchParameter": false,
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
@@ -214,6 +227,7 @@
     },
     {
       "Text": "在庫情報",
+      "Icon": "",
       "Style": "Default",
       "RelativeField": "",
       "Name": "Label3",
@@ -221,6 +235,7 @@
     },
     {
       "Text": "クリア",
+      "ImageResourcePath": "",
       "Icon": "",
       "Variant": "Primary",
       "OnClick": "btnClear_OnClick",
@@ -229,6 +244,7 @@
     },
     {
       "Text": "",
+      "Icon": "",
       "Style": "Default",
       "RelativeField": "",
       "Name": "lblCode",
@@ -265,16 +281,19 @@
           {
             "IsWrap": false,
             "IsRowMarginRemoved": false,
+            "GridRowType": "Normal",
+            "BackgroundColor": "",
             "Columns": [
               {
                 "Layout": {
                   "FieldName": "Label",
                   "FontFamily": "",
                   "Color": "",
+                  "BackgroundColor": "",
                   "Name": "",
-                  "IsViewOnly": false,
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
+                "BackgroundColor": "",
                 "Border": "None",
                 "CanResize": false
               },
@@ -283,10 +302,12 @@
                   "FieldName": "CreatedAt",
                   "FontFamily": "",
                   "Color": "",
+                  "BackgroundColor": "",
                   "Name": "",
                   "IsViewOnly": true,
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
+                "BackgroundColor": "",
                 "Border": "None",
                 "CanResize": false
               }
@@ -295,17 +316,20 @@
           {
             "IsWrap": false,
             "IsRowMarginRemoved": false,
+            "GridRowType": "Normal",
+            "BackgroundColor": "",
             "Columns": [
               {
                 "Layout": {
                   "FieldName": "バーコード",
                   "FontFamily": "",
                   "Color": "",
+                  "BackgroundColor": "",
                   "Name": "",
-                  "IsViewOnly": false,
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
                 "Width": 116,
+                "BackgroundColor": "",
                 "Border": "None",
                 "CanResize": false
               },
@@ -314,11 +338,12 @@
                   "FieldName": "txtBarcodeInput",
                   "FontFamily": "",
                   "Color": "",
+                  "BackgroundColor": "",
                   "Name": "",
-                  "IsViewOnly": false,
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
                 "Width": 355,
+                "BackgroundColor": "",
                 "Border": "None",
                 "CanResize": false
               },
@@ -327,10 +352,12 @@
                   "FieldName": "txtCode",
                   "FontFamily": "",
                   "Color": "",
+                  "BackgroundColor": "",
                   "Name": "",
                   "IsViewOnly": true,
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
+                "BackgroundColor": "",
                 "Border": "None",
                 "CanResize": false
               }
@@ -339,17 +366,20 @@
           {
             "IsWrap": false,
             "IsRowMarginRemoved": false,
+            "GridRowType": "Normal",
+            "BackgroundColor": "",
             "Columns": [
               {
                 "Layout": {
                   "FieldName": "Label2",
                   "FontFamily": "",
                   "Color": "",
+                  "BackgroundColor": "",
                   "Name": "",
-                  "IsViewOnly": false,
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
                 "Width": 116,
+                "BackgroundColor": "",
                 "Border": "None",
                 "CanResize": false
               },
@@ -358,10 +388,11 @@
                   "FieldName": "numOutQty",
                   "FontFamily": "",
                   "Color": "",
+                  "BackgroundColor": "",
                   "Name": "",
-                  "IsViewOnly": false,
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
+                "BackgroundColor": "",
                 "Border": "None",
                 "CanResize": false
               }
@@ -370,17 +401,20 @@
           {
             "IsWrap": false,
             "IsRowMarginRemoved": false,
+            "GridRowType": "Normal",
+            "BackgroundColor": "",
             "Columns": [
               {
                 "Layout": {
                   "FieldName": "Label3",
                   "FontFamily": "",
                   "Color": "",
+                  "BackgroundColor": "",
                   "Name": "",
-                  "IsViewOnly": false,
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
                 "Width": 116,
+                "BackgroundColor": "",
                 "Border": "None",
                 "CanResize": false
               },
@@ -389,10 +423,11 @@
                   "FieldName": "listProduct",
                   "FontFamily": "",
                   "Color": "",
+                  "BackgroundColor": "",
                   "Name": "",
-                  "IsViewOnly": false,
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
+                "BackgroundColor": "",
                 "Border": "None",
                 "CanResize": false
               }
@@ -401,14 +436,18 @@
           {
             "IsWrap": false,
             "IsRowMarginRemoved": false,
+            "GridRowType": "Normal",
+            "BackgroundColor": "",
             "Columns": [
               {
                 "Width": 116,
+                "BackgroundColor": "",
                 "Border": "None",
                 "CanResize": false
               },
               {
                 "Width": 570,
+                "BackgroundColor": "",
                 "Border": "None",
                 "CanResize": false
               },
@@ -417,17 +456,17 @@
                   "FieldName": "SubmitButton",
                   "FontFamily": "",
                   "Color": "",
+                  "BackgroundColor": "",
                   "Name": "",
-                  "IsViewOnly": false,
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
+                "BackgroundColor": "",
                 "Border": "None",
                 "CanResize": false
               }
             ]
           }
         ],
-        "IsViewOnly": false,
         "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
       }
     }
@@ -445,11 +484,11 @@
             "Label": "",
             "ColumnSpan": 1,
             "RowSpan": 1,
-            "IsViewOnly": false,
             "TextWrap": "Unset",
             "CanResize": false,
             "FontFamily": "",
-            "Color": ""
+            "Color": "",
+            "BackgroundColor": ""
           }
         ]
       ]
@@ -471,27 +510,32 @@
           {
             "IsWrap": false,
             "IsRowMarginRemoved": false,
+            "GridRowType": "Normal",
+            "BackgroundColor": "",
             "Columns": [
               {
+                "BackgroundColor": "",
                 "Border": "None",
                 "CanResize": false
               },
               {
+                "BackgroundColor": "",
                 "Border": "None",
                 "CanResize": false
               },
               {
+                "BackgroundColor": "",
                 "Border": "None",
                 "CanResize": false
               },
               {
+                "BackgroundColor": "",
                 "Border": "None",
                 "CanResize": false
               }
             ]
           }
         ],
-        "IsViewOnly": false,
         "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.SearchGridLayoutDesign"
       }
     }
