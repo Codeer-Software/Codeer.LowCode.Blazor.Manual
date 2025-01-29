@@ -106,8 +106,8 @@ public class DataSource
         "azure": {
             "DeployMethod": "FTPS",
             "AppName": "App",
-            "FTPSEndPoint": "ftp://xxx",
-            "UserName": "xxx\\$x",
+            "FTPSEndPoint": "ftps://xxx",
+            "UserName": "xxx\\$xxx",
             "Password": "Exxx",
             "Directory": "Designs"
         }
