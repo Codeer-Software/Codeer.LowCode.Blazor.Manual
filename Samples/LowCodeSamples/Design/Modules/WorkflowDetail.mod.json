@@ -1,0 +1,281 @@
+{
+  "Name": "WorkflowDetail",
+  "DisplayName": "",
+  "PageTitle": "",
+  "DataSourceName": "Main",
+  "DbTable": "work_flow_detail",
+  "CanCreate": true,
+  "CanUpdate": true,
+  "CanDelete": true,
+  "CanBulkDataUpdate": false,
+  "CanBulkDataDownload": false,
+  "UseListPageSubmitButton": false,
+  "Fields": [
+    {
+      "DbColumn": "id",
+      "Placeholder": "",
+      "IsManualInput": false,
+      "CompositeIdVariables": [],
+      "CompositeIdSeparator": "",
+      "IsUpdateProtected": false,
+      "IsSearchParameter": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "Id",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.IdFieldDesign"
+    },
+    {
+      "DbColumn": "work_flow_id",
+      "IsMultiline": false,
+      "Placeholder": "",
+      "IsUpdateProtected": false,
+      "IsSearchParameter": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "WorkflowId",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
+    },
+    {
+      "DbColumn": "content",
+      "IsMultiline": false,
+      "Placeholder": "",
+      "IsUpdateProtected": false,
+      "IsSearchParameter": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "Content",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
+    },
+    {
+      "Placeholder": "",
+      "Format": "#,##",
+      "DbColumn": "amount",
+      "IsUpdateProtected": false,
+      "IsSearchParameter": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "Amount",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.NumberFieldDesign"
+    },
+    {
+      "Format": "",
+      "DbColumn": "expense_date",
+      "IsUpdateProtected": false,
+      "IsSearchParameter": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "ExpenseDate",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.DateFieldDesign"
+    },
+    {
+      "UIType": "CheckBox",
+      "Text": "",
+      "DbColumn": "receipt",
+      "IsUpdateProtected": false,
+      "IsSearchParameter": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "Receipt",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.BooleanFieldDesign"
+    }
+  ],
+  "UserWriteCondition": {
+    "ModuleName": ""
+  },
+  "UserReadCondition": {
+    "ModuleName": ""
+  },
+  "DataWriteCondition": {
+    "ModuleName": ""
+  },
+  "DataReadCondition": {
+    "ModuleName": ""
+  },
+  "OnTransaction": "",
+  "DetailLayouts": {
+    "": {
+      "OnBeforeInitialization": "",
+      "OnAfterInitialization": "",
+      "DataOnlyFields": [],
+      "Layout": {
+        "Name": "",
+        "IsBordered": false,
+        "IsFlowLayout": false,
+        "IsFillAvailable": false,
+        "IsExpandable": false,
+        "ExpanderLabel": "",
+        "IsExpanderDefaultOpened": false,
+        "Rows": [
+          {
+            "IsWrap": false,
+            "IsRowMarginRemoved": false,
+            "GridRowType": "Normal",
+            "BackgroundColor": "",
+            "Columns": [
+              {
+                "BackgroundColor": "",
+                "Border": "None",
+                "CanResize": false
+              },
+              {
+                "BackgroundColor": "",
+                "Border": "None",
+                "CanResize": false
+              },
+              {
+                "BackgroundColor": "",
+                "Border": "None",
+                "CanResize": false
+              },
+              {
+                "BackgroundColor": "",
+                "Border": "None",
+                "CanResize": false
+              }
+            ]
+          }
+        ],
+        "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
+      }
+    }
+  },
+  "ListLayouts": {
+    "": {
+      "HeaderTitle": "",
+      "DataOnlyFields": [],
+      "OnBeforeInitialization": "",
+      "OnAfterInitialization": "",
+      "Elements": [
+        [
+          {
+            "FieldName": "ExpenseDate",
+            "Label": "日付",
+            "ColumnSpan": 1,
+            "RowSpan": 1,
+            "TextWrap": "Unset",
+            "CanResize": false,
+            "FontFamily": "",
+            "Color": "",
+            "BackgroundColor": ""
+          },
+          {
+            "FieldName": "Content",
+            "Label": "内容",
+            "ColumnSpan": 1,
+            "RowSpan": 1,
+            "TextWrap": "Unset",
+            "CanResize": false,
+            "FontFamily": "",
+            "Color": "",
+            "BackgroundColor": ""
+          },
+          {
+            "FieldName": "Amount",
+            "Label": "金額",
+            "ColumnSpan": 1,
+            "RowSpan": 1,
+            "TextWrap": "Unset",
+            "CanResize": false,
+            "FontFamily": "",
+            "Color": "",
+            "BackgroundColor": ""
+          },
+          {
+            "FieldName": "Receipt",
+            "Label": "領収書",
+            "ColumnSpan": 1,
+            "RowSpan": 1,
+            "TextWrap": "Unset",
+            "CanResize": false,
+            "FontFamily": "",
+            "Color": "",
+            "BackgroundColor": ""
+          }
+        ]
+      ]
+    }
+  },
+  "SearchLayouts": {
+    "": {
+      "OnSearchInitialization": "",
+      "Layout": {
+        "Operator": "And",
+        "Name": "SearchGridLayout",
+        "IsBordered": false,
+        "IsFlowLayout": false,
+        "IsFillAvailable": false,
+        "IsExpandable": true,
+        "ExpanderLabel": "検索条件",
+        "IsExpanderDefaultOpened": false,
+        "Rows": [
+          {
+            "IsWrap": false,
+            "IsRowMarginRemoved": false,
+            "GridRowType": "Normal",
+            "BackgroundColor": "",
+            "Columns": [
+              {
+                "BackgroundColor": "",
+                "Border": "None",
+                "CanResize": false
+              },
+              {
+                "BackgroundColor": "",
+                "Border": "None",
+                "CanResize": false
+              },
+              {
+                "BackgroundColor": "",
+                "Border": "None",
+                "CanResize": false
+              },
+              {
+                "BackgroundColor": "",
+                "Border": "None",
+                "CanResize": false
+              }
+            ]
+          }
+        ],
+        "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.SearchGridLayoutDesign"
+      }
+    }
+  },
+  "LinkFieldNames": [],
+  "ListPageFieldDesign": {
+    "LayoutName": "",
+    "CanNavigateToDetail": true,
+    "DisplayName": "",
+    "SearchCondition": {
+      "SortFieldVariable": "Id.Value",
+      "SortDescending": false,
+      "SelectFields": [],
+      "ModuleName": ""
+    },
+    "PagerPosition": "Bottom",
+    "UseIndexSort": false,
+    "DeleteTogether": false,
+    "CanCreate": false,
+    "CanUpdate": false,
+    "CanDelete": false,
+    "CanSelect": false,
+    "OnDataChanged": "",
+    "OnSearchDataChanged": "",
+    "OnSelectedIndexChanged": "",
+    "OnSelectedIndexChanging": "",
+    "Name": "",
+    "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ListFieldDesign"
+  }
+}
