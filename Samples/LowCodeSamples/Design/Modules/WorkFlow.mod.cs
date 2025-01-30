@@ -2,6 +2,11 @@ void DetailLayoutDesign_OnAfterInitialization()
 {
     if(ApproverDetailTileList.RowCount > 0)
     {
+        if(ApproverDetailTileList.Rows[0].Approved.Value == true)
+        {
+            ApproverDetailTileList.IsEnabled = false;
+            WorkFlowContent_ViewOnly();
+        }
         Approver_TaskWorker_check();
     } 
 }
@@ -62,6 +67,7 @@ void Approver_TaskWorker_check()
         if(i.ApproderId_UserMasterLink.Value == UserIdLink.Value)
         {
             i.Approved.IsViewOnly = false;
+            i.Approved.IsEnabled = true;
         }
         else
         {
@@ -77,4 +83,13 @@ void Total_Amount_Set()
     {
         Amount.Value += i.Amount.Value;
     }
+}
+
+void WorkFlowContent_ViewOnly()
+{
+    WorkFlowName.IsViewOnly = true;
+    StartPeriod.IsViewOnly = true;
+    EndPeriod.IsViewOnly = true;
+    WorkFlowDetailList.IsEnabled = false;
+    Remarks.IsViewOnly = true;
 }
