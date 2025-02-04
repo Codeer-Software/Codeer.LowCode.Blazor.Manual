@@ -1,0 +1,32 @@
+CREATE TABLE work_flow (
+    id SERIAL PRIMARY KEY,
+    work_flow_name TEXT,
+    user_id TEXT,
+    remarks TEXT,
+    start_period DATE,
+    end_period DATE,
+    amount DECIMAL(10,2) DEFAULT 0
+);
+
+CREATE TABLE user_master (
+    id SERIAL PRIMARY KEY,
+    user_id TEXT,
+    user_name TEXT
+);
+
+CREATE TABLE approver_detail (
+    id SERIAL PRIMARY KEY,
+    work_flow_id TEXT,
+    approver_id TEXT,    
+    approval_date DATE,
+    approved BOOLEAN DEFAULT FALSE
+);
+
+CREATE TABLE work_flow_detail (
+    id SERIAL PRIMARY KEY,
+    work_flow_id TEXT,
+    content TEXT,    
+    amount DECIMAL(10,2) DEFAULT 0,
+    expense_date DATE,
+    receipt BOOLEAN DEFAULT FALSE;
+);
