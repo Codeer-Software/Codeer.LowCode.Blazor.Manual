@@ -1,5 +1,6 @@
 using ApexCharts;
 using Codeer.LowCode.Bindings.ApexCharts.Designs;
+using Codeer.LowCode.Bindings.Fluent.Blazor.Designs;
 using Codeer.LowCode.Bindings.MudBlazor.Installer;
 using Codeer.LowCode.Bindings.Radzen.Blazor.Installer;
 using Codeer.LowCode.Blazor.RequestInterfaces;
@@ -10,6 +11,7 @@ using LowCodeSamples.Client.Shared.Samples.ColorPicker;
 using LowCodeSamples.Client.Shared.Services;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Microsoft.FluentUI.AspNetCore.Components;
 using MudBlazor;
 using MudBlazor.Services;
 using Radzen;
@@ -18,6 +20,8 @@ using Radzen;
 typeof(ApexChartFieldDesign).ToString();
 typeof(SeriesType).ToString();
 typeof(ColorPickerField).ToString();
+typeof(FluentTextFieldDesign).ToString();
+typeof(Microsoft.FluentUI.AspNetCore.Components.Appearance).ToString();
 MudBlazorLoader.LoadAssemblies();
 RadzenLoader.LoadAssemblies();
 
@@ -25,6 +29,7 @@ var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 builder.RootComponents.Add<AfterBodyOutlet>("body::after");
+builder.Services.AddFluentUIComponents();
 
 builder.Services.AddSharedServices();
 builder.Services.AddScoped<INavigationService, NavigationService>();
