@@ -1,9 +1,9 @@
 {
-  "Name": "VideoConferencingAccount",
+  "Name": "VideoConferencingAccountSetting",
   "DisplayName": "",
   "PageTitle": "",
-  "DataSourceName": "Main",
-  "DbTable": "video_conferencing_account",
+  "DataSourceName": "",
+  "DbTable": "",
   "CanCreate": true,
   "CanUpdate": true,
   "CanDelete": true,
@@ -27,12 +27,52 @@
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.IdFieldDesign"
     },
     {
+      "SearchCondition": {
+        "SortFieldVariable": "Id.Value",
+        "SortDescending": false,
+        "SelectFields": [],
+        "ModuleName": "VideoConferencingAccount",
+        "Condition": {
+          "IsOrMatch": false,
+          "Children": [],
+          "Name": "",
+          "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
+        }
+      },
+      "ValueVariable": "LoginAccountLink.Value",
+      "DisplayTextVariable": "LoginAccountName.Value",
+      "DbColumn": "",
+      "ListLayoutName": "",
+      "SearchLayoutName": "",
+      "IsUpdateProtected": false,
+      "IsSearchParameter": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "",
+      "IsRequired": false,
+      "OnDataChanged": "LoginUserLink_OnDataChanged",
+      "Name": "LoginUserLink",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LinkFieldDesign"
+    },
+    {
       "Text": "アカウント名",
       "Icon": "",
       "Style": "Default",
       "RelativeField": "",
       "Name": "AccountNameLabel",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "DbColumn": "",
+      "IsMultiline": false,
+      "Placeholder": "",
+      "IsUpdateProtected": false,
+      "IsSearchParameter": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "AccountNameText",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
     },
     {
       "Text": "ログイン状態",
@@ -62,7 +102,7 @@
       },
       "ValueVariable": "",
       "DisplayTextVariable": "",
-      "DbColumn": "login_status",
+      "DbColumn": "",
       "EmptyCandidateType": "StringEmpty",
       "AllowOrSearch": false,
       "IsUpdateProtected": false,
@@ -83,7 +123,7 @@
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
     },
     {
-      "DbColumn": "profile",
+      "DbColumn": "",
       "IsMultiline": true,
       "Placeholder": "",
       "Rows": 5,
@@ -97,6 +137,20 @@
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
     },
     {
+      "ResourcePath": "VideoConferencing/fox_icon_img.png",
+      "ObjectFit": "Contain",
+      "Name": "IconImageViewer",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ImageViewerFieldDesign"
+    },
+    {
+      "Text": "アイコン",
+      "Icon": "",
+      "Style": "Default",
+      "RelativeField": "IconImageViewer",
+      "Name": "IconImageViewerLabel",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
       "Text": "アカウント設定",
       "Icon": "",
       "Style": "H2",
@@ -107,64 +161,32 @@
     {
       "UIType": "Switch",
       "Text": "ログイン状態を自動で反映する",
-      "DbColumn": "auto_login",
+      "DbColumn": "",
       "IsUpdateProtected": false,
       "IsSearchParameter": false,
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
-      "OnDataChanged": "",
+      "OnDataChanged": "LoginStatusBoolean_OnDataChanged",
       "Name": "LoginStatusBoolean",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.BooleanFieldDesign"
     },
     {
-      "SearchCondition": {
-        "SortFieldVariable": "Id.Value",
-        "SortDescending": false,
-        "SelectFields": [],
-        "ModuleName": "UserMaster",
-        "Condition": {
-          "IsOrMatch": false,
-          "Children": [],
-          "Name": "",
-          "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
-        }
-      },
-      "ValueVariable": "UserId.Value",
-      "DisplayTextVariable": "UserId.Value",
-      "DbColumn": "account_id",
-      "ListLayoutName": "",
-      "SearchLayoutName": "",
-      "IsUpdateProtected": false,
-      "IsSearchParameter": false,
-      "OnSearchDataChanged": "",
-      "DisplayName": "",
-      "IsRequired": false,
-      "OnDataChanged": "LoginAccountLink_OnDataChanged",
-      "Name": "LoginAccountLink",
-      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LinkFieldDesign"
+      "Text": "ログインユーザー（サンプルのため手入力）",
+      "Icon": "",
+      "Style": "Default",
+      "RelativeField": "LoginUserLink",
+      "Name": "LoginUserLinkLabel",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
     },
     {
-      "Text": "Submit",
+      "Text": "保存",
       "ImageResourcePath": "",
       "Icon": "",
-      "Variant": "Primary",
-      "IsBlock": true,
-      "Name": "SubmitButton",
-      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.SubmitButtonFieldDesign"
-    },
-    {
-      "DbColumn": "account_name",
-      "IsMultiline": false,
-      "Placeholder": "",
-      "IsUpdateProtected": false,
-      "IsSearchParameter": false,
-      "OnSearchDataChanged": "",
-      "DisplayName": "",
-      "IsRequired": false,
-      "OnDataChanged": "",
-      "Name": "LoginAccountName",
-      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
+      "Variant": "OutlinePrimary",
+      "OnClick": "SaveButton_OnClick",
+      "Name": "SaveButton",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ButtonFieldDesign"
     }
   ],
   "UserWriteCondition": {
@@ -183,7 +205,7 @@
   "DetailLayouts": {
     "": {
       "OnBeforeInitialization": "",
-      "OnAfterInitialization": "",
+      "OnAfterInitialization": "DetailLayoutDesign_OnAfterInitialization",
       "DataOnlyFields": [],
       "Layout": {
         "Name": "",
@@ -212,6 +234,172 @@
                 "BackgroundColor": "",
                 "Border": "None",
                 "VerticalAlignment": "Middle",
+                "CanResize": false
+              },
+              {
+                "Layout": {
+                  "Name": "",
+                  "IsBordered": false,
+                  "IsFlowLayout": false,
+                  "IsFillAvailable": false,
+                  "IsExpandable": false,
+                  "ExpanderLabel": "",
+                  "IsExpanderDefaultOpened": false,
+                  "Rows": [
+                    {
+                      "IsWrap": false,
+                      "IsRowMarginRemoved": true,
+                      "GridRowType": "Normal",
+                      "BackgroundColor": "",
+                      "Columns": [
+                        {
+                          "Layout": {
+                            "FieldName": "LoginUserLinkLabel",
+                            "FontFamily": "",
+                            "FontSize": 10,
+                            "Color": "",
+                            "BackgroundColor": "",
+                            "Name": "",
+                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                          },
+                          "BackgroundColor": "",
+                          "Border": "None",
+                          "VerticalAlignment": "Bottom",
+                          "CanResize": false
+                        }
+                      ]
+                    },
+                    {
+                      "IsWrap": false,
+                      "IsRowMarginRemoved": false,
+                      "GridRowType": "Normal",
+                      "BackgroundColor": "",
+                      "Columns": [
+                        {
+                          "Layout": {
+                            "FieldName": "LoginUserLink",
+                            "FontFamily": "",
+                            "Color": "",
+                            "BackgroundColor": "",
+                            "Name": "",
+                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                          },
+                          "BackgroundColor": "",
+                          "Border": "None",
+                          "CanResize": false
+                        }
+                      ]
+                    }
+                  ],
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
+                },
+                "Width": 250,
+                "BackgroundColor": "",
+                "Border": "None",
+                "HorizontalAlignment": "Center",
+                "VerticalAlignment": "Middle",
+                "CanResize": false
+              }
+            ]
+          },
+          {
+            "IsWrap": false,
+            "IsRowMarginRemoved": false,
+            "GridRowType": "Normal",
+            "BackgroundColor": "",
+            "Columns": [
+              {
+                "Layout": {
+                  "Name": "",
+                  "IsBordered": false,
+                  "IsFlowLayout": false,
+                  "IsFillAvailable": false,
+                  "IsExpandable": false,
+                  "ExpanderLabel": "",
+                  "IsExpanderDefaultOpened": false,
+                  "Rows": [
+                    {
+                      "IsWrap": false,
+                      "IsRowMarginRemoved": true,
+                      "GridRowType": "Normal",
+                      "BackgroundColor": "",
+                      "Columns": [
+                        {
+                          "Layout": {
+                            "FieldName": "IconImageViewerLabel",
+                            "FontFamily": "",
+                            "FontWeight": "Bold",
+                            "Color": "",
+                            "BackgroundColor": "",
+                            "Name": "",
+                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                          },
+                          "BackgroundColor": "",
+                          "Border": "None",
+                          "HorizontalAlignment": "Center",
+                          "VerticalAlignment": "Bottom",
+                          "CanResize": false
+                        }
+                      ]
+                    },
+                    {
+                      "IsWrap": false,
+                      "IsRowMarginRemoved": false,
+                      "GridRowType": "Normal",
+                      "BackgroundColor": "",
+                      "Columns": [
+                        {
+                          "Layout": {
+                            "FieldName": "IconImageViewer",
+                            "FontFamily": "",
+                            "Color": "",
+                            "BackgroundColor": "",
+                            "Name": "",
+                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                          },
+                          "BackgroundColor": "",
+                          "Border": "None",
+                          "HorizontalAlignment": "Center",
+                          "VerticalAlignment": "Middle",
+                          "CanResize": false
+                        }
+                      ]
+                    }
+                  ],
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
+                },
+                "Width": 200,
+                "BackgroundColor": "",
+                "Border": "None",
+                "CanResize": false
+              },
+              {
+                "BackgroundColor": "",
+                "Border": "None",
+                "CanResize": false
+              },
+              {
+                "BackgroundColor": "",
+                "Border": "None",
+                "CanResize": false
+              },
+              {
+                "BackgroundColor": "",
+                "Border": "None",
+                "CanResize": false
+              },
+              {
+                "Layout": {
+                  "FieldName": "SaveButton",
+                  "FontFamily": "",
+                  "Color": "",
+                  "BackgroundColor": "",
+                  "Name": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "BackgroundColor": "",
+                "Border": "None",
+                "VerticalAlignment": "Bottom",
                 "CanResize": false
               }
             ]
@@ -257,21 +445,7 @@
                         },
                         {
                           "Layout": {
-                            "FieldName": "LoginAccountLink",
-                            "FontFamily": "",
-                            "Color": "",
-                            "BackgroundColor": "",
-                            "Name": "",
-                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                          },
-                          "BackgroundColor": "",
-                          "Border": "Left",
-                          "VerticalAlignment": "Middle",
-                          "CanResize": false
-                        },
-                        {
-                          "Layout": {
-                            "FieldName": "LoginAccountName",
+                            "FieldName": "AccountNameText",
                             "FontFamily": "",
                             "Color": "",
                             "BackgroundColor": "",
@@ -280,7 +454,8 @@
                             "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                           },
                           "BackgroundColor": "",
-                          "Border": "None",
+                          "Border": "Left",
+                          "VerticalAlignment": "Middle",
                           "CanResize": false
                         }
                       ]
@@ -385,27 +560,6 @@
                 "CanResize": false
               }
             ]
-          },
-          {
-            "IsWrap": false,
-            "IsRowMarginRemoved": false,
-            "GridRowType": "Normal",
-            "BackgroundColor": "",
-            "Columns": [
-              {
-                "Layout": {
-                  "FieldName": "SubmitButton",
-                  "FontFamily": "",
-                  "Color": "",
-                  "BackgroundColor": "",
-                  "Name": "",
-                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                },
-                "BackgroundColor": "",
-                "Border": "None",
-                "CanResize": false
-              }
-            ]
           }
         ],
         "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
@@ -421,19 +575,8 @@
       "Elements": [
         [
           {
-            "FieldName": "LoginAccountLink",
-            "Label": "ログインユーザーID",
-            "ColumnSpan": 1,
-            "RowSpan": 1,
-            "TextWrap": "Unset",
-            "CanResize": false,
-            "FontFamily": "",
-            "Color": "",
-            "BackgroundColor": ""
-          },
-          {
-            "FieldName": "LoginAccountName",
-            "Label": "ユーザー名",
+            "FieldName": "",
+            "Label": "",
             "ColumnSpan": 1,
             "RowSpan": 1,
             "TextWrap": "Unset",
@@ -492,16 +635,13 @@
       }
     }
   },
-  "LinkFieldNames": [
-    "LoginAccountLink.UserName",
-    "LoginAccountLink.UserId"
-  ],
+  "LinkFieldNames": [],
   "ListPageFieldDesign": {
     "LayoutName": "",
     "CanNavigateToDetail": true,
     "DisplayName": "",
     "SearchCondition": {
-      "SortFieldVariable": "Id.Value",
+      "SortFieldVariable": "",
       "SortDescending": false,
       "SelectFields": [],
       "ModuleName": ""

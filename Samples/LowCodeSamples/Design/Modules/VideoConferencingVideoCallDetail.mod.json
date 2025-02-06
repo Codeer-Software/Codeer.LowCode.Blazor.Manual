@@ -1,9 +1,9 @@
 {
-  "Name": "VideoConferencingHeader",
+  "Name": "VideoConferencingVideoCallDetail",
   "DisplayName": "",
   "PageTitle": "",
-  "DataSourceName": "",
-  "DbTable": "",
+  "DataSourceName": "Main",
+  "DbTable": "video_conferencing_video_call_detail",
   "CanCreate": true,
   "CanUpdate": true,
   "CanDelete": true,
@@ -12,38 +12,85 @@
   "UseListPageSubmitButton": false,
   "Fields": [
     {
-      "Style": "Text",
-      "Target": "Url",
-      "ShouldOpenInNewTab": false,
-      "Icon": "bi bi-person-circle",
-      "TitleText": "",
-      "TitleVariable": "",
-      "ImageResourcePath": "",
-      "PageFrame": "",
-      "Module": "VideoConferencingAccountSetting",
-      "ModuleVariable": "",
-      "IdVariable": "",
-      "Url": "",
-      "OnClick": "",
-      "Name": "PersonAnchorTag",
-      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.AnchorTagFieldDesign"
+      "DbColumn": "id",
+      "Placeholder": "",
+      "IsManualInput": false,
+      "CompositeIdVariables": [],
+      "CompositeIdSeparator": "",
+      "IsUpdateProtected": false,
+      "IsSearchParameter": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "Id",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.IdFieldDesign"
     },
     {
-      "Style": "Text",
-      "Target": "Url",
-      "ShouldOpenInNewTab": false,
-      "Icon": "bi bi-gear-fill",
-      "TitleText": "",
-      "TitleVariable": "",
-      "ImageResourcePath": "",
-      "PageFrame": "",
-      "Module": "VideoConferencingHome",
-      "ModuleVariable": "",
-      "IdVariable": "",
-      "Url": "",
-      "OnClick": "",
-      "Name": "SettingAnchorTagHeader",
-      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.AnchorTagFieldDesign"
+      "DbColumn": "user_id",
+      "IsMultiline": false,
+      "Placeholder": "",
+      "IsUpdateProtected": false,
+      "IsSearchParameter": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "UserId",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
+    },
+    {
+      "DbColumn": "video_call_id",
+      "IsMultiline": false,
+      "Placeholder": "",
+      "IsUpdateProtected": false,
+      "IsSearchParameter": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "VideoCallId",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
+    },
+    {
+      "DbColumn": "login_status",
+      "IsMultiline": false,
+      "Placeholder": "",
+      "IsUpdateProtected": false,
+      "IsSearchParameter": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "LoginStatus",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
+    },
+    {
+      "SearchCondition": {
+        "SortFieldVariable": "Id.Value",
+        "SortDescending": false,
+        "SelectFields": [],
+        "ModuleName": "VideoConferencingAccount",
+        "Condition": {
+          "IsOrMatch": false,
+          "Children": [],
+          "Name": "",
+          "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
+        }
+      },
+      "ValueVariable": "LoginAccountLink.Value",
+      "DisplayTextVariable": "LoginAccountName.Value",
+      "DbColumn": "user_id",
+      "ListLayoutName": "",
+      "SearchLayoutName": "",
+      "IsUpdateProtected": false,
+      "IsSearchParameter": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "UserLink",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LinkFieldDesign"
     }
   ],
   "UserWriteCondition": {
@@ -75,7 +122,6 @@
         "Rows": [
           {
             "IsWrap": false,
-            "Height": 55,
             "IsRowMarginRemoved": false,
             "GridRowType": "Normal",
             "BackgroundColor": "",
@@ -83,38 +129,20 @@
               {
                 "BackgroundColor": "",
                 "Border": "None",
-                "CanResize": false
-              },
-              {
-                "Layout": {
-                  "FieldName": "PersonAnchorTag",
-                  "FontFamily": "",
-                  "FontSize": 30,
-                  "Color": "#F0F0F0",
-                  "BackgroundColor": "",
-                  "Name": "",
-                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                },
-                "Width": 70,
-                "BackgroundColor": "",
-                "Border": "None",
                 "VerticalAlignment": "Middle",
                 "CanResize": false
-              },
+              }
+            ]
+          },
+          {
+            "IsWrap": false,
+            "IsRowMarginRemoved": false,
+            "GridRowType": "Normal",
+            "BackgroundColor": "",
+            "Columns": [
               {
-                "Layout": {
-                  "FieldName": "SettingAnchorTagHeader",
-                  "FontFamily": "",
-                  "FontSize": 30,
-                  "Color": "#F0F0F0",
-                  "BackgroundColor": "",
-                  "Name": "",
-                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                },
-                "Width": 70,
                 "BackgroundColor": "",
                 "Border": "None",
-                "VerticalAlignment": "Middle",
                 "CanResize": false
               }
             ]
@@ -133,8 +161,20 @@
       "Elements": [
         [
           {
-            "FieldName": "",
-            "Label": "",
+            "FieldName": "UserLink",
+            "Label": "ユーザー名",
+            "Width": 400,
+            "ColumnSpan": 1,
+            "RowSpan": 1,
+            "TextWrap": "Unset",
+            "CanResize": false,
+            "FontFamily": "",
+            "Color": "",
+            "BackgroundColor": ""
+          },
+          {
+            "FieldName": "UserLink.LoginStatusSelect",
+            "Label": "ログイン状態",
             "ColumnSpan": 1,
             "RowSpan": 1,
             "TextWrap": "Unset",
@@ -193,7 +233,9 @@
       }
     }
   },
-  "LinkFieldNames": [],
+  "LinkFieldNames": [
+    "UserLink.LoginStatusSelect"
+  ],
   "ListPageFieldDesign": {
     "LayoutName": "",
     "CanNavigateToDetail": true,

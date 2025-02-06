@@ -1,9 +1,9 @@
 {
-  "Name": "VideoConferencingAccount",
+  "Name": "VideoConferencingVideoCall",
   "DisplayName": "",
   "PageTitle": "",
   "DataSourceName": "Main",
-  "DbTable": "video_conferencing_account",
+  "DbTable": "video_conferencing_video_call",
   "CanCreate": true,
   "CanUpdate": true,
   "CanDelete": true,
@@ -27,77 +27,7 @@
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.IdFieldDesign"
     },
     {
-      "Text": "アカウント名",
-      "Icon": "",
-      "Style": "Default",
-      "RelativeField": "",
-      "Name": "AccountNameLabel",
-      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
-    },
-    {
-      "Text": "ログイン状態",
-      "Icon": "",
-      "Style": "Default",
-      "RelativeField": "",
-      "Name": "LoginStatusLabel",
-      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
-    },
-    {
-      "Candidates": [
-        "オンライン",
-        "オフライン",
-        "作業中"
-      ],
-      "SearchCondition": {
-        "SortFieldVariable": "",
-        "SortDescending": false,
-        "SelectFields": [],
-        "ModuleName": "",
-        "Condition": {
-          "IsOrMatch": false,
-          "Children": [],
-          "Name": "",
-          "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
-        }
-      },
-      "ValueVariable": "",
-      "DisplayTextVariable": "",
-      "DbColumn": "login_status",
-      "EmptyCandidateType": "StringEmpty",
-      "AllowOrSearch": false,
-      "IsUpdateProtected": false,
-      "IsSearchParameter": false,
-      "OnSearchDataChanged": "",
-      "DisplayName": "",
-      "IsRequired": false,
-      "OnDataChanged": "",
-      "Name": "LoginStatusSelect",
-      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.SelectFieldDesign"
-    },
-    {
-      "Text": "プロフィール",
-      "Icon": "",
-      "Style": "Default",
-      "RelativeField": "",
-      "Name": "ProfileLabel",
-      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
-    },
-    {
-      "DbColumn": "profile",
-      "IsMultiline": true,
-      "Placeholder": "",
-      "Rows": 5,
-      "IsUpdateProtected": false,
-      "IsSearchParameter": false,
-      "OnSearchDataChanged": "",
-      "DisplayName": "",
-      "IsRequired": false,
-      "OnDataChanged": "",
-      "Name": "ProfileText",
-      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
-    },
-    {
-      "Text": "アカウント設定",
+      "Text": "ビデオ会議を作成する",
       "Icon": "",
       "Style": "H2",
       "RelativeField": "",
@@ -105,56 +35,15 @@
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
     },
     {
-      "UIType": "Switch",
-      "Text": "ログイン状態を自動で反映する",
-      "DbColumn": "auto_login",
-      "IsUpdateProtected": false,
-      "IsSearchParameter": false,
-      "OnSearchDataChanged": "",
-      "DisplayName": "",
-      "IsRequired": false,
-      "OnDataChanged": "",
-      "Name": "LoginStatusBoolean",
-      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.BooleanFieldDesign"
-    },
-    {
-      "SearchCondition": {
-        "SortFieldVariable": "Id.Value",
-        "SortDescending": false,
-        "SelectFields": [],
-        "ModuleName": "UserMaster",
-        "Condition": {
-          "IsOrMatch": false,
-          "Children": [],
-          "Name": "",
-          "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
-        }
-      },
-      "ValueVariable": "UserId.Value",
-      "DisplayTextVariable": "UserId.Value",
-      "DbColumn": "account_id",
-      "ListLayoutName": "",
-      "SearchLayoutName": "",
-      "IsUpdateProtected": false,
-      "IsSearchParameter": false,
-      "OnSearchDataChanged": "",
-      "DisplayName": "",
-      "IsRequired": false,
-      "OnDataChanged": "LoginAccountLink_OnDataChanged",
-      "Name": "LoginAccountLink",
-      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LinkFieldDesign"
-    },
-    {
-      "Text": "Submit",
-      "ImageResourcePath": "",
+      "Text": "会議名",
       "Icon": "",
-      "Variant": "Primary",
-      "IsBlock": true,
-      "Name": "SubmitButton",
-      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.SubmitButtonFieldDesign"
+      "Style": "Default",
+      "RelativeField": "",
+      "Name": "VideoCallNameLabel",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
     },
     {
-      "DbColumn": "account_name",
+      "DbColumn": "name",
       "IsMultiline": false,
       "Placeholder": "",
       "IsUpdateProtected": false,
@@ -163,8 +52,75 @@
       "DisplayName": "",
       "IsRequired": false,
       "OnDataChanged": "",
-      "Name": "LoginAccountName",
+      "Name": "Name",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
+    },
+    {
+      "Text": "ユーザーを追加する",
+      "Icon": "",
+      "Style": "Default",
+      "RelativeField": "",
+      "Name": "UserLabel",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "LayoutName": "",
+      "CanNavigateToDetail": false,
+      "DisplayName": "",
+      "SearchCondition": {
+        "SortFieldVariable": "",
+        "SortDescending": false,
+        "SelectFields": [],
+        "ModuleName": "VideoConferencingVideoCallDetail",
+        "Condition": {
+          "IsOrMatch": false,
+          "Children": [
+            {
+              "SearchTargetVariable": "VideoCallId.Value",
+              "Comparison": "Equal",
+              "Variable": "Id.Value",
+              "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.FieldVariableMatchCondition"
+            }
+          ],
+          "Name": "",
+          "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
+        }
+      },
+      "PagerPosition": "Bottom",
+      "UseIndexSort": false,
+      "DeleteTogether": true,
+      "CanCreate": true,
+      "CanUpdate": true,
+      "CanDelete": true,
+      "CanSelect": false,
+      "OnDataChanged": "TileList_OnDataChanged",
+      "OnSearchDataChanged": "",
+      "OnSelectedIndexChanged": "",
+      "OnSelectedIndexChanging": "",
+      "Name": "UserList",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ListFieldDesign"
+    },
+    {
+      "DbColumn": "url",
+      "IsMultiline": false,
+      "Placeholder": "",
+      "IsUpdateProtected": false,
+      "IsSearchParameter": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "URL",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
+    },
+    {
+      "Text": "会議を開始する",
+      "ImageResourcePath": "",
+      "Icon": "",
+      "Variant": "OutlinePrimary",
+      "OnClick": "StartButton_OnClick",
+      "Name": "StartButton",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ButtonFieldDesign"
     }
   ],
   "UserWriteCondition": {
@@ -223,9 +179,22 @@
             "BackgroundColor": "",
             "Columns": [
               {
+                "BackgroundColor": "",
+                "Border": "None",
+                "CanResize": false
+              }
+            ]
+          },
+          {
+            "IsWrap": false,
+            "IsRowMarginRemoved": false,
+            "GridRowType": "Normal",
+            "BackgroundColor": "",
+            "Columns": [
+              {
                 "Layout": {
                   "Name": "",
-                  "IsBordered": true,
+                  "IsBordered": false,
                   "IsFlowLayout": false,
                   "IsFillAvailable": false,
                   "IsExpandable": false,
@@ -240,7 +209,7 @@
                       "Columns": [
                         {
                           "Layout": {
-                            "FieldName": "AccountNameLabel",
+                            "FieldName": "VideoCallNameLabel",
                             "FontFamily": "",
                             "FontWeight": "Bold",
                             "Color": "",
@@ -257,7 +226,7 @@
                         },
                         {
                           "Layout": {
-                            "FieldName": "LoginAccountLink",
+                            "FieldName": "Name",
                             "FontFamily": "",
                             "Color": "",
                             "BackgroundColor": "",
@@ -265,13 +234,29 @@
                             "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                           },
                           "BackgroundColor": "",
-                          "Border": "Left",
+                          "Border": "None",
                           "VerticalAlignment": "Middle",
                           "CanResize": false
                         },
                         {
                           "Layout": {
-                            "FieldName": "LoginAccountName",
+                            "FieldName": "StartButton",
+                            "FontFamily": "",
+                            "Color": "",
+                            "BackgroundColor": "",
+                            "Name": "",
+                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                          },
+                          "Width": 200,
+                          "BackgroundColor": "",
+                          "Border": "None",
+                          "HorizontalAlignment": "Center",
+                          "VerticalAlignment": "Middle",
+                          "CanResize": false
+                        },
+                        {
+                          "Layout": {
+                            "FieldName": "URL",
                             "FontFamily": "",
                             "Color": "",
                             "BackgroundColor": "",
@@ -281,98 +266,6 @@
                           },
                           "BackgroundColor": "",
                           "Border": "None",
-                          "CanResize": false
-                        }
-                      ]
-                    },
-                    {
-                      "IsWrap": false,
-                      "IsRowMarginRemoved": false,
-                      "GridRowType": "Normal",
-                      "BackgroundColor": "",
-                      "Columns": [
-                        {
-                          "Layout": {
-                            "FieldName": "LoginStatusLabel",
-                            "FontFamily": "",
-                            "FontWeight": "Bold",
-                            "Color": "",
-                            "BackgroundColor": "",
-                            "Name": "",
-                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                          },
-                          "Width": 200,
-                          "BackgroundColor": "",
-                          "Border": "Top",
-                          "HorizontalAlignment": "Center",
-                          "VerticalAlignment": "Middle",
-                          "CanResize": false
-                        },
-                        {
-                          "Layout": {
-                            "FieldName": "LoginStatusSelect",
-                            "FontFamily": "",
-                            "Color": "",
-                            "BackgroundColor": "",
-                            "Name": "",
-                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                          },
-                          "BackgroundColor": "",
-                          "Border": "Top, Left",
-                          "VerticalAlignment": "Middle",
-                          "CanResize": false
-                        },
-                        {
-                          "Layout": {
-                            "FieldName": "LoginStatusBoolean",
-                            "FontFamily": "",
-                            "Color": "",
-                            "BackgroundColor": "",
-                            "Name": "",
-                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                          },
-                          "BackgroundColor": "",
-                          "Border": "Top",
-                          "HorizontalAlignment": "Center",
-                          "VerticalAlignment": "Middle",
-                          "CanResize": false
-                        }
-                      ]
-                    },
-                    {
-                      "IsWrap": false,
-                      "IsRowMarginRemoved": false,
-                      "GridRowType": "Normal",
-                      "BackgroundColor": "",
-                      "Columns": [
-                        {
-                          "Layout": {
-                            "FieldName": "ProfileLabel",
-                            "FontFamily": "",
-                            "FontWeight": "Bold",
-                            "Color": "",
-                            "BackgroundColor": "",
-                            "Name": "",
-                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                          },
-                          "Width": 200,
-                          "BackgroundColor": "",
-                          "Border": "Top",
-                          "HorizontalAlignment": "Center",
-                          "VerticalAlignment": "Middle",
-                          "CanResize": false
-                        },
-                        {
-                          "Layout": {
-                            "FieldName": "ProfileText",
-                            "FontFamily": "",
-                            "Color": "",
-                            "BackgroundColor": "",
-                            "Name": "",
-                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                          },
-                          "BackgroundColor": "",
-                          "Border": "Top, Left",
                           "CanResize": false
                         }
                       ]
@@ -394,12 +287,77 @@
             "Columns": [
               {
                 "Layout": {
-                  "FieldName": "SubmitButton",
-                  "FontFamily": "",
-                  "Color": "",
-                  "BackgroundColor": "",
                   "Name": "",
-                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                  "IsBordered": true,
+                  "IsFlowLayout": false,
+                  "IsFillAvailable": false,
+                  "IsExpandable": false,
+                  "ExpanderLabel": "",
+                  "IsExpanderDefaultOpened": false,
+                  "Rows": [
+                    {
+                      "IsWrap": false,
+                      "IsRowMarginRemoved": false,
+                      "GridRowType": "Normal",
+                      "BackgroundColor": "",
+                      "Columns": [
+                        {
+                          "Layout": {
+                            "FieldName": "UserLabel",
+                            "FontFamily": "",
+                            "FontWeight": "Bold",
+                            "Color": "",
+                            "BackgroundColor": "",
+                            "Name": "",
+                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                          },
+                          "Width": 200,
+                          "BackgroundColor": "",
+                          "Border": "None",
+                          "HorizontalAlignment": "Center",
+                          "VerticalAlignment": "Middle",
+                          "CanResize": false
+                        },
+                        {
+                          "BackgroundColor": "",
+                          "Border": "None",
+                          "CanResize": false
+                        },
+                        {
+                          "BackgroundColor": "",
+                          "Border": "None",
+                          "CanResize": false
+                        },
+                        {
+                          "BackgroundColor": "",
+                          "Border": "None",
+                          "CanResize": false
+                        }
+                      ]
+                    },
+                    {
+                      "IsWrap": false,
+                      "IsRowMarginRemoved": false,
+                      "GridRowType": "Normal",
+                      "BackgroundColor": "",
+                      "Columns": [
+                        {
+                          "Layout": {
+                            "FieldName": "UserList",
+                            "FontFamily": "",
+                            "Color": "",
+                            "BackgroundColor": "",
+                            "Name": "",
+                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                          },
+                          "BackgroundColor": "",
+                          "Border": "None",
+                          "CanResize": false
+                        }
+                      ]
+                    }
+                  ],
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
                 },
                 "BackgroundColor": "",
                 "Border": "None",
@@ -421,19 +379,8 @@
       "Elements": [
         [
           {
-            "FieldName": "LoginAccountLink",
-            "Label": "ログインユーザーID",
-            "ColumnSpan": 1,
-            "RowSpan": 1,
-            "TextWrap": "Unset",
-            "CanResize": false,
-            "FontFamily": "",
-            "Color": "",
-            "BackgroundColor": ""
-          },
-          {
-            "FieldName": "LoginAccountName",
-            "Label": "ユーザー名",
+            "FieldName": "",
+            "Label": "",
             "ColumnSpan": 1,
             "RowSpan": 1,
             "TextWrap": "Unset",
@@ -492,16 +439,13 @@
       }
     }
   },
-  "LinkFieldNames": [
-    "LoginAccountLink.UserName",
-    "LoginAccountLink.UserId"
-  ],
+  "LinkFieldNames": [],
   "ListPageFieldDesign": {
     "LayoutName": "",
     "CanNavigateToDetail": true,
     "DisplayName": "",
     "SearchCondition": {
-      "SortFieldVariable": "Id.Value",
+      "SortFieldVariable": "",
       "SortDescending": false,
       "SelectFields": [],
       "ModuleName": ""
