@@ -50,7 +50,7 @@ LicenseRegisterCli.dllを含んだフォルダーを対象のコンピュータ�
 dotnet ./LicenseRegisterCli.dll activate -k "<YOUR_LICENSE_KEY>" -c "<YOUR_LICENSE_NAME>" -o
 ```
 
-ライセンスページの登録に使えるライセンス登録データが出力されるのでそれを使ってオフライン認証用文字列を取得し、任意のファイルに保存しておいてください。
+ライセンスページの登録に使えるライセンス登録データが出力されるのでそれを使って[オフライン認証](./license_web_registration.md)用文字列を取得し、任意のファイルに保存しておいてください。
 その後次のコマンドを実行しライセンスを読み込んでください。
 
 ```bash
@@ -68,7 +68,11 @@ LicenseRegisterCli.dllを含んだフォルダーを対象のコンピュータ�
 dotnet ./LicenseRegisterCli.dll revoke -e "<YOUR_EXPORT_PATH>"
 ```
 
-実行が完了すると、コンソールにオフライン解除キーが出力されます。このキーを使用してライセンス認証を解除してください。
+実行が完了すると、コンソールにオフライン解除キーが出力されます。このキーを使用して[ライセンス認証を解除](./license_web_cancellation.md)してください。
 `-e` オプションで設定したパスに同様の解除キーが保存されています。
 
 その後、`license.json`をアプリケーションディレクトリから削除してください。
+
+## 関連情報
+- [オフライン（WEB経由）で登録する方法](./license_web_registration.md)
+- [オフライン（WEB経由）で解除する方法](./license_web_cancellation.md)
