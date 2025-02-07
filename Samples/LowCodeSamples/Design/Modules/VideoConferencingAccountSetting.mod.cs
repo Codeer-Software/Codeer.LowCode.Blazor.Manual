@@ -40,7 +40,7 @@ void LoginStatusBoolean_OnDataChanged()
         LoginStatusSelect.IsViewOnly = false;
     }
 }
-void SaveButton_OnClick()
+void FluentButton_OnClick()
 {
     Toaster.Error("デモ用のため保存できません");
 }

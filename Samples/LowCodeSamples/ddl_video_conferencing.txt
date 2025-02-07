@@ -1,0 +1,22 @@
+CREATE TABLE video_conferencing_account (
+    id SERIAL PRIMARY KEY,
+    account_id TEXT,
+    login_status TEXT,
+    auto_login BOOLEAN DEFAULT FALSE,
+    profile TEXT,
+    account_name TEXT
+);
+
+CREATE TABLE video_conferencing_video_call (
+    id SERIAL PRIMARY KEY,
+    name TEXT,
+    url TEXT
+);
+
+CREATE TABLE video_conferencing_video_call_detail (
+    id SERIAL PRIMARY KEY,
+    video_call_id TEXT,
+    user_id TEXT,
+    login_status TEXT
+);
+
