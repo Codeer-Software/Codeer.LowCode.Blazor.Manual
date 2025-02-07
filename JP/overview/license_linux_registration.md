@@ -42,9 +42,16 @@ $ docker run -v /etc/machine-id:/etc/machine-id:ro ...
 
 #### オフライン登録
 
-オフライン認証用の文字列を任意のファイルに保存しておいてください。
+オフライン登録用データを対象コンピュータ上で最初に生成します。
 
 LicenseRegisterCli.dllを含んだフォルダーを対象のコンピュータにコピーし次のコマンドを実行してください。
+
+```bash
+dotnet ./LicenseRegisterCli.dll activate -k "<YOUR_LICENSE_KEY>" -c "<YOUR_LICENSE_NAME>" -o
+```
+
+ライセンスページの登録に使えるライセンス登録データが出力されるのでそれを使ってオフライン認証用文字列を取得し、任意のファイルに保存しておいてください。
+その後次のコマンドを実行しライセンスを読み込んでください。
 
 ```bash
 dotnet ./LicenseRegisterCli.dll import -i "<YOUR_IMPORT_PATH>"

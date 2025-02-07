@@ -13,11 +13,14 @@ using Codeer.LowCode.Bindings.Radzen.Blazor.Installer;
 using LowCodeSamples.Server.Services.AI;
 using ApexCharts;
 using Codeer.LowCode.Bindings.ApexCharts.Designs;
+using Codeer.LowCode.Bindings.Fluent.Blazor.Designs;
+typeof(Microsoft.FluentUI.AspNetCore.Components.Appearance).ToString();
 
 //load dll.
 typeof(ApexChartFieldDesign).ToString();
 typeof(SeriesType).ToString();
 typeof(ColorPickerField).ToString();
+typeof(FluentTextFieldDesign).ToString();
 MudBlazorLoader.LoadAssemblies();
 RadzenLoader.LoadAssemblies();
 

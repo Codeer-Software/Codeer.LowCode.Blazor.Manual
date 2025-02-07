@@ -19,6 +19,8 @@ using Codeer.LowCode.Blazor.Repository.Data;
 using System.Net.Http;
 using ApexCharts;
 using Codeer.LowCode.Bindings.ApexCharts.Designs;
+using Codeer.LowCode.Bindings.Fluent.Blazor.Designs;
+using Microsoft.FluentUI.AspNetCore.Components;
 
 namespace LowCodeSamples.Designer
 {
@@ -27,7 +29,9 @@ namespace LowCodeSamples.Designer
         protected override void OnStartup(StartupEventArgs e)
         {
             typeof(ApexChartFieldDesign).ToString();
-            typeof(SeriesType).ToString();
+            typeof(SeriesType).ToString(); 
+            typeof(FluentTextFieldDesign).ToString();
+            typeof(Appearance).ToString();
 
             MudBlazorLoader.LoadAssemblies();
             RadzenLoader.LoadAssemblies();
@@ -45,6 +49,7 @@ namespace LowCodeSamples.Designer
             ScriptRuntimeTypeManager.AddService(new Toaster(null!));
             ScriptRuntimeTypeManager.AddService(new WebApiService(null!, null!));
             ScriptRuntimeTypeManager.AddType<WebApiResult>();
+            Services.AddFluentUIComponents();
 
             BlazorRuntime.InstallContentCss("IgniteUI.Blazor", "themes/light/bootstrap.css");
             BlazorRuntime.InstallContentCss("IgniteUI.Blazor", "themes/grid/light/bootstrap.css");
@@ -53,6 +58,7 @@ namespace LowCodeSamples.Designer
             BlazorRuntime.InstallAssemblyInitializer(typeof(RadzenTextFieldDesign).Assembly);
             BlazorRuntime.InstallAssemblyInitializer(typeof(MudTextFieldDesign).Assembly);
             BlazorRuntime.InstallRenderProvider(typeof(MudBlazorInstaller));
+            BlazorRuntime.InstallAssemblyInitializer(typeof(FluentTextFieldDesign).Assembly);
 
             IconCandidate.Icons.AddRange(LowCodeSamples.Designer.Properties.Resources.bootstrap_icons.Split(["\r\n", "\n"], StringSplitOptions.RemoveEmptyEntries).Order());
 
