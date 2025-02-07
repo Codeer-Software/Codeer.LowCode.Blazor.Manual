@@ -1,0 +1,1551 @@
+{
+  "Name": "FluentUIFields",
+  "DisplayName": "",
+  "PageTitle": "",
+  "DataSourceName": "Main",
+  "DbTable": "fluent_ui_field_data",
+  "CanCreate": true,
+  "CanUpdate": true,
+  "CanDelete": true,
+  "CanBulkDataUpdate": false,
+  "CanBulkDataDownload": false,
+  "UseListPageSubmitButton": false,
+  "Fields": [
+    {
+      "DbColumn": "id",
+      "Placeholder": "",
+      "IsManualInput": false,
+      "CompositeIdVariables": [],
+      "CompositeIdSeparator": "",
+      "IsUpdateProtected": false,
+      "IsSearchParameter": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "Id",
+      "TypeFullName": "Codeer.LowCode.Bindings.Fluent.Blazor.Designs.FluentIdFieldDesign"
+    },
+    {
+      "UIType": "CheckBox",
+      "Text": "Check",
+      "DbColumn": "check_boolean",
+      "IsUpdateProtected": false,
+      "IsSearchParameter": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "Check",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "CheckFluentBoolean",
+      "TypeFullName": "Codeer.LowCode.Bindings.Fluent.Blazor.Designs.FluentBooleanFieldDesign"
+    },
+    {
+      "UIType": "ToggleButton",
+      "Text": "Toggle",
+      "DbColumn": "toggle_boolean",
+      "IsUpdateProtected": false,
+      "IsSearchParameter": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "Toggle",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "ToggleFluentBoolean",
+      "TypeFullName": "Codeer.LowCode.Bindings.Fluent.Blazor.Designs.FluentBooleanFieldDesign"
+    },
+    {
+      "UIType": "Switch",
+      "Text": "Switch",
+      "DbColumn": "switch_boolean",
+      "IsUpdateProtected": false,
+      "IsSearchParameter": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "Switch",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "SwitchFluentBoolean",
+      "TypeFullName": "Codeer.LowCode.Bindings.Fluent.Blazor.Designs.FluentBooleanFieldDesign"
+    },
+    {
+      "StandardInput": false,
+      "Format": "",
+      "DbColumn": "date",
+      "IsUpdateProtected": false,
+      "IsSearchParameter": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "Date",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "FluentDate",
+      "TypeFullName": "Codeer.LowCode.Bindings.Fluent.Blazor.Designs.FluentDateFieldDesign"
+    },
+    {
+      "SearchCondition": {
+        "SortFieldVariable": "Id.Value",
+        "SortDescending": false,
+        "SelectFields": [],
+        "ModuleName": "FluentUILinkData",
+        "Condition": {
+          "IsOrMatch": false,
+          "Children": [],
+          "Name": "",
+          "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
+        }
+      },
+      "ValueVariable": "CodeFluentText.Value",
+      "DisplayTextVariable": "NameFluentText.Value",
+      "DbColumn": "link",
+      "ListLayoutName": "",
+      "SearchLayoutName": "",
+      "IsUpdateProtected": false,
+      "IsSearchParameter": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "Link",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "FluentLink",
+      "TypeFullName": "Codeer.LowCode.Bindings.Fluent.Blazor.Designs.FluentLinkFieldDesign"
+    },
+    {
+      "Placeholder": "",
+      "Format": "",
+      "DbColumn": "number",
+      "IsUpdateProtected": false,
+      "IsSearchParameter": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "Number",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "FluentNumber",
+      "TypeFullName": "Codeer.LowCode.Bindings.Fluent.Blazor.Designs.FluentNumberFieldDesign"
+    },
+    {
+      "Candidates": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "SearchCondition": {
+        "SortFieldVariable": "",
+        "SortDescending": false,
+        "SelectFields": [],
+        "ModuleName": "",
+        "Condition": {
+          "IsOrMatch": false,
+          "Children": [],
+          "Name": "",
+          "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
+        }
+      },
+      "ValueVariable": "",
+      "DisplayTextVariable": "",
+      "DbColumn": "select_standard",
+      "EmptyCandidateType": "StringEmpty",
+      "AllowOrSearch": false,
+      "IsUpdateProtected": false,
+      "IsSearchParameter": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "Select",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "FluentSelect",
+      "TypeFullName": "Codeer.LowCode.Bindings.Fluent.Blazor.Designs.FluentSelectFieldDesign"
+    },
+    {
+      "Candidates": [],
+      "SearchCondition": {
+        "SortFieldVariable": "Id.Value",
+        "SortDescending": false,
+        "SelectFields": [],
+        "ModuleName": "FluentUILinkData",
+        "Condition": {
+          "IsOrMatch": false,
+          "Children": [],
+          "Name": "",
+          "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
+        }
+      },
+      "ValueVariable": "CodeFluentText.Value",
+      "DisplayTextVariable": "NameFluentText.Value",
+      "DbColumn": "select_link",
+      "EmptyCandidateType": "StringEmpty",
+      "AllowOrSearch": false,
+      "IsUpdateProtected": false,
+      "IsSearchParameter": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "SelectLink",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "FluentSelectLink",
+      "TypeFullName": "Codeer.LowCode.Bindings.Fluent.Blazor.Designs.FluentSelectFieldDesign"
+    },
+    {
+      "SaveAsUtc": false,
+      "DbColumn": "time",
+      "IsUpdateProtected": false,
+      "IsSearchParameter": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "Time",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "FluentTime",
+      "TypeFullName": "Codeer.LowCode.Bindings.Fluent.Blazor.Designs.FluentTimeFieldDesign"
+    },
+    {
+      "DbColumn": "text",
+      "IsMultiline": false,
+      "Placeholder": "",
+      "IsUpdateProtected": false,
+      "IsSearchParameter": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "Text",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "FluentText",
+      "TypeFullName": "Codeer.LowCode.Bindings.Fluent.Blazor.Designs.FluentTextFieldDesign"
+    },
+    {
+      "Text": "Radio1",
+      "Value": "Radio1",
+      "GroupField": "RadioGroup",
+      "Name": "FluentRadioButton1",
+      "TypeFullName": "Codeer.LowCode.Bindings.Fluent.Blazor.Designs.FluentRadioButtonFieldDesign"
+    },
+    {
+      "Text": "Radio2",
+      "Value": "Radio2",
+      "GroupField": "RadioGroup",
+      "Name": "FluentRadioButton2",
+      "TypeFullName": "Codeer.LowCode.Bindings.Fluent.Blazor.Designs.FluentRadioButtonFieldDesign"
+    },
+    {
+      "Text": "Radio3",
+      "Value": "Radio3",
+      "GroupField": "RadioGroup",
+      "Name": "FluentRadioButton3",
+      "TypeFullName": "Codeer.LowCode.Bindings.Fluent.Blazor.Designs.FluentRadioButtonFieldDesign"
+    },
+    {
+      "DbColumn": "radio",
+      "AllowOrSearch": false,
+      "IsUpdateProtected": false,
+      "IsSearchParameter": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "RadioGroup",
+      "TypeFullName": "Codeer.LowCode.Bindings.Fluent.Blazor.Designs.FluentRadioGroupFieldDesign"
+    },
+    {
+      "Appearance": "Neutral",
+      "Text": "Submit",
+      "ImageResourcePath": "",
+      "Icon": "",
+      "Variant": "Primary",
+      "IsBlock": true,
+      "Name": "FluentSubmitButton",
+      "TypeFullName": "Codeer.LowCode.Bindings.Fluent.Blazor.Designs.FluentSubmitButtonFieldDesign"
+    },
+    {
+      "Text": "Date",
+      "Icon": "",
+      "Style": "Default",
+      "RelativeField": "FluentDate",
+      "Name": "DateLabel",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Text": "Link",
+      "Icon": "",
+      "Style": "Default",
+      "RelativeField": "FluentLink",
+      "Name": "LinkLabel",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Text": "Number",
+      "Icon": "",
+      "Style": "Default",
+      "RelativeField": "FluentNumber",
+      "Name": "NumberLabel",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Text": "Select",
+      "Icon": "",
+      "Style": "Default",
+      "RelativeField": "FluentSelect",
+      "Name": "SelectLabel",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Text": "Time",
+      "Icon": "",
+      "Style": "Default",
+      "RelativeField": "FluentTime",
+      "Name": "TimeLabel",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Text": "Text",
+      "Icon": "",
+      "Style": "Default",
+      "RelativeField": "FluentText",
+      "Name": "TextLabel",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Text": "SelectLink",
+      "Icon": "",
+      "Style": "Default",
+      "RelativeField": "FluentSelectLink",
+      "Name": "SelectLinkLabel",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Text": "Edit",
+      "Icon": "",
+      "Style": "H2",
+      "RelativeField": "",
+      "Name": "EditLabel",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Text": "Check",
+      "Icon": "",
+      "Style": "Default",
+      "RelativeField": "CheckFluentBoolean",
+      "Name": "CheckLabel",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Text": "Toggle",
+      "Icon": "",
+      "Style": "Default",
+      "RelativeField": "ToggleFluentBoolean",
+      "Name": "ToggleLabel",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Text": "Switch",
+      "Icon": "",
+      "Style": "Default",
+      "RelativeField": "SwitchFluentBoolean",
+      "Name": "SwitchLabel",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    }
+  ],
+  "UserWriteCondition": {
+    "ModuleName": ""
+  },
+  "UserReadCondition": {
+    "ModuleName": ""
+  },
+  "DataWriteCondition": {
+    "ModuleName": ""
+  },
+  "DataReadCondition": {
+    "ModuleName": ""
+  },
+  "OnTransaction": "",
+  "DetailLayouts": {
+    "": {
+      "OnBeforeInitialization": "",
+      "OnAfterInitialization": "",
+      "DataOnlyFields": [
+        "RadioGroup"
+      ],
+      "Layout": {
+        "Name": "",
+        "IsBordered": false,
+        "IsFlowLayout": false,
+        "IsFillAvailable": false,
+        "IsExpandable": false,
+        "ExpanderLabel": "",
+        "IsExpanderDefaultOpened": false,
+        "Rows": [
+          {
+            "IsWrap": false,
+            "IsRowMarginRemoved": false,
+            "GridRowType": "Normal",
+            "BackgroundColor": "",
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "EditLabel",
+                  "FontFamily": "",
+                  "Color": "",
+                  "BackgroundColor": "",
+                  "Name": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "BackgroundColor": "",
+                "Border": "None",
+                "HorizontalAlignment": "Center",
+                "VerticalAlignment": "Middle",
+                "CanResize": false
+              }
+            ]
+          },
+          {
+            "IsWrap": false,
+            "IsRowMarginRemoved": false,
+            "GridRowType": "Normal",
+            "BackgroundColor": "",
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "CheckLabel",
+                  "FontFamily": "",
+                  "Color": "",
+                  "BackgroundColor": "",
+                  "Name": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Width": 150,
+                "BackgroundColor": "",
+                "Border": "None",
+                "VerticalAlignment": "Middle",
+                "CanResize": false
+              },
+              {
+                "Layout": {
+                  "FieldName": "CheckFluentBoolean",
+                  "FontFamily": "",
+                  "Color": "",
+                  "BackgroundColor": "",
+                  "Name": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "BackgroundColor": "",
+                "Border": "None",
+                "CanResize": false
+              },
+              {
+                "BackgroundColor": "",
+                "Border": "None",
+                "HorizontalAlignment": "Center",
+                "VerticalAlignment": "Middle",
+                "CanResize": false
+              }
+            ]
+          },
+          {
+            "IsWrap": false,
+            "IsRowMarginRemoved": false,
+            "GridRowType": "Normal",
+            "BackgroundColor": "",
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "ToggleLabel",
+                  "FontFamily": "",
+                  "Color": "",
+                  "BackgroundColor": "",
+                  "Name": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Width": 150,
+                "BackgroundColor": "",
+                "Border": "None",
+                "VerticalAlignment": "Middle",
+                "CanResize": false
+              },
+              {
+                "Layout": {
+                  "FieldName": "ToggleFluentBoolean",
+                  "FontFamily": "",
+                  "Color": "",
+                  "BackgroundColor": "",
+                  "Name": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "BackgroundColor": "",
+                "Border": "None",
+                "CanResize": false
+              },
+              {
+                "BackgroundColor": "",
+                "Border": "None",
+                "HorizontalAlignment": "Center",
+                "VerticalAlignment": "Middle",
+                "CanResize": false
+              }
+            ]
+          },
+          {
+            "IsWrap": false,
+            "IsRowMarginRemoved": false,
+            "GridRowType": "Normal",
+            "BackgroundColor": "",
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "SwitchLabel",
+                  "FontFamily": "",
+                  "Color": "",
+                  "BackgroundColor": "",
+                  "Name": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Width": 150,
+                "BackgroundColor": "",
+                "Border": "None",
+                "VerticalAlignment": "Middle",
+                "CanResize": false
+              },
+              {
+                "Layout": {
+                  "FieldName": "SwitchFluentBoolean",
+                  "FontFamily": "",
+                  "Color": "",
+                  "BackgroundColor": "",
+                  "Name": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "BackgroundColor": "",
+                "Border": "None",
+                "CanResize": false
+              },
+              {
+                "BackgroundColor": "",
+                "Border": "None",
+                "HorizontalAlignment": "Center",
+                "VerticalAlignment": "Middle",
+                "CanResize": false
+              }
+            ]
+          },
+          {
+            "IsWrap": false,
+            "IsRowMarginRemoved": false,
+            "GridRowType": "Normal",
+            "BackgroundColor": "",
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "DateLabel",
+                  "FontFamily": "",
+                  "Color": "",
+                  "BackgroundColor": "",
+                  "Name": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Width": 150,
+                "BackgroundColor": "",
+                "Border": "None",
+                "VerticalAlignment": "Middle",
+                "CanResize": false
+              },
+              {
+                "Layout": {
+                  "FieldName": "FluentDate",
+                  "FontFamily": "",
+                  "Color": "",
+                  "BackgroundColor": "",
+                  "Name": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "BackgroundColor": "",
+                "Border": "None",
+                "CanResize": false
+              }
+            ]
+          },
+          {
+            "IsWrap": false,
+            "IsRowMarginRemoved": false,
+            "GridRowType": "Normal",
+            "BackgroundColor": "",
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "TimeLabel",
+                  "FontFamily": "",
+                  "Color": "",
+                  "BackgroundColor": "",
+                  "Name": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Width": 150,
+                "BackgroundColor": "",
+                "Border": "None",
+                "VerticalAlignment": "Middle",
+                "CanResize": false
+              },
+              {
+                "Layout": {
+                  "FieldName": "FluentTime",
+                  "FontFamily": "",
+                  "Color": "",
+                  "BackgroundColor": "",
+                  "Name": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "BackgroundColor": "",
+                "Border": "None",
+                "CanResize": false
+              }
+            ]
+          },
+          {
+            "IsWrap": false,
+            "IsRowMarginRemoved": false,
+            "GridRowType": "Normal",
+            "BackgroundColor": "",
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "NumberLabel",
+                  "FontFamily": "",
+                  "Color": "",
+                  "BackgroundColor": "",
+                  "Name": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Width": 150,
+                "BackgroundColor": "",
+                "Border": "None",
+                "VerticalAlignment": "Middle",
+                "CanResize": false
+              },
+              {
+                "Layout": {
+                  "FieldName": "FluentNumber",
+                  "FontFamily": "",
+                  "Color": "",
+                  "BackgroundColor": "",
+                  "Name": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "BackgroundColor": "",
+                "Border": "None",
+                "CanResize": false
+              }
+            ]
+          },
+          {
+            "IsWrap": false,
+            "IsRowMarginRemoved": false,
+            "GridRowType": "Normal",
+            "BackgroundColor": "",
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "SelectLabel",
+                  "FontFamily": "",
+                  "Color": "",
+                  "BackgroundColor": "",
+                  "Name": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Width": 150,
+                "BackgroundColor": "",
+                "Border": "None",
+                "VerticalAlignment": "Middle",
+                "CanResize": false
+              },
+              {
+                "Layout": {
+                  "FieldName": "FluentSelect",
+                  "FontFamily": "",
+                  "Color": "",
+                  "BackgroundColor": "",
+                  "Name": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "BackgroundColor": "",
+                "Border": "None",
+                "CanResize": false
+              }
+            ]
+          },
+          {
+            "IsWrap": false,
+            "IsRowMarginRemoved": false,
+            "GridRowType": "Normal",
+            "BackgroundColor": "",
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "SelectLinkLabel",
+                  "FontFamily": "",
+                  "Color": "",
+                  "BackgroundColor": "",
+                  "Name": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Width": 150,
+                "BackgroundColor": "",
+                "Border": "None",
+                "VerticalAlignment": "Middle",
+                "CanResize": false
+              },
+              {
+                "Layout": {
+                  "FieldName": "FluentSelectLink",
+                  "FontFamily": "",
+                  "Color": "",
+                  "BackgroundColor": "",
+                  "Name": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "BackgroundColor": "",
+                "Border": "None",
+                "CanResize": false
+              }
+            ]
+          },
+          {
+            "IsWrap": false,
+            "IsRowMarginRemoved": false,
+            "GridRowType": "Normal",
+            "BackgroundColor": "",
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "TextLabel",
+                  "FontFamily": "",
+                  "Color": "",
+                  "BackgroundColor": "",
+                  "Name": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Width": 150,
+                "BackgroundColor": "",
+                "Border": "None",
+                "VerticalAlignment": "Middle",
+                "CanResize": false
+              },
+              {
+                "Layout": {
+                  "FieldName": "FluentText",
+                  "FontFamily": "",
+                  "Color": "",
+                  "BackgroundColor": "",
+                  "Name": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "BackgroundColor": "",
+                "Border": "None",
+                "CanResize": false
+              }
+            ]
+          },
+          {
+            "IsWrap": false,
+            "IsRowMarginRemoved": false,
+            "GridRowType": "Normal",
+            "BackgroundColor": "",
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "LinkLabel",
+                  "FontFamily": "",
+                  "Color": "",
+                  "BackgroundColor": "",
+                  "Name": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Width": 150,
+                "BackgroundColor": "",
+                "Border": "None",
+                "VerticalAlignment": "Middle",
+                "CanResize": false
+              },
+              {
+                "Layout": {
+                  "FieldName": "FluentLink",
+                  "FontFamily": "",
+                  "Color": "",
+                  "BackgroundColor": "",
+                  "Name": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "BackgroundColor": "",
+                "Border": "None",
+                "CanResize": false
+              }
+            ]
+          },
+          {
+            "IsWrap": false,
+            "IsRowMarginRemoved": false,
+            "GridRowType": "Normal",
+            "BackgroundColor": "",
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "FluentRadioButton1",
+                  "FontFamily": "",
+                  "Color": "",
+                  "BackgroundColor": "",
+                  "Name": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Width": 150,
+                "BackgroundColor": "",
+                "Border": "None",
+                "CanResize": false
+              },
+              {
+                "Layout": {
+                  "FieldName": "FluentRadioButton2",
+                  "FontFamily": "",
+                  "Color": "",
+                  "BackgroundColor": "",
+                  "Name": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Width": 150,
+                "BackgroundColor": "",
+                "Border": "None",
+                "CanResize": false
+              },
+              {
+                "Layout": {
+                  "FieldName": "FluentRadioButton3",
+                  "FontFamily": "",
+                  "Color": "",
+                  "BackgroundColor": "",
+                  "Name": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "BackgroundColor": "",
+                "Border": "None",
+                "CanResize": false
+              }
+            ]
+          },
+          {
+            "IsWrap": false,
+            "IsRowMarginRemoved": false,
+            "GridRowType": "Normal",
+            "BackgroundColor": "",
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "FluentSubmitButton",
+                  "FontFamily": "",
+                  "Color": "",
+                  "BackgroundColor": "",
+                  "Name": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "BackgroundColor": "",
+                "Border": "None",
+                "HorizontalAlignment": "Center",
+                "CanResize": false
+              }
+            ]
+          }
+        ],
+        "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
+      }
+    }
+  },
+  "ListLayouts": {
+    "": {
+      "HeaderTitle": "",
+      "DataOnlyFields": [],
+      "OnBeforeInitialization": "",
+      "OnAfterInitialization": "",
+      "Elements": [
+        [
+          {
+            "FieldName": "CheckFluentBoolean",
+            "Label": "",
+            "ColumnSpan": 1,
+            "RowSpan": 1,
+            "TextWrap": "Unset",
+            "CanResize": false,
+            "FontFamily": "",
+            "Color": "",
+            "BackgroundColor": ""
+          },
+          {
+            "FieldName": "ToggleFluentBoolean",
+            "Label": "",
+            "ColumnSpan": 1,
+            "RowSpan": 1,
+            "TextWrap": "Unset",
+            "CanResize": false,
+            "FontFamily": "",
+            "Color": "",
+            "BackgroundColor": ""
+          },
+          {
+            "FieldName": "SwitchFluentBoolean",
+            "Label": "",
+            "ColumnSpan": 1,
+            "RowSpan": 1,
+            "TextWrap": "Unset",
+            "CanResize": false,
+            "FontFamily": "",
+            "Color": "",
+            "BackgroundColor": ""
+          },
+          {
+            "FieldName": "FluentDate",
+            "Label": "",
+            "ColumnSpan": 1,
+            "RowSpan": 1,
+            "TextWrap": "Unset",
+            "CanResize": false,
+            "FontFamily": "",
+            "Color": "",
+            "BackgroundColor": ""
+          },
+          {
+            "FieldName": "FluentTime",
+            "Label": "",
+            "ColumnSpan": 1,
+            "RowSpan": 1,
+            "TextWrap": "Unset",
+            "CanResize": false,
+            "FontFamily": "",
+            "Color": "",
+            "BackgroundColor": ""
+          },
+          {
+            "FieldName": "FluentNumber",
+            "Label": "",
+            "ColumnSpan": 1,
+            "RowSpan": 1,
+            "TextWrap": "Unset",
+            "CanResize": false,
+            "FontFamily": "",
+            "Color": "",
+            "BackgroundColor": ""
+          },
+          {
+            "FieldName": "FluentSelect",
+            "Label": "",
+            "ColumnSpan": 1,
+            "RowSpan": 1,
+            "TextWrap": "Unset",
+            "CanResize": false,
+            "FontFamily": "",
+            "Color": "",
+            "BackgroundColor": ""
+          },
+          {
+            "FieldName": "FluentSelectLink",
+            "Label": "",
+            "ColumnSpan": 1,
+            "RowSpan": 1,
+            "TextWrap": "Unset",
+            "CanResize": false,
+            "FontFamily": "",
+            "Color": "",
+            "BackgroundColor": ""
+          },
+          {
+            "FieldName": "FluentText",
+            "Label": "",
+            "ColumnSpan": 1,
+            "RowSpan": 1,
+            "TextWrap": "Unset",
+            "CanResize": false,
+            "FontFamily": "",
+            "Color": "",
+            "BackgroundColor": ""
+          },
+          {
+            "FieldName": "FluentLink",
+            "Label": "",
+            "ColumnSpan": 1,
+            "RowSpan": 1,
+            "TextWrap": "Unset",
+            "CanResize": false,
+            "FontFamily": "",
+            "Color": "",
+            "BackgroundColor": ""
+          },
+          {
+            "FieldName": "RadioGroup",
+            "Label": "",
+            "ColumnSpan": 1,
+            "RowSpan": 1,
+            "TextWrap": "Unset",
+            "CanResize": false,
+            "FontFamily": "",
+            "Color": "",
+            "BackgroundColor": ""
+          }
+        ]
+      ]
+    }
+  },
+  "SearchLayouts": {
+    "": {
+      "OnSearchInitialization": "",
+      "Layout": {
+        "Operator": "And",
+        "Name": "SearchGridLayout",
+        "IsBordered": false,
+        "IsFlowLayout": false,
+        "IsFillAvailable": false,
+        "IsExpandable": true,
+        "ExpanderLabel": "検索条件",
+        "IsExpanderDefaultOpened": true,
+        "Rows": [
+          {
+            "IsWrap": false,
+            "IsRowMarginRemoved": false,
+            "GridRowType": "Normal",
+            "BackgroundColor": "",
+            "Columns": [
+              {
+                "Layout": {
+                  "Name": "",
+                  "IsBordered": false,
+                  "IsFlowLayout": false,
+                  "IsFillAvailable": false,
+                  "IsExpandable": false,
+                  "ExpanderLabel": "",
+                  "IsExpanderDefaultOpened": false,
+                  "Rows": [
+                    {
+                      "IsWrap": false,
+                      "IsRowMarginRemoved": true,
+                      "GridRowType": "Normal",
+                      "BackgroundColor": "",
+                      "Columns": [
+                        {
+                          "Layout": {
+                            "FieldName": "CheckLabel",
+                            "FontFamily": "",
+                            "Color": "",
+                            "BackgroundColor": "",
+                            "Name": "",
+                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                          },
+                          "BackgroundColor": "",
+                          "Border": "None",
+                          "VerticalAlignment": "Bottom",
+                          "CanResize": false
+                        }
+                      ]
+                    },
+                    {
+                      "IsWrap": false,
+                      "IsRowMarginRemoved": false,
+                      "GridRowType": "Normal",
+                      "BackgroundColor": "",
+                      "Columns": [
+                        {
+                          "Layout": {
+                            "FieldName": "CheckFluentBoolean",
+                            "FontFamily": "",
+                            "Color": "",
+                            "BackgroundColor": "",
+                            "Name": "",
+                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                          },
+                          "BackgroundColor": "",
+                          "Border": "None",
+                          "CanResize": false
+                        }
+                      ]
+                    }
+                  ],
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
+                },
+                "BackgroundColor": "",
+                "Border": "None",
+                "CanResize": false
+              },
+              {
+                "Layout": {
+                  "Name": "",
+                  "IsBordered": false,
+                  "IsFlowLayout": false,
+                  "IsFillAvailable": false,
+                  "IsExpandable": false,
+                  "ExpanderLabel": "",
+                  "IsExpanderDefaultOpened": false,
+                  "Rows": [
+                    {
+                      "IsWrap": false,
+                      "IsRowMarginRemoved": true,
+                      "GridRowType": "Normal",
+                      "BackgroundColor": "",
+                      "Columns": [
+                        {
+                          "Layout": {
+                            "FieldName": "ToggleLabel",
+                            "FontFamily": "",
+                            "Color": "",
+                            "BackgroundColor": "",
+                            "Name": "",
+                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                          },
+                          "BackgroundColor": "",
+                          "Border": "None",
+                          "VerticalAlignment": "Bottom",
+                          "CanResize": false
+                        }
+                      ]
+                    },
+                    {
+                      "IsWrap": false,
+                      "IsRowMarginRemoved": false,
+                      "GridRowType": "Normal",
+                      "BackgroundColor": "",
+                      "Columns": [
+                        {
+                          "Layout": {
+                            "FieldName": "ToggleFluentBoolean",
+                            "FontFamily": "",
+                            "Color": "",
+                            "BackgroundColor": "",
+                            "Name": "",
+                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                          },
+                          "BackgroundColor": "",
+                          "Border": "None",
+                          "CanResize": false
+                        }
+                      ]
+                    }
+                  ],
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
+                },
+                "BackgroundColor": "",
+                "Border": "None",
+                "CanResize": false
+              },
+              {
+                "Layout": {
+                  "Name": "",
+                  "IsBordered": false,
+                  "IsFlowLayout": false,
+                  "IsFillAvailable": false,
+                  "IsExpandable": false,
+                  "ExpanderLabel": "",
+                  "IsExpanderDefaultOpened": false,
+                  "Rows": [
+                    {
+                      "IsWrap": false,
+                      "IsRowMarginRemoved": true,
+                      "GridRowType": "Normal",
+                      "BackgroundColor": "",
+                      "Columns": [
+                        {
+                          "Layout": {
+                            "FieldName": "SwitchLabel",
+                            "FontFamily": "",
+                            "Color": "",
+                            "BackgroundColor": "",
+                            "Name": "",
+                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                          },
+                          "BackgroundColor": "",
+                          "Border": "None",
+                          "VerticalAlignment": "Bottom",
+                          "CanResize": false
+                        }
+                      ]
+                    },
+                    {
+                      "IsWrap": false,
+                      "IsRowMarginRemoved": false,
+                      "GridRowType": "Normal",
+                      "BackgroundColor": "",
+                      "Columns": [
+                        {
+                          "Layout": {
+                            "FieldName": "SwitchFluentBoolean",
+                            "FontFamily": "",
+                            "Color": "",
+                            "BackgroundColor": "",
+                            "Name": "",
+                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                          },
+                          "BackgroundColor": "",
+                          "Border": "None",
+                          "CanResize": false
+                        }
+                      ]
+                    }
+                  ],
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
+                },
+                "BackgroundColor": "",
+                "Border": "None",
+                "CanResize": false
+              }
+            ]
+          },
+          {
+            "IsWrap": false,
+            "IsRowMarginRemoved": false,
+            "GridRowType": "Normal",
+            "BackgroundColor": "",
+            "Columns": [
+              {
+                "Layout": {
+                  "Name": "",
+                  "IsBordered": false,
+                  "IsFlowLayout": false,
+                  "IsFillAvailable": false,
+                  "IsExpandable": false,
+                  "ExpanderLabel": "",
+                  "IsExpanderDefaultOpened": false,
+                  "Rows": [
+                    {
+                      "IsWrap": false,
+                      "IsRowMarginRemoved": true,
+                      "GridRowType": "Normal",
+                      "BackgroundColor": "",
+                      "Columns": [
+                        {
+                          "Layout": {
+                            "FieldName": "DateLabel",
+                            "FontFamily": "",
+                            "Color": "",
+                            "BackgroundColor": "",
+                            "Name": "",
+                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                          },
+                          "BackgroundColor": "",
+                          "Border": "None",
+                          "VerticalAlignment": "Bottom",
+                          "CanResize": false
+                        }
+                      ]
+                    },
+                    {
+                      "IsWrap": false,
+                      "IsRowMarginRemoved": false,
+                      "GridRowType": "Normal",
+                      "BackgroundColor": "",
+                      "Columns": [
+                        {
+                          "Layout": {
+                            "FieldName": "FluentDate",
+                            "FontFamily": "",
+                            "Color": "",
+                            "BackgroundColor": "",
+                            "Name": "",
+                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                          },
+                          "BackgroundColor": "",
+                          "Border": "None",
+                          "CanResize": false
+                        }
+                      ]
+                    }
+                  ],
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
+                },
+                "BackgroundColor": "",
+                "Border": "None",
+                "CanResize": false
+              },
+              {
+                "Layout": {
+                  "Name": "",
+                  "IsBordered": false,
+                  "IsFlowLayout": false,
+                  "IsFillAvailable": false,
+                  "IsExpandable": false,
+                  "ExpanderLabel": "",
+                  "IsExpanderDefaultOpened": false,
+                  "Rows": [
+                    {
+                      "IsWrap": false,
+                      "IsRowMarginRemoved": true,
+                      "GridRowType": "Normal",
+                      "BackgroundColor": "",
+                      "Columns": [
+                        {
+                          "Layout": {
+                            "FieldName": "TimeLabel",
+                            "FontFamily": "",
+                            "Color": "",
+                            "BackgroundColor": "",
+                            "Name": "",
+                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                          },
+                          "BackgroundColor": "",
+                          "Border": "None",
+                          "VerticalAlignment": "Bottom",
+                          "CanResize": false
+                        }
+                      ]
+                    },
+                    {
+                      "IsWrap": false,
+                      "IsRowMarginRemoved": false,
+                      "GridRowType": "Normal",
+                      "BackgroundColor": "",
+                      "Columns": [
+                        {
+                          "Layout": {
+                            "FieldName": "FluentTime",
+                            "FontFamily": "",
+                            "Color": "",
+                            "BackgroundColor": "",
+                            "Name": "",
+                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                          },
+                          "BackgroundColor": "",
+                          "Border": "None",
+                          "CanResize": false
+                        }
+                      ]
+                    }
+                  ],
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
+                },
+                "BackgroundColor": "",
+                "Border": "None",
+                "CanResize": false
+              },
+              {
+                "Layout": {
+                  "Name": "",
+                  "IsBordered": false,
+                  "IsFlowLayout": false,
+                  "IsFillAvailable": false,
+                  "IsExpandable": false,
+                  "ExpanderLabel": "",
+                  "IsExpanderDefaultOpened": false,
+                  "Rows": [
+                    {
+                      "IsWrap": false,
+                      "IsRowMarginRemoved": true,
+                      "GridRowType": "Normal",
+                      "BackgroundColor": "",
+                      "Columns": [
+                        {
+                          "Layout": {
+                            "FieldName": "NumberLabel",
+                            "FontFamily": "",
+                            "Color": "",
+                            "BackgroundColor": "",
+                            "Name": "",
+                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                          },
+                          "BackgroundColor": "",
+                          "Border": "None",
+                          "VerticalAlignment": "Bottom",
+                          "CanResize": false
+                        }
+                      ]
+                    },
+                    {
+                      "IsWrap": false,
+                      "IsRowMarginRemoved": false,
+                      "GridRowType": "Normal",
+                      "BackgroundColor": "",
+                      "Columns": [
+                        {
+                          "Layout": {
+                            "FieldName": "FluentNumber",
+                            "FontFamily": "",
+                            "Color": "",
+                            "BackgroundColor": "",
+                            "Name": "",
+                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                          },
+                          "BackgroundColor": "",
+                          "Border": "None",
+                          "CanResize": false
+                        }
+                      ]
+                    }
+                  ],
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
+                },
+                "BackgroundColor": "",
+                "Border": "None",
+                "CanResize": false
+              }
+            ]
+          },
+          {
+            "IsWrap": false,
+            "IsRowMarginRemoved": false,
+            "GridRowType": "Normal",
+            "BackgroundColor": "",
+            "Columns": [
+              {
+                "BackgroundColor": "",
+                "Border": "None",
+                "CanResize": false
+              },
+              {
+                "BackgroundColor": "",
+                "Border": "None",
+                "CanResize": false
+              },
+              {
+                "BackgroundColor": "",
+                "Border": "None",
+                "CanResize": false
+              }
+            ]
+          },
+          {
+            "IsWrap": false,
+            "IsRowMarginRemoved": false,
+            "GridRowType": "Normal",
+            "BackgroundColor": "",
+            "Columns": [
+              {
+                "Layout": {
+                  "Name": "",
+                  "IsBordered": false,
+                  "IsFlowLayout": false,
+                  "IsFillAvailable": false,
+                  "IsExpandable": false,
+                  "ExpanderLabel": "",
+                  "IsExpanderDefaultOpened": false,
+                  "Rows": [
+                    {
+                      "IsWrap": false,
+                      "IsRowMarginRemoved": true,
+                      "GridRowType": "Normal",
+                      "BackgroundColor": "",
+                      "Columns": [
+                        {
+                          "Layout": {
+                            "FieldName": "TextLabel",
+                            "FontFamily": "",
+                            "Color": "",
+                            "BackgroundColor": "",
+                            "Name": "",
+                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                          },
+                          "BackgroundColor": "",
+                          "Border": "None",
+                          "VerticalAlignment": "Bottom",
+                          "CanResize": false
+                        }
+                      ]
+                    },
+                    {
+                      "IsWrap": false,
+                      "IsRowMarginRemoved": false,
+                      "GridRowType": "Normal",
+                      "BackgroundColor": "",
+                      "Columns": [
+                        {
+                          "Layout": {
+                            "FieldName": "FluentText",
+                            "FontFamily": "",
+                            "Color": "",
+                            "BackgroundColor": "",
+                            "Name": "",
+                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                          },
+                          "BackgroundColor": "",
+                          "Border": "None",
+                          "CanResize": false
+                        }
+                      ]
+                    }
+                  ],
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
+                },
+                "BackgroundColor": "",
+                "Border": "None",
+                "CanResize": false
+              },
+              {
+                "Layout": {
+                  "Name": "",
+                  "IsBordered": false,
+                  "IsFlowLayout": false,
+                  "IsFillAvailable": false,
+                  "IsExpandable": false,
+                  "ExpanderLabel": "",
+                  "IsExpanderDefaultOpened": false,
+                  "Rows": [
+                    {
+                      "IsWrap": false,
+                      "IsRowMarginRemoved": true,
+                      "GridRowType": "Normal",
+                      "BackgroundColor": "",
+                      "Columns": [
+                        {
+                          "Layout": {
+                            "FieldName": "LinkLabel",
+                            "FontFamily": "",
+                            "Color": "",
+                            "BackgroundColor": "",
+                            "Name": "",
+                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                          },
+                          "BackgroundColor": "",
+                          "Border": "None",
+                          "VerticalAlignment": "Bottom",
+                          "CanResize": false
+                        }
+                      ]
+                    },
+                    {
+                      "IsWrap": false,
+                      "IsRowMarginRemoved": false,
+                      "GridRowType": "Normal",
+                      "BackgroundColor": "",
+                      "Columns": [
+                        {
+                          "Layout": {
+                            "FieldName": "FluentLink",
+                            "FontFamily": "",
+                            "Color": "",
+                            "BackgroundColor": "",
+                            "Name": "",
+                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                          },
+                          "BackgroundColor": "",
+                          "Border": "None",
+                          "CanResize": false
+                        }
+                      ]
+                    }
+                  ],
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
+                },
+                "BackgroundColor": "",
+                "Border": "None",
+                "CanResize": false
+              }
+            ]
+          }
+        ],
+        "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.SearchGridLayoutDesign"
+      }
+    }
+  },
+  "LinkFieldNames": [],
+  "ListPageFieldDesign": {
+    "LayoutName": "",
+    "CanNavigateToDetail": true,
+    "DisplayName": "",
+    "SearchCondition": {
+      "SortFieldVariable": "Id.Value",
+      "SortDescending": false,
+      "SelectFields": [],
+      "ModuleName": ""
+    },
+    "PagerPosition": "Bottom",
+    "UseIndexSort": false,
+    "DeleteTogether": false,
+    "CanCreate": false,
+    "CanUpdate": false,
+    "CanDelete": false,
+    "CanSelect": false,
+    "OnDataChanged": "",
+    "OnSearchDataChanged": "",
+    "OnSelectedIndexChanged": "",
+    "OnSelectedIndexChanging": "",
+    "Name": "",
+    "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ListFieldDesign"
+  }
+}
