@@ -149,6 +149,7 @@ BlazorアプリとWPFのデザイナアプリをビルドして起動
     - [検索条件に初期値を設定する](Examples/Tips_SearchCriteriaInitialValueSetting.md)
     - [Submit時に処理を追加する](Examples/Tips_AddProcessingSubmit.md)
     - [リストの連携](Examples/DoubleList.md)
+    - [メールを送信する](Examples/SendingMail.md)
 - リリースノート
     - [破壊的変更](breaking_changes/breaking_changes.md)
 - Q&A
