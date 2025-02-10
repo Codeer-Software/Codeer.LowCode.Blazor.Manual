@@ -52,6 +52,10 @@ WEBに接続できない環境の場合はオフラインで登録すること�
 - [登録](license_web_registration.md)
 - [解除](license_web_cancellation.md)
 
+### Cliツールで登録(Windows)
+Cliツールによる登録・解除も可能です。
+-[WindowsでCliツールによる登録・解除](licence_windows_cli_registration.md)
+
 ### ドメインを使用
 サーバーライセンスの中でクラウド環境を利用する場合など
 マシン自体にライセンスキーを登録できない場合はドメインを使って登録することが可能です。
@@ -74,4 +78,3 @@ WinForm / WPF でクライアントサーバーアプリを作成すると、ラ
 
 Linuxベースのシステムでライセンス登録する方法は下記をご覧ください。
 - [LicenseRegisterCliについて](license_linux_registration.md)
-
