@@ -54,7 +54,7 @@ WEBに接続できない環境の場合はオフラインで登録すること�
 
 ### Cliツールで登録(Windows)
 Cliツールによる登録・解除も可能です。
--[WindowsでCliツールによる登録・解除](licence_windows_cli_registration.md)
+- [WindowsでCliツールによる登録・解除](licence_windows_cli_registration.md)
 
 ### ドメインを使用
 サーバーライセンスの中でクラウド環境を利用する場合など
