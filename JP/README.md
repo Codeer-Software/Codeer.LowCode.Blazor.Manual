@@ -132,8 +132,12 @@ BlazorアプリとWPFのデザイナアプリをビルドして起動
         - [AITextAnalyzerField](ai/AITextAnalyzerField.md)
         - [モジュールをAIで作成](ai/ai_modules.md)
         - [クエリをAIで作成](ai/ai_query.md)
-    - [Excelから画面とDDLを作成する](designer/import_module_from_excel.md)
-    - [Databaseからモジュール作成する](designer/import_modules_from_db.md)
+    - 多彩なモジュール作成方法
+        - [Excelから画面とDDLを作成する](designer/import_module_from_excel.md)
+        - [Databaseからモジュール作成する](designer/import_modules_from_db.md)
+    - データベースのフル活用
+        - [Queryフィールド](db/query_field.md)
+        - [ExeuteSqlフィールド](db/execute_sql_field.md)
     - [自動テストのサポート](designer/export_pageobject.md)
     - [css](look_and_feel/css.md)
     - 第三者ライブラリとの連携
