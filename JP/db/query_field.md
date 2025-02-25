@@ -40,6 +40,7 @@ Query設定画面で定義されたColumnおよびParameterはSQLフィールド
 
 ## 関連情報
 - [クエリをAIで作成](../ai/ai_query.md)
+- [ExecuteSqlフィールド](execute_sql_field.md)
 
 
 
