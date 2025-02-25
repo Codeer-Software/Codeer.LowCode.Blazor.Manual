@@ -18,7 +18,7 @@
       "CompositeIdVariables": [],
       "CompositeIdSeparator": "",
       "IsUpdateProtected": false,
-      "IsSearchParameter": false,
+      "IsSimpleSearchParameter": false,
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
@@ -31,7 +31,7 @@
       "IsMultiline": false,
       "Placeholder": "",
       "IsUpdateProtected": false,
-      "IsSearchParameter": false,
+      "IsSimpleSearchParameter": false,
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
@@ -44,7 +44,7 @@
       "IsMultiline": false,
       "Placeholder": "",
       "IsUpdateProtected": false,
-      "IsSearchParameter": false,
+      "IsSimpleSearchParameter": false,
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
@@ -57,7 +57,7 @@
       "IsMultiline": false,
       "Placeholder": "",
       "IsUpdateProtected": false,
-      "IsSearchParameter": false,
+      "IsSimpleSearchParameter": false,
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
@@ -67,6 +67,7 @@
     },
     {
       "SearchCondition": {
+        "LimitCount": 50,
         "SortFieldVariable": "Id.Value",
         "SortDescending": false,
         "SelectFields": [],
@@ -84,7 +85,7 @@
       "ListLayoutName": "",
       "SearchLayoutName": "",
       "IsUpdateProtected": false,
-      "IsSearchParameter": false,
+      "IsSimpleSearchParameter": false,
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
@@ -105,7 +106,6 @@
   "DataReadCondition": {
     "ModuleName": ""
   },
-  "OnTransaction": "",
   "DetailLayouts": {
     "": {
       "OnBeforeInitialization": "",
@@ -113,6 +113,7 @@
       "DataOnlyFields": [],
       "Layout": {
         "Name": "",
+        "Padding": {},
         "IsBordered": false,
         "IsFlowLayout": false,
         "IsFillAvailable": false,
@@ -122,11 +123,13 @@
         "Rows": [
           {
             "IsWrap": false,
-            "IsRowMarginRemoved": false,
+            "Margin": {},
             "GridRowType": "Normal",
             "BackgroundColor": "",
+            "IsRowMarginRemoved": false,
             "Columns": [
               {
+                "Padding": {},
                 "BackgroundColor": "",
                 "Border": "None",
                 "VerticalAlignment": "Middle",
@@ -136,11 +139,13 @@
           },
           {
             "IsWrap": false,
-            "IsRowMarginRemoved": false,
+            "Margin": {},
             "GridRowType": "Normal",
             "BackgroundColor": "",
+            "IsRowMarginRemoved": false,
             "Columns": [
               {
+                "Padding": {},
                 "BackgroundColor": "",
                 "Border": "None",
                 "CanResize": false
@@ -193,6 +198,7 @@
       "Layout": {
         "Operator": "And",
         "Name": "SearchGridLayout",
+        "Padding": {},
         "IsBordered": false,
         "IsFlowLayout": false,
         "IsFillAvailable": false,
@@ -202,26 +208,31 @@
         "Rows": [
           {
             "IsWrap": false,
-            "IsRowMarginRemoved": false,
+            "Margin": {},
             "GridRowType": "Normal",
             "BackgroundColor": "",
+            "IsRowMarginRemoved": false,
             "Columns": [
               {
+                "Padding": {},
                 "BackgroundColor": "",
                 "Border": "None",
                 "CanResize": false
               },
               {
+                "Padding": {},
                 "BackgroundColor": "",
                 "Border": "None",
                 "CanResize": false
               },
               {
+                "Padding": {},
                 "BackgroundColor": "",
                 "Border": "None",
                 "CanResize": false
               },
               {
+                "Padding": {},
                 "BackgroundColor": "",
                 "Border": "None",
                 "CanResize": false
@@ -241,6 +252,7 @@
     "CanNavigateToDetail": true,
     "DisplayName": "",
     "SearchCondition": {
+      "LimitCount": 50,
       "SortFieldVariable": "",
       "SortDescending": false,
       "SelectFields": [],

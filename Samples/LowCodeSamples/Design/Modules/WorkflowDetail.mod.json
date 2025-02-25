@@ -18,7 +18,7 @@
       "CompositeIdVariables": [],
       "CompositeIdSeparator": "",
       "IsUpdateProtected": false,
-      "IsSearchParameter": false,
+      "IsSimpleSearchParameter": false,
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
@@ -31,7 +31,7 @@
       "IsMultiline": false,
       "Placeholder": "",
       "IsUpdateProtected": false,
-      "IsSearchParameter": false,
+      "IsSimpleSearchParameter": false,
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
@@ -44,7 +44,7 @@
       "IsMultiline": false,
       "Placeholder": "",
       "IsUpdateProtected": false,
-      "IsSearchParameter": false,
+      "IsSimpleSearchParameter": false,
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
@@ -57,7 +57,7 @@
       "Format": "#,##",
       "DbColumn": "amount",
       "IsUpdateProtected": false,
-      "IsSearchParameter": false,
+      "IsSimpleSearchParameter": false,
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
@@ -69,7 +69,7 @@
       "Format": "",
       "DbColumn": "expense_date",
       "IsUpdateProtected": false,
-      "IsSearchParameter": false,
+      "IsSimpleSearchParameter": false,
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
@@ -82,7 +82,7 @@
       "Text": "",
       "DbColumn": "receipt",
       "IsUpdateProtected": false,
-      "IsSearchParameter": false,
+      "IsSimpleSearchParameter": false,
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
@@ -103,7 +103,6 @@
   "DataReadCondition": {
     "ModuleName": ""
   },
-  "OnTransaction": "",
   "DetailLayouts": {
     "": {
       "OnBeforeInitialization": "",
@@ -111,6 +110,7 @@
       "DataOnlyFields": [],
       "Layout": {
         "Name": "",
+        "Padding": {},
         "IsBordered": false,
         "IsFlowLayout": false,
         "IsFillAvailable": false,
@@ -120,26 +120,31 @@
         "Rows": [
           {
             "IsWrap": false,
-            "IsRowMarginRemoved": false,
+            "Margin": {},
             "GridRowType": "Normal",
             "BackgroundColor": "",
+            "IsRowMarginRemoved": false,
             "Columns": [
               {
+                "Padding": {},
                 "BackgroundColor": "",
                 "Border": "None",
                 "CanResize": false
               },
               {
+                "Padding": {},
                 "BackgroundColor": "",
                 "Border": "None",
                 "CanResize": false
               },
               {
+                "Padding": {},
                 "BackgroundColor": "",
                 "Border": "None",
                 "CanResize": false
               },
               {
+                "Padding": {},
                 "BackgroundColor": "",
                 "Border": "None",
                 "CanResize": false
@@ -213,6 +218,7 @@
       "Layout": {
         "Operator": "And",
         "Name": "SearchGridLayout",
+        "Padding": {},
         "IsBordered": false,
         "IsFlowLayout": false,
         "IsFillAvailable": false,
@@ -222,26 +228,31 @@
         "Rows": [
           {
             "IsWrap": false,
-            "IsRowMarginRemoved": false,
+            "Margin": {},
             "GridRowType": "Normal",
             "BackgroundColor": "",
+            "IsRowMarginRemoved": false,
             "Columns": [
               {
+                "Padding": {},
                 "BackgroundColor": "",
                 "Border": "None",
                 "CanResize": false
               },
               {
+                "Padding": {},
                 "BackgroundColor": "",
                 "Border": "None",
                 "CanResize": false
               },
               {
+                "Padding": {},
                 "BackgroundColor": "",
                 "Border": "None",
                 "CanResize": false
               },
               {
+                "Padding": {},
                 "BackgroundColor": "",
                 "Border": "None",
                 "CanResize": false
@@ -259,6 +270,7 @@
     "CanNavigateToDetail": true,
     "DisplayName": "",
     "SearchCondition": {
+      "LimitCount": 50,
       "SortFieldVariable": "Id.Value",
       "SortDescending": false,
       "SelectFields": [],

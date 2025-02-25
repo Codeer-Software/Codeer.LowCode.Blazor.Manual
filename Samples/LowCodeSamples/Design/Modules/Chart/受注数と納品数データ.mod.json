@@ -14,21 +14,29 @@
     {
       "QuerySetting": {
         "QueryText": "-- 日ごとの全製品の注文数と納品数を集計\r\nSELECT \r\n    COALESCE(o.order_date, d.delivery_date) AS date,\r\n    COALESCE(SUM(o.order_quantity), 0) AS total_orders,\r\n    COALESCE(SUM(d.delivery_quantity), 0) AS total_deliveries\r\nFROM \r\n    (SELECT DISTINCT order_date FROM orders\r\n     UNION\r\n     SELECT DISTINCT delivery_date FROM deliveries) dates\r\nLEFT JOIN orders o ON dates.order_date = o.order_date\r\nLEFT JOIN deliveries d ON dates.order_date = d.delivery_date\r\nGROUP BY \r\n    date\r\nORDER BY \r\n    date;\r\n",
+        "CountSqlText": "",
+        "UseCustomPaging": false,
         "Parameters": [
           {
             "IsParameter": false,
             "Name": "date",
-            "DbType": "DATE"
+            "DbType": "DATE",
+            "DbParameterDirection": "Input",
+            "IsSystemReservedParamter": false
           },
           {
             "IsParameter": false,
             "Name": "total_orders",
-            "DbType": "NUMBER"
+            "DbType": "NUMBER",
+            "DbParameterDirection": "Input",
+            "IsSystemReservedParamter": false
           },
           {
             "IsParameter": false,
             "Name": "total_deliveries",
-            "DbType": "NUMBER"
+            "DbType": "NUMBER",
+            "DbParameterDirection": "Input",
+            "IsSystemReservedParamter": false
           }
         ]
       },
@@ -40,7 +48,7 @@
       "Format": "",
       "DbColumn": "date",
       "IsUpdateProtected": false,
-      "IsSearchParameter": false,
+      "IsSimpleSearchParameter": false,
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
@@ -53,7 +61,7 @@
       "Format": "",
       "DbColumn": "total_orders",
       "IsUpdateProtected": false,
-      "IsSearchParameter": false,
+      "IsSimpleSearchParameter": false,
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
@@ -66,7 +74,7 @@
       "Format": "",
       "DbColumn": "total_deliveries",
       "IsUpdateProtected": false,
-      "IsSearchParameter": false,
+      "IsSimpleSearchParameter": false,
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
@@ -87,7 +95,6 @@
   "DataReadCondition": {
     "ModuleName": ""
   },
-  "OnTransaction": "",
   "DetailLayouts": {
     "": {
       "OnBeforeInitialization": "",
@@ -95,6 +102,7 @@
       "DataOnlyFields": [],
       "Layout": {
         "Name": "",
+        "Padding": {},
         "IsBordered": false,
         "IsFlowLayout": false,
         "IsFillAvailable": false,
@@ -104,29 +112,34 @@
         "Rows": [
           {
             "IsWrap": false,
-            "IsRowMarginRemoved": false,
+            "Margin": {},
             "GridRowType": "Normal",
             "BackgroundColor": "",
+            "IsRowMarginRemoved": false,
             "Columns": [
               {
+                "Padding": {},
                 "BackgroundColor": "",
                 "Border": "None",
                 "CanResize": false,
                 "Background": ""
               },
               {
+                "Padding": {},
                 "BackgroundColor": "",
                 "Border": "None",
                 "CanResize": false,
                 "Background": ""
               },
               {
+                "Padding": {},
                 "BackgroundColor": "",
                 "Border": "None",
                 "CanResize": false,
                 "Background": ""
               },
               {
+                "Padding": {},
                 "BackgroundColor": "",
                 "Border": "None",
                 "CanResize": false,
@@ -155,7 +168,8 @@
             "TextWrap": "Unset",
             "CanResize": false,
             "FontFamily": "",
-            "Color": ""
+            "Color": "",
+            "BackgroundColor": ""
           }
         ]
       ]
@@ -167,6 +181,7 @@
       "Layout": {
         "Operator": "And",
         "Name": "SearchGridLayout",
+        "Padding": {},
         "IsBordered": false,
         "IsFlowLayout": false,
         "IsFillAvailable": false,
@@ -176,29 +191,34 @@
         "Rows": [
           {
             "IsWrap": false,
-            "IsRowMarginRemoved": false,
+            "Margin": {},
             "GridRowType": "Normal",
             "BackgroundColor": "",
+            "IsRowMarginRemoved": false,
             "Columns": [
               {
+                "Padding": {},
                 "BackgroundColor": "",
                 "Border": "None",
                 "CanResize": false,
                 "Background": ""
               },
               {
+                "Padding": {},
                 "BackgroundColor": "",
                 "Border": "None",
                 "CanResize": false,
                 "Background": ""
               },
               {
+                "Padding": {},
                 "BackgroundColor": "",
                 "Border": "None",
                 "CanResize": false,
                 "Background": ""
               },
               {
+                "Padding": {},
                 "BackgroundColor": "",
                 "Border": "None",
                 "CanResize": false,
@@ -217,6 +237,7 @@
     "CanNavigateToDetail": true,
     "DisplayName": "",
     "SearchCondition": {
+      "LimitCount": 50,
       "SortFieldVariable": "",
       "SortDescending": false,
       "SelectFields": [],

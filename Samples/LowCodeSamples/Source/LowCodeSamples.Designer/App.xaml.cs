@@ -21,6 +21,8 @@ using ApexCharts;
 using Codeer.LowCode.Bindings.ApexCharts.Designs;
 using Codeer.LowCode.Bindings.Fluent.Blazor.Designs;
 using Microsoft.FluentUI.AspNetCore.Components;
+using Codeer.LowCode.Bindings.ApexCharts.Designer.Controls;
+using Codeer.LowCode.Bindings.ApexCharts.Models;
 
 namespace LowCodeSamples.Designer
 {
@@ -35,6 +37,8 @@ namespace LowCodeSamples.Designer
 
             MudBlazorLoader.LoadAssemblies();
             RadzenLoader.LoadAssemblies();
+
+            PropertyTypeManager.AddPropertyControl<ChartSeries, ChartSeriesPropertyControl>();
 
             Codeer.LowCode.Blazor.License.LicenseManager.IsAutoUpdate = bool.TryParse(ConfigurationManager.AppSettings["IsLicenseAutoUpdate"], out var val) ? val : true;
 
