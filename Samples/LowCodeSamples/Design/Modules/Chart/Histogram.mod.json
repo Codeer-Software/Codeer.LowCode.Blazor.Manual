@@ -14,16 +14,22 @@
     {
       "QuerySetting": {
         "QueryText": "SELECT \r\n    CONCAT(FLOOR(quantity / 10) * 10, '-', (FLOOR(quantity / 10) * 10) + 9) AS range, -- 販売数量の範囲 (カテゴリ)\r\n    COUNT(*) AS frequency                                                          -- 頻度 (件数)\r\nFROM sales\r\nGROUP BY FLOOR(quantity / 10)\r\nORDER BY FLOOR(quantity / 10);\r\n",
+        "CountSqlText": "",
+        "UseCustomPaging": false,
         "Parameters": [
           {
             "IsParameter": false,
             "Name": "range",
-            "DbType": ""
+            "DbType": "",
+            "DbParameterDirection": "Input",
+            "IsSystemReservedParamter": false
           },
           {
             "IsParameter": false,
             "Name": "frequency",
-            "DbType": "NUMBER"
+            "DbType": "NUMBER",
+            "DbParameterDirection": "Input",
+            "IsSystemReservedParamter": false
           }
         ]
       },
@@ -35,7 +41,7 @@
       "IsMultiline": false,
       "Placeholder": "",
       "IsUpdateProtected": false,
-      "IsSearchParameter": false,
+      "IsSimpleSearchParameter": false,
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
@@ -48,7 +54,7 @@
       "Format": "",
       "DbColumn": "frequency",
       "IsUpdateProtected": false,
-      "IsSearchParameter": false,
+      "IsSimpleSearchParameter": false,
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
@@ -69,7 +75,6 @@
   "DataReadCondition": {
     "ModuleName": ""
   },
-  "OnTransaction": "",
   "DetailLayouts": {
     "": {
       "OnBeforeInitialization": "",
@@ -77,6 +82,7 @@
       "DataOnlyFields": [],
       "Layout": {
         "Name": "",
+        "Padding": {},
         "IsBordered": false,
         "IsFlowLayout": false,
         "IsFillAvailable": false,
@@ -86,29 +92,34 @@
         "Rows": [
           {
             "IsWrap": false,
-            "IsRowMarginRemoved": false,
+            "Margin": {},
             "GridRowType": "Normal",
             "BackgroundColor": "",
+            "IsRowMarginRemoved": false,
             "Columns": [
               {
+                "Padding": {},
                 "BackgroundColor": "",
                 "Border": "None",
                 "CanResize": false,
                 "Background": ""
               },
               {
+                "Padding": {},
                 "BackgroundColor": "",
                 "Border": "None",
                 "CanResize": false,
                 "Background": ""
               },
               {
+                "Padding": {},
                 "BackgroundColor": "",
                 "Border": "None",
                 "CanResize": false,
                 "Background": ""
               },
               {
+                "Padding": {},
                 "BackgroundColor": "",
                 "Border": "None",
                 "CanResize": false,
@@ -136,6 +147,7 @@
             "RowSpan": 1,
             "TextWrap": "Unset",
             "CanResize": false,
+            "CanUserSort": true,
             "FontFamily": "",
             "Color": "",
             "BackgroundColor": ""
@@ -150,6 +162,7 @@
       "Layout": {
         "Operator": "And",
         "Name": "SearchGridLayout",
+        "Padding": {},
         "IsBordered": false,
         "IsFlowLayout": false,
         "IsFillAvailable": false,
@@ -159,29 +172,34 @@
         "Rows": [
           {
             "IsWrap": false,
-            "IsRowMarginRemoved": false,
+            "Margin": {},
             "GridRowType": "Normal",
             "BackgroundColor": "",
+            "IsRowMarginRemoved": false,
             "Columns": [
               {
+                "Padding": {},
                 "BackgroundColor": "",
                 "Border": "None",
                 "CanResize": false,
                 "Background": ""
               },
               {
+                "Padding": {},
                 "BackgroundColor": "",
                 "Border": "None",
                 "CanResize": false,
                 "Background": ""
               },
               {
+                "Padding": {},
                 "BackgroundColor": "",
                 "Border": "None",
                 "CanResize": false,
                 "Background": ""
               },
               {
+                "Padding": {},
                 "BackgroundColor": "",
                 "Border": "None",
                 "CanResize": false,
@@ -198,8 +216,10 @@
   "ListPageFieldDesign": {
     "LayoutName": "",
     "CanNavigateToDetail": true,
+    "IsStriped": false,
     "DisplayName": "",
     "SearchCondition": {
+      "LimitCount": 50,
       "SortFieldVariable": "",
       "SortDescending": false,
       "SelectFields": [],
@@ -211,6 +231,7 @@
     "CanCreate": false,
     "CanUpdate": false,
     "CanDelete": false,
+    "CanUserSort": true,
     "CanSelect": false,
     "OnDataChanged": "",
     "OnSearchDataChanged": "",

@@ -18,7 +18,7 @@
       "CompositeIdVariables": [],
       "CompositeIdSeparator": "",
       "IsUpdateProtected": false,
-      "IsSearchParameter": false,
+      "IsSimpleSearchParameter": false,
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
@@ -31,7 +31,7 @@
       "IsMultiline": false,
       "Placeholder": "",
       "IsUpdateProtected": false,
-      "IsSearchParameter": false,
+      "IsSimpleSearchParameter": false,
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
@@ -44,7 +44,7 @@
       "IsMultiline": false,
       "Placeholder": "",
       "IsUpdateProtected": false,
-      "IsSearchParameter": false,
+      "IsSimpleSearchParameter": false,
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
@@ -57,7 +57,7 @@
       "IsMultiline": false,
       "Placeholder": "",
       "IsUpdateProtected": false,
-      "IsSearchParameter": false,
+      "IsSimpleSearchParameter": false,
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
@@ -68,6 +68,7 @@
     {
       "LayoutName": "",
       "CanNavigateToDetail": false,
+      "IsStriped": false,
       "DisplayName": "",
       "SearchCondition": {
         "LimitCount": 2147483647,
@@ -103,6 +104,7 @@
       "CanCreate": true,
       "CanUpdate": true,
       "CanDelete": true,
+      "CanUserSort": true,
       "CanSelect": false,
       "OnDataChanged": "",
       "OnSearchDataChanged": "",
@@ -114,6 +116,7 @@
     {
       "LayoutName": "",
       "CanNavigateToDetail": false,
+      "IsStriped": false,
       "DisplayName": "",
       "SearchCondition": {
         "LimitCount": 2147483647,
@@ -149,6 +152,7 @@
       "CanCreate": true,
       "CanUpdate": true,
       "CanDelete": true,
+      "CanUserSort": true,
       "CanSelect": false,
       "OnDataChanged": "",
       "OnSearchDataChanged": "",
@@ -177,7 +181,7 @@
       "ListLayoutName": "",
       "SearchLayoutName": "",
       "IsUpdateProtected": false,
-      "IsSearchParameter": false,
+      "IsSimpleSearchParameter": false,
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
@@ -199,6 +203,7 @@
       "Icon": "",
       "Style": "H2",
       "RelativeField": "",
+      "OnClick": "",
       "Name": "Label",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
     },
@@ -207,6 +212,7 @@
       "Icon": "",
       "Style": "Default",
       "RelativeField": "Recipename",
+      "OnClick": "",
       "Name": "RecipenameLabel",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
     },
@@ -215,6 +221,7 @@
       "Icon": "",
       "Style": "Default",
       "RelativeField": "Servingsize",
+      "OnClick": "",
       "Name": "ServingsizeLabel",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
     },
@@ -223,6 +230,7 @@
       "Icon": "",
       "Style": "Default",
       "RelativeField": "Description",
+      "OnClick": "",
       "Name": "DescriptionLabel",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
     },
@@ -231,6 +239,7 @@
       "Icon": "",
       "Style": "Default",
       "RelativeField": "Author",
+      "OnClick": "",
       "Name": "AuthorLabel",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
     },
@@ -239,6 +248,7 @@
       "Icon": "",
       "Style": "Default",
       "RelativeField": "Author.Fullname",
+      "OnClick": "",
       "Name": "AuthorFullnameLabel",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
     },
@@ -251,6 +261,7 @@
       "Icon": "",
       "Style": "Default",
       "RelativeField": "IngredientList.Note",
+      "OnClick": "",
       "Name": "IngredientListNoteLabel",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
     },
@@ -259,6 +270,7 @@
       "Icon": "",
       "Style": "Default",
       "RelativeField": "IngredientList",
+      "OnClick": "",
       "Name": "IngredientListLabel",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
     },
@@ -267,7 +279,7 @@
       "IsMultiline": false,
       "Placeholder": "",
       "IsUpdateProtected": false,
-      "IsSearchParameter": false,
+      "IsSimpleSearchParameter": false,
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
@@ -280,7 +292,7 @@
       "IsMultiline": false,
       "Placeholder": "",
       "IsUpdateProtected": false,
-      "IsSearchParameter": false,
+      "IsSimpleSearchParameter": false,
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
@@ -293,7 +305,7 @@
       "IsMultiline": true,
       "Placeholder": "",
       "IsUpdateProtected": false,
-      "IsSearchParameter": false,
+      "IsSimpleSearchParameter": false,
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
@@ -306,7 +318,7 @@
       "IsMultiline": false,
       "Placeholder": "",
       "IsUpdateProtected": false,
-      "IsSearchParameter": false,
+      "IsSimpleSearchParameter": false,
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
@@ -327,7 +339,6 @@
   "DataReadCondition": {
     "ModuleName": ""
   },
-  "OnTransaction": "",
   "DetailLayouts": {
     "": {
       "OnBeforeInitialization": "",
@@ -335,6 +346,7 @@
       "DataOnlyFields": [],
       "Layout": {
         "Name": "",
+        "Padding": {},
         "IsBordered": false,
         "IsFlowLayout": false,
         "IsFillAvailable": false,
@@ -344,9 +356,10 @@
         "Rows": [
           {
             "IsWrap": false,
-            "IsRowMarginRemoved": false,
+            "Margin": {},
             "GridRowType": "Normal",
             "BackgroundColor": "",
+            "IsRowMarginRemoved": false,
             "Columns": [
               {
                 "Layout": {
@@ -357,6 +370,7 @@
                   "Name": "",
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
+                "Padding": {},
                 "BackgroundColor": "",
                 "Border": "None",
                 "HorizontalAlignment": "Center",
@@ -366,9 +380,10 @@
           },
           {
             "IsWrap": false,
-            "IsRowMarginRemoved": false,
+            "Margin": {},
             "GridRowType": "Normal",
             "BackgroundColor": "",
+            "IsRowMarginRemoved": false,
             "Columns": [
               {
                 "Layout": {
@@ -380,6 +395,7 @@
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
                 "Width": 140,
+                "Padding": {},
                 "BackgroundColor": "",
                 "Border": "None",
                 "VerticalAlignment": "Middle",
@@ -394,6 +410,7 @@
                   "Name": "",
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
+                "Padding": {},
                 "BackgroundColor": "",
                 "Border": "None",
                 "CanResize": false
@@ -402,9 +419,10 @@
           },
           {
             "IsWrap": false,
-            "IsRowMarginRemoved": false,
+            "Margin": {},
             "GridRowType": "Normal",
             "BackgroundColor": "",
+            "IsRowMarginRemoved": false,
             "Columns": [
               {
                 "Layout": {
@@ -416,6 +434,7 @@
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
                 "Width": 140,
+                "Padding": {},
                 "BackgroundColor": "",
                 "Border": "None",
                 "VerticalAlignment": "Middle",
@@ -430,6 +449,7 @@
                   "Name": "",
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
+                "Padding": {},
                 "BackgroundColor": "",
                 "Border": "None",
                 "CanResize": false
@@ -438,9 +458,10 @@
           },
           {
             "IsWrap": false,
-            "IsRowMarginRemoved": false,
+            "Margin": {},
             "GridRowType": "Normal",
             "BackgroundColor": "",
+            "IsRowMarginRemoved": false,
             "Columns": [
               {
                 "Layout": {
@@ -452,6 +473,7 @@
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
                 "Width": 140,
+                "Padding": {},
                 "BackgroundColor": "",
                 "Border": "None",
                 "VerticalAlignment": "Middle",
@@ -466,6 +488,7 @@
                   "Name": "",
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
+                "Padding": {},
                 "BackgroundColor": "",
                 "Border": "None",
                 "CanResize": false
@@ -474,9 +497,10 @@
           },
           {
             "IsWrap": false,
-            "IsRowMarginRemoved": false,
+            "Margin": {},
             "GridRowType": "Normal",
             "BackgroundColor": "",
+            "IsRowMarginRemoved": false,
             "Columns": [
               {
                 "Layout": {
@@ -488,6 +512,7 @@
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
                 "Width": 140,
+                "Padding": {},
                 "BackgroundColor": "",
                 "Border": "None",
                 "VerticalAlignment": "Middle",
@@ -503,6 +528,7 @@
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
                 "Width": 300,
+                "Padding": {},
                 "BackgroundColor": "",
                 "Border": "None",
                 "CanResize": false
@@ -517,6 +543,7 @@
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
                 "Width": 150,
+                "Padding": {},
                 "BackgroundColor": "",
                 "Border": "None",
                 "CanResize": false
@@ -530,6 +557,7 @@
                   "Name": "",
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
+                "Padding": {},
                 "BackgroundColor": "",
                 "Border": "None",
                 "CanResize": false
@@ -539,11 +567,13 @@
           {
             "IsWrap": false,
             "Height": 29,
-            "IsRowMarginRemoved": false,
+            "Margin": {},
             "GridRowType": "Normal",
             "BackgroundColor": "",
+            "IsRowMarginRemoved": false,
             "Columns": [
               {
+                "Padding": {},
                 "BackgroundColor": "",
                 "Border": "None",
                 "CanResize": false
@@ -552,9 +582,10 @@
           },
           {
             "IsWrap": false,
-            "IsRowMarginRemoved": false,
+            "Margin": {},
             "GridRowType": "Normal",
             "BackgroundColor": "",
+            "IsRowMarginRemoved": false,
             "Columns": [
               {
                 "Layout": {
@@ -565,6 +596,7 @@
                   "Name": "",
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
+                "Padding": {},
                 "BackgroundColor": "",
                 "Border": "None",
                 "CanResize": false
@@ -574,11 +606,13 @@
           {
             "IsWrap": false,
             "Height": 32,
-            "IsRowMarginRemoved": false,
+            "Margin": {},
             "GridRowType": "Normal",
             "BackgroundColor": "",
+            "IsRowMarginRemoved": false,
             "Columns": [
               {
+                "Padding": {},
                 "BackgroundColor": "",
                 "Border": "None",
                 "CanResize": false
@@ -587,9 +621,10 @@
           },
           {
             "IsWrap": false,
-            "IsRowMarginRemoved": false,
+            "Margin": {},
             "GridRowType": "Normal",
             "BackgroundColor": "",
+            "IsRowMarginRemoved": false,
             "Columns": [
               {
                 "Layout": {
@@ -600,6 +635,7 @@
                   "Name": "",
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
+                "Padding": {},
                 "BackgroundColor": "",
                 "Border": "None",
                 "CanResize": false
@@ -608,9 +644,10 @@
           },
           {
             "IsWrap": false,
-            "IsRowMarginRemoved": false,
+            "Margin": {},
             "GridRowType": "Normal",
             "BackgroundColor": "",
+            "IsRowMarginRemoved": false,
             "Columns": [
               {
                 "Layout": {
@@ -621,6 +658,7 @@
                   "Name": "",
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
+                "Padding": {},
                 "BackgroundColor": "",
                 "Border": "None",
                 "HorizontalAlignment": "Center",
@@ -651,6 +689,7 @@
             "RowSpan": 1,
             "TextWrap": "Unset",
             "CanResize": false,
+            "CanUserSort": true,
             "FontFamily": "",
             "Color": "",
             "BackgroundColor": ""
@@ -662,6 +701,7 @@
             "RowSpan": 1,
             "TextWrap": "Unset",
             "CanResize": false,
+            "CanUserSort": true,
             "FontFamily": "",
             "Color": "",
             "BackgroundColor": ""
@@ -673,6 +713,7 @@
             "RowSpan": 1,
             "TextWrap": "Unset",
             "CanResize": false,
+            "CanUserSort": true,
             "FontFamily": "",
             "Color": "",
             "BackgroundColor": ""
@@ -684,6 +725,7 @@
             "RowSpan": 1,
             "TextWrap": "Unset",
             "CanResize": false,
+            "CanUserSort": true,
             "FontFamily": "",
             "Color": "",
             "BackgroundColor": ""
@@ -698,6 +740,7 @@
       "Layout": {
         "Operator": "And",
         "Name": "",
+        "Padding": {},
         "IsBordered": false,
         "IsFlowLayout": false,
         "IsFillAvailable": false,
@@ -707,13 +750,15 @@
         "Rows": [
           {
             "IsWrap": false,
-            "IsRowMarginRemoved": false,
+            "Margin": {},
             "GridRowType": "Normal",
             "BackgroundColor": "",
+            "IsRowMarginRemoved": false,
             "Columns": [
               {
                 "Layout": {
                   "Name": "",
+                  "Padding": {},
                   "IsBordered": false,
                   "IsFlowLayout": false,
                   "IsFillAvailable": false,
@@ -723,9 +768,10 @@
                   "Rows": [
                     {
                       "IsWrap": false,
-                      "IsRowMarginRemoved": true,
+                      "Margin": {},
                       "GridRowType": "Normal",
                       "BackgroundColor": "",
+                      "IsRowMarginRemoved": true,
                       "Columns": [
                         {
                           "Layout": {
@@ -736,6 +782,7 @@
                             "Name": "",
                             "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                           },
+                          "Padding": {},
                           "BackgroundColor": "",
                           "Border": "None",
                           "VerticalAlignment": "Bottom",
@@ -745,9 +792,10 @@
                     },
                     {
                       "IsWrap": false,
-                      "IsRowMarginRemoved": false,
+                      "Margin": {},
                       "GridRowType": "Normal",
                       "BackgroundColor": "",
+                      "IsRowMarginRemoved": false,
                       "Columns": [
                         {
                           "Layout": {
@@ -758,6 +806,7 @@
                             "Name": "",
                             "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                           },
+                          "Padding": {},
                           "BackgroundColor": "",
                           "Border": "None",
                           "CanResize": false
@@ -767,6 +816,7 @@
                   ],
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
                 },
+                "Padding": {},
                 "BackgroundColor": "",
                 "Border": "None",
                 "CanResize": false
@@ -774,6 +824,7 @@
               {
                 "Layout": {
                   "Name": "",
+                  "Padding": {},
                   "IsBordered": false,
                   "IsFlowLayout": false,
                   "IsFillAvailable": false,
@@ -783,9 +834,10 @@
                   "Rows": [
                     {
                       "IsWrap": false,
-                      "IsRowMarginRemoved": true,
+                      "Margin": {},
                       "GridRowType": "Normal",
                       "BackgroundColor": "",
+                      "IsRowMarginRemoved": true,
                       "Columns": [
                         {
                           "Layout": {
@@ -796,6 +848,7 @@
                             "Name": "",
                             "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                           },
+                          "Padding": {},
                           "BackgroundColor": "",
                           "Border": "None",
                           "VerticalAlignment": "Bottom",
@@ -805,9 +858,10 @@
                     },
                     {
                       "IsWrap": false,
-                      "IsRowMarginRemoved": false,
+                      "Margin": {},
                       "GridRowType": "Normal",
                       "BackgroundColor": "",
+                      "IsRowMarginRemoved": false,
                       "Columns": [
                         {
                           "Layout": {
@@ -818,6 +872,7 @@
                             "Name": "",
                             "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                           },
+                          "Padding": {},
                           "BackgroundColor": "",
                           "Border": "None",
                           "CanResize": false
@@ -827,6 +882,7 @@
                   ],
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
                 },
+                "Padding": {},
                 "BackgroundColor": "",
                 "Border": "None",
                 "CanResize": false
@@ -834,6 +890,7 @@
               {
                 "Layout": {
                   "Name": "",
+                  "Padding": {},
                   "IsBordered": false,
                   "IsFlowLayout": false,
                   "IsFillAvailable": false,
@@ -843,9 +900,10 @@
                   "Rows": [
                     {
                       "IsWrap": false,
-                      "IsRowMarginRemoved": true,
+                      "Margin": {},
                       "GridRowType": "Normal",
                       "BackgroundColor": "",
+                      "IsRowMarginRemoved": true,
                       "Columns": [
                         {
                           "Layout": {
@@ -856,6 +914,7 @@
                             "Name": "",
                             "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                           },
+                          "Padding": {},
                           "BackgroundColor": "",
                           "Border": "None",
                           "VerticalAlignment": "Bottom",
@@ -865,9 +924,10 @@
                     },
                     {
                       "IsWrap": false,
-                      "IsRowMarginRemoved": false,
+                      "Margin": {},
                       "GridRowType": "Normal",
                       "BackgroundColor": "",
+                      "IsRowMarginRemoved": false,
                       "Columns": [
                         {
                           "Layout": {
@@ -878,6 +938,7 @@
                             "Name": "",
                             "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                           },
+                          "Padding": {},
                           "BackgroundColor": "",
                           "Border": "None",
                           "CanResize": false
@@ -888,6 +949,7 @@
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
                 },
                 "Width": 130,
+                "Padding": {},
                 "BackgroundColor": "",
                 "Border": "None",
                 "CanResize": false
@@ -895,6 +957,7 @@
               {
                 "Layout": {
                   "Name": "",
+                  "Padding": {},
                   "IsBordered": false,
                   "IsFlowLayout": false,
                   "IsFillAvailable": false,
@@ -904,9 +967,10 @@
                   "Rows": [
                     {
                       "IsWrap": false,
-                      "IsRowMarginRemoved": true,
+                      "Margin": {},
                       "GridRowType": "Normal",
                       "BackgroundColor": "",
+                      "IsRowMarginRemoved": true,
                       "Columns": [
                         {
                           "Layout": {
@@ -917,6 +981,7 @@
                             "Name": "",
                             "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                           },
+                          "Padding": {},
                           "BackgroundColor": "",
                           "Border": "None",
                           "VerticalAlignment": "Bottom",
@@ -926,9 +991,10 @@
                     },
                     {
                       "IsWrap": false,
-                      "IsRowMarginRemoved": false,
+                      "Margin": {},
                       "GridRowType": "Normal",
                       "BackgroundColor": "",
+                      "IsRowMarginRemoved": false,
                       "Columns": [
                         {
                           "Layout": {
@@ -939,6 +1005,7 @@
                             "Name": "",
                             "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                           },
+                          "Padding": {},
                           "BackgroundColor": "",
                           "Border": "None",
                           "CanResize": false
@@ -948,6 +1015,7 @@
                   ],
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
                 },
+                "Padding": {},
                 "BackgroundColor": "",
                 "Border": "None",
                 "CanResize": false
@@ -963,8 +1031,10 @@
   "ListPageFieldDesign": {
     "LayoutName": "",
     "CanNavigateToDetail": true,
+    "IsStriped": false,
     "DisplayName": "",
     "SearchCondition": {
+      "LimitCount": 50,
       "SortFieldVariable": "",
       "SortDescending": false,
       "SelectFields": [],
@@ -976,6 +1046,7 @@
     "CanCreate": false,
     "CanUpdate": false,
     "CanDelete": false,
+    "CanUserSort": true,
     "CanSelect": false,
     "OnDataChanged": "",
     "OnSearchDataChanged": "",
