@@ -14,21 +14,29 @@
     {
       "QuerySetting": {
         "QueryText": "-- 日別の実績と目標値を取得\r\nSELECT \r\n    dates.date AS date,\r\n    COALESCE(SUM(pr.quantity), 0) AS actual_quantity,\r\n    COALESCE(SUM(pt.target_quantity), 0) AS target_quantity\r\nFROM \r\n    (\r\n        SELECT DISTINCT production_date AS date FROM production_records\r\n        UNION\r\n        SELECT DISTINCT target_date AS date FROM production_targets\r\n    ) dates\r\nLEFT JOIN production_records pr ON dates.date = pr.production_date\r\nLEFT JOIN production_targets pt ON dates.date = pt.target_date\r\nGROUP BY \r\n    dates.date\r\nORDER BY \r\n    dates.date;\r\n",
+        "CountSqlText": "",
+        "UseCustomPaging": false,
         "Parameters": [
           {
             "IsParameter": false,
             "Name": "date",
-            "DbType": "DATE"
+            "DbType": "DATE",
+            "DbParameterDirection": "Input",
+            "IsSystemReservedParamter": false
           },
           {
             "IsParameter": false,
             "Name": "actual_quantity",
-            "DbType": ""
+            "DbType": "",
+            "DbParameterDirection": "Input",
+            "IsSystemReservedParamter": false
           },
           {
             "IsParameter": false,
             "Name": "target_quantity",
-            "DbType": ""
+            "DbType": "",
+            "DbParameterDirection": "Input",
+            "IsSystemReservedParamter": false
           }
         ]
       },
@@ -40,7 +48,7 @@
       "Format": "",
       "DbColumn": "date",
       "IsUpdateProtected": false,
-      "IsSearchParameter": false,
+      "IsSimpleSearchParameter": false,
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
@@ -53,7 +61,7 @@
       "Format": "",
       "DbColumn": "actual_quantity",
       "IsUpdateProtected": false,
-      "IsSearchParameter": false,
+      "IsSimpleSearchParameter": false,
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
@@ -66,7 +74,7 @@
       "Format": "",
       "DbColumn": "target_quantity",
       "IsUpdateProtected": false,
-      "IsSearchParameter": false,
+      "IsSimpleSearchParameter": false,
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": true,
@@ -87,7 +95,6 @@
   "DataReadCondition": {
     "ModuleName": ""
   },
-  "OnTransaction": "",
   "DetailLayouts": {
     "": {
       "OnBeforeInitialization": "",
@@ -95,6 +102,7 @@
       "DataOnlyFields": [],
       "Layout": {
         "Name": "",
+        "Padding": {},
         "IsBordered": false,
         "IsFlowLayout": false,
         "IsFillAvailable": false,
@@ -104,29 +112,34 @@
         "Rows": [
           {
             "IsWrap": false,
-            "IsRowMarginRemoved": false,
+            "Margin": {},
             "GridRowType": "Normal",
             "BackgroundColor": "",
+            "IsRowMarginRemoved": false,
             "Columns": [
               {
+                "Padding": {},
                 "BackgroundColor": "",
                 "Border": "None",
                 "CanResize": false,
                 "Background": ""
               },
               {
+                "Padding": {},
                 "BackgroundColor": "",
                 "Border": "None",
                 "CanResize": false,
                 "Background": ""
               },
               {
+                "Padding": {},
                 "BackgroundColor": "",
                 "Border": "None",
                 "CanResize": false,
                 "Background": ""
               },
               {
+                "Padding": {},
                 "BackgroundColor": "",
                 "Border": "None",
                 "CanResize": false,
@@ -154,6 +167,7 @@
             "RowSpan": 1,
             "TextWrap": "Unset",
             "CanResize": false,
+            "CanUserSort": true,
             "FontFamily": "",
             "Color": "",
             "BackgroundColor": ""
@@ -168,6 +182,7 @@
       "Layout": {
         "Operator": "And",
         "Name": "SearchGridLayout",
+        "Padding": {},
         "IsBordered": false,
         "IsFlowLayout": false,
         "IsFillAvailable": false,
@@ -177,29 +192,34 @@
         "Rows": [
           {
             "IsWrap": false,
-            "IsRowMarginRemoved": false,
+            "Margin": {},
             "GridRowType": "Normal",
             "BackgroundColor": "",
+            "IsRowMarginRemoved": false,
             "Columns": [
               {
+                "Padding": {},
                 "BackgroundColor": "",
                 "Border": "None",
                 "CanResize": false,
                 "Background": ""
               },
               {
+                "Padding": {},
                 "BackgroundColor": "",
                 "Border": "None",
                 "CanResize": false,
                 "Background": ""
               },
               {
+                "Padding": {},
                 "BackgroundColor": "",
                 "Border": "None",
                 "CanResize": false,
                 "Background": ""
               },
               {
+                "Padding": {},
                 "BackgroundColor": "",
                 "Border": "None",
                 "CanResize": false,
@@ -216,8 +236,10 @@
   "ListPageFieldDesign": {
     "LayoutName": "",
     "CanNavigateToDetail": true,
+    "IsStriped": false,
     "DisplayName": "",
     "SearchCondition": {
+      "LimitCount": 50,
       "SortFieldVariable": "",
       "SortDescending": false,
       "SelectFields": [],
@@ -229,6 +251,7 @@
     "CanCreate": false,
     "CanUpdate": false,
     "CanDelete": false,
+    "CanUserSort": true,
     "CanSelect": false,
     "OnDataChanged": "",
     "OnSearchDataChanged": "",
