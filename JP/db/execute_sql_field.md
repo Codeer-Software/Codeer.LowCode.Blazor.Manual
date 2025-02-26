@@ -67,7 +67,7 @@ SQL文の実行結果の失敗判定条件を指定します。
 - Parameter: パラメータの値をもって判定する
 
 #### 4-2. 判定用parameter名(判定ターゲットがParameter時のみ)
-上記判定ターゲットがParameter担っている場合は、そのParameter名を指定します。
+上記判定ターゲットがParameterになっている場合は、そのParameter名を指定します。
 
 #### 4-3. 判定条件
 判定条件を指定します。
@@ -87,7 +87,7 @@ Insert時通常の処理では、追加された行のIdを返しますが、`Wi
 - Parameter: 指定されたParameter値がNewIdとして返される
 
 #### 5-2. New Id取得用Parameter名判定用parameter名(取得方法がParameter時のみ)
-上記NewId取得方法がParameter担っている場合は、そのParameter名を指定します。
+上記NewId取得方法がParameterになっている場合は、そのParameter名を指定します。
 
 
 ### 6.パラメーター一覧
