@@ -1,0 +1,474 @@
+{
+  "Name": "VideoConferencingHome",
+  "DisplayName": "",
+  "PageTitle": "",
+  "DataSourceName": "",
+  "DbTable": "",
+  "CanCreate": true,
+  "CanUpdate": true,
+  "CanDelete": true,
+  "CanBulkDataUpdate": false,
+  "CanBulkDataDownload": false,
+  "UseListPageSubmitButton": false,
+  "Fields": [
+    {
+      "ResourcePath": "VideoConferencing/account_setting_img.png",
+      "ObjectFit": "Contain",
+      "Name": "AccountSettingImageViewer",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ImageViewerFieldDesign"
+    },
+    {
+      "Style": "Button",
+      "Target": "Url",
+      "ShouldOpenInNewTab": false,
+      "Icon": "",
+      "TitleText": "アカウント設定",
+      "TitleVariable": "",
+      "ImageResourcePath": "",
+      "PageFrame": "",
+      "Module": "VideoConferencingAccountSetting",
+      "ModuleVariable": "",
+      "IdVariable": "",
+      "Url": "",
+      "OnClick": "",
+      "Name": "AnchorTag",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.AnchorTagFieldDesign"
+    },
+    {
+      "Style": "Button",
+      "Target": "Url",
+      "ShouldOpenInNewTab": false,
+      "Icon": "",
+      "TitleText": "ビデオ会議を開始する",
+      "TitleVariable": "",
+      "ImageResourcePath": "",
+      "PageFrame": "",
+      "Module": "VideoConferencingVideoCall",
+      "ModuleVariable": "",
+      "IdVariable": "",
+      "Url": "",
+      "OnClick": "",
+      "Name": "VieoCallAnchorTag",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.AnchorTagFieldDesign"
+    },
+    {
+      "Style": "Button",
+      "Target": "Url",
+      "ShouldOpenInNewTab": false,
+      "Icon": "",
+      "TitleText": "チャットを開始する",
+      "TitleVariable": "",
+      "ImageResourcePath": "",
+      "PageFrame": "",
+      "Module": "VideoConferencingHome",
+      "ModuleVariable": "",
+      "IdVariable": "",
+      "Url": "",
+      "OnClick": "",
+      "Name": "ChatAnchorTag",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.AnchorTagFieldDesign"
+    },
+    {
+      "ResourcePath": "VideoConferencing/vieo_call_img.png",
+      "ObjectFit": "Contain",
+      "Name": "VideoCallImageViewer",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ImageViewerFieldDesign"
+    },
+    {
+      "ResourcePath": "VideoConferencing/chat_img.png",
+      "ObjectFit": "Contain",
+      "Name": "VideoCallImageViewer1",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ImageViewerFieldDesign"
+    },
+    {
+      "Text": "ようこそ、新しいつながりへ。",
+      "Icon": "",
+      "Style": "Default",
+      "RelativeField": "",
+      "Name": "HomeTitleLabel",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    }
+  ],
+  "UserWriteCondition": {
+    "ModuleName": ""
+  },
+  "UserReadCondition": {
+    "ModuleName": ""
+  },
+  "DataWriteCondition": {
+    "ModuleName": ""
+  },
+  "DataReadCondition": {
+    "ModuleName": ""
+  },
+  "DetailLayouts": {
+    "": {
+      "OnBeforeInitialization": "",
+      "OnAfterInitialization": "",
+      "DataOnlyFields": [],
+      "Layout": {
+        "Name": "",
+        "Padding": {},
+        "IsBordered": false,
+        "IsFlowLayout": false,
+        "IsFillAvailable": true,
+        "IsExpandable": false,
+        "ExpanderLabel": "",
+        "IsExpanderDefaultOpened": false,
+        "Rows": [
+          {
+            "IsWrap": false,
+            "Margin": {},
+            "GridRowType": "Normal",
+            "BackgroundColor": "",
+            "IsRowMarginRemoved": false,
+            "Columns": [
+              {
+                "Padding": {},
+                "BackgroundColor": "",
+                "Border": "None",
+                "CanResize": false
+              }
+            ]
+          },
+          {
+            "IsWrap": false,
+            "Margin": {},
+            "GridRowType": "Normal",
+            "BackgroundColor": "",
+            "IsRowMarginRemoved": false,
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "HomeTitleLabel",
+                  "FontFamily": "",
+                  "FontSize": 50,
+                  "Color": "",
+                  "BackgroundColor": "",
+                  "Name": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Padding": {},
+                "BackgroundColor": "",
+                "Border": "None",
+                "HorizontalAlignment": "Center",
+                "VerticalAlignment": "Middle",
+                "CanResize": false
+              }
+            ]
+          },
+          {
+            "IsWrap": false,
+            "Margin": {},
+            "GridRowType": "Normal",
+            "BackgroundColor": "",
+            "IsRowMarginRemoved": false,
+            "Columns": [
+              {
+                "Padding": {},
+                "BackgroundColor": "",
+                "Border": "None",
+                "CanResize": false
+              }
+            ]
+          },
+          {
+            "IsWrap": false,
+            "Margin": {},
+            "GridRowType": "Normal",
+            "BackgroundColor": "",
+            "IsRowMarginRemoved": false,
+            "Columns": [
+              {
+                "Padding": {},
+                "BackgroundColor": "",
+                "Border": "None",
+                "CanResize": false
+              }
+            ]
+          },
+          {
+            "IsWrap": false,
+            "Margin": {},
+            "GridRowType": "Normal",
+            "BackgroundColor": "",
+            "IsRowMarginRemoved": false,
+            "Columns": [
+              {
+                "Width": 100,
+                "Padding": {},
+                "BackgroundColor": "",
+                "Border": "None",
+                "CanResize": false
+              },
+              {
+                "Layout": {
+                  "FieldName": "VideoCallImageViewer1",
+                  "FontFamily": "",
+                  "Color": "",
+                  "BackgroundColor": "",
+                  "Name": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Width": 300,
+                "Padding": {},
+                "BackgroundColor": "",
+                "Border": "None",
+                "CanResize": false
+              },
+              {
+                "Padding": {},
+                "BackgroundColor": "",
+                "Border": "None",
+                "CanResize": false
+              },
+              {
+                "Layout": {
+                  "FieldName": "VideoCallImageViewer",
+                  "FontFamily": "",
+                  "Color": "",
+                  "BackgroundColor": "",
+                  "Name": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Width": 300,
+                "Padding": {},
+                "BackgroundColor": "",
+                "Border": "None",
+                "CanResize": false
+              },
+              {
+                "Padding": {},
+                "BackgroundColor": "",
+                "Border": "None",
+                "CanResize": false
+              },
+              {
+                "Layout": {
+                  "FieldName": "AccountSettingImageViewer",
+                  "FontFamily": "",
+                  "Color": "",
+                  "BackgroundColor": "",
+                  "Name": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Width": 300,
+                "Padding": {},
+                "BackgroundColor": "",
+                "Border": "None",
+                "CanResize": false
+              },
+              {
+                "Width": 100,
+                "Padding": {},
+                "BackgroundColor": "",
+                "Border": "None",
+                "CanResize": false
+              }
+            ]
+          },
+          {
+            "IsWrap": false,
+            "Margin": {},
+            "GridRowType": "Normal",
+            "BackgroundColor": "",
+            "IsRowMarginRemoved": false,
+            "Columns": [
+              {
+                "Width": 100,
+                "Padding": {},
+                "BackgroundColor": "",
+                "Border": "None",
+                "CanResize": false
+              },
+              {
+                "Layout": {
+                  "FieldName": "ChatAnchorTag",
+                  "FontFamily": "",
+                  "FontWeight": "Bold",
+                  "Color": "",
+                  "BackgroundColor": "#000080",
+                  "Name": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Width": 300,
+                "Padding": {},
+                "BackgroundColor": "",
+                "Border": "None",
+                "CanResize": false
+              },
+              {
+                "Padding": {},
+                "BackgroundColor": "",
+                "Border": "None",
+                "CanResize": false
+              },
+              {
+                "Layout": {
+                  "FieldName": "VieoCallAnchorTag",
+                  "FontFamily": "",
+                  "FontWeight": "Bold",
+                  "Color": "",
+                  "BackgroundColor": "#000080",
+                  "Name": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Width": 300,
+                "Padding": {},
+                "BackgroundColor": "",
+                "Border": "None",
+                "CanResize": false
+              },
+              {
+                "Padding": {},
+                "BackgroundColor": "",
+                "Border": "None",
+                "CanResize": false
+              },
+              {
+                "Layout": {
+                  "FieldName": "AnchorTag",
+                  "FontFamily": "",
+                  "FontWeight": "Bold",
+                  "Color": "",
+                  "BackgroundColor": "#000080",
+                  "Name": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Width": 300,
+                "Padding": {},
+                "BackgroundColor": "",
+                "Border": "None",
+                "CanResize": false
+              },
+              {
+                "Width": 100,
+                "Padding": {},
+                "BackgroundColor": "",
+                "Border": "None",
+                "CanResize": false
+              }
+            ]
+          },
+          {
+            "IsWrap": false,
+            "Margin": {},
+            "GridRowType": "Normal",
+            "BackgroundColor": "",
+            "IsRowMarginRemoved": false,
+            "Columns": [
+              {
+                "Padding": {},
+                "BackgroundColor": "",
+                "Border": "None",
+                "CanResize": false
+              }
+            ]
+          }
+        ],
+        "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
+      }
+    }
+  },
+  "ListLayouts": {
+    "": {
+      "HeaderTitle": "",
+      "DataOnlyFields": [],
+      "OnBeforeInitialization": "",
+      "OnAfterInitialization": "",
+      "Elements": [
+        [
+          {
+            "FieldName": "",
+            "Label": "",
+            "ColumnSpan": 1,
+            "RowSpan": 1,
+            "TextWrap": "Unset",
+            "CanResize": false,
+            "FontFamily": "",
+            "Color": "",
+            "BackgroundColor": ""
+          }
+        ]
+      ]
+    }
+  },
+  "SearchLayouts": {
+    "": {
+      "OnSearchInitialization": "",
+      "Layout": {
+        "Operator": "And",
+        "Name": "SearchGridLayout",
+        "Padding": {},
+        "IsBordered": false,
+        "IsFlowLayout": false,
+        "IsFillAvailable": false,
+        "IsExpandable": true,
+        "ExpanderLabel": "検索条件",
+        "IsExpanderDefaultOpened": false,
+        "Rows": [
+          {
+            "IsWrap": false,
+            "Margin": {},
+            "GridRowType": "Normal",
+            "BackgroundColor": "",
+            "IsRowMarginRemoved": false,
+            "Columns": [
+              {
+                "Padding": {},
+                "BackgroundColor": "",
+                "Border": "None",
+                "CanResize": false
+              },
+              {
+                "Padding": {},
+                "BackgroundColor": "",
+                "Border": "None",
+                "CanResize": false
+              },
+              {
+                "Padding": {},
+                "BackgroundColor": "",
+                "Border": "None",
+                "CanResize": false
+              },
+              {
+                "Padding": {},
+                "BackgroundColor": "",
+                "Border": "None",
+                "CanResize": false
+              }
+            ]
+          }
+        ],
+        "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.SearchGridLayoutDesign"
+      }
+    }
+  },
+  "LinkFieldNames": [],
+  "ListPageFieldDesign": {
+    "LayoutName": "",
+    "CanNavigateToDetail": true,
+    "DisplayName": "",
+    "SearchCondition": {
+      "LimitCount": 50,
+      "SortFieldVariable": "",
+      "SortDescending": false,
+      "SelectFields": [],
+      "ModuleName": ""
+    },
+    "PagerPosition": "Bottom",
+    "UseIndexSort": false,
+    "DeleteTogether": false,
+    "CanCreate": false,
+    "CanUpdate": false,
+    "CanDelete": false,
+    "CanSelect": false,
+    "OnDataChanged": "",
+    "OnSearchDataChanged": "",
+    "OnSelectedIndexChanged": "",
+    "OnSelectedIndexChanging": "",
+    "Name": "",
+    "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ListFieldDesign"
+  }
+}

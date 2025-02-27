@@ -1,0 +1,29 @@
+
+CREATE TABLE fluent_ui_link_data (
+    id SERIAL PRIMARY KEY,
+    code TEXT,
+    name TEXT
+);
+
+CREATE TABLE fluent_ui_field_data (
+    id SERIAL PRIMARY KEY,
+    check_boolean BOOLEAN DEFAULT FALSE,
+    toggle_boolean BOOLEAN DEFAULT FALSE,
+    switch_boolean BOOLEAN DEFAULT FALSE,
+    date DATE,
+    time TIME,
+    number INT,
+    select_standard TEXT,
+    select_link TEXT,
+    text TEXT,
+    link TEXT,
+    radio TEXT
+);
+
+
+========================data========================
+INSERT INTO fluent_ui_link_data (code, name) 
+VALUES 
+    ('001', 'AA'),
+    ('002', 'BB'),
+    ('003', 'CC');
