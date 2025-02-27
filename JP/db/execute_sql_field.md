@@ -1,5 +1,5 @@
 ## ExecuteSql Field概要
-Codeer.LowCode.Blazorは、標準として提供しているデータベースの編集機能(Insert/Update/Delete)以外に、ユーザが指定するタイミングにカスタムSQL文を実行し、柔軟に高度な機能を実現するためにExecuteSqlフィールドを搭載しています。
+Codeer.LowCode.Blazorは、標準として提供しているデータベースの編集機能(Insert/Update/Delete)以外に、柔軟に高度な機能を実現するために、ユーザーが指定するタイミングで任意のSQL文を実行する ExecuteSql フィールドを提供しています。
 
 
 
@@ -77,7 +77,7 @@ NotEqual
 ```
 
 ### 5. New Id(Insert時のみ)
-Insert時通常の処理では、追加された行のIdを返しますが、`WithStandardIO`が`None`で、通常の処理が実行されない場合は、ここでNew Idの値を指定することができます。
+Insert時通常の処理では、追加された行のIdを返しますが、上述`WithStandardIO`プロパティが`None`で、通常の処理が実行されない場合は、ここでNew Idの値を指定することができます。
 
 #### 5-1. NewId取得方法
 `None, MethodReturnValue, Parameter`
@@ -86,8 +86,8 @@ Insert時通常の処理では、追加された行のIdを返しますが、`Wi
 - MethodReturnValue: メソッドの戻り値がNewIdとして返される
 - Parameter: 指定されたParameter値がNewIdとして返される
 
-#### 5-2. New Id取得用Parameter名判定用parameter名(取得方法がParameter時のみ)
-上記NewId取得方法がParameterになっている場合は、そのParameter名を指定します。
+#### 5-2. NewId取得用parameter名(5-1.取得方法がParameter時のみ)
+上記5-1.NewId取得方法がParameterになっている場合は、そのParameter名を指定します。
 
 
 ### 6.パラメーター一覧
@@ -108,11 +108,15 @@ ReturnValue,
 MethodReturn
 ```
 #### 6-4. パラメーターSample Value
-デザイナで試し実行をする場合は、パラメーターのサンプル値を設定する必要があります。
+デザイナで実行をする場合は、パラメーターのサンプル値を設定する必要があります。
 
-### 7. 試し実行結果
-デザイナでの試し実行結果を表示します。
+### 7. 実行結果
+デザイナでの実行結果を表示します。
 
+### 8. 実行ボタン
+SQL文を実行します。
+
+**SQL文によりデザイナで接続しているデータベースへの変更がありえます。ご注意ください。**
 
 ## 関連情報
 - [Queryフィールド](query_field.md)
