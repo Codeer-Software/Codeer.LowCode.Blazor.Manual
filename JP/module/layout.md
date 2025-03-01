@@ -57,7 +57,33 @@ Columnは左右に適用されるパディング `0.75rem` が設定されてい
 
 ### Canvas
 
-Canvasレイアウトは標準状態でマージンやパディングを含みません。ただし、Canvasの `IsBordered` プロパティが設定された場合は、Canvasの内側に `1rem` のパディングが適用されます。
+Canvasレイアウトは標準状態でマージンやパディングを含みません。
+
+## 標準マージン・パディングの上書き
+
+Gridに含まれる標準状態のマージンとパディングの値を`app.css` から上書きすることができます。それぞれ必要に応じて設定してください。
+
+```css
+// IsBorderedプロパティが設定されたGridのパディングを上書き
+div.grid-bordered {
+  --default-padding-top: 20px;
+  --default-padding-right: 40px;
+  --default-padding-bottom: 80px;
+  --default-padding-left: 160px;
+}
+
+// Rowの上下マージンを上書き
+div.grid-row {
+  --default-margin-top: 20px;
+  --default-margin-bottom: 40px;
+}
+
+// Columnの左右パディングを上書き
+div.grid-column {
+  --default-padding-left: 20px;
+  --default-padding-right: 40px;
+}
+```
 
 ## 特殊なレイアウトモード
 
