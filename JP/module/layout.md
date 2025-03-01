@@ -64,7 +64,7 @@ Canvasレイアウトは標準状態でマージンやパディングを含み�
 Gridに含まれる標準状態のマージンとパディングの値を`app.css` から上書きすることができます。それぞれ必要に応じて設定してください。
 
 ```css
-// IsBorderedプロパティが設定されたGridのパディングを上書き
+/* IsBorderedプロパティが設定されたGridのパディングを上書き */
 div.grid-bordered {
   --default-padding-top: 20px;
   --default-padding-right: 40px;
@@ -72,13 +72,13 @@ div.grid-bordered {
   --default-padding-left: 160px;
 }
 
-// Rowの上下マージンを上書き
+/* Rowの上下マージンを上書き */
 div.grid-row {
   --default-margin-top: 20px;
   --default-margin-bottom: 40px;
 }
 
-// Columnの左右パディングを上書き
+/* Columnの左右パディングを上書き */
 div.grid-column {
   --default-padding-left: 20px;
   --default-padding-right: 40px;
