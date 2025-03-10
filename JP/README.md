@@ -139,6 +139,7 @@ BlazorアプリとWPFのデザイナアプリをビルドして起動
         - [Queryフィールド](db/query_field.md)
         - [ExeuteSqlフィールド](db/execute_sql_field.md)
     - [自動テストのサポート](designer/export_pageobject.md)
+    - [レイアウト](module/layout.md)
     - [css](look_and_feel/css.md)
     - 第三者ライブラリとの連携
         - [MudBlazor](https://lowcodedemo.azurewebsites.net/MudBlazor/MudBlazorHome)
