@@ -59,6 +59,7 @@ namespace LowCodeSamples.Designer
             BlazorRuntime.InstallContentCss("IgniteUI.Blazor", "themes/grid/light/bootstrap.css");
             BlazorRuntime.InstallContentScript("IgniteUI.Blazor", "app.bundle.js");
             BlazorRuntime.InstallBundleCss("LowCodeSamples.Client.Shared");
+            BlazorRuntime.InstallBundleCss("Codeer.LowCode.Bindings.Fluent.Blazor");
             BlazorRuntime.InstallAssemblyInitializer(typeof(RadzenTextFieldDesign).Assembly);
             BlazorRuntime.InstallAssemblyInitializer(typeof(MudTextFieldDesign).Assembly);
             BlazorRuntime.InstallRenderProvider(typeof(MudBlazorInstaller));
