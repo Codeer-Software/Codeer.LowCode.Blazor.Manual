@@ -118,3 +118,6 @@ public class DataSource
 ## 設定のマージ
 
 `designer.settings.json` と `designer.settings.Develop.json` は、アプリケーションの起動時に読み込まれ、最終的に設定がマージされます。これにより、開発環境と本番環境の設定を分けて管理し、必要に応じて切り替えることができます。
+
+## 動画ガイド
+[DB設定の追加方法](https://youtu.be/9NhVhUG57Wk?si=MZC6qBU_I8NOufqd)
