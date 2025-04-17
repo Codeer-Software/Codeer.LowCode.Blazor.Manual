@@ -11,7 +11,7 @@ TopPage、HeaderやSideBar(Left, Right)、Other Pages それぞれでページ�
 <img src="images/pageframe_property.png">
 
 ### ModulePageType  
-  Auto：一覧または詳細に設定の設定をもとに表示する内容を自動的に反映します。  
+  Auto：一覧または詳細の設定をもとに表示する内容を自動的に反映します。  
 　　　例えば詳細に何かしらのFieldが設定されていて、一覧には何も設定されていない場合は、詳細ページのみ表示されます。  
   ListToDetail：一覧ページと詳細ページを表示します。（CanNavigateToDetailの設定も必要です）  
   List：一覧ページのみ表示します。（CanNavigateToDetailを設定しても詳細ページの表示はできません）  
