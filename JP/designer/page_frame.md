@@ -5,6 +5,30 @@
 
 <img src="images/pageframe.png">
 
+## プロパティ
+ページ自体の設定を行います。  
+TopPage、HeaderやSideBar(Left, Right)、Other Pages それぞれでページの設定を行うことが可能です。
+<img src="images/pageframe_property.png">
+
+- ModulePageType  
+  Auto：一覧または詳細に設定の設定をもとに表示する内容を自動的に反映します。  
+　　　例えば詳細に何かしらのFieldが設定されていて、一覧には何も設定されていない場合は、詳細ページのみ表示されます。  
+  ListToDetail：一覧ページと詳細ページを表示します。（CanNavigateToDetailの設定も必要です）  
+  List：一覧ページのみ表示します。（CanNavigateToDetailを設定しても詳細ページの表示はできません）  
+  Detail：詳細ページのみ表示します。
+
+- 一括データ更新、一括データダウンロード、SubmitButton  
+  CanBulkDataUpdate：チェックを入れるとアップロードボタンが表示されます。（Moduleの全体設定のOptionsでCanCreateとCanUpdateの設定も必要です）  
+  CanBulkDataDownload：チェックを入れるとダウンロードボタンが表示されます。  
+  UseSubmitButton：チェックを入れると一覧画面で登録または更新することができます。（Moduleの全体設定のOptionsでCanCreateまたはCanUpdateの設定も必要です）
+
+- ListFieldDesign  
+  List：一覧ページに一覧の設定が反映されて表示されます。  
+  DetailList：一覧ページに詳細の設定が反映されて表示されます。  
+  TileList：一覧ページに詳細の設定が反映されて、TileList形式で表示されます。
+
+  <img src="images/list_field_design.png">
+
 ## TopPage
 PageFrameは複数作ることができますが、ルートのURLを入力したときにTopPageにモジュールが指定されているPageFrameが選択され、TopPageを表示します。
 
