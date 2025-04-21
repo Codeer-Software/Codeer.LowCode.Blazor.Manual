@@ -1,15 +1,10 @@
 {
   "Name": "ApproverDetail",
-  "DisplayName": "",
-  "PageTitle": "",
   "DataSourceName": "Main",
   "DbTable": "approver_detail",
   "CanCreate": true,
   "CanUpdate": true,
   "CanDelete": true,
-  "CanBulkDataUpdate": false,
-  "CanBulkDataDownload": false,
-  "UseListPageSubmitButton": false,
   "Fields": [
     {
       "DbColumn": "id",
@@ -24,6 +19,8 @@
       "IsRequired": false,
       "OnDataChanged": "",
       "Name": "Id",
+      "ClassName": "",
+      "ContextMenu": "",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.IdFieldDesign"
     },
     {
@@ -37,6 +34,8 @@
       "IsRequired": false,
       "OnDataChanged": "",
       "Name": "WorkFlowId",
+      "ClassName": "",
+      "ContextMenu": "",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
     },
     {
@@ -50,6 +49,8 @@
       "IsRequired": false,
       "OnDataChanged": "Approved_OnDataChanged",
       "Name": "Approved",
+      "ClassName": "",
+      "ContextMenu": "",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.BooleanFieldDesign"
     },
     {
@@ -78,6 +79,8 @@
       "IsRequired": false,
       "OnDataChanged": "",
       "Name": "ApproderId_UserMasterLink",
+      "ClassName": "",
+      "ContextMenu": "",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LinkFieldDesign"
     },
     {
@@ -90,6 +93,8 @@
       "IsRequired": false,
       "OnDataChanged": "",
       "Name": "ApprovalDate",
+      "ClassName": "",
+      "ContextMenu": "",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.DateFieldDesign"
     },
     {
@@ -103,6 +108,8 @@
       "IsRequired": false,
       "OnDataChanged": "",
       "Name": "ApprovedText",
+      "ClassName": "",
+      "ContextMenu": "",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
     },
     {
@@ -116,6 +123,8 @@
       "IsRequired": false,
       "OnDataChanged": "",
       "Name": "ApproderId_UserMasterLink.UserName",
+      "ClassName": "",
+      "ContextMenu": "",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
     }
   ],
@@ -136,6 +145,9 @@
       "OnBeforeInitialization": "",
       "OnAfterInitialization": "",
       "DataOnlyFields": [],
+      "ClassName": "",
+      "Color": "",
+      "BackgroundColor": "",
       "Layout": {
         "Name": "",
         "Padding": {},
@@ -145,11 +157,14 @@
         "IsExpandable": false,
         "ExpanderLabel": "",
         "IsExpanderDefaultOpened": false,
+        "ScrollDirection": "Unset",
+        "BackgroundColor": "",
         "Rows": [
           {
             "IsWrap": false,
             "Margin": {},
             "GridRowType": "Normal",
+            "CanResize": false,
             "BackgroundColor": "#FFFFFF",
             "IsRowMarginRemoved": false,
             "Columns": [
@@ -164,8 +179,17 @@
                 },
                 "Padding": {},
                 "BackgroundColor": "",
-                "Border": "Top, Left, Right",
-                "CanResize": false
+                "BorderStyle": {
+                  "Left": 1,
+                  "Top": 1,
+                  "Right": 1,
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "CanResize": false,
+                "Border": "Top, Left, Right"
               }
             ]
           },
@@ -173,6 +197,7 @@
             "IsWrap": false,
             "Margin": {},
             "GridRowType": "Normal",
+            "CanResize": false,
             "BackgroundColor": "#FFFFFF",
             "IsRowMarginRemoved": false,
             "Columns": [
@@ -187,10 +212,18 @@
                 },
                 "Padding": {},
                 "BackgroundColor": "",
-                "Border": "Left, Right",
+                "BorderStyle": {
+                  "Left": 1,
+                  "Right": 1,
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
                 "HorizontalAlignment": "Center",
                 "VerticalAlignment": "Middle",
-                "CanResize": false
+                "CanResize": false,
+                "Border": "Left, Right"
               }
             ]
           },
@@ -198,6 +231,7 @@
             "IsWrap": false,
             "Margin": {},
             "GridRowType": "Normal",
+            "CanResize": false,
             "BackgroundColor": "#FFFFFF",
             "IsRowMarginRemoved": false,
             "Columns": [
@@ -213,10 +247,17 @@
                 },
                 "Padding": {},
                 "BackgroundColor": "",
-                "Border": "Left",
+                "BorderStyle": {
+                  "Left": 1,
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
                 "HorizontalAlignment": "Center",
                 "VerticalAlignment": "Middle",
-                "CanResize": false
+                "CanResize": false,
+                "Border": "Left"
               },
               {
                 "Layout": {
@@ -230,8 +271,15 @@
                 },
                 "Padding": {},
                 "BackgroundColor": "",
-                "Border": "Right",
-                "CanResize": false
+                "BorderStyle": {
+                  "Right": 1,
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "CanResize": false,
+                "Border": "Right"
               }
             ]
           },
@@ -239,6 +287,7 @@
             "IsWrap": false,
             "Margin": {},
             "GridRowType": "Normal",
+            "CanResize": false,
             "BackgroundColor": "#FFFFFF",
             "IsRowMarginRemoved": false,
             "Columns": [
@@ -254,10 +303,19 @@
                 },
                 "Padding": {},
                 "BackgroundColor": "",
-                "Border": "Left, Right, Bottom",
+                "BorderStyle": {
+                  "Left": 1,
+                  "Right": 1,
+                  "Bottom": 1,
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
                 "HorizontalAlignment": "Center",
                 "VerticalAlignment": "Middle",
-                "CanResize": false
+                "CanResize": false,
+                "Border": "Left, Right, Bottom"
               }
             ]
           }
@@ -303,37 +361,64 @@
         "IsExpandable": true,
         "ExpanderLabel": "検索条件",
         "IsExpanderDefaultOpened": false,
+        "ScrollDirection": "Unset",
+        "BackgroundColor": "",
         "Rows": [
           {
             "IsWrap": false,
             "Margin": {},
             "GridRowType": "Normal",
+            "CanResize": false,
             "BackgroundColor": "",
             "IsRowMarginRemoved": false,
             "Columns": [
               {
                 "Padding": {},
                 "BackgroundColor": "",
-                "Border": "None",
-                "CanResize": false
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "CanResize": false,
+                "Border": "None"
               },
               {
                 "Padding": {},
                 "BackgroundColor": "",
-                "Border": "None",
-                "CanResize": false
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "CanResize": false,
+                "Border": "None"
               },
               {
                 "Padding": {},
                 "BackgroundColor": "",
-                "Border": "None",
-                "CanResize": false
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "CanResize": false,
+                "Border": "None"
               },
               {
                 "Padding": {},
                 "BackgroundColor": "",
-                "Border": "None",
-                "CanResize": false
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "CanResize": false,
+                "Border": "None"
               }
             ]
           }
@@ -343,6 +428,7 @@
     }
   },
   "LinkFieldNames": [],
+  "UseListPageSubmitButton": false,
   "ListPageFieldDesign": {
     "LayoutName": "",
     "CanNavigateToDetail": true,
@@ -368,6 +454,11 @@
     "OnSelectedIndexChanged": "",
     "OnSelectedIndexChanging": "",
     "Name": "",
+    "ClassName": "",
+    "ContextMenu": "",
     "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ListFieldDesign"
-  }
+  },
+  "CanBulkDataUpdate": false,
+  "CanBulkDataDownload": false,
+  "PageTitle": ""
 }

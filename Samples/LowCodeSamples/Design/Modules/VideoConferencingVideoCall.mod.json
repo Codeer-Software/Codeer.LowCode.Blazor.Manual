@@ -1,15 +1,10 @@
 {
   "Name": "VideoConferencingVideoCall",
-  "DisplayName": "",
-  "PageTitle": "",
   "DataSourceName": "Main",
   "DbTable": "video_conferencing_video_call",
   "CanCreate": true,
   "CanUpdate": true,
   "CanDelete": true,
-  "CanBulkDataUpdate": false,
-  "CanBulkDataDownload": false,
-  "UseListPageSubmitButton": false,
   "Fields": [
     {
       "DbColumn": "id",
@@ -24,6 +19,8 @@
       "IsRequired": false,
       "OnDataChanged": "",
       "Name": "Id",
+      "ClassName": "",
+      "ContextMenu": "",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.IdFieldDesign"
     },
     {
@@ -31,7 +28,10 @@
       "Icon": "",
       "Style": "H2",
       "RelativeField": "",
+      "OnClick": "",
       "Name": "TitleLabel",
+      "ClassName": "",
+      "ContextMenu": "",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
     },
     {
@@ -39,7 +39,10 @@
       "Icon": "",
       "Style": "Default",
       "RelativeField": "",
+      "OnClick": "",
       "Name": "VideoCallNameLabel",
+      "ClassName": "",
+      "ContextMenu": "",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
     },
     {
@@ -53,6 +56,8 @@
       "IsRequired": false,
       "OnDataChanged": "",
       "Name": "Name",
+      "ClassName": "",
+      "ContextMenu": "",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
     },
     {
@@ -60,12 +65,16 @@
       "Icon": "",
       "Style": "Default",
       "RelativeField": "",
+      "OnClick": "",
       "Name": "UserLabel",
+      "ClassName": "",
+      "ContextMenu": "",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
     },
     {
       "LayoutName": "",
       "CanNavigateToDetail": false,
+      "IsStriped": false,
       "DisplayName": "",
       "SearchCondition": {
         "SortFieldVariable": "",
@@ -92,12 +101,15 @@
       "CanCreate": true,
       "CanUpdate": true,
       "CanDelete": true,
+      "CanUserSort": true,
       "CanSelect": false,
       "OnDataChanged": "TileList_OnDataChanged",
       "OnSearchDataChanged": "",
       "OnSelectedIndexChanged": "",
       "OnSelectedIndexChanging": "",
       "Name": "UserList",
+      "ClassName": "",
+      "ContextMenu": "",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ListFieldDesign"
     },
     {
@@ -111,15 +123,26 @@
       "IsRequired": false,
       "OnDataChanged": "",
       "Name": "URL",
+      "ClassName": "",
+      "ContextMenu": "",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
     },
     {
       "Text": "会議を開始する",
       "ImageResourcePath": "",
+      "ImageResourceSet": {
+        "Default": "",
+        "Focus": "",
+        "Active": "",
+        "Hover": "",
+        "Disabled": ""
+      },
       "Icon": "",
       "Variant": "OutlinePrimary",
       "OnClick": "StartButton_OnClick",
       "Name": "StartButton",
+      "ClassName": "",
+      "ContextMenu": "",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ButtonFieldDesign"
     }
   ],
@@ -140,6 +163,9 @@
       "OnBeforeInitialization": "",
       "OnAfterInitialization": "",
       "DataOnlyFields": [],
+      "ClassName": "",
+      "Color": "",
+      "BackgroundColor": "",
       "Layout": {
         "Name": "",
         "Padding": {},
@@ -149,11 +175,14 @@
         "IsExpandable": false,
         "ExpanderLabel": "",
         "IsExpanderDefaultOpened": false,
+        "ScrollDirection": "Unset",
+        "BackgroundColor": "",
         "Rows": [
           {
             "IsWrap": false,
             "Margin": {},
             "GridRowType": "Normal",
+            "CanResize": false,
             "BackgroundColor": "",
             "IsRowMarginRemoved": false,
             "Columns": [
@@ -168,9 +197,15 @@
                 },
                 "Padding": {},
                 "BackgroundColor": "",
-                "Border": "None",
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
                 "VerticalAlignment": "Middle",
-                "CanResize": false
+                "CanResize": false,
+                "Border": "None"
               }
             ]
           },
@@ -178,14 +213,21 @@
             "IsWrap": false,
             "Margin": {},
             "GridRowType": "Normal",
+            "CanResize": false,
             "BackgroundColor": "",
             "IsRowMarginRemoved": false,
             "Columns": [
               {
                 "Padding": {},
                 "BackgroundColor": "",
-                "Border": "None",
-                "CanResize": false
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "CanResize": false,
+                "Border": "None"
               }
             ]
           },
@@ -193,6 +235,7 @@
             "IsWrap": false,
             "Margin": {},
             "GridRowType": "Normal",
+            "CanResize": false,
             "BackgroundColor": "",
             "IsRowMarginRemoved": false,
             "Columns": [
@@ -206,11 +249,14 @@
                   "IsExpandable": false,
                   "ExpanderLabel": "",
                   "IsExpanderDefaultOpened": false,
+                  "ScrollDirection": "Unset",
+                  "BackgroundColor": "",
                   "Rows": [
                     {
                       "IsWrap": false,
                       "Margin": {},
                       "GridRowType": "Normal",
+                      "CanResize": false,
                       "BackgroundColor": "",
                       "IsRowMarginRemoved": false,
                       "Columns": [
@@ -227,10 +273,16 @@
                           "Width": 200,
                           "Padding": {},
                           "BackgroundColor": "",
-                          "Border": "None",
+                          "BorderStyle": {
+                            "LeftColor": "",
+                            "TopColor": "",
+                            "RightColor": "",
+                            "BottomColor": ""
+                          },
                           "HorizontalAlignment": "Center",
                           "VerticalAlignment": "Middle",
-                          "CanResize": false
+                          "CanResize": false,
+                          "Border": "None"
                         },
                         {
                           "Layout": {
@@ -243,9 +295,15 @@
                           },
                           "Padding": {},
                           "BackgroundColor": "",
-                          "Border": "None",
+                          "BorderStyle": {
+                            "LeftColor": "",
+                            "TopColor": "",
+                            "RightColor": "",
+                            "BottomColor": ""
+                          },
                           "VerticalAlignment": "Middle",
-                          "CanResize": false
+                          "CanResize": false,
+                          "Border": "None"
                         },
                         {
                           "Layout": {
@@ -259,10 +317,16 @@
                           "Width": 200,
                           "Padding": {},
                           "BackgroundColor": "",
-                          "Border": "None",
+                          "BorderStyle": {
+                            "LeftColor": "",
+                            "TopColor": "",
+                            "RightColor": "",
+                            "BottomColor": ""
+                          },
                           "HorizontalAlignment": "Center",
                           "VerticalAlignment": "Middle",
-                          "CanResize": false
+                          "CanResize": false,
+                          "Border": "None"
                         },
                         {
                           "Layout": {
@@ -276,8 +340,14 @@
                           },
                           "Padding": {},
                           "BackgroundColor": "",
-                          "Border": "None",
-                          "CanResize": false
+                          "BorderStyle": {
+                            "LeftColor": "",
+                            "TopColor": "",
+                            "RightColor": "",
+                            "BottomColor": ""
+                          },
+                          "CanResize": false,
+                          "Border": "None"
                         }
                       ]
                     }
@@ -286,8 +356,14 @@
                 },
                 "Padding": {},
                 "BackgroundColor": "",
-                "Border": "None",
-                "CanResize": false
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "CanResize": false,
+                "Border": "None"
               }
             ]
           },
@@ -295,6 +371,7 @@
             "IsWrap": false,
             "Margin": {},
             "GridRowType": "Normal",
+            "CanResize": false,
             "BackgroundColor": "",
             "IsRowMarginRemoved": false,
             "Columns": [
@@ -308,11 +385,14 @@
                   "IsExpandable": false,
                   "ExpanderLabel": "",
                   "IsExpanderDefaultOpened": false,
+                  "ScrollDirection": "Unset",
+                  "BackgroundColor": "",
                   "Rows": [
                     {
                       "IsWrap": false,
                       "Margin": {},
                       "GridRowType": "Normal",
+                      "CanResize": false,
                       "BackgroundColor": "",
                       "IsRowMarginRemoved": false,
                       "Columns": [
@@ -329,28 +409,52 @@
                           "Width": 200,
                           "Padding": {},
                           "BackgroundColor": "",
-                          "Border": "None",
+                          "BorderStyle": {
+                            "LeftColor": "",
+                            "TopColor": "",
+                            "RightColor": "",
+                            "BottomColor": ""
+                          },
                           "HorizontalAlignment": "Center",
                           "VerticalAlignment": "Middle",
-                          "CanResize": false
+                          "CanResize": false,
+                          "Border": "None"
                         },
                         {
                           "Padding": {},
                           "BackgroundColor": "",
-                          "Border": "None",
-                          "CanResize": false
+                          "BorderStyle": {
+                            "LeftColor": "",
+                            "TopColor": "",
+                            "RightColor": "",
+                            "BottomColor": ""
+                          },
+                          "CanResize": false,
+                          "Border": "None"
                         },
                         {
                           "Padding": {},
                           "BackgroundColor": "",
-                          "Border": "None",
-                          "CanResize": false
+                          "BorderStyle": {
+                            "LeftColor": "",
+                            "TopColor": "",
+                            "RightColor": "",
+                            "BottomColor": ""
+                          },
+                          "CanResize": false,
+                          "Border": "None"
                         },
                         {
                           "Padding": {},
                           "BackgroundColor": "",
-                          "Border": "None",
-                          "CanResize": false
+                          "BorderStyle": {
+                            "LeftColor": "",
+                            "TopColor": "",
+                            "RightColor": "",
+                            "BottomColor": ""
+                          },
+                          "CanResize": false,
+                          "Border": "None"
                         }
                       ]
                     },
@@ -358,6 +462,7 @@
                       "IsWrap": false,
                       "Margin": {},
                       "GridRowType": "Normal",
+                      "CanResize": false,
                       "BackgroundColor": "",
                       "IsRowMarginRemoved": false,
                       "Columns": [
@@ -372,8 +477,14 @@
                           },
                           "Padding": {},
                           "BackgroundColor": "",
-                          "Border": "None",
-                          "CanResize": false
+                          "BorderStyle": {
+                            "LeftColor": "",
+                            "TopColor": "",
+                            "RightColor": "",
+                            "BottomColor": ""
+                          },
+                          "CanResize": false,
+                          "Border": "None"
                         }
                       ]
                     }
@@ -382,8 +493,14 @@
                 },
                 "Padding": {},
                 "BackgroundColor": "",
-                "Border": "None",
-                "CanResize": false
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "CanResize": false,
+                "Border": "None"
               }
             ]
           }
@@ -407,6 +524,7 @@
             "RowSpan": 1,
             "TextWrap": "Unset",
             "CanResize": false,
+            "CanUserSort": true,
             "FontFamily": "",
             "Color": "",
             "BackgroundColor": ""
@@ -428,37 +546,64 @@
         "IsExpandable": true,
         "ExpanderLabel": "検索条件",
         "IsExpanderDefaultOpened": false,
+        "ScrollDirection": "Unset",
+        "BackgroundColor": "",
         "Rows": [
           {
             "IsWrap": false,
             "Margin": {},
             "GridRowType": "Normal",
+            "CanResize": false,
             "BackgroundColor": "",
             "IsRowMarginRemoved": false,
             "Columns": [
               {
                 "Padding": {},
                 "BackgroundColor": "",
-                "Border": "None",
-                "CanResize": false
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "CanResize": false,
+                "Border": "None"
               },
               {
                 "Padding": {},
                 "BackgroundColor": "",
-                "Border": "None",
-                "CanResize": false
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "CanResize": false,
+                "Border": "None"
               },
               {
                 "Padding": {},
                 "BackgroundColor": "",
-                "Border": "None",
-                "CanResize": false
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "CanResize": false,
+                "Border": "None"
               },
               {
                 "Padding": {},
                 "BackgroundColor": "",
-                "Border": "None",
-                "CanResize": false
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "CanResize": false,
+                "Border": "None"
               }
             ]
           }
@@ -468,9 +613,11 @@
     }
   },
   "LinkFieldNames": [],
+  "UseListPageSubmitButton": false,
   "ListPageFieldDesign": {
     "LayoutName": "",
     "CanNavigateToDetail": true,
+    "IsStriped": false,
     "DisplayName": "",
     "SearchCondition": {
       "LimitCount": 50,
@@ -485,12 +632,18 @@
     "CanCreate": false,
     "CanUpdate": false,
     "CanDelete": false,
+    "CanUserSort": true,
     "CanSelect": false,
     "OnDataChanged": "",
     "OnSearchDataChanged": "",
     "OnSelectedIndexChanged": "",
     "OnSelectedIndexChanging": "",
     "Name": "",
+    "ClassName": "",
+    "ContextMenu": "",
     "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ListFieldDesign"
-  }
+  },
+  "CanBulkDataUpdate": false,
+  "CanBulkDataDownload": false,
+  "PageTitle": ""
 }

@@ -1,15 +1,10 @@
 {
   "Name": "RadzenBlazorChart",
-  "DisplayName": "",
-  "PageTitle": "",
   "DataSourceName": "",
   "DbTable": "",
   "CanCreate": true,
   "CanUpdate": true,
   "CanDelete": true,
-  "CanBulkDataUpdate": false,
-  "CanBulkDataDownload": false,
-  "UseListPageSubmitButton": false,
   "Fields": [
     {
       "SearchCondition": {
@@ -33,6 +28,8 @@
       "YAxisLines": true,
       "CategoryField": "",
       "Name": "RadzenChart",
+      "ClassName": "",
+      "ContextMenu": "",
       "TypeFullName": "Codeer.LowCode.Bindings.Radzen.Blazor.Designs.RadzenChartFieldDesign"
     },
     {
@@ -57,6 +54,8 @@
       "YAxisLines": true,
       "CategoryField": "",
       "Name": "RadzenChart1",
+      "ClassName": "",
+      "ContextMenu": "",
       "TypeFullName": "Codeer.LowCode.Bindings.Radzen.Blazor.Designs.RadzenChartFieldDesign"
     },
     {
@@ -81,6 +80,8 @@
       "YAxisLines": true,
       "CategoryField": "",
       "Name": "RadzenChart2",
+      "ClassName": "",
+      "ContextMenu": "",
       "TypeFullName": "Codeer.LowCode.Bindings.Radzen.Blazor.Designs.RadzenChartFieldDesign"
     },
     {
@@ -105,6 +106,8 @@
       "YAxisLines": true,
       "CategoryField": "",
       "Name": "RadzenChart3",
+      "ClassName": "",
+      "ContextMenu": "",
       "TypeFullName": "Codeer.LowCode.Bindings.Radzen.Blazor.Designs.RadzenChartFieldDesign"
     },
     {
@@ -114,6 +117,8 @@
       "RelativeField": "",
       "OnClick": "",
       "Name": "Label",
+      "ClassName": "",
+      "ContextMenu": "",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
     }
   ],
@@ -134,6 +139,9 @@
       "OnBeforeInitialization": "",
       "OnAfterInitialization": "",
       "DataOnlyFields": [],
+      "ClassName": "",
+      "Color": "",
+      "BackgroundColor": "",
       "Layout": {
         "Name": "",
         "Padding": {},
@@ -143,11 +151,14 @@
         "IsExpandable": false,
         "ExpanderLabel": "",
         "IsExpanderDefaultOpened": false,
+        "ScrollDirection": "Unset",
+        "BackgroundColor": "",
         "Rows": [
           {
             "IsWrap": false,
             "Margin": {},
             "GridRowType": "Normal",
+            "CanResize": false,
             "BackgroundColor": "",
             "IsRowMarginRemoved": false,
             "Columns": [
@@ -162,9 +173,15 @@
                 },
                 "Padding": {},
                 "BackgroundColor": "",
-                "Border": "None",
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
                 "HorizontalAlignment": "Center",
-                "CanResize": false
+                "CanResize": false,
+                "Border": "None"
               }
             ]
           },
@@ -172,6 +189,7 @@
             "IsWrap": false,
             "Margin": {},
             "GridRowType": "Normal",
+            "CanResize": false,
             "BackgroundColor": "",
             "IsRowMarginRemoved": false,
             "Columns": [
@@ -186,8 +204,18 @@
                 },
                 "Padding": {},
                 "BackgroundColor": "",
-                "Border": "Top, Left, Right, Bottom",
-                "CanResize": false
+                "BorderStyle": {
+                  "Left": 1,
+                  "Top": 1,
+                  "Right": 1,
+                  "Bottom": 1,
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "CanResize": false,
+                "Border": "Top, Left, Right, Bottom"
               },
               {
                 "Layout": {
@@ -200,8 +228,17 @@
                 },
                 "Padding": {},
                 "BackgroundColor": "",
-                "Border": "Top, Right, Bottom",
-                "CanResize": false
+                "BorderStyle": {
+                  "Top": 1,
+                  "Right": 1,
+                  "Bottom": 1,
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "CanResize": false,
+                "Border": "Top, Right, Bottom"
               }
             ]
           },
@@ -209,6 +246,7 @@
             "IsWrap": false,
             "Margin": {},
             "GridRowType": "Normal",
+            "CanResize": false,
             "BackgroundColor": "",
             "IsRowMarginRemoved": false,
             "Columns": [
@@ -223,8 +261,17 @@
                 },
                 "Padding": {},
                 "BackgroundColor": "",
-                "Border": "Left, Right, Bottom",
-                "CanResize": false
+                "BorderStyle": {
+                  "Left": 1,
+                  "Right": 1,
+                  "Bottom": 1,
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "CanResize": false,
+                "Border": "Left, Right, Bottom"
               },
               {
                 "Layout": {
@@ -237,8 +284,16 @@
                 },
                 "Padding": {},
                 "BackgroundColor": "",
-                "Border": "Right, Bottom",
-                "CanResize": false
+                "BorderStyle": {
+                  "Right": 1,
+                  "Bottom": 1,
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "CanResize": false,
+                "Border": "Right, Bottom"
               }
             ]
           }
@@ -284,37 +339,64 @@
         "IsExpandable": true,
         "ExpanderLabel": "検索条件",
         "IsExpanderDefaultOpened": false,
+        "ScrollDirection": "Unset",
+        "BackgroundColor": "",
         "Rows": [
           {
             "IsWrap": false,
             "Margin": {},
             "GridRowType": "Normal",
+            "CanResize": false,
             "BackgroundColor": "",
             "IsRowMarginRemoved": false,
             "Columns": [
               {
                 "Padding": {},
                 "BackgroundColor": "",
-                "Border": "None",
-                "CanResize": false
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "CanResize": false,
+                "Border": "None"
               },
               {
                 "Padding": {},
                 "BackgroundColor": "",
-                "Border": "None",
-                "CanResize": false
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "CanResize": false,
+                "Border": "None"
               },
               {
                 "Padding": {},
                 "BackgroundColor": "",
-                "Border": "None",
-                "CanResize": false
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "CanResize": false,
+                "Border": "None"
               },
               {
                 "Padding": {},
                 "BackgroundColor": "",
-                "Border": "None",
-                "CanResize": false
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "CanResize": false,
+                "Border": "None"
               }
             ]
           }
@@ -324,6 +406,7 @@
     }
   },
   "LinkFieldNames": [],
+  "UseListPageSubmitButton": false,
   "ListPageFieldDesign": {
     "LayoutName": "",
     "CanNavigateToDetail": true,
@@ -349,6 +432,11 @@
     "OnSelectedIndexChanged": "",
     "OnSelectedIndexChanging": "",
     "Name": "",
+    "ClassName": "",
+    "ContextMenu": "",
     "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ListFieldDesign"
-  }
+  },
+  "CanBulkDataUpdate": false,
+  "CanBulkDataDownload": false,
+  "PageTitle": ""
 }

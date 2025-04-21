@@ -1,15 +1,10 @@
 {
   "Name": "AITest2",
-  "DisplayName": "",
-  "PageTitle": "Invoice",
   "DataSourceName": "",
   "DbTable": "",
   "CanCreate": true,
   "CanUpdate": true,
   "CanDelete": true,
-  "CanBulkDataUpdate": false,
-  "CanBulkDataDownload": false,
-  "UseListPageSubmitButton": false,
   "Fields": [
     {
       "DbColumn": "",
@@ -22,6 +17,8 @@
       "IsRequired": false,
       "OnDataChanged": "",
       "Name": "請求書番号",
+      "ClassName": "",
+      "ContextMenu": "",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
     },
     {
@@ -54,11 +51,15 @@
       "OnSelectedIndexChanged": "",
       "OnSelectedIndexChanging": "",
       "Name": "List",
+      "ClassName": "",
+      "ContextMenu": "",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ListFieldDesign"
     },
     {
       "DataImportCompleted": "AITextAnalyzer_DataImportCompleted",
       "Name": "AITextAnalyzer",
+      "ClassName": "",
+      "ContextMenu": "",
       "TypeFullName": "Design.Samples.AIDocumentAnalyzer.AITextAnalyzerFieldDesign"
     },
     {
@@ -72,6 +73,8 @@
       "IsRequired": false,
       "OnDataChanged": "",
       "Name": "Total",
+      "ClassName": "",
+      "ContextMenu": "",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.NumberFieldDesign"
     },
     {
@@ -81,6 +84,8 @@
       "RelativeField": "請求書番号",
       "OnClick": "",
       "Name": "請求書番号Label",
+      "ClassName": "",
+      "ContextMenu": "",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
     },
     {
@@ -90,6 +95,8 @@
       "RelativeField": "",
       "OnClick": "",
       "Name": "Label",
+      "ClassName": "",
+      "ContextMenu": "",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
     },
     {
@@ -103,6 +110,8 @@
       "IsRequired": false,
       "OnDataChanged": "",
       "Name": "請求先会社名",
+      "ClassName": "",
+      "ContextMenu": "",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
     },
     {
@@ -116,6 +125,8 @@
       "IsRequired": false,
       "OnDataChanged": "",
       "Name": "請求先担当者名",
+      "ClassName": "",
+      "ContextMenu": "",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
     },
     {
@@ -129,6 +140,8 @@
       "IsRequired": false,
       "OnDataChanged": "",
       "Name": "請求先住所",
+      "ClassName": "",
+      "ContextMenu": "",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
     },
     {
@@ -142,6 +155,8 @@
       "IsRequired": false,
       "OnDataChanged": "",
       "Name": "請求先電話番号",
+      "ClassName": "",
+      "ContextMenu": "",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
     },
     {
@@ -151,6 +166,8 @@
       "RelativeField": "Total",
       "OnClick": "",
       "Name": "TotalLabel",
+      "ClassName": "",
+      "ContextMenu": "",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
     },
     {
@@ -164,6 +181,8 @@
       "IsRequired": false,
       "OnDataChanged": "",
       "Name": "支払い情報",
+      "ClassName": "",
+      "ContextMenu": "",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
     },
     {
@@ -177,6 +196,8 @@
       "IsRequired": false,
       "OnDataChanged": "",
       "Name": "備考",
+      "ClassName": "",
+      "ContextMenu": "",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
     },
     {
@@ -186,6 +207,8 @@
       "RelativeField": "支払い情報",
       "OnClick": "",
       "Name": "支払い情報Label",
+      "ClassName": "",
+      "ContextMenu": "",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
     },
     {
@@ -195,6 +218,8 @@
       "RelativeField": "備考",
       "OnClick": "",
       "Name": "備考Label",
+      "ClassName": "",
+      "ContextMenu": "",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
     }
   ],
@@ -215,6 +240,9 @@
       "OnBeforeInitialization": "",
       "OnAfterInitialization": "",
       "DataOnlyFields": [],
+      "ClassName": "",
+      "Color": "",
+      "BackgroundColor": "",
       "Layout": {
         "Name": "",
         "Padding": {},
@@ -224,11 +252,14 @@
         "IsExpandable": false,
         "ExpanderLabel": "",
         "IsExpanderDefaultOpened": false,
+        "ScrollDirection": "Unset",
+        "BackgroundColor": "",
         "Rows": [
           {
             "IsWrap": false,
             "Margin": {},
             "GridRowType": "Normal",
+            "CanResize": false,
             "BackgroundColor": "",
             "IsRowMarginRemoved": false,
             "Columns": [
@@ -244,9 +275,15 @@
                 "Width": 120,
                 "Padding": {},
                 "BackgroundColor": "",
-                "Border": "None",
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
                 "VerticalAlignment": "Middle",
-                "CanResize": false
+                "CanResize": false,
+                "Border": "None"
               },
               {
                 "Layout": {
@@ -259,8 +296,14 @@
                 },
                 "Padding": {},
                 "BackgroundColor": "",
-                "Border": "None",
-                "CanResize": false
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "CanResize": false,
+                "Border": "None"
               }
             ]
           },
@@ -268,6 +311,7 @@
             "IsWrap": false,
             "Margin": {},
             "GridRowType": "Normal",
+            "CanResize": false,
             "BackgroundColor": "",
             "IsRowMarginRemoved": false,
             "Columns": [
@@ -281,6 +325,8 @@
                   "IsExpandable": false,
                   "ExpanderLabel": "",
                   "IsExpanderDefaultOpened": false,
+                  "ScrollDirection": "Unset",
+                  "BackgroundColor": "",
                   "Rows": [
                     {
                       "IsWrap": false,
@@ -288,6 +334,7 @@
                         "Bottom": 0
                       },
                       "GridRowType": "Normal",
+                      "CanResize": false,
                       "BackgroundColor": "",
                       "IsRowMarginRemoved": true,
                       "Columns": [
@@ -302,8 +349,14 @@
                           },
                           "Padding": {},
                           "BackgroundColor": "",
-                          "Border": "None",
-                          "CanResize": false
+                          "BorderStyle": {
+                            "LeftColor": "",
+                            "TopColor": "",
+                            "RightColor": "",
+                            "BottomColor": ""
+                          },
+                          "CanResize": false,
+                          "Border": "None"
                         }
                       ]
                     },
@@ -311,6 +364,7 @@
                       "IsWrap": false,
                       "Margin": {},
                       "GridRowType": "Normal",
+                      "CanResize": false,
                       "BackgroundColor": "",
                       "IsRowMarginRemoved": false,
                       "Columns": [
@@ -318,8 +372,14 @@
                           "Width": 110,
                           "Padding": {},
                           "BackgroundColor": "",
-                          "Border": "None",
-                          "CanResize": false
+                          "BorderStyle": {
+                            "LeftColor": "",
+                            "TopColor": "",
+                            "RightColor": "",
+                            "BottomColor": ""
+                          },
+                          "CanResize": false,
+                          "Border": "None"
                         },
                         {
                           "Layout": {
@@ -332,8 +392,14 @@
                           },
                           "Padding": {},
                           "BackgroundColor": "",
-                          "Border": "None",
-                          "CanResize": false
+                          "BorderStyle": {
+                            "LeftColor": "",
+                            "TopColor": "",
+                            "RightColor": "",
+                            "BottomColor": ""
+                          },
+                          "CanResize": false,
+                          "Border": "None"
                         }
                       ]
                     },
@@ -341,6 +407,7 @@
                       "IsWrap": false,
                       "Margin": {},
                       "GridRowType": "Normal",
+                      "CanResize": false,
                       "BackgroundColor": "",
                       "IsRowMarginRemoved": false,
                       "Columns": [
@@ -348,8 +415,14 @@
                           "Width": 110,
                           "Padding": {},
                           "BackgroundColor": "",
-                          "Border": "None",
-                          "CanResize": false
+                          "BorderStyle": {
+                            "LeftColor": "",
+                            "TopColor": "",
+                            "RightColor": "",
+                            "BottomColor": ""
+                          },
+                          "CanResize": false,
+                          "Border": "None"
                         },
                         {
                           "Layout": {
@@ -362,8 +435,14 @@
                           },
                           "Padding": {},
                           "BackgroundColor": "",
-                          "Border": "None",
-                          "CanResize": false
+                          "BorderStyle": {
+                            "LeftColor": "",
+                            "TopColor": "",
+                            "RightColor": "",
+                            "BottomColor": ""
+                          },
+                          "CanResize": false,
+                          "Border": "None"
                         }
                       ]
                     },
@@ -371,6 +450,7 @@
                       "IsWrap": false,
                       "Margin": {},
                       "GridRowType": "Normal",
+                      "CanResize": false,
                       "BackgroundColor": "",
                       "IsRowMarginRemoved": false,
                       "Columns": [
@@ -378,8 +458,14 @@
                           "Width": 110,
                           "Padding": {},
                           "BackgroundColor": "",
-                          "Border": "None",
-                          "CanResize": false
+                          "BorderStyle": {
+                            "LeftColor": "",
+                            "TopColor": "",
+                            "RightColor": "",
+                            "BottomColor": ""
+                          },
+                          "CanResize": false,
+                          "Border": "None"
                         },
                         {
                           "Layout": {
@@ -392,8 +478,14 @@
                           },
                           "Padding": {},
                           "BackgroundColor": "",
-                          "Border": "None",
-                          "CanResize": false
+                          "BorderStyle": {
+                            "LeftColor": "",
+                            "TopColor": "",
+                            "RightColor": "",
+                            "BottomColor": ""
+                          },
+                          "CanResize": false,
+                          "Border": "None"
                         }
                       ]
                     },
@@ -401,6 +493,7 @@
                       "IsWrap": false,
                       "Margin": {},
                       "GridRowType": "Normal",
+                      "CanResize": false,
                       "BackgroundColor": "",
                       "IsRowMarginRemoved": false,
                       "Columns": [
@@ -408,8 +501,14 @@
                           "Width": 110,
                           "Padding": {},
                           "BackgroundColor": "",
-                          "Border": "None",
-                          "CanResize": false
+                          "BorderStyle": {
+                            "LeftColor": "",
+                            "TopColor": "",
+                            "RightColor": "",
+                            "BottomColor": ""
+                          },
+                          "CanResize": false,
+                          "Border": "None"
                         },
                         {
                           "Layout": {
@@ -422,8 +521,14 @@
                           },
                           "Padding": {},
                           "BackgroundColor": "",
-                          "Border": "None",
-                          "CanResize": false
+                          "BorderStyle": {
+                            "LeftColor": "",
+                            "TopColor": "",
+                            "RightColor": "",
+                            "BottomColor": ""
+                          },
+                          "CanResize": false,
+                          "Border": "None"
                         }
                       ]
                     }
@@ -432,8 +537,14 @@
                 },
                 "Padding": {},
                 "BackgroundColor": "",
-                "Border": "None",
-                "CanResize": false
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "CanResize": false,
+                "Border": "None"
               }
             ]
           },
@@ -441,14 +552,21 @@
             "IsWrap": false,
             "Margin": {},
             "GridRowType": "Normal",
+            "CanResize": false,
             "BackgroundColor": "",
             "IsRowMarginRemoved": false,
             "Columns": [
               {
                 "Padding": {},
                 "BackgroundColor": "",
-                "Border": "None",
-                "CanResize": false
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "CanResize": false,
+                "Border": "None"
               }
             ]
           },
@@ -456,6 +574,7 @@
             "IsWrap": false,
             "Margin": {},
             "GridRowType": "Normal",
+            "CanResize": false,
             "BackgroundColor": "",
             "IsRowMarginRemoved": false,
             "Columns": [
@@ -470,8 +589,14 @@
                 },
                 "Padding": {},
                 "BackgroundColor": "",
-                "Border": "None",
-                "CanResize": false
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "CanResize": false,
+                "Border": "None"
               }
             ]
           },
@@ -479,6 +604,7 @@
             "IsWrap": false,
             "Margin": {},
             "GridRowType": "Normal",
+            "CanResize": false,
             "BackgroundColor": "",
             "IsRowMarginRemoved": false,
             "Columns": [
@@ -494,9 +620,15 @@
                 "Width": 120,
                 "Padding": {},
                 "BackgroundColor": "",
-                "Border": "None",
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
                 "VerticalAlignment": "Middle",
-                "CanResize": false
+                "CanResize": false,
+                "Border": "None"
               },
               {
                 "Layout": {
@@ -509,8 +641,14 @@
                 },
                 "Padding": {},
                 "BackgroundColor": "",
-                "Border": "None",
-                "CanResize": false
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "CanResize": false,
+                "Border": "None"
               }
             ]
           },
@@ -518,6 +656,7 @@
             "IsWrap": false,
             "Margin": {},
             "GridRowType": "Normal",
+            "CanResize": false,
             "BackgroundColor": "",
             "IsRowMarginRemoved": false,
             "Columns": [
@@ -533,9 +672,15 @@
                 "Width": 120,
                 "Padding": {},
                 "BackgroundColor": "",
-                "Border": "None",
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
                 "VerticalAlignment": "Middle",
-                "CanResize": false
+                "CanResize": false,
+                "Border": "None"
               },
               {
                 "Layout": {
@@ -548,8 +693,14 @@
                 },
                 "Padding": {},
                 "BackgroundColor": "",
-                "Border": "None",
-                "CanResize": false
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "CanResize": false,
+                "Border": "None"
               }
             ]
           },
@@ -557,6 +708,7 @@
             "IsWrap": false,
             "Margin": {},
             "GridRowType": "Normal",
+            "CanResize": false,
             "BackgroundColor": "",
             "IsRowMarginRemoved": false,
             "Columns": [
@@ -572,9 +724,15 @@
                 "Width": 120,
                 "Padding": {},
                 "BackgroundColor": "",
-                "Border": "None",
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
                 "VerticalAlignment": "Middle",
-                "CanResize": false
+                "CanResize": false,
+                "Border": "None"
               },
               {
                 "Layout": {
@@ -587,8 +745,14 @@
                 },
                 "Padding": {},
                 "BackgroundColor": "",
-                "Border": "None",
-                "CanResize": false
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "CanResize": false,
+                "Border": "None"
               }
             ]
           },
@@ -596,6 +760,7 @@
             "IsWrap": false,
             "Margin": {},
             "GridRowType": "Normal",
+            "CanResize": false,
             "BackgroundColor": "",
             "IsRowMarginRemoved": false,
             "Columns": [
@@ -610,8 +775,14 @@
                 },
                 "Padding": {},
                 "BackgroundColor": "",
-                "Border": "None",
-                "CanResize": false
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "CanResize": false,
+                "Border": "None"
               }
             ]
           }
@@ -657,37 +828,64 @@
         "IsExpandable": true,
         "ExpanderLabel": "検索条件",
         "IsExpanderDefaultOpened": false,
+        "ScrollDirection": "Unset",
+        "BackgroundColor": "",
         "Rows": [
           {
             "IsWrap": false,
             "Margin": {},
             "GridRowType": "Normal",
+            "CanResize": false,
             "BackgroundColor": "",
             "IsRowMarginRemoved": false,
             "Columns": [
               {
                 "Padding": {},
                 "BackgroundColor": "",
-                "Border": "None",
-                "CanResize": false
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "CanResize": false,
+                "Border": "None"
               },
               {
                 "Padding": {},
                 "BackgroundColor": "",
-                "Border": "None",
-                "CanResize": false
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "CanResize": false,
+                "Border": "None"
               },
               {
                 "Padding": {},
                 "BackgroundColor": "",
-                "Border": "None",
-                "CanResize": false
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "CanResize": false,
+                "Border": "None"
               },
               {
                 "Padding": {},
                 "BackgroundColor": "",
-                "Border": "None",
-                "CanResize": false
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "CanResize": false,
+                "Border": "None"
               }
             ]
           }
@@ -697,6 +895,7 @@
     }
   },
   "LinkFieldNames": [],
+  "UseListPageSubmitButton": false,
   "ListPageFieldDesign": {
     "LayoutName": "",
     "CanNavigateToDetail": true,
@@ -722,6 +921,11 @@
     "OnSelectedIndexChanged": "",
     "OnSelectedIndexChanging": "",
     "Name": "",
+    "ClassName": "",
+    "ContextMenu": "",
     "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ListFieldDesign"
-  }
+  },
+  "CanBulkDataUpdate": false,
+  "CanBulkDataDownload": false,
+  "PageTitle": "Invoice"
 }
