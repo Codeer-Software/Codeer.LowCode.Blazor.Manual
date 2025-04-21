@@ -20,6 +20,7 @@ namespace LowCodeSamples.Client.Shared.Services
             services.AddScoped<ILogger, Logger>();
             services.AddSingleton<ModuleDialogService>();
             services.AddSingleton<MessageBoxService>();
+            services.AddSingleton<ContextMenuService>();
             services.AddSingleton<LoadingService>();
             services.AddToaster(config =>
             {

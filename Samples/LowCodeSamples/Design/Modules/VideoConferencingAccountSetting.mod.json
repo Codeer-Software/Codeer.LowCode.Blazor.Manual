@@ -1,15 +1,10 @@
 {
   "Name": "VideoConferencingAccountSetting",
-  "DisplayName": "",
-  "PageTitle": "",
   "DataSourceName": "",
   "DbTable": "",
   "CanCreate": true,
   "CanUpdate": true,
   "CanDelete": true,
-  "CanBulkDataUpdate": false,
-  "CanBulkDataDownload": false,
-  "UseListPageSubmitButton": false,
   "Fields": [
     {
       "DbColumn": "id",
@@ -25,6 +20,7 @@
       "OnDataChanged": "",
       "Name": "Id",
       "ClassName": "",
+      "ContextMenu": "",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.IdFieldDesign"
     },
     {
@@ -54,6 +50,7 @@
       "OnDataChanged": "LoginUserLink_OnDataChanged",
       "Name": "LoginUserLink",
       "ClassName": "",
+      "ContextMenu": "",
       "TypeFullName": "Codeer.LowCode.Bindings.Fluent.Blazor.Designs.FluentLinkFieldDesign"
     },
     {
@@ -64,6 +61,7 @@
       "OnClick": "",
       "Name": "AccountNameLabel",
       "ClassName": "",
+      "ContextMenu": "",
       "TypeFullName": "Codeer.LowCode.Bindings.Fluent.Blazor.Designs.FluentLabelFieldDesign"
     },
     {
@@ -78,6 +76,7 @@
       "OnDataChanged": "",
       "Name": "AccountNameText",
       "ClassName": "",
+      "ContextMenu": "",
       "TypeFullName": "Codeer.LowCode.Bindings.Fluent.Blazor.Designs.FluentTextFieldDesign"
     },
     {
@@ -88,6 +87,7 @@
       "OnClick": "",
       "Name": "LoginStatusLabel",
       "ClassName": "",
+      "ContextMenu": "",
       "TypeFullName": "Codeer.LowCode.Bindings.Fluent.Blazor.Designs.FluentLabelFieldDesign"
     },
     {
@@ -121,6 +121,7 @@
       "OnDataChanged": "",
       "Name": "LoginStatusSelect",
       "ClassName": "",
+      "ContextMenu": "",
       "TypeFullName": "Codeer.LowCode.Bindings.Fluent.Blazor.Designs.FluentSelectFieldDesign"
     },
     {
@@ -131,6 +132,7 @@
       "OnClick": "",
       "Name": "ProfileLabel",
       "ClassName": "",
+      "ContextMenu": "",
       "TypeFullName": "Codeer.LowCode.Bindings.Fluent.Blazor.Designs.FluentLabelFieldDesign"
     },
     {
@@ -146,6 +148,7 @@
       "OnDataChanged": "",
       "Name": "ProfileText",
       "ClassName": "",
+      "ContextMenu": "",
       "TypeFullName": "Codeer.LowCode.Bindings.Fluent.Blazor.Designs.FluentTextFieldDesign"
     },
     {
@@ -154,6 +157,7 @@
       "OnClick": "",
       "Name": "IconImageViewer",
       "ClassName": "",
+      "ContextMenu": "",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ImageViewerFieldDesign"
     },
     {
@@ -164,6 +168,7 @@
       "OnClick": "",
       "Name": "IconImageViewerLabel",
       "ClassName": "",
+      "ContextMenu": "",
       "TypeFullName": "Codeer.LowCode.Bindings.Fluent.Blazor.Designs.FluentLabelFieldDesign"
     },
     {
@@ -174,6 +179,7 @@
       "OnClick": "",
       "Name": "TitleLabel",
       "ClassName": "",
+      "ContextMenu": "",
       "TypeFullName": "Codeer.LowCode.Bindings.Fluent.Blazor.Designs.FluentLabelFieldDesign"
     },
     {
@@ -188,6 +194,7 @@
       "OnDataChanged": "LoginStatusBoolean_OnDataChanged",
       "Name": "LoginStatusBoolean",
       "ClassName": "",
+      "ContextMenu": "",
       "TypeFullName": "Codeer.LowCode.Bindings.Fluent.Blazor.Designs.FluentBooleanFieldDesign"
     },
     {
@@ -198,17 +205,26 @@
       "OnClick": "",
       "Name": "LoginUserLinkLabel",
       "ClassName": "",
+      "ContextMenu": "",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
     },
     {
       "Appearance": "Neutral",
       "Text": "保存",
       "ImageResourcePath": "",
+      "ImageResourceSet": {
+        "Default": "",
+        "Focus": "",
+        "Active": "",
+        "Hover": "",
+        "Disabled": ""
+      },
       "Icon": "",
       "Variant": "Primary",
       "OnClick": "FluentButton_OnClick",
       "Name": "FluentButton",
       "ClassName": "",
+      "ContextMenu": "",
       "TypeFullName": "Codeer.LowCode.Bindings.Fluent.Blazor.Designs.FluentButtonFieldDesign"
     }
   ],
@@ -241,6 +257,7 @@
         "IsExpandable": false,
         "ExpanderLabel": "",
         "IsExpanderDefaultOpened": false,
+        "ScrollDirection": "Unset",
         "BackgroundColor": "",
         "Rows": [
           {
@@ -264,9 +281,15 @@
                 },
                 "Padding": {},
                 "BackgroundColor": "",
-                "Border": "None",
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
                 "VerticalAlignment": "Middle",
-                "CanResize": false
+                "CanResize": false,
+                "Border": "None"
               },
               {
                 "Layout": {
@@ -278,6 +301,7 @@
                   "IsExpandable": false,
                   "ExpanderLabel": "",
                   "IsExpanderDefaultOpened": false,
+                  "ScrollDirection": "Unset",
                   "BackgroundColor": "",
                   "Rows": [
                     {
@@ -302,9 +326,15 @@
                           },
                           "Padding": {},
                           "BackgroundColor": "",
-                          "Border": "None",
+                          "BorderStyle": {
+                            "LeftColor": "",
+                            "TopColor": "",
+                            "RightColor": "",
+                            "BottomColor": ""
+                          },
                           "VerticalAlignment": "Bottom",
-                          "CanResize": false
+                          "CanResize": false,
+                          "Border": "None"
                         }
                       ]
                     },
@@ -327,8 +357,14 @@
                           },
                           "Padding": {},
                           "BackgroundColor": "",
-                          "Border": "None",
-                          "CanResize": false
+                          "BorderStyle": {
+                            "LeftColor": "",
+                            "TopColor": "",
+                            "RightColor": "",
+                            "BottomColor": ""
+                          },
+                          "CanResize": false,
+                          "Border": "None"
                         }
                       ]
                     }
@@ -338,10 +374,16 @@
                 "Width": 250,
                 "Padding": {},
                 "BackgroundColor": "",
-                "Border": "None",
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
                 "HorizontalAlignment": "Center",
                 "VerticalAlignment": "Middle",
-                "CanResize": false
+                "CanResize": false,
+                "Border": "None"
               }
             ]
           },
@@ -365,6 +407,7 @@
                   "IsExpandable": false,
                   "ExpanderLabel": "",
                   "IsExpanderDefaultOpened": false,
+                  "ScrollDirection": "Unset",
                   "BackgroundColor": "",
                   "Rows": [
                     {
@@ -387,10 +430,16 @@
                           },
                           "Padding": {},
                           "BackgroundColor": "",
-                          "Border": "None",
+                          "BorderStyle": {
+                            "LeftColor": "",
+                            "TopColor": "",
+                            "RightColor": "",
+                            "BottomColor": ""
+                          },
                           "HorizontalAlignment": "Center",
                           "VerticalAlignment": "Bottom",
-                          "CanResize": false
+                          "CanResize": false,
+                          "Border": "None"
                         }
                       ]
                     },
@@ -413,10 +462,16 @@
                           },
                           "Padding": {},
                           "BackgroundColor": "",
-                          "Border": "None",
+                          "BorderStyle": {
+                            "LeftColor": "",
+                            "TopColor": "",
+                            "RightColor": "",
+                            "BottomColor": ""
+                          },
                           "HorizontalAlignment": "Center",
                           "VerticalAlignment": "Middle",
-                          "CanResize": false
+                          "CanResize": false,
+                          "Border": "None"
                         }
                       ]
                     }
@@ -426,26 +481,50 @@
                 "Width": 200,
                 "Padding": {},
                 "BackgroundColor": "",
-                "Border": "None",
-                "CanResize": false
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "CanResize": false,
+                "Border": "None"
               },
               {
                 "Padding": {},
                 "BackgroundColor": "",
-                "Border": "None",
-                "CanResize": false
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "CanResize": false,
+                "Border": "None"
               },
               {
                 "Padding": {},
                 "BackgroundColor": "",
-                "Border": "None",
-                "CanResize": false
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "CanResize": false,
+                "Border": "None"
               },
               {
                 "Padding": {},
                 "BackgroundColor": "",
-                "Border": "None",
-                "CanResize": false
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "CanResize": false,
+                "Border": "None"
               },
               {
                 "Layout": {
@@ -458,9 +537,15 @@
                 },
                 "Padding": {},
                 "BackgroundColor": "",
-                "Border": "None",
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
                 "VerticalAlignment": "Bottom",
-                "CanResize": false
+                "CanResize": false,
+                "Border": "None"
               }
             ]
           },
@@ -482,6 +567,7 @@
                   "IsExpandable": false,
                   "ExpanderLabel": "",
                   "IsExpanderDefaultOpened": false,
+                  "ScrollDirection": "Unset",
                   "BackgroundColor": "",
                   "Rows": [
                     {
@@ -505,10 +591,16 @@
                           "Width": 200,
                           "Padding": {},
                           "BackgroundColor": "",
-                          "Border": "None",
+                          "BorderStyle": {
+                            "LeftColor": "",
+                            "TopColor": "",
+                            "RightColor": "",
+                            "BottomColor": ""
+                          },
                           "HorizontalAlignment": "Center",
                           "VerticalAlignment": "Middle",
-                          "CanResize": false
+                          "CanResize": false,
+                          "Border": "None"
                         },
                         {
                           "Layout": {
@@ -522,9 +614,16 @@
                           },
                           "Padding": {},
                           "BackgroundColor": "",
-                          "Border": "Left",
+                          "BorderStyle": {
+                            "Left": 1,
+                            "LeftColor": "",
+                            "TopColor": "",
+                            "RightColor": "",
+                            "BottomColor": ""
+                          },
                           "VerticalAlignment": "Middle",
-                          "CanResize": false
+                          "CanResize": false,
+                          "Border": "Left"
                         }
                       ]
                     },
@@ -549,10 +648,17 @@
                           "Width": 200,
                           "Padding": {},
                           "BackgroundColor": "",
-                          "Border": "Top",
+                          "BorderStyle": {
+                            "Top": 1,
+                            "LeftColor": "",
+                            "TopColor": "",
+                            "RightColor": "",
+                            "BottomColor": ""
+                          },
                           "HorizontalAlignment": "Center",
                           "VerticalAlignment": "Middle",
-                          "CanResize": false
+                          "CanResize": false,
+                          "Border": "Top"
                         },
                         {
                           "Layout": {
@@ -565,9 +671,17 @@
                           },
                           "Padding": {},
                           "BackgroundColor": "",
-                          "Border": "Top, Left",
+                          "BorderStyle": {
+                            "Left": 1,
+                            "Top": 1,
+                            "LeftColor": "",
+                            "TopColor": "",
+                            "RightColor": "",
+                            "BottomColor": ""
+                          },
                           "VerticalAlignment": "Middle",
-                          "CanResize": false
+                          "CanResize": false,
+                          "Border": "Top, Left"
                         },
                         {
                           "Layout": {
@@ -580,10 +694,17 @@
                           },
                           "Padding": {},
                           "BackgroundColor": "",
-                          "Border": "Top",
+                          "BorderStyle": {
+                            "Top": 1,
+                            "LeftColor": "",
+                            "TopColor": "",
+                            "RightColor": "",
+                            "BottomColor": ""
+                          },
                           "HorizontalAlignment": "Center",
                           "VerticalAlignment": "Middle",
-                          "CanResize": false
+                          "CanResize": false,
+                          "Border": "Top"
                         }
                       ]
                     },
@@ -608,10 +729,17 @@
                           "Width": 200,
                           "Padding": {},
                           "BackgroundColor": "",
-                          "Border": "Top",
+                          "BorderStyle": {
+                            "Top": 1,
+                            "LeftColor": "",
+                            "TopColor": "",
+                            "RightColor": "",
+                            "BottomColor": ""
+                          },
                           "HorizontalAlignment": "Center",
                           "VerticalAlignment": "Middle",
-                          "CanResize": false
+                          "CanResize": false,
+                          "Border": "Top"
                         },
                         {
                           "Layout": {
@@ -624,8 +752,16 @@
                           },
                           "Padding": {},
                           "BackgroundColor": "",
-                          "Border": "Top, Left",
-                          "CanResize": false
+                          "BorderStyle": {
+                            "Left": 1,
+                            "Top": 1,
+                            "LeftColor": "",
+                            "TopColor": "",
+                            "RightColor": "",
+                            "BottomColor": ""
+                          },
+                          "CanResize": false,
+                          "Border": "Top, Left"
                         }
                       ]
                     }
@@ -634,8 +770,14 @@
                 },
                 "Padding": {},
                 "BackgroundColor": "",
-                "Border": "None",
-                "CanResize": false
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "CanResize": false,
+                "Border": "None"
               }
             ]
           }
@@ -681,6 +823,7 @@
         "IsExpandable": true,
         "ExpanderLabel": "検索条件",
         "IsExpanderDefaultOpened": false,
+        "ScrollDirection": "Unset",
         "BackgroundColor": "",
         "Rows": [
           {
@@ -694,26 +837,50 @@
               {
                 "Padding": {},
                 "BackgroundColor": "",
-                "Border": "None",
-                "CanResize": false
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "CanResize": false,
+                "Border": "None"
               },
               {
                 "Padding": {},
                 "BackgroundColor": "",
-                "Border": "None",
-                "CanResize": false
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "CanResize": false,
+                "Border": "None"
               },
               {
                 "Padding": {},
                 "BackgroundColor": "",
-                "Border": "None",
-                "CanResize": false
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "CanResize": false,
+                "Border": "None"
               },
               {
                 "Padding": {},
                 "BackgroundColor": "",
-                "Border": "None",
-                "CanResize": false
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "CanResize": false,
+                "Border": "None"
               }
             ]
           }
@@ -723,6 +890,7 @@
     }
   },
   "LinkFieldNames": [],
+  "UseListPageSubmitButton": false,
   "ListPageFieldDesign": {
     "LayoutName": "",
     "CanNavigateToDetail": true,
@@ -749,6 +917,10 @@
     "OnSelectedIndexChanging": "",
     "Name": "",
     "ClassName": "",
+    "ContextMenu": "",
     "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ListFieldDesign"
-  }
+  },
+  "CanBulkDataUpdate": false,
+  "CanBulkDataDownload": false,
+  "PageTitle": ""
 }

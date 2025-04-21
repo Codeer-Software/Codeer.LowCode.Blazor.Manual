@@ -38,6 +38,7 @@ namespace LowCodeSamples.Designer
             MudBlazorLoader.LoadAssemblies();
             RadzenLoader.LoadAssemblies();
 
+            Services.AddApexCharts();
             PropertyTypeManager.AddPropertyControl<ChartSeries, ChartSeriesPropertyControl>();
 
             Codeer.LowCode.Blazor.License.LicenseManager.IsAutoUpdate = bool.TryParse(ConfigurationManager.AppSettings["IsLicenseAutoUpdate"], out var val) ? val : true;
