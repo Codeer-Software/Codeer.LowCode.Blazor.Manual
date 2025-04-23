@@ -29,6 +29,11 @@ Data Sourceへの接続が設定されますと、`ツールボックス`に`DB�
 
 > 注意：DBのデータを追加・更新・削除するのに、一意性をもつ**システムフィールド**の`Idフィールド`がモジュールに存在する必要があります。**システムフィールド**の`Idフィールド`は、Nameの変更はできません。
 
+> Idは`システムフィールド`と`一般フィールド`の2種類があるため、データの追加と更新は必ず`システムフィールド`のIdが必要となります。
+また、IdはDB自動生成のタイプと、ユーザ入力のタイプ(例えば見積番号)、複合タイプ(例えば姓+名)があります。これらはIdフィールドのプロパティで設定できます。
+
+> システムフィールドについては[Field](../fields/field.md)をご参照ください。
+
 <img width=800 src="../../Image/Module_Drag_DbFields.png">
 
 ###  一覧画面を設定します
@@ -73,5 +78,7 @@ Data Sourceへの接続が設定されますと、`ツールボックス`に`DB�
 ## 関連情報
 - [動画: Moduleの基本的な作成方法とDBへの接続](https://youtu.be/q7U9tQPOYXI?si=QreIPnTPalT2e1k5)
 - [モジュール](../module/module.md)
+- [Field](../fields/field.md)
+- [Id Field](../fields/Id.md)
 - [レイアウト](../module/layout.md)
 - [動画ガイド一覧](../movies.md)
