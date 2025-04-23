@@ -135,6 +135,7 @@ BlazorアプリとWPFのデザイナアプリをビルドして起動
         - [モジュールをAIで作成](ai/ai_modules.md)
         - [クエリをAIで作成](ai/ai_query.md)
     - 多彩なモジュール作成方法
+        - [Moduleの基本的な作成方法とDBへの接続](designer/create_module_with_db_simple.md)
         - [Excelから画面とDDLを作成する](designer/import_module_from_excel.md)
         - [Databaseからモジュール作成する](designer/import_modules_from_db.md)
     - データベースのフル活用
