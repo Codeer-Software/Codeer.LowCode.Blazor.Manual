@@ -87,38 +87,6 @@
       "OnDataChanged": "",
       "Name": "UserLink",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LinkFieldDesign"
-    },
-    {
-      "Candidates": [
-        "オンライン",
-        "オフライン",
-        "作業中"
-      ],
-      "SearchCondition": {
-        "SortFieldVariable": "",
-        "SortDescending": false,
-        "SelectFields": [],
-        "ModuleName": "",
-        "Condition": {
-          "IsOrMatch": false,
-          "Children": [],
-          "Name": "",
-          "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
-        }
-      },
-      "ValueVariable": "",
-      "DisplayTextVariable": "",
-      "DbColumn": "login_status",
-      "EmptyCandidateType": "StringEmpty",
-      "AllowOrSearch": false,
-      "IsUpdateProtected": false,
-      "IsSimpleSearchParameter": false,
-      "OnSearchDataChanged": "",
-      "DisplayName": "",
-      "IsRequired": false,
-      "OnDataChanged": "",
-      "Name": "UserLink.LoginStatusSelect",
-      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.SelectFieldDesign"
     }
   ],
   "UserWriteCondition": {
@@ -324,7 +292,9 @@
       }
     }
   },
-  "LinkFieldNames": [],
+  "LinkFieldNames": [
+    "UserLink.LoginStatusSelect"
+  ],
   "UseListPageSubmitButton": false,
   "ListPageFieldDesign": {
     "LayoutName": "",
