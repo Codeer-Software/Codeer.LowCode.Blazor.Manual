@@ -22,7 +22,7 @@ void txtBarcodeInput_OnDataChanged()
     var targetCode = txtBarcodeInput.Value;
     searcher.AddEquals(e => e.Code.Value, targetCode);
     
-    listProduct.SetAdditionalConditionAsync(searcher);
+    listProduct.SetAdditionalCondition(searcher);
     listProduct.Reload();
     
     txtBarcodeInput.Value=string.Empty;

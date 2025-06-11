@@ -18,9 +18,6 @@ namespace LowCodeSamples.Client.Shared.Services
             services.AddScoped<IUIService, UIService>();
             services.AddScoped<Codeer.LowCode.Blazor.RequestInterfaces.Services>();
             services.AddScoped<ILogger, Logger>();
-            services.AddSingleton<ModuleDialogService>();
-            services.AddSingleton<MessageBoxService>();
-            services.AddSingleton<ContextMenuService>();
             services.AddSingleton<LoadingService>();
             services.AddToaster(config =>
             {

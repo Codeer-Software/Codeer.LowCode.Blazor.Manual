@@ -9,11 +9,9 @@ namespace LowCodeSamples.Client.Shared.Services
         IJSRuntime _jsRuntime;
         ToasterEx _toaster;
         public UIService(
-            ModuleDialogService moduleDialogService,
-            MessageBoxService messageBoxService,
              IJSRuntime JSRuntime,
              ToasterEx toaster
-        ) : base(moduleDialogService, messageBoxService)
+        )
         {
             _jsRuntime = JSRuntime;
             _toaster = toaster;

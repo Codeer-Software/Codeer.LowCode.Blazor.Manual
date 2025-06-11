@@ -11,6 +11,9 @@
         "QueryText": "WITH group_stats AS (\r\n    SELECT \r\n        sample_group,\r\n        AVG(measurement) AS sample_mean,\r\n        MAX(measurement) - MIN(measurement) AS sample_range\r\n    FROM measurement_samples\r\n    GROUP BY sample_group\r\n),\r\noverall_stats AS (\r\n    SELECT \r\n        AVG(sample_mean) AS x_bar,\r\n        AVG(sample_range) AS R_bar\r\n    FROM group_stats\r\n),\r\ncontrol_limits AS (\r\n    SELECT\r\n        x_bar,\r\n        R_bar,\r\n        x_bar + 0.577 * R_bar AS xbar_ucl, -- A_2 = 0.577 (グループサイズ5の場合)\r\n        x_bar - 0.577 * R_bar AS xbar_lcl,\r\n        R_bar AS R_cl,\r\n        2.114 * R_bar AS R_ucl,           -- D_4 = 2.114\r\n        0 * R_bar AS R_lcl                -- D_3 = 0\r\n    FROM overall_stats\r\n)\r\nSELECT \r\n    g.sample_group,\r\n    g.sample_mean,\r\n    g.sample_range,\r\n    c.x_bar AS xbar_cl,\r\n    c.xbar_ucl,\r\n    c.xbar_lcl,\r\n    c.R_cl,\r\n    c.R_ucl,\r\n    c.R_lcl\r\nFROM group_stats g\r\nCROSS JOIN control_limits c\r\nORDER BY g.sample_group;\r\n",
         "CountSqlText": "",
         "UseCustomPaging": false,
+        "SortAndPagingType": "System",
+        "QuerySortType": "System",
+        "QueryPagingType": "System",
         "Parameters": [
           {
             "IsParameter": false,

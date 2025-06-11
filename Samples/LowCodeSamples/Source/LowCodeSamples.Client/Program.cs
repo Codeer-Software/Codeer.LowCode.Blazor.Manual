@@ -6,13 +6,11 @@ using Codeer.LowCode.Bindings.Radzen.Blazor.Installer;
 using Codeer.LowCode.Blazor.RequestInterfaces;
 using IgniteUI.Blazor.Controls;
 using LowCodeSamples.Client;
-using LowCodeSamples.Client.Shared;
 using LowCodeSamples.Client.Shared.Samples.ColorPicker;
 using LowCodeSamples.Client.Shared.Services;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.FluentUI.AspNetCore.Components;
-using MudBlazor;
 using MudBlazor.Services;
 using Radzen;
 
@@ -28,7 +26,6 @@ RadzenLoader.LoadAssemblies();
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
-builder.RootComponents.Add<AfterBodyOutlet>("body::after");
 builder.Services.AddFluentUIComponents();
 
 builder.Services.AddSharedServices();
