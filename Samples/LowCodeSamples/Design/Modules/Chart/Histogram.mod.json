@@ -11,6 +11,9 @@
         "QueryText": "SELECT \r\n    CONCAT(FLOOR(quantity / 10) * 10, '-', (FLOOR(quantity / 10) * 10) + 9) AS range, -- 販売数量の範囲 (カテゴリ)\r\n    COUNT(*) AS frequency                                                          -- 頻度 (件数)\r\nFROM sales\r\nGROUP BY FLOOR(quantity / 10)\r\nORDER BY FLOOR(quantity / 10);\r\n",
         "CountSqlText": "",
         "UseCustomPaging": false,
+        "SortAndPagingType": "System",
+        "QuerySortType": "System",
+        "QueryPagingType": "System",
         "Parameters": [
           {
             "IsParameter": false,
