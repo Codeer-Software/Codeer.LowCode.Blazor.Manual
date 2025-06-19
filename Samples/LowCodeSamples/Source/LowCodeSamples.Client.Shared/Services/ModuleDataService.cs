@@ -14,11 +14,8 @@ namespace LowCodeSamples.Client.Shared.Services
         public ModuleDataService(HttpService http)
             => _http = http;
 
-        public async Task<Paging<ModuleData>> GetListAsync(SearchCondition condition, int pageIndex, bool withLock)
-        {
-            if (withLock) throw LowCodeException.Create("withLock is not available on the client side");
-            return await _http.PostAsJsonAsync<SearchCondition, Paging<ModuleData>>($"/api/module_data/list?page={pageIndex}", condition) ?? new();
-        }
+        public async Task<Paging<ModuleData>> GetListAsync(SearchCondition condition, int pageIndex)
+            => await _http.PostAsJsonAsync<SearchCondition, Paging<ModuleData>>($"/api/module_data/list?page={pageIndex}", condition) ?? new();
 
         public async Task<List<ModuleSubmitResult>?> SubmitAsync(List<ModuleSubmitData> data)
             => await _http.PostAsJsonAsync<List<ModuleSubmitData>, List<ModuleSubmitResult>>($"/api/module_data", data);
@@ -28,7 +25,7 @@ namespace LowCodeSamples.Client.Shared.Services
 
         public async Task<MemoryStream?> DownloadFile(string moduleName, string fieldName, string id)
         {
-            var result = await _http.GetAsync($"/api/module_data/download?moduleName={moduleName}&fieldName={fieldName}&id={id}");
+            var result = await _http.GetAsync($"/api/module_data/download?moduleName={moduleName}&fieldName={fieldName}&id={id}", false);
             if (result == null) return null;
             return (MemoryStream)await result.Content.ReadAsStreamAsync();
         }
