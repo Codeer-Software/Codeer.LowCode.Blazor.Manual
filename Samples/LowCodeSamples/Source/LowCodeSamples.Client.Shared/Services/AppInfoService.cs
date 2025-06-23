@@ -1,3 +1,4 @@
+using Codeer.LowCode.Blazor.Components.AppParts.Loading;
 using Codeer.LowCode.Blazor.DesignLogic;
 using Codeer.LowCode.Blazor.DesignLogic.Transfer;
 using Codeer.LowCode.Blazor.Repository;
@@ -18,6 +19,7 @@ namespace LowCodeSamples.Client.Shared.Services
         readonly HttpService _http;
         readonly ScriptRuntimeTypeManager _scriptRuntimeTypeManager = new();
         readonly ToasterEx _toaster;
+        readonly LoadingService _loadingService;
         HubConnection? _hubConnection;
         bool? _useHotReload;
         DesignData? _design;
@@ -35,11 +37,12 @@ namespace LowCodeSamples.Client.Shared.Services
 
         public DesignData GetDesignData() => _design ?? new();
 
-        public AppInfoService(HttpService http, NavigationManager navigationManager, ILogger logger, ToasterEx toaster)
+        public AppInfoService(HttpService http, LoadingService loadingService, NavigationManager navigationManager, ILogger logger, ToasterEx toaster)
         {
             _http = http;
             _navigationManager = navigationManager;
             _toaster = toaster;
+            _loadingService = loadingService;
             _scriptRuntimeTypeManager.AddCustomInjector(() => http);
             _scriptRuntimeTypeManager.AddType(typeof(ScriptObjects.Excel));
             _scriptRuntimeTypeManager.AddType(typeof(ExcelCellIndex));
@@ -50,6 +53,8 @@ namespace LowCodeSamples.Client.Shared.Services
 
         public async Task InitializeAppAsync()
         {
+            using var scope = _loadingService.StartLoading(200);
+
             await InitializeHotReloadAsync();
             if (_design != null) return;
 
