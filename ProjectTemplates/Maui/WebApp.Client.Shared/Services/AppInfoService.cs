@@ -1,15 +1,15 @@
-﻿using Codeer.LowCode.Blazor.DesignLogic;
+﻿using Codeer.LowCode.Blazor.Components.AppParts.Loading;
+using Codeer.LowCode.Blazor.DesignLogic;
+using Codeer.LowCode.Blazor.DesignLogic.Transfer;
+using Codeer.LowCode.Blazor.Repository;
 using Codeer.LowCode.Blazor.Repository.Data;
+using Codeer.LowCode.Blazor.Repository.Match;
 using Codeer.LowCode.Blazor.RequestInterfaces;
 using Codeer.LowCode.Blazor.Script;
 using Codeer.LowCode.Blazor.Utils;
-using WebApp.Client.Shared.ScriptObjects;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.SignalR.Client;
-using Codeer.LowCode.Blazor.Repository.Match;
-using Codeer.LowCode.Blazor.Repository;
-using Codeer.LowCode.Blazor.DesignLogic.Transfer;
-using Codeer.LowCode.Blazor.Components.AppParts.Loading;
+using WebApp.Client.Shared.ScriptObjects;
 
 namespace WebApp.Client.Shared.Services
 {
@@ -116,7 +116,7 @@ namespace WebApp.Client.Shared.Services
             if (_config?.UseHotReload == true && _hubConnection == null)
             {
                 _hubConnection = new HubConnectionBuilder()
-                    .WithUrl(_navigationManager.ToAbsoluteUri("/hot_reload_hub"))
+                    .WithUrl(_http.BaseUrl + "hot_reload_hub")
                     .Build();
 
                 _hubConnection.On("ExecuteHotReload", async () =>

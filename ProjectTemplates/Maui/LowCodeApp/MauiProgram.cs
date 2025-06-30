@@ -9,7 +9,7 @@ namespace LowCodeApp
 {
     public static class MauiProgram
     {
-        private static string baseUrl = "http://localhost:5140";
+        private static string _baseUrl = string.Empty;
         public static MauiApp CreateMauiApp()
         {
             var builder = MauiApp.CreateBuilder();
@@ -47,9 +47,9 @@ namespace LowCodeApp
             baseStream.Dispose();
             devStream?.Dispose();
 
-            baseUrl = builder.Configuration["Network:BaseUrl"] ?? baseUrl;
+            _baseUrl = builder.Configuration["Network:BaseUrl"] ?? string.Empty;
 
-            builder.Services.AddScoped(_ => new HttpClient { BaseAddress = new Uri(baseUrl) });
+            builder.Services.AddScoped(_ => new HttpClient { BaseAddress = new Uri(_baseUrl) });
 
 #if DEBUG
             builder.Services.AddBlazorWebViewDeveloperTools();
@@ -84,7 +84,7 @@ namespace LowCodeApp
 
         static async Task CheckLicenseAsync()
         {
-            using var client = new HttpClient { BaseAddress = new Uri(baseUrl) };
+            using var client = new HttpClient { BaseAddress = new Uri(_baseUrl) };
             await client.PostAsync("api/license/update_license", new StringContent(""));
         }
     }

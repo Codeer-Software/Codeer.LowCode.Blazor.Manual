@@ -9,6 +9,7 @@ namespace WebApp.Client.Shared.Services
 {
     public class HttpService
     {
+        public string BaseUrl => _http.BaseAddress?.ToString()??string.Empty;
         readonly HttpClient _http;
         readonly Codeer.LowCode.Blazor.RequestInterfaces.ILogger _logger;
         readonly LoadingService _loadingService;
