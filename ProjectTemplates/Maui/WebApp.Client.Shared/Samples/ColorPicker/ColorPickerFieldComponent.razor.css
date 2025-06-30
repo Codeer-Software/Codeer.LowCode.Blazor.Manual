@@ -1,0 +1,38 @@
+textarea[style*="--background:"],
+span[style*="--background:"] {
+  background: var(--background);
+}
+
+textarea[style*="--foreground:"],
+span[style*="--foreground:"] {
+  color: var(--foreground);
+}
+
+.color-tip {
+  width: 24px;
+  height: 24px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  margin-right: 4px;
+}
+
+.color-picker {
+  display: inline-block;
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 8px;
+  padding: 0;
+  border: none;
+  box-shadow: 0 1px 6px rgb(64 64 64 / 20%);
+  margin-right: 6px;
+  box-sizing: border-box;
+}
+
+.color-picker::-webkit-color-swatch{
+  width: 24px;
+  height: 24px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
