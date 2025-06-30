@@ -89,7 +89,7 @@ namespace LowCodeSamples.Client.Shared.Services
             if (_useHotReload == true && _hubConnection == null)
             {
                 _hubConnection = new HubConnectionBuilder()
-                    .WithUrl(_navigationManager.ToAbsoluteUri("/hot_reload_hub"))
+                    .WithUrl(_http.BaseUrl + "hot_reload_hub")
                     .Build();
 
                 _hubConnection.On("ExecuteHotReload", async () =>
