@@ -1,0 +1,60 @@
+@page "/"
+@page "/{PageFrameName}"
+@page "/{PageFrameName}/{ModuleDesignName}"
+@page "/{PageFrameName}/{ModuleDesignName}/{Id}"
+@using Codeer.LowCode.Blazor.Components.AppParts.Page
+@using Codeer.LowCode.Blazor.RequestInterfaces
+@using WebApp.Services
+@using WebApp.Client.Shared.Services
+@implements IDisposable
+@inject IAppInfoService AppInfoService
+@inject INavigationService NavigationService
+
+@if (_isValid)
+{
+  <LowCodePageComponent ModuleDesignName="@ModuleDesignName" PageFrameName="@PageFrameName" Id="@Id" Guid="@(AppInfoService.AsImplement().Guid)"></LowCodePageComponent>
+}
+
+@code {
+  [Parameter]
+  public string? PageFrameName { get; set; }
+
+  [Parameter]
+  public string? ModuleDesignName { get; set; }
+
+  [Parameter]
+  public string? Id { get; set; }
+
+  bool _isValid = false;
+
+  protected override async Task OnInitializedAsync()
+  {
+    await base.OnInitializedAsync();
+    AppInfoService.AsImplement().OnHotReload += PageBase_OnHotReload;
+  }
+
+  public void Dispose() => AppInfoService.AsImplement().OnHotReload -= PageBase_OnHotReload;
+
+  protected override async Task OnParametersSetAsync()
+  {
+    await base.OnParametersSetAsync();
+    await InitPage();
+  }
+
+  private void PageBase_OnHotReload(object? sender, EventArgs e)
+  {
+    _ = InvokeAsync(() =>
+    {
+      NavigationService.CompleteUrl(AppInfoService, PageFrameName, ModuleDesignName);
+      StateHasChanged();
+    });
+  }
+
+  private async Task InitPage()
+  {
+    _isValid = false;
+    await AppInfoService.AsImplement().InitializeAppAsync();
+    _isValid = true;
+    NavigationService.CompleteUrl(AppInfoService, PageFrameName, ModuleDesignName);
+  }
+}
