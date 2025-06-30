@@ -1,0 +1,64 @@
+@using Codeer.LowCode.Blazor.Components
+@using Microsoft.AspNetCore.Components.Forms
+@using Codeer.LowCode.Blazor.Repository.Design
+@using WebApp.Client.Shared.Samples.AIDocumentAnalyzer
+@using Codeer.LowCode.Blazor.Components.Dialog
+@using Microsoft.AspNetCore.Components.Web
+@inherits FieldComponentBase<AITextAnalyzerField>
+@inject IAITextAnalyzerCore AITextAnalyzerCore
+
+@if (IsViewMode == false) {
+  <div>
+    <label>
+      <span class="btn btn-outline-secondary">
+        <i class="bi bi-upload"></i>
+      </span>
+      <InputFile class="form-control d-none"
+                 disabled="@IsDisabled"
+                 id="@WebElementId"
+                 OnChange="@LoadFiles"/>
+    </label>
+    <button class="btn btn-outline-secondary" disabled="@IsDisabled" @onclick="() => OpenTextModal()">
+      Text
+    </button>
+  </div>
+}
+
+<ModalBase @bind-IsOpen="@_isOpen" Title="Input analyze text">
+  <div>
+    <textarea class="form-control mb-2"  disabled="@IsDisabled" id="@WebElementId" @bind="@_inputText" rows="3"></textarea>
+  </div>
+  <div class="text-end">
+    <button class="btn btn-outline-secondary" disabled="@IsDisabled" @onclick="LoadText">
+      Analyze
+    </button>
+    <button class="btn btn-outline-secondary" disabled="@IsDisabled" @onclick="() => _isOpen = false">
+      Close
+    </button>
+  </div>
+</ModalBase>
+
+@code {
+  private string _inputText = string.Empty;
+  private bool _isOpen = false;
+
+  private bool IsDisabled => Field.IsEnabled == false;
+  private bool IsViewMode => Field.IsViewOnly;
+
+  private async Task LoadFiles(InputFileChangeEventArgs e) {
+    var maxAllowedSize = FileFieldDesign.DefaultMaxAllowedSize;
+    var file = e.File;
+    await Field.SetDataByFileAsync(AITextAnalyzerCore, e.File.Name, new StreamContent(file.OpenReadStream(maxAllowedSize)));
+  }
+
+  private async Task LoadText() {
+    _isOpen = false;
+    await Field.SetDataByTextAsync(AITextAnalyzerCore, _inputText);
+  }
+
+  private void OpenTextModal()
+  {
+    _inputText = string.Empty;
+    _isOpen = true;
+  }
+}
