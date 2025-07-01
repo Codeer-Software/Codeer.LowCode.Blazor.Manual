@@ -1,28 +1,49 @@
 {
-  "Name": "TileListPage",
-  "DataSourceName": "Main",
-  "DbTable": "menu_files",
-  "CanCreate": false,
-  "CanUpdate": false,
-  "CanDelete": false,
+  "Name": "BarcodeInput",
+  "DataSourceName": "",
+  "DbTable": "",
+  "CanCreate": true,
+  "CanUpdate": true,
+  "CanDelete": true,
   "Fields": [
     {
-      "DbColumn": "id",
-      "Placeholder": "",
-      "IsManualInput": false,
-      "CompositeIdVariables": [],
-      "CompositeIdSeparator": "",
-      "IsUpdateProtected": false,
-      "IsSimpleSearchParameter": false,
-      "OnSearchDataChanged": "",
-      "DisplayName": "",
-      "IsRequired": false,
-      "OnDataChanged": "",
-      "Name": "Id",
-      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.IdFieldDesign"
+      "Text": "",
+      "Icon": "bi bi-upc",
+      "Style": "Default",
+      "RelativeField": "",
+      "OnClick": "",
+      "Name": "アイテムCDアイコン",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
     },
     {
-      "DbColumn": "name",
+      "Text": "",
+      "Icon": "bi bi-bookshelf",
+      "Style": "Default",
+      "RelativeField": "",
+      "OnClick": "",
+      "Name": "棚番CDアイコン",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Text": "",
+      "Icon": "bi bi-search",
+      "Style": "Default",
+      "RelativeField": "",
+      "OnClick": "",
+      "Name": "ロットNOアイコン",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Text": "",
+      "Icon": "bi bi-calendar3",
+      "Style": "Default",
+      "RelativeField": "",
+      "OnClick": "",
+      "Name": "使用期限アイコン",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "DbColumn": "",
       "IsMultiline": false,
       "Placeholder": "",
       "IsUpdateProtected": false,
@@ -31,35 +52,94 @@
       "DisplayName": "",
       "IsRequired": false,
       "OnDataChanged": "",
-      "Name": "Name",
+      "Name": "Text1",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
     },
     {
+      "DbColumn": "",
+      "IsMultiline": false,
       "Placeholder": "",
-      "Format": "C",
-      "DbColumn": "price",
       "IsUpdateProtected": false,
       "IsSimpleSearchParameter": false,
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
       "OnDataChanged": "",
-      "Name": "Price",
-      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.NumberFieldDesign"
+      "Name": "Text2",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
     },
     {
+      "DbColumn": "",
+      "IsMultiline": false,
+      "Placeholder": "",
       "IsUpdateProtected": false,
-      "DisplayName": "",
-      "ShowPreview": true,
-      "StorageName": "Azure",
-      "DbColumnFileName": "file_name",
-      "DbColumnFileSize": "file_size",
-      "DbColumnFileGuid": "file_guid",
-      "ObjectFit": "Cover",
-      "OnDataChanged": "",
+      "IsSimpleSearchParameter": false,
       "OnSearchDataChanged": "",
-      "Name": "File",
-      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FileFieldDesign"
+      "DisplayName": "",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "Text3",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
+    },
+    {
+      "DbColumn": "",
+      "IsMultiline": false,
+      "Placeholder": "",
+      "IsUpdateProtected": false,
+      "IsSimpleSearchParameter": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "Text4",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
+    },
+    {
+      "Text": "",
+      "Icon": "bi bi-cart",
+      "Style": "Default",
+      "RelativeField": "",
+      "OnClick": "",
+      "Name": "使用期限アイコン1",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Text": "Barcode input",
+      "Icon": "",
+      "Style": "H2",
+      "RelativeField": "",
+      "OnClick": "",
+      "Name": "ラベル",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Text": "Submit",
+      "ImageResourcePath": "",
+      "ImageResourceSet": {
+        "Default": "",
+        "Focus": "",
+        "Active": "",
+        "Hover": "",
+        "Disabled": ""
+      },
+      "Icon": "",
+      "Variant": "Primary",
+      "IsBlock": true,
+      "Name": "サブミットボタン",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.SubmitButtonFieldDesign"
+    },
+    {
+      "DbColumn": "",
+      "IsMultiline": false,
+      "Placeholder": "",
+      "IsUpdateProtected": false,
+      "IsSimpleSearchParameter": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "Text5",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
     }
   ],
   "UserWriteCondition": {
@@ -77,7 +157,7 @@
   "DetailLayouts": {
     "": {
       "OnBeforeInitialization": "",
-      "OnAfterInitialization": "",
+      "OnAfterInitialization": "DetailLayoutDesign_OnAfterInitialization",
       "DataOnlyFields": [],
       "ClassName": "",
       "Color": "",
@@ -85,7 +165,7 @@
       "Layout": {
         "Name": "",
         "Padding": {},
-        "IsBordered": true,
+        "IsBordered": false,
         "IsFlowLayout": false,
         "IsFillAvailable": false,
         "IsExpandable": false,
@@ -96,10 +176,7 @@
         "Rows": [
           {
             "IsWrap": false,
-            "Height": 350,
-            "Margin": {
-              "Right": 0
-            },
+            "Margin": {},
             "GridRowType": "Normal",
             "CanResize": false,
             "BackgroundColor": "",
@@ -107,7 +184,64 @@
             "Columns": [
               {
                 "Layout": {
-                  "FieldName": "File",
+                  "FieldName": "ラベル",
+                  "ContextMenu": "",
+                  "ClassName": "",
+                  "FontFamily": "",
+                  "Color": "",
+                  "BackgroundColor": "",
+                  "Name": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Padding": {},
+                "BackgroundColor": "",
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "HorizontalAlignment": "Center",
+                "CanResize": false,
+                "Border": "None"
+              }
+            ]
+          },
+          {
+            "IsWrap": false,
+            "Margin": {},
+            "GridRowType": "Normal",
+            "CanResize": false,
+            "BackgroundColor": "",
+            "IsRowMarginRemoved": false,
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "アイテムCDアイコン",
+                  "ContextMenu": "",
+                  "ClassName": "",
+                  "FontFamily": "",
+                  "FontSize": 40,
+                  "Color": "",
+                  "BackgroundColor": "",
+                  "Name": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Width": 59,
+                "Padding": {},
+                "BackgroundColor": "",
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "CanResize": false,
+                "Border": "None"
+              },
+              {
+                "Layout": {
+                  "FieldName": "Text1",
                   "ContextMenu": "",
                   "ClassName": "",
                   "FontFamily": "",
@@ -131,9 +265,7 @@
           },
           {
             "IsWrap": false,
-            "Margin": {
-              "Top": 0
-            },
+            "Margin": {},
             "GridRowType": "Normal",
             "CanResize": false,
             "BackgroundColor": "",
@@ -141,15 +273,17 @@
             "Columns": [
               {
                 "Layout": {
-                  "FieldName": "Name",
+                  "FieldName": "棚番CDアイコン",
                   "ContextMenu": "",
                   "ClassName": "",
                   "FontFamily": "",
+                  "FontSize": 35,
                   "Color": "",
                   "BackgroundColor": "",
                   "Name": "",
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
+                "Width": 59,
                 "Padding": {},
                 "BackgroundColor": "",
                 "BorderStyle": {
@@ -163,65 +297,7 @@
               },
               {
                 "Layout": {
-                  "FieldName": "Price",
-                  "ContextMenu": "",
-                  "ClassName": "",
-                  "FontFamily": "",
-                  "Color": "",
-                  "BackgroundColor": "",
-                  "Name": "",
-                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                },
-                "Padding": {},
-                "BackgroundColor": "",
-                "BorderStyle": {
-                  "LeftColor": "",
-                  "TopColor": "",
-                  "RightColor": "",
-                  "BottomColor": ""
-                },
-                "CanResize": false,
-                "Border": "None"
-              }
-            ]
-          }
-        ],
-        "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
-      }
-    },
-    "LayoutForMobile": {
-      "OnBeforeInitialization": "",
-      "OnAfterInitialization": "",
-      "DataOnlyFields": [],
-      "ClassName": "",
-      "Color": "",
-      "BackgroundColor": "",
-      "Layout": {
-        "Name": "",
-        "Padding": {},
-        "IsBordered": true,
-        "IsFlowLayout": false,
-        "IsFillAvailable": false,
-        "IsExpandable": false,
-        "ExpanderLabel": "",
-        "IsExpanderDefaultOpened": false,
-        "ScrollDirection": "Unset",
-        "BackgroundColor": "",
-        "Rows": [
-          {
-            "IsWrap": false,
-            "Height": 320,
-            "Margin": {
-              "Right": 0
-            },
-            "GridRowType": "Normal",
-            "CanResize": false,
-            "BackgroundColor": "",
-            "IsRowMarginRemoved": false,
-            "Columns": [
-              {
-                "Layout": {
-                  "FieldName": "File",
+                  "FieldName": "Text2",
                   "ContextMenu": "",
                   "ClassName": "",
                   "FontFamily": "",
@@ -245,9 +321,7 @@
           },
           {
             "IsWrap": false,
-            "Margin": {
-              "Top": 0
-            },
+            "Margin": {},
             "GridRowType": "Normal",
             "CanResize": false,
             "BackgroundColor": "",
@@ -255,7 +329,31 @@
             "Columns": [
               {
                 "Layout": {
-                  "FieldName": "Name",
+                  "FieldName": "ロットNOアイコン",
+                  "ContextMenu": "",
+                  "ClassName": "",
+                  "FontFamily": "",
+                  "FontSize": 35,
+                  "Color": "",
+                  "BackgroundColor": "",
+                  "Name": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Width": 59,
+                "Padding": {},
+                "BackgroundColor": "",
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "CanResize": false,
+                "Border": "None"
+              },
+              {
+                "Layout": {
+                  "FieldName": "Text3",
                   "ContextMenu": "",
                   "ClassName": "",
                   "FontFamily": "",
@@ -274,10 +372,44 @@
                 },
                 "CanResize": false,
                 "Border": "None"
+              }
+            ]
+          },
+          {
+            "IsWrap": false,
+            "Margin": {},
+            "GridRowType": "Normal",
+            "CanResize": false,
+            "BackgroundColor": "",
+            "IsRowMarginRemoved": false,
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "使用期限アイコン",
+                  "ContextMenu": "",
+                  "ClassName": "",
+                  "FontFamily": "",
+                  "FontSize": 35,
+                  "Color": "",
+                  "BackgroundColor": "",
+                  "Name": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Width": 59,
+                "Padding": {},
+                "BackgroundColor": "",
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "CanResize": false,
+                "Border": "None"
               },
               {
                 "Layout": {
-                  "FieldName": "Price",
+                  "FieldName": "Text4",
                   "ContextMenu": "",
                   "ClassName": "",
                   "FontFamily": "",
@@ -294,6 +426,95 @@
                   "RightColor": "",
                   "BottomColor": ""
                 },
+                "CanResize": false,
+                "Border": "None"
+              }
+            ]
+          },
+          {
+            "IsWrap": false,
+            "Margin": {},
+            "GridRowType": "Normal",
+            "CanResize": false,
+            "BackgroundColor": "",
+            "IsRowMarginRemoved": false,
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "使用期限アイコン1",
+                  "ContextMenu": "",
+                  "ClassName": "",
+                  "FontFamily": "",
+                  "FontSize": 35,
+                  "Color": "",
+                  "BackgroundColor": "",
+                  "Name": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Width": 59,
+                "Padding": {},
+                "BackgroundColor": "",
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "CanResize": false,
+                "Border": "None"
+              },
+              {
+                "Layout": {
+                  "FieldName": "Text5",
+                  "ContextMenu": "",
+                  "ClassName": "",
+                  "FontFamily": "",
+                  "Color": "",
+                  "BackgroundColor": "",
+                  "Name": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Padding": {},
+                "BackgroundColor": "",
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "CanResize": false,
+                "Border": "None"
+              }
+            ]
+          },
+          {
+            "IsWrap": false,
+            "Margin": {},
+            "GridRowType": "Normal",
+            "CanResize": false,
+            "BackgroundColor": "",
+            "IsRowMarginRemoved": false,
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "サブミットボタン",
+                  "ContextMenu": "",
+                  "ClassName": "",
+                  "FontFamily": "",
+                  "Color": "",
+                  "BackgroundColor": "",
+                  "Name": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Padding": {},
+                "BackgroundColor": "",
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "HorizontalAlignment": "Center",
                 "CanResize": false,
                 "Border": "None"
               }
@@ -414,22 +635,23 @@
   "UseListPageSubmitButton": false,
   "ListPageFieldDesign": {
     "LayoutName": "",
-    "TileWidth": 350,
-    "FillSpaces": true,
+    "CanNavigateToDetail": true,
+    "NavigateModuleUrlSegment": "",
+    "IsStriped": false,
     "DisplayName": "",
     "SearchCondition": {
-      "LimitCount": 10,
+      "LimitCount": 50,
       "SortFieldVariable": "",
       "SortDescending": false,
       "SelectFields": [],
       "ModuleName": ""
     },
-    "PagerPosition": "Top",
+    "PagerPosition": "Bottom",
     "UseIndexSort": false,
     "DeleteTogether": false,
     "CanCreate": false,
     "CanUpdate": false,
-    "CanDelete": false,
+    "CanDelete": true,
     "CanUserSort": true,
     "CanSelect": false,
     "OnDataChanged": "",
@@ -437,7 +659,7 @@
     "OnSelectedIndexChanged": "",
     "OnSelectedIndexChanging": "",
     "Name": "",
-    "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TileListFieldDesign"
+    "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ListFieldDesign"
   },
   "CanBulkDataUpdate": false,
   "CanBulkDataDownload": false,

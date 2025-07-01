@@ -42,7 +42,7 @@
 
   private void PageBase_OnHotReload(object? sender, EventArgs e)
   {
-    NavigationService.CompleteUrl(AppInfoService, PageFrameName, ModuleDesignName);
+    CompleteUrl();
     _ = InvokeAsync(StateHasChanged);
   }
 
@@ -51,6 +51,16 @@
     _isValid = false;
     await AppInfoService.AsImplement().InitializeAppAsync();
     _isValid = true;
+    CompleteUrl();
+  }
+
+  private void CompleteUrl()
+  {
+    if (string.IsNullOrEmpty(PageFrameName))
+    {
+      NavigationService.ReplaceTo("/Mobile/Home");
+      return;
+    }
     NavigationService.CompleteUrl(AppInfoService, PageFrameName, ModuleDesignName);
   }
 }
