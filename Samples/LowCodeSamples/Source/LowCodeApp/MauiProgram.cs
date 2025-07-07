@@ -1,9 +1,10 @@
 ﻿using Codeer.LowCode.Blazor.RequestInterfaces;
 using LowCodeApp.Client;
+using LowCodeSamples.Client.Shared.Samples.MobileSensor;
+using LowCodeSamples.Client.Shared.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Maui.LifecycleEvents;
-using LowCodeSamples.Client.Shared.Services;
 
 namespace LowCodeApp
 {
@@ -50,7 +51,8 @@ namespace LowCodeApp
             _baseUrl = builder.Configuration["Network:BaseUrl"] ?? string.Empty;
 
             builder.Services.AddScoped(_ => new HttpClient { BaseAddress = new Uri(_baseUrl) });
-
+            builder.Services.AddSingleton<IGeolocationService, MauiGeolocationService>();
+            builder.Services.AddSingleton<IAccelerometerService, MauiAccelerometerService>();
 #if DEBUG
             builder.Services.AddBlazorWebViewDeveloperTools();
     		builder.Logging.AddDebug();
