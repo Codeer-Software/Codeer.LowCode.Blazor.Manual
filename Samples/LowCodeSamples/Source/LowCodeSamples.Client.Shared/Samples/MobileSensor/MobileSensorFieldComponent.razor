@@ -1,0 +1,69 @@
+@using Codeer.LowCode.Blazor.Components
+@using Microsoft.AspNetCore.Components.Web
+@using Codeer.LowCode.Blazor.Components.Fields
+@using System.Text
+@using Microsoft.CodeAnalysis
+@using Microsoft.Extensions.DependencyInjection
+@inject IServiceProvider ServiceProvider
+@inherits FieldComponentBase<MobileSensorField>
+
+<button class="btn btn-outline-secondary" @onclick="FetchLocation">現在地取得</button>
+@if (Location != null)
+{
+    <p>緯度: @Location?.Latitude</p>
+    <p>経度: @Location?.Longitude</p>
+}
+<p></p>
+@if (!running)
+{
+    <button class="btn btn-outline-secondary" @onclick="StartAccel">センサー開始</button>
+}
+else
+{
+    <button class="btn btn-outline-secondary" @onclick="StopAccel">センサー停止</button>
+    <p>X: @x.ToString("F2") Y: @y.ToString("F2") Z: @z.ToString("F2")</p>
+}
+
+@code {
+    private LowCodeSamples.Client.Shared.Samples.MobileSensor.IGeolocationService? GeoSvc =>
+      ServiceProvider.GetService<LowCodeSamples.Client.Shared.Samples.MobileSensor.IGeolocationService>();
+    private LowCodeSamples.Client.Shared.Samples.MobileSensor.IAccelerometerService? AccelSvc =>
+      ServiceProvider.GetService<LowCodeSamples.Client.Shared.Samples.MobileSensor.IAccelerometerService>();
+    LowCodeSamples.Client.Shared.Samples.MobileSensor.GeoLocation? Location;
+    bool running;
+    double x, y, z;
+
+    async Task FetchLocation()
+    {
+        if (GeoSvc is null)
+        {
+            return;
+        }
+        Location = await GeoSvc.GetLocationAsync();
+    }
+
+    void StartAccel()
+    {
+        if (AccelSvc is null)
+        {
+            return;
+        }
+        AccelSvc.ReadingChanged += (xx, yy, zz) =>
+        {
+            x = xx; y = yy; z = zz;
+            InvokeAsync(StateHasChanged);
+        };
+        AccelSvc.Start(SensorUpdateSpeed.UI);
+        running = true;
+    }
+
+    void StopAccel()
+    {
+        if (AccelSvc is null)
+        {
+            return;
+        }
+        AccelSvc.Stop();
+        running = false;
+    }
+}
