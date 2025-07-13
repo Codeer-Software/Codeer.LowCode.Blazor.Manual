@@ -1,9 +1,10 @@
 ﻿using Codeer.LowCode.Blazor.RequestInterfaces;
 using LowCodeApp.Client;
+using LowCodeSamples.Client.Shared.Samples.MobileSensor;
+using LowCodeSamples.Client.Shared.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Maui.LifecycleEvents;
-using LowCodeSamples.Client.Shared.Services;
 
 namespace LowCodeApp
 {
@@ -50,7 +51,8 @@ namespace LowCodeApp
             _baseUrl = builder.Configuration["Network:BaseUrl"] ?? string.Empty;
 
             builder.Services.AddScoped(_ => new HttpClient { BaseAddress = new Uri(_baseUrl) });
-
+            builder.Services.AddSingleton<IGeolocationService, MauiGeolocationService>();
+            builder.Services.AddSingleton<IAccelerometerService, MauiAccelerometerService>();
 #if DEBUG
             builder.Services.AddBlazorWebViewDeveloperTools();
     		builder.Logging.AddDebug();
@@ -59,17 +61,55 @@ namespace LowCodeApp
             builder.ConfigureLifecycleEvents(events =>
             {
 #if ANDROID
-                events.AddAndroid(android => android.OnCreate((activity, bundle) =>
-                {
-                    _ = CheckLicenseAsync();
-                }));
+                events.AddAndroid(android => android
+                    // 起動時
+                    .OnCreate((activity, bundle) =>
+                    {
+                        _ = CheckLicenseAsync();
+                    })
+                    // Activity がバックグラウンド→フォアグラウンドに来る前
+                    .OnStart(activity =>
+                    {
+                    })
+                    // Activity が完全にフォアグラウンドになった直後
+                    .OnResume(activity =>
+                    {
+                    })
+                    // 電源オフや他アプリ遷移で非アクティブになるとき
+                    .OnPause(activity =>
+                    {
+                    })
+                    // バックグラウンドに入ったとき
+                    .OnStop(activity =>
+                    {
+                    })
+                );
 #endif
 #if IOS
-                events.AddiOS(ios => ios.FinishedLaunching((app, options) =>
-                {
-                    _ = CheckLicenseAsync();
-                    return true;
-                }));
+                events.AddiOS(ios => ios
+                    // 起動完了後
+                    .FinishedLaunching((app, options) =>
+                    {
+                        _ = CheckLicenseAsync();
+                        return true;
+                    })
+                    // バックグラウンドやロック状態から復帰し、アクティブ状態になった直後
+                    .OnActivated(app =>
+                    {
+                    })
+                    // 電源オフ／着信などで非アクティブになる直前
+                    .OnResignActivation(app =>
+                    {
+                    })
+                    // バックグラウンド状態に完全に移行したとき
+                    .DidEnterBackground(app =>
+                    {
+                    })
+                    // バックグラウンドからフォアグラウンドに戻る直前
+                    .WillEnterForeground(app =>
+                    {
+                    })
+                );
 #endif
 #if WINDOWS
                 events.AddWindows(windows => windows.OnLaunched((app, args) =>
