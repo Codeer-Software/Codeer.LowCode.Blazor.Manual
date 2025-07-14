@@ -69,8 +69,8 @@ else
     private async void SelectRow(int index)
     {
         if (Field.Design.CanSelect != true) return;
-        if (await Field.CanChangeSelectedIndex(index) != true) return;
-        await Field.SetSelectedIndex(index);
+        if (await Field.CanChangeSelectedIndexAsync(index) != true) return;
+        await Field.SetSelectedIndexAsync(index);
         StateHasChanged();
     }
 
