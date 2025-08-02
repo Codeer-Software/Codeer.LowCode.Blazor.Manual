@@ -19,22 +19,19 @@
             "IsParameter": false,
             "Name": "date",
             "DbType": "DATE",
-            "DbParameterDirection": "Input",
-            "IsSystemReservedParamter": false
+            "DbParameterDirection": "Input"
           },
           {
             "IsParameter": false,
             "Name": "actual_quantity",
             "DbType": "",
-            "DbParameterDirection": "Input",
-            "IsSystemReservedParamter": false
+            "DbParameterDirection": "Input"
           },
           {
             "IsParameter": false,
             "Name": "target_quantity",
             "DbType": "",
-            "DbParameterDirection": "Input",
-            "IsSystemReservedParamter": false
+            "DbParameterDirection": "Input"
           }
         ]
       },
@@ -50,6 +47,7 @@
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
+      "IgnoreModification": false,
       "OnDataChanged": "",
       "Name": "date",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.DateTimeFieldDesign"
@@ -63,6 +61,7 @@
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
+      "IgnoreModification": false,
       "OnDataChanged": "",
       "Name": "実績",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.NumberFieldDesign"
@@ -76,6 +75,7 @@
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": true,
+      "IgnoreModification": false,
       "OnDataChanged": "",
       "Name": "目標",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.NumberFieldDesign"
@@ -97,6 +97,7 @@
     "": {
       "OnBeforeInitialization": "",
       "OnAfterInitialization": "",
+      "OnLocationChanging": "",
       "DataOnlyFields": [],
       "ClassName": "",
       "Color": "",
@@ -300,9 +301,10 @@
     "DisplayName": "",
     "SearchCondition": {
       "LimitCount": 50,
+      "SelectFields": [],
+      "SortConditions": [],
       "SortFieldVariable": "",
       "SortDescending": false,
-      "SelectFields": [],
       "ModuleName": ""
     },
     "PagerPosition": "Bottom",
@@ -317,6 +319,7 @@
     "OnSearchDataChanged": "",
     "OnSelectedIndexChanged": "",
     "OnSelectedIndexChanging": "",
+    "IgnoreModification": false,
     "Name": "",
     "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ListFieldDesign"
   },

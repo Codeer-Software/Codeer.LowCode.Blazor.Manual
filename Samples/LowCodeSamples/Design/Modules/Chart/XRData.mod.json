@@ -19,64 +19,55 @@
             "IsParameter": false,
             "Name": "sample_group",
             "DbType": "INTEGER",
-            "DbParameterDirection": "Input",
-            "IsSystemReservedParamter": false
+            "DbParameterDirection": "Input"
           },
           {
             "IsParameter": false,
             "Name": "sample_mean",
             "DbType": "",
-            "DbParameterDirection": "Input",
-            "IsSystemReservedParamter": false
+            "DbParameterDirection": "Input"
           },
           {
             "IsParameter": false,
             "Name": "sample_range",
             "DbType": "",
-            "DbParameterDirection": "Input",
-            "IsSystemReservedParamter": false
+            "DbParameterDirection": "Input"
           },
           {
             "IsParameter": false,
             "Name": "xbar_cl",
             "DbType": "",
-            "DbParameterDirection": "Input",
-            "IsSystemReservedParamter": false
+            "DbParameterDirection": "Input"
           },
           {
             "IsParameter": false,
             "Name": "xbar_ucl",
             "DbType": "",
-            "DbParameterDirection": "Input",
-            "IsSystemReservedParamter": false
+            "DbParameterDirection": "Input"
           },
           {
             "IsParameter": false,
             "Name": "xbar_lcl",
             "DbType": "",
-            "DbParameterDirection": "Input",
-            "IsSystemReservedParamter": false
+            "DbParameterDirection": "Input"
           },
           {
             "IsParameter": false,
             "Name": "R_cl",
             "DbType": "",
-            "DbParameterDirection": "Input",
-            "IsSystemReservedParamter": false
+            "DbParameterDirection": "Input"
           },
           {
             "IsParameter": false,
             "Name": "R_ucl",
             "DbType": "",
-            "DbParameterDirection": "Input",
-            "IsSystemReservedParamter": false
+            "DbParameterDirection": "Input"
           },
           {
             "IsParameter": false,
             "Name": "R_lcl",
             "DbType": "",
-            "DbParameterDirection": "Input",
-            "IsSystemReservedParamter": false
+            "DbParameterDirection": "Input"
           }
         ]
       },
@@ -92,6 +83,7 @@
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
+      "IgnoreModification": false,
       "OnDataChanged": "",
       "Name": "sample_group",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.NumberFieldDesign"
@@ -105,6 +97,7 @@
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
+      "IgnoreModification": false,
       "OnDataChanged": "",
       "Name": "sample_mean",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.NumberFieldDesign"
@@ -118,6 +111,7 @@
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
+      "IgnoreModification": false,
       "OnDataChanged": "",
       "Name": "sample_range",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.NumberFieldDesign"
@@ -131,6 +125,7 @@
       "OnSearchDataChanged": "",
       "DisplayName": "XCL",
       "IsRequired": false,
+      "IgnoreModification": false,
       "OnDataChanged": "",
       "Name": "xbar_cl",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.NumberFieldDesign"
@@ -144,6 +139,7 @@
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
+      "IgnoreModification": false,
       "OnDataChanged": "",
       "Name": "xbar_ucl",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.NumberFieldDesign"
@@ -157,6 +153,7 @@
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
+      "IgnoreModification": false,
       "OnDataChanged": "",
       "Name": "xbar_lcl",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.NumberFieldDesign"
@@ -170,6 +167,7 @@
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
+      "IgnoreModification": false,
       "OnDataChanged": "",
       "Name": "R_cl",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.NumberFieldDesign"
@@ -183,6 +181,7 @@
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
+      "IgnoreModification": false,
       "OnDataChanged": "",
       "Name": "R_ucl",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.NumberFieldDesign"
@@ -196,6 +195,7 @@
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
+      "IgnoreModification": false,
       "OnDataChanged": "",
       "Name": "R_lcl",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.NumberFieldDesign"
@@ -209,12 +209,14 @@
       "ShowXAxisGrid": false,
       "ShowYAxisGrid": true,
       "SearchCondition": {
+        "SelectFields": [],
+        "SortConditions": [],
         "SortFieldVariable": "",
         "SortDescending": false,
-        "SelectFields": [],
         "ModuleName": "",
         "Condition": {
           "IsOrMatch": false,
+          "IsNot": false,
           "Children": [],
           "Name": "",
           "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
@@ -243,6 +245,7 @@
     "": {
       "OnBeforeInitialization": "",
       "OnAfterInitialization": "",
+      "OnLocationChanging": "",
       "DataOnlyFields": [],
       "ClassName": "",
       "Color": "",
@@ -502,9 +505,10 @@
     "DisplayName": "",
     "SearchCondition": {
       "LimitCount": 50,
+      "SelectFields": [],
+      "SortConditions": [],
       "SortFieldVariable": "",
       "SortDescending": false,
-      "SelectFields": [],
       "ModuleName": ""
     },
     "PagerPosition": "Bottom",
@@ -519,6 +523,7 @@
     "OnSearchDataChanged": "",
     "OnSelectedIndexChanged": "",
     "OnSelectedIndexChanging": "",
+    "IgnoreModification": false,
     "Name": "",
     "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ListFieldDesign"
   },

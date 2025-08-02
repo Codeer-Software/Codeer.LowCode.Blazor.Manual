@@ -17,6 +17,7 @@
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
+      "IgnoreModification": false,
       "OnDataChanged": "",
       "Name": "Id",
       "TypeFullName": "Codeer.LowCode.Bindings.Fluent.Blazor.Designs.FluentIdFieldDesign"
@@ -30,6 +31,7 @@
       "OnSearchDataChanged": "",
       "DisplayName": "Check",
       "IsRequired": false,
+      "IgnoreModification": false,
       "OnDataChanged": "",
       "Name": "CheckFluentBoolean",
       "TypeFullName": "Codeer.LowCode.Bindings.Fluent.Blazor.Designs.FluentBooleanFieldDesign"
@@ -43,6 +45,7 @@
       "OnSearchDataChanged": "",
       "DisplayName": "Toggle",
       "IsRequired": false,
+      "IgnoreModification": false,
       "OnDataChanged": "",
       "Name": "ToggleFluentBoolean",
       "TypeFullName": "Codeer.LowCode.Bindings.Fluent.Blazor.Designs.FluentBooleanFieldDesign"
@@ -56,19 +59,22 @@
       "OnSearchDataChanged": "",
       "DisplayName": "Switch",
       "IsRequired": false,
+      "IgnoreModification": false,
       "OnDataChanged": "",
       "Name": "SwitchFluentBoolean",
       "TypeFullName": "Codeer.LowCode.Bindings.Fluent.Blazor.Designs.FluentBooleanFieldDesign"
     },
     {
       "StandardInput": false,
-      "Format": "",
       "DbColumn": "date",
+      "Format": "",
+      "IsYearMonthOnly": false,
       "IsUpdateProtected": false,
       "IsSimpleSearchParameter": false,
       "OnSearchDataChanged": "",
       "DisplayName": "Date",
       "IsRequired": false,
+      "IgnoreModification": false,
       "OnDataChanged": "",
       "Name": "FluentDate",
       "TypeFullName": "Codeer.LowCode.Bindings.Fluent.Blazor.Designs.FluentDateFieldDesign"
@@ -76,12 +82,14 @@
     {
       "SearchCondition": {
         "LimitCount": 50,
+        "SelectFields": [],
+        "SortConditions": [],
         "SortFieldVariable": "Id.Value",
         "SortDescending": false,
-        "SelectFields": [],
         "ModuleName": "FluentUILinkData",
         "Condition": {
           "IsOrMatch": false,
+          "IsNot": false,
           "Children": [],
           "Name": "",
           "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
@@ -97,6 +105,7 @@
       "OnSearchDataChanged": "",
       "DisplayName": "Link",
       "IsRequired": false,
+      "IgnoreModification": false,
       "OnDataChanged": "",
       "Name": "FluentLink",
       "TypeFullName": "Codeer.LowCode.Bindings.Fluent.Blazor.Designs.FluentLinkFieldDesign"
@@ -110,6 +119,7 @@
       "OnSearchDataChanged": "",
       "DisplayName": "Number",
       "IsRequired": false,
+      "IgnoreModification": false,
       "OnDataChanged": "",
       "Name": "FluentNumber",
       "TypeFullName": "Codeer.LowCode.Bindings.Fluent.Blazor.Designs.FluentNumberFieldDesign"
@@ -122,12 +132,14 @@
         "D"
       ],
       "SearchCondition": {
+        "SelectFields": [],
+        "SortConditions": [],
         "SortFieldVariable": "",
         "SortDescending": false,
-        "SelectFields": [],
         "ModuleName": "",
         "Condition": {
           "IsOrMatch": false,
+          "IsNot": false,
           "Children": [],
           "Name": "",
           "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
@@ -143,6 +155,7 @@
       "OnSearchDataChanged": "",
       "DisplayName": "Select",
       "IsRequired": false,
+      "IgnoreModification": false,
       "OnDataChanged": "",
       "Name": "FluentSelect",
       "TypeFullName": "Codeer.LowCode.Bindings.Fluent.Blazor.Designs.FluentSelectFieldDesign"
@@ -150,12 +163,14 @@
     {
       "Candidates": [],
       "SearchCondition": {
+        "SelectFields": [],
+        "SortConditions": [],
         "SortFieldVariable": "Id.Value",
         "SortDescending": false,
-        "SelectFields": [],
         "ModuleName": "FluentUILinkData",
         "Condition": {
           "IsOrMatch": false,
+          "IsNot": false,
           "Children": [],
           "Name": "",
           "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
@@ -171,6 +186,7 @@
       "OnSearchDataChanged": "",
       "DisplayName": "SelectLink",
       "IsRequired": false,
+      "IgnoreModification": false,
       "OnDataChanged": "",
       "Name": "FluentSelectLink",
       "TypeFullName": "Codeer.LowCode.Bindings.Fluent.Blazor.Designs.FluentSelectFieldDesign"
@@ -183,6 +199,7 @@
       "OnSearchDataChanged": "",
       "DisplayName": "Time",
       "IsRequired": false,
+      "IgnoreModification": false,
       "OnDataChanged": "",
       "Name": "FluentTime",
       "TypeFullName": "Codeer.LowCode.Bindings.Fluent.Blazor.Designs.FluentTimeFieldDesign"
@@ -191,11 +208,14 @@
       "DbColumn": "text",
       "IsMultiline": false,
       "Placeholder": "",
+      "TextEditEmptyType": "StringEmpty",
+      "ShouldTrimAfterEdit": false,
       "IsUpdateProtected": false,
       "IsSimpleSearchParameter": false,
       "OnSearchDataChanged": "",
       "DisplayName": "Text",
       "IsRequired": false,
+      "IgnoreModification": false,
       "OnDataChanged": "",
       "Name": "FluentText",
       "TypeFullName": "Codeer.LowCode.Bindings.Fluent.Blazor.Designs.FluentTextFieldDesign"
@@ -230,6 +250,7 @@
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
+      "IgnoreModification": false,
       "OnDataChanged": "",
       "Name": "RadioGroup",
       "TypeFullName": "Codeer.LowCode.Bindings.Fluent.Blazor.Designs.FluentRadioGroupFieldDesign"
@@ -394,6 +415,7 @@
     "": {
       "OnBeforeInitialization": "",
       "OnAfterInitialization": "",
+      "OnLocationChanging": "",
       "DataOnlyFields": [
         "RadioGroup"
       ],
@@ -2432,9 +2454,10 @@
     "DisplayName": "",
     "SearchCondition": {
       "LimitCount": 50,
+      "SelectFields": [],
+      "SortConditions": [],
       "SortFieldVariable": "Id.Value",
       "SortDescending": false,
-      "SelectFields": [],
       "ModuleName": ""
     },
     "PagerPosition": "Bottom",
@@ -2449,6 +2472,7 @@
     "OnSearchDataChanged": "",
     "OnSelectedIndexChanged": "",
     "OnSelectedIndexChanging": "",
+    "IgnoreModification": false,
     "Name": "",
     "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ListFieldDesign"
   },

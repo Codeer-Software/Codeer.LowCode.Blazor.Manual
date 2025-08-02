@@ -17,6 +17,7 @@
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
+      "IgnoreModification": false,
       "OnDataChanged": "",
       "Name": "Id",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.IdFieldDesign"
@@ -46,12 +47,14 @@
         "作業中"
       ],
       "SearchCondition": {
+        "SelectFields": [],
+        "SortConditions": [],
         "SortFieldVariable": "",
         "SortDescending": false,
-        "SelectFields": [],
         "ModuleName": "",
         "Condition": {
           "IsOrMatch": false,
+          "IsNot": false,
           "Children": [],
           "Name": "",
           "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
@@ -67,6 +70,7 @@
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
+      "IgnoreModification": false,
       "OnDataChanged": "",
       "Name": "LoginStatusSelect",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.SelectFieldDesign"
@@ -85,11 +89,14 @@
       "IsMultiline": true,
       "Placeholder": "",
       "Rows": 5,
+      "TextEditEmptyType": "StringEmpty",
+      "ShouldTrimAfterEdit": false,
       "IsUpdateProtected": false,
       "IsSimpleSearchParameter": false,
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
+      "IgnoreModification": false,
       "OnDataChanged": "",
       "Name": "ProfileText",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
@@ -112,6 +119,7 @@
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
+      "IgnoreModification": false,
       "OnDataChanged": "",
       "Name": "LoginStatusBoolean",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.BooleanFieldDesign"
@@ -119,12 +127,14 @@
     {
       "SearchCondition": {
         "LimitCount": 50,
+        "SelectFields": [],
+        "SortConditions": [],
         "SortFieldVariable": "Id.Value",
         "SortDescending": false,
-        "SelectFields": [],
         "ModuleName": "UserMaster",
         "Condition": {
           "IsOrMatch": false,
+          "IsNot": false,
           "Children": [],
           "Name": "",
           "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
@@ -140,6 +150,7 @@
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
+      "IgnoreModification": false,
       "OnDataChanged": "LoginAccountLink_OnDataChanged",
       "Name": "LoginAccountLink",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LinkFieldDesign"
@@ -164,39 +175,16 @@
       "DbColumn": "account_name",
       "IsMultiline": false,
       "Placeholder": "",
+      "TextEditEmptyType": "StringEmpty",
+      "ShouldTrimAfterEdit": false,
       "IsUpdateProtected": false,
       "IsSimpleSearchParameter": false,
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
+      "IgnoreModification": false,
       "OnDataChanged": "",
       "Name": "LoginAccountName",
-      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
-    },
-    {
-      "DbColumn": "user_name",
-      "IsMultiline": false,
-      "Placeholder": "",
-      "IsUpdateProtected": false,
-      "IsSimpleSearchParameter": false,
-      "OnSearchDataChanged": "",
-      "DisplayName": "",
-      "IsRequired": false,
-      "OnDataChanged": "",
-      "Name": "LoginAccountLink.UserName",
-      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
-    },
-    {
-      "DbColumn": "user_id",
-      "IsMultiline": false,
-      "Placeholder": "",
-      "IsUpdateProtected": false,
-      "IsSimpleSearchParameter": false,
-      "OnSearchDataChanged": "",
-      "DisplayName": "",
-      "IsRequired": false,
-      "OnDataChanged": "",
-      "Name": "LoginAccountLink.UserId",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
     }
   ],
@@ -216,6 +204,7 @@
     "": {
       "OnBeforeInitialization": "",
       "OnAfterInitialization": "",
+      "OnLocationChanging": "",
       "DataOnlyFields": [],
       "ClassName": "",
       "Color": "",
@@ -690,7 +679,10 @@
       }
     }
   },
-  "LinkFieldNames": [],
+  "LinkFieldNames": [
+    "LoginAccountLink.UserName",
+    "LoginAccountLink.UserId"
+  ],
   "UseListPageSubmitButton": false,
   "ListPageFieldDesign": {
     "LayoutName": "",
@@ -700,9 +692,10 @@
     "DisplayName": "",
     "SearchCondition": {
       "LimitCount": 50,
+      "SelectFields": [],
+      "SortConditions": [],
       "SortFieldVariable": "Id.Value",
       "SortDescending": false,
-      "SelectFields": [],
       "ModuleName": ""
     },
     "PagerPosition": "Bottom",
@@ -717,6 +710,7 @@
     "OnSearchDataChanged": "",
     "OnSelectedIndexChanged": "",
     "OnSelectedIndexChanging": "",
+    "IgnoreModification": false,
     "Name": "",
     "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ListFieldDesign"
   },

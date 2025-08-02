@@ -17,6 +17,7 @@
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
+      "IgnoreModification": false,
       "OnDataChanged": "",
       "Name": "Id",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.IdFieldDesign"
@@ -25,11 +26,14 @@
       "DbColumn": "recipe_name",
       "IsMultiline": false,
       "Placeholder": "",
+      "TextEditEmptyType": "StringEmpty",
+      "ShouldTrimAfterEdit": false,
       "IsUpdateProtected": false,
       "IsSimpleSearchParameter": false,
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
+      "IgnoreModification": false,
       "OnDataChanged": "",
       "Name": "Recipename",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
@@ -38,11 +42,14 @@
       "DbColumn": "serving_size",
       "IsMultiline": false,
       "Placeholder": "",
+      "TextEditEmptyType": "StringEmpty",
+      "ShouldTrimAfterEdit": false,
       "IsUpdateProtected": false,
       "IsSimpleSearchParameter": false,
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
+      "IgnoreModification": false,
       "OnDataChanged": "",
       "Name": "Servingsize",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
@@ -51,11 +58,14 @@
       "DbColumn": "description",
       "IsMultiline": false,
       "Placeholder": "",
+      "TextEditEmptyType": "StringEmpty",
+      "ShouldTrimAfterEdit": false,
       "IsUpdateProtected": false,
       "IsSimpleSearchParameter": false,
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
+      "IgnoreModification": false,
       "OnDataChanged": "",
       "Name": "Description",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
@@ -68,16 +78,19 @@
       "DisplayName": "",
       "SearchCondition": {
         "LimitCount": 2147483647,
+        "SelectFields": [],
+        "SortConditions": [],
         "SortFieldVariable": "",
         "SortDescending": false,
-        "SelectFields": [],
         "ModuleName": "Ingredient",
         "Condition": {
           "IsOrMatch": false,
+          "IsNot": false,
           "Children": [
             {
               "FieldName": "",
               "IsOrMatch": false,
+              "IsNot": false,
               "Children": [
                 {
                   "SearchTargetVariable": "Recipeid.Value",
@@ -106,6 +119,7 @@
       "OnSearchDataChanged": "",
       "OnSelectedIndexChanged": "",
       "OnSelectedIndexChanging": "",
+      "IgnoreModification": false,
       "Name": "IngredientList",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ListFieldDesign"
     },
@@ -117,16 +131,19 @@
       "DisplayName": "",
       "SearchCondition": {
         "LimitCount": 2147483647,
+        "SelectFields": [],
+        "SortConditions": [],
         "SortFieldVariable": "Stepnumber.Value",
         "SortDescending": false,
-        "SelectFields": [],
         "ModuleName": "CookingStep",
         "Condition": {
           "IsOrMatch": false,
+          "IsNot": false,
           "Children": [
             {
               "FieldName": "",
               "IsOrMatch": false,
+              "IsNot": false,
               "Children": [
                 {
                   "SearchTargetVariable": "Recipeid.Value",
@@ -155,18 +172,21 @@
       "OnSearchDataChanged": "",
       "OnSelectedIndexChanged": "",
       "OnSelectedIndexChanging": "",
+      "IgnoreModification": false,
       "Name": "CookingStepList",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ListFieldDesign"
     },
     {
       "SearchCondition": {
         "LimitCount": 2147483647,
+        "SelectFields": [],
+        "SortConditions": [],
         "SortFieldVariable": "",
         "SortDescending": false,
-        "SelectFields": [],
         "ModuleName": "Author",
         "Condition": {
           "IsOrMatch": false,
+          "IsNot": false,
           "Children": [],
           "Name": "",
           "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
@@ -182,6 +202,7 @@
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
+      "IgnoreModification": false,
       "OnDataChanged": "",
       "Name": "Author",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LinkFieldDesign"
@@ -277,58 +298,6 @@
       "OnClick": "",
       "Name": "IngredientListLabel",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
-    },
-    {
-      "DbColumn": "full_name",
-      "IsMultiline": false,
-      "Placeholder": "",
-      "IsUpdateProtected": false,
-      "IsSimpleSearchParameter": false,
-      "OnSearchDataChanged": "",
-      "DisplayName": "",
-      "IsRequired": false,
-      "OnDataChanged": "",
-      "Name": "Author.Fullname",
-      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
-    },
-    {
-      "DbColumn": "email",
-      "IsMultiline": false,
-      "Placeholder": "",
-      "IsUpdateProtected": false,
-      "IsSimpleSearchParameter": false,
-      "OnSearchDataChanged": "",
-      "DisplayName": "",
-      "IsRequired": false,
-      "OnDataChanged": "",
-      "Name": "Author.Email",
-      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
-    },
-    {
-      "DbColumn": "profile",
-      "IsMultiline": true,
-      "Placeholder": "",
-      "IsUpdateProtected": false,
-      "IsSimpleSearchParameter": false,
-      "OnSearchDataChanged": "",
-      "DisplayName": "",
-      "IsRequired": false,
-      "OnDataChanged": "",
-      "Name": "Author.Profile",
-      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
-    },
-    {
-      "DbColumn": "note",
-      "IsMultiline": false,
-      "Placeholder": "",
-      "IsUpdateProtected": false,
-      "IsSimpleSearchParameter": false,
-      "OnSearchDataChanged": "",
-      "DisplayName": "",
-      "IsRequired": false,
-      "OnDataChanged": "",
-      "Name": "IngredientList.Note",
-      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
     }
   ],
   "UserWriteCondition": {
@@ -347,6 +316,7 @@
     "": {
       "OnBeforeInitialization": "",
       "OnAfterInitialization": "",
+      "OnLocationChanging": "",
       "DataOnlyFields": [],
       "ClassName": "",
       "Color": "",
@@ -1286,7 +1256,12 @@
       }
     }
   },
-  "LinkFieldNames": [],
+  "LinkFieldNames": [
+    "Author.Fullname",
+    "Author.Email",
+    "Author.Profile",
+    "IngredientList.Note"
+  ],
   "UseListPageSubmitButton": false,
   "ListPageFieldDesign": {
     "LayoutName": "",
@@ -1296,9 +1271,10 @@
     "DisplayName": "",
     "SearchCondition": {
       "LimitCount": 50,
+      "SelectFields": [],
+      "SortConditions": [],
       "SortFieldVariable": "",
       "SortDescending": false,
-      "SelectFields": [],
       "ModuleName": ""
     },
     "PagerPosition": "Bottom",
@@ -1313,6 +1289,7 @@
     "OnSearchDataChanged": "",
     "OnSelectedIndexChanged": "",
     "OnSelectedIndexChanging": "",
+    "IgnoreModification": false,
     "Name": "",
     "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ListFieldDesign"
   },

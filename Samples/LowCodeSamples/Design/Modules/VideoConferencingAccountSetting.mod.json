@@ -17,6 +17,7 @@
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
+      "IgnoreModification": false,
       "OnDataChanged": "",
       "Name": "Id",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.IdFieldDesign"
@@ -24,12 +25,14 @@
     {
       "SearchCondition": {
         "LimitCount": 50,
+        "SelectFields": [],
+        "SortConditions": [],
         "SortFieldVariable": "Id.Value",
         "SortDescending": false,
-        "SelectFields": [],
         "ModuleName": "VideoConferencingAccount",
         "Condition": {
           "IsOrMatch": false,
+          "IsNot": false,
           "Children": [],
           "Name": "",
           "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
@@ -45,6 +48,7 @@
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
+      "IgnoreModification": false,
       "OnDataChanged": "LoginUserLink_OnDataChanged",
       "Name": "LoginUserLink",
       "TypeFullName": "Codeer.LowCode.Bindings.Fluent.Blazor.Designs.FluentLinkFieldDesign"
@@ -62,11 +66,14 @@
       "DbColumn": "",
       "IsMultiline": false,
       "Placeholder": "",
+      "TextEditEmptyType": "StringEmpty",
+      "ShouldTrimAfterEdit": false,
       "IsUpdateProtected": false,
       "IsSimpleSearchParameter": false,
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
+      "IgnoreModification": false,
       "OnDataChanged": "",
       "Name": "AccountNameText",
       "TypeFullName": "Codeer.LowCode.Bindings.Fluent.Blazor.Designs.FluentTextFieldDesign"
@@ -87,12 +94,14 @@
         "作業中"
       ],
       "SearchCondition": {
+        "SelectFields": [],
+        "SortConditions": [],
         "SortFieldVariable": "",
         "SortDescending": false,
-        "SelectFields": [],
         "ModuleName": "",
         "Condition": {
           "IsOrMatch": false,
+          "IsNot": false,
           "Children": [],
           "Name": "",
           "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
@@ -108,6 +117,7 @@
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
+      "IgnoreModification": false,
       "OnDataChanged": "",
       "Name": "LoginStatusSelect",
       "TypeFullName": "Codeer.LowCode.Bindings.Fluent.Blazor.Designs.FluentSelectFieldDesign"
@@ -126,11 +136,14 @@
       "IsMultiline": true,
       "Placeholder": "",
       "Rows": 5,
+      "TextEditEmptyType": "StringEmpty",
+      "ShouldTrimAfterEdit": false,
       "IsUpdateProtected": false,
       "IsSimpleSearchParameter": false,
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
+      "IgnoreModification": false,
       "OnDataChanged": "",
       "Name": "ProfileText",
       "TypeFullName": "Codeer.LowCode.Bindings.Fluent.Blazor.Designs.FluentTextFieldDesign"
@@ -169,6 +182,7 @@
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
+      "IgnoreModification": false,
       "OnDataChanged": "LoginStatusBoolean_OnDataChanged",
       "Name": "LoginStatusBoolean",
       "TypeFullName": "Codeer.LowCode.Bindings.Fluent.Blazor.Designs.FluentBooleanFieldDesign"
@@ -196,6 +210,7 @@
       "Icon": "",
       "Variant": "Primary",
       "OnClick": "FluentButton_OnClick",
+      "ShowTextInToolTip": false,
       "Name": "FluentButton",
       "TypeFullName": "Codeer.LowCode.Bindings.Fluent.Blazor.Designs.FluentButtonFieldDesign"
     }
@@ -216,6 +231,7 @@
     "": {
       "OnBeforeInitialization": "",
       "OnAfterInitialization": "DetailLayoutDesign_OnAfterInitialization",
+      "OnLocationChanging": "",
       "DataOnlyFields": [],
       "ClassName": "",
       "Color": "",
@@ -900,9 +916,10 @@
     "DisplayName": "",
     "SearchCondition": {
       "LimitCount": 50,
+      "SelectFields": [],
+      "SortConditions": [],
       "SortFieldVariable": "",
       "SortDescending": false,
-      "SelectFields": [],
       "ModuleName": ""
     },
     "PagerPosition": "Bottom",
@@ -917,6 +934,7 @@
     "OnSearchDataChanged": "",
     "OnSelectedIndexChanged": "",
     "OnSelectedIndexChanging": "",
+    "IgnoreModification": false,
     "Name": "",
     "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ListFieldDesign"
   },

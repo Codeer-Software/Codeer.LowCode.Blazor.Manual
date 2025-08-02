@@ -17,6 +17,7 @@
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
+      "IgnoreModification": false,
       "OnDataChanged": "",
       "Name": "Id",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.IdFieldDesign"
@@ -25,11 +26,14 @@
       "DbColumn": "work_flow_name",
       "IsMultiline": false,
       "Placeholder": "",
+      "TextEditEmptyType": "StringEmpty",
+      "ShouldTrimAfterEdit": false,
       "IsUpdateProtected": false,
       "IsSimpleSearchParameter": false,
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
+      "IgnoreModification": false,
       "OnDataChanged": "",
       "Name": "WorkFlowName",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
@@ -37,12 +41,14 @@
     {
       "SearchCondition": {
         "LimitCount": 50,
+        "SelectFields": [],
+        "SortConditions": [],
         "SortFieldVariable": "UserId.Value",
         "SortDescending": false,
-        "SelectFields": [],
         "ModuleName": "UserMaster",
         "Condition": {
           "IsOrMatch": false,
+          "IsNot": false,
           "Children": [],
           "Name": "",
           "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
@@ -58,6 +64,7 @@
       "OnSearchDataChanged": "",
       "DisplayName": "UserId",
       "IsRequired": false,
+      "IgnoreModification": false,
       "OnDataChanged": "UserIdLink_OnDataChanged",
       "Name": "UserIdLink",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LinkFieldDesign"
@@ -66,11 +73,14 @@
       "DbColumn": "remarks",
       "IsMultiline": true,
       "Placeholder": "",
+      "TextEditEmptyType": "StringEmpty",
+      "ShouldTrimAfterEdit": false,
       "IsUpdateProtected": false,
       "IsSimpleSearchParameter": false,
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
+      "IgnoreModification": false,
       "OnDataChanged": "",
       "Name": "Remarks",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
@@ -99,12 +109,14 @@
       "FillSpaces": false,
       "DisplayName": "ApproverDetail",
       "SearchCondition": {
+        "SelectFields": [],
+        "SortConditions": [],
         "SortFieldVariable": "Id.Value",
         "SortDescending": false,
-        "SelectFields": [],
         "ModuleName": "ApproverDetail",
         "Condition": {
           "IsOrMatch": false,
+          "IsNot": false,
           "Children": [
             {
               "SearchTargetVariable": "WorkFlowId.Value",
@@ -129,6 +141,7 @@
       "OnSearchDataChanged": "",
       "OnSelectedIndexChanged": "",
       "OnSelectedIndexChanging": "",
+      "IgnoreModification": false,
       "Name": "ApproverDetailTileList",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TileListFieldDesign"
     },
@@ -207,25 +220,29 @@
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
     },
     {
-      "Format": "",
       "DbColumn": "start_period",
+      "Format": "",
+      "IsYearMonthOnly": false,
       "IsUpdateProtected": false,
       "IsSimpleSearchParameter": false,
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
+      "IgnoreModification": false,
       "OnDataChanged": "",
       "Name": "StartPeriod",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.DateFieldDesign"
     },
     {
-      "Format": "",
       "DbColumn": "end_period",
+      "Format": "",
+      "IsYearMonthOnly": false,
       "IsUpdateProtected": false,
       "IsSimpleSearchParameter": false,
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
+      "IgnoreModification": false,
       "OnDataChanged": "",
       "Name": "EndPeriod",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.DateFieldDesign"
@@ -239,6 +256,7 @@
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
+      "IgnoreModification": false,
       "OnDataChanged": "",
       "Name": "Amount",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.NumberFieldDesign"
@@ -259,12 +277,14 @@
       "IsStriped": false,
       "DisplayName": "",
       "SearchCondition": {
+        "SelectFields": [],
+        "SortConditions": [],
         "SortFieldVariable": "Id.Value",
         "SortDescending": false,
-        "SelectFields": [],
         "ModuleName": "WorkflowDetail",
         "Condition": {
           "IsOrMatch": false,
+          "IsNot": false,
           "Children": [
             {
               "SearchTargetVariable": "WorkflowId.Value",
@@ -289,23 +309,9 @@
       "OnSearchDataChanged": "",
       "OnSelectedIndexChanged": "",
       "OnSelectedIndexChanging": "",
+      "IgnoreModification": false,
       "Name": "WorkFlowDetailList",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ListFieldDesign"
-    },
-    {
-      "DbColumn": "id",
-      "Placeholder": "",
-      "IsManualInput": false,
-      "CompositeIdVariables": [],
-      "CompositeIdSeparator": "",
-      "IsUpdateProtected": false,
-      "IsSimpleSearchParameter": false,
-      "OnSearchDataChanged": "",
-      "DisplayName": "",
-      "IsRequired": false,
-      "OnDataChanged": "",
-      "Name": "UserIdLink.Id",
-      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.IdFieldDesign"
     }
   ],
   "UserWriteCondition": {
@@ -324,6 +330,7 @@
     "": {
       "OnBeforeInitialization": "",
       "OnAfterInitialization": "DetailLayoutDesign_OnAfterInitialization",
+      "OnLocationChanging": "",
       "DataOnlyFields": [],
       "ClassName": "",
       "Color": "",
@@ -1169,7 +1176,9 @@
       }
     }
   },
-  "LinkFieldNames": [],
+  "LinkFieldNames": [
+    "UserIdLink.Id"
+  ],
   "UseListPageSubmitButton": false,
   "ListPageFieldDesign": {
     "LayoutName": "",
@@ -1179,9 +1188,10 @@
     "DisplayName": "",
     "SearchCondition": {
       "LimitCount": 50,
+      "SelectFields": [],
+      "SortConditions": [],
       "SortFieldVariable": "Id.Value",
       "SortDescending": false,
-      "SelectFields": [],
       "ModuleName": ""
     },
     "PagerPosition": "Bottom",
@@ -1196,6 +1206,7 @@
     "OnSearchDataChanged": "",
     "OnSelectedIndexChanged": "",
     "OnSelectedIndexChanging": "",
+    "IgnoreModification": false,
     "Name": "",
     "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ListFieldDesign"
   },

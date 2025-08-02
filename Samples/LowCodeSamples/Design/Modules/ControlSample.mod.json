@@ -92,6 +92,7 @@
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
+      "IgnoreModification": false,
       "OnDataChanged": "",
       "Name": "チェックボックスBoolean",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.BooleanFieldDesign"
@@ -105,6 +106,7 @@
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
+      "IgnoreModification": false,
       "OnDataChanged": "",
       "Name": "トグルBoolean",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.BooleanFieldDesign"
@@ -118,6 +120,7 @@
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
+      "IgnoreModification": false,
       "OnDataChanged": "",
       "Name": "スイッチBoolean",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.BooleanFieldDesign"
@@ -153,6 +156,7 @@
       "Icon": "bi bi-menu-button-fill",
       "Variant": "Primary",
       "OnClick": "",
+      "ShowTextInToolTip": false,
       "Name": "Button",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ButtonFieldDesign"
     },
@@ -166,13 +170,15 @@
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
     },
     {
-      "Format": "",
       "DbColumn": "",
+      "Format": "",
+      "IsYearMonthOnly": false,
       "IsUpdateProtected": false,
       "IsSimpleSearchParameter": false,
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
+      "IgnoreModification": false,
       "OnDataChanged": "",
       "Name": "日付",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.DateFieldDesign"
@@ -195,6 +201,7 @@
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
+      "IgnoreModification": false,
       "OnDataChanged": "",
       "Name": "日時",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.DateTimeFieldDesign"
@@ -208,29 +215,33 @@
       "DbColumnFileSize": "",
       "DbColumnFileGuid": "",
       "ObjectFit": "Contain",
+      "IgnoreModification": false,
       "OnDataChanged": "",
       "OnSearchDataChanged": "",
       "Name": "File",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FileFieldDesign"
     },
     {
+      "DbColumn": "",
       "ModuleName": "Author",
       "LayoutName": "",
-      "OnDataChanged": "",
-      "DbColumn": "",
       "IsUpdateProtected": false,
+      "IgnoreModification": false,
+      "OnDataChanged": "",
       "Name": "Module",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ModuleFieldDesign"
     },
     {
       "SearchCondition": {
         "LimitCount": 50,
+        "SelectFields": [],
+        "SortConditions": [],
         "SortFieldVariable": "",
         "SortDescending": false,
-        "SelectFields": [],
         "ModuleName": "Author",
         "Condition": {
           "IsOrMatch": false,
+          "IsNot": false,
           "Children": [],
           "Name": "",
           "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
@@ -246,6 +257,7 @@
       "OnSearchDataChanged": "",
       "DisplayName": "リンク",
       "IsRequired": false,
+      "IgnoreModification": false,
       "OnDataChanged": "",
       "Name": "Link",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LinkFieldDesign"
@@ -254,11 +266,14 @@
       "DbColumn": "",
       "IsMultiline": false,
       "Placeholder": "",
+      "TextEditEmptyType": "StringEmpty",
+      "ShouldTrimAfterEdit": false,
       "IsUpdateProtected": false,
       "IsSimpleSearchParameter": false,
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
+      "IgnoreModification": false,
       "OnDataChanged": "",
       "Name": "Text",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
@@ -283,6 +298,7 @@
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": true,
+      "IgnoreModification": false,
       "OnDataChanged": "",
       "Name": "数値",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.NumberFieldDesign"
@@ -290,6 +306,7 @@
     {
       "DisplayName": "パスワード",
       "IsRequired": false,
+      "IgnoreModification": false,
       "OnDataChanged": "",
       "Name": "パスワード",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.PasswordFieldDesign"
@@ -353,12 +370,14 @@
         "KTM"
       ],
       "SearchCondition": {
+        "SelectFields": [],
+        "SortConditions": [],
         "SortFieldVariable": "",
         "SortDescending": false,
-        "SelectFields": [],
         "ModuleName": "",
         "Condition": {
           "IsOrMatch": false,
+          "IsNot": false,
           "Children": [],
           "Name": "",
           "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
@@ -374,6 +393,7 @@
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
+      "IgnoreModification": false,
       "OnDataChanged": "",
       "Name": "セレクト",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.SelectFieldDesign"
@@ -399,11 +419,14 @@
       "IsMultiline": false,
       "Placeholder": "Placeholder",
       "MaxLength": 12,
+      "TextEditEmptyType": "StringEmpty",
+      "ShouldTrimAfterEdit": false,
       "IsUpdateProtected": false,
       "IsSimpleSearchParameter": false,
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
+      "IgnoreModification": false,
       "OnDataChanged": "",
       "Name": "テキスト",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
@@ -416,6 +439,7 @@
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
+      "IgnoreModification": false,
       "OnDataChanged": "",
       "Name": "Time",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TimeFieldDesign"
@@ -434,6 +458,7 @@
       "Default": "#000000",
       "DisplayName": "",
       "IsRequired": false,
+      "IgnoreModification": false,
       "OnDataChanged": "",
       "Name": "ColorPicker",
       "TypeFullName": "Design.Samples.ColorPicker.ColorPickerFieldDesign"
@@ -454,12 +479,14 @@
       "IsStriped": false,
       "DisplayName": "",
       "SearchCondition": {
+        "SelectFields": [],
+        "SortConditions": [],
         "SortFieldVariable": "",
         "SortDescending": false,
-        "SelectFields": [],
         "ModuleName": "Author",
         "Condition": {
           "IsOrMatch": false,
+          "IsNot": false,
           "Children": [],
           "Name": "",
           "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
@@ -477,6 +504,7 @@
       "OnSearchDataChanged": "",
       "OnSelectedIndexChanged": "",
       "OnSelectedIndexChanging": "",
+      "IgnoreModification": false,
       "Name": "著者List",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ListFieldDesign"
     },
@@ -609,6 +637,7 @@
     "": {
       "OnBeforeInitialization": "",
       "OnAfterInitialization": "",
+      "OnLocationChanging": "",
       "DataOnlyFields": [],
       "ClassName": "",
       "Color": "",
@@ -3090,9 +3119,10 @@
     "DisplayName": "",
     "SearchCondition": {
       "LimitCount": 50,
+      "SelectFields": [],
+      "SortConditions": [],
       "SortFieldVariable": "",
       "SortDescending": false,
-      "SelectFields": [],
       "ModuleName": ""
     },
     "PagerPosition": "Bottom",
@@ -3107,6 +3137,7 @@
     "OnSearchDataChanged": "",
     "OnSelectedIndexChanged": "",
     "OnSelectedIndexChanging": "",
+    "IgnoreModification": false,
     "Name": "",
     "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ListFieldDesign"
   },

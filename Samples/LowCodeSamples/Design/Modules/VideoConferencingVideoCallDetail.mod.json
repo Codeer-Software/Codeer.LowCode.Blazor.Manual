@@ -17,6 +17,7 @@
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
+      "IgnoreModification": false,
       "OnDataChanged": "",
       "Name": "Id",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.IdFieldDesign"
@@ -25,11 +26,14 @@
       "DbColumn": "user_id",
       "IsMultiline": false,
       "Placeholder": "",
+      "TextEditEmptyType": "StringEmpty",
+      "ShouldTrimAfterEdit": false,
       "IsUpdateProtected": false,
       "IsSimpleSearchParameter": false,
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
+      "IgnoreModification": false,
       "OnDataChanged": "",
       "Name": "UserId",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
@@ -38,11 +42,14 @@
       "DbColumn": "video_call_id",
       "IsMultiline": false,
       "Placeholder": "",
+      "TextEditEmptyType": "StringEmpty",
+      "ShouldTrimAfterEdit": false,
       "IsUpdateProtected": false,
       "IsSimpleSearchParameter": false,
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
+      "IgnoreModification": false,
       "OnDataChanged": "",
       "Name": "VideoCallId",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
@@ -51,11 +58,14 @@
       "DbColumn": "login_status",
       "IsMultiline": false,
       "Placeholder": "",
+      "TextEditEmptyType": "StringEmpty",
+      "ShouldTrimAfterEdit": false,
       "IsUpdateProtected": false,
       "IsSimpleSearchParameter": false,
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
+      "IgnoreModification": false,
       "OnDataChanged": "",
       "Name": "LoginStatus",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
@@ -63,12 +73,14 @@
     {
       "SearchCondition": {
         "LimitCount": 50,
+        "SelectFields": [],
+        "SortConditions": [],
         "SortFieldVariable": "Id.Value",
         "SortDescending": false,
-        "SelectFields": [],
         "ModuleName": "VideoConferencingAccount",
         "Condition": {
           "IsOrMatch": false,
+          "IsNot": false,
           "Children": [],
           "Name": "",
           "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
@@ -84,41 +96,10 @@
       "OnSearchDataChanged": "",
       "DisplayName": "",
       "IsRequired": false,
+      "IgnoreModification": false,
       "OnDataChanged": "",
       "Name": "UserLink",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LinkFieldDesign"
-    },
-    {
-      "Candidates": [
-        "オンライン",
-        "オフライン",
-        "作業中"
-      ],
-      "SearchCondition": {
-        "SortFieldVariable": "",
-        "SortDescending": false,
-        "SelectFields": [],
-        "ModuleName": "",
-        "Condition": {
-          "IsOrMatch": false,
-          "Children": [],
-          "Name": "",
-          "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
-        }
-      },
-      "ValueVariable": "",
-      "DisplayTextVariable": "",
-      "DbColumn": "login_status",
-      "EmptyCandidateType": "StringEmpty",
-      "AllowOrSearch": false,
-      "IsUpdateProtected": false,
-      "IsSimpleSearchParameter": false,
-      "OnSearchDataChanged": "",
-      "DisplayName": "",
-      "IsRequired": false,
-      "OnDataChanged": "",
-      "Name": "UserLink.LoginStatusSelect",
-      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.SelectFieldDesign"
     }
   ],
   "UserWriteCondition": {
@@ -137,6 +118,7 @@
     "": {
       "OnBeforeInitialization": "",
       "OnAfterInitialization": "",
+      "OnLocationChanging": "",
       "DataOnlyFields": [],
       "ClassName": "",
       "Color": "",
@@ -324,7 +306,9 @@
       }
     }
   },
-  "LinkFieldNames": [],
+  "LinkFieldNames": [
+    "UserLink.LoginStatusSelect"
+  ],
   "UseListPageSubmitButton": false,
   "ListPageFieldDesign": {
     "LayoutName": "",
@@ -334,9 +318,10 @@
     "DisplayName": "",
     "SearchCondition": {
       "LimitCount": 50,
+      "SelectFields": [],
+      "SortConditions": [],
       "SortFieldVariable": "",
       "SortDescending": false,
-      "SelectFields": [],
       "ModuleName": ""
     },
     "PagerPosition": "Bottom",
@@ -351,6 +336,7 @@
     "OnSearchDataChanged": "",
     "OnSelectedIndexChanged": "",
     "OnSelectedIndexChanging": "",
+    "IgnoreModification": false,
     "Name": "",
     "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ListFieldDesign"
   },
