@@ -77,7 +77,7 @@ namespace LowCodeSamples.Client.Shared.Services
 
         public async Task<MemoryStream?> GetResourceAsync(string resourcePath)
         {
-            var result = await _http.GetAsync($"/api/module_data/resource?resource={resourcePath}");
+            var result = await _http.GetAsync($"/api/module_data/resource?resource={resourcePath}", false);
             if (result == null) return null;
             return (MemoryStream)await result.Content.ReadAsStreamAsync();
         }
