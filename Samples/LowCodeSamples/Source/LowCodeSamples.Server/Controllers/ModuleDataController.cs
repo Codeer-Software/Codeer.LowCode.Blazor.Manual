@@ -2,10 +2,12 @@ using Codeer.LowCode.Blazor;
 using Codeer.LowCode.Blazor.DataIO;
 using Codeer.LowCode.Blazor.Repository.Data;
 using Codeer.LowCode.Blazor.Repository.Match;
+using Codeer.LowCode.Blazor.RequestInterfaces;
 using Codeer.LowCode.Blazor.Utils;
 using Excel.Report.PDF;
 using LowCodeSamples.Server.Services;
 using LowCodeSamples.Server.Services.FileManagement;
+using MessagePack;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LowCodeSamples.Server.Controllers
@@ -34,8 +36,15 @@ namespace LowCodeSamples.Server.Controllers
         }
 
         [HttpPost("list")]
-        public async Task<Paging<ModuleData>> GetListAsync(int? page, SearchCondition? condition)
-            => await _dataService.ModuleDataIO.GetListAsync(condition!, page ?? 0);
+        public async Task<IActionResult> GetListAsync(List<GetListRequest> request)
+        {
+            var ret = new List<Paging<ModuleData>>();
+            foreach (var e in request)
+            {
+                ret.Add(await _dataService.ModuleDataIO.GetListAsync(e.Condition, e.PageIndex));
+            }
+            return Ok(new MemoryStream(MessagePackSerializer.Typeless.Serialize(ret)));
+        }
 
         [HttpPost]
         public async Task<List<ModuleSubmitResult>> SubmitAsync(List<ModuleSubmitData>? data)
