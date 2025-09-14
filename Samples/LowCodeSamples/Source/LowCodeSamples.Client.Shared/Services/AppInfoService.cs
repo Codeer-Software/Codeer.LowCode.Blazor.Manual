@@ -61,12 +61,15 @@ namespace LowCodeSamples.Client.Shared.Services
             _design = DesignDataTransferLogic.ToDesignData(await _http.GetFromStreamAsync($"/api/module_data/design"));
             var currentUserModule = _design.Modules.Find(_design.AppSettings.CurrentUserModuleDesignName);
             if (currentUserModule == null || string.IsNullOrEmpty(CurrentUserId)) return;
-            CurrentUserData = (await _http.PostAsJsonAsync<SearchCondition, Paging<ModuleData>>($"/api/module_data/list",
-                new()
+            var currentUserRequest = new GetListRequest
+            {
+                Condition = new()
                 {
                     ModuleName = currentUserModule.Name,
                     Condition = new FieldValueMatchCondition { SearchTargetVariable = "Id.Value", Comparison = MatchComparison.Equal, Value = MultiTypeValue.Create(CurrentUserId) }
-                }))?.Items.FirstOrDefault();
+                }
+            };
+            CurrentUserData = (await ModuleDataService.GetListAsync(_http, [currentUserRequest]))?.FirstOrDefault()?.Items.FirstOrDefault();
         }
 
         public ScriptRuntimeTypeManager GetScriptRuntimeTypeManager()

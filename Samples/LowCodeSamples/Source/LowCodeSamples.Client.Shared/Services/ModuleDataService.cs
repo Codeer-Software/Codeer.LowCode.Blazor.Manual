@@ -4,6 +4,7 @@ using Codeer.LowCode.Blazor.Repository.Data;
 using Codeer.LowCode.Blazor.Repository.Match;
 using Codeer.LowCode.Blazor.RequestInterfaces;
 using Codeer.LowCode.Blazor.Utils;
+using MessagePack;
 
 namespace LowCodeSamples.Client.Shared.Services
 {
@@ -14,8 +15,17 @@ namespace LowCodeSamples.Client.Shared.Services
         public ModuleDataService(HttpService http)
             => _http = http;
 
-        public async Task<Paging<ModuleData>> GetListAsync(SearchCondition condition, int pageIndex)
-            => await _http.PostAsJsonAsync<SearchCondition, Paging<ModuleData>>($"/api/module_data/list?page={pageIndex}", condition) ?? new();
+        public async Task<List<Paging<ModuleData>>> GetListAsync(List<GetListRequest> request)
+            => await GetListAsync(_http, request);
+
+        public static async Task<List<Paging<ModuleData>>> GetListAsync(HttpService http, List<GetListRequest> request)
+        {
+            var result = await http.PostAsJsonReturnHttpResponseAsync($"/api/module_data/list", request);
+            if (result == null) return new();
+            using var memory = (MemoryStream)await result!.Content.ReadAsStreamAsync();
+            var obj = MessagePackSerializer.Typeless.Deserialize(memory);
+            return obj as List<Paging<ModuleData>> ?? new();
+        }
 
         public async Task<List<ModuleSubmitResult>?> SubmitAsync(List<ModuleSubmitData> data)
             => await _http.PostAsJsonAsync<List<ModuleSubmitData>, List<ModuleSubmitResult>>($"/api/module_data", data);
