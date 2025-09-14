@@ -30,6 +30,8 @@ namespace LowCodeSamples.Designer
     {
         protected override void OnStartup(StartupEventArgs e)
         {
+            LayoutInfoFileName = Path.Combine(Path.GetDirectoryName(GetType().Assembly.Location)!, "IDELayout.config");
+
             typeof(ApexChartFieldDesign).ToString();
             typeof(SeriesType).ToString(); 
             typeof(FluentTextFieldDesign).ToString();
