@@ -1,3 +1,4 @@
+using Blazor.KHandyInterop;
 using Codeer.LowCode.Blazor.Components.AppParts.Loading;
 using Codeer.LowCode.Blazor.DesignLogic;
 using Codeer.LowCode.Blazor.DesignLogic.Transfer;
@@ -10,6 +11,7 @@ using Codeer.LowCode.Blazor.Utils;
 using LowCodeSamples.Client.Shared.ScriptObjects;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.SignalR.Client;
+using Microsoft.JSInterop;
 
 namespace LowCodeSamples.Client.Shared.Services
 {
@@ -37,7 +39,7 @@ namespace LowCodeSamples.Client.Shared.Services
 
         public DesignData GetDesignData() => _design ?? new();
 
-        public AppInfoService(HttpService http, LoadingService loadingService, NavigationManager navigationManager, ILogger logger, ToasterEx toaster)
+        public AppInfoService(HttpService http, LoadingService loadingService, NavigationManager navigationManager, ILogger logger, ToasterEx toaster, IJSRuntime js)
         {
             _http = http;
             _navigationManager = navigationManager;
@@ -49,6 +51,7 @@ namespace LowCodeSamples.Client.Shared.Services
             _scriptRuntimeTypeManager.AddType<WebApiResult>();
             _scriptRuntimeTypeManager.AddService(new WebApiService(http, logger));
             _scriptRuntimeTypeManager.AddService(new Toaster(toaster));
+            _scriptRuntimeTypeManager.AddService(new KJS(js));
         }
 
         public async Task InitializeAppAsync()

@@ -1,28 +1,29 @@
-using Codeer.LowCode.Blazor.Designer;
-using Codeer.LowCode.Blazor.Designer.Models;
-using Codeer.LowCode.Blazor.Script;
-using LowCodeSamples.Client.Shared.ScriptObjects;
-using Microsoft.Extensions.DependencyInjection;
-using System.Configuration;
-using System.IO;
-using System.IO.Compression;
-using System.Windows;
+using ApexCharts;
+using Blazor.KHandyInterop;
+using Codeer.LowCode.Bindings.ApexCharts.Designer.Controls;
+using Codeer.LowCode.Bindings.ApexCharts.Designs;
+using Codeer.LowCode.Bindings.ApexCharts.Models;
+using Codeer.LowCode.Bindings.Fluent.Blazor.Designs;
 using Codeer.LowCode.Bindings.MudBlazor.Designs;
 using Codeer.LowCode.Bindings.MudBlazor.Installer;
 using Codeer.LowCode.Bindings.Radzen.Blazor.Designs;
+using Codeer.LowCode.Bindings.Radzen.Blazor.Installer;
+using Codeer.LowCode.Blazor.Designer;
+using Codeer.LowCode.Blazor.Designer.Models;
+using Codeer.LowCode.Blazor.Repository.Data;
+using Codeer.LowCode.Blazor.Script;
 using IgniteUI.Blazor.Controls;
+using LowCodeSamples.Client.Shared.AITextAnalyzer;
+using LowCodeSamples.Client.Shared.ScriptObjects;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.FluentUI.AspNetCore.Components;
 using MudBlazor.Services;
 using Radzen;
-using Codeer.LowCode.Bindings.Radzen.Blazor.Installer;
-using LowCodeSamples.Client.Shared.AITextAnalyzer;
-using Codeer.LowCode.Blazor.Repository.Data;
+using System.Configuration;
+using System.IO;
+using System.IO.Compression;
 using System.Net.Http;
-using ApexCharts;
-using Codeer.LowCode.Bindings.ApexCharts.Designs;
-using Codeer.LowCode.Bindings.Fluent.Blazor.Designs;
-using Microsoft.FluentUI.AspNetCore.Components;
-using Codeer.LowCode.Bindings.ApexCharts.Designer.Controls;
-using Codeer.LowCode.Bindings.ApexCharts.Models;
+using System.Windows;
 
 namespace LowCodeSamples.Designer
 {
@@ -56,6 +57,7 @@ namespace LowCodeSamples.Designer
             ScriptRuntimeTypeManager.AddService(new Toaster(null!));
             ScriptRuntimeTypeManager.AddService(new WebApiService(null!, null!));
             ScriptRuntimeTypeManager.AddType<WebApiResult>();
+            ScriptRuntimeTypeManager.AddService(new KJS(null!));
             Services.AddFluentUIComponents();
 
             BlazorRuntime.InstallContentCss("IgniteUI.Blazor", "themes/light/bootstrap.css");
