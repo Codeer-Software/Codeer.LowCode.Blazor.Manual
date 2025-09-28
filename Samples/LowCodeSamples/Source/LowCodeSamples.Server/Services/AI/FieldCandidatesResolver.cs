@@ -1,8 +1,9 @@
 ﻿using Codeer.LowCode.Blazor.DataIO;
-using Codeer.LowCode.Blazor.DataLogic;
 using Codeer.LowCode.Blazor.DesignLogic;
 using Codeer.LowCode.Blazor.Repository.Design;
 using Codeer.LowCode.Blazor.Repository.Match;
+using Codeer.LowCode.Blazor.DataLogic;
+using Codeer.LowCode.Blazor.Repository.Data;
 
 namespace LowCodeSamples.Server.Services.AI
 {
@@ -27,59 +28,71 @@ namespace LowCodeSamples.Server.Services.AI
             _findCandidatesByAI = findCandidatesByAI;
         }
 
-        public async Task<string?> GetSelectValue(string moduleName, SelectFieldDesign design, string text)
+        public async Task GetSelectValue(string moduleName, SelectFieldDesign design, string text, SelectFieldData data)
         {
             if (design.Candidates.Any())
             {
                 foreach (var e in design.Candidates)
                 {
                     var sp = e.Split(",").Select(y => y.Trim()).ToList();
-                    if (sp.Contains(text)) return sp.Last();
+                    if (sp.Contains(text)) data.Value = sp.Last();
                 }
-                return null;
+                return;
             }
-            return await GetValue(moduleName, design.Name, design.SearchCondition.ModuleName, design.DisplayTextVariable, design.ValueVariable, text);
+            var result = await GetValue(moduleName, design.Name, design.SearchCondition.ModuleName, design.DisplayTextVariable, design.ValueVariable, text);
+            data.DisplayText = result.DisplayText ?? string.Empty;
+            data.Value = result.Value;
         }
 
-        public async Task<string?> GetLinkValue(string moduleName, LinkFieldDesign design, string text)
-            => await GetValue(moduleName, design.Name, design.SearchCondition.ModuleName, design.DisplayTextVariable, design.ValueVariable, text);
-
-        async Task<string?> GetValue(string moduleName, string fieldName, string targetModule, string displayTextVariable, string valueVariable, string text)
+        public async Task GetLinkValue(string moduleName, LinkFieldDesign design, string text, LinkFieldData data)
         {
-            var fieldCandidates = _fieldCandidatesList.FirstOrDefault(e => e.ModuleName == moduleName && e.FieldName == fieldName);
-            if (fieldCandidates == null)
-            {
-                var mod = _modules.Find(targetModule);
-                if (mod == null) return null;
+            var result = await GetValue(moduleName, design.Name, design.SearchCondition.ModuleName, design.DisplayTextVariable, design.ValueVariable, text);
+            data.DisplayText = result.DisplayText ?? string.Empty;
+            data.Value = result.Value;
+        }
 
-                var displayTextName = new VariableName(displayTextVariable);
-                var valueName = new VariableName(valueVariable);
+        async Task<(string DisplayText, string? Value)> GetValue(string moduleName, string fieldName, string targetModule, string displayTextVariable, string valueVariable, string text)
+        {
+            var fieldCandidates = await GetFieldCandidates(moduleName, fieldName, targetModule, displayTextVariable, valueVariable);
 
-                var condition = new SearchCondition { ModuleName = mod.Name };
-                condition.SelectFields.Add(displayTextName.FieldName.FullName);
-                condition.SelectFields.Add(valueName.FieldName.FullName);
-                var ret = await _moduleDataIO.GetListAsync(condition, 0);
-
-                fieldCandidates = new FieldCandidates { ModuleName = moduleName, FieldName = targetModule };
-
-                foreach (var e in ret.Items)
-                {
-                    if (!e.TryGetVariableValue(displayTextName, out var displayText) ||
-                        !e.TryGetVariableValue(valueName, out var value)) continue;
-
-                    fieldCandidates.Candidates[displayText?.ToString() ?? string.Empty] = value?.ToString() ?? string.Empty;
-                }
-
-                _fieldCandidatesList.Add(fieldCandidates);
-            }
+            // Since AI is performing data analysis, it is possible that values are passed not only by Key but also by Value.
             var item = fieldCandidates.Candidates.FirstOrDefault(e => e.Key == text || e.Value == text);
 
-            if (string.IsNullOrEmpty(item.Value))
+            if (!string.IsNullOrEmpty(item.Value)) return (item.Key, item.Value);
+
+            var key = (await _findCandidatesByAI(fieldCandidates.Candidates, text)) ?? string.Empty;
+            return fieldCandidates.Candidates.TryGetValue(key, out var value2) ? (key, value2) : (key, null);
+        }
+
+        async Task<FieldCandidates> GetFieldCandidates(string moduleName, string fieldName, string targetModule, string displayTextVariable, string valueVariable)
+        {
+            var fieldCandidates = _fieldCandidatesList.FirstOrDefault(e => e.ModuleName == moduleName && e.FieldName == fieldName);
+            if (fieldCandidates != null) return fieldCandidates;
+
+            var mod = _modules.Find(targetModule);
+            if (mod == null) return fieldCandidates = new FieldCandidates { ModuleName = string.Empty, FieldName = string.Empty };
+
+            var condition = new SearchCondition { ModuleName = mod.Name };
+            var displayTextName = new VariableName(displayTextVariable);
+            var valueName = new VariableName(valueVariable);
+
+            condition.SelectFields.Add(displayTextName.FieldName.FullName);
+            condition.SelectFields.Add(valueName.FieldName.FullName);
+            var ret = await _moduleDataIO.GetListAsync(condition, 0);
+
+            fieldCandidates = new FieldCandidates { ModuleName = moduleName, FieldName = targetModule };
+
+            foreach (var e in ret.Items)
             {
-                var key = await _findCandidatesByAI(fieldCandidates.Candidates, text);
-                return fieldCandidates.Candidates.TryGetValue(key ?? string.Empty, out var value) ? value : null;
+                if (!e.TryGetVariableValue(displayTextName, out var displayText) ||
+                    !e.TryGetVariableValue(valueName, out var value)) continue;
+
+                fieldCandidates.Candidates[displayText?.ToString() ?? string.Empty] = value?.ToString() ?? string.Empty;
             }
-            return item.Value;
+
+            _fieldCandidatesList.Add(fieldCandidates);
+
+            return fieldCandidates;
         }
     }
 }

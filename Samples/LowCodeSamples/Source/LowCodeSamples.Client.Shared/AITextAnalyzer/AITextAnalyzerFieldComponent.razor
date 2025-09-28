@@ -7,7 +7,8 @@
 @inherits FieldComponentBase<AITextAnalyzerField>
 @inject IAITextAnalyzerCore AITextAnalyzerCore
 
-@if (IsViewMode == false) {
+@if (IsViewMode == false)
+{
   <div>
     <label>
       <span class="btn btn-outline-secondary">
@@ -16,7 +17,7 @@
       <InputFile class="form-control d-none"
                  disabled="@IsDisabled"
                  id="@WebElementId"
-                 OnChange="@LoadFiles"/>
+                 OnChange="@LoadFiles" />
     </label>
     <button class="btn btn-outline-secondary" disabled="@IsDisabled" @onclick="() => OpenTextModal()">
       Text
@@ -26,7 +27,7 @@
 
 <ModalBase @bind-IsOpen="@_isOpen" Title="Input analyze text">
   <div>
-    <textarea class="form-control mb-2"  disabled="@IsDisabled" id="@WebElementId" @bind="@_inputText" rows="3"></textarea>
+    <textarea class="form-control mb-2" disabled="@IsDisabled" id="@WebElementId" @bind="@_inputText" rows="3"></textarea>
   </div>
   <div class="text-end">
     <button class="btn btn-outline-secondary" disabled="@IsDisabled" @onclick="LoadText">
@@ -45,13 +46,15 @@
   private bool IsDisabled => Field.IsEnabled == false;
   private bool IsViewMode => Field.IsViewOnly;
 
-  private async Task LoadFiles(InputFileChangeEventArgs e) {
+  private async Task LoadFiles(InputFileChangeEventArgs e)
+  {
     var maxAllowedSize = FileFieldDesign.DefaultMaxAllowedSize;
     var file = e.File;
     await Field.SetDataByFileAsync(AITextAnalyzerCore, e.File.Name, new StreamContent(file.OpenReadStream(maxAllowedSize)));
   }
 
-  private async Task LoadText() {
+  private async Task LoadText()
+  {
     _isOpen = false;
     await Field.SetDataByTextAsync(AITextAnalyzerCore, _inputText);
   }

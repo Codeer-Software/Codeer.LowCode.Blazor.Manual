@@ -1,30 +1,36 @@
 ﻿using Azure;
+using Azure.AI.FormRecognizer.DocumentAnalysis;
+using Azure.AI.OpenAI;
+using Codeer.LowCode.Blazor;
 using Codeer.LowCode.Blazor.DataIO;
 using Codeer.LowCode.Blazor.DesignLogic;
 using Codeer.LowCode.Blazor.Repository.Data;
 using Codeer.LowCode.Blazor.Repository.Design;
-using Codeer.LowCode.Blazor;
-using System.ClientModel;
-using System.Text.Json;
-using Azure.AI.FormRecognizer.DocumentAnalysis;
+using Design.Samples.AIDocumentAnalyzer;
+using LowCodeSamples.Server.Services;
+using LowCodeSamples.Server.Services.AI;
 using OpenAI.Chat;
-using UglyToad.PdfPig;
-using Azure.AI.OpenAI;
+using System.ClientModel;
+using System.Text.Encodings.Web;
+using System.Text.Json;
 
 namespace LowCodeSamples.Server.Services.AI
 {
-
     public static class AITextAnalyzeService
     {
-        public static async Task<ModuleData> FileToDataAsync(ModuleDataIO moduleDataIO, string? moduleName, string? fileName, MemoryStream memoryStream)
+        public static async Task<ModuleData> FileToDataAsync(ModuleDataIO moduleDataIO, string? moduleName, string? fieldName, string? fileName, MemoryStream memoryStream)
         {
-            var text = await ExtractText(fileName ?? string.Empty, memoryStream);
-            return await TextToDataAsync(moduleDataIO, moduleName, text);
+            var text = await ExtractTextFromFile(memoryStream);
+            return await TextToDataAsync(moduleDataIO, moduleName, fieldName, text, $"テキストは[{fileName}]を解析したjsonです。");
         }
 
-        public static async Task<ModuleData> TextToDataAsync(ModuleDataIO moduleDataIO, string? moduleName, string text)
+        public static async Task<ModuleData> TextToDataAsync(ModuleDataIO moduleDataIO, string? moduleName, string? fieldName, string text)
+        => await TextToDataAsync(moduleDataIO, moduleName, fieldName, text, string.Empty);
+
+
+        public static async Task<ModuleData> TextToDataAsync(ModuleDataIO moduleDataIO, string? moduleName, string? fieldName, string text, string source)
         {
-            var json = await DocumentAnalysisByText(DesignerService.GetDesignData().Modules, moduleName ?? string.Empty, text);
+            var json = await DocumentAnalysisByText(DesignerService.GetDesignData().Modules, moduleName ?? string.Empty, fieldName ?? string.Empty, text, source);
             return await CreateModule(DesignerService.GetDesignData().Modules, moduleName ?? string.Empty,
                 new FieldCandidatesResolver(moduleDataIO, DesignerService.GetDesignData().Modules, FindCandidatesByAI),
                 JsonSerializer.Deserialize<JsonElement>(json));
@@ -42,10 +48,10 @@ namespace LowCodeSamples.Server.Services.AI
             var completion = await chatClient.CompleteChatAsync(
                 [
                     new SystemChatMessage(@"
-Please select and return the most likely match from the provided options.
-If no match is found, return ""???"".
-The response will be interpreted by a program, so absolutely include no additional information.
-Do not, under any circumstances, enclose the answer or respond with any acknowledgments, such as ""Understood.""
+提供された選択肢から最も可能性の高い一致を1つ選び、その値のみを返してください。
+一致が見つからない場合は ""???"" を返してください。
+応答はプログラムによって解釈されるため、絶対に追加情報を含めないでください。
+答えを囲んだり、""了解しました"" のような確認の文言で返答したりしないでください。
 "),
                     new UserChatMessage(string.Join(Environment.NewLine, candidates.Keys)),
                     new UserChatMessage(text),
@@ -53,9 +59,13 @@ Do not, under any circumstances, enclose the answer or respond with any acknowle
             return completion.Value.Content.FirstOrDefault()?.Text ?? string.Empty;
         }
 
-        static async Task<string> DocumentAnalysisByText(IModuleDesigns moduleDesigns, string moduleName, string text)
+        static async Task<string> DocumentAnalysisByText(IModuleDesigns moduleDesigns, string moduleName, string? fieldName, string text, string source)
         {
             var config = SystemConfig.Instance.AISettings;
+
+            var mod = moduleDesigns.Find(moduleName);
+            var field = mod?.Fields.FirstOrDefault(e => e.Name == fieldName) as AITextAnalyzerFieldDesign;
+            if (field == null) throw LowCodeException.Create($"Invalid Field {moduleName}.{fieldName}");
 
             var azureClient = new AzureOpenAIClient(
                 new Uri(config.OpenAIEndPoint),
@@ -64,42 +74,73 @@ Do not, under any circumstances, enclose the answer or respond with any acknowle
 
             var completion = await chatClient.CompleteChatAsync(
                 [
-                    new SystemChatMessage(@"
-You are responsible for extracting specific data from the text. I will provide instructions on the data to retrieve along with the text. Please return the data in JSON format.
-The instructions will include field names, and if applicable, put supplementary names and types inside parentheses (supplementary name: type). Use the field names in the JSON output. There may be arrays; in that case, specify them recursively as [{instructions for the child element fields}].
-Since the response will be used in a program, provide only the JSON. Absolutely do not include anything like ""Understood"" or ""```json""."),
+                    new SystemChatMessage(field.Remarks + @$"
+あなたはテキストから特定のデータを抽出する役割を担います。
+私が取得すべきデータの指示とテキストを提示します。
+{source}
+抽出結果は JSON 形式で返してください。
+指示には項目名が含まれ、必要に応じて補助名や型を括弧内に（補助名: 型）の形式で示します。
+JSON 出力では、その項目名をキーとして使用してください。
+配列が含まれる場合は、子要素の項目指示を再帰的に [{{子要素の項目指示}}] の形で指定します。
+この応答はプログラムで使用されるため、JSON のみを返してください。
+""了解しました"" や ""```json"" のような文言は絶対に含めないでください。"),
                     new UserChatMessage(CreateJsonExplanation(moduleDesigns, moduleName)),
                     new UserChatMessage(text),
                 ]);
             return completion.Value.Content.FirstOrDefault()?.Text ?? string.Empty;
         }
 
-        static async Task<string> ExtractText(string fileName, MemoryStream stream)
+        static async Task<string> ExtractTextFromFile(MemoryStream stream)
         {
-            switch (Path.GetExtension(fileName).ToLower())
+            var cfg = SystemConfig.Instance.AISettings;
+            var client = new DocumentAnalysisClient(
+                new Uri(cfg.DocumentAnalysisEndPoint),
+                new AzureKeyCredential(cfg.DocumentAnalysisKey));
+
+            if (stream.CanSeek) stream.Position = 0;
+
+            var options = new AnalyzeDocumentOptions { Locale = "ja" }; // locale
+            var op = await client.AnalyzeDocumentAsync(WaitUntil.Completed, "prebuilt-read", stream, options);
+            var doc = op.Value;
+
+            double R(double v) => Math.Round(v, 3);
+
+            var pagesOut = new List<object>(doc.Pages.Count);
+
+            foreach (var p in doc.Pages)
             {
-                case ".pdf":
-                    return ExtractTextFromPdf(stream);
-                case ".jpg":
-                case ".jpeg":
-                case ".png":
-                    return await ExtractTextFromImage(stream);
+                var linesOut = new List<object>(p.Lines.Count);
+
+                foreach (var line in p.Lines)
+                {
+                    var xs = line.BoundingPolygon.Select(pt => pt.X);
+                    var ys = line.BoundingPolygon.Select(pt => pt.Y);
+                    double left = xs.Min(), right = xs.Max();
+                    double bottom = ys.Min(), top = ys.Max();
+
+                    linesOut.Add(new
+                    {
+                        text = line.Content,
+                        rect = new
+                        {
+                            t = R(top),
+                            l = R(left),
+                            b = R(bottom),
+                            r = R(right)
+                        }
+                    });
+                }
+                pagesOut.Add(new { lines = linesOut });
             }
-            throw LowCodeException.Create("Invalid file type");
-        }
 
-        static async Task<string> ExtractTextFromImage(MemoryStream stream)
-        {
-            var config = SystemConfig.Instance.AISettings;
-            var client = new DocumentAnalysisClient(new Uri(config.DocumentAnalysisEndPoint), new AzureKeyCredential(config.DocumentAnalysisKey));
-            var operation = await client.AnalyzeDocumentAsync(WaitUntil.Completed, "prebuilt-read", stream);
-            return string.Join(Environment.NewLine, operation.Value.Pages.SelectMany(e => e.Lines).Select(e => e.Content));
-        }
-
-        static string ExtractTextFromPdf(MemoryStream stream)
-        {
-            using var document = PdfDocument.Open(stream);
-            return string.Join(Environment.NewLine, document.GetPages().Select(p => p.Text));
+            return JsonSerializer.Serialize(
+                pagesOut,
+                new JsonSerializerOptions
+                {
+                    Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                    WriteIndented = false
+                });
         }
 
         static async Task<ModuleData> CreateModule(IModuleDesigns moduleDesigns, string moduleName, FieldCandidatesResolver candidateCache, JsonElement root)
@@ -118,6 +159,7 @@ Since the response will be used in a program, provide only the JSON. Absolutely 
                 try
                 {
                     if (data is BooleanFieldData booleanData) booleanData.Value = Convert.ToBoolean(value);
+                    else if (data is IdFieldData idData) idData.Value = Convert.ToString(value);
                     else if (data is TextFieldData textData) textData.Value = Convert.ToString(value);
                     else if (data is NumberFieldData numberData) numberData.Value = Convert.ToDecimal(value);
                     else if (data is DateFieldData dateData) dateData.Value = DateOnly.FromDateTime(Convert.ToDateTime(value));
@@ -131,8 +173,8 @@ Since the response will be used in a program, provide only the JSON. Absolutely 
                             ListData.Children.Add(await CreateModule(moduleDesigns, childModuleName, candidateCache, e));
                         }
                     }
-                    else if (data is SelectFieldData selectData) selectData.Value = await candidateCache.GetSelectValue(moduleName, (SelectFieldDesign)fieldDesign, value?.ToString() ?? string.Empty);
-                    else if (data is LinkFieldData linkData) linkData.Value = await candidateCache.GetLinkValue(moduleName, (LinkFieldDesign)fieldDesign, value?.ToString() ?? string.Empty);
+                    else if (data is SelectFieldData selectData) await candidateCache.GetSelectValue(moduleName, (SelectFieldDesign)fieldDesign, value?.ToString() ?? string.Empty, selectData);
+                    else if (data is LinkFieldData linkData) await candidateCache.GetLinkValue(moduleName, (LinkFieldDesign)fieldDesign, value?.ToString() ?? string.Empty, linkData);
                     else continue;
                 }
                 catch
@@ -159,11 +201,10 @@ Since the response will be used in a program, provide only the JSON. Absolutely 
             if (moduleDesign == null) throw LowCodeException.Create($"Invalid Module {moduleName}");
 
             var list = new List<string>();
-            foreach (var field in moduleDesign.Fields)
+            foreach (var field in moduleDesign.Fields.Where(e => IsSupportedType(e)))
             {
                 var info = new List<string>([GetJsonType(field)]);
-                if (field is IDisplayName diplayName) info.Add(diplayName.DisplayName);
-
+                if (field is IDisplayName diplayName && !string.IsNullOrEmpty(diplayName.DisplayName)) info.Add(diplayName.DisplayName);
                 var explanation = $"{field.Name}({string.Join(", ", info)})";
                 if (field is ListFieldDesign listFieldDesign)
                 {
@@ -173,6 +214,18 @@ Since the response will be used in a program, provide only the JSON. Absolutely 
             }
             return string.Join(",", list);
         }
+
+        static bool IsSupportedType(FieldDesignBase? e) =>
+            e is BooleanFieldDesign
+             or IdFieldDesign
+             or TextFieldDesign
+             or NumberFieldDesign
+             or DateFieldDesign
+             or DateTimeFieldDesign
+             or TimeFieldDesign
+             or ListFieldDesign
+             or SelectFieldDesign
+             or LinkFieldDesign;
 
         static string GetJsonType(FieldDesignBase design)
         {

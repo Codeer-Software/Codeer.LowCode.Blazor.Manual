@@ -92,10 +92,10 @@ namespace LowCodeSamples.Designer
 
         class AITextAnalyzerCoreDummy : IAITextAnalyzerCore
         {
-            public Task<ModuleData?> FileToModuleDataAsync(string moduleName, string fileName, StreamContent content)
-                => throw new NotImplementedException();
+            public Task<ModuleData?> FileToModuleDataAsync(string moduleName, string fieldName, string fileName, StreamContent content)
+               => throw new NotImplementedException();
 
-            public Task<ModuleData?> TextToModuleDataAsync(string moduleName, string text)
+            public Task<ModuleData?> TextToModuleDataAsync(string moduleName, string fieldName, string text)
                 => throw new NotImplementedException();
         }
 
