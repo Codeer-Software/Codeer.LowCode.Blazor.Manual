@@ -1,4 +1,6 @@
-﻿using Codeer.LowCode.Blazor.Repository.Data;
+﻿using Codeer.LowCode.Blazor.DesignLogic;
+using Codeer.LowCode.Blazor.OperatingModel;
+using Codeer.LowCode.Blazor.Repository.Data;
 using LowCodeSamples.Server.Services;
 using LowCodeSamples.Server.Services.AI;
 using Microsoft.AspNetCore.Mvc;
@@ -31,7 +33,7 @@ namespace LowCodeSamples.Server.Controllers
         }
 
         [HttpPost("file")]
-        public async Task<ModuleData> FileToDataAsync(string? moduleName, string? fileName)
+        public async Task<ModuleData> FileToDataAsync(string? moduleName, string? fieldName, string? fileName)
         {
             Check();
 
@@ -40,7 +42,7 @@ namespace LowCodeSamples.Server.Controllers
             memoryStream.Position = 0;
             try
             {
-                return await AITextAnalyzeService.FileToDataAsync(_dataService.ModuleDataIO, moduleName, fileName, memoryStream);
+                return await AITextAnalyzeService.FileToDataAsync(_dataService.ModuleDataIO, moduleName, fieldName, fileName, memoryStream);
             }
             catch
             {
@@ -49,13 +51,13 @@ namespace LowCodeSamples.Server.Controllers
         }
 
         [HttpPost("text")]
-        public async Task<ModuleData> TextToDataAsync(string? moduleName, [FromForm] string? text)
+        public async Task<ModuleData> TextToDataAsync(string? moduleName, string? fieldName, [FromForm] string? text)
         {
             Check();
 
             try
             {
-                return await AITextAnalyzeService.TextToDataAsync(_dataService.ModuleDataIO, moduleName, text ?? string.Empty);
+                return await AITextAnalyzeService.TextToDataAsync(_dataService.ModuleDataIO, moduleName, fieldName, text ?? string.Empty);
             }
             catch
             {

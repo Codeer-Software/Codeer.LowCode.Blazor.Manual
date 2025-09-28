@@ -34,7 +34,13 @@ namespace LowCodeSamples.Client.Shared.Samples.AIDocumentAnalyzer
 
         public async Task SetDataByFileAsync(IAITextAnalyzerCore core, string fileName, StreamContent content)
         {
-            var mod = await core.FileToModuleDataAsync(Module.Design.Name, fileName, content);
+            var file = Module.GetField<FileField>(Design.FileField);
+            if (file != null)
+            {
+                await file.SetFileAsync(fileName, content);
+            }
+
+            var mod = await core.FileToModuleDataAsync(Module.Design.Name, Design.Name, fileName, content);
             if (mod == null) return;
             await Module.SetDataAsync(mod);
 
@@ -44,7 +50,7 @@ namespace LowCodeSamples.Client.Shared.Samples.AIDocumentAnalyzer
 
         public async Task SetDataByTextAsync(IAITextAnalyzerCore core, string text)
         {
-            var mod = await core.TextToModuleDataAsync(Module.Design.Name, text);
+            var mod = await core.TextToModuleDataAsync(Module.Design.Name, Design.Name, text);
             if (mod == null) return;
             await Module.SetDataAsync(mod);
 
