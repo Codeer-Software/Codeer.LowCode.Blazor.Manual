@@ -74,7 +74,7 @@ namespace LowCodeSamples.Client.Shared.ScriptObjects
         public void Dispose() => _book.Dispose();
 
         public async Task OverWrite(Module data)
-            => await _book.Worksheets.First().OverWrite(new DataGetter(data));
+            => await _book.OverWrite(new DataGetter(data));
 
         public ExcelCellIndex? FindCellByText(string text)
         {
