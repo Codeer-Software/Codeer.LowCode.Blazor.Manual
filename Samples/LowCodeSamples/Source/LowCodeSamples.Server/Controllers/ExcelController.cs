@@ -14,7 +14,7 @@ namespace LowCodeSamples.Server.Controllers
       {
         await Request.Body.CopyToAsync(memoryStream);
         memoryStream.Position = 0;
-        var pdfStream = ExcelConverter.ConvertToPdf(memoryStream, 1);
+        var pdfStream = ExcelConverter.ConvertToPdf(memoryStream);
         return Ok(pdfStream);
       }
     }
