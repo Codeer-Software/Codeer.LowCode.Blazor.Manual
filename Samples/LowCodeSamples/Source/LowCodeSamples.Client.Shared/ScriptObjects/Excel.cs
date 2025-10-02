@@ -41,7 +41,7 @@ namespace LowCodeSamples.Client.Shared.ScriptObjects
                 if (!string.IsNullOrEmpty(_name))
                     return await GetData(_module, _name, text);
                 var value = new ObjectWrapper<object>();
-                return await _module.TryGetValueByPropertyTextAsync(text, value) ? new ExcelOverWriteCell { Value = value.Value } : null;
+                return await _module.TryGetValueByPropertyTextAsync(text, value) ? new ExcelOverWriteCell { Value = Adjust(value.Value) } : null;
             }
 
             public async Task<ExcelOverWriteCell?> GetData(object? x, string elementName, string text)
@@ -49,8 +49,16 @@ namespace LowCodeSamples.Client.Shared.ScriptObjects
                 if (_module == null)
                     return null;
                 var value = new ObjectWrapper<object>();
-                return await _module.TryGetValueByPropertyTextAsync(x, text, elementName, value) ? new ExcelOverWriteCell { Value = value.Value } : null;
+                return await _module.TryGetValueByPropertyTextAsync(x, text, elementName, value) ? new ExcelOverWriteCell { Value = Adjust(value.Value) } : null;
             }
+
+            static object? Adjust(object? value)
+            {
+                if (value is DateOnly d) return d.ToString();
+                if (value is DateTime dt) return dt.ToString();
+                return value;
+            }
+
         }
 
         XLWorkbook _book;
