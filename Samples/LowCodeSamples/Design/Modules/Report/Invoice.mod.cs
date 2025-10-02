@@ -40,7 +40,6 @@ void DetailLayoutDesign_OnAfterInitialization()
 
 void PDFボタン_OnClick()
 {
-    発行日.Value = DateOnly.FromDateTime(DateTime.Now).ToString();
     using(var memory = Resources.GetMemoryStream("Invoice.xlsx"))
     {
         var excel = new Excel(memory, "Invoice");

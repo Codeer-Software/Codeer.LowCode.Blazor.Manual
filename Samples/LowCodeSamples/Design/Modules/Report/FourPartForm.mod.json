@@ -1,5 +1,5 @@
 {
-  "Name": "Invoice",
+  "Name": "FourPartForm",
   "DataSourceName": "",
   "DbTable": "",
   "CanCreate": true,
@@ -7,7 +7,7 @@
   "CanDelete": true,
   "Fields": [
     {
-      "Text": "請求書",
+      "Text": "四連伝票",
       "Icon": "",
       "Style": "H2",
       "RelativeField": "",
@@ -26,7 +26,7 @@
         "SortConditions": [],
         "SortFieldVariable": "",
         "SortDescending": false,
-        "ModuleName": "InvoiceDetail",
+        "ModuleName": "FourPartFormDetail",
         "Condition": {
           "IsOrMatch": false,
           "IsNot": false,
@@ -48,7 +48,7 @@
       "OnSelectedIndexChanged": "",
       "OnSelectedIndexChanging": "",
       "IgnoreModification": false,
-      "Name": "請求書明細リスト",
+      "Name": "四連伝票明細リスト",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ListFieldDesign"
     },
     {
@@ -94,29 +94,6 @@
     },
     {
       "DbColumn": "",
-      "Format": "",
-      "IsYearMonthOnly": false,
-      "IsUpdateProtected": false,
-      "IsSimpleSearchParameter": false,
-      "OnSearchDataChanged": "",
-      "DisplayName": "",
-      "IsRequired": false,
-      "IgnoreModification": false,
-      "OnDataChanged": "",
-      "Name": "支払期限",
-      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.DateFieldDesign"
-    },
-    {
-      "Text": "",
-      "Icon": "",
-      "Style": "Default",
-      "RelativeField": "支払期限",
-      "OnClick": "",
-      "Name": "支払期限Label",
-      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
-    },
-    {
-      "DbColumn": "",
       "IsMultiline": false,
       "Placeholder": "",
       "TextEditEmptyType": "StringEmpty",
@@ -128,16 +105,16 @@
       "IsRequired": false,
       "IgnoreModification": false,
       "OnDataChanged": "",
-      "Name": "請求先名",
+      "Name": "取引先",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
     },
     {
-      "Text": "",
+      "Text": "取引先：",
       "Icon": "",
       "Style": "Default",
-      "RelativeField": "請求先名",
+      "RelativeField": "取引先",
       "OnClick": "",
-      "Name": "請求先名Label",
+      "Name": "取引先Label",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
     },
     {
@@ -157,29 +134,11 @@
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
     },
     {
-      "Candidates": [
-        "銀行振込",
-        "カード"
-      ],
-      "SearchCondition": {
-        "SelectFields": [],
-        "SortConditions": [],
-        "SortFieldVariable": "",
-        "SortDescending": false,
-        "ModuleName": "",
-        "Condition": {
-          "IsOrMatch": false,
-          "IsNot": false,
-          "Children": [],
-          "Name": "",
-          "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
-        }
-      },
-      "ValueVariable": "",
-      "DisplayTextVariable": "",
       "DbColumn": "",
-      "EmptyCandidateType": "StringEmpty",
-      "AllowOrSearch": false,
+      "IsMultiline": false,
+      "Placeholder": "",
+      "TextEditEmptyType": "StringEmpty",
+      "ShouldTrimAfterEdit": false,
       "IsUpdateProtected": false,
       "IsSimpleSearchParameter": false,
       "OnSearchDataChanged": "",
@@ -187,16 +146,128 @@
       "IsRequired": false,
       "IgnoreModification": false,
       "OnDataChanged": "",
-      "Name": "支払方法セレクト",
-      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.SelectFieldDesign"
+      "Name": "発行日",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
     },
     {
-      "Text": "支払方法",
+      "DbColumn": "",
+      "IsMultiline": false,
+      "Placeholder": "",
+      "TextEditEmptyType": "StringEmpty",
+      "ShouldTrimAfterEdit": false,
+      "IsUpdateProtected": false,
+      "IsSimpleSearchParameter": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "",
+      "IsRequired": false,
+      "IgnoreModification": false,
+      "OnDataChanged": "",
+      "Name": "納入先",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
+    },
+    {
+      "Text": "納入先：",
       "Icon": "",
       "Style": "Default",
-      "RelativeField": "支払方法セレクト",
+      "RelativeField": "納入先",
       "OnClick": "",
-      "Name": "支払方法セレクトLabel",
+      "Name": "納入先Label",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "DbColumn": "",
+      "Format": "",
+      "IsYearMonthOnly": false,
+      "IsUpdateProtected": false,
+      "IsSimpleSearchParameter": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "",
+      "IsRequired": false,
+      "IgnoreModification": false,
+      "OnDataChanged": "",
+      "Name": "注文日",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.DateFieldDesign"
+    },
+    {
+      "Text": "注文日：",
+      "Icon": "",
+      "Style": "Default",
+      "RelativeField": "注文日",
+      "OnClick": "",
+      "Name": "注文日Label",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "DbColumn": "",
+      "Format": "",
+      "IsYearMonthOnly": false,
+      "IsUpdateProtected": false,
+      "IsSimpleSearchParameter": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "",
+      "IsRequired": false,
+      "IgnoreModification": false,
+      "OnDataChanged": "",
+      "Name": "希望納期",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.DateFieldDesign"
+    },
+    {
+      "Text": "希望納期：",
+      "Icon": "",
+      "Style": "Default",
+      "RelativeField": "希望納期",
+      "OnClick": "",
+      "Name": "希望納期Label",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "DbColumn": "",
+      "IsMultiline": false,
+      "Placeholder": "",
+      "TextEditEmptyType": "StringEmpty",
+      "ShouldTrimAfterEdit": false,
+      "IsUpdateProtected": false,
+      "IsSimpleSearchParameter": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "",
+      "IsRequired": false,
+      "IgnoreModification": false,
+      "OnDataChanged": "",
+      "Name": "注文番号",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
+    },
+    {
+      "DbColumn": "",
+      "IsMultiline": false,
+      "Placeholder": "",
+      "TextEditEmptyType": "StringEmpty",
+      "ShouldTrimAfterEdit": false,
+      "IsUpdateProtected": false,
+      "IsSimpleSearchParameter": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "",
+      "IsRequired": false,
+      "IgnoreModification": false,
+      "OnDataChanged": "",
+      "Name": "納品書番号",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
+    },
+    {
+      "Text": "注文番号：",
+      "Icon": "",
+      "Style": "Default",
+      "RelativeField": "注文番号",
+      "OnClick": "",
+      "Name": "注文番号Label",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Text": "納品書番号：",
+      "Icon": "",
+      "Style": "Default",
+      "RelativeField": "納品書番号",
+      "OnClick": "",
+      "Name": "納品書番号Label",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
     }
   ],
@@ -335,90 +406,343 @@
             "Columns": [
               {
                 "Layout": {
-                  "Name": "",
-                  "Padding": {},
-                  "IsBordered": false,
-                  "UseBorderedShrinkWrap": false,
-                  "IsExpandable": false,
-                  "ExpanderLabel": "",
-                  "IsExpanderDefaultOpened": false,
-                  "IsFlowLayout": false,
-                  "IsFillAvailable": false,
-                  "ScrollDirection": "Unset",
+                  "FieldName": "取引先Label",
+                  "ContextMenu": "",
+                  "ClassName": "",
+                  "FontFamily": "",
+                  "FontWeight": "Bold",
+                  "Color": "",
                   "BackgroundColor": "",
-                  "Rows": [
-                    {
-                      "IsWrap": false,
-                      "Margin": {
-                        "Bottom": 0
-                      },
-                      "GridRowType": "Normal",
-                      "CanResize": false,
-                      "BackgroundColor": "",
-                      "IsRowMarginRemoved": false,
-                      "Columns": [
-                        {
-                          "Layout": {
-                            "FieldName": "請求先名Label",
-                            "ContextMenu": "",
-                            "ClassName": "",
-                            "FontFamily": "",
-                            "FontWeight": "Bold",
-                            "Color": "",
-                            "BackgroundColor": "",
-                            "Name": "",
-                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                          },
-                          "Padding": {},
-                          "BackgroundColor": "",
-                          "BorderStyle": {
-                            "LeftColor": "",
-                            "TopColor": "",
-                            "RightColor": "",
-                            "BottomColor": ""
-                          },
-                          "VerticalAlignment": "Bottom",
-                          "CanResize": false,
-                          "Border": "None"
-                        }
-                      ]
-                    },
-                    {
-                      "IsWrap": false,
-                      "Margin": {},
-                      "GridRowType": "Normal",
-                      "CanResize": false,
-                      "BackgroundColor": "",
-                      "IsRowMarginRemoved": false,
-                      "Columns": [
-                        {
-                          "Layout": {
-                            "FieldName": "請求先名",
-                            "ContextMenu": "",
-                            "ClassName": "",
-                            "FontFamily": "",
-                            "Color": "",
-                            "BackgroundColor": "",
-                            "Name": "",
-                            "IsViewOnly": true,
-                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                          },
-                          "Padding": {},
-                          "BackgroundColor": "",
-                          "BorderStyle": {
-                            "LeftColor": "",
-                            "TopColor": "",
-                            "RightColor": "",
-                            "BottomColor": ""
-                          },
-                          "CanResize": false,
-                          "Border": "None"
-                        }
-                      ]
-                    }
-                  ],
-                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
+                  "Name": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
+                "Width": 120,
+                "Padding": {},
+                "BackgroundColor": "",
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "VerticalAlignment": "Middle",
+                "CanResize": false,
+                "Border": "None"
+              },
+              {
+                "Layout": {
+                  "FieldName": "取引先",
+                  "ContextMenu": "",
+                  "ClassName": "",
+                  "FontFamily": "",
+                  "Color": "",
+                  "BackgroundColor": "",
+                  "Name": "",
+                  "IsViewOnly": true,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Padding": {},
+                "BackgroundColor": "",
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "VerticalAlignment": "Middle",
+                "CanResize": false,
+                "Border": "None"
+              },
+              {
+                "Layout": {
+                  "FieldName": "納入先Label",
+                  "ContextMenu": "",
+                  "ClassName": "",
+                  "FontFamily": "",
+                  "FontWeight": "Bold",
+                  "Color": "",
+                  "BackgroundColor": "",
+                  "Name": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Width": 120,
+                "Padding": {},
+                "BackgroundColor": "",
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "VerticalAlignment": "Middle",
+                "CanResize": false,
+                "Border": "None"
+              },
+              {
+                "Layout": {
+                  "FieldName": "納入先",
+                  "ContextMenu": "",
+                  "ClassName": "",
+                  "FontFamily": "",
+                  "Color": "",
+                  "BackgroundColor": "",
+                  "Name": "",
+                  "IsViewOnly": true,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Padding": {},
+                "BackgroundColor": "",
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "VerticalAlignment": "Middle",
+                "CanResize": false,
+                "Border": "None"
+              },
+              {
+                "Layout": {
+                  "FieldName": "注文日Label",
+                  "ContextMenu": "",
+                  "ClassName": "",
+                  "FontFamily": "",
+                  "FontWeight": "Bold",
+                  "Color": "",
+                  "BackgroundColor": "",
+                  "Name": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Width": 120,
+                "Padding": {},
+                "BackgroundColor": "",
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "VerticalAlignment": "Middle",
+                "CanResize": false,
+                "Border": "None"
+              },
+              {
+                "Layout": {
+                  "FieldName": "注文日",
+                  "ContextMenu": "",
+                  "ClassName": "",
+                  "FontFamily": "",
+                  "Color": "",
+                  "BackgroundColor": "",
+                  "Name": "",
+                  "IsViewOnly": true,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Padding": {},
+                "BackgroundColor": "",
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "VerticalAlignment": "Middle",
+                "CanResize": false,
+                "Border": "None"
+              },
+              {
+                "Padding": {},
+                "BackgroundColor": "",
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "CanResize": false,
+                "Border": "None"
+              }
+            ]
+          },
+          {
+            "IsWrap": false,
+            "Margin": {},
+            "GridRowType": "Normal",
+            "CanResize": false,
+            "BackgroundColor": "",
+            "IsRowMarginRemoved": false,
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "注文番号Label",
+                  "ContextMenu": "",
+                  "ClassName": "",
+                  "FontFamily": "",
+                  "FontWeight": "Bold",
+                  "Color": "",
+                  "BackgroundColor": "",
+                  "Name": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Width": 120,
+                "Padding": {},
+                "BackgroundColor": "",
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "VerticalAlignment": "Middle",
+                "CanResize": false,
+                "Border": "None"
+              },
+              {
+                "Layout": {
+                  "FieldName": "注文番号",
+                  "ContextMenu": "",
+                  "ClassName": "",
+                  "FontFamily": "",
+                  "Color": "",
+                  "BackgroundColor": "",
+                  "Name": "",
+                  "IsViewOnly": true,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Padding": {},
+                "BackgroundColor": "",
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "VerticalAlignment": "Middle",
+                "CanResize": false,
+                "Border": "None"
+              },
+              {
+                "Layout": {
+                  "FieldName": "納品書番号Label",
+                  "ContextMenu": "",
+                  "ClassName": "",
+                  "FontFamily": "",
+                  "FontWeight": "Bold",
+                  "Color": "",
+                  "BackgroundColor": "",
+                  "Name": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Width": 120,
+                "Padding": {},
+                "BackgroundColor": "",
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "VerticalAlignment": "Middle",
+                "CanResize": false,
+                "Border": "None"
+              },
+              {
+                "Layout": {
+                  "FieldName": "納品書番号",
+                  "ContextMenu": "",
+                  "ClassName": "",
+                  "FontFamily": "",
+                  "Color": "",
+                  "BackgroundColor": "",
+                  "Name": "",
+                  "IsViewOnly": true,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Padding": {},
+                "BackgroundColor": "",
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "VerticalAlignment": "Middle",
+                "CanResize": false,
+                "Border": "None"
+              },
+              {
+                "Layout": {
+                  "FieldName": "希望納期Label",
+                  "ContextMenu": "",
+                  "ClassName": "",
+                  "FontFamily": "",
+                  "FontWeight": "Bold",
+                  "Color": "",
+                  "BackgroundColor": "",
+                  "Name": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Width": 120,
+                "Padding": {},
+                "BackgroundColor": "",
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "VerticalAlignment": "Middle",
+                "CanResize": false,
+                "Border": "None"
+              },
+              {
+                "Layout": {
+                  "FieldName": "希望納期",
+                  "ContextMenu": "",
+                  "ClassName": "",
+                  "FontFamily": "",
+                  "Color": "",
+                  "BackgroundColor": "",
+                  "Name": "",
+                  "IsViewOnly": true,
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Padding": {},
+                "BackgroundColor": "",
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "VerticalAlignment": "Middle",
+                "CanResize": false,
+                "Border": "None"
+              },
+              {
+                "Padding": {},
+                "BackgroundColor": "",
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "CanResize": false,
+                "Border": "None"
+              }
+            ]
+          },
+          {
+            "IsWrap": false,
+            "Margin": {},
+            "GridRowType": "Normal",
+            "CanResize": false,
+            "BackgroundColor": "",
+            "IsRowMarginRemoved": false,
+            "Columns": [
+              {
                 "Padding": {},
                 "BackgroundColor": "",
                 "BorderStyle": {
@@ -431,91 +755,6 @@
                 "Border": "None"
               },
               {
-                "Layout": {
-                  "Name": "",
-                  "Padding": {},
-                  "IsBordered": false,
-                  "UseBorderedShrinkWrap": false,
-                  "IsExpandable": false,
-                  "ExpanderLabel": "",
-                  "IsExpanderDefaultOpened": false,
-                  "IsFlowLayout": false,
-                  "IsFillAvailable": false,
-                  "ScrollDirection": "Unset",
-                  "BackgroundColor": "",
-                  "Rows": [
-                    {
-                      "IsWrap": false,
-                      "Margin": {
-                        "Bottom": 0
-                      },
-                      "GridRowType": "Normal",
-                      "CanResize": false,
-                      "BackgroundColor": "",
-                      "IsRowMarginRemoved": false,
-                      "Columns": [
-                        {
-                          "Layout": {
-                            "FieldName": "支払期限Label",
-                            "ContextMenu": "",
-                            "ClassName": "",
-                            "FontFamily": "",
-                            "FontWeight": "Bold",
-                            "Color": "",
-                            "BackgroundColor": "",
-                            "Name": "",
-                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                          },
-                          "Padding": {},
-                          "BackgroundColor": "",
-                          "BorderStyle": {
-                            "LeftColor": "",
-                            "TopColor": "",
-                            "RightColor": "",
-                            "BottomColor": ""
-                          },
-                          "VerticalAlignment": "Bottom",
-                          "CanResize": false,
-                          "Border": "None"
-                        }
-                      ]
-                    },
-                    {
-                      "IsWrap": false,
-                      "Margin": {},
-                      "GridRowType": "Normal",
-                      "CanResize": false,
-                      "BackgroundColor": "",
-                      "IsRowMarginRemoved": false,
-                      "Columns": [
-                        {
-                          "Layout": {
-                            "FieldName": "支払期限",
-                            "ContextMenu": "",
-                            "ClassName": "",
-                            "FontFamily": "",
-                            "Color": "",
-                            "BackgroundColor": "",
-                            "Name": "",
-                            "IsViewOnly": true,
-                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                          },
-                          "Padding": {},
-                          "BackgroundColor": "",
-                          "BorderStyle": {
-                            "LeftColor": "",
-                            "TopColor": "",
-                            "RightColor": "",
-                            "BottomColor": ""
-                          },
-                          "CanResize": false,
-                          "Border": "None"
-                        }
-                      ]
-                    }
-                  ],
-                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
-                },
                 "Padding": {},
                 "BackgroundColor": "",
                 "BorderStyle": {
@@ -528,91 +767,6 @@
                 "Border": "None"
               },
               {
-                "Layout": {
-                  "Name": "",
-                  "Padding": {},
-                  "IsBordered": false,
-                  "UseBorderedShrinkWrap": false,
-                  "IsExpandable": false,
-                  "ExpanderLabel": "",
-                  "IsExpanderDefaultOpened": false,
-                  "IsFlowLayout": false,
-                  "IsFillAvailable": false,
-                  "ScrollDirection": "Unset",
-                  "BackgroundColor": "",
-                  "Rows": [
-                    {
-                      "IsWrap": false,
-                      "Margin": {
-                        "Bottom": 0
-                      },
-                      "GridRowType": "Normal",
-                      "CanResize": false,
-                      "BackgroundColor": "",
-                      "IsRowMarginRemoved": false,
-                      "Columns": [
-                        {
-                          "Layout": {
-                            "FieldName": "支払方法セレクトLabel",
-                            "ContextMenu": "",
-                            "ClassName": "",
-                            "FontFamily": "",
-                            "FontWeight": "Bold",
-                            "Color": "",
-                            "BackgroundColor": "",
-                            "Name": "",
-                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                          },
-                          "Padding": {},
-                          "BackgroundColor": "",
-                          "BorderStyle": {
-                            "LeftColor": "",
-                            "TopColor": "",
-                            "RightColor": "",
-                            "BottomColor": ""
-                          },
-                          "VerticalAlignment": "Bottom",
-                          "CanResize": false,
-                          "Border": "None"
-                        }
-                      ]
-                    },
-                    {
-                      "IsWrap": false,
-                      "Margin": {},
-                      "GridRowType": "Normal",
-                      "CanResize": false,
-                      "BackgroundColor": "",
-                      "IsRowMarginRemoved": false,
-                      "Columns": [
-                        {
-                          "Layout": {
-                            "FieldName": "支払方法セレクト",
-                            "ContextMenu": "",
-                            "ClassName": "",
-                            "FontFamily": "",
-                            "Color": "",
-                            "BackgroundColor": "",
-                            "Name": "",
-                            "IsViewOnly": true,
-                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                          },
-                          "Padding": {},
-                          "BackgroundColor": "",
-                          "BorderStyle": {
-                            "LeftColor": "",
-                            "TopColor": "",
-                            "RightColor": "",
-                            "BottomColor": ""
-                          },
-                          "CanResize": false,
-                          "Border": "None"
-                        }
-                      ]
-                    }
-                  ],
-                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
-                },
                 "Padding": {},
                 "BackgroundColor": "",
                 "BorderStyle": {
@@ -636,7 +790,7 @@
                   "Name": "",
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
-                "Width": 200,
+                "Width": 150,
                 "Padding": {},
                 "BackgroundColor": "",
                 "BorderStyle": {
@@ -662,7 +816,7 @@
                   "IsViewOnly": true,
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
-                "Width": 200,
+                "Width": 150,
                 "Padding": {},
                 "BackgroundColor": "",
                 "BorderStyle": {
@@ -688,7 +842,7 @@
             "Columns": [
               {
                 "Layout": {
-                  "FieldName": "請求書明細リスト",
+                  "FieldName": "四連伝票明細リスト",
                   "ContextMenu": "",
                   "ClassName": "",
                   "FontFamily": "",
