@@ -8,5 +8,4 @@ void ClearButton_OnClick()
     Post.Value = null;
     TEL.Value = null;
     URL.Value = null;
-    IsMVP.Value = null;
 }

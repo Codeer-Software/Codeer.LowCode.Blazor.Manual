@@ -287,3 +287,12 @@ void PDFボタン_OnClick()
         excel.DownloadPdf();
     }
 }
+
+void Excelテンプレートダウンロードボタン_OnClick()
+{
+    using(var memory = Resources.GetMemoryStream("PurchaseOrder.xlsx"))
+    {
+        var excel = new Excel(memory, "PurchaseOrder");
+        excel.Download();
+    }
+}
