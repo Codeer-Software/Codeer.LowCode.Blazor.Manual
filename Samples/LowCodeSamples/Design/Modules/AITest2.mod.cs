@@ -12,3 +12,11 @@ void AITextAnalyzer_DataImportCompleted()
 {
     List_OnDataChanged();
 }
+void 請求書サンプルダウンロードボタン_OnClick()
+{
+    using(var memory = Resources.GetMemoryStream("InvoiceSample.xlsx"))
+    {
+        var excel = new Excel(memory, "InvoiceSample");
+        excel.DownloadPdf();
+    }
+}
