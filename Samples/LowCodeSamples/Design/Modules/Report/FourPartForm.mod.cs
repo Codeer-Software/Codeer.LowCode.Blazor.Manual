@@ -37,3 +37,12 @@ void PDFボタン_OnClick()
         excel.DownloadPdf();
     }
 }
+
+void Excelテンプレートダウンロードボタン_OnClick()
+{
+     using(var memory = Resources.GetMemoryStream("FourPartForm.xlsx"))
+    {
+        var excel = new Excel(memory, "FourPartForm");
+        excel.Download();
+    }
+}

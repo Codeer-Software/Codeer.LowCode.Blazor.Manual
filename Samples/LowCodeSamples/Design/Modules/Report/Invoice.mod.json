@@ -141,22 +141,6 @@
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
     },
     {
-      "DbColumn": "",
-      "IsMultiline": false,
-      "Placeholder": "",
-      "TextEditEmptyType": "StringEmpty",
-      "ShouldTrimAfterEdit": false,
-      "IsUpdateProtected": false,
-      "IsSimpleSearchParameter": false,
-      "OnSearchDataChanged": "",
-      "DisplayName": "",
-      "IsRequired": false,
-      "IgnoreModification": false,
-      "OnDataChanged": "",
-      "Name": "支払期限テキスト",
-      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
-    },
-    {
       "Candidates": [
         "銀行振込",
         "カード"
@@ -198,6 +182,39 @@
       "OnClick": "",
       "Name": "支払方法セレクトLabel",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Text": "Excelテンプレート",
+      "ImageResourcePath": "",
+      "ImageResourceSet": {
+        "Default": "",
+        "Focus": "",
+        "Active": "",
+        "Hover": "",
+        "Disabled": ""
+      },
+      "Icon": "",
+      "Variant": "Success",
+      "OnClick": "Excelテンプレートダウンロードボタン_OnClick",
+      "ShowTextInToolTip": false,
+      "Name": "Excelテンプレートダウンロードボタン",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ButtonFieldDesign"
+    },
+    {
+      "ResourcePath": "Report\\テンプレートExcel_請求書.png",
+      "ObjectFit": "Contain",
+      "OnClick": "",
+      "Name": "画像表示",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ImageViewerFieldDesign"
+    },
+    {
+      "Text": "PDF作成に用いるExcelテンプレートです。\r\nこちらのボタンよりダウンロードできます。\r\n",
+      "Icon": "",
+      "Style": "Default",
+      "RelativeField": "Excelテンプレートダウンロードボタン",
+      "OnClick": "",
+      "Name": "ExcelテンプレートダウンロードボタンLabel",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
     }
   ],
   "UserWriteCondition": {
@@ -235,6 +252,173 @@
         "ScrollDirection": "Unset",
         "BackgroundColor": "",
         "Rows": [
+          {
+            "IsWrap": false,
+            "Margin": {},
+            "GridRowType": "Normal",
+            "CanResize": false,
+            "BackgroundColor": "",
+            "IsRowMarginRemoved": false,
+            "Columns": [
+              {
+                "Layout": {
+                  "Name": "",
+                  "Padding": {},
+                  "IsBordered": true,
+                  "UseBorderedShrinkWrap": false,
+                  "IsExpandable": true,
+                  "ExpanderLabel": "Excelテンプレート",
+                  "IsExpanderDefaultOpened": false,
+                  "IsFlowLayout": false,
+                  "IsFillAvailable": false,
+                  "ScrollDirection": "Unset",
+                  "BackgroundColor": "",
+                  "Rows": [
+                    {
+                      "IsWrap": false,
+                      "Margin": {},
+                      "GridRowType": "Normal",
+                      "CanResize": false,
+                      "BackgroundColor": "",
+                      "IsRowMarginRemoved": false,
+                      "Columns": [
+                        {
+                          "Layout": {
+                            "FieldName": "画像表示",
+                            "ContextMenu": "",
+                            "ClassName": "",
+                            "FontFamily": "",
+                            "Color": "",
+                            "BackgroundColor": "",
+                            "Name": "",
+                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                          },
+                          "Padding": {},
+                          "BackgroundColor": "",
+                          "BorderStyle": {
+                            "LeftColor": "",
+                            "TopColor": "",
+                            "RightColor": "",
+                            "BottomColor": ""
+                          },
+                          "CanResize": false,
+                          "Border": "None"
+                        },
+                        {
+                          "Layout": {
+                            "Name": "",
+                            "Padding": {},
+                            "IsBordered": false,
+                            "UseBorderedShrinkWrap": false,
+                            "IsExpandable": false,
+                            "ExpanderLabel": "",
+                            "IsExpanderDefaultOpened": false,
+                            "IsFlowLayout": false,
+                            "IsFillAvailable": false,
+                            "ScrollDirection": "Unset",
+                            "BackgroundColor": "",
+                            "Rows": [
+                              {
+                                "IsWrap": false,
+                                "Margin": {
+                                  "Bottom": 0
+                                },
+                                "GridRowType": "Normal",
+                                "CanResize": false,
+                                "BackgroundColor": "",
+                                "IsRowMarginRemoved": false,
+                                "Columns": [
+                                  {
+                                    "Layout": {
+                                      "FieldName": "ExcelテンプレートダウンロードボタンLabel",
+                                      "ContextMenu": "",
+                                      "ClassName": "",
+                                      "FontFamily": "",
+                                      "Color": "",
+                                      "BackgroundColor": "",
+                                      "Name": "",
+                                      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                                    },
+                                    "Padding": {},
+                                    "BackgroundColor": "",
+                                    "BorderStyle": {
+                                      "LeftColor": "",
+                                      "TopColor": "",
+                                      "RightColor": "",
+                                      "BottomColor": ""
+                                    },
+                                    "VerticalAlignment": "Bottom",
+                                    "CanResize": false,
+                                    "Border": "None"
+                                  }
+                                ]
+                              },
+                              {
+                                "IsWrap": false,
+                                "Margin": {},
+                                "GridRowType": "Normal",
+                                "CanResize": false,
+                                "BackgroundColor": "",
+                                "IsRowMarginRemoved": false,
+                                "Columns": [
+                                  {
+                                    "Layout": {
+                                      "FieldName": "Excelテンプレートダウンロードボタン",
+                                      "ContextMenu": "",
+                                      "ClassName": "",
+                                      "FontFamily": "",
+                                      "Color": "",
+                                      "BackgroundColor": "",
+                                      "Name": "",
+                                      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                                    },
+                                    "Padding": {},
+                                    "BackgroundColor": "",
+                                    "BorderStyle": {
+                                      "LeftColor": "",
+                                      "TopColor": "",
+                                      "RightColor": "",
+                                      "BottomColor": ""
+                                    },
+                                    "CanResize": false,
+                                    "Border": "None"
+                                  }
+                                ]
+                              }
+                            ],
+                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
+                          },
+                          "Width": 400,
+                          "Padding": {},
+                          "BackgroundColor": "",
+                          "BorderStyle": {
+                            "LeftColor": "",
+                            "TopColor": "",
+                            "RightColor": "",
+                            "BottomColor": ""
+                          },
+                          "VerticalAlignment": "Middle",
+                          "CanResize": false,
+                          "Border": "None"
+                        }
+                      ]
+                    }
+                  ],
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
+                },
+                "Padding": {},
+                "BackgroundColor": "",
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "CanResize": false,
+                "Border": "None"
+              }
+            ]
+          },
           {
             "IsWrap": false,
             "Margin": {},
