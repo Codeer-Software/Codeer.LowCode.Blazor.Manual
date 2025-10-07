@@ -8,7 +8,7 @@
   "Fields": [
     {
       "QuerySetting": {
-        "QueryText": "SELECT \r\n    dc.name AS defect_cause,\r\n    SUM(dr.quantity) AS total_defects,\r\n    ROUND(SUM(dr.quantity) * 100.0 / (SELECT SUM(quantity) FROM defect_records), 2) AS percentage\r\nFROM \r\n    defect_records dr\r\nJOIN \r\n    defect_causes dc ON dr.defect_cause_id = dc.id\r\nGROUP BY \r\n    dc.name\r\nORDER BY \r\n    total_defects DESC;\r\n",
+        "QueryText": "",
         "CountSqlText": "",
         "UseCustomPaging": false,
         "SortAndPagingType": "System",

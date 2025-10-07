@@ -85,6 +85,8 @@
     "": {
       "OnBeforeInitialization": "",
       "OnAfterInitialization": "",
+      "OnLocationChanging": "",
+      "OnFieldDataChanged": "",
       "DataOnlyFields": [],
       "ClassName": "",
       "Color": "",
@@ -93,11 +95,12 @@
         "Name": "",
         "Padding": {},
         "IsBordered": false,
-        "IsFlowLayout": false,
-        "IsFillAvailable": false,
+        "UseBorderedShrinkWrap": false,
         "IsExpandable": false,
         "ExpanderLabel": "",
         "IsExpanderDefaultOpened": false,
+        "IsFlowLayout": false,
+        "IsFillAvailable": false,
         "ScrollDirection": "Unset",
         "BackgroundColor": "",
         "Rows": [
@@ -245,6 +248,7 @@
       "DataOnlyFields": [],
       "OnBeforeInitialization": "",
       "OnAfterInitialization": "",
+      "OnFieldDataChanged": "",
       "Elements": [
         [
           {
@@ -259,7 +263,8 @@
             "ClassName": "",
             "FontFamily": "",
             "Color": "",
-            "BackgroundColor": ""
+            "BackgroundColor": "",
+            "DetailLayoutName": ""
           }
         ]
       ]
@@ -274,11 +279,12 @@
         "Name": "SearchGridLayout",
         "Padding": {},
         "IsBordered": false,
-        "IsFlowLayout": false,
-        "IsFillAvailable": false,
+        "UseBorderedShrinkWrap": false,
         "IsExpandable": true,
         "ExpanderLabel": "検索条件",
         "IsExpanderDefaultOpened": false,
+        "IsFlowLayout": false,
+        "IsFillAvailable": false,
         "ScrollDirection": "Unset",
         "BackgroundColor": "",
         "Rows": [
@@ -355,9 +361,10 @@
     "DisplayName": "",
     "SearchCondition": {
       "LimitCount": 50,
+      "SelectFields": [],
+      "SortConditions": [],
       "SortFieldVariable": "",
       "SortDescending": false,
-      "SelectFields": [],
       "ModuleName": ""
     },
     "PagerPosition": "Bottom",
@@ -372,6 +379,7 @@
     "OnSearchDataChanged": "",
     "OnSelectedIndexChanged": "",
     "OnSelectedIndexChanging": "",
+    "IgnoreModification": false,
     "Name": "",
     "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ListFieldDesign"
   },
