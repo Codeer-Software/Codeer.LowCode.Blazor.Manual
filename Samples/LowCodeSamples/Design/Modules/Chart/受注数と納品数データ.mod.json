@@ -8,7 +8,7 @@
   "Fields": [
     {
       "QuerySetting": {
-        "QueryText": "-- 日ごとの全製品の注文数と納品数を集計\r\nSELECT \r\n    COALESCE(o.order_date, d.delivery_date) AS date,\r\n    COALESCE(SUM(o.order_quantity), 0) AS total_orders,\r\n    COALESCE(SUM(d.delivery_quantity), 0) AS total_deliveries\r\nFROM \r\n    (SELECT DISTINCT order_date FROM orders\r\n     UNION\r\n     SELECT DISTINCT delivery_date FROM deliveries) dates\r\nLEFT JOIN orders o ON dates.order_date = o.order_date\r\nLEFT JOIN deliveries d ON dates.order_date = d.delivery_date\r\nGROUP BY \r\n    date\r\nORDER BY \r\n    date;\r\n",
+        "QueryText": "",
         "CountSqlText": "",
         "UseCustomPaging": false,
         "SortAndPagingType": "System",
