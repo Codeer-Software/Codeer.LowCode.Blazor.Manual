@@ -56,7 +56,7 @@ namespace LowCodeSamples.Client.Shared.Services
 
         public async Task InitializeAppAsync()
         {
-            using var scope = _loadingService.StartLoading(200);
+            using var scope = _loadingService.StartLoading(int.MaxValue);
 
             await InitializeHotReloadAsync();
             if (_design != null) return;
