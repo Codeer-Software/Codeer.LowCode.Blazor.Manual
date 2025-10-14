@@ -6,125 +6,162 @@ void DetailLayoutDesign_OnAfterInitialization()
     工区階.Value = 2;
 }
 
-/*ドアMarker*/
-void 部屋1ドアMarker_OnClick(int x, int y)
+void Marker1_OnClick(int x, int y)
 {
-    ドア情報();
     部屋1情報();
-}
-void 部屋2ドアMarker_OnClick(int x, int y)
-{
     ドア情報();
-    部屋2情報();
-}
-void 部屋3ドアMarker_OnClick(int x, int y)
-{
-    ドア情報();
-    部屋3情報();
-}
-void 部屋4ドアMarker_OnClick(int x, int y)
-{
-    ドア情報();
-    部屋4情報();
-}
-void 部屋5ドアMarker_OnClick(int x, int y)
-{
-    ドア情報2();
-    部屋5情報();
-}
-void 部屋6ドアMarker_OnClick(int x, int y)
-{
-    ドア情報();
-    部屋6情報();
-}
-void 部屋7ドアMarker_OnClick(int x, int y)
-{
-    ドア情報();
-    部屋7情報();
-}
-void 部屋8ドアMarker_OnClick(int x, int y)
-{
-    ドア情報();
-    部屋8情報();
-}
-void 部屋9ドアMarker_OnClick(int x, int y)
-{
-    ドア情報();
-    部屋9情報();
-}
-void 部屋10ドアMarker_OnClick(int x, int y)
-{
-    ドア情報();
-    部屋10情報();
-}
-void 部屋11ドアMarker_OnClick(int x, int y)
-{
-    ドア情報();
-    部屋11情報();
-}
-void 部屋12ドアMarker_OnClick(int x, int y)
-{
-    ドア情報();
-    部屋12情報();
-}
-void 部屋13ドアMarker_OnClick(int x, int y)
-{
-    ドア情報();
-    部屋13情報();
 }
 
-/*窓Marker*/
-void 部屋1窓Marker_OnClick(int x, int y)
+void Marker2_OnClick(int x, int y)
 {
     部屋1情報();
     窓情報();
 }
-void 部屋2窓Marker_OnClick(int x, int y)
+
+void Marker3_OnClick(int x, int y)
 {
     部屋2情報();
     窓情報2();
 }
-void 部屋3窓Marker_OnClick(int x, int y)
+
+void Marker4_OnClick(int x, int y)
+{
+    部屋2情報();
+    ドア情報();
+}
+
+void Marker5_OnClick(int x, int y)
+{
+    部屋2情報();
+    ドア情報();
+}
+
+void Marker6_OnClick(int x, int y)
 {
     部屋3情報();
     窓情報();
 }
-void 部屋4窓Marker_OnClick(int x, int y)
+
+void Marker7_OnClick(int x, int y)
+{
+    部屋3情報();
+    ドア情報();
+}
+
+void Marker8_OnClick(int x, int y)
 {
     部屋4情報();
     窓情報();
 }
-void 部屋4窓Marker11_OnClick(int x, int y)
+
+void Marker9_OnClick(int x, int y)
+{
+    部屋4情報();
+    窓情報();
+}
+
+void Marker10_OnClick(int x, int y)
+{
+    部屋4情報();
+    ドア情報();
+}
+
+void Marker11_OnClick(int x, int y)
 {
     部屋4情報();
     窓情報2();
 }
-void 部屋7窓Marker_OnClick(int x, int y)
+
+void Marker12_OnClick(int x, int y)
+{
+    部屋5情報();
+    ドア情報2();
+}
+
+void Marker13_OnClick(int x, int y)
+{
+    部屋6情報();
+    ドア情報();
+}
+
+void Marker14_OnClick(int x, int y)
+{
+    部屋7情報();
+    ドア情報();
+}
+
+void Marker15_OnClick(int x, int y)
 {
     部屋7情報();
     窓情報();
 }
-void 部屋8窓Marker_OnClick(int x, int y)
+
+void Marker16_OnClick(int x, int y)
 {
     部屋8情報();
-    窓情報2();
+    ドア情報();
 }
-void 部屋10窓Marker_OnClick(int x, int y)
+void Marker17_OnClick(int x, int y)
+{
+    部屋8情報();
+    窓情報();
+}
+
+void Marker18_OnClick(int x, int y)
+{
+    部屋9情報();
+    ドア情報();
+}
+
+void Marker19_OnClick(int x, int y)
+{
+    部屋10情報();
+    ドア情報();
+}
+
+void Marker20_OnClick(int x, int y)
 {
     部屋10情報();
     窓情報();
 }
-void 部屋11窓Marker_OnClick(int x, int y)
+
+void Marker21_OnClick(int x, int y)
+{
+    部屋11情報();
+    ドア情報();
+}
+
+void Marker22_OnClick(int x, int y)
 {
     部屋11情報();
     窓情報();
 }
-void 部屋12窓Marker_OnClick(int x, int y)
+
+void Marker23_OnClick(int x, int y)
+{
+    部屋12情報();
+    ドア情報();
+}
+
+void Marker24_OnClick(int x, int y)
 {
     部屋12情報();
     窓情報();
 }
-void 部屋13窓Marker_OnClick(int x, int y)
+
+void Marker25_OnClick(int x, int y)
+{
+    部屋13情報();
+    ドア情報();
+}
+
+void Marker26_OnClick(int x, int y)
+{
+    部屋13情報();
+    窓情報();
+}
+
+void Marker27_OnClick(int x, int y)
 {
     部屋13情報();
     窓情報();
