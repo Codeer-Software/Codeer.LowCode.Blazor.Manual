@@ -18,6 +18,17 @@
 {
   <LowCodePageComponent ModuleDesignName="@ModuleDesignName" PageFrameName="@PageFrameName" Id="@Id" Guid="@(AppInfoService.AsImplement().Guid)"></LowCodePageComponent>
 }
+else
+{
+  <svg class="loading-progress">
+    <circle r="40%" cx="50%" cy="50%" />
+    <circle r="40%" cx="50%" cy="50%" />
+  </svg>
+  <div class="loading-progress-text"></div>
+  <div class="app-init-note" aria-live="polite">
+    App Initializing
+  </div>
+}
 
 @code {
   public string PageFrameName => "RadzenBlazor";
