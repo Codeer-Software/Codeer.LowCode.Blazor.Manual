@@ -2,3 +2,33 @@
     padding-left: 0.3rem !important;
     padding-right: 0.3rem !important;
 }
+
+.lowcode-page[data-module="FactoryDashboard"]
+  .apexcharts-legend-text {
+    color: white !important;
+}
+
+.lowcode-page[data-module="FactoryDashboard"] .apexcharts-text tspan {
+  fill: #fff !important;   /* SVG文字色は fill */
+}
+
+.lowcode-page[data-module="FactoryDashboard"]
+.table {
+  --bs-table-bg: transparent;
+  --bs-table-striped-bg: transparent;
+  --bs-table-hover-bg: transparent;
+  --bs-table-active-bg: transparent;
+}
+
+/* セルに直書きされた背景も打ち消し */
+.lowcode-page[data-module="FactoryDashboard"]
+.table > :not(caption) > * > * {
+  background-color: transparent !important;
+}
+
+/* thead に .table-light が付いていても透明に */
+.lowcode-page[data-module="FactoryDashboard"]
+.table .table-light {
+  --bs-table-bg: transparent;
+}
+

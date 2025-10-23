@@ -1,0 +1,89 @@
+﻿@using Codeer.LowCode.Blazor.Components
+@using Codeer.LowCode.Blazor.Components.Interop
+@using Microsoft.JSInterop
+@inject IJSRuntime JSRuntime
+@inherits FieldComponentBase<MeterField>
+
+<div @ref="_element">
+  <svg width=@Width height=@Height viewBox=@($"0 0 {Width} {Height}")>
+
+    <path d=@Arc1Pram fill=@Color />
+    <path d=@Arc2Pram fill=@BackColor />
+    <path d=@Arc3Pram fill=@Color />
+    <path d=@Arc4Pram fill=@BackColor />
+
+    <!-- TODO font-->
+    <text x=@Radius y=@(Radius - 4) text-anchor="middle" font-size=@FontSize fill=@Color>
+      @((int)(Field.Value * 100))
+    </text>
+  </svg>
+</div>
+@code {
+
+  ElementReference _element;
+  BoundingRect? _boundingRect;
+
+  double Width { get; set; }
+
+  string Color => Field.Color.Or(Field.GetFontAppearance()?.Color).Or("#ff4d4d")!;
+
+  string BackColor => Field.BackgroundColor.Or(DesignHelper.GetBackgroundColor(Field)).Or("#ffffff")!;
+
+  double FontSize => (Width / 240) * 42;
+  double Radius => Width / 2;
+  double Height => Radius;
+
+  string Arc1Pram => CresateArcParam(Radius, 1);
+
+  string Arc2Pram => CresateArcParam(Radius * 0.96, 1);
+
+  string Arc3Pram => CresateArcParam(Radius * 0.94, Field.Value);
+
+  string Arc4Pram => CresateArcParam(Radius * 0.5, 1);
+
+  string CresateArcParam(double currentRadius, double percent)
+  {
+    var left = Radius - currentRadius;
+    var bottom = Radius;
+    var pos = GetPointOnCircle(Radius, Radius, currentRadius, 180 * percent);
+    return $"M{left} {bottom} A{currentRadius} {currentRadius} 0 0 1 {pos.X} {pos.Y} L{Radius} {Radius} Z";
+  }
+
+
+  public class Point
+  {
+    public float X { get; set; }
+    public float Y { get; set; }
+  }
+
+  public static Point GetPointOnCircle(
+      double centerX, double centerY,
+      double radius,
+      double angleDeg)
+  {
+    var rad = (angleDeg + 180) * Math.PI / 180.0;
+    var x = centerX + radius * Math.Cos(rad);
+    var y = centerY + radius * Math.Sin(rad);
+    return new Point { X = (float)x, Y = (float)y };
+  }
+
+  protected override async Task OnInitializedAsync()
+  {
+    await base.OnInitializedAsync();
+    AddDisposable(_boundingRect = await BoundingRect.CreateAsync(JSRuntime));
+  }
+
+  protected override async Task OnAfterRenderAsync(bool firstRender)
+  {
+    if (_boundingRect != null)
+    {
+      var w = await _boundingRect.GetElementWidthAsync(_element);
+      if (w != Width)
+      {
+        Width = w;
+        StateHasChanged();
+      }
+    }
+    await base.OnAfterRenderAsync(firstRender);
+  }
+}
