@@ -307,6 +307,106 @@
       "OnClick": "",
       "Name": "Title",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.AnchorTagFieldDesign"
+    },
+    {
+      "SeriesType": "Bar",
+      "Series": {
+        "Series": [
+          {
+            "Name": "sample_mean",
+            "Color": "#000000",
+            "Type": "Line"
+          },
+          {
+            "Name": "xbar_ucl",
+            "Color": "#0000FF",
+            "Type": "Line"
+          },
+          {
+            "Name": "xbar_lcl",
+            "Color": "#0000FF",
+            "Type": "Line"
+          },
+          {
+            "Name": "xbar_cl",
+            "Color": "#FF0000",
+            "Type": "Line"
+          }
+        ]
+      },
+      "FullWidthBar": false,
+      "ShowXAxisGrid": false,
+      "ShowYAxisGrid": true,
+      "SearchCondition": {
+        "SelectFields": [],
+        "SortConditions": [],
+        "SortFieldVariable": "",
+        "SortDescending": false,
+        "ModuleName": "XRData",
+        "Condition": {
+          "IsOrMatch": false,
+          "IsNot": false,
+          "Children": [],
+          "Name": "",
+          "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
+        }
+      },
+      "DisplayName": "",
+      "CategoryField": "sample_group",
+      "SeriesFractionDigits": 2,
+      "ShowLegend": true,
+      "Name": "ApexChart4",
+      "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexChartFieldDesign"
+    },
+    {
+      "SeriesType": "Bar",
+      "Series": {
+        "Series": [
+          {
+            "Name": "sample_range",
+            "Color": "#000000",
+            "Type": "Line"
+          },
+          {
+            "Name": "R_ucl",
+            "Color": "#0000FF",
+            "Type": "Line"
+          },
+          {
+            "Name": "R_lcl",
+            "Color": "#0000FF",
+            "Type": "Line"
+          },
+          {
+            "Name": "R_cl",
+            "Color": "#FF0000",
+            "Type": "Line"
+          }
+        ]
+      },
+      "FullWidthBar": false,
+      "ShowXAxisGrid": false,
+      "ShowYAxisGrid": true,
+      "SearchCondition": {
+        "SelectFields": [],
+        "SortConditions": [],
+        "SortFieldVariable": "",
+        "SortDescending": false,
+        "ModuleName": "XRData",
+        "Condition": {
+          "IsOrMatch": false,
+          "IsNot": false,
+          "Children": [],
+          "Name": "",
+          "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
+        }
+      },
+      "DisplayName": "",
+      "CategoryField": "sample_group",
+      "SeriesFractionDigits": 2,
+      "ShowLegend": true,
+      "Name": "ApexChart5",
+      "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexChartFieldDesign"
     }
   ],
   "UserWriteCondition": {
@@ -617,6 +717,61 @@
                 },
                 "CanResize": false,
                 "Background": "",
+                "Border": "None"
+              }
+            ]
+          },
+          {
+            "IsWrap": false,
+            "Height": 250,
+            "Margin": {},
+            "GridRowType": "Normal",
+            "CanResize": false,
+            "BackgroundColor": "",
+            "IsRowMarginRemoved": false,
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "ApexChart4",
+                  "ContextMenu": "",
+                  "ClassName": "",
+                  "FontFamily": "",
+                  "Color": "",
+                  "BackgroundColor": "",
+                  "Name": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Padding": {},
+                "BackgroundColor": "",
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "CanResize": false,
+                "Border": "None"
+              },
+              {
+                "Layout": {
+                  "FieldName": "ApexChart5",
+                  "ContextMenu": "",
+                  "ClassName": "",
+                  "FontFamily": "",
+                  "Color": "",
+                  "BackgroundColor": "",
+                  "Name": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Padding": {},
+                "BackgroundColor": "",
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "CanResize": false,
                 "Border": "None"
               }
             ]
