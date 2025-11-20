@@ -87,15 +87,9 @@ void 画像表示車1_OnClick()
 {
     車種.Value = 車1ラベル.Text;
     価格.Value = 車1価格.Value;
-    
-    車種.Color = "#FF8040";
-    価格.Color = "#FF8040";
 }
 void 画像表示車2_OnClick()
 {
     車種.Value = 車2ラベル.Text;
     価格.Value = 車2価格.Value;
-    
-    車種.Color = "#0080FF";
-    価格.Color = "#0080FF";
 }
