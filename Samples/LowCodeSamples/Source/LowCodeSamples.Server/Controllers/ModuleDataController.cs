@@ -5,6 +5,7 @@ using Codeer.LowCode.Blazor.Repository.Match;
 using Codeer.LowCode.Blazor.RequestInterfaces;
 using Codeer.LowCode.Blazor.Utils;
 using Excel.Report.PDF;
+using LowCodeSamples.Client.Shared.Services;
 using LowCodeSamples.Server.Services;
 using LowCodeSamples.Server.Services.FileManagement;
 using MessagePack;
@@ -24,9 +25,9 @@ namespace LowCodeSamples.Server.Controllers
         public async ValueTask DisposeAsync()
             => await _dataService.DisposeAsync();
 
-        [HttpGet("use_hot_reload")]
-        public ValueWrapper<bool> IsUseHotReload()
-            => new ValueWrapper<bool>(SystemConfig.Instance.UseHotReload);
+        [HttpGet("config")]
+        public SystemConfigForFront GetSystemConfig()
+            => SystemConfig.Instance.ForFront();
 
         [HttpGet("design")]
         public async Task<IActionResult> GetDesignData()

@@ -1,4 +1,5 @@
 using Codeer.LowCode.Blazor.SystemSettings;
+using LowCodeSamples.Client.Shared.Services;
 using LowCodeSamples.Server.Services.AI;
 using LowCodeSamples.Server.Services.DataChangeHistory;
 using LowCodeSamples.Server.Services.FileManagement;
@@ -9,6 +10,7 @@ namespace LowCodeSamples.Server.Services
     {
         public static SystemConfig Instance { get; set; } = new();
 
+        public bool CanScriptDebug { get; set; }
         public bool CanUpdate { get; set; }
         public bool UseHotReload { get; set; }
         public DataSource[] DataSources { get; set; } = [];
@@ -18,5 +20,6 @@ namespace LowCodeSamples.Server.Services
         public string DesignFileDirectory { get; set; } = string.Empty;
         public string FontFileDirectory { get; set; } = string.Empty;
         public AISettings AISettings { get; set; } = new();
+        public SystemConfigForFront ForFront() => new SystemConfigForFront { CanScriptDebug = CanScriptDebug, UseHotReload = UseHotReload };
     }
 }
