@@ -1,0 +1,35 @@
+<style>
+  .code-view pre {
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 16px;
+    line-height: 1.3;
+    margin: 20px;
+    background: #ffffff;
+  }
+  .kw-blue   { color: #0000ff; }
+  .kw-purple { color: #800080; }
+  .str       { color: #a31515; }
+</style>
+
+<div class="code-view">
+<pre>
+<span class="kw-blue">void</span> Calculate_OnClick()
+{
+    <span class="kw-purple">switch</span>(Operator.Value)
+    {
+        <span class="kw-purple">case</span> <span class="str">"+"</span>:
+            Result.Value = Left.Value + Right.Value;
+            <span class="kw-purple">break</span>;
+        <span class="kw-purple">case</span> <span class="str">"-"</span>:
+            Result.Value = Left.Value - Right.Value;
+            <span class="kw-purple">break</span>;
+        <span class="kw-purple">case</span> <span class="str">"*"</span>:
+            Result.Value = Left.Value * Right.Value;
+            <span class="kw-purple">break</span>;
+        <span class="kw-purple">case</span> <span class="str">"/"</span>:
+            Result.Value = Left.Value / Right.Value;
+            <span class="kw-purple">break</span>;
+    }
+}
+</pre>
+</div>

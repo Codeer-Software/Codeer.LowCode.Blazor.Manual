@@ -1,0 +1,38 @@
+<style>
+  .code-view pre {
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 16px;
+    line-height: 1.3;
+    margin: 20px;
+    background: #ffffff;
+  }
+  .kw-blue { color: #0000ff; }
+</style>
+
+<div class="code-view">
+<pre>
+<span class="kw-blue">void</span> ButtonEnable_OnClick()
+{
+    TargetText.IsEnabled = !TargetText.IsEnabled;
+    TargetDate.IsEnabled = !TargetDate.IsEnabled;
+    TargetBoolean.IsEnabled = !TargetBoolean.IsEnabled;
+    TargetButton.IsEnabled = !TargetButton.IsEnabled;
+}
+
+<span class="kw-blue">void</span> ButtonVisible_OnClick()
+{
+    TargetText.IsVisible = !TargetText.IsVisible;
+    TargetDate.IsVisible = !TargetDate.IsVisible;
+    TargetBoolean.IsVisible = !TargetBoolean.IsVisible;
+    TargetButton.IsVisible = !TargetButton.IsVisible;
+}
+
+<span class="kw-blue">void</span> ButtonViewOnly_OnClick()
+{
+    TargetText.IsViewOnly = !TargetText.IsViewOnly;
+    TargetDate.IsViewOnly = !TargetDate.IsViewOnly;
+    TargetBoolean.IsViewOnly = !TargetBoolean.IsViewOnly;
+    TargetButton.IsViewOnly = !TargetButton.IsViewOnly;
+}
+</pre>
+</div>
