@@ -23,9 +23,9 @@ namespace LowCodeSamples.Client.Shared.Services
         readonly ToasterEx _toaster;
         readonly LoadingService _loadingService;
         HubConnection? _hubConnection;
-        bool? _useHotReload;
         DesignData? _design;
         DateTime _lastHotReload = DateTime.Now;
+        SystemConfigForFront? _config;
 
         public ModuleData? CurrentUserData { get; private set; }
 
@@ -38,6 +38,8 @@ namespace LowCodeSamples.Client.Shared.Services
         public bool IsDesignMode => false;
 
         public DesignData GetDesignData() => _design ?? new();
+
+        public bool CanScriptDebug => _config?.CanScriptDebug == true;
 
         public AppInfoService(HttpService http, LoadingService loadingService, NavigationManager navigationManager, ILogger logger, ToasterEx toaster, IJSRuntime js)
         {
@@ -85,17 +87,26 @@ namespace LowCodeSamples.Client.Shared.Services
             return (MemoryStream)await result.Content.ReadAsStreamAsync();
         }
 
+        public void ClearDesignData()
+        {
+            _toaster.Clear();
+            Guid = Guid.NewGuid();
+            _design = null;
+            CurrentUserData = null;
+            _scriptRuntimeTypeManager.ClearDesignCache();
+        }
+
         async Task InitializeHotReloadAsync()
         {
-            if (_useHotReload == null)
+            if (_config == null)
             {
-                _useHotReload = (await _http.GetFromJsonAsync<ValueWrapper<bool>>($"/api/module_data/use_hot_reload"))?.Value;
+                _config = await _http.GetFromJsonAsync<SystemConfigForFront>($"/api/module_data/config");
             }
 
-            if (_useHotReload == true && _hubConnection == null)
+            if (_config?.UseHotReload == true && _hubConnection == null)
             {
                 _hubConnection = new HubConnectionBuilder()
-                    .WithUrl(_http.BaseUrl + "hot_reload_hub")
+                    .WithUrl(_navigationManager.ToAbsoluteUri("/hot_reload_hub"))
                     .Build();
 
                 _hubConnection.On("ExecuteHotReload", async () =>
@@ -106,20 +117,12 @@ namespace LowCodeSamples.Client.Shared.Services
 
                     _lastHotReload = now;
 
-                    ClearByHotReload();
+                    ClearDesignData();
                     await InitializeAppAsync();
                     OnHotReload?.Invoke(this, EventArgs.Empty);
                 });
                 await _hubConnection.StartAsync();
             }
-        }
-
-        void ClearByHotReload()
-        {
-            _toaster.Clear();
-            Guid = Guid.NewGuid();
-            _design = null;
-            CurrentUserData = null;
         }
     }
 }
