@@ -7,6 +7,8 @@ void ScriptTest_OnDetailInitialize()
     TargetDate.Value = DateOnly.FromDateTime(DateTime.Now);
     ColorText.Value = "abc";
     ColorNumber.Value = "123";
+    ControlForeground.Value = "#831843";
+    ControlBackground.Value = "#FDF2F8";
 }
 
 void Calculate_OnClick()
@@ -88,11 +90,40 @@ void DialogButton_OnClick()
     }
 }
 
+void PopupButton_OnClick()
+{
+    var dlg = new PersonalInfoDialog();
+    if (dlg.ShowPopup(500, 100, "OK", "Cancel") == "OK")
+    {
+        PopupResult.Value = "Name : " + dlg.Name.Value + "\r\n" + 
+                             "Age : " + dlg.Age.Value + "\r\n" + 
+                             "Height : " + dlg.Height.Value + "\r\n" + 
+                             "Body weight : " + dlg.BodyWeight.Value;
+    }
+    else
+    {
+        PopupResult.Value = "";
+    }
+}
+
+void PanelButton_OnClick()
+{
+    var dlg = new PersonalInfoDialog();
+    if (dlg.ShowPanel("OK", "Cancel") == "OK")
+    {
+        PanelResult.Value = "Name : " + dlg.Name.Value + "\r\n" + 
+                             "Age : " + dlg.Age.Value + "\r\n" + 
+                             "Height : " + dlg.Height.Value + "\r\n" + 
+                             "Body weight : " + dlg.BodyWeight.Value;
+    }
+    else
+    {
+        PanelResult.Value = "";
+    }
+}
+
 void ColorSetButton_OnClick()
 {
-    ColorBoolean.BackgroundColor = ControlBackground.Value;
-    ColorBoolean.Color = ControlForeground.Value;
-    
     ColorButton.BackgroundColor = ControlBackground.Value;
     ColorButton.Color = ControlForeground.Value;
     
