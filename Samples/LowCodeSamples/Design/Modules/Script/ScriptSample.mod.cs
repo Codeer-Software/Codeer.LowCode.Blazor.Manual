@@ -4,8 +4,11 @@ void ScriptTest_OnDetailInitialize()
     Right.Value = 20;
     Operator.Value = "+";
     TargetText.Value = "Change states.";
+    TargetDate.Value = DateOnly.FromDateTime(DateTime.Now);
     ColorText.Value = "abc";
     ColorNumber.Value = "123";
+    ControlForeground.Value = "#831843";
+    ControlBackground.Value = "#FDF2F8";
 }
 
 void Calculate_OnClick()
@@ -30,16 +33,25 @@ void Calculate_OnClick()
 void ButtonEnable_OnClick()
 {
     TargetText.IsEnabled = !TargetText.IsEnabled;
+    TargetDate.IsEnabled = !TargetDate.IsEnabled;
+    TargetBoolean.IsEnabled = !TargetBoolean.IsEnabled;
+    TargetButton.IsEnabled = !TargetButton.IsEnabled;
 }
 
 void ButtonVisible_OnClick()
 {
     TargetText.IsVisible = !TargetText.IsVisible;
+    TargetDate.IsVisible = !TargetDate.IsVisible;
+    TargetBoolean.IsVisible = !TargetBoolean.IsVisible;
+    TargetButton.IsVisible = !TargetButton.IsVisible;
 }
 
 void ButtonViewOnly_OnClick()
 {
     TargetText.IsViewOnly = !TargetText.IsViewOnly;
+    TargetDate.IsViewOnly = !TargetDate.IsViewOnly;
+    TargetBoolean.IsViewOnly = !TargetBoolean.IsViewOnly;
+    TargetButton.IsViewOnly = !TargetButton.IsViewOnly;
 }
 
 void GetWeatherForecast_OnClick()
@@ -55,77 +67,6 @@ void GetWeatherForecast_OnClick()
         row.Summary.Value = e.Summary;
         WeatherForecastList.AddRow(row);
     }    
-}
-
-void QuotaionSample_OnClick()
-{
-    QuotationTitle.Value = "Party ingredients";
-    QuotationClient.Value = "XYZ Company";
-    QuotationPersonInCharge.Value = "Tom";
-    QuotationDetailList.DeleteAllRows();
-    
-    var row = QuotationDetailList.AddRow();
-    row.Title.Value = "リンゴ";
-    row.Detail.Value = "2個入り";
-    row.Price.Value = 600;
-    row.Discount.Value = 0;
-    
-    row = QuotationDetailList.AddRow();
-    row.Title.Value = "洋ナシ";
-    row.Detail.Value = "6個入り";
-    row.Price.Value = 880;
-    row.Discount.Value = 100;    
-    
-    row = QuotationDetailList.AddRow();
-    row.Title.Value = "バナナ";
-    row.Detail.Value = "1パック";
-    row.Price.Value = 300;
-    row.Discount.Value = 0;   
-    
-    row = QuotationDetailList.AddRow();
-    row.Title.Value = "柿";
-    row.Detail.Value = "4個入り";
-    row.Price.Value = 480;
-    row.Discount.Value = 0;
-    
-    row = QuotationDetailList.AddRow();
-    row.Title.Value = "アボカド";
-    row.Detail.Value = "1個入り";
-    row.Price.Value = 250;
-    row.Discount.Value = 0;
-    
-}
-
-void ExcelDownload_OnClick()
-{
-    using (var memory = Resources.GetMemoryStream("Quotation.xlsx"))
-    {
-        var excel = new Excel(memory, "Quotation");
-        excel.OverWrite(this);
-        excel.Download();
-    }
-}
-
-void PdfDownload_OnClick()
-{
-    using(var memory = Resources.GetMemoryStream("Quotation.xlsx"))
-    {
-        var excel = new Excel(memory, "Quotation");
-        excel.OverWrite(this);
-        excel.DownloadPdf();
-    }
-}
-
-void QuotationDetail_OnDataChanged()
-{    
-    var val = 0;
-    foreach(var e in QuotationDetailList.Rows)
-    {
-        val += e.Total.Value;
-    }
-    QuotationTotal.Value = val;
-    QuotationTax.Value = Math.Round(QuotationTotal.Value * 0.1, 0, MidpointRounding.AwayFromZero);
-    QuotationTotalInTax.Value = QuotationTotal.Value + QuotationTax.Value;
 }
 
 void MessageBoxButton_OnClick()
@@ -149,12 +90,40 @@ void DialogButton_OnClick()
     }
 }
 
-void Button_OnClick()
+void PopupButton_OnClick()
 {
-    
-    ColorBoolean.BackgroundColor = ControlBackground.Value;
-    ColorBoolean.Color = ControlForeground.Value;
-    
+    var dlg = new PersonalInfoDialog();
+    if (dlg.ShowPopup(500, 100, "OK", "Cancel") == "OK")
+    {
+        PopupResult.Value = "Name : " + dlg.Name.Value + "\r\n" + 
+                             "Age : " + dlg.Age.Value + "\r\n" + 
+                             "Height : " + dlg.Height.Value + "\r\n" + 
+                             "Body weight : " + dlg.BodyWeight.Value;
+    }
+    else
+    {
+        PopupResult.Value = "";
+    }
+}
+
+void PanelButton_OnClick()
+{
+    var dlg = new PersonalInfoDialog();
+    if (dlg.ShowPanel("OK", "Cancel") == "OK")
+    {
+        PanelResult.Value = "Name : " + dlg.Name.Value + "\r\n" + 
+                             "Age : " + dlg.Age.Value + "\r\n" + 
+                             "Height : " + dlg.Height.Value + "\r\n" + 
+                             "Body weight : " + dlg.BodyWeight.Value;
+    }
+    else
+    {
+        PanelResult.Value = "";
+    }
+}
+
+void ColorSetButton_OnClick()
+{
     ColorButton.BackgroundColor = ControlBackground.Value;
     ColorButton.Color = ControlForeground.Value;
     
