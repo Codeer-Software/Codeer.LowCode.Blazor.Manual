@@ -93,7 +93,8 @@ void DialogButton_OnClick()
 void PopupButton_OnClick()
 {
     var dlg = new PersonalInfoDialog();
-    if (dlg.ShowPopup(500, 100, "OK", "Cancel") == "OK")
+    var rect = PopupButton.GetClientRect();
+    if (dlg.ShowPopup(rect.Left, rect.Top, "OK", "Cancel") == "OK")
     {
         PopupResult.Value = "Name : " + dlg.Name.Value + "\r\n" + 
                              "Age : " + dlg.Age.Value + "\r\n" + 

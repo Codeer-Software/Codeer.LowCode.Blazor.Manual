@@ -38,7 +38,8 @@
 <span class="kw-blue">void</span> PopupButton_OnClick()
 {
     <span class="kw-blue">var</span> dlg = <span class="kw-blue">new</span> <span class="type-blue">PersonalInfoDialog</span>();
-    <span class="kw-purple">if</span> (dlg.ShowPopup(500, 100, <span class="str">"OK"</span>, <span class="str">"Cancel"</span>) == <span class="str">"OK"</span>)
+    <span class="kw-blue">var</span> rect = PopupButton.GetClientRect();
+    <span class="kw-purple">if</span> (dlg.ShowPopup(rect.Left, rect.Top, <span class="str">"OK"</span>, <span class="str">"Cancel"</span>) == <span class="str">"OK"</span>)
     {
         PopupResult.Value = <span class="str">"Name : "</span> + dlg.Name.Value + <span class="str">"\r\n"</span> + 
                              <span class="str">"Age : "</span> + dlg.Age.Value + <span class="str">"\r\n"</span> + 
