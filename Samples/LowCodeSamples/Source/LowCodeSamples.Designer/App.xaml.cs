@@ -9,12 +9,16 @@ using Codeer.LowCode.Bindings.MudBlazor.Installer;
 using Codeer.LowCode.Bindings.Radzen.Blazor.Designs;
 using Codeer.LowCode.Bindings.Radzen.Blazor.Installer;
 using Codeer.LowCode.Blazor.Designer;
+using Codeer.LowCode.Blazor.Designer.Extensibility;
+using Codeer.LowCode.Blazor.Designer.Extensibility.Views;
 using Codeer.LowCode.Blazor.Designer.Models;
+using Codeer.LowCode.Blazor.Designer.Views.Windows;
 using Codeer.LowCode.Blazor.Repository.Data;
 using Codeer.LowCode.Blazor.Script;
 using IgniteUI.Blazor.Controls;
 using LowCodeSamples.Client.Shared.AITextAnalyzer;
 using LowCodeSamples.Client.Shared.ScriptObjects;
+using LowCodeSamples.Designer.Lib.ModuleToClass;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.FluentUI.AspNetCore.Components;
 using MudBlazor.Services;
@@ -86,6 +90,7 @@ namespace LowCodeSamples.Designer
             base.OnStartup(e);
 
             MainWindow.Title = "LowCodeSamples";
+            DesignerEnvironment.AddSolutionExplorerMenu(CreateFieldDataClass, SolutionExplorerMenuTarget.Module, "Create FieldData Class");
         }
 
         class AITextAnalyzerCoreDummy : IAITextAnalyzerCore
@@ -95,6 +100,27 @@ namespace LowCodeSamples.Designer
 
             public Task<ModuleData?> TextToModuleDataAsync(string moduleName, string fieldName, string text)
                 => throw new NotImplementedException();
+        }
+
+        private void CreateFieldDataClass(SolutionExplorerMenuClickEventArgs e)
+        {
+            var modName = e.Item.Split(".").First();
+            var mod = DesignerEnvironment.GetDesignData().Modules.Find(modName);
+            if (mod == null)
+            {
+                DesignerEnvironment.ShowToast("Module not found", false);
+                return;
+            }
+
+            var classTxt = ClassGenerator.ModuleDesignToDataFieldClass(mod);
+
+            new TextDisplayWindow
+            {
+                DisplayText = classTxt,
+                Owner = Application.Current.MainWindow,
+                WindowStartupLocation = WindowStartupLocation.CenterOwner,
+                Title = "Module to Field Data Class",
+            }.Show();
         }
 
         static void CreateEmpty(string path)
