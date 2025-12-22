@@ -52,7 +52,7 @@
                         @foreach (var x in FilteredSizedItems)
                         {
                             <div class="bubble @(x.Amount <= 0 ? "is-zero" : "")"
-                                 style="--size:@($"{x.SizePx}px"); --dy:@Drift(x.Key); background:@x.Accent;"
+                                 style="--size:@($"{x.SizePx}px"); --dy:@Drift(x.Code); background:@x.Accent;"
                                  data-tip="@TipText(x)">
                                 <div class="bubble__content">
                                     <div class="bubble__name">@x.Name</div>
@@ -203,10 +203,7 @@
         return $"期間終了:{e:yyyy/MM/dd}";
     }
 
-    private sealed record SalesBubble(string Code, string Name, decimal Amount, DateOnly PeriodStart, DateOnly PeriodEnd)
-    {
-        public string Key => Code;
-    }
+    private sealed record SalesBubble(string Code, string Name, decimal Amount, DateOnly PeriodStart, DateOnly PeriodEnd);
 
     private static IEnumerable<SizedBubble> ComputeSizes(IReadOnlyList<SalesBubble> items)
     {
@@ -234,7 +231,7 @@
     private sealed record SizedBubble(SalesBubble Item, int SizePx, string Accent)
     {
         public string Name => Item.Name;
-        public string Key => Item.Key;
+        public string Code => Item.Code;
         public decimal Amount => Item.Amount;
         public DateOnly? PeriodStart => Item.PeriodStart;
         public DateOnly? PeriodEnd => Item.PeriodEnd;
