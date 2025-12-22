@@ -1,5 +1,4 @@
 ﻿@using Codeer.LowCode.Blazor.ProCode;
-@using Codeer.LowCode.Blazor.Repository.Data
 @using LowCodeSamples.Client.Shared.Mapping.Data
 @using Codeer.LowCode.Blazor.RequestInterfaces
 @using System.Globalization
@@ -16,6 +15,29 @@
                     合計金額で泡サイズを決める<br />
                 </div>
             </div>
+            <div class="controls">
+                <input class="input"
+                       type="date"
+                       value="@Start.ToString("yyyy-MM-dd")"
+                       @oninput="OnStartInput"
+                       aria-label="期間開始日"
+                       title="期間開始日" />
+                       ～
+                <input class="input"
+                       type="date"
+                       value="@End.ToString("yyyy-MM-dd")"
+                       @oninput="OnEndInput"
+                       aria-label="期間終了日"
+                       title="期間終了日" />
+            </div>
+            <select class="input"
+                    value="@SelectedSort"
+                    @onchange="OnSortChange"
+                    aria-label="並び替え"
+                    title="並び替え">
+                <option value="amount-desc">金額（高い順）</option>
+                <option value="amount-asc">金額（低い順）</option>
+            </select>
         </header>
 
         <section class="panel">
@@ -56,29 +78,74 @@
 {
     private List<q_売上集計> SalesSummaryData { get; set; } = new();
 
-    private string Query { get; set; } = "";
     private string SelectedSort { get; set; } = "amount-desc";
     private DateOnly Start { get; set; } = new DateOnly(2025, 12, 1);
     private DateOnly End { get; set; } = new DateOnly(2025, 12, 31);
+    private bool IsValidRange => Start <= End;
 
     protected override async Task OnInitializedAsync()
     {
         await ReloadAsync();
     }
 
+    private async Task OnStartInput(ChangeEventArgs e)
+    {
+        if (TryToDateOnly(e.Value, out var d))
+        {
+            Start = d;
+            await ReloadAsync();
+        }
+    }
+
+    private async Task OnEndInput(ChangeEventArgs e)
+    {
+        if (TryToDateOnly(e.Value, out var d))
+        {
+            End = d;
+            await ReloadAsync();
+        }
+    }
+
+    private static bool TryToDateOnly(object? value, out DateOnly date)
+    {
+        date = default;
+
+        if (value is DateOnly d) { date = d; return true; }
+        if (value is DateTime dt) { date = DateOnly.FromDateTime(dt); return true; }
+
+        return value is string s
+            && DateOnly.TryParseExact(s, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out date);
+    }
+
     private async Task ReloadAsync()
     {
-        SalesSummaryData = await Services.GetSalesSummaryData(Start, End) ?? new();
+        if (!IsValidRange)
+        {
+            SalesSummaryData = new();
+            return;
+        }
+        SalesSummaryData = await Services.GetSalesSummaryData(Start, End);
+        StateHasChanged();
+    }
+
+    private void OnSortChange(ChangeEventArgs e)
+    {
+        var v = e.Value?.ToString();
+        if (string.IsNullOrWhiteSpace(v)) return;
+
+        SelectedSort = v;
+
         StateHasChanged();
     }
 
     private IEnumerable<SalesBubble> SalesBubbles
-        => (SalesSummaryData ?? new List<q_売上集計>())
+        => SalesSummaryData
             .Select(r => new SalesBubble(
-                Name: GetText(r.商品名),
-                Amount: GetNumber(r.合計金額),
-                PeriodStart: GetDateOnly(r.期間開始日),
-                PeriodEnd: GetDateOnly(r.期間終了日)
+                Code: r.商品コード?.Value ?? string.Empty,
+                Name: r.商品名?.Value ?? string.Empty,
+                Amount: r.合計金額?.Value ?? 0,
+                PeriodStart: Start,
+                PeriodEnd: End
             ))
             .Where(x => !string.IsNullOrWhiteSpace(x.Name));
 
@@ -87,17 +154,10 @@
         get
         {
             IEnumerable<SalesBubble> q = SalesBubbles;
-
-            if (!string.IsNullOrWhiteSpace(Query))
-            {
-                var needle = Query.Trim().ToLowerInvariant();
-                q = q.Where(x => (x.Name ?? "").ToLowerInvariant().Contains(needle));
-            }
-
             q = SelectedSort switch
             {
                 "amount-asc" => q.OrderBy(x => x.Amount),
-                "name-asc" => q.OrderBy(x => x.Name, StringComparer.Create(CultureInfo.GetCultureInfo("ja-JP"), ignoreCase: false)),
+                "amount-desc" => q.OrderByDescending(x => x.Amount),
                 _ => q.OrderByDescending(x => x.Amount),
             };
 
@@ -131,8 +191,8 @@
     {
         var p = PeriodText(x.PeriodStart, x.PeriodEnd);
         return string.IsNullOrWhiteSpace(p)
-            ? $"{x.Name} / 合計:{x.Amount:N0}"
-            : $"{x.Name} / 合計:{x.Amount:N0} / {p}";
+            ? $"{x.Name} \r\n 合計:{x.Amount:N0}"
+            : $"{x.Name} \r\n 合計:{x.Amount:N0} \r\n {p}";
     }
 
     private static string PeriodText(DateOnly? s, DateOnly? e)
@@ -143,64 +203,9 @@
         return $"期間終了:{e:yyyy/MM/dd}";
     }
 
-    private static string GetText(TextFieldData? f)
-        => GetValueAsString(f) ?? "";
-
-    private static decimal GetNumber(NumberFieldData? f)
+    private sealed record SalesBubble(string Code, string Name, decimal Amount, DateOnly PeriodStart, DateOnly PeriodEnd)
     {
-        var obj = GetValueObject(f);
-        if (obj is null) return 0m;
-
-        if (obj is decimal d) return d;
-        if (obj is double db) return (decimal)db;
-        if (obj is float fl) return (decimal)fl;
-        if (obj is int i) return i;
-        if (obj is long l) return l;
-
-        if (obj is string s && decimal.TryParse(s, NumberStyles.Any, CultureInfo.InvariantCulture, out var parsed))
-            return parsed;
-
-        try
-        {
-            return Convert.ToDecimal(obj, CultureInfo.InvariantCulture);
-        }
-        catch
-        {
-            return 0m;
-        }
-    }
-
-    private static DateOnly? GetDateOnly(DateFieldData? f)
-    {
-        var obj = GetValueObject(f);
-        if (obj is null) return null;
-
-        if (obj is DateOnly d) return d;
-        if (obj is DateTime dt) return DateOnly.FromDateTime(dt);
-        if (obj is DateTimeOffset dto) return DateOnly.FromDateTime(dto.DateTime);
-
-        if (obj is string s)
-        {
-            if (DateOnly.TryParse(s, out var dd)) return dd;
-            if (DateTime.TryParse(s, out var ddt)) return DateOnly.FromDateTime(ddt);
-        }
-
-        return null;
-    }
-
-    private static object? GetValueObject(object? field)
-    {
-        if (field is null) return null;
-        var prop = field.GetType().GetProperty("Value");
-        return prop?.GetValue(field);
-    }
-
-    private static string? GetValueAsString(object? field)
-        => GetValueObject(field)?.ToString();
-
-    private sealed record SalesBubble(string Name, decimal Amount, DateOnly? PeriodStart, DateOnly? PeriodEnd)
-    {
-        public string Key => Name;
+        public string Key => Code;
     }
 
     private static IEnumerable<SizedBubble> ComputeSizes(IReadOnlyList<SalesBubble> items)
