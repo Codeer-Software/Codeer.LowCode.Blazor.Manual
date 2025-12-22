@@ -12,6 +12,12 @@
     padding: 24px;
     background: radial-gradient(900px 600px at 10% 0%, rgba(46,107,255,.18), transparent 60%), radial-gradient(900px 600px at 90% 10%, rgba(255,61,122,.14), transparent 55%), linear-gradient(180deg, var(--bg1), var(--bg2) 60%, var(--bg1));
     font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
+    --tip-bg: rgba(255,255,255,.92);
+    --tip-border: rgba(0,0,0,.12);
+    --tip-text: rgba(12,18,38,.88);
+    --tip-shadow: 0 18px 50px rgba(0,0,0,.16);
+    --tip-radius: 12px;
+    --tip-pad: 10px 12px;
 }
 
     .bubble-page * {
@@ -73,7 +79,6 @@
     border-radius: var(--r);
     padding: 14px;
     min-height: 420px;
-    overflow: hidden;
     background: radial-gradient(600px 420px at 50% 30%, rgba(46,107,255,.10), transparent 55%);
 }
 
@@ -89,7 +94,6 @@
     --size: 120px;
     --dy: 0px;
     --accent: rgba(255,255,255,.25);
-
     position: relative;
     width: var(--size);
     height: var(--size);
@@ -106,6 +110,7 @@
     transform: translateY(var(--dy));
     transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
     text-align: center;
+    overflow: visible;
 }
 
     .bubble-page .bubble:hover {
@@ -118,23 +123,49 @@
         content: attr(data-tip);
         position: absolute;
         left: 50%;
-        bottom: calc(100% + 10px);
-        transform: translateX(-50%);
-        white-space: nowrap;
+        bottom: calc(100% + 14px);
+        transform: translateX(-50%) translateY(2px);
         font-size: 12px;
-        color: rgba(12,18,38,.86);
-        background: rgba(255,255,255,.94);
-        border: 1px solid rgba(0,0,0,.12);
-        border-radius: 10px;
-        padding: 8px 10px;
+        line-height: 1.35;
+        color: var(--tip-text);
+        background: var(--tip-bg);
+        border: 1px solid var(--tip-border);
+        border-radius: var(--tip-radius);
+        padding: var(--tip-pad);
+        box-shadow: var(--tip-shadow);
+        backdrop-filter: blur(10px);
+        min-width: 200px;
+        max-width: min(360px, 76vw);
+        white-space: pre-line;
+        text-align: left;
         opacity: 0;
         pointer-events: none;
         transition: opacity .12s ease, transform .12s ease;
-        box-shadow: 0 18px 50px rgba(0,0,0,.16);
-        z-index: 2;
+        z-index: 10;
     }
 
-    .bubble-page .bubble:hover::after {
+    .bubble-page .bubble[data-tip]::before {
+        content: "";
+        position: absolute;
+        left: 50%;
+        bottom: calc(100% + 6px);
+        transform: translateX(-50%) translateY(2px);
+        border: 7px solid transparent;
+        border-top-color: var(--tip-bg);
+        filter: drop-shadow(0 6px 10px rgba(0,0,0,.14));
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity .12s ease, transform .12s ease;
+        z-index: 9;
+    }
+    .bubble-page .bubble:hover::after,
+    .bubble-page .bubble:focus-visible::after {
+        opacity: 1;
+        transform: translateX(-50%) translateY(-2px);
+    }
+
+    .bubble-page .bubble:hover::before,
+    .bubble-page .bubble:focus-visible::before {
         opacity: 1;
         transform: translateX(-50%) translateY(-2px);
     }
@@ -192,6 +223,7 @@
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
     overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .bubble__amount {
@@ -217,3 +249,66 @@
     .bubble-page .bubble.is-zero .bubble__content {
         text-shadow: none;
     }
+
+.bubble-page .controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+}
+
+.bubble-page .input {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 38px;
+    min-width: 170px;
+    padding: 0 12px;
+    border-radius: 12px;
+    border: 1px solid var(--line);
+    background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.74));
+    color: var(--text);
+    box-shadow: 0 10px 26px rgba(0,0,0,.10);
+    backdrop-filter: blur(10px);
+    font-size: 13px;
+    letter-spacing: .01em;
+    outline: none;
+    transition: box-shadow .15s ease, border-color .15s ease, transform .15s ease;
+}
+
+    .bubble-page .input:hover {
+        border-color: rgba(0,0,0,.20);
+        box-shadow: 0 14px 34px rgba(0,0,0,.12);
+        transform: translateY(-1px);
+    }
+
+    .bubble-page .input:focus,
+    .bubble-page .input:focus-visible {
+        border-color: rgba(46,107,255,.40);
+        box-shadow: 0 0 0 4px rgba(46,107,255,.16), 0 14px 34px rgba(0,0,0,.12);
+    }
+
+.bubble-page input[type="date"].input {
+    color: var(--text);
+    padding: 0 12px;
+    height: 38px;
+    border-radius: 12px;
+    border: 1px solid var(--line);
+    background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.74));
+    box-shadow: 0 10px 26px rgba(0,0,0,.10);
+    backdrop-filter: blur(10px);
+    outline: none;
+}
+
+    .bubble-page input[type="date"].input:focus,
+    .bubble-page input[type="date"].input:focus-visible {
+        border-color: rgba(46,107,255,.40);
+        box-shadow: 0 0 0 4px rgba(46,107,255,.16), 0 14px 34px rgba(0,0,0,.12);
+    }
+
+.bubble-page .input:disabled {
+    opacity: .6;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}

@@ -1,8 +1,9 @@
 SELECT
+  g.goods_code,
   g.name,
   COALESCE(SUM(sh.amount), 0) AS total_sales_amount
 FROM goods AS g
-LEFT JOIN sales_history sh
+LEFT JOIN sales_history AS sh
   ON sh.goods_code = g.goods_code
  AND sh.sales_date BETWEEN @start_date AND @end_date
 GROUP BY
