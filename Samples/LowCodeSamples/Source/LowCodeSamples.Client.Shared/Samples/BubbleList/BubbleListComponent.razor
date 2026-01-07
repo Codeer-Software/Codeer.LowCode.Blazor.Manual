@@ -1,4 +1,5 @@
-﻿@using Codeer.LowCode.Blazor.ProCode;
+﻿@using Codeer.LowCode.Blazor.DataIO
+@using Codeer.LowCode.Blazor.ProCode;
 @using LowCodeSamples.Client.Shared.Mapping.Data
 @using Codeer.LowCode.Blazor.RequestInterfaces
 @using System.Globalization
@@ -124,7 +125,10 @@
             SalesSummaryData = new();
             return;
         }
-        SalesSummaryData = await Services.GetSalesSummaryData(Start, End);
+
+        SalesSummaryData = await Services.ModuleDataService.GetListAsync<q_売上集計>
+                                    (e => e.期間開始日!.Value == Start && e.期間終了日!.Value == End);
+
         StateHasChanged();
     }
 
