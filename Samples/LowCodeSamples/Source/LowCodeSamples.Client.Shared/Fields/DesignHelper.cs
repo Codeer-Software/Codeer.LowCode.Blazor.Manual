@@ -7,24 +7,24 @@ namespace LowCodeSamples.Client.Shared.Fields
     {
         internal static string? Or(this string? that, string? then) => string.IsNullOrEmpty(that) ? then : that;
 
-        internal static IFontAppearance? GetFontAppearance(this FieldBase field)
+        internal static string? GetLayoutColor(this FieldBase field)
         {
             switch (field.ModuleLayoutType)
             {
                 case ModuleLayoutType.List:
                     {
                         if (!field.Module.Design.ListLayouts.TryGetValue(field.LayoutName, out var layout)) return null;
-                        return layout.Elements.SelectMany(e => e).FirstOrDefault(e => e.FieldName == field.Design.Name);
+                        return layout.Elements.SelectMany(e => e).FirstOrDefault(e => e.FieldName == field.Design.Name)?.Color;
                     }
                 case ModuleLayoutType.Detail:
                     {
                         if (!field.Module.Design.DetailLayouts.TryGetValue(field.LayoutName, out var layout)) return null;
-                        return layout.Layout.GetDescendantFields().FirstOrDefault(e => e.FieldName == field.Design.Name);
+                        return layout.Layout.GetDescendantFields().FirstOrDefault(e => e.FieldName == field.Design.Name)?.Color;
                     }
                 case ModuleLayoutType.Search:
                     {
                         if (!field.Module.Design.SearchLayouts.TryGetValue(field.LayoutName, out var layout)) return null;
-                        return layout.Layout.GetDescendantFields().FirstOrDefault(e => e.FieldName == field.Design.Name);
+                        return layout.Layout.GetDescendantFields().FirstOrDefault(e => e.FieldName == field.Design.Name)?.Color;
                     }
                 default:
                     return null;

@@ -25,7 +25,7 @@
 
   double Width { get; set; }
 
-  string Color => Field.Color.Or(Field.GetFontAppearance()?.Color).Or("#ff4d4d")!;
+  string Color => Field.Color.Or(Field.GetLayoutColor()).Or("#ff4d4d")!;
 
   string BackColor => Field.BackgroundColor.Or(DesignHelper.GetBackgroundColor(Field)).Or("#ffffff")!;
 
