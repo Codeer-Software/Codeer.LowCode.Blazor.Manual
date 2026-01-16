@@ -56,13 +56,17 @@
     private string XAxisTitle => ((IgbLineChartFieldDesign)Field.Design).XAxisTitle;
     private string YAxisTitle => ((IgbLineChartFieldDesign)Field.Design).YAxisTitle;
 
-    protected override void OnAfterRender(bool firstRender)
+    private bool _refsReady;
+
+    protected override Task OnAfterRenderAsync(bool firstRender)
     {
-        var legend = _legend;
-        var chart = _chart;
-        if (chart is not null && legend is not null) {
-            chart.Legend = legend;
+        if (!_refsReady && _chart is not null && _legend is not null)
+        {
+            _refsReady = true;
+            return InvokeAsync(StateHasChanged);
         }
+
+        return Task.CompletedTask;
     }
 
     protected override async Task OnParametersSetAsync()
