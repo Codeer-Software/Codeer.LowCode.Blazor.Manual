@@ -1,0 +1,48 @@
+<style>
+  .code-view pre {
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 16px;
+    line-height: 1.3;
+    margin: 20px;
+    background: #ffffff;
+  }
+  .kw-blue   { color: #0000ff; }
+  .kw-purple { color: #800080; }
+  .str       { color: #a31515; }
+</style>
+
+<div class="code-view">
+<pre>
+<span class="kw-purple">using</span> Codeer.LowCode.Blazor.OperatingModel;
+<span class="kw-purple">using</span> Codeer.LowCode.Blazor.ProCode;
+
+<span class="kw-purple">namespace</span> LowCodeSamples.Client.Shared.Samples
+{
+  <span class="kw-purple">public</span> <span class="kw-purple">class</span> CodeBehindSample : ProCodeBehindBase
+  {
+    <span class="kw-purple">public</span> TextField? Name { <span class="kw-purple">get</span>; <span class="kw-purple">set</span>; }
+    <span class="kw-purple">public</span> NumberField? Age { <span class="kw-purple">get</span>; <span class="kw-purple">set</span>; }
+    <span class="kw-purple">public</span> ButtonField? OK { <span class="kw-purple">get</span>; <span class="kw-purple">set</span>; }
+    <span class="kw-purple">public</span> TextField? Result { <span class="kw-purple">get</span>; <span class="kw-purple">set</span>; }
+
+    <span class="kw-purple">public</span> <span class="kw-purple">override</span> <span class="kw-purple">async</span> Task OnBeforeDetailInitializationAsync(<span class="kw-blue">string</span> layoutName)
+    {
+      <span class="kw-purple">await</span> Task.CompletedTask;
+      <span class="kw-purple">if</span> (OK != <span class="kw-purple">null</span>) OK.OnClickAsync = OK_Click;
+    }
+
+    <span class="kw-purple">private</span> <span class="kw-purple">async</span> Task OK_Click()
+    {
+      <span class="kw-purple">var</span> value = <span class="str">@$"This is a sample code-behind.
+This string is created using C# code.
+Implemented in {GetType().FullName}.
+Your name is {Name?.Value}.
+And I'm {Age?.Value} years old."</span>;
+
+      <span class="kw-purple">if</span> (Result != <span class="kw-purple">null</span>) <span class="kw-purple">await</span> Result.SetValueAsync(value);
+    }
+
+  }
+}
+</pre>
+</div>
