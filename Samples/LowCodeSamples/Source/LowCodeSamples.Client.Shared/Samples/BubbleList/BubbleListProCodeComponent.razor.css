@@ -1,0 +1,314 @@
+﻿.bubble-page {
+    --bg1: #f7f9ff;
+    --bg2: #eaf0ff;
+    --panel: rgba(255,255,255,.78);
+    --line: rgba(0,0,0,.12);
+    --text: rgba(12,18,38,.92);
+    --muted: rgba(12,18,38,.60);
+    --shadow: 0 18px 60px rgba(0,0,0,.12);
+    --r: 18px;
+    color: var(--text);
+    min-height: 100vh;
+    padding: 24px;
+    background: radial-gradient(900px 600px at 10% 0%, rgba(46,107,255,.18), transparent 60%), radial-gradient(900px 600px at 90% 10%, rgba(255,61,122,.14), transparent 55%), linear-gradient(180deg, var(--bg1), var(--bg2) 60%, var(--bg1));
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
+    --tip-bg: rgba(255,255,255,.92);
+    --tip-border: rgba(0,0,0,.12);
+    --tip-text: rgba(12,18,38,.88);
+    --tip-shadow: 0 18px 50px rgba(0,0,0,.16);
+    --tip-radius: 12px;
+    --tip-pad: 10px 12px;
+}
+
+    .bubble-page * {
+        box-sizing: border-box;
+    }
+
+    .bubble-page .wrap {
+        max-width: 1100px;
+        margin: 0 auto;
+    }
+
+    .bubble-page header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 14px;
+    }
+
+    .bubble-page h1 {
+        margin: 0;
+        font-size: 18px;
+        letter-spacing: .02em;
+    }
+
+    .bubble-page .hint {
+        margin-top: 6px;
+        font-size: 12px;
+        color: var(--muted);
+        line-height: 1.5;
+    }
+
+    .bubble-page .panel {
+        border: 1px solid var(--line);
+        background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.78));
+        border-radius: var(--r);
+        box-shadow: var(--shadow);
+        padding: 14px;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+@supports selector(.panel:has(.detail)) {
+    .bubble-page .panel:has(.detail) {
+        grid-template-columns: 1fr 320px;
+    }
+
+    @media (max-width: 980px) {
+        .bubble-page .panel:has(.detail) {
+            grid-template-columns: 1fr;
+        }
+    }
+}
+
+.bubble-page .field {
+    position: relative;
+    border: 1px dashed rgba(0,0,0,.14);
+    border-radius: var(--r);
+    padding: 14px;
+    min-height: 420px;
+    background: radial-gradient(600px 420px at 50% 30%, rgba(46,107,255,.10), transparent 55%);
+}
+
+.bubble-page .bubbles {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: flex-end;
+    align-content: flex-start;
+}
+
+.bubble-page .bubble {
+    --size: 120px;
+    --dy: 0px;
+    --accent: rgba(255,255,255,.25);
+    position: relative;
+    width: var(--size);
+    height: var(--size);
+    border-radius: 999px;
+    border: 1px solid rgba(0,0,0,.12);
+    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.95), rgba(255,255,255,.60) 55%, transparent 75%), radial-gradient(circle at 70% 75%, rgba(46,107,255,.10), transparent 60%), rgba(255,255,255,.78);
+    box-shadow: 0 14px 40px rgba(0,0,0,.14), 0 0 0 6px rgba(0,0,0,.02), 0 0 0 2px var(--accent);
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    transform: translateY(var(--dy));
+    transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+    text-align: center;
+    overflow: visible;
+}
+
+    .bubble-page .bubble:hover {
+        transform: translateY(calc(var(--dy) - 6px)) scale(1.02);
+        border-color: rgba(0,0,0,.20);
+        box-shadow: 0 20px 60px rgba(0,0,0,.18), 0 0 0 8px rgba(0,0,0,.03), 0 0 0 2px var(--accent);
+    }
+
+    .bubble-page .bubble[data-tip]::after {
+        content: attr(data-tip);
+        position: absolute;
+        left: 50%;
+        bottom: calc(100% + 14px);
+        transform: translateX(-50%) translateY(2px);
+        font-size: 12px;
+        line-height: 1.35;
+        color: var(--tip-text);
+        background: var(--tip-bg);
+        border: 1px solid var(--tip-border);
+        border-radius: var(--tip-radius);
+        padding: var(--tip-pad);
+        box-shadow: var(--tip-shadow);
+        backdrop-filter: blur(10px);
+        min-width: 200px;
+        max-width: min(360px, 76vw);
+        white-space: pre-line;
+        text-align: left;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity .12s ease, transform .12s ease;
+        z-index: 10;
+    }
+
+    .bubble-page .bubble[data-tip]::before {
+        content: "";
+        position: absolute;
+        left: 50%;
+        bottom: calc(100% + 6px);
+        transform: translateX(-50%) translateY(2px);
+        border: 7px solid transparent;
+        border-top-color: var(--tip-bg);
+        filter: drop-shadow(0 6px 10px rgba(0,0,0,.14));
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity .12s ease, transform .12s ease;
+        z-index: 9;
+    }
+    .bubble-page .bubble:hover::after,
+    .bubble-page .bubble:focus-visible::after {
+        opacity: 1;
+        transform: translateX(-50%) translateY(-2px);
+    }
+
+    .bubble-page .bubble:hover::before,
+    .bubble-page .bubble:focus-visible::before {
+        opacity: 1;
+        transform: translateX(-50%) translateY(-2px);
+    }
+
+.bubble-page .empty {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.bubble-page .legend {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 12px;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.bubble-page .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 6px;
+    vertical-align: middle;
+    border: 1px solid rgba(0,0,0,.12);
+}
+
+.bubble {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: rgba(255,255,255,.96);
+    font-weight: 800;
+    text-shadow: 0 2px 10px rgba(0,0,0,.35);
+    box-sizing: border-box;
+    padding: 10px;
+    overflow: hidden;
+}
+
+.bubble__content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    line-height: 1.15;
+    text-shadow: 0 2px 10px rgba(0,0,0,.35);
+}
+
+.bubble__name {
+    font-size: clamp(10px, calc(var(--size) * 0.10), 16px);
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.bubble__amount {
+    font-size: clamp(11px, calc(var(--size) * 0.11), 18px);
+    white-space: nowrap;
+}
+
+
+.bubble__amount {
+    font-weight: 800;
+    font-size: clamp(11px, calc(var(--size) * 0.11), 18px);
+    white-space: nowrap;
+}
+
+.bubble-page .bubble.is-zero {
+    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.98), rgba(255,255,255,.80) 60%, rgba(255,255,255,.92) 100%) !important;
+    border-color: rgba(0,0,0,.10);
+    box-shadow: 0 14px 40px rgba(0,0,0,.10), 0 0 0 6px rgba(0,0,0,.02), 0 0 0 2px rgba(0,0,0,.06);
+    color: rgba(12,18,38,.32);
+    text-shadow: none;
+}
+
+    .bubble-page .bubble.is-zero .bubble__content {
+        text-shadow: none;
+    }
+
+.bubble-page .controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+}
+
+.bubble-page .input {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 38px;
+    min-width: 170px;
+    padding: 0 12px;
+    border-radius: 12px;
+    border: 1px solid var(--line);
+    background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.74));
+    color: var(--text);
+    box-shadow: 0 10px 26px rgba(0,0,0,.10);
+    backdrop-filter: blur(10px);
+    font-size: 13px;
+    letter-spacing: .01em;
+    outline: none;
+    transition: box-shadow .15s ease, border-color .15s ease, transform .15s ease;
+}
+
+    .bubble-page .input:hover {
+        border-color: rgba(0,0,0,.20);
+        box-shadow: 0 14px 34px rgba(0,0,0,.12);
+        transform: translateY(-1px);
+    }
+
+    .bubble-page .input:focus,
+    .bubble-page .input:focus-visible {
+        border-color: rgba(46,107,255,.40);
+        box-shadow: 0 0 0 4px rgba(46,107,255,.16), 0 14px 34px rgba(0,0,0,.12);
+    }
+
+.bubble-page input[type="date"].input {
+    color: var(--text);
+    padding: 0 12px;
+    height: 38px;
+    border-radius: 12px;
+    border: 1px solid var(--line);
+    background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.74));
+    box-shadow: 0 10px 26px rgba(0,0,0,.10);
+    backdrop-filter: blur(10px);
+    outline: none;
+}
+
+    .bubble-page input[type="date"].input:focus,
+    .bubble-page input[type="date"].input:focus-visible {
+        border-color: rgba(46,107,255,.40);
+        box-shadow: 0 0 0 4px rgba(46,107,255,.16), 0 14px 34px rgba(0,0,0,.12);
+    }
+
+.bubble-page .input:disabled {
+    opacity: .6;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
