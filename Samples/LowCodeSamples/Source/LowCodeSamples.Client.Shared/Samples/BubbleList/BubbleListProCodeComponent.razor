@@ -1,0 +1,205 @@
+﻿@using Codeer.LowCode.Blazor.DataIO
+@using Codeer.LowCode.Blazor.ProCode;
+@using LowCodeSamples.Client.Shared.Mapping.Data
+@using Codeer.LowCode.Blazor.RequestInterfaces
+@using System.Globalization
+@using Microsoft.AspNetCore.Components.Web
+@inherits ProCodeComponentBase
+@inject Services Services;
+
+<div class="bubble-page">
+    <div class="wrap">
+        <section class="panel">
+            <div class="field">
+                <div class="bubbles" aria-label="bubble list">
+                    @if (!FilteredSizedItems.Any())
+                    {
+                        <div class="empty">該当データがありません。</div>
+                    }
+                    else
+                    {
+                        @foreach (var x in FilteredSizedItems)
+                        {
+                            <div class="bubble @(x.Amount <= 0 ? "is-zero" : "")"
+                                 style="--size:@($"{x.SizePx}px"); --dy:@Drift(x.Code); background:@x.Accent;"
+                                 data-tip="@TipText(x)">
+                                <div class="bubble__content">
+                                    <div class="bubble__name">@x.Name</div>
+                                    <div class="bubble__amount">¥@x.Amount.ToString("N0")</div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+
+                <div class="legend">
+                    <span><span class="dot" style="background:rgba(46,107,255,.55)"></span>上位(売上)</span>
+                    <span><span class="dot" style="background:rgba(255,61,122,.55)"></span>中位</span>
+                    <span><span class="dot" style="background:rgba(255,196,0,.55)"></span>下位</span>
+                    <span><span class="dot" style="background:rgba(255,255,255,.92)"></span>データ不足/0</span>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+@code
+{
+    private List<q_売上集計> SalesSummaryData { get; set; } = new();
+
+    private string SelectedSort { get; set; } = "amount-desc";
+    private DateOnly Start { get; set; } = new DateOnly(2025, 12, 1);
+    private DateOnly End { get; set; } = new DateOnly(2025, 12, 31);
+    private bool IsValidRange => Start <= End;
+
+    public async Task OnStartInput(DateOnly d)
+    {
+        Start = d;
+        await ReloadAsync();
+    }
+
+    public async Task OnEndInput(DateOnly d)
+    {
+        End = d;
+        await ReloadAsync();
+    }
+
+    private static bool TryToDateOnly(object? value, out DateOnly date)
+    {
+        date = default;
+
+        if (value is DateOnly d) { date = d; return true; }
+        if (value is DateTime dt) { date = DateOnly.FromDateTime(dt); return true; }
+
+        return value is string s
+            && DateOnly.TryParseExact(s, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out date);
+    }
+
+    private async Task ReloadAsync()
+    {
+        if (!IsValidRange)
+        {
+            SalesSummaryData = new();
+            return;
+        }
+
+        SalesSummaryData = await Services.ModuleDataService.GetListAsync<q_売上集計>
+                                    (e => e.期間開始日!.Value == Start && e.期間終了日!.Value == End);
+
+        StateHasChanged();
+    }
+
+    public void OnSortChange(string sortValue)
+    {
+        if (sortValue == "low")
+        {
+            SelectedSort = "amount-asc";
+        }
+        else
+        {
+            SelectedSort = "amount-desc";
+        }
+
+        StateHasChanged();
+    }
+
+    private IEnumerable<SalesBubble> SalesBubbles
+        => SalesSummaryData
+            .Select(r => new SalesBubble(
+                Code: r.商品コード?.Value ?? string.Empty,
+                Name: r.商品名?.Value ?? string.Empty,
+                Amount: r.合計金額?.Value ?? 0,
+                PeriodStart: Start,
+                PeriodEnd: End
+            ))
+            .Where(x => !string.IsNullOrWhiteSpace(x.Name));
+
+    private IEnumerable<SizedBubble> FilteredSizedItems
+    {
+        get
+        {
+            IEnumerable<SalesBubble> q = SalesBubbles;
+            q = SelectedSort switch
+            {
+                "amount-asc" => q.OrderBy(x => x.Amount),
+                "amount-desc" => q.OrderByDescending(x => x.Amount),
+                _ => q.OrderByDescending(x => x.Amount),
+            };
+
+            return ComputeSizes(q.ToList());
+        }
+    }
+
+    private static string AmountAccent(decimal amount, double t)
+    {
+        if (amount <= 0) return "rgba(255,255,255,.92)";
+        if (t >= 0.75) return "rgba(46,107,255,.55)";
+        if (t >= 0.40) return "rgba(255,61,122,.55)";
+        return "rgba(255,196,0,.55)";
+    }
+
+    private static string Drift(string key)
+    {
+        unchecked
+        {
+            uint h = 0;
+            foreach (var ch in key ?? "")
+                h = (h * 31) + ch;
+
+            var r = (h % 1000) / 1000.0;
+            var dy = (int)Math.Round((r - 0.5) * 22);
+            return $"{dy}px";
+        }
+    }
+
+    private static string TipText(SizedBubble x)
+    {
+        var p = PeriodText(x.PeriodStart, x.PeriodEnd);
+        return string.IsNullOrWhiteSpace(p)
+            ? $"{x.Name} \r\n 合計:{x.Amount:N0}"
+            : $"{x.Name} \r\n 合計:{x.Amount:N0} \r\n {p}";
+    }
+
+    private static string PeriodText(DateOnly? s, DateOnly? e)
+    {
+        if (s is null && e is null) return "";
+        if (s is not null && e is not null) return $"期間:{s:yyyy/MM/dd}〜{e:yyyy/MM/dd}";
+        if (s is not null) return $"期間開始:{s:yyyy/MM/dd}";
+        return $"期間終了:{e:yyyy/MM/dd}";
+    }
+
+    private sealed record SalesBubble(string Code, string Name, decimal Amount, DateOnly PeriodStart, DateOnly PeriodEnd);
+
+    private static IEnumerable<SizedBubble> ComputeSizes(IReadOnlyList<SalesBubble> items)
+    {
+        if (items.Count == 0) return Array.Empty<SizedBubble>();
+
+        var min = items.Min(x => x.Amount);
+        var max = items.Max(x => x.Amount);
+
+        const int Smin = 86, Smax = 190;
+
+        return items.Select(x =>
+        {
+            var t = (max == min) ? 0.5 : (double)((x.Amount - min) / (max - min));
+            t = Math.Clamp(t, 0.0, 1.0);
+
+            var eased = Math.Pow(t, 0.75);
+            var size = (int)Math.Round(Smin + (Smax - Smin) * eased);
+
+            var accent = AmountAccent(x.Amount, t);
+
+            return new SizedBubble(x, size, accent);
+        });
+    }
+
+    private sealed record SizedBubble(SalesBubble Item, int SizePx, string Accent)
+    {
+        public string Name => Item.Name;
+        public string Code => Item.Code;
+        public decimal Amount => Item.Amount;
+        public DateOnly? PeriodStart => Item.PeriodStart;
+        public DateOnly? PeriodEnd => Item.PeriodEnd;
+    }
+
+}
