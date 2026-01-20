@@ -1,5 +1,5 @@
 {
-  "Name": "BubbleListProCodeComponentSample",
+  "Name": "BubbleListCustomFieldSample",
   "DataSourceName": "",
   "DbTable": "",
   "CanCreate": true,
@@ -7,11 +7,9 @@
   "CanDelete": true,
   "Fields": [
     {
-      "ProCodeComponent": "BubbleListProCodeComponent",
-      "OnComponentSet": "",
-      "Name": "プロコード",
+      "Name": "BubbleList",
       "IgnoreModification": false,
-      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ProCodeFieldDesign"
+      "TypeFullName": "LowCodeSamples.Client.Shared.Samples.BubbleList.BubbleListFieldDesign"
     },
     {
       "Text": "バブル（売上集計）",
@@ -20,6 +18,16 @@
       "RelativeField": "",
       "OnClick": "",
       "Name": "タイトルラベル",
+      "IgnoreModification": false,
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Text": "バブルの部分はカスタムフィールドにしています。\r\nカスタムフィールドにすることでデザイナの画面でポトペタで配置できるようになります。",
+      "Icon": "",
+      "Style": "Default",
+      "RelativeField": "",
+      "OnClick": "",
+      "Name": "ラベル",
       "IgnoreModification": false,
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
     },
@@ -48,6 +56,16 @@
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.DateFieldDesign"
     },
     {
+      "Text": "～",
+      "Icon": "",
+      "Style": "Default",
+      "RelativeField": "",
+      "OnClick": "",
+      "Name": "範囲ラベル",
+      "IgnoreModification": false,
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
       "DbColumn": "",
       "Format": "",
       "IsYearMonthOnly": false,
@@ -60,16 +78,6 @@
       "Name": "集計期間終了日",
       "IgnoreModification": false,
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.DateFieldDesign"
-    },
-    {
-      "Text": "～",
-      "Icon": "",
-      "Style": "Default",
-      "RelativeField": "",
-      "OnClick": "",
-      "Name": "範囲ラベル",
-      "IgnoreModification": false,
-      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
     },
     {
       "Candidates": [
@@ -106,14 +114,12 @@
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.SelectFieldDesign"
     },
     {
-      "Text": "ヘッダーはローコードで実装し、バブルの部分はコンポーネントを表示しています。",
-      "Icon": "",
-      "Style": "H6",
-      "RelativeField": "",
+      "ResourcePath": "ProCode\\カスタムフィールド_デザイナイメージ.png",
+      "ObjectFit": "Contain",
       "OnClick": "",
-      "Name": "ラベル",
+      "Name": "画像表示",
       "IgnoreModification": false,
-      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ImageViewerFieldDesign"
     }
   ],
   "UserWriteCondition": {
@@ -153,9 +159,7 @@
         "Rows": [
           {
             "IsWrap": false,
-            "Margin": {
-              "Bottom": 0
-            },
+            "Margin": {},
             "GridRowType": "Normal",
             "CanResize": false,
             "BackgroundColor": "",
@@ -163,14 +167,84 @@
             "Columns": [
               {
                 "Layout": {
-                  "FieldName": "タイトルラベル",
-                  "ContextMenu": "",
-                  "ClassName": "",
-                  "FontFamily": "",
-                  "Color": "",
-                  "BackgroundColor": "",
                   "Name": "",
-                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                  "Padding": {},
+                  "IsBordered": true,
+                  "UseBorderedShrinkWrap": false,
+                  "IsExpandable": true,
+                  "ExpanderLabel": "カスタムフィールドについて",
+                  "IsExpanderDefaultOpened": true,
+                  "IsFlowLayout": false,
+                  "IsFillAvailable": false,
+                  "ScrollDirection": "Unset",
+                  "BackgroundColor": "",
+                  "Rows": [
+                    {
+                      "IsWrap": false,
+                      "Margin": {},
+                      "GridRowType": "Normal",
+                      "CanResize": false,
+                      "BackgroundColor": "",
+                      "IsRowMarginRemoved": false,
+                      "Columns": [
+                        {
+                          "Layout": {
+                            "FieldName": "ラベル",
+                            "ContextMenu": "",
+                            "ClassName": "",
+                            "FontFamily": "",
+                            "Color": "",
+                            "BackgroundColor": "",
+                            "Name": "",
+                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                          },
+                          "Padding": {},
+                          "BackgroundColor": "",
+                          "BorderStyle": {
+                            "LeftColor": "",
+                            "TopColor": "",
+                            "RightColor": "",
+                            "BottomColor": ""
+                          },
+                          "CanResize": false,
+                          "Border": "None"
+                        }
+                      ]
+                    },
+                    {
+                      "IsWrap": false,
+                      "Margin": {},
+                      "GridRowType": "Normal",
+                      "CanResize": false,
+                      "BackgroundColor": "",
+                      "IsRowMarginRemoved": false,
+                      "Columns": [
+                        {
+                          "Layout": {
+                            "FieldName": "画像表示",
+                            "ContextMenu": "",
+                            "ClassName": "",
+                            "FontFamily": "",
+                            "Color": "",
+                            "BackgroundColor": "",
+                            "Name": "",
+                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                          },
+                          "Padding": {},
+                          "BackgroundColor": "",
+                          "BorderStyle": {
+                            "LeftColor": "",
+                            "TopColor": "",
+                            "RightColor": "",
+                            "BottomColor": ""
+                          },
+                          "CanResize": false,
+                          "Border": "None"
+                        }
+                      ]
+                    }
+                  ],
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
                 },
                 "Padding": {},
                 "BackgroundColor": "",
@@ -195,7 +269,7 @@
             "Columns": [
               {
                 "Layout": {
-                  "FieldName": "ラベル",
+                  "FieldName": "タイトルラベル",
                   "ContextMenu": "",
                   "ClassName": "",
                   "FontFamily": "",
@@ -341,6 +415,7 @@
                   "RightColor": "",
                   "BottomColor": ""
                 },
+                "HorizontalAlignment": "Center",
                 "VerticalAlignment": "Middle",
                 "CanResize": false,
                 "Border": "None"
@@ -357,7 +432,7 @@
             "Columns": [
               {
                 "Layout": {
-                  "FieldName": "プロコード",
+                  "FieldName": "BubbleList",
                   "ContextMenu": "",
                   "ClassName": "",
                   "FontFamily": "",
