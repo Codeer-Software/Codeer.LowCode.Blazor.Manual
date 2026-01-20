@@ -52,15 +52,17 @@
     private DateOnly End { get; set; } = new DateOnly(2025, 12, 31);
     private bool IsValidRange => Start <= End;
 
-    public async Task OnStartInput(DateOnly d)
+    public async Task OnStartInput(DateOnly? d)
     {
-        Start = d;
+        if (d is null) return;
+        Start = d.Value;
         await ReloadAsync();
     }
 
-    public async Task OnEndInput(DateOnly d)
+    public async Task OnEndInput(DateOnly? d)
     {
-        End = d;
+        if (d is null) return;
+        End = d.Value;
         await ReloadAsync();
     }
 
