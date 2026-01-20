@@ -1,47 +1,15 @@
-﻿@using Codeer.LowCode.Blazor.DataIO
+﻿@using Codeer.LowCode.Blazor.Components
+@using Codeer.LowCode.Blazor.DataIO
 @using Codeer.LowCode.Blazor.ProCode;
 @using LowCodeSamples.Client.Shared.Mapping.Data
 @using Codeer.LowCode.Blazor.RequestInterfaces
 @using System.Globalization
 @using Microsoft.AspNetCore.Components.Web
-@inherits ProCodeModuleBase
+@inherits FieldComponentBase<BubbleListField>
 @inject Services Services;
 
 <div class="bubble-page">
     <div class="wrap">
-        <header>
-            <div>
-                <h1>バブル（売上集計）</h1>
-                コンポーネントをそのまま表示しています。
-                <div class="hint">
-                    合計金額で泡サイズを決める<br />
-                </div>
-            </div>
-            <div class="controls">
-                <input class="input"
-                       type="date"
-                       value="@Start.ToString("yyyy-MM-dd")"
-                       @oninput="OnStartInput"
-                       aria-label="期間開始日"
-                       title="期間開始日" />
-                       ～
-                <input class="input"
-                       type="date"
-                       value="@End.ToString("yyyy-MM-dd")"
-                       @oninput="OnEndInput"
-                       aria-label="期間終了日"
-                       title="期間終了日" />
-            </div>
-            <select class="input"
-                    value="@SelectedSort"
-                    @onchange="OnSortChange"
-                    aria-label="並び替え"
-                    title="並び替え">
-                <option value="amount-desc">金額（高い順）</option>
-                <option value="amount-asc">金額（低い順）</option>
-            </select>
-        </header>
-
         <section class="panel">
             <div class="field">
                 <div class="bubbles" aria-label="bubble list">
@@ -78,70 +46,12 @@
 
 @code
 {
-    private List<q_売上集計> SalesSummaryData { get; set; } = new();
+    private List<q_売上集計> SalesSummaryData => Field.SalesSummaryData;
 
-    private string SelectedSort { get; set; } = "amount-desc";
-    private DateOnly Start { get; set; } = new DateOnly(2025, 12, 1);
-    private DateOnly End { get; set; } = new DateOnly(2025, 12, 31);
+    private string SelectedSort => Field.SelectedSort;
+    private DateOnly? Start => Field.Start;
+    private DateOnly? End => Field.End;
     private bool IsValidRange => Start <= End;
-
-    protected override async Task OnInitializedAsync()
-    {
-        await ReloadAsync();
-    }
-
-    private async Task OnStartInput(ChangeEventArgs e)
-    {
-        if (TryToDateOnly(e.Value, out var d))
-        {
-            Start = d;
-            await ReloadAsync();
-        }
-    }
-
-    private async Task OnEndInput(ChangeEventArgs e)
-    {
-        if (TryToDateOnly(e.Value, out var d))
-        {
-            End = d;
-            await ReloadAsync();
-        }
-    }
-
-    private static bool TryToDateOnly(object? value, out DateOnly date)
-    {
-        date = default;
-
-        if (value is DateOnly d) { date = d; return true; }
-        if (value is DateTime dt) { date = DateOnly.FromDateTime(dt); return true; }
-
-        return value is string s
-            && DateOnly.TryParseExact(s, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out date);
-    }
-
-    private async Task ReloadAsync()
-    {
-        if (!IsValidRange)
-        {
-            SalesSummaryData = new();
-            return;
-        }
-
-        SalesSummaryData = await Services.ModuleDataService.GetListAsync<q_売上集計>
-                                    (e => e.期間開始日!.Value == Start && e.期間終了日!.Value == End);
-
-        StateHasChanged();
-    }
-
-    private void OnSortChange(ChangeEventArgs e)
-    {
-        var v = e.Value?.ToString();
-        if (string.IsNullOrWhiteSpace(v)) return;
-
-        SelectedSort = v;
-
-        StateHasChanged();
-    }
 
     private IEnumerable<SalesBubble> SalesBubbles
         => SalesSummaryData
@@ -149,8 +59,8 @@
                 Code: r.商品コード?.Value ?? string.Empty,
                 Name: r.商品名?.Value ?? string.Empty,
                 Amount: r.合計金額?.Value ?? 0,
-                PeriodStart: Start,
-                PeriodEnd: End
+                PeriodStart: Start ?? new(),
+                PeriodEnd: End ?? new()
             ))
             .Where(x => !string.IsNullOrWhiteSpace(x.Name));
 
