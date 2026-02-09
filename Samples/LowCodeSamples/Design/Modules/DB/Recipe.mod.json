@@ -136,8 +136,13 @@
       "SearchCondition": {
         "LimitCount": 2147483647,
         "SelectFields": [],
-        "SortConditions": [],
-        "SortFieldVariable": "Stepnumber.Value",
+        "SortConditions": [
+          {
+            "Variable": "Stepnumber.Value",
+            "IsDescending": false
+          }
+        ],
+        "SortFieldVariable": "",
         "SortDescending": false,
         "ModuleName": "CookingStep",
         "Condition": {
