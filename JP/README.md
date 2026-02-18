@@ -115,6 +115,7 @@ BlazorアプリとWPFのデザイナアプリをビルドして起動
 - 各部分紹介
     - [概略](overview/overview.md)
     - [Visual Studioソリューションおよびデプロイ](overview/vs_projects.md)
+    - [オプション: VS Codeを使う](overview/vscode.md)
     - [デザイナ](designer/designer.md)
         - [app.clprj](designer/app_clprj.md)
         - [designer.settings](designer/designer_settings.md)
