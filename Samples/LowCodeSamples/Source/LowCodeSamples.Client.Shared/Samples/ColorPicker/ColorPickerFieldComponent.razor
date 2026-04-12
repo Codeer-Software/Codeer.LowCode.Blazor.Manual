@@ -1,6 +1,7 @@
 @using Codeer.LowCode.Blazor.Components
-@using Microsoft.AspNetCore.Components.Web
 @using Codeer.LowCode.Blazor.Components.Fields
+@using Codeer.LowCode.Blazor.OperatingModel
+@using Microsoft.AspNetCore.Components.Web
 @using System.Text
 @inherits FieldComponentBase<ColorPickerField>
 
@@ -36,15 +37,16 @@
 
   string? GetStyleString()
   {
+    var drawStyle = Field.GetOwnStyles();
     var style = new StringBuilder();
-    if (!string.IsNullOrEmpty(Field.BackgroundColor))
+    if (drawStyle.HasFlag(DrawStyle.BackgroundColor))
     {
-      style.Append($"--background: {Field.BackgroundColor};");
+      style.Append($"background-color: {Field.BackgroundColor};");
     }
 
-    if (!string.IsNullOrEmpty(Field.Color))
+    if (drawStyle.HasFlag(DrawStyle.Color))
     {
-      style.Append($"--foreground: {Field.Color};");
+      style.Append($"color: {Field.Color};");
     }
 
     return style.Length == 0 ? null : style.ToString();
