@@ -17,7 +17,7 @@
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
     },
     {
-      "Text": "カンバン形式のタスクボード。カードのドラッグ&ドロップで列 (ステータス) 間を移動できます。ステータスごとに色・背景色・カード追加可否を設定可能。",
+      "Text": "カンバン形式のタスクボード。カードのレイアウトはアイテムのモジュールのレイアウトで指定することができます。カードのドラッグ&ドロップで列 (ステータス) 間を移動できます。ステータスごとに色・背景色・カード追加可否を設定可能。",
       "Icon": "",
       "Style": "Default",
       "RelativeField": "",
@@ -47,22 +47,22 @@
           {
             "DisplayText": "ToDo",
             "Value": "",
-            "Color": "#000000",
-            "BackgroundColor": "#E2FB04",
+            "Color": "#0D47A1",
+            "BackgroundColor": "#E3F2FD",
             "CanAdd": true
           },
           {
             "DisplayText": "進行中",
             "Value": "",
-            "Color": "",
-            "BackgroundColor": "",
+            "Color": "#E65100",
+            "BackgroundColor": "#FFF3E0",
             "CanAdd": false
           },
           {
             "DisplayText": "完了",
             "Value": "",
-            "Color": "",
-            "BackgroundColor": "",
+            "Color": "#1B5E20",
+            "BackgroundColor": "#E8F5E9",
             "CanAdd": false
           }
         ]
@@ -98,6 +98,7 @@
       "ClassName": "",
       "Color": "",
       "BackgroundColor": "",
+      "FontFamily": "",
       "Layout": {
         "Name": "",
         "Padding": {},
@@ -107,12 +108,13 @@
         "ExpanderLabel": "",
         "IsExpanderDefaultOpened": false,
         "IsFlowLayout": false,
+        "IsAutoFillWrap": false,
         "IsFillAvailable": true,
         "ScrollDirection": "Unset",
-        "BackgroundColor": "",
         "Rows": [
           {
             "IsWrap": false,
+            "IsAutoFillWrap": false,
             "Margin": {},
             "GridRowType": "Normal",
             "CanResize": false,
@@ -126,8 +128,8 @@
                   "ClassName": "",
                   "FontFamily": "",
                   "Color": "",
-                  "BackgroundColor": "",
                   "Name": "",
+                  "BackgroundColor": "",
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
                 "Padding": {},
@@ -145,6 +147,7 @@
           },
           {
             "IsWrap": false,
+            "IsAutoFillWrap": false,
             "Margin": {},
             "GridRowType": "Normal",
             "CanResize": false,
@@ -158,8 +161,8 @@
                   "ClassName": "",
                   "FontFamily": "",
                   "Color": "",
-                  "BackgroundColor": "",
                   "Name": "",
+                  "BackgroundColor": "",
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
                 "Padding": {},
@@ -177,6 +180,7 @@
           },
           {
             "IsWrap": false,
+            "IsAutoFillWrap": false,
             "Margin": {},
             "GridRowType": "Normal",
             "CanResize": false,
@@ -190,8 +194,8 @@
                   "ClassName": "",
                   "FontFamily": "",
                   "Color": "",
-                  "BackgroundColor": "",
                   "Name": "",
+                  "BackgroundColor": "",
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
                 "Padding": {},
@@ -208,6 +212,7 @@
             ]
           }
         ],
+        "BackgroundColor": "",
         "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
       }
     }
@@ -255,12 +260,13 @@
         "ExpanderLabel": "検索条件",
         "IsExpanderDefaultOpened": false,
         "IsFlowLayout": false,
+        "IsAutoFillWrap": false,
         "IsFillAvailable": false,
         "ScrollDirection": "Unset",
-        "BackgroundColor": "",
         "Rows": [
           {
             "IsWrap": false,
+            "IsAutoFillWrap": false,
             "Margin": {},
             "GridRowType": "Normal",
             "CanResize": false,
@@ -318,6 +324,7 @@
             ]
           }
         ],
+        "BackgroundColor": "",
         "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.SearchGridLayoutDesign"
       }
     }
@@ -329,6 +336,7 @@
     "CanNavigateToDetail": true,
     "NavigateModuleUrlSegment": "",
     "CanCustomizeColumns": false,
+    "ApplyBackgroundToBoxInput": false,
     "DisplayName": "",
     "SearchCondition": {
       "LimitCount": 50,
