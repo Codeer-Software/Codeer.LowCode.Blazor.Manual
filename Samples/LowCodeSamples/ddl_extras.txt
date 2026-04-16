@@ -1,0 +1,88 @@
+-- Codeer.LowCode.Blazor.Extras サンプル用テーブル
+-- 外部ライブラリ/Extras フレーム配下の CalendarField / GanttField / TaskBoardField / MarkerListField で使用
+
+-- カレンダーイベント (CalendarField)
+CREATE TABLE extras_calendar_event (
+    id SERIAL PRIMARY KEY,
+    title TEXT,
+    "start" TIMESTAMP,
+    "end" TIMESTAMP,
+    all_day BOOLEAN,
+    color TEXT
+);
+
+-- ガントチャートのタスク (GanttField)
+CREATE TABLE extras_gantt_task (
+    id SERIAL PRIMARY KEY,
+    title TEXT,
+    "start" TIMESTAMP,
+    "end" TIMESTAMP,
+    progress NUMERIC,
+    processing_counter NUMERIC
+);
+
+-- ガントチャートのタスク依存関係 (GanttField)
+CREATE TABLE extras_gantt_dep (
+    id SERIAL PRIMARY KEY,
+    src INTEGER,
+    dst INTEGER
+);
+
+-- タスクボードのカード (TaskBoardField)
+CREATE TABLE extras_task_item (
+    id SERIAL PRIMARY KEY,
+    sort_index NUMERIC,
+    status TEXT,
+    content TEXT
+);
+
+-- 画像上のマーカー (MarkerListField)
+CREATE TABLE extras_marker_point (
+    id SERIAL PRIMARY KEY,
+    x NUMERIC,
+    y NUMERIC,
+    name TEXT
+);
+
+
+-- ===== サンプルデータ =====
+
+INSERT INTO extras_calendar_event (title, "start", "end", all_day, color) VALUES
+    ('企画レビュー',       '2026-04-06 10:00:00', '2026-04-06 11:30:00', false, '#4CAF50'),
+    ('開発スプリント開始', '2026-04-08 09:00:00', '2026-04-08 10:00:00', false, '#2196F3'),
+    ('全体MTG',            '2026-04-10 13:00:00', '2026-04-10 14:00:00', false, '#FF9800'),
+    ('顧客プレゼン',       '2026-04-15 15:00:00', '2026-04-15 16:30:00', false, '#E91E63'),
+    ('ハッカソン',         '2026-04-20 00:00:00', '2026-04-21 00:00:00', true,  '#9C27B0'),
+    ('月末レビュー',       '2026-04-28 14:00:00', '2026-04-28 15:00:00', false, '#607D8B');
+
+INSERT INTO extras_gantt_task (title, "start", "end", progress, processing_counter) VALUES
+    ('要件定義',     '2026-04-01 09:00:00', '2026-04-04 18:00:00', 1.0, 0),
+    ('基本設計',     '2026-04-05 09:00:00', '2026-04-09 18:00:00', 0.8, 0),
+    ('詳細設計',     '2026-04-10 09:00:00', '2026-04-14 18:00:00', 0.5, 0),
+    ('実装',         '2026-04-15 09:00:00', '2026-04-22 18:00:00', 0.3, 0),
+    ('テスト',       '2026-04-20 09:00:00', '2026-04-27 18:00:00', 0.1, 0),
+    ('リリース準備', '2026-04-28 09:00:00', '2026-04-30 18:00:00', 0.0, 0);
+
+INSERT INTO extras_gantt_dep (src, dst)
+    SELECT a.id, b.id FROM extras_gantt_task a, extras_gantt_task b
+    WHERE (a.title='要件定義'   AND b.title='基本設計')
+       OR (a.title='基本設計'   AND b.title='詳細設計')
+       OR (a.title='詳細設計'   AND b.title='実装')
+       OR (a.title='実装'       AND b.title='テスト')
+       OR (a.title='テスト'     AND b.title='リリース準備');
+
+INSERT INTO extras_task_item (sort_index, status, content) VALUES
+    (1, 'ToDo',   '商品詳細ページの SEO メタ情報を整備する'),
+    (2, 'ToDo',   '在庫切れアラートを Slack に通知する'),
+    (3, 'ToDo',   'パスワードレス (マジックリンク) ログインの方式検討'),
+    (1, '進行中', 'レビュー投稿機能の実装 (画像添付対応)'),
+    (2, '進行中', 'スマホ版チェックアウトの動線リニューアル'),
+    (1, '完了',   'Apple ID によるソーシャルログイン連携'),
+    (2, '完了',   '管理画面ダッシュボードに KPI グラフを追加');
+
+INSERT INTO extras_marker_point (x, y, name) VALUES
+    (120, 180, '受付'),
+    (380, 220, '会議室A'),
+    (560, 160, '会議室B'),
+    (250, 380, '休憩スペース'),
+    (640, 420, '開発エリア');
