@@ -1,53 +1,11 @@
 {
   "Name": "ExtrasRichText",
-  "DataSourceName": "Main",
-  "DbTable": "extras_rich_text_doc",
+  "DataSourceName": "",
+  "DbTable": "",
   "CanCreate": true,
   "CanUpdate": true,
   "CanDelete": true,
   "Fields": [
-    {
-      "DbColumn": "id",
-      "Placeholder": "",
-      "IsManualInput": false,
-      "CompositeIdVariables": [],
-      "CompositeIdSeparator": "",
-      "IsUpdateProtected": false,
-      "IsSimpleSearchParameter": false,
-      "OnSearchDataChanged": "",
-      "DisplayName": "",
-      "IsRequired": false,
-      "OnDataChanged": "",
-      "Name": "Id",
-      "IgnoreModification": false,
-      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.IdFieldDesign"
-    },
-    {
-      "DbColumn": "title",
-      "IsMultiline": false,
-      "IsAutoFitRows": false,
-      "Placeholder": "",
-      "TextEditEmptyType": "StringEmpty",
-      "ShouldTrimAfterEdit": false,
-      "IsUpdateProtected": false,
-      "IsSimpleSearchParameter": false,
-      "OnSearchDataChanged": "",
-      "DisplayName": "",
-      "IsRequired": false,
-      "OnDataChanged": "",
-      "Name": "Title",
-      "IgnoreModification": false,
-      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
-    },
-    {
-      "DbColumn": "content",
-      "DisplayName": "",
-      "IsRequired": false,
-      "OnDataChanged": "",
-      "Name": "Content",
-      "IgnoreModification": false,
-      "TypeFullName": "Codeer.LowCode.Blazor.Extras.Designs.RichTextFieldDesign"
-    },
     {
       "Text": "RichTextField",
       "Icon": "",
@@ -59,7 +17,7 @@
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
     },
     {
-      "Text": "書式付きテキストの編集フィールド。太字・斜体・色・リンク・リストなど HTML フォーマットに対応。編集内容は HTML として DB 列に保存されます。",
+      "Text": "書式付きテキストの編集フィールド。太字・斜体・色・フォントサイズ・リンク・リストなど HTML フォーマットに対応しています。",
       "Icon": "",
       "Style": "Default",
       "RelativeField": "",
@@ -69,21 +27,13 @@
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
     },
     {
-      "Text": "Submit",
-      "ImageResourcePath": "",
-      "ImageResourceSet": {
-        "Default": "",
-        "Focus": "",
-        "Active": "",
-        "Hover": "",
-        "Disabled": ""
-      },
-      "Icon": "",
-      "Variant": "Primary",
-      "IsBlock": true,
-      "Name": "サブミットボタン",
+      "DbColumn": "",
+      "DisplayName": "",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "Content",
       "IgnoreModification": false,
-      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.SubmitButtonFieldDesign"
+      "TypeFullName": "Codeer.LowCode.Blazor.Extras.Designs.RichTextFieldDesign"
     }
   ],
   "UserWriteCondition": {
@@ -101,7 +51,7 @@
   "DetailLayouts": {
     "": {
       "OnBeforeInitialization": "",
-      "OnAfterInitialization": "",
+      "OnAfterInitialization": "DetailLayoutDesign_OnAfterInitialization",
       "OnLocationChanging": "",
       "OnFieldDataChanged": "",
       "DataOnlyFields": [],
@@ -117,7 +67,7 @@
         "ExpanderLabel": "",
         "IsExpanderDefaultOpened": false,
         "IsFlowLayout": false,
-        "IsFillAvailable": false,
+        "IsFillAvailable": true,
         "ScrollDirection": "Unset",
         "BackgroundColor": "",
         "Rows": [
@@ -189,38 +139,6 @@
             "IsWrap": false,
             "Margin": {},
             "GridRowType": "Normal",
-            "CanResize": false,
-            "BackgroundColor": "",
-            "IsRowMarginRemoved": false,
-            "Columns": [
-              {
-                "Layout": {
-                  "FieldName": "Title",
-                  "ContextMenu": "",
-                  "ClassName": "",
-                  "FontFamily": "",
-                  "Color": "",
-                  "BackgroundColor": "",
-                  "Name": "",
-                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                },
-                "Padding": {},
-                "BackgroundColor": "",
-                "BorderStyle": {
-                  "LeftColor": "",
-                  "TopColor": "",
-                  "RightColor": "",
-                  "BottomColor": ""
-                },
-                "CanResize": false,
-                "Border": "None"
-              }
-            ]
-          },
-          {
-            "IsWrap": false,
-            "Margin": {},
-            "GridRowType": "Normal",
             "CanResize": true,
             "BackgroundColor": "",
             "IsRowMarginRemoved": false,
@@ -228,38 +146,6 @@
               {
                 "Layout": {
                   "FieldName": "Content",
-                  "ContextMenu": "",
-                  "ClassName": "",
-                  "FontFamily": "",
-                  "Color": "",
-                  "BackgroundColor": "",
-                  "Name": "",
-                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                },
-                "Padding": {},
-                "BackgroundColor": "",
-                "BorderStyle": {
-                  "LeftColor": "",
-                  "TopColor": "",
-                  "RightColor": "",
-                  "BottomColor": ""
-                },
-                "CanResize": false,
-                "Border": "None"
-              }
-            ]
-          },
-          {
-            "IsWrap": false,
-            "Margin": {},
-            "GridRowType": "Normal",
-            "CanResize": false,
-            "BackgroundColor": "",
-            "IsRowMarginRemoved": false,
-            "Columns": [
-              {
-                "Layout": {
-                  "FieldName": "サブミットボタン",
                   "ContextMenu": "",
                   "ClassName": "",
                   "FontFamily": "",
@@ -293,26 +179,7 @@
       "OnBeforeInitialization": "",
       "OnAfterInitialization": "",
       "OnFieldDataChanged": "",
-      "Elements": [
-        [
-          {
-            "FieldName": "Title",
-            "ContextMenu": "",
-            "Label": "",
-            "ColumnSpan": 1,
-            "RowSpan": 1,
-            "TextWrap": "Unset",
-            "CanResize": false,
-            "CanUserSort": true,
-            "ClassName": "",
-            "FontFamily": "",
-            "Color": "",
-            "BackgroundColor": "",
-            "DetailLayoutName": "",
-            "ListElementComponent": ""
-          }
-        ]
-      ]
+      "Elements": []
     }
   },
   "SearchLayouts": {
@@ -321,12 +188,12 @@
       "ShowDefaultSearchButtons": true,
       "Layout": {
         "Operator": "And",
-        "Name": "SearchGridLayout",
+        "Name": "",
         "Padding": {},
         "IsBordered": false,
         "UseBorderedShrinkWrap": false,
-        "IsExpandable": true,
-        "ExpanderLabel": "検索条件",
+        "IsExpandable": false,
+        "ExpanderLabel": "",
         "IsExpanderDefaultOpened": false,
         "IsFlowLayout": false,
         "IsFillAvailable": false,
@@ -364,7 +231,7 @@
   "UseListPageSubmitButton": false,
   "ListPageFieldDesign": {
     "LayoutName": "",
-    "CanNavigateToDetail": true,
+    "CanNavigateToDetail": false,
     "NavigateModuleUrlSegment": "",
     "CanCustomizeColumns": false,
     "DisplayName": "",
@@ -376,12 +243,12 @@
       "SortDescending": false,
       "ModuleName": ""
     },
-    "PagerPosition": "Top",
+    "PagerPosition": "Bottom",
     "UseIndexSort": false,
     "DeleteTogether": false,
     "CanCreate": false,
     "CanUpdate": false,
-    "CanDelete": true,
+    "CanDelete": false,
     "CanUserSort": true,
     "CanSelect": false,
     "OnDataChanged": "",
