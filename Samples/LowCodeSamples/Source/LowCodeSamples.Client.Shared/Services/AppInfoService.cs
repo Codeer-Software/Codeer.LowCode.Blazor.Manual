@@ -2,6 +2,7 @@ using Blazor.KHandyInterop;
 using Codeer.LowCode.Blazor.Components.AppParts.Loading;
 using Codeer.LowCode.Blazor.DesignLogic;
 using Codeer.LowCode.Blazor.DesignLogic.Transfer;
+using Codeer.LowCode.Blazor.Extras;
 using Codeer.LowCode.Blazor.Repository;
 using Codeer.LowCode.Blazor.Repository.Data;
 using Codeer.LowCode.Blazor.Repository.Match;
@@ -54,6 +55,8 @@ namespace LowCodeSamples.Client.Shared.Services
             _scriptRuntimeTypeManager.AddService(new WebApiService(http, logger));
             _scriptRuntimeTypeManager.AddService(new Toaster(toaster));
             _scriptRuntimeTypeManager.AddService(new KJS(js));
+
+            ExtrasClientInitializer.Initialize(this);
         }
 
         public async Task InitializeAppAsync()
