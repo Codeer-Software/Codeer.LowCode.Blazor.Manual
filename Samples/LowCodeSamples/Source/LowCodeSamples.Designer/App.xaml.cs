@@ -13,6 +13,7 @@ using Codeer.LowCode.Blazor.Designer.Extensibility;
 using Codeer.LowCode.Blazor.Designer.Extensibility.Views;
 using Codeer.LowCode.Blazor.Designer.Models;
 using Codeer.LowCode.Blazor.Designer.Views.Windows;
+using Codeer.LowCode.Blazor.Extras.Designer;
 using Codeer.LowCode.Blazor.Repository.Data;
 using Codeer.LowCode.Blazor.Script;
 using IgniteUI.Blazor.Controls;
@@ -42,6 +43,7 @@ namespace LowCodeSamples.Designer
 
             MudBlazorLoader.LoadAssemblies();
             RadzenLoader.LoadAssemblies();
+            ExtrasDesignerInitializer.Initialize();
 
             Services.AddApexCharts();
             PropertyTypeManager.AddPropertyControl<ChartSeries, ChartSeriesPropertyControl>();

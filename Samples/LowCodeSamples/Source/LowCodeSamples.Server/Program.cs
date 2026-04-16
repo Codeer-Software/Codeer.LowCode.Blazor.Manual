@@ -1,19 +1,20 @@
+using ApexCharts;
+using Codeer.LowCode.Bindings.ApexCharts.Designs;
+using Codeer.LowCode.Bindings.Fluent.Blazor.Designs;
+using Codeer.LowCode.Bindings.MudBlazor.Installer;
+using Codeer.LowCode.Bindings.Radzen.Blazor.Installer;
+using Codeer.LowCode.Blazor.Extras;
 using Codeer.LowCode.Blazor.Json;
 using Codeer.LowCode.Blazor.License;
 using Codeer.LowCode.Blazor.SystemSettings;
 using LowCodeSamples.Client.Shared.Samples.ColorPicker;
 using LowCodeSamples.Server.Services;
+using LowCodeSamples.Server.Services.AI;
 using LowCodeSamples.Server.Services.DataChangeHistory;
 using LowCodeSamples.Server.Services.FileManagement;
 using PdfSharp.Fonts;
 using System.Globalization;
 using System.Text.Json.Serialization;
-using Codeer.LowCode.Bindings.MudBlazor.Installer;
-using Codeer.LowCode.Bindings.Radzen.Blazor.Installer;
-using LowCodeSamples.Server.Services.AI;
-using ApexCharts;
-using Codeer.LowCode.Bindings.ApexCharts.Designs;
-using Codeer.LowCode.Bindings.Fluent.Blazor.Designs;
 typeof(Microsoft.FluentUI.AspNetCore.Components.Appearance).ToString();
 
 //load dll.
@@ -23,6 +24,7 @@ typeof(ColorPickerField).ToString();
 typeof(FluentTextFieldDesign).ToString();
 MudBlazorLoader.LoadAssemblies();
 RadzenLoader.LoadAssemblies();
+ExtrasServerInitializer.Initialize();
 
 var builder = WebApplication.CreateBuilder(args);
 
