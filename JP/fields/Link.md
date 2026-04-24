@@ -1,11 +1,8 @@
-# LinkField
+# LinkField (リンク)
 
 ## これは何か
 
 **他のモジュールのデータを選んで参照するフィールド**。入力欄＋検索ダイアログ＋表示文字のセットで提供され、外部キー的な使い方ができます。
-
-<img src="images/Link表示1.png" alt="Link表示1" style="border: 1px solid;">
-<img src="images/Link表示2.png" alt="Link表示2" style="border: 1px solid;">
 
 ## いつ使うか
 
@@ -17,32 +14,51 @@
 
 ## デザイナでの設定
 
-<img src="images/Link設定.png" alt="Link設定" style="border: 1px solid;">
+<img src="../../Image/designer/fields/link/LinkSample_properties_panel.png" alt="LinkFieldのプロパティパネル" style="border: 1px solid;" width="400">
 
-### 固有プロパティ
+### プロパティ一覧
 
-| プロパティ | 型 | 既定値 | 説明 |
-|---|---|---|---|
-| **DbColumn** | string | `""` | 対応する DB 列名（参照先の Id を保存） |
-| **ListLayoutName** | string | `""` | 検索結果として表示するリンク先の List レイアウト |
-| **SearchLayoutName** | string | `""` | 検索ダイアログのリンク先 Search レイアウト |
-| **ValueVariable** | string | `""` | リンク先で「値」として使う Field 名 |
-| **DisplayTextVariable** | string | `""` | リンク先で「表示文字」として使う Field 名 |
-| **SearchCondition** | SearchCondition | - | リンク先への絞り込み条件 |
-| **OnSearchButtonClicked** | string | `""` | 検索ボタンクリック時のスクリプト |
+#### システム
 
-共通プロパティは [Field 共通プロパティ](common_properties.md) を参照。
+| C#名 | 日本語表示名 | 説明 |
+|---|---|---|
+| - | フィールドタイプ | `リンク` 固定 |
 
-### CONDITION（リンク先絞り込み）
+#### 基本設定
 
-`SearchCondition` では以下を指定します:
+| C#名 | 日本語表示名 | 型 | 既定値 | 説明 |
+|---|---|---|---|---|
+| **Name** | 名前 | string | `""` | フィールド識別子 |
+| **DisplayName** | 表示名 | string | `""` | 画面表示用の名前 |
+| **DbColumn** | DBカラム | string | `""` | 対応する DB 列名（参照先の Id を保存） |
+| **ListLayoutName** | 一覧レイアウト名 | string | `""` | 検索結果として表示するリンク先の List レイアウト |
+| **SearchLayoutName** | 検索レイアウト名 | string | `""` | 検索ダイアログのリンク先 Search レイアウト |
+| **ValueVariable** | 値用変数 | string | `""` | リンク先で「値」として使う Field 名 |
+| **DisplayTextVariable** | 表示用変数 | string | `""` | リンク先で「表示文字」として使う Field 名 |
+| **IsRequired** | 必須 | bool | `false` | 入力必須 |
+| **IsUpdateProtected** | 更新無効 | bool | `false` | 更新時に値を変更できないようにする |
+| **OnDataChanged** | データ変更イベント | string | `""` | 値変更時のスクリプトイベント |
+| **OnSearchButtonClicked** | 検索ボタン押下イベント | string | `""` | 検索ボタンクリック時のスクリプト |
+| **IgnoreModification** | 変更判定から除外 | bool | `false` | 変更検知（IsModified）から除外 |
 
-- **ModuleName** — リンク先モジュール名
-- **Conditions** — 絞り込み条件
-- **MatchType** — 条件の結合（`And` / `Or`）
-- **LimitCount** — 表示上限
-- **SortFieldVariable** — ソートキー
-- **SortOrder** — 昇順・降順
+#### 検索設定
+
+| C#名 | 日本語表示名 | 型 | 既定値 | 説明 |
+|---|---|---|---|---|
+| **IsSimpleSearchParameter** | 簡易検索条件 | bool | `false` | 簡易検索の対象にする |
+| **AllowEmptySearch** | 空検索を許可 | bool | `false` | 空での検索を許可する |
+| **OnSearchDataChanged** | 検索モードデータ変更イベント | string | `""` | 検索条件が変更された時のスクリプトイベント |
+
+#### 絞り込み条件
+
+リンク先モジュールへの絞り込み条件を指定します。
+
+| C#名 | 日本語表示名 | 型 | 既定値 | 説明 |
+|---|---|---|---|---|
+| **SearchCondition.ModuleName** | モジュール名 | string | `""` | リンク先のモジュール名 |
+| **SearchCondition.Condition** | 抽出条件 | MultiMatchCondition | - | 絞り込み条件（「設定を開く」から編集） |
+| **SearchCondition.LimitCount** | 件数上限 | int | `50` | 検索結果の最大件数 |
+| **SearchCondition.SortConditions** | ソート | List | `[]` | 検索結果の表示順 |
 
 ---
 
@@ -50,8 +66,9 @@
 
 1. リンク先モジュールに **List レイアウト**と**Search レイアウト**を用意する
 2. LinkField の `ListLayoutName` / `SearchLayoutName` にそれらを指定
-3. `ValueVariable` にリンク先の Id、`DisplayTextVariable` に表示用の Field を指定
-4. 画面でリンク先を選ぶと、LinkField に Id が格納される
+3. `絞り込み条件.モジュール名` にリンク先のモジュール名を設定
+4. `ValueVariable` にリンク先の Id、`DisplayTextVariable` に表示用の Field を指定
+5. 画面でリンク先を選ぶと、LinkField に Id が格納される
 
 ---
 
