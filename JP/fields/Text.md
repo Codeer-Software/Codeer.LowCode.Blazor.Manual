@@ -1,40 +1,56 @@
-# TextField
+# TextField (テキスト)
 
 ## これは何か
 
 **文字列を入力・表示するフィールド**。1 行の入力欄としても、複数行（textarea）としても使えます。
 
-<img src="images/Text表示.png" alt="Text表示" style="border: 1px solid;">
-
 ## いつ使うか
 
 - 名前・タイトル・住所など一般的な文字列入力
-- コメント・説明文など複数行の入力（`IsMultiline` をオン）
+- コメント・説明文など複数行の入力（「複数行」をオン）
 - DB 文字列カラムの表示・編集
 
 ---
 
 ## デザイナでの設定
 
-<img src="images/Text設定.png" alt="Text設定" style="border: 1px solid;">
+<img src="../../Image/designer/fields/text/TextSingleLine_properties_panel.png" alt="TextFieldのプロパティパネル" style="border: 1px solid;" width="400">
 
-### 固有プロパティ
+### プロパティ一覧
 
-| プロパティ | 型 | 既定値 | 説明 |
-|---|---|---|---|
-| **DbColumn** | string | `""` | 対応する DB 列名 |
-| **Placeholder** | string | `""` | 未入力時に表示される案内文 |
-| **IsMultiline** | bool | `false` | 複数行入力（textarea）にする |
-| **IsAutoFitRows** | bool | `false` | 入力内容に応じて行数を自動調整 |
-| **Rows** | int? | null | 表示行数（IsMultiline 時） |
-| **MaxLength** | int? | null | 最大文字数 |
-| **TextEditEmptyType** | enum | `StringEmpty` | 空入力時に `""` を保持するか `null` にするか |
-| **ShouldTrimAfterEdit** | bool | `false` | 編集後に前後の空白を自動削除 |
-| **SearchComparisonDefaultValue** | MatchComparison? | null | 検索の既定比較（`Equal` / `Like`） |
+#### システム
 
-共通プロパティ（Name, DisplayName, IsRequired, OnDataChanged など）は [Field 共通プロパティ](common_properties.md) を参照。
+| C#名 | 日本語表示名 | 説明 |
+|---|---|---|
+| - | フィールドタイプ | `テキスト` 固定 |
 
-<img src="images/Text詳細.png" alt="Text詳細" style="border: 1px solid;">
+#### 基本設定
+
+| C#名 | 日本語表示名 | 型 | 既定値 | 説明 |
+|---|---|---|---|---|
+| **Name** | 名前 | string | `""` | フィールド識別子 |
+| **DisplayName** | 表示名 | string | `""` | 画面表示用の名前（ラベル・ヘッダー）。空なら Name が使われる |
+| **DbColumn** | DBカラム | string | `""` | 対応する DB 列名 |
+| **Placeholder** | プレースホルダー | string | `""` | 未入力時の案内文 |
+| **IsMultiline** | 複数行 | bool | `false` | 複数行入力（textarea）にする |
+| **IsAutoFitRows** | 複数行時の行数自動計算 | bool | `false` | 入力内容に応じて行数を自動調整 |
+| **Rows** | 複数行時の行数（初期値） | int? | null | 表示行数（IsMultiline 時） |
+| **MaxLength** | 最大文字数 | int? | null | 入力可能な最大文字数 |
+| **TextEditEmptyType** | 編集後の空文字の値 | enum | `StringEmpty` | 空入力時に `""` を保持するか `null` にするか |
+| **ShouldTrimAfterEdit** | 編集後にトリム | bool | `false` | 編集後に前後の空白を自動削除 |
+| **IsRequired** | 必須 | bool | `false` | 入力必須 |
+| **IsUpdateProtected** | 更新無効 | bool | `false` | 更新時に値を変更できないようにする |
+| **OnDataChanged** | データ変更イベント | string | `""` | 値変更時のスクリプトイベント |
+| **IgnoreModification** | 変更判定から除外 | bool | `false` | 変更検知（IsModified）から除外 |
+
+#### 検索設定
+
+| C#名 | 日本語表示名 | 型 | 既定値 | 説明 |
+|---|---|---|---|---|
+| **IsSimpleSearchParameter** | 簡易検索条件 | bool | `false` | 簡易検索の対象にする |
+| **AllowEmptySearch** | 空検索を許可 | bool | `false` | 空での検索を許可する |
+| **OnSearchDataChanged** | 検索モードデータ変更イベント | string | `""` | 検索条件が変更された時のスクリプトイベント |
+| **SearchComparisonDefaultValue** | テキスト検索の比較方法（初期値） | enum? | null | 検索の既定比較（`Equal` / `Like`） |
 
 ---
 
@@ -69,6 +85,22 @@ if (string.IsNullOrEmpty(Name.Value))
 await Name.SetSearchValueAsync("山田");
 await Name.SetSearchComparisonAsync(MatchComparison.Like);
 ```
+
+---
+
+## バリエーション
+
+### 単行入力（`IsMultiline: false`）
+
+一般的な 1 行テキスト入力。
+
+### 複数行入力（`IsMultiline: true`, `Rows: 3`）
+
+textarea として表示。`Rows` で表示行数を指定、`IsAutoFitRows: true` にすると入力内容に応じて行数が自動調整される。
+
+### 文字数制限つき（`MaxLength: 50`）
+
+入力可能な文字数の上限を設定。ユーザーはそれ以上入力できなくなる。
 
 ---
 
