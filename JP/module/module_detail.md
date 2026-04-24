@@ -1,50 +1,66 @@
 # モジュール詳細設定
 
-Enityの表示画面，登録/更新画面を設定します.
+**詳細タブ**では、1 件のデータを表示・編集する画面のレイアウトを設定します。新規追加・編集ダイアログにもここで定義したレイアウトが使われます。
 
-<img src="images/module_detail.png" width="400" alt="モジュール全体" title="モジュール全体" style="border: 1px solid;">
+<img src="images/module_detail.png" width="600" alt="モジュール詳細" style="border: 1px solid;">
+
+---
+
+## 設定の流れ
+
+1. プロパティパネルで Grid / Canvas などのレイアウトを設定
+2. 「未使用フィールド」から Field をドラッグ＆ドロップで配置
+3. 各 Field のプロパティ（幅・揃え・読み取り専用など）を調整
+
+レイアウトの詳細な仕様は [レイアウト](layout.md) を参照してください。
+
+---
+
+## default レイアウトと追加レイアウト
+
+| レイアウト | 用途 |
+|---|---|
+| **default** | 詳細ページの標準レイアウト（削除・改名不可） |
+| **追加レイアウト** | ダイアログ・ListField・DetailList・TileList・ModuleField で使い分け可能 |
+
+追加レイアウトは「＋」ボタンで作成できます。
+
+<img src="images/detail_multiple.png" alt="詳細複数" width="400" style="border: 1px solid;">
+
+### 使い分けの例
+
+- **default** — 標準の編集画面用（最も情報量が多い）
+- **compact** — ListField の行内編集で使う簡易版
+- **readonly** — 参照専用の表示版
+
+参照側（ListField など）のプロパティで、使いたいレイアウト名を指定します。
+
+<img src="images/detail_settings.png" alt="詳細設定" width="400" style="border: 1px solid;">
+
+---
 
 ## ツールボックス
-モジュールで使用するFieldを選択します。
 
-| 項目           | 説明                                               |
-|--------------|--------------------------------------------------|
-| SystemFields | SystemFieldの一覧が表示されます                            |
-| CommonFields | CommonFieldの一覧が表示されます                            |
-| DB Fields    | 全体設定でDataSourceを指定した場合に，テーブルのカラムからField候補が表示されます |
-| Rest Fields  | DB Fieldsで詳細設定で（まだ）使用していないFieldが表示されます           |
-| Link Fields  | Linkフィールドを作成した場合に，Link先のフィールドが表示されます             |
-| Layout       | 詳細画面でGridレイアウト，Canvasレイアウトを設定時に使用します             |
+[全体設定のツールボックス](module_general.md#ツールボックス) と同じ構成ですが、詳細タブでは以下も選べます:
 
-## 詳細設定
-プロパティペインで列，行を追加/削除を行い，レイアウトを設定します。
+- **Layout** — Grid / Canvas / Tab レイアウト要素
 
-追加ボタンをクリックして複数のレイアウトを作成できます。
+---
 
-[レイアウトの詳細](layout.md)はこちらを参照してください。
+## レイアウトのプロパティ
 
-## プロパティ
-選択しているレイアウトのプロパティが表示されます
+詳細レイアウト全体のプロパティ:
 
-## レイアウト詳細
+| プロパティ | 説明 |
+|---|---|
+| **OnBeforeInitialization** | UI 初期化前のスクリプト |
+| **OnAfterInitialization** | UI 初期化後のスクリプト |
+| **DataOnlyFields** | UI には表示しないが、サーバーから取得する Field |
 
-<img src="images/detail.png" alt="詳細" title="詳細" width="400" style="border: 1px solid;">
+---
 
-モジュールの詳細設定画面で詳細のレイアウトを設定します．
+## 関連項目
 
-## デフォルトレイアウト
-
-モジュールの詳細画面に使うレイアウト設定はdefaultという名前で作成されます．（変更できません）
-
-モジュールの詳細ページにはdefaultのレイアウトが適用されます．
-
-## 複数レイアウト
-
-<img src="images/detail_multiple.png" alt="詳細複数" title="詳細複数" width="400" style="border: 1px solid;">
-
-追加ボタンをクリックしてデフォルトとは異なるレイアウトを作成できます．
-
-`ListField`, `DetailList`, `TileList` にdefaultを含む作成済みのすべてのレイアウトから, 適用するレイアウトを指定できます.
-
-<img src="images/detail_settings.png" alt="詳細設定" title="詳細設定" width="400" style="border: 1px solid;">
-
+- [Module 概要](module.md) / [全体設定](module_general.md)
+- [レイアウト](layout.md)
+- [Document Outline と Property パネル](DocumentOutline.md)

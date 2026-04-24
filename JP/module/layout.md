@@ -1,74 +1,54 @@
 # レイアウト
 
-このソフトウェアは2種類のレイアウトをサポートしています。
+Module の詳細・一覧・検索の各画面は、レイアウトの中に Field を配置して作ります。
+Codeer.LowCode.Blazor は以下のレイアウトをサポートしています。
 
-- Grid
-- Canvas
+| レイアウト | 特徴 | 用途 |
+|---|---|---|
+| **Grid** | 行×列のグリッドに配置 | 業務アプリの入力画面の基本 |
+| **Canvas** | 自由な座標に配置 | ダッシュボード・帳票風画面 |
+| **Tab** | 複数の内容をタブで切り替え | 画面が長くなる時の分割 |
+| **Flow**（Grid.IsFlowLayout） | 左から右へ順に並べて折り返す | タグ・アイコン列 |
 
-ここではそれぞれのレイアウトの特徴と、詳細な動作について説明します。
+Module の Root 要素は Grid レイアウトです。多くの場合 **Grid を基本**にして、必要に応じて Canvas・Tab・Flow を組み合わせます。
 
-## レイアウトの特徴
+---
 
-### Grid
+## Grid レイアウト
 
-Gridレイアウトは列と行を使ったレイアウトです。各要素には、 `Button` や `Label` をはじめとするフィールドや、他のGridやCanvasを含むことができます。
+行と列のグリッドに要素を配置します。入れ子が可能で、セルの中にさらに Grid や Canvas を入れられます。
 
-ModuleやSearchのRoot要素はGridレイアウトが設定されているため、Gridを基本的なレイアウトとして使用してデザインしていくことになります。
+<img src="images/layout/grid_design.png" alt="grid_design" width="400" style="border: 1px solid;">
+<img src="images/layout/grid.png" alt="grid" width="400" style="border: 1px solid;">
 
-通常Gridの各Columnは標準状態でRow全体の幅を含まれているColumnの数で等分した幅を持っています。
-しかし、いくつかのField（Date, DateTime など）はUserAgent（ここではブラウザ）のスタイルシートなどでそれ以上小さくできない幅を持っている場合があります。
-これらの最低幅を持ったFieldがColumnに含まれている場合、ほかのColumnに割り当てられる幅がRow全体を等分したものより小さくなることがあります。
+### 列幅の決定ルール
 
-<img src="images/layout/grid_design.png" alt="grid_design" title="grid_design" width="400" style="border: 1px solid;">
-<img src="images/layout/grid.png" alt="grid" title="grid" width="400" style="border: 1px solid;">
+列幅は以下の優先度で決まります:
 
-### Canvas
+1. **IsAutoFillWrap 行** — 列幅は CSS Grid が制御（カラム個別指定は無効）
+2. **Width 指定**（固定幅） — カラムは正確に指定 px
+3. **MinWidth 指定** — `flex: 1` で均等に伸び、最小幅を保証
+4. **Width / MinWidth 指定なし** — `flex: 1` で均等に伸びる
 
-Canvasレイアウトは自由な配置が可能なレイアウトです。ドラッグドロップで要素を配置することができ、要素のサイズ・配置を自由に変更することができます。
+| プロパティ | 用途 |
+|---|---|
+| **Width** | 固定幅（px） |
+| **MinWidth** | 最小幅。不足時に折り返す |
+| **MaxWidth** | 最大幅（MinWidth と併用） |
+| **IsAutoFillWrap** | 折り返し時に自動で均等割り（MinWidth 必須、MaxWidth は無効） |
 
-<img src="images/layout/canvas_design.png" alt="canvas_design" title="canvas_design" width="400" style="border: 1px solid;">
-<img src="images/layout/canvas.png" alt="canvas" title="canvas" width="400" style="border: 1px solid;">
+### 標準のマージン・パディング
 
-## マージンとパディング
+Grid は標準でいくつかのマージンやパディングを含んでいます。要素間に適切なスペースが確保されるようになっています。
 
-### Grid
+- **Grid** — 通常は無し。`IsBordered` オン時は内側に `1rem` のパディング
+- **Row** — 下部に `1rem` のマージン
+- **Column** — 左右に `0.75rem` のパディング（Grid / Canvas を配置した場合は条件付きで適用なし）
 
-Gridレイアウトは標準状態でいくつかのマージンやパディングを含んでいます。これにより、要素間に適切なスペースが確保されます。
-
-標準のマージンやパディングは、`Row` では `Margin` プロパティ、`Grid` および `Column` では `Padding` プロパティを設定することで動作を上書きすることができます。
-空欄では標準のマージンやパディングが適用され、それ以外の何らかの数値が入力されている場合その値が反映されます。
-
-標準で適用されているマージンとパディングがどのような値になるかは `Grid` 自体や、`Row`、 `Column` などのプロパティによって変わります。
-ここではそれぞれのプロパティとマージンやパディングがどのように適用されるかを説明します。
-
-#### Grid
-
-Grid自体はマージン・パディングを含んでいません。ただし、Gridの `IsBorderd` プロパティが設定された場合は、Gridの内側に `1rem` のパディングが適用されます。
-
-#### Row
-
-Rowは下部に適用されるマージン `1rem` が設定されています。ただし、`Row` に含まれる直下の `Column` について枠線が設定されている場合、同じ階層で次に表示される `Row` の上部にマージン `1rem` が設定されます。
-- 例）  
-Row[0]  
-└─ Column[0]：枠線を設定  
-Row[1]：上部にマージン 1rem が設定される
-
-#### Column
-
-Columnは左右に適用されるパディング `0.75rem` が設定されています。ただし、GridやCanvasが配置された場合に限り、次の条件を満たす場合にパディングが適用されません。
-
-- Grid, Canvas の `IsBordered` プロパティが `false` に設定されている
-
-### Canvas
-
-Canvasレイアウトは標準状態でマージンやパディングを含みません。
-
-## 標準マージン・パディングの上書き
-
-Gridに含まれる標準状態のマージンとパディングの値を`app.css` から上書きすることができます。それぞれ必要に応じて設定してください。
+`app.css` から上書き可能:
 
 ```css
-/* IsBorderedプロパティが設定されたGridのパディングを上書き */
+/* IsBordered な Grid のパディングを上書き */
 div.grid-bordered {
   --default-padding-top: 20px;
   --default-padding-right: 40px;
@@ -76,160 +56,180 @@ div.grid-bordered {
   --default-padding-left: 160px;
 }
 
-/* Rowの上下マージンを上書き */
+/* Row の上下マージンを上書き */
 div.grid-row {
   --default-margin-top: 20px;
   --default-margin-bottom: 40px;
 }
 
-/* Columnの左右パディングを上書き */
+/* Column の左右パディングを上書き */
 div.grid-column {
   --default-padding-left: 20px;
   --default-padding-right: 40px;
 }
 ```
 
-## 特殊なレイアウトモード
+### Grid プロパティ
 
-### Grid.IsFlowLayout
+| プロパティ | 説明 |
+|---|---|
+| **Name** | 識別子 |
+| **IsViewOnly** | 読み取り専用 |
+| **IsBordered** | 枠（カード）として描画 |
+| **IsFlowLayout** | 左→右に並べて折り返すフローモード |
+| **IsFillAvailable** | ページ末尾で空き領域を埋める |
+| **IsExpandable** | 開閉可能にする |
+| **ExpanderLabel** | 開閉時のラベル |
+| **IsExpanderDefaultOpened** | 初期状態で開くか |
+| **BackgroundColor** / **Color** | 色設定 |
 
-Grid レイアウトには特殊なレイアウトモードとして、 `IsFlowLayout` があります。
-このモードが有効になっている場合、Gridの要素は左から右へ順番に配置され、右端に達した場合は次の行に配置されます。
+### Row プロパティ
 
-<img src="images/layout/flow_design.png" alt="flow_design" title="flow_design" width="400" style="border: 1px solid;">
-<img src="images/layout/flow.png" alt="flow" title="flow" width="400" style="border: 1px solid;">
+| プロパティ | 説明 |
+|---|---|
+| **IsWrap** | 自動折り返し |
+| **Height** | 行の高さ |
+| **IsRowMarginRemoved** | 行マージンの削除 |
+| **FillAvailable** | 空き領域を埋める高さまで広げる（末尾 Row で有効） |
+| **Margin** | マージンの上書き |
 
-### Row.FillAvailable
+### Column プロパティ
 
-Row には特殊なレイアウトモードとして、 `FillAvailable` があります。
-このモードが有効になっているRowが、そのGridの末尾要素の場合にページボディの空き領域をすべて埋める高さまでRowが広げられます。
+| プロパティ | 説明 |
+|---|---|
+| **Width** | 固定幅（px） |
+| **MinWidth** / **MaxWidth** | 最小・最大幅 |
+| **BackgroundColor** | 背景色 |
+| **Border** | 罫線 |
+| **HorizontalAlignment** | 水平位置（`start` / `center` / `end` / `stretch`） |
+| **VerticalAlignment** | 垂直位置（`top` / `middle` / `end` / `stretch`） |
+| **CanResize** | ユーザーによるリサイズ許可 |
+| **Padding** | パディングの上書き |
 
-<img src="images/layout/FillAvailable_design.png" alt="FillAvailable_design" title="FillAvailable_design" width="400" style="border: 1px solid;">
-<img src="images/layout/FillAvailable.png" alt="FillAvailable" title="FillAvailable" width="400" style="border: 1px solid;">
+---
+
+## Canvas レイアウト
+
+自由な座標に要素を配置できます。ドラッグ＆ドロップでサイズと位置を決めます。
+
+<img src="images/layout/canvas_design.png" alt="canvas_design" width="400" style="border: 1px solid;">
+<img src="images/layout/canvas.png" alt="canvas" width="400" style="border: 1px solid;">
+
+### Canvas プロパティ
+
+| プロパティ | 説明 |
+|---|---|
+| **IsViewOnly** | 読み取り専用 |
+| **IsBordered** | 枠を描画 |
+
+### Element（Canvas 上の各要素）のプロパティ
+
+| プロパティ | 説明 |
+|---|---|
+| **Width** / **Height** | サイズ |
+| **ZIndex** | 重なり順 |
+
+---
+
+## Tab レイアウト
+
+複数のグループをタブで切り替え表示します。情報量が多い画面を整理するのに便利です。
+
+### 使い方
+
+- Tab レイアウトを配置
+- 各タブに表示するコンテンツ（Grid 等）を配置
+- タブヘッダーのラベルを設定
+
+---
+
+## Flow モード（Grid.IsFlowLayout）
+
+Grid の `IsFlowLayout` をオンにすると、**行・列の構造を無視して横一列に並べ、右端で折り返す**モードになります。
+
+<img src="images/layout/flow_design.png" alt="flow_design" width="400" style="border: 1px solid;">
+<img src="images/layout/flow.png" alt="flow" width="400" style="border: 1px solid;">
+
+タグ・アイコン列・ボタンバーなどに向きます。
+
+---
+
+## FillAvailable（残領域に広げる）
+
+Row の `FillAvailable` をオンにすると、**その Row が Grid の末尾である場合**に、ページの残り領域を埋める高さまで広がります。
+表（ListField）をページ全体の高さで表示したい時などに使います。
+
+<img src="images/layout/FillAvailable_design.png" alt="FillAvailable_design" width="400" style="border: 1px solid;">
+<img src="images/layout/FillAvailable.png" alt="FillAvailable" width="400" style="border: 1px solid;">
+
+---
+
+## Field のレイアウト個別プロパティ
+
+レイアウトに配置した Field は、Field 本来のプロパティ以外に、レイアウト個別のプロパティも持ちます。
+
+| プロパティ | 説明 |
+|---|---|
+| **IsViewOnly** | 読み取り専用 |
+| **FontFamily** / **FontSize** / **FontWeight** / **FontStyle** | フォント指定 |
+| **Color** | 文字色 |
+
+---
 
 ## デザイナ上の表示との差異
 
-デザイナ上では、GridやCanvasの配置を確認することができますが正確にブラウザ上での表示と同一にはなっていません。
-最終的な表示を確認するには、デプロイ後のページを確認してください。
+デザイナ上の表示は、ブラウザ上の表示と完全には一致しません。
+最終的な表示を確認するには、デプロイ後に Web ブラウザで確認してください。
 
+---
 
-## プロパティ
-### Detail
-<img src="images/layout/detail_property.png" alt="detail_property" title="detail_property" width="400" style="border: 1px solid;">
+## スクリプトから
 
-| プロパティ名                 | 説明             |
-|------------------------|----------------| 
-| OnBeforeInitialization | UI初期化前の処理を設定する |
-| OnAfterInitialization  | UI初期化後の処理を設定する |
-| DataOnlyFields         | TODO           |
+### レイアウト共通
 
+| プロパティ | 型 | 説明 |
+|---|---|---|
+| `Name` | string | レイアウト名 |
+| `LayoutName` | string | （同上） |
+| `ModuleLayoutType` | ModuleLayoutType | `Detail` / `List` / `Search` |
+| `IsEnabled` | bool | 全体の有効・無効 |
+| `IsVisible` | bool | 表示・非表示 |
+| `IsViewOnly` | bool | 読み取り専用 |
+| `IsExpanded` | bool | 開閉状態（Expandable Grid） |
 
-### Grid
-<img src="images/layout/grid_property.png" alt="grid_property" title="grid_property" width="400" style="border: 1px solid;">
+### SearchLayout 固有
 
-| プロパティ名                  | 説明                                         |
-|-------------------------|--------------------------------------------| 
-| Name                    | フィールド名を設定する                                |
-| IsViewOnly              | 読取専用を設定する                                  |
-| IsBordered              | 枠を設定する                                     |
-| IsFlowLayout            | フローレイアウトを設定する                              |
-| IsFillAvailable         | Gridの末尾要素の場合にページボディの空き領域をすべて埋める高さまでRowが広げる |
-| IsExpandable            | 開閉を設定する                                    |
-| ExpanderLabel           | 開閉ラベルを設定する                                 |
-| IsExpanderDefaultOpened | デフォルトで開いているかどうかを設定する                       |
+| プロパティ | 型 | 説明 |
+|---|---|---|
+| `IsOrMatch` | bool? | Or 検索かどうか |
 
-### Row
-<img src="images/layout/row_property.png" alt="row_property" title="row_property" width="400" style="border: 1px solid;">
+### よく使う例
 
-| プロパティ名             | 説明            |
-|--------------------|---------------| 
-| IsWrap             | 行を自動で折り返す     |
-| Height             | 行の高さを設定する     |
-| IsRowMarginRemoved | 行のマージン有無を設定する |
+```csharp
+// 初期化前にリストのロードを止める
+void DetailLayoutDesign_OnBeforeInitialization()
+{
+    ListCookingStep.AllowLoad = false;
+}
 
-### Column
-<img src="images/layout/column_property.png" alt="column_property" title="column_property" width="400" style="border: 1px solid;">
+// 条件に応じてセクションを隠す
+AdvancedGrid.IsVisible = IsAdmin.Value;
+```
 
-| プロパティ名              | 説明                                        |
-|---------------------|-------------------------------------------| 
-| Width               | 列の幅を設定する                                  |
-| BackGround          | 背景色を設定する                                  |
-| Border              | 罫線を設定する                                   |
-| HorizontalAlignment | 水平方向の位置を設定する<br/>start/center/end/stretch |
-| VerticalAlignment   | 垂直方向の位置を設定する<br/>top/middle/end/stretch   |
-| canResize           | サイズの変更可否を設定する                             |
-
-
-### Field 
-<img src="images/layout/field_property.png" alt="field_property" title="field_property" width="400" style="border: 1px solid;">
-
-| プロパティ名     | 説明            |
-|------------|---------------| 
-| IsViewOnly | 読取専用を設定する     |
-| FontFamily | フォントを設定する     |
-| FontSize   | フォントサイズを設定する  |
-| FontWeight | フォントウェイトを設定する |
-| FontStyle  | フォントスタイルを設定する |
-| Color      | 色を設定する        |
-
-### Canvas
-<img src="images/layout/canvas_property.png" alt="canvas_property" title="canvas_property" width="400" style="border: 1px solid;">
-
-| プロパティ名                  | 説明                   |
-|-------------------------|----------------------| 
-| IsViewOnly              | 読取専用を設定する            |
-| IsBordered              | 枠を設定する               |
-
-### Element
-<img src="images/layout/element_property.png" alt="element_property" title="element_property" width="400" style="border: 1px solid;">
-
-| プロパティ名 | 説明          |
-|--------|-------------| 
-| width  | 幅を設定する      |
-| height | 高さを設定する     |
-| zindex | zindexを設定する |
-
-## スクリプト
-### Layout
-| プロパティ名                 | 型                | 説明            |
-|------------------------|------------------|---------------|
-| IsEnabled              | bool             | 一括で有効/無効を変更する |
-| IsExpanded             | bool             | Gridが開いているか   |
-| IsViewOnly             | bool             | Gridが読み取り専用か  |
-| IsVisible              | bool             | Gridが表示されているか |
-| LayoutName             | string           | レイアウト名        |
-| ModuleLayoutType       | ModuleLayoutType | レイアウトのタイプ     |
-| Name                   | string           | 名前            |
-
-### GridLayout
-
-  | プロパティ名           | 型                | 説明            |
-  |------------------|------------------|---------------|
-  | IsEnabled        | bool             | 一括で有効/無効を変更する |
-  | IsExpanded       | bool             | Gridが開いているか   |
-  | IsViewOnly       | bool             | Gridが読み取り専用か  |
-  | IsVisible        | bool             | Gridが表示されているか |
-  | LayoutName       | string           | レイアウト名        |
-  | ModuleLayoutType | ModuleLayoutType | レイアウトのタイプ     |
-  | Name             | string           | 名前            |
-  | IsExpanded       | bool             | 開いているかどうか     |
-
-### SearchLayout
-
-  | プロパティ名           | 型                | 説明            |
-  |------------------|------------------|---------------|
-  | IsEnabled        | bool             | 一括で有効/無効を変更する |
-  | IsExpanded       | bool             | Gridが開いているか   |
-  | IsViewOnly       | bool             | Gridが読み取り専用か  |
-  | IsVisible        | bool             | Gridが表示されているか |
-  | LayoutName       | string           | レイアウト名        |
-  | ModuleLayoutType | ModuleLayoutType | レイアウトのタイプ     |
-  | Name             | string           | 名前            |
-  | IsExpanded       | bool             | 開いているかどうか     |
-  | IsOrMatch        | bool?            | OR検索かどうか      |
-
+---
 
 ## 動画ガイド
-[レイアウトガイド-概要編](https://www.youtube.com/watch?v=DepPNToMjGE)<br>
-[レイアウトガイド-Grid編 基本的な使い方](https://www.youtube.com/watch?v=Y7a9al6Wk3Y)<br>
-※レイアウトシリーズの動画は今後も追加予定です
+
+- [レイアウトガイド - 概要編](https://www.youtube.com/watch?v=DepPNToMjGE)
+- [レイアウトガイド - Grid 編 基本的な使い方](https://www.youtube.com/watch?v=Y7a9al6Wk3Y)
+
+※レイアウトシリーズの動画は順次追加予定
+
+---
+
+## 関連項目
+
+- [Module 概要](module.md)
+- [詳細設定](module_detail.md) / [一覧設定](module_list.md) / [検索設定](module_search.md)
+- [Document Outline と Property パネル](DocumentOutline.md)
+- [Field 一覧](../fields/field.md)

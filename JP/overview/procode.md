@@ -1,12 +1,28 @@
 # プロコード
-Codeer.LowCode.BlazorはBlazorに組み込むライブラリですので、もちろん通常のBlazorや.NETの実装も可能です。
 
-## コードビハインド
+Codeer.LowCode.Blazor は Blazor のライブラリなので、**.NET / Blazor の通常のコードを自由に追加**できます。
+標準機能で足りない部分はプロコードで補完するのが基本の考え方です。
+
+## プロコードの 5 つの拡張パターン
+
+| パターン | 用途 | 使う基底クラス |
+|---|---|---|
+| **コードビハインド** | 既存 Module の挙動に C# コードを足す | `ProCodeBehindBase` |
+| **フル Razor ページ** | 画面全体を独自実装して PageFrame から呼び出す | `ProCodeModuleBase` |
+| **部分 Razor コンポーネント** | 画面の一部を独自実装（[ProCodeField](../fields/ProCode.md)） | `ProCodeComponentBase` |
+| **カスタム Field** | 独自 Field を作ってツールボックスに登録 | `FieldBase` / `FieldDesignBase` 等 |
+| **.NET コードをスクリプトから呼び出し** | ライブラリ関数・ビジネスロジックを提供 | `AddType` / `AddService` |
+
+---
+
+## 1. コードビハインド
+
 <img src="images/procode_codebehinde.png">
 
-Designerで作成したModuleと同名のクラスを作成してProCodeBehindBaseを継承させます。
-Webの画面でModuleが表示されたときにインスタンスが生成され関連付けられます。
-Moduleで配置したフィールドと同型/同名のフィールドをpublicプロパティで配置することでそこにも実行中のインスタンスが設定されます。
+Designer で作成した Module と**同名のクラス**を作り `ProCodeBehindBase` を継承します。
+Web 画面で Module が表示されたときにインスタンスが生成・関連付けられます。
+
+Module に配置した Field と**同型・同名のプロパティ**を public で置くと、実行中の Field インスタンスが自動で注入されます。
 
 ```csharp
 public class CodeBehindSample : ProCodeBehindBase
@@ -18,30 +34,27 @@ public class CodeBehindSample : ProCodeBehindBase
 
     public override async Task OnBeforeDetailInitializationAsync(string layoutName)
     {
+        if (OK != null) OK.OnClickAsync = OK_Click;
         await Task.CompletedTask;
-        if (OK != null)OK.OnClickAsync = OK_Click;
     }
 
     private async Task OK_Click()
     {
-        var value = @$"This is a sample code-behind.
-This string is created using C# code.
-Implemented in {GetType().FullName}.
-Your name is {Name?.Value}.
-And I'm {Age?.Value} years old.";
-
+        var value = $"Hello {Name?.Value}, {Age?.Value} years old.";
         if (Result != null) await Result.SetValueAsync(value);
     }
 }
-
 ```
 
-## 画面全体をrazorファイルで実装する
-ProCodeModuleBaseを継承したコンポーネントを実装するとPageFrameなどから利用できるようになります。画面の部分にそのまま表示できます。
+---
+
+## 2. フル Razor ページ（ProCodeModuleBase）
+
+`ProCodeModuleBase` を継承したコンポーネントを実装すると、PageFrame に登録して普通のページとして使えます。
+
 <img src="images/procode_module.png">
 
-```csharp
-@using Microsoft.AspNetCore.Components.Web
+```razor
 @using Codeer.LowCode.Blazor.ProCode
 @inherits ProCodeModuleBase
 
@@ -60,202 +73,148 @@ ProCodeModuleBaseを継承したコンポーネントを実装するとPageFrame
     }
 }
 ```
-## 画面の一部をrazorファイルで実装する
-ProCodeComponentBaseを実装したクラスを作成してそれをProCodeFieldに設定すると表示することができます。
-この場合、データを格納するフィールドを別に作りそこにデータを格納することでデータの入出力をLowCode機能の方に任せることができます。
+
+---
+
+## 3. 部分 Razor コンポーネント（ProCodeField）
+
+`ProCodeComponentBase` を継承したコンポーネントを作り、[ProCodeField](../fields/ProCode.md) に指定すると画面の一部として埋め込めます。
 
 <img src="images/procode_component.png">
 
-```csharp
-@using Microsoft.AspNetCore.Components.Web
+```razor
 @using Codeer.LowCode.Blazor.ProCode
 @inherits ProCodeComponentBase
 
 <h1>Counter</h1>
-
 <p role="status">Current count: @_currentCount</p>
-
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 
 @code {
     private int _currentCount = 0;
-
-    private void IncrementCount()
-    {
-        _currentCount++;
-    }
+    private void IncrementCount() => _currentCount++;
 }
 ```
 
-## カスタムフィールドを作成する
-カスタムフィールドを作るとDesigner画面でポトペタでそれを配置できるようになります。3rdパーティ製のコンポーネントもLowCodeで使えるようになるのです。
-Field,FieldDesignの実装が必要になります。必要に応じてFieldComponent,FieldData,FieldSearchComponent,FieldSearchControlを実装します。
+データを持たせたい場合は、別途 Field（TextField や NumberField）を配置して、そこにデータを格納するのが簡便です。
+
+---
+
+## 4. カスタム Field
+
+デザイナのツールボックスから配置できる独自 Field を作れます。サードパーティ製 Blazor コンポーネントをローコードで使いたい場合にも便利です。
+
 <img src="images/procode_customfield.png">
 
-### FieldDesignBaseを継承したクラス
-FieldDesignBaseを継承したクラスを作ります。
-これはDesignerでの設定を格納するクラスです。
-これは実装が必須です。
-DesignerAttributeをつけたPropertyがDesignerのProperty画面に表示され編集することができます。
-また以下のメソッドを実装することで関連するインスタンスを実行時に生成できます。
-- **GetWebComponentTypeFullName**
-  - Web上でのコンポーネントのTypeFullName。FieldComponentBase<T>を継承している必要があります。通常は実装しますがデータだけのFieldとして作成したい場合は必要ありません。string.Emptyを返してください。
+実装が必要なクラス:
 
-- **GetSearchWebComponentTypeFullName**
-  - Web上での検索コンポーネントのTypeFullName。検索が必要なければ実装は不要です。string.Emptyを返してください。
+| クラス | 必須 | 役割 |
+|---|---|---|
+| `XxxFieldDesign` | ✓ | デザイナでの設定を保持 |
+| `XxxField` | ✓ | 実行時インスタンス |
+| `XxxFieldData` | データを DB と入出力するなら必要 | DB 入出力用 |
+| `XxxFieldComponent` | UI を持つなら必要 | Web 上の Blazor コンポーネント |
+| `XxxFieldSearchComponent` | 検索で使うなら必要 | 検索 UI |
+| `XxxFieldSearchControl` | ListField の検索条件で使うなら必要 | WPF 検索コントロール |
 
-- **GetSearchControlTypeFullName**
-  - WPFのDesigner上でのListFieldなどの検索条件で表示される検索コントロールのTypeFullName。ListFieldなどでの条件に必要ない場合は実装は不要です。string.Emptyを返してください。
-
-- **CreateField**
-  - FieldBaseを継承したクラスを生成。実装は必須です。
-
-- **CreateData**
-  - FieldDataBaseを継承したクラスを生成。通常は実装が必要ですがDBにデータを入出力する必要がなければ不要です。
+### XxxFieldDesign の例
 
 ```csharp
-using Codeer.LowCode.Blazor.OperatingModel;
-using Codeer.LowCode.Blazor.Repository.Data;
-using Codeer.LowCode.Blazor.Repository.Design;
-using LowCodeApp.Client.Shared.Samples.ColorPicker;
-
-namespace Design.Samples.ColorPicker
+public class ColorPickerFieldDesign : ValueFieldDesignBase
 {
-    public class ColorPickerFieldDesign : ValueFieldDesignBase
-    {
-        public ColorPickerFieldDesign() : base(typeof(ColorPickerFieldDesign).FullName!) { }
+    public ColorPickerFieldDesign() : base(typeof(ColorPickerFieldDesign).FullName!) { }
 
-        [Designer(Index = 0, CandidateType = CandidateType.DbColumn), DbColumn(nameof(ColorPickerFieldData.Value))]
-        public string DbColumn { get; set; } = string.Empty;
+    [Designer(Index = 0, CandidateType = CandidateType.DbColumn)]
+    [DbColumn(nameof(ColorPickerFieldData.Value))]
+    public string DbColumn { get; set; } = string.Empty;
 
-        [Designer(Index = 1)]
-        public string Default { get; set; } = "#000000";
+    [Designer(Index = 1)]
+    public string Default { get; set; } = "#000000";
 
-        public override string GetWebComponentTypeFullName() => typeof(ColorPickerFieldComponent).FullName!;
-        public override string GetSearchWebComponentTypeFullName() => String.Empty;
-        public override string GetSearchControlTypeFullName() => String.Empty;
-        public override FieldBase CreateField() => new ColorPickerField(this);
-        public override FieldDataBase? CreateData() => new ColorPickerFieldData();
-    }
+    public override string GetWebComponentTypeFullName() => typeof(ColorPickerFieldComponent).FullName!;
+    public override string GetSearchWebComponentTypeFullName() => string.Empty;
+    public override string GetSearchControlTypeFullName() => string.Empty;
+    public override FieldBase CreateField() => new ColorPickerField(this);
+    public override FieldDataBase? CreateData() => new ColorPickerFieldData();
 }
-
 ```
 
-### FieldBaseを継承したクラス
-FieldBaseを継承したクラスは実行時に生成されるクラスです。これはスクリプトからも操作することができます。publicなメソッド/プロパティは操作可能ですがScriptHideAttributeをつけている場合はスクリプトからのアクセスを禁止することができます。これ自体は画面を持ちません。
+### 実装する 4 つのメソッド（FieldDesignBase）
+
+| メソッド | 役割 | 省略可能な条件 |
+|---|---|---|
+| `GetWebComponentTypeFullName` | Web 上の表示コンポーネント名 | データのみなら `string.Empty` を返せばよい |
+| `GetSearchWebComponentTypeFullName` | 検索用コンポーネント名 | 検索不要なら `string.Empty` |
+| `GetSearchControlTypeFullName` | ListField 検索条件での WPF コントロール | 不要なら `string.Empty` |
+| `CreateField` | 実行時インスタンス生成 | **必須** |
+| `CreateData` | データ保持用インスタンス | DB に入出力しないなら不要 |
+
+### XxxField の例
+
 ```csharp
-using Codeer.LowCode.Blazor.OperatingModel;
-using Codeer.LowCode.Blazor.Script;
-using Design.Samples.ColorPicker;
-
-namespace LowCodeApp.Client.Shared.Samples.ColorPicker
+public class ColorPickerField : ValueField<ColorPickerFieldDesign, ColorPickerFieldData, string>
 {
-    public class ColorPickerField : ValueField<ColorPickerFieldDesign, ColorPickerFieldData, string>
-    {
-        ColorPickerFieldDesign _design;
-        public ColorPickerField(ColorPickerFieldDesign design) : base(design) => _design = design;
+    public ColorPickerField(ColorPickerFieldDesign design) : base(design) { }
 
-        [ScriptHide]
-        public override bool ValidateInput() => true;
-    }
+    [ScriptHide]  // スクリプトから隠したい場合
+    public override bool ValidateInput() => true;
 }
-
 ```
 
-### FieldDataBaseを継承したクラス
-Databaseへの入出力用です。どのプロパティをDBに書き込むかはFieldDesignBaseを継承したクラスでDbColumnAttributeで指定します。
+### XxxFieldData の例
 
 ```csharp
-using Codeer.LowCode.Blazor.Repository.Data;
-
-namespace LowCodeApp.Client.Shared.Samples.ColorPicker
+public class ColorPickerFieldData : ValueFieldDataBase<string>
 {
-    public class ColorPickerFieldData : ValueFieldDataBase<string>
-    {
-        public ColorPickerFieldData() : base(typeof(ColorPickerFieldData).FullName!) { }
-    }
+    public ColorPickerFieldData() : base(typeof(ColorPickerFieldData).FullName!) { }
 }
-
 ```
 
-### Webのコンポーネントクラス
-FieldComponentBase<T>を継承する必要があります。FieldComponentBase<T>がFieldプロパティを持ち、そこにFieldBaseを継承したクラスのインスタンスが入っています。
+### XxxFieldComponent の例（Razor）
 
-```csharp
+```razor
 @using Codeer.LowCode.Blazor.Components
-@using Microsoft.AspNetCore.Components.Web
-@using Codeer.LowCode.Blazor.Components.Fields
-@using System.Text
 @inherits FieldComponentBase<ColorPickerField>
 
-
-@if (IsViewMode == true) {
-  <div class="d-flex py-2">
-    <div class="color-tip" style="background:@(Value)"></div>
-    <span class="d-block" style="@GetStyleString()">@Value</span>
-  </div>
-} else {
-  <label class="d-flex align-items-center">
-    <input class="color-picker"
-           type="color"
-           disabled="@IsDisabled"
-           id="@WebElementId"
-           value="@Value"
-           @onchange="RaiseOnValueChanged"/>
-    <span style="@GetStyleString()">@Value</span>
-  </label>
+@if (Field.IsViewOnly)
+{
+    <span>@Field.Value</span>
+}
+else
+{
+    <input type="color"
+           disabled="@(Field.IsEnabled == false)"
+           value="@Field.Value"
+           @onchange="OnValueChanged" />
 }
 
 @code {
-  public bool? IsDisabled => Field?.IsEnabled == false;
-
-  public bool? IsViewMode => Field?.IsViewOnly;
-
-  public string? Value => string.IsNullOrEmpty(Field.Value) ? Field.Design?.Default : Field.Value;
-
-  protected override void OnParametersSet() {
-    base.OnParametersSet();
-    Field.SetStateChangedReceiver(StateHasChanged);
-  }
-
-  private async Task RaiseOnValueChanged(ChangeEventArgs e) {
-    if (Field == null) return;
-    await Field.SetValueAsync(e.Value?.ToString());
-  }
-
-  string? GetStyleString()
-  {
-    var style = new StringBuilder();
-    if (!string.IsNullOrEmpty(Field.BackgroundColor))
+    private async Task OnValueChanged(ChangeEventArgs e)
     {
-      style.Append($"--background: {Field.BackgroundColor};");
+        await Field.SetValueAsync(e.Value?.ToString());
     }
-
-    if (!string.IsNullOrEmpty(Field.Color))
-    {
-      style.Append($"--foreground: {Field.Color};");
-    }
-
-    return style.Length == 0 ? null : style.ToString();
-  }
 }
-
 ```
-## .NETの実装をスクリプトから呼び出す
-[スクリプト](script.md#target-line)のProCode連携を参照してください。
 
-## WebAPIを.NETで実装してスクリプトから呼び出す
-Codeer.LowCode.Blazorの機能ではないのですが、テンプレートコードにWebAPIをスクリプトから呼び出すためのサービスを登録しています。例えばこのようにWebAPIを呼び出してサーバーで処理を実行して結果を画面に表示することができます。
+---
+
+## 5. .NET コードをスクリプトから呼び出す
+
+スクリプト側でタイプ・サービスを使えるようにするには、ユーザーコードで登録します。
+
 ```csharp
-var data = WebApiService.Get("/testapi").JsonObject;
-WeatherForecastList.DeleteAllRows();
-foreach(var e in data)
-{
-    var row = new WeatherForecast();
-    row.Date.Value = e.Date;
-    row.TemperatureC.Value = e.TemperatureC;
-    row.TemperatureF.Value = e.TemperatureF;
-    row.Summary.Value = e.Summary;
-    WeatherForecastList.AddRow(row);
-}    
+scriptRuntimeTypeManager.AddType<MemoryStream>();
+scriptRuntimeTypeManager.AddType(typeof(Math));
+scriptRuntimeTypeManager.AddService(new WebApiService(http, logger));
 ```
+
+詳しくは [スクリプト概要 - プロコード連携](script.md#プロコード連携) を参照。
+
+---
+
+## 関連項目
+
+- [スクリプト](script.md)
+- [ProCode フィールド](../fields/ProCode.md)
+- [チュートリアル: WebAPI 連携](../tutorials/tutorial_webapi.md)
+- [ユーザーコード](../user_code/user_code.md)

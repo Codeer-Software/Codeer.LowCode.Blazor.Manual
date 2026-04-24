@@ -1,40 +1,71 @@
-# Password
+# PasswordField
 
-Passwordを表すField
+## これは何か
 
-<img src="images/Password表示.png" alt="Password表示" title="Password表示" style="border: 1px solid;">
+**パスワード入力用のフィールド**。入力内容は伏せ字で表示され、確認入力との一致チェック機構も備えています。
 
-<img src="images/Password設定.png" alt="Password設定" title="Password設定" style="border: 1px solid;" >
+<img src="images/Password表示.png" alt="Password表示" style="border: 1px solid;">
 
-1. FieldType
-    - Passwordを設定する
-2. Name
-    - フィールド名の設定. 全体設定時に表示される.
-3. DisplayName
-    - TBD
-4. IsRequired
-    - 登録時，必須にする
-5. DbColumn
-    - テーブルのカラムの設定
-6. OnDataChanged
-    - 変更時のスクリプト
+## いつ使うか
 
-<img src="images/Password詳細.png" alt="Password詳細" title="Password詳細" style="border: 1px solid;">
+- ユーザー登録時のパスワード入力
+- パスワード変更画面
+- 再入力（確認）との一致チェック
 
-## スクリプト
-| プロパティ名          | 型        | 説明             |
-|-----------------|----------|----------------|
-| BackgroundColor | string?  | Fieldの背景色      | 
-| Color           | string?  | Fieldの色        |
-| IsEnabled       | bool     | Fieldの有効/無効    |
-| IsModified      | bool     | Fieldが変更されたどうか |
-| IsVisible       | bool     | Fieldの表示/非表示   |
-| IsViewOnly      | bool     | Fieldの編集可/編集不可 |
-| Value           | string   | Fieldの値        |
+---
 
-| メソッド名           | 戻り値  | 説明                                        |
-|-----------------|------|-------------------------------------------|
-| CheckPassword() | bool | パスワードが入力されているか，パスワードと確認用パスワードが一致するかチェックする |
-| Clear()         | なし   | パスワード，確認用パスワードをクリアする                      |
+## デザイナでの設定
 
+<img src="images/Password設定.png" alt="Password設定" style="border: 1px solid;">
 
+### 固有プロパティ
+
+PasswordField 固有のプロパティはありません。
+共通プロパティ（Name, DisplayName, IsRequired, OnDataChanged）は [Field 共通プロパティ](common_properties.md) を参照。
+
+> **DB 保存について**: PasswordField は DB 列に直接マッピングされません。保存先はユーザーコード側で制御します（通常はハッシュ化して保存）。
+
+<img src="images/Password詳細.png" alt="Password詳細" style="border: 1px solid;">
+
+---
+
+## スクリプトから
+
+### プロパティ・メソッド
+
+| 名前 | 型・戻り値 | 説明 |
+|---|---|---|
+| `Value` | string? | パスワード値 |
+| `ConfirmPassword` | string? | 確認入力の値 |
+| `CheckPassword()` | bool | 本入力と確認入力が一致するか |
+| `Clear()` | void | 入力をクリア |
+
+共通プロパティは [Field 共通プロパティ](common_properties.md) を参照。
+
+### よく使う例
+
+```csharp
+// 登録時にパスワードと確認入力が一致するかチェック
+void SaveButton_OnClick()
+{
+    if (!Password.CheckPassword())
+    {
+        Password.SetError("確認入力と一致しません");
+        return;
+    }
+
+    if (await Submit())
+    {
+        Password.Clear();
+        Toaster.Success("登録しました");
+    }
+}
+```
+
+---
+
+## 関連項目
+
+- [Field 共通プロパティ](common_properties.md)
+- [Text](Text.md) — 通常の文字入力
+- [認証・認可](../authorization/authorization.md)

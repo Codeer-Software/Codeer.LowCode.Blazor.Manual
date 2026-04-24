@@ -1,19 +1,23 @@
 # designer.settings
 
-このドキュメントでは、`DesignerSettings` クラスの設定を `designer.settings.json` および `designer.settings.Develop.json` ファイルで管理する方法について説明します。設定はどちらのファイルに書いてもよく、最終的には両方のファイルの内容がマージされます。
+デザイナの動作に関する設定を管理するファイルです。DB 接続情報やデプロイ先など、プロジェクト固有かつマシン依存の可能性がある設定をまとめます。
+
 <img src="images/designer_settings.png">
 
-## クラス構造
+## 2 つのファイルに分けて管理
 
-### DesignerSettings クラス
+| ファイル | 用途 | Git 管理 |
+|---|---|---|
+| **designer.settings.json** | チームで共有する設定（DataSource 名など） | **する** |
+| **designer.settings.Develop.json** | マシン固有・機密情報（接続文字列・パスワード） | **しない**（.gitignore 推奨） |
 
-`DesignerSettings` クラスは、アプリケーションの設定を管理します。
+両方のファイルは起動時に読み込まれ**マージ**されます。機密情報を `Develop.json` に逃がすことで、設定構造だけをリポジトリで共有できます。
 
-- `CurrentDeployInfoName`: デザイナでデプロイを実行したときに使われるデプロイ情報の名前。DeployInfoのキーのいずれかを指定する
-- `ConnectionStrings`: 接続文字列。DataSourceのいずれかのNameをキーに指定する
-- `DeployInfo`: デプロイ情報
-- `DataSources`: データソース
-- `FileStorageNames`: ファイルストレージ名
+---
+
+## 設定項目
+
+### DesignerSettings 全体
 
 ```csharp
 public class DesignerSettings
@@ -26,15 +30,15 @@ public class DesignerSettings
 }
 ```
 
-### DeployInfo クラス
+| 項目 | 内容 |
+|---|---|
+| **CurrentDeployInfoName** | 現在有効なデプロイ先の名前（`DeployInfo` のキー） |
+| **ConnectionStrings** | DB 接続文字列（`DataSource.Name` をキーに） |
+| **DeployInfo** | デプロイ先の一覧 |
+| **DataSources** | DB データソースの一覧 |
+| **FileStorageNames** | ファイルストレージ名の一覧 |
 
-`DeployInfo` クラスは、デプロイに関する情報を管理します。
-
-- `DeployMethod`: デプロイ方法のタイプ（FileSystem/FTPS）
-- `Directory`: デプロイ先のディレクトリ(FileSystem時に利用)
-- `FTPSEndPoint`: FTPSのエンドポイント（FTPS時に利用）
-- `UserName`: ユーザー名（FTPS時に利用）
-- `Password`: パスワード（FTPS時に利用）
+### DeployInfo
 
 ```csharp
 public class DeployInfo
@@ -48,13 +52,14 @@ public class DeployInfo
 }
 ```
 
-### DataSource クラス
+| プロパティ | 内容 |
+|---|---|
+| **DeployMethod** | `FileSystem` / `FTPS` |
+| **Directory** | 保存先ディレクトリ（FileSystem 時） |
+| **FTPSEndPoint** | FTPS エンドポイント（FTPS 時） |
+| **UserName** / **Password** | FTPS 認証情報 |
 
-`DataSource` クラスは、データソースに関する情報を管理します。
-
-- `Name`: 名前
-- `DataSourceType`: データソースのタイプ（SQLServer/PostgreSQL/Oracle/SQLite）
-- `ConnectionString`: 接続文字列
+### DataSource
 
 ```csharp
 public class DataSource
@@ -65,9 +70,17 @@ public class DataSource
 }
 ```
 
-## JSON ファイルの例
+| プロパティ | 内容 |
+|---|---|
+| **Name** | 参照用の名前 |
+| **DataSourceType** | `SQLServer` / `PostgreSQL` / `Oracle` / `SQLite` |
+| **ConnectionString** | 接続文字列（`ConnectionStrings` で別出しにすることが多い） |
 
-### designer.settings.json
+---
+
+## ファイル例
+
+### designer.settings.json（共有・Git 管理）
 
 ```json
 {
@@ -81,43 +94,43 @@ public class DataSource
           "DataSourceType": "SQLite"
         }
     ],
-    "FileStorageNames": 
-    [
+    "FileStorageNames": [
         "Local",
         "Azure"
     ]
 }
 ```
 
-### designer.settings.Develop.json
+### designer.settings.Develop.json（個人・Git 管理外）
 
 ```json
 {
     "ConnectionStrings": {
-        "PostgreSQL": "xxx",
-        "SampleSQLite": "Data Source=C:\\Codeer.LowCode.Blazor.Local\\Data\\sqlite_sample.db;Version=3;"
+        "Main": "Host=localhost;Database=sample;Username=xxx;Password=xxx",
+        "SampleSQLite": "Data Source=C:\\Data\\sqlite_sample.db;Version=3;"
     },
     "CurrentDeployInfoName": "local",
     "DeployInfo": {
         "local": {
             "DeployMethod": "FileSystem",
             "Directory": "C:\\Codeer.LowCode.Blazor.Local\\Designs"
-        },
-        "azure": {
-            "DeployMethod": "FTPS",
-            "AppName": "App",
-            "FTPSEndPoint": "ftps://xxx",
-            "UserName": "xxx\\$xxx",
-            "Password": "Exxx",
-            "Directory": "Designs"
         }
     }
 }
 ```
 
-## 設定のマージ
+> **重要**: 接続文字列・パスワードなどの機密情報は `designer.settings.Develop.json` 側に書き、`.gitignore` で Git 管理外にしてください。
 
-`designer.settings.json` と `designer.settings.Develop.json` は、アプリケーションの起動時に読み込まれ、最終的に設定がマージされます。これにより、開発環境と本番環境の設定を分けて管理し、必要に応じて切り替えることができます。
+---
 
 ## 動画ガイド
-[DB設定の追加方法](https://youtu.be/9NhVhUG57Wk?si=MZC6qBU_I8NOufqd)
+
+- [DB 設定の追加方法](https://youtu.be/9NhVhUG57Wk?si=MZC6qBU_I8NOufqd)
+
+---
+
+## 関連項目
+
+- [デザイナ概要](designer.md)
+- [デプロイフォルダ](../overview/deploy_folder.md)
+- [Visual Studio ソリューション構成](../overview/vs_projects.md)

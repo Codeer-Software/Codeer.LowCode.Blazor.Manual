@@ -1,62 +1,114 @@
 # PageFrame
-アプリの外枠の部分です。
-またそのPageFrame内で表示可能なModuleを設定します。
-表示可能なModuleはTopPage、ヘッダ、サイドバー(Left, Right)に指定されたModule、およびその他表示可能で指定されたModuleです。
+
+**PageFrame** はアプリの外枠です。ヘッダー・サイドバー・フッター・中央コンテンツ領域からなる、アプリ全体の枠組みを定義します。
 
 <img src="images/pageframe.png">
 
+## PageFrame に設定するもの
+
+- **TopPage** — ルート URL で最初に表示するモジュール
+- **Header** — 画面上部に固定表示するモジュール
+- **SideBar（Left / Right）** — 左右のサイドバーに固定表示するモジュール
+- **Other Pages** — サイドバー・ヘッダーには出さないが、アプリ内で開けるモジュール
+
+PageFrame は複数作れます。用途ごとに画面グループを分けて、権限で切り替えることもできます（例: 管理者用 / 一般ユーザー用）。
+
+---
+
 ## プロパティ
-ページ自体の設定を行います。  
-TopPage、HeaderやSideBar(Left, Right)、Other Pages それぞれでページの設定を行うことが可能です。
+
 <img src="images/pageframe_property.png">
 
-### ModulePageType  
-  Auto：一覧または詳細の設定をもとに表示する内容を自動的に反映します。  
-　　　例えば詳細に何かしらのFieldが設定されていて、一覧には何も設定されていない場合は、詳細ページのみ表示されます。  
-  ListToDetail：一覧ページと詳細ページを表示します。（CanNavigateToDetailの設定も必要です）  
-  List：一覧ページのみ表示します。（CanNavigateToDetailを設定しても詳細ページの表示はできません）  
-  Detail：詳細ページのみ表示します。
+### ModulePageType — 一覧・詳細の表示モード
 
-### 一括データ更新、一括データダウンロード、SubmitButton  
-  CanBulkDataUpdate：チェックを入れるとアップロードボタンが表示されます。（Moduleの全体設定のOptionsでCanCreateとCanUpdateの設定も必要です）  
-  CanBulkDataDownload：チェックを入れるとダウンロードボタンが表示されます。  
-  UseSubmitButton：チェックを入れると一覧画面で登録または更新することができます。（Moduleの全体設定のOptionsでCanCreateまたはCanUpdateの設定も必要です）
+| 値 | 挙動 |
+|---|---|
+| **Auto** | 一覧または詳細の設定に応じて自動判定 |
+| **ListToDetail** | 一覧ページ → 詳細ページの遷移（`CanNavigateToDetail` も必要） |
+| **List** | 一覧ページのみ |
+| **Detail** | 詳細ページのみ |
 
-### ListFieldDesign  
-  List：一覧ページに一覧の設定が反映されて表示されます。  
-  DetailList：一覧ページに詳細の設定が反映されて表示されます。  
-  TileList：一覧ページに詳細の設定が反映されて、TileList形式で表示されます。
+### 一覧画面のオプション
 
-  <img src="images/list_field_design.png">
+| プロパティ | 挙動 |
+|---|---|
+| **CanBulkDataUpdate** | アップロードボタンを表示（Module の Option で `CanCreate`/`CanUpdate` が必要） |
+| **CanBulkDataDownload** | ダウンロードボタンを表示 |
+| **UseSubmitButton** | 一覧画面で登録・更新できる（Module 側の Option 必要） |
+
+### ListFieldDesign — 一覧表示の見た目
+
+<img src="images/list_field_design.png">
+
+| 値 | 挙動 |
+|---|---|
+| **List** | 一覧設定をテーブル表示 |
+| **DetailList** | 詳細レイアウトを縦に並べて表示 |
+| **TileList** | 詳細レイアウトをタイル形式で表示 |
+
+---
 
 ## TopPage
-PageFrameは複数作ることができますが、ルートのURLを入力したときにTopPageにモジュールが指定されているPageFrameが選択され、TopPageを表示します。
 
-## Header, SideBar(Left, Right)
-### Home
-Home(最初の図の例では左のサイドバーの上部に表示されているもの)に表示する内容を決めます。
-| フィールド      | 説明                                            |
-|------------|-----------------------------------------------|
-| Type       | None, Text, Imageから選択する                                 |
-| Icon      | アイコン。TypeがTextの場合に使用する       |
-| Text      | Text。TypeがTextの場合に使用する       |
-| Resource Path     | イメージのResouceフォルダからの相対パス。TypeがImageの場合に使用する                                           |
+PageFrame は複数作れますが、ルート URL（`/`）を開いた時には **TopPage にモジュールが指定されている PageFrame** が選ばれ、そのモジュールが表示されます。
+
+---
+
+## Header / SideBar（Left / Right）の設定
+
+### Home（サイドバー上部 / ヘッダー左端など）
+
+| プロパティ | 説明 |
+|---|---|
+| **Type** | `None` / `Text` / `Image` |
+| **Icon** | アイコン（Type が `Text` の場合） |
+| **Text** | 文字（Type が `Text` の場合） |
+| **ResourcePath** | 画像の相対パス（Type が `Image` の場合） |
 
 ### Colors
-色を決めます。サイドバーはグラデーション表示可能です。
+
+色を決めます。サイドバーはグラデーション表示に対応。
 
 ### 表示モジュール
-| フィールド      | 説明                                            |
-|------------|-----------------------------------------------|
-| Icon       | メニューのアイコンを設定                                  |
-| Title      | メニューのタイトルを設定`/` で区切ることでメニューを階層にできる       |
-| Module     | [Module](../module/module.md) を指定、別のPageFrameに移る場合はPageFrame/Moduleのように<br/>`/` で区切ることで指定できる                       |
+
+ヘッダー／サイドバーに並ぶメニュー項目です。
+
+| プロパティ | 説明 |
+|---|---|
+| **Icon** | メニューのアイコン |
+| **Title** | メニューのタイトル。`/` で区切ると階層メニューになる |
+| **Module** | 対象モジュール名。別 PageFrame に移る場合は `PageFrame/Module` 形式 |
+
+---
 
 ## Other Pages
-SideBar、Headerで指定していないモジュールをページとして表示する場合にここに列挙します。SideBar、Header、Other Pages に指定しているもの以外はPageFrame内では表示できません。
+
+サイドバー・ヘッダーには出さないが、アプリ内で開けるモジュールをここに列挙します。
+**ここに無いモジュールは PageFrame 内では開けません**（URL 直打ちも不可）。
+
+---
 
 ## カスタムレイアウト
 
-標準のレイアウトを使わずに、カスタムサイドバーを実装する場合は `MainLayoutCore` 相当のコンポーネントを実装し `MainLayout.razor` 内を置き換えることで実現できます。
+標準のサイドバー・ヘッダーでは足りない場合、**カスタムメインレイアウト**を Blazor で書けます。
+`MainLayoutCore` 相当のコンポーネントを作り、`MainLayout.razor` 内を置き換えます。
 
-詳しくは`Sample/CustomLayoutSample` を参照してください。
+サンプル: `Sample/CustomLayoutSample`
+
+---
+
+## 権限による表示制御
+
+PageFrame には**表示条件**を設定できます。
+`CurrentUser` を使って、条件を満たさないユーザーには PageFrame そのものを見せないといった制御が可能です。
+
+詳しくは [認証・認可](../authorization/authorization.md) を参照。
+
+---
+
+## 関連項目
+
+- [app.clprj](app_clprj.md)
+- [Module](../module/module.md)
+- [Sidebar Menu / Header Menu の仕組み](../module/module.md)
+- [認証・認可](../authorization/authorization.md)
