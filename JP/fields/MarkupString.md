@@ -1,4 +1,4 @@
-# MarkupStringField
+# MarkupStringField (マークアップストリング)
 
 ## これは何か
 
@@ -16,16 +16,27 @@
 
 ## デザイナでの設定
 
-### 固有プロパティ
+<img src="../../Image/designer/fields/markupstring/MarkupStringSample_properties_panel.png" alt="MarkupStringFieldのプロパティパネル" style="border: 1px solid;" width="400">
 
-| プロパティ | 型 | 既定値 | 説明 |
-|---|---|---|---|
-| **ResourcePath** | string | `""` | HTML を外部リソースから読み込む場合のパス |
-| **RawHtml** | string | `""` | HTML を直接書く場合の内容（複数行可） |
+### プロパティ一覧
 
-共通プロパティは [Field 共通プロパティ](common_properties.md) を参照。
+#### システム
 
-> `ResourcePath` と `RawHtml` はどちらか片方を使います。両方設定した場合は `RawHtml` が優先されます。
+| C#名 | 日本語表示名 | 説明 |
+|---|---|---|
+| - | フィールドタイプ | `マークアップストリング` 固定 |
+
+#### 基本設定
+
+| C#名 | 日本語表示名 | 型 | 既定値 | 説明 |
+|---|---|---|---|---|
+| **Name** | 名前 | string | `""` | フィールド識別子 |
+| **ResourcePath** | ファイルパス（Resources/） | string | `""` | HTML を外部リソースから読み込む場合のパス |
+| **RawHtml** | HTML | string | `""` | HTML を直接書く場合の内容（複数行可） |
+| **IgnoreModification** | 変更判定から除外 | bool | `false` | 変更検知（IsModified）から除外 |
+
+> `ファイルパス（Resources/）` と `HTML` はどちらか片方を使います。両方設定した場合は `HTML` が優先されます。
+> MarkupStringField は値を持たないため、`表示名` / `必須` / `DBカラム` などはありません。
 
 ---
 

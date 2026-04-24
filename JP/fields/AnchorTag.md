@@ -1,10 +1,8 @@
-# AnchorTagField
+# AnchorTagField (アンカータグ)
 
 ## これは何か
 
 **ハイパーリンク（HTML の `<a>` タグ相当）を表示するフィールド**。画面遷移や外部 URL へのリンクを作れます。
-
-<img src="./images/AnchorTag.png" width="450" alt="AnchorTag設定" style="border: 1px solid;">
 
 ## いつ使うか
 
@@ -16,25 +14,35 @@
 
 ## デザイナでの設定
 
-### 固有プロパティ
+<img src="../../Image/designer/fields/anchortag/AnchorTagSample_properties_panel.png" alt="AnchorTagFieldのプロパティパネル" style="border: 1px solid;" width="400">
 
-| プロパティ | 型 | 既定値 | 説明 |
-|---|---|---|---|
-| **TitleText** | string | `"Anchor Tag"` | 表示文字 |
-| **Style** | enum | - | 見た目（`Text` / `Button` 等） |
-| **TitleVariable** | string | `""` | 表示文字を Field の値から動的に取る場合の Field 名 |
-| **Icon** | string | `""` | アイコン |
-| **ImageResourcePath** | string | `""` | 画像を使う場合のパス |
-| **Target** | enum | - | `Url` / `HistoryBack` / `HistoryForward` |
-| **ShouldOpenInNewTab** | bool | `false` | 新しいタブで開く |
-| **Url** | string | `""` | 直接指定の URL |
-| **PageFrame** | string | `""` | 遷移先 PageFrame |
-| **Module** | string | `""` | 遷移先モジュール |
-| **ModuleVariable** | string | `""` | 遷移先モジュールの決定に使う Field 名 |
-| **IdVariable** | string | `""` | 遷移先で参照する Id の Field 名 |
-| **OnClick** | string | `""` | クリック時のスクリプト |
+### プロパティ一覧
 
-共通プロパティは [Field 共通プロパティ](common_properties.md) を参照。
+#### システム
+
+| C#名 | 日本語表示名 | 説明 |
+|---|---|---|
+| - | フィールドタイプ | `アンカータグ` 固定 |
+
+#### 基本設定
+
+| C#名 | 日本語表示名 | 型 | 既定値 | 説明 |
+|---|---|---|---|---|
+| **Name** | 名前 | string | `""` | フィールド識別子 |
+| **TitleText** | テキスト | string | `"Anchor Tag"` | 表示文字 |
+| **Style** | 表示形式 | enum | `Text` | `Text`（テキストリンク）/ `Button`（ボタン） |
+| **TitleVariable** | タイトル変数 | string | `""` | 表示文字を Field の値から動的に取る場合の Field 名 |
+| **Icon** | アイコン | string | `""` | アイコン |
+| **ImageResourcePath** | 画像パス（Resources/） | string | `""` | 画像を使う場合のリソースパス |
+| **Target** | リンク先 | enum | `Url` | `Url`（URLへ遷移）/ `HistoryBack`（戻る）/ `HistoryForward`（進む） |
+| **ShouldOpenInNewTab** | 新規タブ | bool | `false` | 新しいタブで開く |
+| **Url** | リンク先URL | string | `""` | 直接指定の URL |
+| **PageFrame** | ページフレームセグメント | string | `""` | 遷移先 PageFrame |
+| **Module** | モジュールセグメント | string | `""` | 遷移先モジュール |
+| **ModuleVariable** | モジュール変数 | string | `""` | 遷移先モジュールの決定に使う Field 名 |
+| **IdVariable** | Id変数 | string | `""` | 遷移先で参照する Id の Field 名 |
+| **OnClick** | クリックイベント | string | `""` | クリック時のスクリプト |
+| **IgnoreModification** | 変更判定から除外 | bool | `false` | 変更検知（IsModified）から除外 |
 
 ---
 
@@ -44,9 +52,28 @@
 
 | パターン | 使うプロパティ | 用途 |
 |---|---|---|
-| **外部 URL** | `Url` | 外部サイト |
-| **アプリ内モジュール** | `PageFrame` + `Module` + `IdVariable` | 同じアプリ内の別画面 |
-| **動的決定** | `ModuleVariable` / `TitleVariable` | Field の値に応じて遷移先を変える |
+| **外部 URL** | `リンク先URL` (Url) | 外部サイトへ遷移 |
+| **アプリ内モジュール** | `ページフレームセグメント` + `モジュールセグメント` + `Id変数` | 同じアプリ内の別画面 |
+| **動的決定** | `モジュール変数` / `タイトル変数` | Field の値に応じて遷移先を変える |
+
+---
+
+## Target（リンク先）の種類
+
+| 値 | 挙動 |
+|---|---|
+| **Url** | `Url` プロパティで指定した URL に遷移 |
+| **HistoryBack** | ブラウザ戻る（`Url` は不要） |
+| **HistoryForward** | ブラウザ進む（`Url` は不要） |
+
+---
+
+## Style（表示形式）の種類
+
+| 値 | 見た目 |
+|---|---|
+| **Text** | 下線付きのテキストリンク |
+| **Button** | ボタン形状 |
 
 ---
 

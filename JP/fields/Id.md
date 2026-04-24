@@ -1,10 +1,8 @@
-# IdField
+# IdField (ID)
 
 ## これは何か
 
 **データを一意に識別するキー**となるフィールド。Module には System Field として `Id` が 1 つ必要です（追加・更新・削除の対象となるデータを特定するため）。
-
-<img src="images/Id表示.png" alt="Id表示" style="border: 1px solid;">
 
 ## いつ使うか
 
@@ -21,32 +19,50 @@ Id の値をどう決めるかで 3 つの方式があります。
 
 | 方式 | 設定 | 用途 |
 |---|---|---|
-| **DB 自動生成** | `IsManualInput: false` + DB 側で AUTO_INCREMENT / SERIAL / IDENTITY | 連番の ID |
-| **ユーザー入力** | `IsManualInput: true` | 見積番号・商品コードなど、人間が決める ID |
-| **複合 Id** | `CompositeIdVariables` + `CompositeIdSeparator` | 複数 Field を結合した ID（例: 姓 + 名） |
+| **DB 自動生成** | `手動入力: false` + DB 側で AUTO_INCREMENT / SERIAL / IDENTITY | 連番の ID |
+| **ユーザー入力** | `手動入力: true` | 見積番号・商品コードなど、人間が決める ID |
+| **複合 Id** | `複合ID` + `複合IDの区切り文字` | 複数 Field を結合した ID（例: 姓 + 名） |
 
 ---
 
 ## デザイナでの設定
 
-<img src="images/Id設定.png" alt="Id設定" style="border: 1px solid;">
+<img src="../../Image/designer/fields/id/IdSample_properties_panel.png" alt="IdFieldのプロパティパネル" style="border: 1px solid;" width="400">
 
-### 固有プロパティ
+### プロパティ一覧
 
-| プロパティ | 型 | 既定値 | 説明 |
-|---|---|---|---|
-| **DbColumn** | string | `""` | 対応する DB 列名 |
-| **IsManualInput** | bool | `false` | ユーザー入力にする（オフなら DB 自動生成を期待） |
-| **Placeholder** | string | `""` | 未入力時の案内文 |
-| **CompositeIdVariables** | List\<string\> | `[]` | 複合 Id を構成する他 Field 名 |
-| **CompositeIdSeparator** | string | `""` | 複合 Id の区切り文字 |
-| **SearchComparisonDefaultValue** | MatchComparison? | null | 検索の既定比較（`Equal` / `Like`） |
+#### システム
 
-共通プロパティ（Name, DisplayName, OnDataChanged など）は [Field 共通プロパティ](common_properties.md) を参照。
+| C#名 | 日本語表示名 | 説明 |
+|---|---|---|
+| - | フィールドタイプ | `Id` 固定 |
+
+#### 基本設定
+
+| C#名 | 日本語表示名 | 型 | 既定値 | 説明 |
+|---|---|---|---|---|
+| **Name** | 名前 | string | `""` | フィールド識別子 |
+| **DisplayName** | 表示名 | string | `""` | 画面表示用の名前 |
+| **DbColumn** | DBカラム | string | `""` | 対応する DB 列名 |
+| **IsManualInput** | 手動入力 | bool | `false` | ユーザー入力にする（オフなら DB 自動生成を期待） |
+| **Placeholder** | プレースホルダー | string | `""` | 未入力時の案内文 |
+| **CompositeIdVariables** | 複合ID | List\<string\> | `[]` | 複合 Id を構成する他 Field 名 |
+| **CompositeIdSeparator** | 複合IDの区切り文字 | string | `""` | 複合 Id の区切り文字 |
+| **IsRequired** | 必須 | bool | `false` | 入力必須 |
+| **IsUpdateProtected** | 更新無効 | bool | `false` | 更新時に値を変更できないようにする |
+| **OnDataChanged** | データ変更イベント | string | `""` | 値変更時のスクリプトイベント |
+| **IgnoreModification** | 変更判定から除外 | bool | `false` | 変更検知（IsModified）から除外 |
+
+#### 検索設定
+
+| C#名 | 日本語表示名 | 型 | 既定値 | 説明 |
+|---|---|---|---|---|
+| **IsSimpleSearchParameter** | 簡易検索条件 | bool | `false` | 簡易検索の対象にする |
+| **AllowEmptySearch** | 空検索を許可 | bool | `false` | 空での検索を許可する |
+| **OnSearchDataChanged** | 検索モードデータ変更イベント | string | `""` | 検索条件が変更された時のスクリプトイベント |
+| **SearchComparisonDefaultValue** | テキスト検索の比較方法（初期値） | enum? | null | 検索の既定比較（`Equal` / `Like`） |
 
 > **注意**: System Field の Id は **Name を "Id" から変更できません**。DB 列の名前が異なる場合は `DbColumn` プロパティで調整してください。
-
-<img src="images/Id詳細.png" alt="Id詳細" style="border: 1px solid;">
 
 ---
 
