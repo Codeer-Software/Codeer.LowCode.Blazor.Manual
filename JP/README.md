@@ -1,179 +1,197 @@
 # Codeer.LowCode.Blazor
 
-Codeer.LowCode.Blazorは、Blazorアプリにローコード機能を追加するためのライブラリです。素早く簡単にアプリケーションを構築できるよう設計されています。
-
 <img src="../Image/lc_logo.png">
 
-## 目次
+Codeer.LowCode.Blazor は、**Blazor アプリにローコード機能を組み込むためのライブラリ**です。
+デザイナで画面やデータモデルを設定し、ホットリロードで Web アプリに即反映できます。
 
-- [Codeer.LowCode.Blazorへようこそ](#codeerlowcodeblazorへようこそ)
-- [入手する](#codeerlowcodeblazorを入手する)
-- [Getting Started](#getting-started)
-- [使いこなす](#codeerlowcodeblazorを使いこなす)
-- [ライセンス情報](#ライセンス情報)
-    - [ライセンスについて](overview/about_license.md)
-- [動画](movies.md)
+[サンプルギャラリー](https://lowcodedemo.azurewebsites.net/) ・ [YouTube チュートリアル](https://youtu.be/MchuOxWYR1o?si=7I9FfQB55dP9ctY-) ・ [製品ページ](https://www.codeer.co.jp/LowCode)
 
-## Codeer.LowCode.Blazorへようこそ
-<img width=800 src="../Image/BlazorDesignerVs.png">
+---
 
-### What:　Codeer.LowCode.Blazorとは
-Codeer.LowCode.Blazorは、Blazorアプリにローコード機能を追加するためのライブラリです。素早く簡単にアプリケーションを構築できるよう設計されています。
+## 目的別の入り口
 
-ローコードアプリを使ってビジネスアプリを作ることにとどまらず、ローコードアプリ自体を開発する強力なエンジンを提供します。
+| あなたの状況 | 最短ルート |
+|---|---|
+| **まず何ができるか知りたい** | → [Codeer.LowCode.Blazor とは](introduction/what_is_lowcode.md) |
+| **とりあえず動かしてみたい** | → [クイックスタート（10 分）](quickstart/quickstart.md) |
+| **自分で画面を作ってみたい** | → [はじめてのモジュール作成（30 分）](quickstart/first_module.md) |
+| **特定の機能の作り方を知りたい** | → [ガイド](#ガイド目的別の作り方) |
+| **全仕様を引きたい** | → [リファレンス](#リファレンス全仕様) |
 
+---
 
-### Why：　使う理由
-- 強力なローコードエンジン
-- ノーコード/ローコード/プロコードのシームレスな連携
-- 一般的な.NET/Blazorコードとの高い親和性
-- 素早く簡単に多彩なWeb(Blazor)/WinForms/WPFアプリを作成・変更
-- RDBと自在に連携
-- ローコード(Script)およびプロコードによる高いカスタマイズ能力
-- 各種CSSライブラリ、MudBlazor、Radzen.Blazor、IgniteUIと高い互換性
-- Excelとの連携でデータ入力からPDF変換まで対応
-- Cookie認証やAzureActiveDirectory認証をテンプレートコードで提供、他の認証もカスタマイズで対応可能
-- OpenAI APIによるテキスト解析で拡張可能性は無限大
-### How:　使い方
-主に３つの開発スタイルがあります：
+## 1. はじめに
 
-- ノーコード：　パーツポトペタ＋プロパティ設定
-- ローコード：　C#ライクなスクリプトで演算処理、画面制御、WebAPIの実行、Excel編集/PDF作成等を実装
-- プロコード：　C#によるコードビハインドやRazorページの追加等が可能
+Codeer.LowCode.Blazor を触り始める前に、全体像を掴むためのセクションです。
 
-### Who:　こんなプロジェクトにおすすめ
-- コストと時間を節約したい
-- RDBを効果的に活用したい
-- 既存のデータ、システムを活用したい
-- **WinForms, WebFormsをモダンなフレームワークにリプレイスしたい**
-- こだわりの機能がある
-- リリース後にカスタマイズしたい
+- [Codeer.LowCode.Blazor とは](introduction/what_is_lowcode.md) — できること・3 つの開発スタイル・対応 DB
+- [コア概念](introduction/concepts.md) — PageFrame / Module / Field / Layout / Script の関係
+- [入手とライセンス](introduction/installation.md) — Visual Studio 拡張のインストール・ライセンス種別
 
-### Highlights
-#### ポトペタで画面作成
-CanvasLayout、GridLayout、FlowLayoutの組み合わせで自由に画面を作成できます。通常の画面だけでなくダイアログも作成可能です。各UI部品の連動もノーコードや僅かなスクリプトで作成可能です。サイドバー、ヘッダ、フッターなど一般に必要なものは取り揃えております。こだわりのあるお客様はプロコードで各種カスタマイズしたものに交換できます。
+---
 
-#### RDBと自在に連携
-FormとDBのTableを関連付けてデータの入出力ができます。複数のFormを連携させることでJoinや1:Nの関係を表現できます。FormはTableだけでなくViewにも関連付けることができるのでBI機能も簡単に実現できます。論理削除/楽観ロック/作成更新情報など一般的にDBの操作で必要になるものは取り揃えています。変更履歴ももちろん残せます。  
-（対応DB：Microsoft SQL Server、PostgreSQL、Oracle Database、MySQL、SQLite）
+## 2. クイックスタート
 
-#### スクリプトでより自由に
-C#とほぼ同じ構文で記述できます。僅かな実装で機能を実現できるようにAPI設計をしています。もちろんコード補完も効くので簡単に実装できます。カスタマイズができてプロコードで実装した機能を呼び出すこともできます。基本的にはクライアントサイドで実行されますが、サーバーサイドでの実行もサポートしています。
-- 一般的な演算処理
-- 画面制御
-- WebAPIの実行
-- Excel編集/PDF作成
+手を動かして最短で感触をつかむセクションです。
 
-#### Excelとの連携のサポート
-一般的なデータ入出力はもちろん、テンプレートをExcelで作成してそれを書き換えることで帳票にも対応できます。pdfへの変換も可能です。
+- [クイックスタート（10 分）](quickstart/quickstart.md) — サンプル入りプロジェクトを作成して Web で動かす
+- [はじめてのモジュール作成（30 分）](quickstart/first_module.md) — DB と連動した CRUD 画面を作る
 
-#### 認証・認可
-認証は一般的なCookie認証やAzureActiveDirectoryを使った認証をテンプレートコードで提供します。その他の認証もカスタマイズで対応可能です。認可に関してはアプリ、画面、データそれぞれでアクセス制御が可能です。
+---
 
-#### こだわりの機能はプロコードで実装
-場合によっては特殊な画面/機能が必要になることもあります。Codeer.LowCodeはBlazorのライブラリなので、そのような場合は.NETのコードを追加して作りこみが可能です。さらにField単位で作っておけばそれを様々な箇所で利用することができます。
+## 3. ガイド（目的別の作り方）
 
-## Codeer.LowCode.Blazorを入手する
-### トライアルライセンスで30日間無料でご利用いただけます
-Visual Studio拡張機能を使用してプロジェクトを作成できます。 
+「こういうことをやりたい」から逆引きで読めるセクションです。
 
-[Codeer.LowCode.Blazor.Templates](https://marketplace.visualstudio.com/items?itemName=Codeer.LowCodeBlazor)
+### モジュールの作り方
 
-### ご購入、その他お問合せは[こちら](https://www.codeer.co.jp/LowCode)からお願いします
+- [基本的な作成方法と DB 接続](designer/create_module_with_db_simple.md)
+- [モジュール作成時の注意点](Help/PointToNote_CreateModule.md)
+- [Excel から画面と DDL を作成](designer/import_module_from_excel.md)
+- [既存 DB からモジュールを一括作成](designer/import_modules_from_db.md)
+- [AI でモジュールを作成](ai/ai_modules.md)
 
-## Getting Started
-[![GettingStarted](../Image/GettingStarted_YtCover.png)](https://youtu.be/MchuOxWYR1o?si=7I9FfQB55dP9ctY-)
-### Step1
-プロジェクト新規作成
+### データベース活用
 
-<img width=800 src="../Image/step1.png">
+- [Query フィールド](db/query_field.md) — カスタム SQL で一覧を作る
+- [ExecuteSql フィールド](db/execute_sql_field.md) — 任意の SQL を実行する
 
-### Step2
-BlazorアプリとWPFのデザイナアプリをビルドして起動
+### スクリプトでよくやること（Tips）
 
-```Designerアプリは必ず"発行"でビルドし、Windows Explorerから起動してください。通常ビルドの場合は正常に動作しない場合があります```
+- [Text フィールドを読み取り専用にする](Examples/Tips_IsViewOnly.md)
+- [AnchorTag のサイズ調整](Examples/Tips_AnchorTagSizeSetting.md)
+- [Label の位置調整](Examples/Tips_LabelPositionSetting.md)
+- [検索条件に初期値を設定](Examples/Tips_SearchCriteriaInitialValueSetting.md)
+- [Submit 時に処理を追加](Examples/Tips_AddProcessingSubmit.md)
+- [ModuleSearcher で他モジュールにアクセス](Examples/Tips_ModuleSearcher.md)
+- [リスト同士の連携](Examples/DoubleList.md)
+- [メールを送信する](Examples/SendingMail.md)
 
-<img width=800 src="../Image/step2.png">
+### 認証・認可
 
-### Step3
-デザイナで新しいプロジェクトを作成します。サンプルを含むプロジェクトが作成されます。
+- [認証 / 認可の概要](authorization/authorization.md)
 
-<img width=800 src="../Image/step3.png">
+### AI 連携
 
-### Step4
-それをWebアプリにデプロイします。画面がホットリロードされ、デザイナの設定に従って画面が表示されます。
+- [AI 概要](ai/ai_overview.md)
+- [AI を使うための設定](ai/ai_setup.md)
+- [AITextAnalyzerField](ai/AITextAnalyzerField.md)
+- [AI でクエリを作成](ai/ai_query.md)
 
-<img width=800 src="../Image/step4.png">
+### プロコード拡張
 
-### Step5
-デザイナの設定を確認し、小さな変更を加えてWebアプリに送信して、感覚をつかんでください。
+- [プロコード概要](overview/procode.md)
+- [ユーザーコード](user_code/user_code.md)
 
-<img width=1200 src="../Image/PartsOverView.png">
+### 見た目・スタイル
 
+- [CSS](look_and_feel/css.md)
+- [カスタムスタイル](look_and_feel/custom_styles.md)
+- [Fluent Design](look_and_feel/fluent_design.md)
+- [Material Design](look_and_feel/material_design.md)
 
-## Codeer.LowCode.Blazorを使いこなす
-- 各部分紹介
-    - [概略](overview/overview.md)
-    - [Visual Studioソリューションおよびデプロイ](overview/vs_projects.md)
-    - [オプション: VS Codeを使う](overview/vscode.md)
-    - [デザイナ](designer/designer.md)
-        - [app.clprj](designer/app_clprj.md)
-        - [designer.settings](designer/designer_settings.md)
-        - [PageFrame](designer/page_frame.md)
-        - [Module](module/module.md)
-            - [Field](fields/field.md)
-            - [Document OutlineとPropertyパネル](module/DocumentOutline.md)
-        - [データモデルとModule](data_model/data-model.md)
-    - [デプロイフォルダ](overview/deploy_folder.md)
-- 機能
-    - [認証/認可](authorization/authorization.md)
-    - [スクリプト](overview/script.md)
-    - [プロコード](overview/procode.md)
-    - [ユーザーコード(プロコード)](user_code/user_code.md)
-    - [AI](ai/ai_overview.md)
-        - [AIを使うための設定](ai/ai_setup.md)
-        - [AITextAnalyzerField](ai/AITextAnalyzerField.md)
-        - [モジュールをAIで作成](ai/ai_modules.md)
-        - [クエリをAIで作成](ai/ai_query.md)
-    - 多彩なモジュール作成方法
-        - [Moduleの基本的な作成方法とDBへの接続](designer/create_module_with_db_simple.md)
-        - [Excelから画面とDDLを作成する](designer/import_module_from_excel.md)
-        - [Databaseからモジュール作成する](designer/import_modules_from_db.md)
-    - データベースのフル活用
-        - [Queryフィールド](db/query_field.md)
-        - [ExeuteSqlフィールド](db/execute_sql_field.md)
-    - [自動テストのサポート](designer/export_pageobject.md)
-    - [レイアウト](module/layout.md)
-    - [css](look_and_feel/css.md)
-    - 第三者ライブラリとの連携
-        - [MudBlazor](https://lowcodedemo.azurewebsites.net/MudBlazor/MudBlazorHome)
-        - [Radzen.Blazor](https://lowcodedemo.azurewebsites.net/RadzenBlazor/RadzenBlazorHome)
-        - [IgniteUI](https://lowcodedemo.azurewebsites.net/Bootstrap/ChartSample)
-    - [Webサーバーへのデプロイ](overview/server_deploy.md)
-- サンプル・Tips
-    - [サンプルギャラリー](https://lowcodedemo.azurewebsites.net/)
-    - [TextFieldを読み取り専用にする](Examples/Tips_IsViewOnly.md)
-    - [AnchorTagのサイズを調整する](Examples/Tips_AnchorTagSizeSetting.md)
-    - [Labelの位置を調整する](Examples/Tips_LabelPositionSetting.md)
-    - [検索条件に初期値を設定する](Examples/Tips_SearchCriteriaInitialValueSetting.md)
-    - [Submit時に処理を追加する](Examples/Tips_AddProcessingSubmit.md)
-    - [ScriptでModuleSearcherを使って他のモジュールにアクセスする](Examples/Tips_ModuleSearcher.md)
-    - [リストの連携](Examples/DoubleList.md)
-    - [メールを送信する](Examples/SendingMail.md)
-- リリースノート
-    - [破壊的変更](breaking_changes/breaking_changes.md)
-- Q&A
+### デプロイ
 
+- [Visual Studio ソリューション構成とデプロイ](overview/vs_projects.md)
+- [デプロイフォルダ](overview/deploy_folder.md)
+- [Web サーバーへのデプロイ](overview/server_deploy.md)
+- [オプション: VS Code を使う](overview/vscode.md)
+
+### テスト
+
+- [PageObject のエクスポート（自動テスト）](designer/export_pageobject.md)
+
+### サードパーティ UI ライブラリとの連携
+
+- [MudBlazor サンプル](https://lowcodedemo.azurewebsites.net/MudBlazor/MudBlazorHome)
+- [Radzen.Blazor サンプル](https://lowcodedemo.azurewebsites.net/RadzenBlazor/RadzenBlazorHome)
+- [IgniteUI サンプル](https://lowcodedemo.azurewebsites.net/Bootstrap/ChartSample)
+
+---
+
+## 4. リファレンス（全仕様）
+
+項目ごとに詳しく引くためのセクションです。
+
+### デザイナ
+
+- [デザイナ概要](designer/designer.md)
+- [app.clprj](designer/app_clprj.md) — アプリ全体のプロジェクト設定
+- [designer.settings](designer/designer_settings.md) — Data Source 等の設定
+- [PageFrame](designer/page_frame.md) — アプリの外枠
+- [デザイナのカスタマイズ](designer/designer-customize.md)
+- [検索コンポーネントのカスタマイズ](designer/designer-match-customize.md)
+
+### モジュール
+
+- [Module 概要](module/module.md)
+- [全体設定](module/module_general.md)
+- [詳細設定](module/module_detail.md)
+- [一覧設定](module/module_list.md)
+- [検索設定](module/module_search.md)
+- [Document Outline と Property パネル](module/DocumentOutline.md)
+- [データモデルと Module の関係](data_model/data-model.md)
+
+### レイアウト
+
+- [レイアウト（Grid / Canvas / Flow）](module/layout.md)
+
+### Field（入力・表示部品）
+
+- [Field 概要・System Field](fields/field.md)
+- 入力系: [Text](fields/Text.md) / [Number](fields/Number.md) / [Boolean](fields/Boolean.md) / [Date](fields/Date.md) / [DateTime](fields/DateTime.md) / [Time](fields/Time.md) / [Password](fields/Password.md) / [File](fields/File.md)
+- 選択系: [Select](fields/Select.md) / [RadioButton](fields/RadioButton.md) / [RadioGroup](fields/RadioGroup.md) / [ModuleSelect](fields/ModuleSelect.md)
+- 表示系: [Label](fields/Label.md) / [Link](fields/Link.md) / [AnchorTag](fields/AnchorTag.md) / [Id](fields/Id.md) / [ImageViewer](fields/ImageViewer.md) / [MarkupString](fields/MarkupString.md)
+- 構造系: [List](fields/List.md) / [ListNumber](fields/ListNumber.md) / [DetailList](fields/DetailList.md) / [TileList](fields/TileList.md) / [Module](fields/Module.md) / [Search](fields/Search.md)
+- 操作系: [Button](fields/Button.md) / [SubmitButton](fields/SubmitButton.md)
+- 特殊: [ProCode](fields/ProCode.md) / [OptimisticLocking](fields/OptimisticLocking.md)
+
+### スクリプト
+
+- [スクリプト概要](overview/script.md)
+- [スクリプトデバッガ](overview/script_debugger.md)
+
+### プロジェクト構成
+
+- [概略](overview/overview.md)
+- [Visual Studio ソリューション構成](overview/vs_projects.md)
+- [ユーザーコード](user_code/user_code.md)
+
+### ライセンス登録詳細
+
+- [ライセンスについて（種別と登録方法の全体）](overview/about_license.md)
+- [オンライン登録](overview/license_online_registration.md) / [オフライン登録](overview/license_web_registration.md)
+- [Windows CLI 登録](overview/licence_windows_cli_registration.md) / [Linux 登録](overview/license_linux_registration.md)
+- [ドメインライセンス登録](overview/domain_license_registration.md) / [解除](overview/domain_license_cancellation.md)
+- [LicenseRegister アプリ](overview/license_license_register_application.md)
+
+---
+
+## 5. リリースノート
+
+- [破壊的変更一覧](breaking_changes/breaking_changes.md)
+
+---
+
+## 動画
+
+- [動画ガイド一覧](movies.md)
+
+---
 
 ## ライセンス情報
-Codeer.LowCode.Blazorの使用ライセンスの詳細については、[こちら](https://www.nuget.org/packages/Codeer.LowCode.Blazor/1.0.9/License)をご覧ください。
-日本語版は[こちら](LicenseJP.md)です。本契約の英語版とその翻訳版の間に何らかの齟齬または相違が生じた場合、英語版が優先され本契約の意味を規律するものとします。
 
-- このソフトウェアの試用版は本製品の評価目的でのみ無料で30日間使用できます。
-- ライセンスの購入は、商用目的でのソフトウェアの使用、または商用配布を目的とした製品の開発プロセスの一部としてのソフトウェアの使用を含むがこれに限定されない、あらゆる形式の商用使用に必要です。
-- コミュニティ利用を希望される方には、申請により無償利用ライセンスを発行いたしますのでCodeerまでお問合せ下さい。
+Codeer.LowCode.Blazor のライセンスは以下の通りです。
 
-開発、運用時に必要なライセンスについては[こちら](overview/about_license.md)をご覧ください。
+- **試用版**: 評価目的のみ 30 日間無料
+- **商用利用**: 開発・本番運用ともにライセンス購入が必要
+- **コミュニティ利用**: 申請により無償ライセンス発行（[Codeer](https://www.codeer.co.jp/LowCode) へお問い合わせ）
 
+詳細:
 
+- [ソフトウェアライセンス契約書（原本・英語）](https://www.nuget.org/packages/Codeer.LowCode.Blazor/1.0.9/License)
+- [日本語版](LicenseJP.md)（※英語版と齟齬がある場合は英語版が優先）
+- [ライセンス種別と登録方法の全体](overview/about_license.md)
 
+ご購入・お問い合わせ: [codeer.co.jp/LowCode](https://www.codeer.co.jp/LowCode)
