@@ -1,10 +1,8 @@
-# SelectField
+# SelectField (セレクト)
 
 ## これは何か
 
 **プルダウンから選択するフィールド**。候補は直接指定することも、他モジュールから動的に引くこともできます。
-
-<img src="images/Select表示.png" alt="Select表示" style="border: 1px solid;">
 
 ## いつ使うか
 
@@ -18,34 +16,75 @@
 
 ## デザイナでの設定
 
-<img src="images/Select設定.png" alt="Select設定" style="border: 1px solid;">
+<img src="../../Image/designer/fields/select/SelectFixed_properties_panel.png" alt="SelectFieldのプロパティパネル" style="border: 1px solid;" width="400">
 
-### 固有プロパティ
+### プロパティ一覧
 
-| プロパティ | 型 | 既定値 | 説明 |
-|---|---|---|---|
-| **DbColumn** | string | `""` | 対応する DB 列名（Join 可） |
-| **Candidates** | List\<string\> | `[]` | 固定候補。`"値,表示文字"` 形式で記述 |
-| **SearchCondition** | SearchCondition | - | 候補を他モジュールから引く場合の条件 |
-| **ValueVariable** | string | `""` | 候補元モジュールの「値」として使う Field 名 |
-| **DisplayTextVariable** | string | `""` | 候補元モジュールの「表示文字」として使う Field 名 |
-| **EmptyCandidateType** | enum | `StringEmpty` | 空候補の扱い |
-| **AllowOrSearch** | bool | `false` | 検索で OR を許可（複数選択可） |
+#### システム
 
-共通プロパティは [Field 共通プロパティ](common_properties.md) を参照。
+| C#名 | 日本語表示名 | 説明 |
+|---|---|---|
+| - | フィールドタイプ | `セレクト` 固定 |
 
-<img src="images/Select詳細.png" alt="Select詳細" style="border: 1px solid;">
+#### 基本設定
 
-### CONDITION（他モジュールから候補を引く場合）
+| C#名 | 日本語表示名 | 型 | 既定値 | 説明 |
+|---|---|---|---|---|
+| **Name** | 名前 | string | `""` | フィールド識別子 |
+| **DisplayName** | 表示名 | string | `""` | 画面表示用の名前 |
+| **DbColumn** | DBカラム | string | `""` | 対応する DB 列名（Join 可） |
+| **Candidates** | 選択肢一覧 | List\<string\> | `[]` | 固定候補。1 行 1 候補、`"値,表示文字"` 形式 |
+| **ValueVariable** | 値用変数 | string | `""` | モジュール候補で「値」として使う Field 名 |
+| **DisplayTextVariable** | 表示用変数 | string | `""` | モジュール候補で「表示文字」として使う Field 名 |
+| **EmptyCandidateType** | 空の選択肢の種別 | enum | `StringEmpty` | 未選択時の扱い |
+| **IsRequired** | 必須 | bool | `false` | 入力必須 |
+| **IsUpdateProtected** | 更新無効 | bool | `false` | 更新時に値を変更できないようにする |
+| **OnDataChanged** | データ変更イベント | string | `""` | 値変更時のスクリプトイベント |
+| **IgnoreModification** | 変更判定から除外 | bool | `false` | 変更検知（IsModified）から除外 |
 
-`SearchCondition` の中身として以下を指定します:
+#### 検索設定
 
-- **ModuleName** — 候補を取得するモジュール名
-- **Conditions** — 候補の絞り込み条件
-- **MatchType** — 条件の結合（`And` / `Or`）
-- **LimitCount** — 表示する最大件数
-- **SortFieldValue** — ソートに使う Field
-- **SortOrder** — ソート順（`Asc` / `Desc`）
+| C#名 | 日本語表示名 | 型 | 既定値 | 説明 |
+|---|---|---|---|---|
+| **IsSimpleSearchParameter** | 簡易検索条件 | bool | `false` | 簡易検索の対象にする |
+| **AllowOrSearch** | 直接入力または選択 | bool | `false` | 検索時の複数選択（OR）を許可 |
+| **AllowEmptySearch** | 空検索を許可 | bool | `false` | 空での検索を許可する |
+| **OnSearchDataChanged** | 検索モードデータ変更イベント | string | `""` | 検索条件が変更された時のスクリプトイベント |
+
+#### 絞り込み条件（モジュール候補）
+
+モジュールから候補を引く場合の設定です。固定候補（Candidates）を使う場合は不要です。
+
+| C#名 | 日本語表示名 | 型 | 既定値 | 説明 |
+|---|---|---|---|---|
+| **SearchCondition.ModuleName** | モジュール名 | string | `""` | 候補を取得するモジュール名 |
+| **SearchCondition.Condition** | 抽出条件 | MultiMatchCondition | - | 候補の絞り込み条件（「設定を開く」から編集） |
+| **SearchCondition.LimitCount** | 件数上限 | int | `50` | 取得する候補の最大件数 |
+| **SearchCondition.SortConditions** | ソート | List | `[]` | 候補の表示順 |
+
+---
+
+## 候補の指定方式
+
+### 固定候補（Candidates）
+
+シンプルに決め打ちの選択肢を並べたい場合。
+`値,表示文字` の形式で 1 行 1 候補を記述します。表示文字を省略すると値がそのまま表示されます。
+
+```
+A,選択肢 A
+B,選択肢 B
+C,選択肢 C
+```
+
+### モジュール候補（SearchCondition）
+
+他モジュールのデータを候補にする場合:
+
+1. `SearchCondition.ModuleName` で対象モジュールを指定
+2. `ValueVariable` で値として使う Field を指定
+3. `DisplayTextVariable` で表示文字として使う Field を指定
+4. 必要に応じて `Condition` / `LimitCount` / `SortConditions` で絞り込み
 
 ---
 
@@ -62,6 +101,7 @@
 | `SearchValues` | List\<string\> | 複数選択検索値 |
 | `SearchIsEmpty` | bool? | 空検索 |
 | `IsInverted` | bool | NOT 検索 |
+| `AllowReloadLinkData` | bool | 候補の再読み込み許可 |
 
 ### メソッド
 
