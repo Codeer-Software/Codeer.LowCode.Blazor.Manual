@@ -1,16 +1,14 @@
-# DateTimeField
+# DateTimeField (日時)
 
 ## これは何か
 
 **日時（年月日＋時刻）を入力・表示するフィールド**。
 
-<img src="images/DateTime表示.png" alt="DateTime表示" style="border: 1px solid;">
-
 ## いつ使うか
 
 - 作成日時・更新日時のタイムスタンプ
 - イベント開始日時・予約日時など時刻まで指定する場面
-- UTC 保存でタイムゾーンを意識した運用（`SaveAsUtc`）
+- UTC 保存でタイムゾーンを意識した運用（`UTCとして保存`）
 
 日付だけなら [Date](Date.md)、時刻だけなら [Time](Time.md) を使ってください。
 
@@ -18,19 +16,37 @@
 
 ## デザイナでの設定
 
-<img src="images/DateTime設定.png" alt="DateTime設定" style="border: 1px solid;">
+<img src="../../Image/designer/fields/datetime/DateTimeBasic_properties_panel.png" alt="DateTimeFieldのプロパティパネル" style="border: 1px solid;" width="400">
 
-### 固有プロパティ
+### プロパティ一覧
 
-| プロパティ | 型 | 既定値 | 説明 |
-|---|---|---|---|
-| **DbColumn** | string | `""` | 対応する DB 列名 |
-| **Format** | string | `""` | 表示フォーマット（例: `yyyy/MM/dd HH:mm`） |
-| **SaveAsUtc** | bool | `false` | DB に UTC で保存する（表示は現地時刻） |
+#### システム
 
-共通プロパティは [Field 共通プロパティ](common_properties.md) を参照。
+| C#名 | 日本語表示名 | 説明 |
+|---|---|---|
+| - | フィールドタイプ | `日時` 固定 |
 
-<img src="images/DateTime詳細.png" alt="DateTime詳細" style="border: 1px solid;">
+#### 基本設定
+
+| C#名 | 日本語表示名 | 型 | 既定値 | 説明 |
+|---|---|---|---|---|
+| **Name** | 名前 | string | `""` | フィールド識別子 |
+| **DisplayName** | 表示名 | string | `""` | 画面表示用の名前 |
+| **DbColumn** | DBカラム | string | `""` | 対応する DB 列名 |
+| **Format** | フォーマット | string | `""` | 表示フォーマット（例: `yyyy/MM/dd HH:mm`） |
+| **SaveAsUtc** | UTCとして保存 | bool | `false` | DB に UTC で保存する（表示は現地時刻） |
+| **IsRequired** | 必須 | bool | `false` | 入力必須 |
+| **IsUpdateProtected** | 更新無効 | bool | `false` | 更新時に値を変更できないようにする |
+| **OnDataChanged** | データ変更イベント | string | `""` | 値変更時のスクリプトイベント |
+| **IgnoreModification** | 変更判定から除外 | bool | `false` | 変更検知（IsModified）から除外 |
+
+#### 検索設定
+
+| C#名 | 日本語表示名 | 型 | 既定値 | 説明 |
+|---|---|---|---|---|
+| **IsSimpleSearchParameter** | 簡易検索条件 | bool | `false` | 簡易検索の対象にする |
+| **AllowEmptySearch** | 空検索を許可 | bool | `false` | 空での検索を許可する |
+| **OnSearchDataChanged** | 検索モードデータ変更イベント | string | `""` | 検索条件が変更された時のスクリプトイベント |
 
 ---
 
@@ -57,6 +73,19 @@ CreatedAt.Value = DateTime.Now;
 await CreatedAt.SetSearchMinAsync(DateTime.Now.AddDays(-1));
 await CreatedAt.SetSearchMaxAsync(DateTime.Now);
 ```
+
+---
+
+## バリエーション
+
+### 基本
+
+現地時刻でそのまま保存・表示。
+
+### UTC 保存（`SaveAsUtc: true`）
+
+DB には UTC で保存され、画面表示時には現地時刻に変換される。
+海外拠点がある、サーバーとクライアントのタイムゾーンが異なる場合に選ぶ。
 
 ---
 

@@ -1,10 +1,8 @@
-# FileField
+# FileField (ファイル)
 
 ## これは何か
 
 **ファイルのアップロード・ダウンロードを扱うフィールド**。画像のプレビュー表示にも対応します。
-
-<img src="images/File表示.png" alt="File表示" style="border: 1px solid;">
 
 ## いつ使うか
 
@@ -16,26 +14,44 @@
 
 ## デザイナでの設定
 
-<img src="images/File設定.png" alt="File設定" style="border: 1px solid;">
+<img src="../../Image/designer/fields/file/FileBasic_properties_panel.png" alt="FileFieldのプロパティパネル" style="border: 1px solid;" width="400">
 
-### 固有プロパティ
+### プロパティ一覧
 
-| プロパティ | 型 | 既定値 | 説明 |
-|---|---|---|---|
-| **DbColumnFileName** | string | `""` | ファイル名を保存する DB 列 |
-| **DbColumnFileSize** | string | `""` | ファイルサイズを保存する DB 列 |
-| **DbColumnFileGuid** | string | `""` | ファイル識別 GUID を保存する DB 列 |
-| **StorageName** | string | `""` | 保存先の File Storage 名 |
-| **MaxAllowedSize** | long? | `500MB` | 許容する最大サイズ |
-| **ShowPreview** | bool | `false` | 画像のプレビュー表示 |
-| **ObjectFit** | enum | `Contain` | プレビュー画像のフィット方式 |
-| **IsUpdateProtected** | bool | `false` | 更新不可にする |
+#### システム
 
-共通プロパティは [Field 共通プロパティ](common_properties.md) を参照。
+| C#名 | 日本語表示名 | 説明 |
+|---|---|---|
+| - | フィールドタイプ | `ファイル` 固定 |
 
-<img src="images/File詳細.png" alt="File詳細" style="border: 1px solid;">
+#### 基本設定
 
-### ファイル保存の仕組み
+| C#名 | 日本語表示名 | 型 | 既定値 | 説明 |
+|---|---|---|---|---|
+| **Name** | 名前 | string | `""` | フィールド識別子 |
+| **DisplayName** | 表示名 | string | `""` | 画面表示用の名前 |
+| **DbColumnFileName** | ファイル名のDBカラム | string | `""` | ファイル名を保存する DB 列 |
+| **DbColumnFileSize** | ファイルサイズのDBカラム | string | `""` | ファイルサイズ（バイト）を保存する DB 列 |
+| **DbColumnFileGuid** | ファイルGUIDのDBカラム | string | `""` | ストレージ上の識別 GUID を保存する DB 列 |
+| **StorageName** | ストレージ名 | string | `""` | 保存先の File Storage 名（`designer.settings.json` で定義） |
+| **MaxAllowedSize** | 最大サイズ | long? | `500MB`（未指定時） | 許容する最大バイト数 |
+| **ShowPreview** | プレビュー表示 | bool | `false` | 画像の場合にプレビューを表示 |
+| **ObjectFit** | 画像の表示方法 | enum | `Contain` | プレビュー画像のフィット方式（`Contain` / `Cover` / `Fill` など） |
+| **IsUpdateProtected** | 更新無効 | bool | `false` | 更新時に値を変更できないようにする |
+| **OnDataChanged** | データ変更イベント | string | `""` | 値変更時のスクリプトイベント |
+| **IgnoreModification** | 変更判定から除外 | bool | `false` | 変更検知（IsModified）から除外 |
+
+#### 検索設定
+
+| C#名 | 日本語表示名 | 型 | 既定値 | 説明 |
+|---|---|---|---|---|
+| **OnSearchDataChanged** | 検索モードデータ変更イベント | string | `""` | 検索条件が変更された時のスクリプトイベント |
+
+> FileField は `必須` / `簡易検索条件` / `空検索を許可` のプロパティを持ちません。
+
+---
+
+## ファイル保存の仕組み
 
 FileField は 3 つの情報を DB に保存します:
 
@@ -43,9 +59,11 @@ FileField は 3 つの情報を DB に保存します:
 - **FileSize** — バイトサイズ
 - **FileGuid** — ストレージ上の識別子
 
-ファイル実体は File Storage（ローカルファイルシステム／クラウドストレージなど）に保存され、DB には GUID だけが残ります。
+ファイル実体は **File Storage**（ローカルファイルシステム／クラウドストレージなど）に保存され、DB には GUID だけが残ります。
 
-File Storage は `designer.settings.json` の `FileStorages` で設定します:
+### File Storage の設定
+
+`designer.settings.json` の `FileStorages` でストレージを定義します:
 
 ```json
 "FileStorages": [
@@ -55,6 +73,8 @@ File Storage は `designer.settings.json` の `FileStorages` で設定します:
   }
 ]
 ```
+
+FileField の `StorageName` にここで定義した名前を指定します。
 
 ### 一時ファイル管理テーブル
 
@@ -102,6 +122,9 @@ if (stream != null)
 {
     // stream を使った処理
 }
+
+// プログラム的にファイルをセット（外部 API の応答ファイルなど）
+await Attachment.SetFile("report.pdf", streamContent);
 ```
 
 ---
@@ -110,3 +133,4 @@ if (stream != null)
 
 - [Field 共通プロパティ](common_properties.md)
 - [ImageViewer](ImageViewer.md) — 画像の表示だけしたい場合
+- [designer.settings](../designer/designer_settings.md) — File Storage の定義
