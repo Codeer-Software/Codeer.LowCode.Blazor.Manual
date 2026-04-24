@@ -55,7 +55,7 @@ void ListLayoutDesign_OnAfterInitialization()
 }
 ```
 
-### 4. デザインデータをデプロイして完了
+### 4. デザインプロジェクトをデプロイして完了
 
 ## ModuleSearcherの仕様情報
 `ModuleSearcher`は`AddEquals`以外にもさまざまな検索条件で検索できます。また、検索の結果を並び替えすることもできます。
