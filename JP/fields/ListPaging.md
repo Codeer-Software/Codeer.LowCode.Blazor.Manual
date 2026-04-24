@@ -1,4 +1,4 @@
-# ListPagingField (リストページング)
+# ListPagingField (ページ送り)
 
 ## これは何か
 
@@ -16,23 +16,25 @@
 
 ## デザイナでの設定
 
+<img src="../../Image/designer/fields/listpaging/ListPagingSample_properties_panel.png" alt="ListPagingFieldのプロパティパネル" style="border: 1px solid;" width="400">
+
 ### プロパティ一覧
 
 #### システム
 
 | C#名 | 日本語表示名 | 説明 |
 |---|---|---|
-| - | フィールドタイプ | `リストページング` 固定 |
+| - | フィールドタイプ | `ページ送り` 固定 |
 
 #### 基本設定
 
 | C#名 | 日本語表示名 | 型 | 既定値 | 説明 |
 |---|---|---|---|---|
 | **Name** | 名前 | string | `""` | フィールド識別子 |
-| **ListFieldName** | リストフィールド名 | string | `""` | 対象の List / DetailList / TileList の Name |
+| **ListFieldName** | リスト名 | string | `""` | 対象の List / DetailList / TileList の Name |
 | **IgnoreModification** | 変更判定から除外 | bool | `false` | 変更検知から除外 |
 
-> `ListFieldName` は `IListFieldDesign` を実装する Field（List / DetailList / TileList）の名前である必要があります。
+> `ListFieldName` は List / DetailList / TileList の名前である必要があります。
 
 ---
 

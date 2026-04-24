@@ -16,22 +16,24 @@
 
 ## デザイナでの設定
 
+<img src="../../Image/designer/fields/autosubmit/AutoSubmitSample_properties_panel.png" alt="AutoSubmitFieldのプロパティパネル" style="border: 1px solid;" width="400">
+
 ### プロパティ一覧
 
 #### システム
 
 | C#名 | 日本語表示名 | 説明 |
 |---|---|---|
-| - | フィールドタイプ | `自動サブミット` 固定（Resources の `$AutoSubmitField` に依存） |
+| - | フィールドタイプ | `自動サブミット` 固定 |
 
 #### 基本設定
 
 | C#名 | 日本語表示名 | 型 | 既定値 | 説明 |
 |---|---|---|---|---|
 | **Name** | 名前 | string | `""` | フィールド識別子 |
-| **ShowStatus** | ステータス表示 | bool | `true` | 保存中・成功・失敗の状態をアイコン表示 |
+| **ShowStatus** | 状態表示 | bool | `true` | 保存中・成功・失敗の状態をアイコン表示 |
 | **ExcludeFields** | 除外フィールド | List\<string\> | `[]` | 自動サブミットのトリガーから除外する Field 名 |
-| **DelayMilliseconds** | 遅延ミリ秒 | int | `300` | 最後の変更から何ミリ秒経過したら Submit するか（最小 50ms） |
+| **DelayMilliseconds** | 遅延時間（ミリ秒） | int | `300` | 最後の変更から何ミリ秒経過したら Submit するか（最小 50ms） |
 | **IgnoreModification** | 変更判定から除外 | bool | `false` | 変更検知から除外 |
 
 ---
