@@ -1,37 +1,80 @@
-# Text
+# TextField
 
-テキストを表示する
+## これは何か
 
-<img src="images/Text表示.png" alt="Text表示" title="Text表示" style="border: 1px solid;">
+**文字列を入力・表示するフィールド**。1 行の入力欄としても、複数行（textarea）としても使えます。
 
-<img src="images/Text設定.png" alt="Text設定" title="Text設定" style="border: 1px solid;" >
+<img src="images/Text表示.png" alt="Text表示" style="border: 1px solid;">
 
-1. FieldType
-    - Textを設定する
-2. Name
-    - フィールド名の設定. 全体設定時に表示される.
-3. DisplayName
-    - TBD
-4. DbColumn
-    - テーブルのカラムの設定
-5. Placeholder
-    - placeholderの設定
-6. MaxLength
-   - 最大文字数の設定
-7. Rows
-   - textareaにする場合，行数を指定する. 
+## いつ使うか
 
-<img src="images/Text詳細.png" alt="Text詳細" title="Text詳細" style="border: 1px solid;">
+- 名前・タイトル・住所など一般的な文字列入力
+- コメント・説明文など複数行の入力（`IsMultiline` をオン）
+- DB 文字列カラムの表示・編集
 
-## スクリプト
-| プロパティ名          | 型               | 説明                                            |
-|-----------------|-----------------|-----------------------------------------------|
-| Value           | string?         | Fieldの値                                       |
-| SearchValue     | string?         | 検索条件のinputフィールドのvalue                         |
-| Comparison      | MatchComparison | 検索条件のinputフィールドの条件区分<br>`Equal`, `Like`が使用できる |
-| BackgroundColor | string?         | Fieldの背景色                                     | 
-| Color           | string?         | Fieldの色                                       |
-| IsEnabled       | bool            | Fieldの有効/無効                                   |
-| IsVisible       | bool            | Fieldの表示/非表示                                  |
-| IsViewOnly      | bool            | Fieldの編集可/編集不可                                |
-| IsModified      | bool            | Fieldが変更されたどうか                                |
+---
+
+## デザイナでの設定
+
+<img src="images/Text設定.png" alt="Text設定" style="border: 1px solid;">
+
+### 固有プロパティ
+
+| プロパティ | 型 | 既定値 | 説明 |
+|---|---|---|---|
+| **DbColumn** | string | `""` | 対応する DB 列名 |
+| **Placeholder** | string | `""` | 未入力時に表示される案内文 |
+| **IsMultiline** | bool | `false` | 複数行入力（textarea）にする |
+| **IsAutoFitRows** | bool | `false` | 入力内容に応じて行数を自動調整 |
+| **Rows** | int? | null | 表示行数（IsMultiline 時） |
+| **MaxLength** | int? | null | 最大文字数 |
+| **TextEditEmptyType** | enum | `StringEmpty` | 空入力時に `""` を保持するか `null` にするか |
+| **ShouldTrimAfterEdit** | bool | `false` | 編集後に前後の空白を自動削除 |
+| **SearchComparisonDefaultValue** | MatchComparison? | null | 検索の既定比較（`Equal` / `Like`） |
+
+共通プロパティ（Name, DisplayName, IsRequired, OnDataChanged など）は [Field 共通プロパティ](common_properties.md) を参照。
+
+<img src="images/Text詳細.png" alt="Text詳細" style="border: 1px solid;">
+
+---
+
+## スクリプトから
+
+### プロパティ
+
+| 名前 | 型 | 説明 |
+|---|---|---|
+| `Value` | string? | 入力値 |
+| `SearchValue` | string? | 検索値 |
+| `SearchComparison` | MatchComparison | 検索比較（`Equal` / `Like` のみ有効） |
+| `SearchIsEmpty` | bool? | 「空」を検索条件にする |
+
+共通プロパティ（IsEnabled / IsVisible / Color など）は [Field 共通プロパティ](common_properties.md) を参照。
+
+### よく使う例
+
+```csharp
+// 値を取得・設定
+var name = Name.Value;
+Name.Value = "山田太郎";
+
+// 必須チェックして Submit
+if (string.IsNullOrEmpty(Name.Value))
+{
+    Name.SetError("名前を入力してください");
+    return;
+}
+
+// 検索条件を動的に設定
+await Name.SetSearchValueAsync("山田");
+await Name.SetSearchComparisonAsync(MatchComparison.Like);
+```
+
+---
+
+## 関連項目
+
+- [Field 共通プロパティ](common_properties.md)
+- [Password](Password.md) — パスワード入力
+- [MarkupString](MarkupString.md) — HTML 表示
+- [スクリプト概要](../overview/script.md)

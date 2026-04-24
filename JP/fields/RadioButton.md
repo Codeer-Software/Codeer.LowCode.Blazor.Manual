@@ -1,30 +1,60 @@
-# RadioButton
+# RadioButtonField
 
-ラジオボタンをあらわすフィールド．
+## これは何か
 
-<img src="images/RadioButton表示.png" alt="RadioButton表示" title="RadioButton表示" style="border: 1px solid;">
+**1 つのラジオボタン**。単独で使うことはなく、[RadioGroup](RadioGroup.md) の配下に配置して使います。
 
-<img src="./images/RadioButton設定.png" width="450" alt="RadioButton設定" title="RadioButton設定" style="border: 1px solid;" >
+<img src="images/RadioButton表示.png" alt="RadioButton表示" style="border: 1px solid;">
 
-## プロパティ
+## いつ使うか
 
-| プロパティ名     | 説明                           |
-|------------|------------------------------| 
-| FieldType  | RadioButtonを設定する             |
-| Name       | フィールド名を設定する                  |
-| Text       | 表示するテキストを設定する.               |
-| Value      | ラジオボタンの値を設定する.               |
-| GroupField | 複数のラジオボタンをグループにするフィールドを設定する. |
+- [RadioGroup](RadioGroup.md) と組み合わせて、選択肢の 1 つを表すボタンとして
 
+> 候補数が決まっていて自動生成したい場合は、RadioGroupField の `PopulateRadioButtons` を使う方法もあります。
 
+---
 
-## スクリプト
-| プロパティ名          | 型       | 説明             |
-|-----------------|---------|----------------|
-| BackgroundColor | string? | Fieldの背景色      | 
-| Color           | string? | Fieldの色        |
-| Focus           | string? | フォーカスする        |
-| IsEnabled       | bool    | Fieldの有効/無効    |
-| IsViewOnly      | bool    | Fieldの編集可/編集不可 |
-| IsVisible       | bool    | Fieldの表示/非表示   |
-| Value           | bool?   | Fieldの値        |
+## デザイナでの設定
+
+<img src="./images/RadioButton設定.png" width="450" alt="RadioButton設定" style="border: 1px solid;">
+
+### 固有プロパティ
+
+| プロパティ | 型 | 既定値 | 説明 |
+|---|---|---|---|
+| **Text** | string | `"Radio"` | ラジオボタンの表示文字（= DisplayName） |
+| **Value** | string | `""` | このラジオが選択された時にグループに設定される値 |
+| **GroupField** | string | `""` | 親の RadioGroupField の Name |
+
+共通プロパティは [Field 共通プロパティ](common_properties.md) を参照。
+
+---
+
+## スクリプトから
+
+### プロパティ・メソッド
+
+| 名前 | 型・戻り値 | 説明 |
+|---|---|---|
+| `Value` | bool | このラジオが選択されているか（親の値と一致すれば true） |
+| `SetCheck()` | void | このラジオをプログラム的に選択する |
+| `GetRadioGroupField()` | RadioGroupField | 親の RadioGroupField を取得 |
+
+共通プロパティは [Field 共通プロパティ](common_properties.md) を参照。
+
+### よく使う例
+
+```csharp
+// 条件に応じて特定のラジオを選択
+if (someCondition)
+{
+    HighRank.SetCheck();
+}
+```
+
+---
+
+## 関連項目
+
+- [Field 共通プロパティ](common_properties.md)
+- [RadioGroup](RadioGroup.md) — 親のコンテナ

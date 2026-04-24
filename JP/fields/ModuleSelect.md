@@ -1,16 +1,21 @@
-# ModuleSelect
+# ModuleSelectField
 
+> **このページは旧マニュアルの残置です。**
+> 最新バージョンの Codeer.LowCode.Blazor には `ModuleSelectField` は存在しません。
+> 過去のプロジェクトで利用していた場合は、以下のいずれかへの移行を検討してください。
 
-## スクリプト
-| プロパティ名              | 型       | 説明                    |
-|---------------------|---------|-----------------------|
-| BackgroundColor     | string? | Fieldの背景色             | 
-| Color               | string? | Fieldの色               |
-| DisplayText         | string? | Fieldの色               |
-| IsEnabled           | bool    | Fieldの有効/無効           |
-| IsModified          | bool    | Fieldが変更されたどうか        |
-| IsVisible           | bool    | Fieldの表示/非表示          |
-| IsViewOnly          | bool    | Fieldの編集可/編集不可        |
-| Value               | string  | Fieldの値               |
+## 代替フィールド
 
+| やりたいこと | 使う Field |
+|---|---|
+| 他モジュールの 1 件を選択（検索ダイアログ付き） | [Link](Link.md) |
+| 他モジュールの候補からプルダウン選択 | [Select](Select.md)（`SearchCondition` で他モジュールから候補取得） |
+| 他モジュールの詳細画面を埋め込む | [Module](Module.md) |
 
+---
+
+## 関連項目
+
+- [Link](Link.md)
+- [Select](Select.md)
+- [Module](Module.md)

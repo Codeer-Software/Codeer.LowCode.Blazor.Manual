@@ -1,78 +1,63 @@
 # モジュール一覧設定
 
-Entityの一覧画面の設定をします.
+**一覧タブ**では、複数件のデータをテーブル形式で並べる画面のレイアウトを設定します。
 
-全体設定で作成したフィールドから一覧に表示するフィールドを選択します.
+<img src="images/module_list.png" width="600" alt="モジュール一覧" style="border: 1px solid;">
 
-<img src="images/module_list.png" width="400" alt="モジュール一覧" title="モジュール一覧" style="border: 1px solid;">
+---
 
-## ツールボックス
-モジュールで使用するFieldを選択します．
+## 設定の流れ
 
-| 項目           | 説明                                               |
-|--------------|--------------------------------------------------|
-| SystemFields | SystemFieldの一覧が表示されます                            |
-| CommonFields | CommonFieldの一覧が表示されます                            |
-| DB Fields    | 全体設定でDataSourceを指定した場合に，テーブルのカラムからField候補が表示されます |
-| Rest Fields  | DB Fieldsで詳細設定で（まだ）使用していないFieldが表示されます．          |
-| Link Fields  | Linkフィールドを作成した場合に，Link先のフィールドが表示されます.            |
-| Layout       | 詳細画面でGridレイアウト，Canvasレイアウトを設定時に使用します．            |
+1. 段数・列数を指定
+2. 「未使用フィールド」から Field をドラッグ＆ドロップで配置
+3. 各 Field の幅・折り返し・表示オプションを調整
 
-## 一覧設定
-列，段の数を指定して一覧表示の設定をします．
-追加ボタンをクリックして複数のレイアウトを作成できます.
+---
 
-一覧に表示するフィールドが多い場合，多段リストを使えます．
+## 多段リスト
 
-<img src="images/多段List設定.png" alt="多段List設定" title="多段List設定" width="400" style="border: 1px solid;">
-<img src="images/多段リスト表示.png" alt="多段リスト表示" title="多段リスト表示" width="400" style="border: 1px solid;">
+1 行に収まらないほど列が多い場合は、**段数を増やす**ことで複数行での表示に切り替えられます。
 
+<img src="images/多段List設定.png" alt="多段List設定" width="400" style="border: 1px solid;">
+<img src="images/多段リスト表示.png" alt="多段リスト表示" width="400" style="border: 1px solid;">
 
-## プロパティ
-選択しているFieldのプロパティが表示されます
+---
 
-### List
-| プロパティ名                 | 説明             |
-|------------------------|----------------| 
-| DataOnlyFields         | TODO           |
-| OnBeforeInitialization | UI初期化前の処理を設定する |
-| OnAfterInitialization  | UI初期化後の処理を設定する |
+## default レイアウトと追加レイアウト
 
-### Element
-| プロパティ名     | 説明                            |
-|------------|-------------------------------| 
-| Label      | ラベル                           |
-| Width      | 幅を設定する                        |
-| ColumnSpan | 列の結合の設定                       |
-| RawSpan    | 行の結合の設定                       |
-| IsViewOnly | 読取専用の設定                       |
-| TextWrap   | 改行設定<br/>unset/break/Ellipsis |
-| canResize  | サイズの変更可否を設定する                 |
-| FontFamily | フォントを設定する                     |
-| FontSize   | フォントサイズを設定する                  |
-| FontWeight | フォントウェイトを設定する                 |
-| FontStyle  | フォントスタイルを設定する                 |
-| Color      | 色を設定する                        |
+| レイアウト | 用途 |
+|---|---|
+| **default** | 一覧ページの標準レイアウト |
+| **追加レイアウト** | LinkField の検索結果で使い分け可能 |
 
-## レイアウト設定
+<img src="images/list_multiple.png" alt="一覧複数" width="400" style="border: 1px solid;">
 
-<img src="images/list.png" alt="一覧" title="一覧" width="400" style="border: 1px solid;">
+---
 
-モジュールの一覧設定画面で一覧のレイアウトを設定します．
+## 一覧プロパティ
 
-## デフォルトレイアウト
+| プロパティ | 説明 |
+|---|---|
+| **OnBeforeInitialization** | 一覧初期化前のスクリプト |
+| **OnAfterInitialization** | 一覧初期化後のスクリプト |
+| **DataOnlyFields** | 表示しないがサーバーから取得する Field |
 
-モジュールの一覧画面に使うレイアウト設定はdefaultという名前で作成されます．（変更できません）
+## 列ごとのプロパティ（Element）
 
-モジュールの一覧ページにはdefaultのレイアウトが適用されます．
+| プロパティ | 説明 |
+|---|---|
+| **Label** | 列ヘッダーのラベル |
+| **Width** | 列幅 |
+| **ColumnSpan** / **RowSpan** | 列・行の結合 |
+| **IsViewOnly** | 読み取り専用 |
+| **TextWrap** | 改行設定（`unset` / `break` / `Ellipsis`） |
+| **CanResize** | リサイズ許可 |
+| **FontFamily** / **FontSize** / **FontWeight** / **FontStyle** / **Color** | 文字表示 |
 
-## 複数レイアウト
+---
 
-<img src="images/list_multiple.png" alt="一覧複数" title="一覧複数" width="400" style="border: 1px solid;">
+## 関連項目
 
-追加ボタンをクリックしてデフォルトとは異なるレイアウトを作成できます．
-
-`LinkField` にdefaultを含む作成済みのすべてのレイアウトから, 適用するレイアウトを指定できます.
-
-<img src="images/list_settings.png" alt="一覧設定" title="一覧設定" width="400" style="border: 1px solid;">
-
+- [Module 概要](module.md) / [全体設定](module_general.md) / [詳細設定](module_detail.md)
+- [List / DetailList / TileList](../fields/List.md)
+- [レイアウト](layout.md)
