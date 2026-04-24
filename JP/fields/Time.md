@@ -1,10 +1,8 @@
-# TimeField
+# TimeField (時刻)
 
 ## これは何か
 
 **時刻を入力・表示するフィールド**。日付は持たない純粋な時刻（`TimeOnly`）型です。
-
-<img src="images/Time表示.png" alt="Time表示" style="border: 1px solid;">
 
 ## いつ使うか
 
@@ -16,18 +14,36 @@
 
 ## デザイナでの設定
 
-<img src="images/Time設定.png" alt="Time設定" style="border: 1px solid;">
+<img src="../../Image/designer/fields/time/TimeBasic_properties_panel.png" alt="TimeFieldのプロパティパネル" style="border: 1px solid;" width="400">
 
-### 固有プロパティ
+### プロパティ一覧
 
-| プロパティ | 型 | 既定値 | 説明 |
-|---|---|---|---|
-| **DbColumn** | string | `""` | 対応する DB 列名 |
-| **SaveAsUtc** | bool | `false` | UTC で保存する |
+#### システム
 
-共通プロパティは [Field 共通プロパティ](common_properties.md) を参照。
+| C#名 | 日本語表示名 | 説明 |
+|---|---|---|
+| - | フィールドタイプ | `時刻` 固定 |
 
-<img src="images/Time詳細.png" alt="Time詳細" style="border: 1px solid;">
+#### 基本設定
+
+| C#名 | 日本語表示名 | 型 | 既定値 | 説明 |
+|---|---|---|---|---|
+| **Name** | 名前 | string | `""` | フィールド識別子 |
+| **DisplayName** | 表示名 | string | `""` | 画面表示用の名前 |
+| **DbColumn** | DBカラム | string | `""` | 対応する DB 列名 |
+| **SaveAsUtc** | UTCとして保存 | bool | `false` | UTC で保存する |
+| **IsRequired** | 必須 | bool | `false` | 入力必須 |
+| **IsUpdateProtected** | 更新無効 | bool | `false` | 更新時に値を変更できないようにする |
+| **OnDataChanged** | データ変更イベント | string | `""` | 値変更時のスクリプトイベント |
+| **IgnoreModification** | 変更判定から除外 | bool | `false` | 変更検知（IsModified）から除外 |
+
+#### 検索設定
+
+| C#名 | 日本語表示名 | 型 | 既定値 | 説明 |
+|---|---|---|---|---|
+| **IsSimpleSearchParameter** | 簡易検索条件 | bool | `false` | 簡易検索の対象にする |
+| **AllowEmptySearch** | 空検索を許可 | bool | `false` | 空での検索を許可する |
+| **OnSearchDataChanged** | 検索モードデータ変更イベント | string | `""` | 検索条件が変更された時のスクリプトイベント |
 
 ---
 
