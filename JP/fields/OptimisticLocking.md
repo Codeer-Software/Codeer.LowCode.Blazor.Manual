@@ -1,8 +1,10 @@
-# OptimisticLockingField
+# OptimisticLockingField (楽観ロック)
 
 ## これは何か
 
-**楽観ロック**を実現する System Field。データ更新時に「自分が読み取った時点から、他の人が変更していないか」をチェックできます。
+**楽観ロック**を実現する System Field。データ更新時に「自分が読み取った時点から、他の人が変更していないか」をチェックします。
+
+UI は持たず、**値の保持と送受信**のみを行います。スクリプトから操作することもほぼありません。
 
 ## いつ使うか
 
@@ -15,14 +17,24 @@
 
 ## デザイナでの設定
 
-### 固有プロパティ
+<img src="../../Image/designer/fields/optimisticlocking/OptimisticLockingSample_properties_panel.png" alt="OptimisticLockingFieldのプロパティパネル" style="border: 1px solid;" width="400">
 
-| プロパティ | 型 | 既定値 | 説明 |
-|---|---|---|---|
-| **DbColumn** | string | `""` | ロックに使う DB 列名（タイムスタンプやバージョン列） |
-| **IncrementVersion** | bool | `false` | 保存時にバージョン値をインクリメントする（DB 側に仕組みがない場合） |
+### プロパティ一覧
 
-共通プロパティは [Field 共通プロパティ](common_properties.md) を参照。
+#### システム
+
+| C#名 | 日本語表示名 | 説明 |
+|---|---|---|
+| - | フィールドタイプ | `楽観ロック` 固定 |
+
+#### 基本設定
+
+| C#名 | 日本語表示名 | 型 | 既定値 | 説明 |
+|---|---|---|---|---|
+| **Name** | 名前 | string | `""` | フィールド識別子 |
+| **DbColumn** | DBカラム | string | `""` | ロックに使う DB 列名 |
+| **IncrementVersion** | アプリでインクリメント(short, int, long のみ) | bool | `false` | 保存時にアプリ側で値を +1 する（列型が `short` / `int` / `long` の場合のみ有効） |
+| **IgnoreModification** | 変更判定から除外 | bool | `false` | 変更検知（IsModified）から除外 |
 
 ---
 
@@ -32,20 +44,20 @@
 2. 更新時、DB 側の現在値と記憶した値を比較
 3. 一致しなければ「他の人が更新しています」エラーとなり、更新は失敗する
 
-### DB 側に必要なもの
+### DB 側の選択肢
 
-| DB | 推奨列型 |
+| 選択肢 | 設定 |
 |---|---|
-| PostgreSQL / SQL Server | 行更新のたびに変わる列（例: `xmin`、`rowversion`） |
-| その他 | 数値列 + `IncrementVersion: true` |
-
-DB に自動変更の仕組みがない場合は、トリガで代用するか `IncrementVersion` をオンにします。
+| **DB 自身が自動で値を変える列** | `IncrementVersion: false`。例: PostgreSQL `xmin`、SQL Server `rowversion`、または UPDATE トリガで時刻列を更新 |
+| **アプリ側でインクリメント** | `IncrementVersion: true`。DB 側に自動変更の仕組みがないとき。列型は `short` / `int` / `long` のみ |
 
 ---
 
 ## スクリプトから
 
-この Field は UI を持たず、スクリプトから操作することもほぼありません。
+UI を持たないため、スクリプトから積極的に操作するシーンはありません。
+保持している値 (`Value`) は内部用で、スクリプトからはアクセスできません（`[ScriptHide]`）。
+
 共通プロパティは [Field 共通プロパティ](common_properties.md) を参照。
 
 ---
