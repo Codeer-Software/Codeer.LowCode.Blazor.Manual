@@ -1,10 +1,8 @@
-# ButtonField
+# ButtonField (ボタン)
 
 ## これは何か
 
-**クリックでスクリプトを実行するボタン**。
-
-<img src="images/Button_settings.png" width="450" alt="Button設定" style="border: 1px solid;">
+**クリックでスクリプトを実行するボタン**。ボタンの見た目（Variant）やアイコン、画像を指定できます。
 
 ## いつ使うか
 
@@ -16,20 +14,62 @@
 
 ## デザイナでの設定
 
-### 固有プロパティ
+<img src="../../Image/designer/fields/button/ButtonPrimary_properties_panel.png" alt="ButtonFieldのプロパティパネル" style="border: 1px solid;" width="400">
 
-| プロパティ | 型 | 既定値 | 説明 |
-|---|---|---|---|
-| **Text** | string | `"Button"` | ボタンに表示する文字 |
-| **Icon** | string | `""` | 表示するアイコン（Material Icons） |
-| **Variant** | enum | `Primary` | ボタンの見た目（`Primary` / `Secondary` / `Outline` 等） |
-| **ImageResourceSet** | object | - | 画像ボタンとして使う場合の画像セット |
-| **OnClick** | string | `""` | クリック時のスクリプトイベント |
-| **ShowTextInToolTip** | bool | `false` | Text をツールチップに表示 |
+### プロパティ一覧
 
-共通プロパティ（Name など）は [Field 共通プロパティ](common_properties.md) を参照。
+#### システム
 
-> ButtonField は値を持たないため、`DisplayName` / `IsRequired` / `DbColumn` はありません。
+| C#名 | 日本語表示名 | 説明 |
+|---|---|---|
+| - | フィールドタイプ | `ボタン` 固定 |
+
+#### 基本設定
+
+| C#名 | 日本語表示名 | 型 | 既定値 | 説明 |
+|---|---|---|---|---|
+| **Name** | 名前 | string | `""` | フィールド識別子 |
+| **Text** | テキスト | string | `"Button"` | ボタンに表示する文字（複数行可） |
+| **Icon** | アイコン | string | `""` | アイコン |
+| **Variant** | ボタンのスタイル | enum | `Primary` | Bootstrap 準拠のスタイル |
+| **ImageResourceSet** | 画像設定 | ButtonImageSet | - | 状態別の画像リソース |
+| **OnClick** | クリックイベント | string | `""` | クリック時のスクリプト |
+| **ShowTextInToolTip** | テキストをツールチップで表示 | bool | `false` | `Text` をツールチップに表示 |
+| **IgnoreModification** | 変更判定から除外 | bool | `false` | 変更検知から除外 |
+
+> ButtonField は値を持たないため、`表示名` / `必須` / `DBカラム` はありません。
+
+---
+
+## Variant（ボタンのスタイル）
+
+| 値 | 色 | 用途 |
+|---|---|---|
+| **Primary** | 青 | 標準アクション |
+| **Secondary** | グレー | 補助アクション |
+| **Success** | 緑 | 成功・確定系 |
+| **Danger** | 赤 | 削除・破壊的操作 |
+| **Warning** | 黄 | 注意・警告 |
+| **Info** | 水色 | 情報表示 |
+| **Light** | 白系 | 目立たせたくない時 |
+| **Dark** | 黒系 | コントラスト重視 |
+| **Link** | 青文字 | テキストリンク風 |
+
+---
+
+## ImageResourceSet（画像設定）
+
+ボタンに状態別の画像を指定します（画像がある場合は画像ボタンとして描画）。
+
+| プロパティ | 用途 |
+|---|---|
+| **Default** | 通常時 |
+| **Focus** | フォーカス時 |
+| **Active** | 押下中 |
+| **Hover** | マウスホバー時 |
+| **Disabled** | 無効時 |
+
+全てのパスを指定する必要はなく、指定したもののみ差し替わります。
 
 ---
 
@@ -43,10 +83,12 @@
 
 共通プロパティ（`IsEnabled` / `IsVisible` / `Color` など）は [Field 共通プロパティ](common_properties.md) を参照。
 
+> ボタンのクリックは**デザイナ設定の `OnClick` スクリプトから発火する**ことを前提に設計されており、スクリプト側から `InvokeOnClick()` を呼び出して発火させることはできません（`[ScriptHide]`）。
+
 ### よく使う例
 
 ```csharp
-// OnClick の基本形
+// OnClick の基本形（デザイナで OnClick を設定したときの中身）
 void SaveButton_OnClick()
 {
     if (await Submit())
