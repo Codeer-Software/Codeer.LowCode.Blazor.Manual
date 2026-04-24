@@ -1,10 +1,8 @@
-# ListField
+# ListField (リスト)
 
 ## これは何か
 
 **複数件のデータを表形式（テーブル）で一覧表示するフィールド**。ページング・ソート・追加・編集・削除が標準で動きます。
-
-<img src="images/List表示.png" alt="List表示" style="border: 1px solid;">
 
 ## いつ使うか
 
@@ -18,46 +16,57 @@
 
 ## デザイナでの設定
 
-<img src="images/List設定.png" alt="List設定" style="border: 1px solid;">
+<img src="../../Image/designer/fields/list/ListSample_properties_panel.png" alt="ListFieldのプロパティパネル" style="border: 1px solid;" width="400">
 
-### 固有プロパティ
+### プロパティ一覧
 
-| プロパティ | 型 | 既定値 | 説明 |
-|---|---|---|---|
-| **LayoutName** | string | `""` | 表示に使う List レイアウト名 |
-| **FormControlStyle** | enum? | null | フォームコントロールのスタイル |
-| **ApplyBackgroundToBoxInput** | bool | `false` | 入力欄背景を適用 |
-| **PagerPosition** | enum | `Top` | ページャーの位置 |
-| **UseIndexSort** | bool | `false` | 表示順を Index として保存 |
-| **DeleteTogether** | bool | `false` | 親データ削除時に一括削除 |
-| **CanCreate** | bool | `false` | 親画面から新規作成を許可 |
-| **CanUpdate** | bool | `false` | 親画面から編集を許可 |
-| **CanDelete** | bool | `false` | 親画面から削除を許可 |
-| **CanUserSort** | bool | `true` | ユーザーが列ヘッダーでソート可能 |
-| **CanSelect** | bool | `false` | 行選択を許可 |
-| **CanCustomizeColumns** | bool | `false` | 列表示のユーザーカスタマイズを許可 |
-| **CanNavigateToDetail** | bool | （条件依存） | 行クリックで詳細画面に遷移 |
-| **NavigateModuleUrlSegment** | string | `""` | 遷移先 URL セグメント |
-| **OnDataChanged** | string | `""` | データ変更時のスクリプト |
-| **OnSelectedIndexChanged** | string | `""` | 選択行変更時のスクリプト |
-| **OnSelectedIndexChanging** | string | `""` | 選択行変更前のスクリプト（引数 index → bool） |
-| **OnDoubleClickRow** | string | `""` | 行ダブルクリック時のスクリプト（引数 index） |
-| **ConfirmBeforeDelete** | bool? | null | 削除前に確認ダイアログを出す |
+#### システム
 
-共通プロパティは [Field 共通プロパティ](common_properties.md) を参照。
+| C#名 | 日本語表示名 | 説明 |
+|---|---|---|
+| - | フィールドタイプ | `リスト` 固定 |
 
-### CONDITION（表示データの絞り込み）
+#### 基本設定
 
-`SearchCondition` の中身で指定します:
+| C#名 | 日本語表示名 | 型 | 既定値 | 説明 |
+|---|---|---|---|---|
+| **Name** | 名前 | string | `""` | フィールド識別子 |
+| **DisplayName** | 表示名 | string | `""` | 画面表示用の名前 |
+| **LayoutName** | レイアウト名 | string | `""` | 表示に使う List レイアウト名 |
+| **FormControlStyle** | 入力スタイル | enum? | null | セル内の入力コントロールのスタイル |
+| **ApplyBackgroundToBoxInput** | Box: 行の背景色を入力欄に適用 | bool | `false` | 入力欄にも行背景色を適用 |
+| **PagerPosition** | ページャーの位置 | enum | `Top` | ページャーの位置（`Top` / `Bottom`） |
+| **UseIndexSort** | インデックスソート | bool | `false` | 表示順を Index として保存 |
+| **DeleteTogether** | 親テーブルと一緒に削除 | bool | `false` | 親データ削除時に一括削除 |
+| **CanCreate** | 追加 | bool | `false` | 親画面から新規作成を許可 |
+| **CanUpdate** | 更新 | bool | `false` | 親画面から編集を許可 |
+| **CanDelete** | 削除 | bool | `false` | 親画面から削除を許可 |
+| **CanUserSort** | ユーザーソート | bool | `true` | ユーザーが列ヘッダーでソート可能 |
+| **CanSelect** | 選択 | bool | `false` | 行選択を許可 |
+| **CanCustomizeColumns** | カラムカスタマイズ | bool | `false` | 列表示のユーザーカスタマイズを許可 |
+| **OnDataChanged** | データ変更イベント | string | `""` | データ変更時のスクリプト |
+| **OnSelectedIndexChanged** | 選択項目変更イベント | string | `""` | 選択行変更時のスクリプト |
+| **OnSelectedIndexChanging** | 選択可否判定イベント | string | `""` | 選択行変更前のスクリプト（引数 `int index` → `bool`） |
+| **OnDoubleClickRow** | 行ダブルクリックイベント | string | `""` | 行ダブルクリック時のスクリプト（引数 `int index`） |
+| **ConfirmBeforeDelete** | 削除時に確認 | bool? | null | 削除前に確認ダイアログを出す（null なら既定挙動） |
+| **CanNavigateToDetail** | 詳細画面へ遷移 | bool | `false` | 行クリックで詳細画面に遷移 |
+| **NavigateModuleUrlSegment** | 遷移先モジュールのURLセグメント | string | `""` | 詳細遷移先の URL セグメント |
+| **IgnoreModification** | 変更判定から除外 | bool | `false` | 変更検知（IsModified）から除外 |
 
-- **ModuleName** — 表示するデータのモジュール
-- **Conditions** — 絞り込み条件
-- **MatchType** — 条件の結合（`And` / `Or`）
-- **LimitCount** — 表示する最大件数
-- **SortFieldVariable** — ソートに使う Field
-- **SortOrder** — ソート順（`Asc` / `Desc`）
+#### 検索設定
 
-<img src="images/List詳細.png" alt="List詳細" style="border: 1px solid;">
+| C#名 | 日本語表示名 | 型 | 既定値 | 説明 |
+|---|---|---|---|---|
+| **OnSearchDataChanged** | 検索モードデータ変更イベント | string | `""` | 検索条件が変更された時のスクリプト |
+
+#### 絞り込み条件（表示データ）
+
+| C#名 | 日本語表示名 | 型 | 既定値 | 説明 |
+|---|---|---|---|---|
+| **SearchCondition.ModuleName** | モジュール名 | string | `""` | 表示するデータのモジュール |
+| **SearchCondition.Condition** | 抽出条件 | MultiMatchCondition | - | 絞り込み条件 |
+| **SearchCondition.LimitCount** | 件数上限 | int | `50` | 表示する最大件数 |
+| **SearchCondition.SortConditions** | ソート | List | `[]` | ソート順 |
 
 ---
 
@@ -112,7 +121,7 @@ void List_OnSelectedIndexChanged()
 // 条件を追加してリロード
 var cond = new ModuleSearcher<Order>();
 cond.AddEquals(o => o.CustomerId.Value, CurrentCustomer.Id.Value);
-List.SetAdditionalCondition(cond);
+await List.SetAdditionalCondition(cond);
 await List.Reload();
 
 // プログラム的に行追加
