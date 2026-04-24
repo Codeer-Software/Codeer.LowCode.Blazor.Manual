@@ -42,7 +42,7 @@
 
 | 名前 | 型・戻り値 | 説明 |
 |---|---|---|
-| `ChildModule` | Module | 埋め込まれたモジュールのインスタンス |
+| `ChildModule` | Module? | 埋め込まれたモジュールのインスタンス（未初期化時は null） |
 | `ModuleName` | string | 現在埋め込んでいるモジュール名 |
 | `ModuleLayoutName` | string | 現在使っているレイアウト名 |
 | `SetModule(moduleName, layoutName)` | Task | 埋め込むモジュール／レイアウトを動的に変更 |

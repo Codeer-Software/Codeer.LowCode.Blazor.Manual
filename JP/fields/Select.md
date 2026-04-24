@@ -96,7 +96,6 @@ C,選択肢 C
 |---|---|---|
 | `Value` | string? | 選択値 |
 | `DisplayText` | string? | 表示テキスト |
-| `DisplayTextAndValue` | IReadOnlyDictionary\<string, string\> | 候補の辞書 |
 | `SearchValue` | string? | 検索値 |
 | `SearchValues` | List\<string\> | 複数選択検索値 |
 | `SearchIsEmpty` | bool? | 空検索 |

@@ -35,14 +35,13 @@
 
 ## スクリプトから
 
-### プロパティ・メソッド
+### プロパティ
 
-| 名前 | 型・戻り値 | 説明 |
+| 名前 | 型 | 説明 |
 |---|---|---|
 | `Text` | string | ボタン文字の取得・設定 |
-| `InvokeOnClick()` | Task | プログラム的にクリックを発動 |
 
-共通プロパティ（IsEnabled / IsVisible など）は [Field 共通プロパティ](common_properties.md) を参照。
+共通プロパティ（`IsEnabled` / `IsVisible` / `Color` など）は [Field 共通プロパティ](common_properties.md) を参照。
 
 ### よく使う例
 

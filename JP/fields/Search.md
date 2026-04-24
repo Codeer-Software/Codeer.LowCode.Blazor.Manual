@@ -41,8 +41,7 @@
 
 | 名前 | 型・戻り値 | 説明 |
 |---|---|---|
-| `SearchModule` | Module | 検索入力用の子モジュール |
-| `Condition` | ModuleSearcher | 現在の検索条件 |
+| `SearchModule` | Module? | 検索入力用の子モジュール（`.XxxField.SearchValue = ...` のようにアクセス可能） |
 | `ExecuteSearch()` | Task | 検索を実行 |
 | `ExecuteClear()` | Task | 検索条件をクリア |
 | `InvokeSearchInitialization()` | Task | 検索入力の初期化を発動 |

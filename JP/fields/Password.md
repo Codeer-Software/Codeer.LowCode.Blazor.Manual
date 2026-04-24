@@ -47,9 +47,10 @@
 | 名前 | 型・戻り値 | 説明 |
 |---|---|---|
 | `Value` | string? | パスワード値 |
-| `ConfirmPassword` | string? | 確認入力の値 |
-| `CheckPassword()` | bool | 本入力と確認入力が一致するか |
-| `Clear()` | void | 入力をクリア |
+| `CheckPassword()` | bool | 画面上の本入力と確認入力欄の値が一致するかを返す |
+| `Clear()` | Task | 本入力・確認入力の両方をクリア |
+
+> 確認入力欄の値（内部の `ConfirmPassword`）はスクリプトから直接参照できません。`CheckPassword()` を通じて一致判定だけ行えます。
 
 共通プロパティは [Field 共通プロパティ](common_properties.md) を参照。
 
