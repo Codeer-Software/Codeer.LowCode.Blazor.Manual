@@ -16,13 +16,15 @@
 
 ## デザイナでの設定
 
+<img src="../../Image/designer/fields/json/JsonSample_properties_panel.png" alt="JsonFieldのプロパティパネル" style="border: 1px solid;" width="400">
+
 ### プロパティ一覧
 
 #### システム
 
 | C#名 | 日本語表示名 | 説明 |
 |---|---|---|
-| - | フィールドタイプ | `JSON` 固定 |
+| - | フィールドタイプ | `Json` 固定 |
 
 #### 基本設定
 
@@ -31,7 +33,7 @@
 | **Name** | 名前 | string | `""` | フィールド識別子 |
 | **DisplayName** | 表示名 | string | `""` | 画面表示用の名前 |
 | **DbColumn** | DBカラム | string | `""` | JSON を保存する DB 列（JSON 文字列を格納できる型） |
-| **JsonFieldSettings** | JSON設定 | JsonFieldSettings | - | 子ノードのキー一覧と型 |
+| **JsonFieldSettings** | Jsonフィールドの設定 | JsonFieldSettings | - | 子ノードのキー一覧と型 |
 | **IsRequired** | 必須 | bool | `false` | 入力必須 |
 | **IsUpdateProtected** | 更新無効 | bool | `false` | 更新時に値を変更できないようにする |
 | **OnDataChanged** | データ変更イベント | string | `""` | 値変更時のスクリプト |
@@ -63,11 +65,12 @@
 JsonField 自体の公開プロパティは `Value`（JSON 全体の文字列）です。
 通常は**子ノード単位でアクセス**することが多いです。
 
-共通プロパティは [Field 共通プロパティ](common_properties.md) を参照。
+共通プロパティは [Field 共通プロパティ](../fields/common_properties.md) を参照。
 
 ---
 
 ## 関連項目
 
-- [Field 共通プロパティ](common_properties.md)
-- [Text](Text.md) / [Number](Number.md) / [Boolean](Boolean.md) — 子ノードの型
+- [Field 共通プロパティ](../fields/common_properties.md)
+- [TextField](../fields/Text.md) / [NumberField](../fields/Number.md) / [BooleanField](../fields/Boolean.md) — 子ノードの型
+- [QueryField](query_field.md) / [ExecuteSqlField](execute_sql_field.md) — DB 系 Field

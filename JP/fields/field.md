@@ -84,6 +84,7 @@ Module に Data Source を設定すると、ツールボックスに「DB フィ
 | [DetailList](DetailList.md) | 一覧（カード形式、縦並び） |
 | [TileList](TileList.md) | 一覧（タイル形式、折り返し） |
 | [ListNumber](ListNumber.md) | 一覧内の行番号列 |
+| [ListPaging](ListPaging.md) | リストのページャーを独立配置 |
 | [Module](Module.md) | 他モジュールを画面内に埋め込む |
 | [Search](Search.md) | 検索バー |
 
@@ -102,15 +103,7 @@ Module に Data Source を設定すると、ツールボックスに「DB フィ
 
 | Field | 用途 |
 |---|---|
-| [HeaderMenu](HeaderMenu.md) | カスタムヘッダー内で標準メニューを取り込む |
-| [SidebarMenu](SidebarMenu.md) | カスタムサイドバー内で標準メニューを取り込む |
-
-### 構造系（補助）
-
-| Field | 用途 |
-|---|---|
-| [ListPaging](ListPaging.md) | リストのページャーを独立配置 |
-| [Json](Json.md) | 複数の値を JSON でまとめて 1 列に保存 |
+| [HeaderMenu / SidebarMenu](PageFrameMenu.md) | カスタムヘッダー／サイドバー内で標準メニューを取り込む |
 
 ### 特殊
 
@@ -125,6 +118,7 @@ Module に Data Source を設定すると、ツールボックスに「DB フィ
 |---|---|
 | [Query](../db/query_field.md) | カスタム SQL で一覧を作る |
 | [ExecuteSql](../db/execute_sql_field.md) | 任意の SQL を実行する |
+| [Json](../db/json_field.md) | 複数の値を JSON でまとめて 1 列に保存 |
 
 ### 廃止
 

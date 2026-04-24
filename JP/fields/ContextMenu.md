@@ -13,6 +13,8 @@
 
 ## デザイナでの設定
 
+<img src="../../Image/designer/fields/contextmenu/ContextMenuSample_properties_panel.png" alt="ContextMenuFieldのプロパティパネル" style="border: 1px solid;" width="400">
+
 ### プロパティ一覧
 
 #### システム
@@ -26,7 +28,7 @@
 | C#名 | 日本語表示名 | 型 | 既定値 | 説明 |
 |---|---|---|---|---|
 | **Name** | 名前 | string | `""` | フィールド識別子 |
-| **Items** | メニュー項目 | List\<string\> | `[]` | メニューに表示する項目ラベルの一覧 |
+| **Items** | 選択肢 | List\<string\> | `[]` | メニューに表示する項目ラベルの一覧 |
 | **OnClick** | クリックイベント | string | `""` | 項目クリック時のスクリプト（引数 `string item` にクリックされたラベルが渡る） |
 | **IgnoreModification** | 変更判定から除外 | bool | `false` | 変更検知から除外 |
 

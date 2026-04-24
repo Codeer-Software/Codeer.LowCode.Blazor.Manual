@@ -16,6 +16,8 @@
 
 ## デザイナでの設定
 
+<img src="../../Image/designer/fields/copymodulebutton/CopyModuleButtonSample_properties_panel.png" alt="CopyModuleButtonFieldのプロパティパネル" style="border: 1px solid;" width="400">
+
 ### プロパティ一覧
 
 #### システム

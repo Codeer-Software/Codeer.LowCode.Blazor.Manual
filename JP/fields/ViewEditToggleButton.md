@@ -1,12 +1,12 @@
-# ViewEditToggleButtonField (参照・編集切替ボタン)
+# ViewEditToggleButtonField (閲覧編集切り替えボタン)
 
 ## これは何か
 
-**モジュールの参照モードと編集モードを切り替えるトグルボタン**。配置しておくと、画面が最初は参照モードで開き、ボタンを押すと編集モードになります。
+**モジュールの閲覧モードと編集モードを切り替えるトグルボタン**。配置しておくと、画面が最初は閲覧モードで開き、ボタンを押すと編集モードになります。
 
 ## いつ使うか
 
-- 基本は参照画面、必要なときだけ編集させたい UI
+- 基本は閲覧画面、必要なときだけ編集させたい UI
 - 誤操作で編集してしまうのを避けたい画面
 - 「編集」「保存」「キャンセル」のフローを 1 ボタンで完結させたい時
 
@@ -14,17 +14,17 @@
 
 ## 動作の仕組み
 
-### 初期化時（InitializeDataAsync）
+### 初期化時
 
-1. `Module.IsViewOnly = true` に設定（画面を参照モードで開く）
-2. 自身は `IsViewOnly = false`（ボタン自身は操作可能のまま）
-3. **Module 内の [SubmitButtonField](SubmitButton.md) を全て `IsVisible = false` に**（参照中は登録ボタンを見せない）
-4. Module 内の [CopyModuleButtonField](CopyModuleButton.md) は `IsViewOnly = false` のまま（コピー操作は可能）
+1. 画面を閲覧モードで開く
+2. ボタン自身は操作可能のまま
+3. **Module 内の [SubmitButtonField](SubmitButton.md) を全て非表示に**（閲覧中は登録ボタンを見せない）
+4. Module 内の [CopyModuleButtonField](CopyModuleButton.md) は操作可能のまま
 
-### クリック時（InvokeOnClick）
+### クリック時
 
-- **参照モード → 編集モード**: `Module.IsViewOnly = false` + SubmitButtonField を `IsVisible = true`
-- **編集モード → 参照モード**: `Module.IsViewOnly = true` + SubmitButtonField を `IsVisible = false` + `Module.ReloadAsync()` で編集内容を破棄
+- **閲覧モード → 編集モード**: 編集モードへ切り替え + SubmitButtonField を表示
+- **編集モード → 閲覧モード**: 閲覧モードへ戻し + SubmitButtonField を非表示 + データを再読込して編集内容を破棄
 
 ### 注意点
 
@@ -34,23 +34,25 @@
 
 ## デザイナでの設定
 
+<img src="../../Image/designer/fields/viewedittogglebutton/ViewEditToggleButtonSample_properties_panel.png" alt="ViewEditToggleButtonFieldのプロパティパネル" style="border: 1px solid;" width="400">
+
 ### プロパティ一覧
 
 #### システム
 
 | C#名 | 日本語表示名 | 説明 |
 |---|---|---|
-| - | フィールドタイプ | `参照・編集切替ボタン` 固定 |
+| - | フィールドタイプ | `閲覧編集切り替えボタン` 固定 |
 
 #### 基本設定
 
 | C#名 | 日本語表示名 | 型 | 既定値 | 説明 |
 |---|---|---|---|---|
 | **Name** | 名前 | string | `""` | フィールド識別子 |
-| **ToViewText** | 参照へ戻すテキスト | string | `"View"` | 編集モード中に表示される（押すと参照に戻る） |
-| **ToViewIcon** | 参照へ戻すアイコン | string | `""` | 同上 |
-| **ToEditText** | 編集へ切替えるテキスト | string | `"Edit"` | 参照モード中に表示される（押すと編集に入る） |
-| **ToEditIcon** | 編集へ切替えるアイコン | string | `""` | 同上 |
+| **ToViewText** | 閲覧ボタンのテキスト | string | `"View"` | 編集モード中に表示される（押すと閲覧に戻る） |
+| **ToViewIcon** | 閲覧ボタンのアイコン | string | `""` | 同上 |
+| **ToEditText** | 編集ボタンのテキスト | string | `"Edit"` | 閲覧モード中に表示される（押すと編集に入る） |
+| **ToEditIcon** | 編集ボタンのアイコン | string | `""` | 同上 |
 | **Variant** | ボタンのスタイル | enum | `Primary` | [Button の Variant](Button.md#variantボタンのスタイル) 参照 |
 | **IgnoreModification** | 変更判定から除外 | bool | `false` | 変更検知から除外 |
 
