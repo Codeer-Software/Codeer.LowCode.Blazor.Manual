@@ -22,7 +22,7 @@
 
 | 名前 | 型 | 説明 |
 |---|---|---|
-| `Value` | int? | 行番号（List 側が自動で設定） |
+| `Value` | int | 行番号（1 始まり。List 側が自動で設定） |
 
 共通プロパティは [Field 共通プロパティ](common_properties.md) を参照。
 

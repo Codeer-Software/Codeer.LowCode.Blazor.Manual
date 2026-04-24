@@ -68,28 +68,33 @@
 | 名前 | 型 | 説明 |
 |---|---|---|
 | `Rows` | List\<Module\> | 全行のデータ |
-| `RowCount` | int? | 行数 |
-| `SelectedIndex` | int | 選択されている行のインデックス |
-| `Page` | int? | 現在のページ |
-| `PageCount` | int? | 総ページ数 |
-| `TotalCount` | int? | 総件数 |
-| `Limit` | int? | ページあたりの件数 |
+| `RowCount` | int | 行数 |
+| `SelectedIndex` | int | 選択されている行のインデックス（未選択時 -1） |
+| `Page` | int | 現在のページ |
+| `PageCount` | int | 総ページ数 |
+| `TotalCount` | int | 総件数 |
+| `Limit` | int? | ページあたりの件数（`SearchCondition.LimitCount`） |
 | `AllowLoad` | bool | ロードの可否 |
-| `SearchComparison` | MatchComparison | 検索比較（`Exists` / `NotExists`） |
+| `SearchComparison` | MatchComparison? | 検索比較（`Exists` / `NotExists`） |
 
 ### メソッド
 
 | 名前 | 戻り値 | 説明 |
 |---|---|---|
-| `AddRow()` | Module | 空行を追加 |
-| `AddRow(Module)` | Module | 指定行を追加 |
-| `InsertRow(int, Module)` | Module | 指定位置に挿入 |
-| `UpdateRow(int, Module)` | void | 指定位置を更新 |
-| `DeleteRow(Module)` | void | 指定行を削除 |
-| `DeleteAllRows()` | void | 全行削除 |
+| `AddRow()` | Task\<Module\> | 空行を末尾に追加 |
+| `AddRow(Module)` | Task\<Module\> | 指定行を末尾に追加 |
+| `AddRow(ModuleData)` | Task\<Module\> | ModuleData を末尾に追加 |
+| `AddRows(int count)` | Task\<List\<Module\>\> | 指定件数だけ空行追加 |
+| `AddRows(List<Module>)` / `AddRows(List<ModuleData>)` | Task\<List\<Module\>\> | まとめて追加 |
+| `InsertRow(int, Module)` | Task\<Module\> | 指定位置に挿入 |
+| `InsertRows(int, List<Module>)` / `InsertRows(int, List<ModuleData>)` | Task\<List\<Module\>\> | 指定位置にまとめて挿入 |
+| `UpdateRow(int, Module)` | Task | 指定位置を更新 |
+| `DeleteRow(Module)` | Task | 指定行を削除 |
+| `DeleteAllRows()` | Task | 全行削除 |
 | `Reload()` | Task | データを再取得 |
-| `SetAdditionalCondition(ModuleSearcher)` | void | 検索条件を追加 |
+| `SetAdditionalCondition(ModuleSearcher)` | Task | 検索条件を追加 |
 | `SetSelectedIndexAsync(int)` | Task | 選択行を変更 |
+| `SetSearchComparisonAsync(MatchComparison?)` | Task | 検索比較を設定 |
 | `ShowCustomDialog()` | Task | 独自のダイアログを表示 |
 
 共通プロパティは [Field 共通プロパティ](common_properties.md) を参照。

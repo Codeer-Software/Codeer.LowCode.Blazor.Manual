@@ -99,7 +99,8 @@ create table temporary_files
 |---|---|---|
 | `FileName` | string? | ファイル名 |
 | `SearchFileName` | string? | 検索用ファイル名 |
-| `SearchFileSizeMin` / `SearchFileSizeMax` | long? | サイズの範囲検索 |
+| `SearchFileNameComparison` | MatchComparison | ファイル名検索の比較方法（既定 `Like`） |
+| `SearchFileSizeMin` / `SearchFileSizeMax` | decimal? | サイズの範囲検索 |
 | `SetFile(fileName, StreamContent)` | Task | ファイルをプログラム的に設定 |
 | `ClearFile()` | Task | ファイルをクリア |
 | `GetMemoryStream()` | Task<MemoryStream?> | ファイル内容を取得 |

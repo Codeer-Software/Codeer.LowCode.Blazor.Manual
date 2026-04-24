@@ -82,9 +82,10 @@
 | `DisplayText` | string? | 選択されたリンク先の表示文字 |
 | `SearchValue` | string? | 検索値 |
 | `SearchIsEmpty` | bool? | 空検索 |
+| `AllowReloadLinkData` | bool | リンク先データの自動再読込を許可 |
 | `SetValueAsync(string?)` | Task | 値を設定 |
 | `SetAdditionalCondition(ModuleSearcher)` | void | 検索の絞り込み条件を追加 |
-| `GetSearchConditionAssignedValue()` | object? | 現在の検索条件の値 |
+| `GetSearchConditionAssignedValue()` | SearchCondition | 変数を解決済みの検索条件を取得 |
 
 共通プロパティは [Field 共通プロパティ](common_properties.md) を参照。
 
