@@ -96,19 +96,31 @@ await OrderDate.SetSearchMaxAsync(today);
 
 ### 簡易検索（`IsSimpleSearchParameter=true`）
 
+<img src="../../Image/web/fields/date/Date_search_simple.png" alt="DateField 簡易検索" style="border: 1px solid;" width="400">
+
 日付ピッカーが 1 つだけ表示されます。指定日**以降**（`≥`）のデータが対象。
 
 ### 詳細検索（`IsSimpleSearchParameter=false`）
 
-開始日 ～ 終了日の **2 つのピッカー** と、間に **モード切替（`～` ボタン）** が出ます。
+<img src="../../Image/web/fields/date/Date_search_detailed.png" alt="DateField 詳細検索（既定）" style="border: 1px solid;" width="400">
+
+開始日 ～ 終了日の **2 つのピッカー** と、間に区切り（`～`）が出ます。
+
+例: 開始 `2025-01-01` + 終了 `2025-12-31` → 2025 年内のデータ
+
+> 終了日を指定したときは「**その日を含む**」検索になります（`≤ 2025-12-31` で 12/31 のデータも対象）。
+
+### 詳細検索 + 空検索を許可（`IsSimpleSearchParameter=false`, `AllowEmptySearch=true`）
+
+<img src="../../Image/web/fields/date/Date_search_detailed_with_empty.png" alt="DateField 詳細検索（空検索を許可）" style="border: 1px solid;" width="400">
+
+中央の `～` ボタンを押すと **空** / **空以外** が選べます。
 
 | モード | 挙動 |
 |---|---|
-| **範囲（既定）** | 開始・終了のうち入っている方の制約を適用<br>例: 開始 2025-01-01 + 終了 2025-12-31 → 2025 年内 |
-| **空** | `NULL` のデータ（`AllowEmptySearch=true` の時） |
-| **空以外** | 何か日付が入っているデータ（`AllowEmptySearch=true` の時） |
-
-> 終了日を指定したときは「**その日を含む**」検索になります（`≤ 2025-12-31` で 12/31 のデータも対象）。
+| **範囲（既定）** | 開始日・終了日の範囲 |
+| **空** | `NULL` のデータ |
+| **空以外** | 何か日付が入っているデータ |
 
 ### スクリプトから検索条件を操作
 

@@ -92,17 +92,27 @@ await IsPublished.SetSearchValueAsync(true);
 
 ## 検索での挙動
 
-検索フォームでは **常にドロップダウン** で選択します（簡易／詳細問わず）。
+検索フォームでは **常にドロップダウン** で選択します。`IsSimpleSearchParameter` の簡易／詳細による UI の違いはありません（どちらも同じドロップダウン）。
 
-| 設定 | 選択肢 |
-|---|---|
-| `IsSimpleSearchParameter=true`（簡易） | （未指定）／ True ／ False |
-| `IsSimpleSearchParameter=false`（詳細）+ `AllowEmptySearch=false` | 同上 |
-| `IsSimpleSearchParameter=false`（詳細）+ `AllowEmptySearch=true` | 上記 + **空** ／ **空以外** |
+### 通常（`AllowEmptySearch=false`）
 
-`TrueText` / `FalseText` を設定していると、ドロップダウンの表示テキストもそれが使われます。
+<img src="../../Image/web/fields/boolean/Boolean_search_detailed.png" alt="BooleanField 検索（既定）" style="border: 1px solid;" width="400">
 
-> ⚠ Boolean は **詳細にしないと空検索モードが出ません**。NULL を含めた絞り込みをしたい時は `IsSimpleSearchParameter=false` + `AllowEmptySearch=true` にします。
+選択肢は **（未指定）／ True ／ False**。
+
+### 空検索を許可（`AllowEmptySearch=true`）
+
+<img src="../../Image/web/fields/boolean/Boolean_search_detailed_with_empty.png" alt="BooleanField 検索（空検索を許可）" style="border: 1px solid;" width="400">
+
+選択肢に **空** / **空以外** が追加され、NULL を含めた絞り込みができます。
+
+### TrueText / FalseText で表示文字をカスタマイズ
+
+<img src="../../Image/web/fields/boolean/Boolean_search_custom_text.png" alt="BooleanField 表示文字カスタマイズ" style="border: 1px solid;" width="400">
+
+`TrueText` / `FalseText` を設定すると、ドロップダウンの表示文字を独自にできます（例: `OK` / `NG`、`公開` / `非公開` など）。検索フォームと編集フォーム両方に反映されます。
+
+> ⚠ 空検索を出したいときは `AllowEmptySearch=true` を設定してください（`IsSimpleSearchParameter` は影響しません）。
 
 ### スクリプトから
 

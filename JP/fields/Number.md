@@ -110,21 +110,31 @@ await Price.SetSearchMaxAsync(10000);
 
 ### 簡易検索（`IsSimpleSearchParameter=true`）
 
+<img src="../../Image/web/fields/number/Number_search_simple.png" alt="NumberField 簡易検索" style="border: 1px solid;" width="400">
+
 入力欄が 1 つだけ表示されます。入力した値**以上**（`≥`）のデータが対象。
 
 > 「ちょうどこの値」を検索したい場合は詳細にして範囲の下限と上限に同じ値を入れる必要があります。
 
 ### 詳細検索（`IsSimpleSearchParameter=false`）
 
-下限 ～ 上限の **2 入力欄** と、間に **モード切替（`～` ボタン）** が出ます。
+<img src="../../Image/web/fields/number/Number_search_detailed.png" alt="NumberField 詳細検索（既定）" style="border: 1px solid;" width="400">
+
+下限 ～ 上限の **2 入力欄** と、間に区切り（`～`）が出ます。下限・上限のうち入っている方の制約を適用します（`≥` / `≤` / 範囲）。
+
+例: 下限 `1000` のみ → `≥ 1000` / 下限 `1000` + 上限 `5000` → `1000 ≤ x ≤ 5000`
+
+### 詳細検索 + 空検索を許可（`IsSimpleSearchParameter=false`, `AllowEmptySearch=true`）
+
+<img src="../../Image/web/fields/number/Number_search_detailed_with_empty.png" alt="NumberField 詳細検索（空検索を許可）" style="border: 1px solid;" width="400">
+
+中央の `～` ボタンを押すとメニューが開き、**空** / **空以外** が選べます。範囲モードに戻したい時は再度 `～` を押します。
 
 | モード | 挙動 |
 |---|---|
-| **範囲（既定）** | 下限・上限のうち入っている方の制約を適用（`>=` / `<=` / 範囲）<br>例: 下限 1000 のみ → `≥ 1000` / 下限 1000 + 上限 5000 → `1000 ≤ x ≤ 5000` |
-| **空** | `NULL` のデータ（`AllowEmptySearch=true` の時） |
-| **空以外** | 何か値があるデータ（`AllowEmptySearch=true` の時） |
-
-> モード切替ボタンは `AllowEmptySearch=true` でないと「範囲」固定になります（切替メニューが出ません）。
+| **範囲（既定）** | 下限・上限の数値範囲 |
+| **空** | `NULL` のデータ |
+| **空以外** | 何か値があるデータ |
 
 ### スクリプトから検索条件を操作
 
