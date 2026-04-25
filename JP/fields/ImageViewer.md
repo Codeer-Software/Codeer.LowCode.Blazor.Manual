@@ -1,34 +1,94 @@
-# ImageViewer
+# ImageViewerField (画像表示)
 
-imageを表示するField
+## これは何か
 
-<img src="images/ImageViewer表示.png" alt="ImageViewer表示" title="ImageViewer表示" style="border: 1px solid;">
+**画像を表示するフィールド**。入力は受けず、表示専用です。画像のソースはリソースパスでも、プログラム的に設定する Base64 やメモリストリームでも構いません。
 
-<img src="images/ImageViewer設定.png" alt="ImageViewer設定" title="ImageViewer設定" style="border: 1px solid;" >
+## いつ使うか
 
-1. FieldType
-    - ImageViewerを設定する
-2. Name
-    - フィールド名の設定. 全体設定時に表示される.
-3. ResourcePath
-    - `${APPLICATION_HOME}/Resource` からの相対パスを指定する
+- 固定画像（ロゴ・説明図）の表示
+- 動的に生成する画像の表示（グラフ・QR コードなど）
+- ファイルアップロードなしで画像を見せるだけの場面
 
-<img src="images/ImageViewer詳細.png" alt="ImageViewer詳細" title="ImageViewer詳細" style="border: 1px solid;">
+アップロードが必要なら [File](File.md) の `プレビュー表示` を使います。
 
+---
 
-## スクリプト
-| プロパティ名          | 型       | 説明             |
-|-----------------|---------|----------------|
-| BackgroundColor | string? | Fieldの背景色      | 
-| Base64Data      | string  | Fieldの背景色      | 
-| Color           | string? | Fieldの色        |
-| ImageExtension  | string  | Fieldの色        |
-| IsEnabled       | bool    | Fieldの有効/無効    |
-| IsVisible       | bool    | Fieldの表示/非表示   |
-| IsViewOnly      | bool    | Fieldの編集可/編集不可 |
-| ResourcePath    | string  | Fieldの編集可/編集不可 |
+## デザイナでの設定
 
-| メソッド名             | 戻り値 | 説明             |
-|-------------------|-----|----------------|
-| SetBase64Data()   | なし  | ダウンロードする       |
-| SetMemoryStream() | なし  | メモリーストリームを取得する |
+<img src="../../Image/designer/fields/imageviewer/ImageViewerSample_properties_panel.png" alt="ImageViewerFieldのプロパティパネル" style="border: 1px solid;" width="400">
+
+### プロパティ一覧
+
+#### システム
+
+| C#名 | 日本語表示名 | 説明 |
+|---|---|---|
+| - | フィールドタイプ | `画像表示` 固定 |
+
+#### 基本設定
+
+| C#名 | 日本語表示名 | 型 | 既定値 | 説明 |
+|---|---|---|---|---|
+| **Name** | 名前 | string | `""` | フィールド識別子 |
+| **ResourcePath** | 画像パス（Resources/） | string | `""` | 画像リソースのパス（`Resources/` フォルダからの相対パス） |
+| **ObjectFit** | 画像の表示方法 | enum | `Contain` | 画像の収め方（`None` / `Contain` / `Cover` / `Fill` / `ScaleDown`） |
+| **OnClick** | クリックイベント | string | `""` | クリック時のスクリプト |
+| **IgnoreModification** | 変更判定から除外 | bool | `false` | 変更検知（IsModified）から除外 |
+
+> ImageViewerField は値を持たないため、`表示名` / `必須` / `DBカラム` などはありません。
+
+---
+
+## ObjectFit（画像の表示方法）
+
+CSS の `object-fit` と同じ仕様です。
+
+| 値 | 挙動 |
+|---|---|
+| **None** | 原寸表示（はみ出す場合あり） |
+| **Contain** | アスペクト比を保って全体が収まるように縮小 |
+| **Cover** | アスペクト比を保って領域を埋める（端が切れる場合あり） |
+| **Fill** | 領域に合わせて引き伸ばす（アスペクト比崩れる可能性） |
+| **ScaleDown** | 原寸か Contain のどちらか小さい方 |
+
+---
+
+## スクリプトから
+
+### プロパティ・メソッド
+
+| 名前 | 型・戻り値 | 説明 |
+|---|---|---|
+| `ResourcePath` | string | 画像リソースパス |
+| `ImageExtension` | string | 画像の拡張子 |
+| `Base64Data` | string | Base64 エンコードされた画像データ |
+| `SetBase64Data(fileName, value)` | void | Base64 データで画像を設定 |
+| `SetMemoryStream(fileName, MemoryStream)` | void | MemoryStream で画像を設定 |
+
+共通プロパティは [Field 共通プロパティ](common_properties.md) を参照。
+
+### よく使う例
+
+```csharp
+// 動的に画像を切り替える
+Logo.ResourcePath = IsDarkMode.Value ? "logo-dark.png" : "logo-light.png";
+
+// MemoryStream で画像を差し替える
+var stream = await GenerateChartAsync();
+Chart.SetMemoryStream("chart.png", stream);
+
+// クリックで拡大表示など
+void Thumbnail_OnClick()
+{
+    // 独自のダイアログで拡大
+}
+```
+
+---
+
+## 関連項目
+
+- [Field 共通プロパティ](common_properties.md)
+- [File](File.md) — アップロードが必要な場合
+- [AnchorTag](AnchorTag.md) — 画像付きリンク

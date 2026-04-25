@@ -1,39 +1,114 @@
-# Time
+# TimeField (時刻)
 
-時刻を表すフィールド
+## これは何か
 
-<img src="images/Time表示.png" alt="Time表示" title="Time表示" style="border: 1px solid;">
+**時刻を入力・表示するフィールド**。日付は持たない純粋な時刻（`TimeOnly`）型です。
 
-<img src="images/Time設定.png" alt="Time設定" title="Time設定" style="border: 1px solid;" >
+## いつ使うか
 
-1. FieldType
-    - Timeを設定する
-2. Name
-    - フィールド名の設定. 全体設定時に表示される.
-3. DisplayName
-    - TBD
-4. IsRequired
-    - 登録時，必須にする
-5. IsUtc
-   - UTCかどうかを設定する.
-6. HasTimeZone
-    - タイムゾーン付きかどうかを設定する.
-7. DbColumn
-    - テーブルのカラムの設定
+- 営業時間（開店〜閉店）、シフト開始・終了時刻
+- 所要時間でない「時刻」の入力（所要時間は数値で持つほうが扱いやすい）
+- DB の `TIME` カラムの表示・編集
 
-<img src="images/Time詳細.png" alt="Time詳細" title="Time詳細" style="border: 1px solid;">
+---
 
-## スクリプト
-| プロパティ名          | 型         | 説明             |
-|-----------------|-----------|----------------|
-| BackgroundColor | string?   | Fieldの背景色      | 
-| Color           | string?   | Fieldの色        |
-| DisplayText     | string?   | Fieldの色        |
-| IsEnabled       | bool      | Fieldの有効/無効    |
-| IsModified      | bool      | Fieldが変更されたどうか |
-| IsVisible       | bool      | Fieldの表示/非表示   |
-| IsViewOnly      | bool      | Fieldの編集可/編集不可 |
-| SearchMax       | TimeOnly? | 検索条件の時刻の最大値    |
-| SearchMin       | TimeOnly? | 検索条件の時刻の最大値    |
-| Value           | string    | Fieldの値        |
+## デザイナでの設定
 
+<img src="../../Image/designer/fields/time/TimeBasic_properties_panel.png" alt="TimeFieldのプロパティパネル" style="border: 1px solid;" width="400">
+
+### プロパティ一覧
+
+#### システム
+
+| C#名 | 日本語表示名 | 説明 |
+|---|---|---|
+| - | フィールドタイプ | `時刻` 固定 |
+
+#### 基本設定
+
+| C#名 | 日本語表示名 | 型 | 既定値 | 説明 |
+|---|---|---|---|---|
+| **Name** | 名前 | string | `""` | フィールド識別子 |
+| **DisplayName** | 表示名 | string | `""` | 画面表示用の名前 |
+| **DbColumn** | DBカラム | string | `""` | 対応する DB 列名 |
+| **SaveAsUtc** | UTCとして保存 | bool | `false` | UTC で保存する |
+| **IsRequired** | 必須 | bool | `false` | 入力必須 |
+| **IsUpdateProtected** | 更新無効 | bool | `false` | 更新時に値を変更できないようにする |
+| **OnDataChanged** | データ変更イベント | string | `""` | 値変更時のスクリプトイベント |
+| **IgnoreModification** | 変更判定から除外 | bool | `false` | 変更検知（IsModified）から除外 |
+
+#### 検索設定
+
+| C#名 | 日本語表示名 | 型 | 既定値 | 説明 |
+|---|---|---|---|---|
+| **IsSimpleSearchParameter** | 簡易検索条件 | bool | `false` | 簡易検索の対象にする |
+| **AllowEmptySearch** | 空検索を許可 | bool | `false` | 空での検索を許可する |
+| **OnSearchDataChanged** | 検索モードデータ変更イベント | string | `""` | 検索条件が変更された時のスクリプトイベント |
+
+---
+
+## スクリプトから
+
+### プロパティ
+
+| 名前 | 型 | 説明 |
+|---|---|---|
+| `Value` | TimeOnly? | 時刻の値 |
+| `SearchMin` | TimeOnly? | 検索の最小時刻 |
+| `SearchMax` | TimeOnly? | 検索の最大時刻 |
+| `SearchIsEmpty` | bool? | 「空」を検索条件にする |
+
+共通プロパティは [Field 共通プロパティ](common_properties.md) を参照。
+
+### よく使う例
+
+```csharp
+// 営業時間をチェック
+if (OpenTime.Value > CloseTime.Value)
+{
+    CloseTime.SetError("閉店時刻は開店時刻より後にしてください");
+}
+
+// 検索: 午前のみ
+await OpenTime.SetSearchMinAsync(new TimeOnly(0, 0));
+await OpenTime.SetSearchMaxAsync(new TimeOnly(12, 0));
+```
+
+---
+
+## 検索での挙動
+
+[DateField](Date.md#検索での挙動) と同じ **範囲検索**（時刻のみ）。
+
+### 簡易検索（`IsSimpleSearchParameter=true`）
+
+<img src="../../Image/web/fields/time/Time_search_simple.png" alt="TimeField 簡易検索" style="border: 1px solid;" width="400">
+
+ピッカー 1 つ。指定時刻**以降**（`≥`）のデータが対象。
+
+### 詳細検索（`IsSimpleSearchParameter=false`）
+
+<img src="../../Image/web/fields/time/Time_search_detailed.png" alt="TimeField 詳細検索（既定）" style="border: 1px solid;" width="400">
+
+開始時刻 ～ 終了時刻の 2 ピッカー。
+
+### 詳細検索 + 空検索を許可（`IsSimpleSearchParameter=false`, `AllowEmptySearch=true`）
+
+<img src="../../Image/web/fields/time/Time_search_detailed_with_empty.png" alt="TimeField 詳細検索（空検索を許可）" style="border: 1px solid;" width="400">
+
+中央の `～` ボタンから **空** / **空以外** が選べます。
+
+```csharp
+await StartTime.SetSearchMinAsync(new TimeOnly(9, 0));
+await StartTime.SetSearchMaxAsync(new TimeOnly(17, 0));
+```
+
+検索全体の仕組みは [SearchField](Search.md#検索の仕組み) を参照。
+
+---
+
+## 関連項目
+
+- [Field 共通プロパティ](common_properties.md)
+- [Date](Date.md) / [DateTime](DateTime.md)
+- [SearchField](Search.md) — 検索全体の仕組み

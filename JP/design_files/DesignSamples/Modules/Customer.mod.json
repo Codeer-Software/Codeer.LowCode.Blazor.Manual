@@ -1,0 +1,898 @@
+{
+  "Name": "Customer",
+  "DataSourceName": "SampleSQLite",
+  "DbTable": "Customers",
+  "CanCreate": true,
+  "CanUpdate": true,
+  "CanDelete": true,
+  "Fields": [
+    {
+      "Text": "顧客",
+      "Icon": "",
+      "Style": "H3",
+      "RelativeField": "",
+      "OnClick": "",
+      "Name": "Title",
+      "IgnoreModification": false,
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "DbColumn": "Id",
+      "Placeholder": "",
+      "IsManualInput": false,
+      "CompositeIdVariables": [],
+      "CompositeIdSeparator": "",
+      "IsUpdateProtected": false,
+      "IsSimpleSearchParameter": false,
+      "AllowEmptySearch": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "ID",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "Id",
+      "IgnoreModification": false,
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.IdFieldDesign"
+    },
+    {
+      "DbColumn": "Name",
+      "IsMultiline": false,
+      "IsAutoFitRows": false,
+      "Placeholder": "例: 田中 太郎",
+      "TextEditEmptyType": "StringEmpty",
+      "ShouldTrimAfterEdit": true,
+      "IsUpdateProtected": false,
+      "IsSimpleSearchParameter": true,
+      "AllowEmptySearch": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "氏名",
+      "IsRequired": true,
+      "OnDataChanged": "",
+      "Name": "Name",
+      "IgnoreModification": false,
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
+    },
+    {
+      "DbColumn": "Email",
+      "IsMultiline": false,
+      "IsAutoFitRows": false,
+      "Placeholder": "name@example.com",
+      "TextEditEmptyType": "Null",
+      "ShouldTrimAfterEdit": true,
+      "IsUpdateProtected": false,
+      "IsSimpleSearchParameter": false,
+      "AllowEmptySearch": true,
+      "OnSearchDataChanged": "",
+      "DisplayName": "メールアドレス",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "Email",
+      "IgnoreModification": false,
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
+    },
+    {
+      "DbColumn": "PhoneNumber",
+      "IsMultiline": false,
+      "IsAutoFitRows": false,
+      "Placeholder": "090-XXXX-XXXX",
+      "TextEditEmptyType": "Null",
+      "ShouldTrimAfterEdit": true,
+      "IsUpdateProtected": false,
+      "IsSimpleSearchParameter": false,
+      "AllowEmptySearch": true,
+      "OnSearchDataChanged": "",
+      "DisplayName": "電話番号",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "PhoneNumber",
+      "IgnoreModification": false,
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
+    },
+    {
+      "DbColumn": "BirthDate",
+      "Format": "yyyy/MM/dd",
+      "IsYearMonthOnly": false,
+      "IsUpdateProtected": false,
+      "IsSimpleSearchParameter": false,
+      "AllowEmptySearch": true,
+      "OnSearchDataChanged": "",
+      "DisplayName": "生年月日",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "BirthDate",
+      "IgnoreModification": false,
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.DateFieldDesign"
+    },
+    {
+      "Candidates": [
+        "男性,M",
+        "女性,F",
+        "その他,Other"
+      ],
+      "SearchCondition": {
+        "LimitCount": 50,
+        "SelectFields": [],
+        "SortConditions": [],
+        "SortFieldVariable": "",
+        "SortDescending": false,
+        "ModuleName": "",
+        "Condition": {
+          "IsOrMatch": false,
+          "IsNot": false,
+          "Children": [],
+          "Name": "",
+          "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
+        }
+      },
+      "ValueVariable": "",
+      "DisplayTextVariable": "",
+      "DbColumn": "Gender",
+      "EmptyCandidateType": "StringEmpty",
+      "AllowOrSearch": false,
+      "IsUpdateProtected": false,
+      "IsSimpleSearchParameter": false,
+      "AllowEmptySearch": true,
+      "OnSearchDataChanged": "",
+      "DisplayName": "性別",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "Gender",
+      "IgnoreModification": false,
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.SelectFieldDesign"
+    },
+    {
+      "DbColumn": "Note",
+      "IsMultiline": true,
+      "IsAutoFitRows": true,
+      "Placeholder": "メモ・特記事項",
+      "TextEditEmptyType": "Null",
+      "ShouldTrimAfterEdit": false,
+      "IsUpdateProtected": false,
+      "IsSimpleSearchParameter": false,
+      "AllowEmptySearch": true,
+      "OnSearchDataChanged": "",
+      "DisplayName": "メモ",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "Note",
+      "IgnoreModification": false,
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
+    },
+    {
+      "SaveAsUtc": false,
+      "Format": "yyyy/MM/dd HH:mm",
+      "DbColumn": "CreatedAt",
+      "IsUpdateProtected": true,
+      "IsSimpleSearchParameter": false,
+      "AllowEmptySearch": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "作成日時",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "CreatedAt",
+      "IgnoreModification": false,
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.DateTimeFieldDesign"
+    },
+    {
+      "SaveAsUtc": false,
+      "Format": "yyyy/MM/dd HH:mm",
+      "DbColumn": "UpdatedAt",
+      "IsUpdateProtected": true,
+      "IsSimpleSearchParameter": false,
+      "AllowEmptySearch": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "更新日時",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "UpdatedAt",
+      "IgnoreModification": false,
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.DateTimeFieldDesign"
+    },
+    {
+      "Text": "登録",
+      "ImageResourcePath": "",
+      "ImageResourceSet": {
+        "Default": "",
+        "Focus": "",
+        "Active": "",
+        "Hover": "",
+        "Disabled": ""
+      },
+      "Icon": "",
+      "Variant": "Primary",
+      "IsBlock": true,
+      "Name": "Submit",
+      "IgnoreModification": false,
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.SubmitButtonFieldDesign"
+    }
+  ],
+  "UserWriteCondition": {
+    "ModuleName": ""
+  },
+  "UserReadCondition": {
+    "ModuleName": ""
+  },
+  "DataWriteCondition": {
+    "ModuleName": ""
+  },
+  "DataReadCondition": {
+    "ModuleName": ""
+  },
+  "DetailLayouts": {
+    "": {
+      "OnBeforeInitialization": "",
+      "OnAfterInitialization": "",
+      "OnLocationChanging": "",
+      "OnFieldDataChanged": "",
+      "DataOnlyFields": [],
+      "ClassName": "",
+      "Color": "",
+      "BackgroundColor": "",
+      "FontFamily": "",
+      "Layout": {
+        "Name": "",
+        "Padding": {},
+        "IsBordered": false,
+        "UseBorderedShrinkWrap": false,
+        "IsExpandable": false,
+        "ExpanderLabel": "",
+        "IsExpanderDefaultOpened": false,
+        "IsFlowLayout": false,
+        "IsAutoFillWrap": false,
+        "IsFillAvailable": false,
+        "ScrollDirection": "Unset",
+        "Rows": [
+          {
+            "IsWrap": false,
+            "IsAutoFillWrap": false,
+            "Margin": {},
+            "GridRowType": "Normal",
+            "CanResize": false,
+            "BackgroundColor": "",
+            "IsRowMarginRemoved": false,
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "Title",
+                  "ContextMenu": "",
+                  "ClassName": "",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "BackgroundColor": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Padding": {},
+                "BackgroundColor": "",
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "HorizontalAlignment": "Stretch",
+                "CanResize": false,
+                "Border": "None"
+              }
+            ]
+          },
+          {
+            "IsWrap": false,
+            "IsAutoFillWrap": false,
+            "Margin": {},
+            "GridRowType": "Normal",
+            "CanResize": false,
+            "BackgroundColor": "",
+            "IsRowMarginRemoved": false,
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "Id",
+                  "ContextMenu": "",
+                  "ClassName": "",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "BackgroundColor": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Padding": {},
+                "BackgroundColor": "",
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "HorizontalAlignment": "Stretch",
+                "CanResize": false,
+                "Border": "None"
+              }
+            ]
+          },
+          {
+            "IsWrap": false,
+            "IsAutoFillWrap": false,
+            "Margin": {},
+            "GridRowType": "Normal",
+            "CanResize": false,
+            "BackgroundColor": "",
+            "IsRowMarginRemoved": false,
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "Name",
+                  "ContextMenu": "",
+                  "ClassName": "",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "BackgroundColor": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Padding": {},
+                "BackgroundColor": "",
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "HorizontalAlignment": "Stretch",
+                "CanResize": false,
+                "Border": "None"
+              }
+            ]
+          },
+          {
+            "IsWrap": false,
+            "IsAutoFillWrap": false,
+            "Margin": {},
+            "GridRowType": "Normal",
+            "CanResize": false,
+            "BackgroundColor": "",
+            "IsRowMarginRemoved": false,
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "Email",
+                  "ContextMenu": "",
+                  "ClassName": "",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "BackgroundColor": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Padding": {},
+                "BackgroundColor": "",
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "HorizontalAlignment": "Stretch",
+                "CanResize": false,
+                "Border": "None"
+              },
+              {
+                "Layout": {
+                  "FieldName": "PhoneNumber",
+                  "ContextMenu": "",
+                  "ClassName": "",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "BackgroundColor": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Padding": {},
+                "BackgroundColor": "",
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "HorizontalAlignment": "Stretch",
+                "CanResize": false,
+                "Border": "None"
+              }
+            ]
+          },
+          {
+            "IsWrap": false,
+            "IsAutoFillWrap": false,
+            "Margin": {},
+            "GridRowType": "Normal",
+            "CanResize": false,
+            "BackgroundColor": "",
+            "IsRowMarginRemoved": false,
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "BirthDate",
+                  "ContextMenu": "",
+                  "ClassName": "",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "BackgroundColor": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Padding": {},
+                "BackgroundColor": "",
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "HorizontalAlignment": "Stretch",
+                "CanResize": false,
+                "Border": "None"
+              },
+              {
+                "Layout": {
+                  "FieldName": "Gender",
+                  "ContextMenu": "",
+                  "ClassName": "",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "BackgroundColor": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Padding": {},
+                "BackgroundColor": "",
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "HorizontalAlignment": "Stretch",
+                "CanResize": false,
+                "Border": "None"
+              }
+            ]
+          },
+          {
+            "IsWrap": false,
+            "IsAutoFillWrap": false,
+            "Margin": {},
+            "GridRowType": "Normal",
+            "CanResize": false,
+            "BackgroundColor": "",
+            "IsRowMarginRemoved": false,
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "Note",
+                  "ContextMenu": "",
+                  "ClassName": "",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "BackgroundColor": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Padding": {},
+                "BackgroundColor": "",
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "HorizontalAlignment": "Stretch",
+                "CanResize": false,
+                "Border": "None"
+              }
+            ]
+          },
+          {
+            "IsWrap": false,
+            "IsAutoFillWrap": false,
+            "Margin": {},
+            "GridRowType": "Normal",
+            "CanResize": false,
+            "BackgroundColor": "",
+            "IsRowMarginRemoved": false,
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "CreatedAt",
+                  "ContextMenu": "",
+                  "ClassName": "",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "BackgroundColor": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Padding": {},
+                "BackgroundColor": "",
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "HorizontalAlignment": "Stretch",
+                "CanResize": false,
+                "Border": "None"
+              },
+              {
+                "Layout": {
+                  "FieldName": "UpdatedAt",
+                  "ContextMenu": "",
+                  "ClassName": "",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "BackgroundColor": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Padding": {},
+                "BackgroundColor": "",
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "HorizontalAlignment": "Stretch",
+                "CanResize": false,
+                "Border": "None"
+              }
+            ]
+          },
+          {
+            "IsWrap": false,
+            "IsAutoFillWrap": false,
+            "Margin": {},
+            "GridRowType": "Normal",
+            "CanResize": false,
+            "BackgroundColor": "",
+            "IsRowMarginRemoved": false,
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "Submit",
+                  "ContextMenu": "",
+                  "ClassName": "",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "BackgroundColor": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Padding": {},
+                "BackgroundColor": "",
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "HorizontalAlignment": "Stretch",
+                "CanResize": false,
+                "Border": "None"
+              }
+            ]
+          }
+        ],
+        "BackgroundColor": "",
+        "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
+      }
+    }
+  },
+  "ListLayouts": {
+    "": {
+      "HeaderTitle": "",
+      "DataOnlyFields": [],
+      "OnBeforeInitialization": "",
+      "OnAfterInitialization": "",
+      "OnFieldDataChanged": "",
+      "Elements": [
+        [
+          {
+            "FieldName": "Name",
+            "ContextMenu": "",
+            "Label": "氏名",
+            "ColumnSpan": 1,
+            "RowSpan": 1,
+            "IsViewOnly": true,
+            "TextWrap": "Unset",
+            "CanResize": false,
+            "CanUserSort": true,
+            "ClassName": "",
+            "FontFamily": "",
+            "Color": "",
+            "BackgroundColor": "",
+            "DetailLayoutName": "",
+            "ListElementComponent": ""
+          },
+          {
+            "FieldName": "Email",
+            "ContextMenu": "",
+            "Label": "メール",
+            "ColumnSpan": 1,
+            "RowSpan": 1,
+            "IsViewOnly": true,
+            "TextWrap": "Unset",
+            "CanResize": false,
+            "CanUserSort": true,
+            "ClassName": "",
+            "FontFamily": "",
+            "Color": "",
+            "BackgroundColor": "",
+            "DetailLayoutName": "",
+            "ListElementComponent": ""
+          },
+          {
+            "FieldName": "PhoneNumber",
+            "ContextMenu": "",
+            "Label": "電話",
+            "ColumnSpan": 1,
+            "RowSpan": 1,
+            "IsViewOnly": true,
+            "TextWrap": "Unset",
+            "CanResize": false,
+            "CanUserSort": true,
+            "ClassName": "",
+            "FontFamily": "",
+            "Color": "",
+            "BackgroundColor": "",
+            "DetailLayoutName": "",
+            "ListElementComponent": ""
+          },
+          {
+            "FieldName": "BirthDate",
+            "ContextMenu": "",
+            "Label": "生年月日",
+            "ColumnSpan": 1,
+            "RowSpan": 1,
+            "IsViewOnly": true,
+            "TextWrap": "Unset",
+            "CanResize": false,
+            "CanUserSort": true,
+            "ClassName": "",
+            "FontFamily": "",
+            "Color": "",
+            "BackgroundColor": "",
+            "DetailLayoutName": "",
+            "ListElementComponent": ""
+          },
+          {
+            "FieldName": "Gender",
+            "ContextMenu": "",
+            "Label": "性別",
+            "ColumnSpan": 1,
+            "RowSpan": 1,
+            "IsViewOnly": true,
+            "TextWrap": "Unset",
+            "CanResize": false,
+            "CanUserSort": true,
+            "ClassName": "",
+            "FontFamily": "",
+            "Color": "",
+            "BackgroundColor": "",
+            "DetailLayoutName": "",
+            "ListElementComponent": ""
+          }
+        ]
+      ]
+    }
+  },
+  "SearchLayouts": {
+    "": {
+      "OnSearchInitialization": "",
+      "ShowDefaultSearchButtons": true,
+      "Layout": {
+        "Operator": "And",
+        "Name": "",
+        "Padding": {},
+        "IsBordered": false,
+        "UseBorderedShrinkWrap": false,
+        "IsExpandable": false,
+        "ExpanderLabel": "",
+        "IsExpanderDefaultOpened": false,
+        "IsFlowLayout": false,
+        "IsAutoFillWrap": false,
+        "IsFillAvailable": false,
+        "ScrollDirection": "Unset",
+        "Rows": [
+          {
+            "IsWrap": false,
+            "IsAutoFillWrap": false,
+            "Margin": {},
+            "GridRowType": "Normal",
+            "CanResize": false,
+            "BackgroundColor": "",
+            "IsRowMarginRemoved": false,
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "Name",
+                  "ContextMenu": "",
+                  "ClassName": "",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "BackgroundColor": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Padding": {},
+                "BackgroundColor": "",
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "HorizontalAlignment": "Stretch",
+                "CanResize": false,
+                "Border": "None"
+              },
+              {
+                "Layout": {
+                  "FieldName": "Gender",
+                  "ContextMenu": "",
+                  "ClassName": "",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "BackgroundColor": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Padding": {},
+                "BackgroundColor": "",
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "HorizontalAlignment": "Stretch",
+                "CanResize": false,
+                "Border": "None"
+              }
+            ]
+          },
+          {
+            "IsWrap": false,
+            "IsAutoFillWrap": false,
+            "Margin": {},
+            "GridRowType": "Normal",
+            "CanResize": false,
+            "BackgroundColor": "",
+            "IsRowMarginRemoved": false,
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "Email",
+                  "ContextMenu": "",
+                  "ClassName": "",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "BackgroundColor": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Padding": {},
+                "BackgroundColor": "",
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "HorizontalAlignment": "Stretch",
+                "CanResize": false,
+                "Border": "None"
+              },
+              {
+                "Layout": {
+                  "FieldName": "PhoneNumber",
+                  "ContextMenu": "",
+                  "ClassName": "",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "BackgroundColor": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Padding": {},
+                "BackgroundColor": "",
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "HorizontalAlignment": "Stretch",
+                "CanResize": false,
+                "Border": "None"
+              }
+            ]
+          },
+          {
+            "IsWrap": false,
+            "IsAutoFillWrap": false,
+            "Margin": {},
+            "GridRowType": "Normal",
+            "CanResize": false,
+            "BackgroundColor": "",
+            "IsRowMarginRemoved": false,
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "BirthDate",
+                  "ContextMenu": "",
+                  "ClassName": "",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "BackgroundColor": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Padding": {},
+                "BackgroundColor": "",
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "HorizontalAlignment": "Stretch",
+                "CanResize": false,
+                "Border": "None"
+              }
+            ]
+          }
+        ],
+        "BackgroundColor": "",
+        "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.SearchGridLayoutDesign"
+      }
+    }
+  },
+  "LinkFieldNames": [],
+  "UseListPageSubmitButton": false,
+  "ListPageFieldDesign": {
+    "LayoutName": "",
+    "CanNavigateToDetail": true,
+    "NavigateModuleUrlSegment": "",
+    "CanCustomizeColumns": false,
+    "ApplyBackgroundToBoxInput": false,
+    "DisplayName": "",
+    "SearchCondition": {
+      "LimitCount": 50,
+      "SelectFields": [],
+      "SortConditions": [],
+      "SortFieldVariable": "",
+      "SortDescending": false,
+      "ModuleName": ""
+    },
+    "PagerPosition": "Top",
+    "UseIndexSort": false,
+    "DeleteTogether": false,
+    "CanCreate": false,
+    "CanUpdate": false,
+    "CanDelete": true,
+    "CanUserSort": true,
+    "CanSelect": false,
+    "OnDataChanged": "",
+    "OnSearchDataChanged": "",
+    "OnSelectedIndexChanged": "",
+    "OnSelectedIndexChanging": "",
+    "OnDoubleClickRow": "",
+    "Name": "",
+    "IgnoreModification": false,
+    "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ListFieldDesign"
+  },
+  "CanBulkDataUpdate": false,
+  "CanBulkDataDownload": false,
+  "PageTitle": ""
+}

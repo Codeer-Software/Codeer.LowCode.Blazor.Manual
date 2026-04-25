@@ -1,61 +1,136 @@
-# Field
+# Field — 一覧と概念
 
-FieldはModuleを構成する部品です。わかりやすいものはTextFieldなどのUIを持つ部品です。これもWinFormsなどでFormクラスがTextContolをプロパティとして持つことをイメージしてもらうとわかりやすいと思います。UIに表示せずにデータの入出力だけに使うことも可能です。
-- 大部分のFieldはデータを持ちます。
-- ModuleをDBとマッピングしたときにカラムを割り当てて入出力することができます。
-- 大部分のFieldはUIを持ちレイアウトに配置することができます。
-- Webのフロントで表示する場合はレイアウトに配置されてるかもしくはDataOnlyFieldsに配置しているFieldのみサーバーからデータを取得します。
-- メソッドプロパティを持ちスクリプトから操作することもできます。
+**Field は Module を構成する部品**です。TextField・NumberField のような入力部品、Label・Button のような UI 部品、List や Module のような構造部品まで、画面と値の最小単位として振る舞います。
 
-## System Fields
+## Field の性質
 
-System Fieldはシステム内で特別な役割を持つFieldです。名前で判別しているので名前を変更することはできません。Desingerでツールボックスからドロップして作成します。DBを使うアプリで一般的に使われる機能に対応しています。
+- 大部分の Field は**値を持つ**
+- DB とマッピングすると、モジュールが ORM の Entity のように振る舞う
+- 多くの Field は**UI を持ち**、レイアウト（Grid / Canvas / Flow）に配置できる
+- UI を持たずデータ保持だけに使う Field もある
+- スクリプトから**名前で直接参照**でき、プロパティ・メソッドを呼び出せる
 
-| 名前 | 種別 | 内容|
-|------|------|-----|
-|Id|Id|Moduleのデータのキーとなるフィールドです。重複しないデータである必要があります。名前変更できません。データの追加・更新には必須です。IdはDB自動生成のタイプあるいはユーザ入力のタイプ、複合タイプがあります。|
-|LogicalDelete|Boolean|論理削除のフラグです。このフィールドがある場合は論理削除になります。|
-|CreatedAt|DateTime|作成時間を保持するフィールドです。|
-|UpdatedAt|DateTime|更新時間を保持するフィールドです。|
-|Creator|Link|作成者です。認証があるときでなければ利用できません。CurrentUserModuleを設定してください。|
-|Updater|Link|更新者です。認証があるときでなければ利用できません。CurrentUserModuleを設定してください。|
-|OptimisticLocking|OptimisticLockingField|楽観ロック用のデータです。それぞれのDBで更新があったときに値が変わるカラムを指定してください。DBにその機能がない場合はトリガなどで代用してください。|
+---
 
-## ツールボックスからのドロップ、ダブルクリック
-Fieldはツールボックスからドロップ、もしくはダブルクリックすることで作成されます。
+## System Field — 特別な役割を持つ Field
 
-### Db Fields
-Db FieldsはモジュールのDataSourceのテーブルに存在するカラムです。DB上での定義に応じて型と名前が決まります。これは変更することができます。
-名前はDBでの定義名をパスカルケースに変換したものになります。
-前述のように名前も変更できるのですが、System Field の名前には変更することができません。
-System Field の名前とDBでの定義名がマッチしない場合は System Field から作成してDBのカラムを設定するという方法で作成してください。
+名前で役割が決まる Field です。ツールボックスからドラッグで作成し、名前は変更できません。DB 業務アプリで必要になる機能に対応します。
 
-## Fields
-- [AnchorTag](AnchorTag.md)
-- [Boolean](Boolean.md)
-- [Button](Button.md)
-- [Date](Date.md)
-- [DateTime](DateTime.md)
-- [DetailList](DetailList.md)
-- [File](File.md)
-- [Id](Id.md)
-- [ImageViewer](ImageViewer.md)
-- [Label](Label.md)
-- [Link](Link.md)
-- [List](List.md)
-- [ListNumber](ListNumber.md)
-- [MarkupString](MarkupString.md)
-- [Module](Module.md)
-- [ModuleSelect](ModuleSelect.md)
-- [Number](Number.md)
-- [OptimisticLocking](OptimisticLocking.md)
-- [Password](Password.md)
-- [ProCode](ProCode.md)
-- [RadioButton](RadioButton.md)
-- [RadioGroup](RadioGroup.md)
-- [Search](Search.md)
-- [Select](Select.md)
-- [SubmitButton](SubmitButton.md)
-- [Text](Text.md)
-- [TileList](TileList.md)
-- [Time](Time.md)
+| 名前 | 種別 | 役割 |
+|---|---|---|
+| **Id** | Id | モジュールのデータを特定する主キー（追加・更新・削除に必須） |
+| **LogicalDelete** | Boolean | 論理削除のフラグ |
+| **CreatedAt** | DateTime | 作成日時 |
+| **UpdatedAt** | DateTime | 更新日時 |
+| **Creator** | Link | 作成者（CurrentUserModule 設定時） |
+| **Updater** | Link | 更新者（CurrentUserModule 設定時） |
+| **OptimisticLocking** | OptimisticLocking | 楽観ロック |
+
+---
+
+## DB Field — DB のカラムから自動生成
+
+Module に Data Source を設定すると、ツールボックスに「DB フィールド」リストが出ます。そこからドラッグ＆ドロップで Field を追加すると、DB 列の型と名前に応じた Field が自動生成されます。
+
+- 名前は DB 定義名をパスカルケースに変換したもの
+- 名前は変更可能（ただし System Field の名前は使えない）
+- System Field の名前と DB 列名が合わない時は、先に System Field を作って `DbColumn` で列を指定
+
+---
+
+## Field 一覧（系統別）
+
+### 共通事項
+
+- [Field 共通プロパティ](common_properties.md) — すべての Field で使えるプロパティ・スクリプト API
+
+### 入力系
+
+| Field | 用途 |
+|---|---|
+| [Text](Text.md) | 文字列入力（1 行／複数行） |
+| [Number](Number.md) | 数値入力（最小・最大・スライダー対応） |
+| [Boolean](Boolean.md) | 真偽値（チェック／スイッチ／トグル） |
+| [Date](Date.md) | 日付のみ |
+| [DateTime](DateTime.md) | 日時 |
+| [Time](Time.md) | 時刻のみ |
+| [Password](Password.md) | パスワード（確認入力チェック付き） |
+| [File](File.md) | ファイルアップロード（画像プレビュー対応） |
+
+### 選択系
+
+| Field | 用途 |
+|---|---|
+| [Select](Select.md) | プルダウン選択（他モジュールから候補取得可） |
+| [RadioGroup](RadioGroup.md) | ラジオボタンのコンテナ |
+| [RadioButton](RadioButton.md) | 個別のラジオボタン |
+| [Link](Link.md) | 他モジュール 1 件を検索ダイアログで選択 |
+
+### 表示系
+
+| Field | 用途 |
+|---|---|
+| [Label](Label.md) | 文字列の表示（見出し・キャプション） |
+| [AnchorTag](AnchorTag.md) | ハイパーリンク |
+| [Id](Id.md) | 主キー／外部キー |
+| [ImageViewer](ImageViewer.md) | 画像表示 |
+| [MarkupString](MarkupString.md) | HTML 直接表示 |
+
+### 構造系
+
+| Field | 用途 |
+|---|---|
+| [List](List.md) | 一覧（テーブル形式） |
+| [DetailList](DetailList.md) | 一覧（カード形式、縦並び） |
+| [TileList](TileList.md) | 一覧（タイル形式、折り返し） |
+| [ListNumber](ListNumber.md) | 一覧内の行番号列 |
+| [ListPaging](ListPaging.md) | リストのページャーを独立配置 |
+| [Module](Module.md) | 他モジュールを画面内に埋め込む |
+| [Search](Search.md) | 検索バー |
+
+### 操作系
+
+| Field | 用途 |
+|---|---|
+| [Button](Button.md) | 独自スクリプトを実行 |
+| [SubmitButton](SubmitButton.md) | 登録・更新の標準ボタン |
+| [AutoSubmit](AutoSubmit.md) | 変更を自動で保存 |
+| [CopyModuleButton](CopyModuleButton.md) | 現在のデータをコピーして新規作成 |
+| [ViewEditToggleButton](ViewEditToggleButton.md) | 参照／編集モードを切り替え |
+| [ContextMenu](ContextMenu.md) | 右クリックメニュー |
+
+### メニュー系（PageFrame 連携）
+
+| Field | 用途 |
+|---|---|
+| [HeaderMenu / SidebarMenu](PageFrameMenu.md) | カスタムヘッダー／サイドバー内で標準メニューを取り込む |
+
+### 特殊
+
+| Field | 用途 |
+|---|---|
+| [ProCode](ProCode.md) | 独自の Blazor コンポーネントを埋め込み |
+| [OptimisticLocking](OptimisticLocking.md) | 楽観ロック（System Field） |
+
+### DB 系（データベースセクション参照）
+
+| Field | 用途 |
+|---|---|
+| [Query](../db/query_field.md) | カスタム SQL で一覧を作る |
+| [ExecuteSql](../db/execute_sql_field.md) | 任意の SQL を実行する |
+| [Json](../db/json_field.md) | 複数の値を JSON でまとめて 1 列に保存 |
+
+### 廃止
+
+| Field | 備考 |
+|---|---|
+| [ModuleSelect](ModuleSelect.md) | 最新バージョンには存在しません（代替については各ページ参照） |
+
+---
+
+## 関連項目
+
+- [Field 共通プロパティ](common_properties.md)
+- [Module](../module/module.md)
+- [レイアウト](../module/layout.md)
+- [スクリプト概要](../overview/script.md)

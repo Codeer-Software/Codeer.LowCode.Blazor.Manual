@@ -1,38 +1,131 @@
-# DateTime
+# DateTimeField (日時)
 
-<img src="images/DateTime表示.png" alt="DateTime表示" title="DateTime表示" style="border: 1px solid;">
+## これは何か
 
-<img src="images/DateTime設定.png" alt="DateTime設定" title="DateTime設定" style="border: 1px solid;" >
+**日時（年月日＋時刻）を入力・表示するフィールド**。
 
-1. FieldType
-    - DateTimeを設定する
-2. Name
-    - フィールド名の設定. 全体設定時に表示される.
-3. DisplayDane
-    - TBD
-4. IsRequired
-    - 登録時，必須にする
-5. OnDataChanged
-    - 日時変更時の挙動を定義する.
-6. IsUtc
-    - UTCでDBに保存する.
-7. HasTimeZone
-    - TimeZone付きで保存する.
-8. DbColumn
-    - カラムの設定
-    
+## いつ使うか
 
-<img src="images/DateTime詳細.png" alt="DateTime詳細" title="DateTime詳細" style="border: 1px solid;">
+- 作成日時・更新日時のタイムスタンプ
+- イベント開始日時・予約日時など時刻まで指定する場面
+- UTC 保存でタイムゾーンを意識した運用（`UTCとして保存`）
 
-## スクリプト
-| プロパティ名          | 型         | 説明             |
-|-----------------|-----------|----------------|
-| Value           | DateTime? | Fieldの値        |
-| BackgroundColor | string?   | Fieldの背景色      | 
-| Color           | string?   | Fieldの色        |
-| IsEnabled       | bool      | Fieldの有効/無効    |
-| IsVisible       | bool      | Fieldの表示/非表示   |
-| IsViewOnly      | bool      | Fieldの編集可/編集不可 |
-| IsModified      | bool      | Fieldが変更されたどうか |
-| SearchMax       | DateTime? | 検索条件の日時の最大値    |
-| SearchMin       | DateTime? | 検索条件の日時の最大値    |
+日付だけなら [Date](Date.md)、時刻だけなら [Time](Time.md) を使ってください。
+
+---
+
+## デザイナでの設定
+
+<img src="../../Image/designer/fields/datetime/DateTimeBasic_properties_panel.png" alt="DateTimeFieldのプロパティパネル" style="border: 1px solid;" width="400">
+
+### プロパティ一覧
+
+#### システム
+
+| C#名 | 日本語表示名 | 説明 |
+|---|---|---|
+| - | フィールドタイプ | `日時` 固定 |
+
+#### 基本設定
+
+| C#名 | 日本語表示名 | 型 | 既定値 | 説明 |
+|---|---|---|---|---|
+| **Name** | 名前 | string | `""` | フィールド識別子 |
+| **DisplayName** | 表示名 | string | `""` | 画面表示用の名前 |
+| **DbColumn** | DBカラム | string | `""` | 対応する DB 列名 |
+| **Format** | フォーマット | string | `""` | 表示フォーマット（例: `yyyy/MM/dd HH:mm`） |
+| **SaveAsUtc** | UTCとして保存 | bool | `false` | DB に UTC で保存する（表示は現地時刻） |
+| **IsRequired** | 必須 | bool | `false` | 入力必須 |
+| **IsUpdateProtected** | 更新無効 | bool | `false` | 更新時に値を変更できないようにする |
+| **OnDataChanged** | データ変更イベント | string | `""` | 値変更時のスクリプトイベント |
+| **IgnoreModification** | 変更判定から除外 | bool | `false` | 変更検知（IsModified）から除外 |
+
+#### 検索設定
+
+| C#名 | 日本語表示名 | 型 | 既定値 | 説明 |
+|---|---|---|---|---|
+| **IsSimpleSearchParameter** | 簡易検索条件 | bool | `false` | 簡易検索の対象にする |
+| **AllowEmptySearch** | 空検索を許可 | bool | `false` | 空での検索を許可する |
+| **OnSearchDataChanged** | 検索モードデータ変更イベント | string | `""` | 検索条件が変更された時のスクリプトイベント |
+
+---
+
+## スクリプトから
+
+### プロパティ
+
+| 名前 | 型 | 説明 |
+|---|---|---|
+| `Value` | DateTime? | 日時の値 |
+| `SearchMin` | DateTime? | 検索の最小日時 |
+| `SearchMax` | DateTime? | 検索の最大日時 |
+| `SearchIsEmpty` | bool? | 「空」を検索条件にする |
+
+共通プロパティは [Field 共通プロパティ](common_properties.md) を参照。
+
+### よく使う例
+
+```csharp
+// 現在日時を設定
+CreatedAt.Value = DateTime.Now;
+
+// 過去 24 時間を検索
+await CreatedAt.SetSearchMinAsync(DateTime.Now.AddDays(-1));
+await CreatedAt.SetSearchMaxAsync(DateTime.Now);
+```
+
+---
+
+## バリエーション
+
+### 基本
+
+現地時刻でそのまま保存・表示。
+
+### UTC 保存（`SaveAsUtc: true`）
+
+DB には UTC で保存され、画面表示時には現地時刻に変換される。
+海外拠点がある、サーバーとクライアントのタイムゾーンが異なる場合に選ぶ。
+
+---
+
+## 検索での挙動
+
+[DateField](Date.md#検索での挙動) と同じ **範囲検索**（時刻まで含めた範囲）。
+
+### 簡易検索（`IsSimpleSearchParameter=true`）
+
+<img src="../../Image/web/fields/datetime/DateTime_search_simple.png" alt="DateTimeField 簡易検索" style="border: 1px solid;" width="400">
+
+日時ピッカーが 1 つだけ表示されます。指定日時**以降**（`≥`）のデータが対象。
+
+### 詳細検索（`IsSimpleSearchParameter=false`）
+
+<img src="../../Image/web/fields/datetime/DateTime_search_detailed.png" alt="DateTimeField 詳細検索（既定）" style="border: 1px solid;" width="400">
+
+開始日時 ～ 終了日時の **2 つのピッカー** と、間に区切り（`～`）が出ます。
+
+### 詳細検索 + 空検索を許可（`IsSimpleSearchParameter=false`, `AllowEmptySearch=true`）
+
+<img src="../../Image/web/fields/datetime/DateTime_search_detailed_with_empty.png" alt="DateTimeField 詳細検索（空検索を許可）" style="border: 1px solid;" width="400">
+
+中央の `～` ボタンから **空** / **空以外** が選べます。
+
+### スクリプトから
+
+```csharp
+await CreatedAt.SetSearchMinAsync(new DateTime(2025, 1, 1, 0, 0, 0));
+await CreatedAt.SetSearchMaxAsync(new DateTime(2025, 12, 31, 23, 59, 59));
+await CreatedAt.SetSearchIsEmptyAsync(true);  // 空モード
+```
+
+検索全体の仕組みは [SearchField](Search.md#検索の仕組み) を参照。
+
+---
+
+## 関連項目
+
+- [Field 共通プロパティ](common_properties.md)
+- [Date](Date.md) — 日付のみ
+- [Time](Time.md) — 時刻のみ
+- [SearchField](Search.md) — 検索全体の仕組み

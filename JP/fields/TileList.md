@@ -1,77 +1,93 @@
-# TileList
+# TileListField (タイルリスト)
 
-タイル状にmoduleを表示する
+## これは何か
 
-<img src="images/TileList表示.png" alt="TileList表示" title="TileList表示" style="border: 1px solid;">
+**複数件のデータを横方向に並べて、幅が足りなくなれば折り返して表示するタイル形式のフィールド**。各タイルは詳細レイアウトで描画されます。
 
-<img src="images/TileList設定.png" alt="TileList設定" title="TileList設定" style="border: 1px solid;" >
+## いつ使うか
 
-### GENERAL
-1. FieldType
-    - TileListを設定する
-2. Name
-    - フィールド名の設定. 全体設定時に表示される.
-3. DisplayDane
-    - TBD
-4. UseIndexSort
-5. DeleteTogether
-    - 親データの削除時に削除する
-6. CanCreate
-    - 親画面で作成する
-7. CanUpdate
-    - 親画面で更新する
-8. CanDelete
-    - 親画面で削除する
-9. CanSelect
-    - 親画面で選択する
-10. OnDataChanged
-    - 変更のスクリプト
-11. OnSelectedIndexChanged
-    - 変更のスクリプト
-12. OnSelectedIndexChanging
-    - 変更のスクリプト
-13. TileWidth
-    - タイルの幅
+- 画像ギャラリー・製品カタログ
+- ダッシュボードのカード群
+- タッチ UI で大きめのタップ領域を並べる場合
 
-### CONDITION
-- ModuleName
-    - Moduleを指定する.
-- Conditions
-    - 表示する条件を指定する.
-- MatchType
-    - 複数の条件がある場合に，`And` or `Or` を指定する.
-- LimitCount
-    - 表示する上限
-- SortFieldVariable
-    - ソートに使用する項目
-- SortOrder
-    - ソート順（`Asc` or `Desc`）
-      <img src="../images/TileList詳細.png" alt="TileList詳細" title="TileList詳細" style="border: 1px solid;">
+表形式なら [List](List.md)、カード（縦並び）なら [DetailList](DetailList.md) を使います。
 
+---
 
-## スクリプト
-| プロパティ名          | 型            | 説明             |
-|-----------------|--------------|----------------|
-| AllowLoad       | bool         | ロードの可否         |
-| Color           | string?      | Fieldの色        |
-| BackgroundColor | string?      | Fieldの背景色      | 
-| IsEnabled       | bool         | Fieldの有効/無効    |
-| IsVisible       | bool         | Fieldの表示/非表示   |
-| IsViewOnly      | bool         | Fieldの編集可/編集不可 |
-| IsModified      | bool         | Fieldが変更されたどうか |
-| Limit           | int?         | 表示する最大件数       |
-| Page            | int?         | ページ            |
-| PageCount       | int?         | ページ数           |
-| RowCount        | int?         | 行のカウント         |
-| Rows            | List<Module> | 全モジュールのリスト     |
-| SelectedIndex   | int          | 選択されたインデックス    |
+## デザイナでの設定
 
-| メソッド名                                       | 戻り値    | 説明                  |
-|---------------------------------------------|--------|---------------------|
-| AddRow()                                    | Module | 1行追加する              |
-| AddRow(Module row)                          | Module | 指定されたモジュールで1行追加する   |
-| DeleteRow(Module row)                       | なし     | 指定されたモジュールを削除する     |
-| DeleteAllRows()                             | なし     | 全て削除する              |
-| Reload()                                    | なし     | リロードする              |
-| SetSearchCondition(ModuleSearcher searcher) | なし     | 指定された検索条件をセットする     |
-| UpdateRow(int index, Module src)            | なし     | 指定されたインデックス，引数で更新する |
+<img src="../../Image/designer/fields/tilelist/TileListSample_properties_panel.png" alt="TileListFieldのプロパティパネル" style="border: 1px solid;" width="400">
+
+### プロパティ一覧
+
+#### システム
+
+| C#名 | 日本語表示名 | 説明 |
+|---|---|---|
+| - | フィールドタイプ | `タイルリスト` 固定 |
+
+#### 基本設定
+
+| C#名 | 日本語表示名 | 型 | 既定値 | 説明 |
+|---|---|---|---|---|
+| **Name** | 名前 | string | `""` | フィールド識別子 |
+| **DisplayName** | 表示名 | string | `""` | 画面表示用の名前 |
+| **LayoutName** | レイアウト名 | string | `""` | 各タイルに使う Detail レイアウト名 |
+| **TileWidth** | タイルの幅（1枚当たり） | int | `200` | 1 タイルの幅（px） |
+| **FillSpaces** | スペースに合わせて拡張 | bool | `false` | 折り返し時の余白を均等に埋めるように各タイルを伸縮 |
+| **PagerPosition** | ページャーの位置 | enum | `Top` | ページャーの位置（`Top` / `Bottom`） |
+| **UseIndexSort** | インデックスソート | bool | `false` | 表示順を Index として保存 |
+| **DeleteTogether** | 親テーブルと一緒に削除 | bool | `false` | 親データ削除時に一括削除 |
+| **CanCreate** | 追加 | bool | `false` | 親画面から新規作成を許可 |
+| **CanUpdate** | 更新 | bool | `false` | 親画面から編集を許可 |
+| **CanDelete** | 削除 | bool | `false` | 親画面から削除を許可 |
+| **CanUserSort** | ユーザーソート | bool | `true` | ユーザーソートを許可 |
+| **CanSelect** | 選択 | bool | `false` | タイル選択を許可 |
+| **OnDataChanged** | データ変更イベント | string | `""` | データ変更時のスクリプト |
+| **OnSelectedIndexChanged** | 選択項目変更イベント | string | `""` | 選択タイル変更時のスクリプト |
+| **OnSelectedIndexChanging** | 選択可否判定イベント | string | `""` | 選択変更前のスクリプト（引数 `int index` → `bool`） |
+| **OnDoubleClickRow** | 行ダブルクリックイベント | string | `""` | タイルダブルクリック時のスクリプト（引数 `int index`） |
+| **ConfirmBeforeDelete** | 削除時に確認 | bool? | null | 削除前に確認ダイアログを出す |
+| **IgnoreModification** | 変更判定から除外 | bool | `false` | 変更検知（IsModified）から除外 |
+
+#### 検索設定
+
+| C#名 | 日本語表示名 | 型 | 既定値 | 説明 |
+|---|---|---|---|---|
+| **OnSearchDataChanged** | 検索モードデータ変更イベント | string | `""` | 検索条件が変更された時のスクリプト |
+
+#### 絞り込み条件（表示データ）
+
+| C#名 | 日本語表示名 | 型 | 既定値 | 説明 |
+|---|---|---|---|---|
+| **SearchCondition.ModuleName** | モジュール名 | string | `""` | 表示するデータのモジュール |
+| **SearchCondition.Condition** | 抽出条件 | MultiMatchCondition | - | 絞り込み条件 |
+| **SearchCondition.LimitCount** | 件数上限 | int | `50` | 表示する最大件数 |
+| **SearchCondition.SortConditions** | ソート | List | `[]` | ソート順 |
+
+---
+
+## TileWidth と FillSpaces
+
+- **TileWidth** — 1 枚のタイルの横幅（px）
+- **FillSpaces** がオフの場合 — 各タイルは `TileWidth` ぴったりで並び、折り返し行には余白が残る
+- **FillSpaces** がオンの場合 — 横に並べられる最大枚数で割って各タイルを広げ、余白を潰す
+
+---
+
+## スクリプトから
+
+スクリプト API は [List](List.md#スクリプトから) と共通です（内部的にも同じ `ListField` ランタイムクラスを使用）。
+
+- プロパティ: `Rows` / `RowCount` / `SelectedIndex` / `Page` / `PageCount` / `TotalCount` / `Limit` / `AllowLoad` / `SearchComparison`
+- メソッド: `AddRow` / `AddRows` / `InsertRow` / `InsertRows` / `UpdateRow` / `DeleteRow` / `DeleteAllRows` / `Reload` / `SetAdditionalCondition` / `SetSelectedIndexAsync` / `SetSearchComparisonAsync` / `ShowCustomDialog`
+
+共通プロパティは [Field 共通プロパティ](common_properties.md) を参照。
+
+---
+
+## 関連項目
+
+- [List](List.md) — 表形式
+- [DetailList](DetailList.md) — 縦並びカード形式
+- [Field 共通プロパティ](common_properties.md)

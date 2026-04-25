@@ -1,58 +1,53 @@
 # モジュール検索設定
 
-一覧画面で表示するEntityをフィルターするための検索条件を設定します.
+**検索タブ**では、一覧画面の上に表示される検索条件のレイアウトを設定します。
 
-<img src="images/module_search.png" width="400" alt="モジュール検索" title="モジュール検索" style="border: 1px solid;">
+<img src="images/module_search.png" width="600" alt="モジュール検索" style="border: 1px solid;">
 
-## ツールボックス
-モジュールで使用するFieldを選択します．
+---
 
-| 項目           | 説明                                               |
-|--------------|--------------------------------------------------|
-| SystemFields | SystemFieldの一覧が表示されます                            |
-| CommonFields | CommonFieldの一覧が表示されます                            |
-| DB Fields    | 全体設定でDataSourceを指定した場合に，テーブルのカラムからField候補が表示されます |
-| Rest Fields  | DB Fieldsで詳細設定で（まだ）使用していないFieldが表示されます．          |
-| Link Fields  | Linkフィールドを作成した場合に，Link先のフィールドが表示されます.            |
-| Layout       | 詳細画面でGridレイアウト，Canvasレイアウトを設定時に使用します．            |
+## 設定の流れ
 
-## 検索設定
-検索に使用するFieldを選択して，グリッドに設定します.
+1. 検索に使う Field を選び、Grid に配置
+2. 複数条件を組む場合は Grid を入れ子にして `And` / `Or` を指定
 
-追加ボタンをクリックして複数のレイアウトを作成できます.
+レイアウトの使い方は [レイアウト](layout.md) を参照してください。
 
-[レイアウトの詳細](layout.md)はこちらを参照してください。
+---
 
-## 検索条件設定
-Grid単位で`And検索`，`Or検索`, もしくは`ユーザーの指定による検索`を設定します．
-- デフォルトは`And検索`です．
-- Grid単位で設定するので，Gridを入れ子にすることにより，検索条件を組み合わせます．
-- 下記の例では `NAMEの条件 AND ProductNameの条件 AND (PurchaseDateの条件 OR ShippingDateの条件)` を表します.
-  - <img src="images/検索条件設定1.png" alt="検索条件設定1" title="検索条件設定1" width="400" style="border: 1px solid;">
-  - <img src="images/検索条件設定2.png" alt="検索条件設定2" title="検索条件設定2" width="400" style="border: 1px solid;">
+## 検索条件の結合（And / Or / ユーザー指定）
 
-## プロパティ
-選択しているFieldのプロパティが表示されます
+Grid 単位で検索条件の結合方法を指定できます。
 
-## レイアウト
+- **And 検索** — すべての条件を満たす（既定）
+- **Or 検索** — いずれかの条件を満たす
+- **ユーザー指定** — 画面上でユーザーが And / Or を選ぶ
 
-<img src="images/search.png" alt="検索" title="検索" width="400" style="border: 1px solid;">
+Grid を入れ子にすることで、複雑な条件を組み立てられます:
 
-モジュールの検索設定画面で検索のレイアウトを設定します．
+**例**: `NAMEの条件 AND ProductNameの条件 AND (PurchaseDateの条件 OR ShippingDateの条件)`
 
-## デフォルトレイアウト
+外側の Grid を And、内側の Grid を Or にします。
 
-モジュールの検索画面に使うレイアウト設定はdefaultという名前で作成されます．（変更できません）
+<img src="images/検索条件設定1.png" alt="検索条件設定1" width="400" style="border: 1px solid;">
+<img src="images/検索条件設定2.png" alt="検索条件設定2" width="400" style="border: 1px solid;">
 
-モジュールの検索ページにはdefaultのレイアウトが適用されます．
+---
 
-## 複数レイアウト
+## default レイアウトと追加レイアウト
 
-<img src="images/search_multiple.png" alt="検索複数" title="検索複数" width="400" style="border: 1px solid;">
+| レイアウト | 用途 |
+|---|---|
+| **default** | 一覧ページの標準検索 |
+| **追加レイアウト** | SearchField で使い分け可能（簡易検索・詳細検索など） |
 
-追加ボタンをクリックしてデフォルトとは異なるレイアウトを作成することができます．
+<img src="images/search_multiple.png" alt="検索複数" width="400" style="border: 1px solid;">
 
-`SearchField` にdefaultを含む作成済みのすべてのレイアウトから, 適用するレイアウトを指定できます.
+---
 
-<img src="images/search_settings.png" alt="検索設定" title="検索設定" width="400" style="border: 1px solid;">
+## 関連項目
 
+- [Module 概要](module.md) / [全体設定](module_general.md)
+- [SearchField](../fields/Search.md)
+- [レイアウト](layout.md)
+- [Tips: 検索条件に初期値を設定](../Examples/Tips_SearchCriteriaInitialValueSetting.md)
