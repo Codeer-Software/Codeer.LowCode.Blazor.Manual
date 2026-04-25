@@ -34,6 +34,10 @@ PageFrame に登録された各リンク（[TopPage / Header / Sidebar の Links
 
 **もっともよく使う種別**です。商品マスタ・顧客マスタ・注文一覧など、一覧から詳細に飛んで編集するアプリの基本パターン。
 
+<img width="1100" src="../../Image/web/page_types/listtodetail.png">
+
+一覧ページで行を選ぶと、詳細ページに遷移します。
+
 ### 使うシーン
 
 - マスタテーブルの管理画面（商品・顧客・社員）
@@ -54,6 +58,8 @@ PageFrame に登録された各リンク（[TopPage / Header / Sidebar の Links
 ## List — 集計表示・読み取り専用一覧
 
 **詳細ページを持たない**種別。クリックして開くものが何もない、見るだけの一覧です。
+
+<img width="500" src="../../Image/web/page_types/list.png">
 
 ### 使うシーン
 
@@ -83,6 +89,10 @@ PageFrame に登録された各リンク（[TopPage / Header / Sidebar の Links
 - ダッシュボード本体（一覧と統計を 1 つの DetailLayout に詰めたもの）
 - 「Hello world」的なホーム画面（[DemoPageFrame の TopPage](page_frame.md) など）
 
+<img width="700" src="../../Image/web/page_types/detail_dashboard.png">
+
+集計カード・グラフ・一覧をまとめて 1 画面に並べたダッシュボードの例。
+
 #### 2. ダイアログのような画面
 
 - ボタン押下で開く確認画面・ウィザード
@@ -101,6 +111,14 @@ PageFrame に登録された各リンク（[TopPage / Header / Sidebar の Links
 
 このとき、ページ種別を **`Detail`** にして、そのモジュールの **DetailLayout の中に [ListField](../fields/List.md) や [DetailListField](../fields/DetailList.md) を配置** します。すると、一覧の見せ方も含めて Detail レイアウトとして自由にデザインできます。
 
+<img width="1100" src="../../Image/web/page_types/detail_custom_list.png">
+
+検索フォーム・カスタムボタン・一覧を Detail レイアウトに自由配置した例（標準の一覧ページにはないボタン群を上に置いている）。
+
+<img width="1100" src="../../Image/web/page_types/detail_list_form.png">
+
+[DetailListField](../fields/DetailList.md) を使い、1 件分のフォームを縦に並べて見せる例。
+
 > 標準の一覧ページ（ListPage）では、検索フォーム・新規作成ボタン・一覧の配置がフレームワーク既定です。`Detail` で組めばこれらをすべて自分のレイアウトで決められます。
 
 ---
@@ -109,21 +127,21 @@ PageFrame に登録された各リンク（[TopPage / Header / Sidebar の Links
 
 **設計内容から「一覧を通すか」「詳細直接か」を自動で判定**する種別です。新規モジュールを作るとデフォルトでこれが選ばれます。
 
-### 判定ロジック（ソースより）
+### 判定ルール
 
-1. **詳細ページは常に使える**（`CanUseDetailPage` が true 固定）
-2. **一覧ページを通すかどうか**（`IsPageFrameNavigateToListPage`）:
-   - **`ListPageDesign.ListFieldDesign` が標準の `ListField`** の場合:
-     - 一覧レイアウトに **`FieldName` または `DetailLayoutName` が入った要素が 1 つでもあれば** → **一覧ページあり**
-     - 要素が空っぽ（一覧レイアウトが未設定）なら → **詳細ページに直行**
-   - **`ListFieldDesign` を `DetailListField` / `TileListField` に変えてある**場合:
-     - 「わざわざ別の List 型に変えた ＝ List を使う意思あり」とみなして → **一覧ページあり**
+- **一覧の設定がある** → **ListToDetail** 相当（一覧 → 詳細）
+- **一覧の設定がない** → **Detail** 相当（詳細直行）
 
-つまり Auto は実質「**一覧レイアウトに何か置いたら ListToDetail、置かなかったら Detail**」という挙動です。
+「一覧の設定がある」の判定基準:
+
+- 一覧レイアウトに **Field が 1 つでも置かれている**
+- または、**一覧タイプが標準の `ListField` 以外**（`DetailList` / `TileList` などに変えてある）
+
+つまり「一覧画面を作る気配があれば一覧を通す、何もなければ詳細に直行する」という挙動です。
 
 ### 注意点
 
-- 一覧レイアウトに 1 つでも Field を置くと自動で List ページが出てきます。**「とりあえず Field 置いただけ」が原因で意図せず一覧画面が表示される**ことがあります
+- 一覧レイアウトに 1 つでも Field を置くと自動で一覧ページが出てきます。**「とりあえず Field 置いただけ」が原因で意図せず一覧画面が表示される**ことがあります
 - 一覧画面を絶対に出したくない時は、明示的に `Detail` を選んでください
 - 逆に一覧画面を必ず出したい時は `ListToDetail` または `List` を明示してください
 
@@ -171,6 +189,8 @@ PageFrame に登録された各リンク（[TopPage / Header / Sidebar の Links
 | 詳細しか出ない（一覧を出したい） | 種別が `Detail`、または `Auto` で一覧レイアウト空 |
 | 「ページが見つかりません」 | そもそもモジュールが PageFrame に未登録（→ [PageFrame](page_frame.md#モジュールは-pageframe-に登録しないと開けない)） |
 | カスタム一覧画面を作ったのに既定のリストUIが出てしまう | 種別を `ListToDetail` のままにしている。`Detail` にして自分の DetailLayout に ListField を入れる |
+| 詳細レイアウトを作ったのに詳細画面が開かない | 登録時の種別が `List`。**モジュール側に詳細レイアウトがあっても、登録の種別が `List` だと詳細は開けません**。`ListToDetail` か `Detail` で登録する |
+| 一覧レイアウトを作ったのに一覧画面が出ない | 登録時の種別が `Detail`。**一覧を出したいなら `List` か `ListToDetail` で登録**する |
 
 ---
 
