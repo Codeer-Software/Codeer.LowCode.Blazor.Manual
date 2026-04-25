@@ -1,13 +1,15 @@
 # スクリプトデバッガ
 
-<img src="images/script_debugger.png">
+<img src="../overview/images/script_debugger.png">
 
-スクリプトをデバッグすることができます。Webアプリの方ではCanScriptDebugをtrueにする必要があります。
+スクリプトをステップ実行できます。Web アプリ側で `CanScriptDebug` を `true` にする必要があります。
 
 ## 設定
-IAppInfoServiceのCanScriptDebugでtrueを返すと利用可能になります。
-Codeer.LowCode.Blazor.TemplatesのVer1.1.22.1以降で作成したコードでは
-appsettings.Development.jsonの設定でCanScriptDebugで指定できます。
+
+`IAppInfoService` の `CanScriptDebug` で `true` を返すと利用可能になります。
+`Codeer.LowCode.Blazor.Templates` Ver1.1.22.1 以降のテンプレートでは
+`appsettings.Development.json` で指定できます。
+
 ```cs
 public class AppInfoService : IAppInfoService
 {
@@ -32,9 +34,10 @@ public class AppInfoService : IAppInfoService
 
     public DesignData GetDesignData() => _design ?? new();
 
-    //スクリプトデバッグの設定
+    // スクリプトデバッグの設定
     public bool CanScriptDebug => _config?.CanScriptDebug == true;
 ```
+
 ```json
 {
   "ConnectionStrings": {
@@ -51,7 +54,7 @@ public class AppInfoService : IAppInfoService
   "DesignFileDirectory": "C:\\Codeer.LowCode.Blazor.Local\\Designs",
   "FontFileDirectory": "C:\\Codeer.LowCode.Blazor.Local\\Font",
   "UseHotReload": true,
-  "CanScriptDebug": true, //スクリプトデバッグの設定
+  "CanScriptDebug": true, // スクリプトデバッグの設定
   "IsLicenseAutoUpdate": true,
   "IsLicenseAuthenticationByDomain": false,
   "AISettings": {
@@ -70,8 +73,11 @@ public class AppInfoService : IAppInfoService
   }
 }
 ```
+
 ## 操作
-①でを押すことによってデバッグ用のブラウザを起動できます。⑥にデバッグ対象のURLを入力してください。後の操作はVisualStudio等と同じようにできます。
+
+①でデバッグ用のブラウザを起動できます。⑥にデバッグ対象の URL を入力してください。
+あとの操作は VisualStudio 等と同じです。
 
 | 操作 | ショートカットキー | ボタン |
 |----------|----------|----------|
@@ -80,3 +86,10 @@ public class AppInfoService : IAppInfoService
 | ステップイン | F11 | ③ |
 | ステップオーバー | F10 | ④ |
 | ステップアウト | Shift+F11 | ⑤ |
+
+---
+
+## 関連項目
+
+- [スクリプト概要](script.md)
+- [スクリプト構文リファレンス](script_syntax.md)

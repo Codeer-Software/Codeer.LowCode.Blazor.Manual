@@ -133,4 +133,4 @@ Module に Data Source を設定すると、ツールボックスに「DB フィ
 - [Field 共通プロパティ](common_properties.md)
 - [Module](../module/module.md)
 - [レイアウト](../module/layout.md)
-- [スクリプト概要](../overview/script.md)
+- [スクリプト概要](../script/script.md)

@@ -203,7 +203,8 @@ target.SerializeObject();
 
 ## 次に読む
 
-- [スクリプト概要](../overview/script.md)
+- [スクリプト概要](../script/script.md)
+- [WebApiService の API](../script/script_services.md)
 - [プロコード概要](../overview/procode.md)
 - [ユーザーコード](../user_code/user_code.md)
 - [認証・認可](../authorization/authorization.md)

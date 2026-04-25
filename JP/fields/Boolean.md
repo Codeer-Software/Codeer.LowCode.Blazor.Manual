@@ -135,4 +135,4 @@ await IsActive.SetSearchIsEmptyAsync(null);   // 通常モード
 - [Field 共通プロパティ](common_properties.md)
 - [RadioGroup](RadioGroup.md) — 3 つ以上の候補から選ばせたい場合
 - [SearchField](Search.md) — 検索全体の仕組み
-- [スクリプト概要](../overview/script.md)
+- [スクリプト概要](../script/script.md)

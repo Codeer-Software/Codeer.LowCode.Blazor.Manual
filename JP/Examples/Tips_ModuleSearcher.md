@@ -73,5 +73,6 @@ void ListLayoutDesign_OnAfterInitialization()
   | OrderByDescending()     | void |OrderByDescending(x=>x.Ranking.Value)  |
 
 ## 関連情報
-- [スクリプト](../overview/script.md)
+- [ModuleSearcher / BatchSearcher](../script/script_module_searcher.md)
+- [スクリプト](../script/script.md)
 - [モジュール](../module/module.md)

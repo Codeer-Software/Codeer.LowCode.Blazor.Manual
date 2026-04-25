@@ -115,5 +115,5 @@
 ## 関連項目
 
 - [Field 一覧](field.md)
-- [スクリプト概要](../overview/script.md)
+- [スクリプト概要](../script/script.md)
 - [Module](../module/module.md)

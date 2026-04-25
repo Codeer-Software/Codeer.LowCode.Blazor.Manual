@@ -221,5 +221,7 @@ SubmitButton.IsEnabled = ValidateInput();
 ## 次に読む
 
 - [チュートリアル: モジュール連携](tutorial_modules.md) — 他モジュールのデータを参照・絞り込み
-- [スクリプト概要（リファレンス）](../overview/script.md) — 利用可能な構文・API の一覧
-- [スクリプトデバッガ](../overview/script_debugger.md) — スクリプトをステップ実行
+- [スクリプト概要](../script/script.md) — 入口・学ぶ順番
+- [スクリプト構文リファレンス](../script/script_syntax.md) — 構文・型変換・名前解決
+- [組み込みサービスとテンプレート由来サービス](../script/script_services.md) — API 一覧
+- [スクリプトデバッガ](../script/script_debugger.md) — スクリプトをステップ実行

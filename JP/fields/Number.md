@@ -159,4 +159,4 @@ await Price.SetSearchIsEmptyAsync(null);   // 通常モードに戻す
 
 - [Field 共通プロパティ](common_properties.md)
 - [SearchField](Search.md) — 検索全体の仕組み
-- [スクリプト概要](../overview/script.md)
+- [スクリプト概要](../script/script.md)

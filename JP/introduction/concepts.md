@@ -117,7 +117,7 @@ if (await Name.ValidateInput())
 - プロコードで追加した関数や .NET ライブラリを呼び出せる
 - 一般的な演算・画面制御・WebAPI 呼び出し・Excel/PDF 操作が可能
 
-→ 詳細: [スクリプト](../overview/script.md)
+→ 詳細: [スクリプト](../script/script.md)
 
 ---
 

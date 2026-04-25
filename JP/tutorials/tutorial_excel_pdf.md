@@ -172,5 +172,6 @@ Excel テンプレートの**書式**は `CopyCells` でコピーすれば保た
 ## 次に読む
 
 - [チュートリアル: WebAPI 連携](tutorial_webapi.md)
-- [スクリプト概要](../overview/script.md)
+- [スクリプト概要](../script/script.md)
+- [Excel / その他のサービス](../script/script_services.md)
 - [プロコード概要](../overview/procode.md)

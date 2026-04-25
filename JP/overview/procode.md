@@ -208,13 +208,14 @@ scriptRuntimeTypeManager.AddType(typeof(Math));
 scriptRuntimeTypeManager.AddService(new WebApiService(http, logger));
 ```
 
-詳しくは [スクリプト概要 - プロコード連携](script.md#プロコード連携) を参照。
+詳しくは [スクリプトの拡張](../script/script_extend.md) を参照。
 
 ---
 
 ## 関連項目
 
-- [スクリプト](script.md)
+- [スクリプト概要](../script/script.md)
+- [スクリプトの拡張](../script/script_extend.md)
 - [ProCode フィールド](../fields/ProCode.md)
 - [チュートリアル: WebAPI 連携](../tutorials/tutorial_webapi.md)
 - [ユーザーコード](../user_code/user_code.md)

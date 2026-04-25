@@ -167,4 +167,4 @@ await Name.SetSearchIsEmptyAsync(null);   // 通常モードに戻す
 - [Password](Password.md) — パスワード入力
 - [MarkupString](MarkupString.md) — HTML 表示
 - [SearchField](Search.md) — 検索全体の仕組み
-- [スクリプト概要](../overview/script.md)
+- [スクリプト概要](../script/script.md)

@@ -11,7 +11,7 @@
 
 ## スクリプトAPIの追加
 
-スクリプトに公開するAPIを追加できます。Designerではスクリプトは実行されませんがスクリプトエディタのインテリセンスに追加されます。スクリプトの追加方法の詳細は[こちら](../overview/script.md)を参照してください。
+スクリプトに公開するAPIを追加できます。Designerではスクリプトは実行されませんがスクリプトエディタのインテリセンスに追加されます。スクリプトの追加方法の詳細は[スクリプトの拡張](../script/script_extend.md)を参照してください。
 
 ```cs
 ScriptRuntimeTypeManager.AddType(typeof(ExcelCellIndex));
