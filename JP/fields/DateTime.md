@@ -95,11 +95,21 @@ DB には UTC で保存され、画面表示時には現地時刻に変換され
 
 ### 簡易検索（`IsSimpleSearchParameter=true`）
 
+<img src="../../Image/web/fields/datetime/DateTime_search_simple.png" alt="DateTimeField 簡易検索" style="border: 1px solid;" width="400">
+
 日時ピッカーが 1 つだけ表示されます。指定日時**以降**（`≥`）のデータが対象。
 
 ### 詳細検索（`IsSimpleSearchParameter=false`）
 
-開始日時 ～ 終了日時の **2 つのピッカー** と、間に **モード切替（`～` ボタン）** が出ます。範囲 / 空 / 空以外 の 3 モード（空・空以外は `AllowEmptySearch=true` の時のみ）。
+<img src="../../Image/web/fields/datetime/DateTime_search_detailed.png" alt="DateTimeField 詳細検索（既定）" style="border: 1px solid;" width="400">
+
+開始日時 ～ 終了日時の **2 つのピッカー** と、間に区切り（`～`）が出ます。
+
+### 詳細検索 + 空検索を許可（`IsSimpleSearchParameter=false`, `AllowEmptySearch=true`）
+
+<img src="../../Image/web/fields/datetime/DateTime_search_detailed_with_empty.png" alt="DateTimeField 詳細検索（空検索を許可）" style="border: 1px solid;" width="400">
+
+中央の `～` ボタンから **空** / **空以外** が選べます。
 
 ### スクリプトから
 

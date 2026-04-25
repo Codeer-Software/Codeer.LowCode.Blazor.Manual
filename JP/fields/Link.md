@@ -108,18 +108,23 @@ await Customer.SetValueAsync(customerId);
 
 ## 検索での挙動
 
-LinkField の検索 UI は **テキスト入力 + 検索ダイアログを開くアイコン** の組み合わせです。
+LinkField の検索 UI は **テキスト入力 + 検索ダイアログを開くアイコン** の組み合わせです。`IsSimpleSearchParameter` の簡易／詳細による UI の違いはありません（どちらも同じ）。
 
-| モード | 挙動 |
-|---|---|
-| **簡易**（`IsSimpleSearchParameter=true`） | テキスト入力（部分一致）または 検索アイコンから関連モジュールを開いて 1 件選択 |
-| **詳細**（`IsSimpleSearchParameter=false`） | 上記 + 比較演算子ドロップダウン（部分一致／完全一致／空／空以外） |
+### 通常（`AllowEmptySearch=false`）
+
+<img src="../../Image/web/fields/link/Link_search_detailed.png" alt="LinkField 検索（既定）" style="border: 1px solid;" width="400">
+
+テキスト入力欄 + 検索アイコン。検索アイコンから関連モジュールのダイアログを開いて 1 件選択するか、テキスト入力欄に直接書きます。
+
+### 空検索を許可（`AllowEmptySearch=true`）
+
+<img src="../../Image/web/fields/link/Link_search_detailed_with_empty.png" alt="LinkField 検索（空検索を許可）" style="border: 1px solid;" width="400">
+
+検索アイコンの右に **フィルタアイコン** が出て、押すと **空** / **空以外** が選べます。外部キーが `NULL` のレコードを絞り込みたい時に使用。
+
+### マッチング動作
 
 選択された行の ID で **完全一致** 検索。テキスト入力に直接書いた場合は表示テキスト側で部分一致検索になります（参照先の `DisplayTextField` の値を `LIKE` で比較）。
-
-### 空検索（`AllowEmptySearch=true`）
-
-詳細モードで「**空**」「**空以外**」が選べるようになります。外部キーが NULL のレコードを絞り込みたい時に使用。
 
 ### スクリプトから
 

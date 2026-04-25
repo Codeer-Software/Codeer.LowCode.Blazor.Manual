@@ -141,28 +141,47 @@ await Assignee.ReloadCandidates();
 
 ## 検索での挙動
 
-候補と同じドロップダウンが検索フォームに出ます。選んだ値で **完全一致** 検索。
+候補と同じドロップダウンが検索フォームに出ます。選んだ値で **一致** 検索が基本です。
 
-| 設定 | UI |
+### 簡易検索（`IsSimpleSearchParameter=true`）
+
+<img src="../../Image/web/fields/select/Select_search_simple.png" alt="SelectField 簡易検索" style="border: 1px solid;" width="400">
+
+ドロップダウンのみ。選んだ値で一致検索。
+
+### 詳細検索（`IsSimpleSearchParameter=false`）
+
+<img src="../../Image/web/fields/select/Select_search_detailed.png" alt="SelectField 詳細検索（既定）" style="border: 1px solid;" width="400">
+
+ドロップダウンの右側に **モード切替（`一致` ボタン）** が出ます。クリックで **一致** / **不一致** を切り替えられます。
+
+| モード | 挙動 |
 |---|---|
-| `IsSimpleSearchParameter=true`（簡易） | ドロップダウン 1 つ |
-| `IsSimpleSearchParameter=false`（詳細） | ドロップダウン + モード切替（完全一致／空／空以外） |
+| **一致**（既定） | 選んだ値と等しいデータ（`= 値`） |
+| **不一致** | 選んだ値と異なるデータ（`!= 値`） |
 
-### Or 検索（複数候補の OR 検索、`AllowOrSearch=true`）
+### 詳細検索 + 空検索を許可（`IsSimpleSearchParameter=false`, `AllowEmptySearch=true`）
 
-候補を**複数選択** できるチェックリスト UI に変わります。選択した複数値のうち**いずれかに一致**するデータが対象（`OR` 結合）。
+<img src="../../Image/web/fields/select/Select_search_detailed_with_empty.png" alt="SelectField 詳細検索（空検索を許可）" style="border: 1px solid;" width="400">
+
+モード切替に **空** / **空以外** が追加されます。
+
+### Or 検索（`AllowOrSearch=true`）
+
+<img src="../../Image/web/fields/select/Select_search_or.png" alt="SelectField Or検索" style="border: 1px solid;" width="400">
+
+候補がチェックボックスのリストに変わり、**複数選択** できます。選択した複数値のうちいずれかに一致するデータが対象（`OR` 結合）。モード切替で **不一致** にすれば「いずれにも一致しない」検索になります。
 
 例: カテゴリで「アパレル」「家電」両方を選択 → どちらかのカテゴリの行を全部表示。
-
-### 空検索（`AllowEmptySearch=true`）
-
-詳細モードの時、ドロップダウンに「**空**」「**空以外**」が追加されます。
 
 ### スクリプトから
 
 ```csharp
 // 検索値を設定
 Category.SearchValue = "アパレル";
+
+// 不一致（NOT）モード
+await Category.SetNotFlag(true);
 
 // 空モード
 await Category.SetSearchIsEmptyAsync(true);

@@ -80,8 +80,23 @@ await OpenTime.SetSearchMaxAsync(new TimeOnly(12, 0));
 
 [DateField](Date.md#検索での挙動) と同じ **範囲検索**（時刻のみ）。
 
-- **簡易**: ピッカー 1 つ。指定時刻**以降**（`≥`）。
-- **詳細**: 開始時刻 ～ 終了時刻の 2 ピッカー + モード切替（範囲 / 空 / 空以外）。
+### 簡易検索（`IsSimpleSearchParameter=true`）
+
+<img src="../../Image/web/fields/time/Time_search_simple.png" alt="TimeField 簡易検索" style="border: 1px solid;" width="400">
+
+ピッカー 1 つ。指定時刻**以降**（`≥`）のデータが対象。
+
+### 詳細検索（`IsSimpleSearchParameter=false`）
+
+<img src="../../Image/web/fields/time/Time_search_detailed.png" alt="TimeField 詳細検索（既定）" style="border: 1px solid;" width="400">
+
+開始時刻 ～ 終了時刻の 2 ピッカー。
+
+### 詳細検索 + 空検索を許可（`IsSimpleSearchParameter=false`, `AllowEmptySearch=true`）
+
+<img src="../../Image/web/fields/time/Time_search_detailed_with_empty.png" alt="TimeField 詳細検索（空検索を許可）" style="border: 1px solid;" width="400">
+
+中央の `～` ボタンから **空** / **空以外** が選べます。
 
 ```csharp
 await StartTime.SetSearchMinAsync(new TimeOnly(9, 0));
