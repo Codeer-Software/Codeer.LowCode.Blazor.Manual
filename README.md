@@ -1,79 +1,266 @@
 # Codeer.LowCode.Blazor
-<img src="/Image/lc_logo.png">
 
-[日本語](JP/README.md)<br/>
-※日本語の方を先行で作成しています。
-(We are creating the Japanese version first.)
+<img src="Image/lc_logo.png">
 
-## Features ...
-Codeer.LowCode.Blazor is a library for adding low-code functionality to your Blazor apps.
+Codeer.LowCode.Blazor は、**Blazor アプリにローコード機能を組み込むためのライブラリ**です。
+デザイナで画面やデータモデルを設定し、ホットリロードで Web アプリに即反映できます。
 
-## Codeer.LowCode.Blazor License Information
-For details on the use license of Codeer.LowCode.Blazor, please see [here](https://www.nuget.org/packages/Codeer.LowCode.Blazor/1.0.9/License).<br/>
-- The trial version of this software may be used for 30 days only to evaluate the product.
-- The purchase of a license is required for any form of commercial use, including but not limited to the use of the software for commercial purposes or as part of the development process of products intended for commercial distribution.
-- For those who wish to use the software for community purposes, a free license can be issued upon request. Please contact Codeer for more information.
+[サンプルギャラリー](https://lowcodedemo.azurewebsites.net/) ・ [YouTube チュートリアル](https://youtu.be/MchuOxWYR1o?si=7I9FfQB55dP9ctY-) ・ [製品ページ](https://www.codeer.co.jp/LowCode)
 
-## Samples
-https://lowcodedemo.azurewebsites.net/
+---
 
-## Getting Started
-You can create projects using Visual Studio extensions.<br/>
-[Codeer.LowCode.Blazor.Templates](https://marketplace.visualstudio.com/items?itemName=Codeer.LowCodeBlazor)
+## 目的別の入り口
 
-### Step1
-Create Project.
-<img src="Image/step1.png">
+| あなたの状況 | 最短ルート |
+|---|---|
+| **まず何ができるか知りたい** | → [Codeer.LowCode.Blazor とは](JP/introduction/what_is_lowcode.md) |
+| **とりあえず動かしてみたい** | → [クイックスタート（10 分）](JP/quickstart/quickstart.md) |
+| **自分で画面を作ってみたい** | → [はじめてのモジュール作成（30 分）](JP/quickstart/first_module.md) |
+| **段階的に力をつけたい** | → [チュートリアル](#3-チュートリアル段階的に学ぶ) |
+| **特定の機能の作り方を知りたい** | → [ガイド](#4-ガイド目的別の作り方) |
+| **全仕様を引きたい** | → [リファレンス](#5-リファレンス全仕様) |
 
-### Step2
-Build and launch the designer and web app.
-<img src="Image/step2.png">
+---
 
-### Step3
-Create a new project in designer.
-A project containing the sample will be created.
-<img src="Image/step3.png">
+## 1. はじめに
 
-### Step4
-Deploy it to a web app. The screen will be hot reloaded and the screen will be displayed according to the designer settings.
-<img src="Image/step4.png" width="800">
+Codeer.LowCode.Blazor を触り始める前に、全体像を掴むためのセクションです。
 
-### Step5
-Get a feel for it by looking at the designer settings, making small changes, and sending it to the web app. Details will be added soon.
+- [Codeer.LowCode.Blazor とは](JP/introduction/what_is_lowcode.md) — できること・3 つの開発スタイル・対応 DB
+- [コア概念](JP/introduction/concepts.md) — PageFrame / Module / Field / Layout / Script の関係
+- [入手とライセンス](JP/introduction/installation.md) — Visual Studio 拡張のインストール・ライセンス種別
 
-## Recommended for Projects That
+---
 
-- Want to save on cost and time
-- Want to effectively utilize RDB
-- Want to leverage existing data and systems
-- Have specific features in mind
-- Desire customization after release
+## 2. クイックスタート
 
-## Create Screens with Ease
+手を動かして最短で感触をつかむセクションです。
 
-Freely create screens using a combination of Canvas layout, Grid layout, and FlowLayout. It's possible to create not just regular screens but also dialogs. Interaction between UI components can be achieved with no-code or minimal scripting. Essential elements like sidebar, header, and footer are provided, and those with specific preferences can customize with pro-code.
+- [クイックスタート（10 分）](JP/quickstart/quickstart.md) — サンプル入りプロジェクトを作成して Web で動かす
+- [はじめてのモジュール作成（30 分）](JP/quickstart/first_module.md) — DB と連動した CRUD 画面を作る
 
-## Seamless RDB Integration
+---
 
-Associate forms and DB tables for input and output of data. Linking multiple forms allows representation of Join or 1N relationships. Forms can also be linked to Views, enabling easy implementation of BI functions. Common database operations such as logical deletion, optimistic locking, and tracking of creation/update information are included. Change history can also be maintained.
+## 3. チュートリアル（段階的に学ぶ）
 
-## More Freedom with Scripts
+クイックスタートの次の一歩。手を動かしながらよくあるパターンを身につけるセクションです。
 
-Write in syntax nearly identical to C#. The API design allows for implementation of features with minimal coding. Code completion makes implementation easy, and customized functions can be called with pro-code. Execution is primarily on the client-side, but server-side execution is also supported. Of course, it is also possible to incorporate additional APIs.
+- [スクリプトの基本](JP/tutorials/tutorial_script.md) — ボタンイベント・Field 操作・メッセージ表示・バリデーション
+- [モジュール連携](JP/tutorials/tutorial_modules.md) — LinkField・ModuleSearcher・2 つのリストの連動
+- [検索を作り込む](JP/tutorials/tutorial_search.md) — And/Or の組合せ・初期値・複数レイアウト・URL 連動
+- [Excel 帳票と PDF 出力](JP/tutorials/tutorial_excel_pdf.md) — テンプレートで帳票を作り、PDF に変換
+- [WebAPI 連携](JP/tutorials/tutorial_webapi.md) — 外部 API・カスタム Controller・JsonObject
+- [認証を有効にする](JP/tutorials/tutorial_auth.md) — CurrentUserModule・アプリ/画面/モジュール/データ単位の認可
 
-- General computational operations
-- Screen controls
-- Execution of WebAPI
-- Editing Excel/PDF creation
+---
 
-## Excel Integration Support
+## 4. ガイド（目的別の作り方）
 
-Supports not only general data input/output but also allows for creating templates in Excel and modifying them for report generation. Conversion to PDF is also possible.
+「こういうことをやりたい」から逆引きで読めるセクションです。
 
-## Authentication & Authorization
+### モジュールの作り方
 
-Provide generic cookie authentication or default authentication using Azure Active Directory in your template code. Other authentication methods can also be customized. Authorization allows for access control at the application, screen, and data levels.
+- [基本的な作成方法と DB 接続](JP/designer/create_module_with_db_simple.md)
+- [モジュール作成時の注意点](JP/Help/PointToNote_CreateModule.md)
+- [Excel から画面と DDL を作成](JP/designer/import_module_from_excel.md)
+- [既存 DB からモジュールを一括作成](JP/designer/import_modules_from_db.md)
+- [AI でモジュールを作成](JP/ai/ai_modules.md)
 
-## Implement Specific Features with Pro-Code
+### データベース活用
 
-In some cases, special screens/features are necessary. As Codeer.LowCode.Blazor is a Blazor library, .NET code can be added for such implementations. Moreover, creating components allows for their use in various places.
+- [Query フィールド](JP/db/query_field.md) — カスタム SQL で一覧を作る
+- [ExecuteSql フィールド](JP/db/execute_sql_field.md) — 任意の SQL を実行する
+
+### スクリプトでよくやること（Tips）
+
+- [Text フィールドを読み取り専用にする](JP/Examples/Tips_IsViewOnly.md)
+- [AnchorTag のサイズ調整](JP/Examples/Tips_AnchorTagSizeSetting.md)
+- [Label の位置調整](JP/Examples/Tips_LabelPositionSetting.md)
+- [検索条件に初期値を設定](JP/Examples/Tips_SearchCriteriaInitialValueSetting.md)
+- [Submit 時に処理を追加](JP/Examples/Tips_AddProcessingSubmit.md)
+- [ModuleSearcher で他モジュールにアクセス](JP/Examples/Tips_ModuleSearcher.md)
+- [リスト同士の連携](JP/Examples/DoubleList.md)
+- [メールを送信する](JP/Examples/SendingMail.md)
+
+### 認証・認可
+
+- [認証 / 認可の概要](JP/authorization/authorization.md)
+
+### AI 連携
+
+- [AI 概要](JP/ai/ai_overview.md)
+- [AI を使うための設定](JP/ai/ai_setup.md)
+- [AITextAnalyzerField](JP/ai/AITextAnalyzerField.md)
+- [AI でクエリを作成](JP/ai/ai_query.md)
+
+### プロコード拡張
+
+- [プロコード概要](JP/overview/procode.md)
+- [ユーザーコード](JP/user_code/user_code.md)
+
+### 見た目・スタイル
+
+- [CSS](JP/look_and_feel/css.md)
+- [カスタムスタイル](JP/look_and_feel/custom_styles.md)
+- [Fluent Design](JP/look_and_feel/fluent_design.md)
+- [Material Design](JP/look_and_feel/material_design.md)
+
+### デプロイ
+
+- [Visual Studio ソリューション構成とデプロイ](JP/overview/vs_projects.md)
+- [デプロイフォルダ](JP/overview/deploy_folder.md)
+- [Web サーバーへのデプロイ](JP/overview/server_deploy.md)
+- [オプション: VS Code を使う](JP/overview/vscode.md)
+
+### テスト
+
+- [PageObject のエクスポート（自動テスト）](JP/designer/export_pageobject.md)
+
+### サードパーティ UI ライブラリとの連携
+
+- [MudBlazor サンプル](https://lowcodedemo.azurewebsites.net/MudBlazor/MudBlazorHome)
+- [Radzen.Blazor サンプル](https://lowcodedemo.azurewebsites.net/RadzenBlazor/RadzenBlazorHome)
+- [IgniteUI サンプル](https://lowcodedemo.azurewebsites.net/Bootstrap/ChartSample)
+
+---
+
+## 5. リファレンス（全仕様）
+
+項目ごとに詳しく引くためのセクションです。
+
+### デザイナ
+
+- [デザイナ概要](JP/designer/designer.md)
+- [app.clprj](JP/designer/app_clprj.md) — アプリ全体のプロジェクト設定
+- [designer.settings](JP/designer/designer_settings.md) — Data Source 等の設定
+- [PageFrame](JP/designer/page_frame.md) — アプリの外枠
+- [デザイナのカスタマイズ](JP/designer/designer-customize.md)
+- [検索コンポーネントのカスタマイズ](JP/designer/designer-match-customize.md)
+
+### モジュール
+
+- [Module 概要](JP/module/module.md)
+- [全体設定](JP/module/module_general.md)
+- [詳細設定](JP/module/module_detail.md)
+- [一覧設定](JP/module/module_list.md)
+- [検索設定](JP/module/module_search.md)
+- [Document Outline と Property パネル](JP/module/DocumentOutline.md)
+- [データモデルと Module の関係](JP/data_model/data-model.md)
+
+### レイアウト
+
+- [レイアウト（Grid / Canvas / Flow）](JP/module/layout.md)
+
+### Field（入力・表示部品）
+
+- [Field 概要・System Field](JP/fields/field.md)
+- [Field 共通プロパティ](JP/fields/common_properties.md)
+
+#### 入力系
+
+- [TextField (テキスト)](JP/fields/Text.md) — 文字列入力（1 行／複数行）
+- [NumberField (数値)](JP/fields/Number.md) — 数値・スライダー・桁数制限
+- [BooleanField (ブール)](JP/fields/Boolean.md) — チェックボックス／スイッチ／トグル
+- [DateField (日付)](JP/fields/Date.md) — 日付のみ
+- [DateTimeField (日時)](JP/fields/DateTime.md) — 年月日＋時刻
+- [TimeField (時刻)](JP/fields/Time.md) — 時刻のみ
+- [PasswordField (パスワード)](JP/fields/Password.md) — パスワード（PasswordHash と組み合わせ）
+- [FileField (ファイル)](JP/fields/File.md) — ファイルアップロード
+
+#### 選択系
+
+- [SelectField (セレクト)](JP/fields/Select.md) — プルダウン
+- [RadioGroupField (ラジオボタングループ)](JP/fields/RadioGroup.md) — ラジオ選択値の本体
+- [RadioButtonField (ラジオボタン)](JP/fields/RadioButton.md) — RadioGroup 内の選択肢
+- [LinkField (リンク)](JP/fields/Link.md) — 他モジュールを検索ダイアログで選択
+
+#### 表示系
+
+- [LabelField (ラベル)](JP/fields/Label.md) — 見出し・キャプション
+- [AnchorTagField (アンカータグ)](JP/fields/AnchorTag.md) — ハイパーリンク
+- [IdField (ID)](JP/fields/Id.md) — 主キー／外部キー
+- [ImageViewerField (画像表示)](JP/fields/ImageViewer.md) — 画像表示
+- [MarkupStringField (マークアップストリング)](JP/fields/MarkupString.md) — HTML 直接表示
+
+#### 構造系
+
+- [ListField (リスト)](JP/fields/List.md) — テーブル形式
+- [DetailListField (詳細リスト)](JP/fields/DetailList.md) — カード形式
+- [TileListField (タイルリスト)](JP/fields/TileList.md) — タイル形式
+- [ListNumberField (リスト番号)](JP/fields/ListNumber.md) — 行番号列
+- [ListPagingField (ページ送り)](JP/fields/ListPaging.md) — ページャーを独立配置
+- [ModuleField (モジュール)](JP/fields/Module.md) — 他モジュールの埋め込み
+- [SearchField (検索)](JP/fields/Search.md) — 検索バー
+
+#### 操作系
+
+- [ButtonField (ボタン)](JP/fields/Button.md) — クリックでスクリプト実行
+- [SubmitButtonField (サブミットボタン)](JP/fields/SubmitButton.md) — 標準の登録・更新
+- [AutoSubmitField (自動サブミット)](JP/fields/AutoSubmit.md) — 変更を自動で保存
+- [CopyModuleButtonField (モジュールコピーボタン)](JP/fields/CopyModuleButton.md) — データをコピーして新規作成
+- [ViewEditToggleButtonField (閲覧編集切り替えボタン)](JP/fields/ViewEditToggleButton.md) — 閲覧／編集モードのトグル
+- [ContextMenuField (コンテキストメニュー)](JP/fields/ContextMenu.md) — 右クリックメニュー
+
+#### メニュー系（PageFrame 連携）
+
+- [HeaderMenuField / SidebarMenuField](JP/fields/PageFrameMenu.md) — カスタムヘッダー／サイドバーモジュール内で使用
+
+#### 特殊
+
+- [ProCodeField (プロコード)](JP/fields/ProCode.md) — 独自 Blazor コンポーネント埋込
+- [OptimisticLockingField (楽観ロック)](JP/fields/OptimisticLocking.md) — 楽観ロック用 System Field
+
+#### DB 系（DB 操作に特化）
+
+- [QueryField (Query)](JP/db/query_field.md) — 任意の SELECT 文の結果を画面で扱う
+- [ExecuteSqlField (ExecuteSql)](JP/db/execute_sql_field.md) — INSERT/UPDATE/ストアド等を指定タイミングで実行
+- [JsonField (JSON)](JP/db/json_field.md) — 複数値を JSON 文字列としてまとめて 1 列に保存
+
+### スクリプト
+
+- [スクリプト概要](JP/overview/script.md)
+- [スクリプトデバッガ](JP/overview/script_debugger.md)
+
+### プロジェクト構成
+
+- [概略](JP/overview/overview.md)
+- [Visual Studio ソリューション構成](JP/overview/vs_projects.md)
+- [ユーザーコード](JP/user_code/user_code.md)
+
+### ライセンス登録詳細
+
+- [ライセンスについて（種別と登録方法の全体）](JP/overview/about_license.md)
+- [オンライン登録](JP/overview/license_online_registration.md) / [オフライン登録](JP/overview/license_web_registration.md)
+- [Windows CLI 登録](JP/overview/licence_windows_cli_registration.md) / [Linux 登録](JP/overview/license_linux_registration.md)
+- [ドメインライセンス登録](JP/overview/domain_license_registration.md) / [解除](JP/overview/domain_license_cancellation.md)
+- [LicenseRegister アプリ](JP/overview/license_license_register_application.md)
+
+---
+
+## 6. リリースノート
+
+- [破壊的変更一覧](JP/breaking_changes/breaking_changes.md)
+
+---
+
+## 動画
+
+- [動画ガイド一覧](JP/movies.md)
+
+---
+
+## ライセンス情報
+
+Codeer.LowCode.Blazor のライセンスは以下の通りです。
+
+- **試用版**: 評価目的のみ 30 日間無料
+- **商用利用**: 開発・本番運用ともにライセンス購入が必要
+- **コミュニティ利用**: 申請により無償ライセンス発行（[Codeer](https://www.codeer.co.jp/LowCode) へお問い合わせ）
+
+詳細:
+
+- [ソフトウェアライセンス契約書（原本・英語）](https://www.nuget.org/packages/Codeer.LowCode.Blazor/1.0.9/License)
+- [日本語版](JP/LicenseJP.md)（※英語版と齟齬がある場合は英語版が優先）
+- [ライセンス種別と登録方法の全体](JP/overview/about_license.md)
+
+ご購入・お問い合わせ: [codeer.co.jp/LowCode](https://www.codeer.co.jp/LowCode)
