@@ -76,7 +76,14 @@ await OpenTime.SetSearchMaxAsync(new TimeOnly(12, 0));
 
 ---
 
+## 検索での挙動
+
+DateField と同じ範囲検索。詳細は [検索ガイド](../designer/search.md#datefield--datetimefield--timefield) を参照。
+
+---
+
 ## 関連項目
 
 - [Field 共通プロパティ](common_properties.md)
 - [Date](Date.md) / [DateTime](DateTime.md)
+- [検索ガイド](../designer/search.md) — 時刻範囲検索

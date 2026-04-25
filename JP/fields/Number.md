@@ -104,7 +104,21 @@ await Price.SetSearchMaxAsync(10000);
 
 ---
 
+## 検索での挙動
+
+| 設定 | UI | 挙動 |
+|---|---|---|
+| `IsSimpleSearchParameter=true` | 入力欄 1 つ | **≥（以上）** 条件のみ |
+| `IsSimpleSearchParameter=false` | 下限 ～ 上限 + モード切替 | 範囲検索（どちらか空欄可）、空白／空白でない（`AllowEmptySearch=true` 時） |
+
+例: 価格 1,000 ～ 5,000 円で検索 → 両方の入力値の範囲内。
+
+詳細は [検索ガイド](../designer/search.md#numberfield数値) を参照。
+
+---
+
 ## 関連項目
 
 - [Field 共通プロパティ](common_properties.md)
+- [検索ガイド](../designer/search.md) — 範囲検索・空検索の使い方
 - [スクリプト概要](../overview/script.md)

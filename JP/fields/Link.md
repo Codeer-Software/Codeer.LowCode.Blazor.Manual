@@ -106,9 +106,16 @@ await Customer.SetValueAsync(customerId);
 
 ---
 
+## 検索での挙動
+
+検索ダイアログで関連モジュールから 1 件を選び、その ID で**完全一致**検索。詳細は [検索ガイド](../designer/search.md#linkfield) を参照。
+
+---
+
 ## 関連項目
 
 - [Field 共通プロパティ](common_properties.md)
 - [Select](Select.md) — プルダウン形式
 - [Module](Module.md) — 参照先の内容を画面内に埋め込む場合
+- [検索ガイド](../designer/search.md) — Link 検索
 - [チュートリアル: モジュール連携](../tutorials/tutorial_modules.md)

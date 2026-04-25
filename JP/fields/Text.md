@@ -104,9 +104,23 @@ textarea として表示。`Rows` で表示行数を指定、`IsAutoFitRows: tru
 
 ---
 
+## 検索での挙動
+
+| 設定 | UI | 挙動 |
+|---|---|---|
+| `IsSimpleSearchParameter=true` | 入力欄のみ | **部分一致** (`LIKE %値%`) 固定 |
+| `IsSimpleSearchParameter=false` | 入力欄 + 比較演算子ドロップダウン | 部分一致 / 一致（+空白/空白でない: `AllowEmptySearch=true` 時） |
+
+例: 「シャツ」で検索 → 商品名に「シャツ」を含むすべて。
+
+詳細は [検索ガイド](../designer/search.md#textfieldテキスト) を参照。
+
+---
+
 ## 関連項目
 
 - [Field 共通プロパティ](common_properties.md)
 - [Password](Password.md) — パスワード入力
 - [MarkupString](MarkupString.md) — HTML 表示
+- [検索ガイド](../designer/search.md) — 検索レイアウトと検索モード
 - [スクリプト概要](../overview/script.md)

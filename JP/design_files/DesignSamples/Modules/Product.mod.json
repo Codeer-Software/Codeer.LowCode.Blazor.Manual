@@ -1,0 +1,256 @@
+{
+  "Name": "Product",
+  "DataSourceName": "SampleSQLite",
+  "DbTable": "Products",
+  "CanCreate": true,
+  "CanUpdate": true,
+  "CanDelete": true,
+  "CanBulkDataUpdate": false,
+  "CanBulkDataDownload": false,
+  "Fields": [
+    {
+      "Text": "商品",
+      "Icon": "",
+      "Style": "H3",
+      "RelativeField": "",
+      "OnClick": "",
+      "Name": "Title",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "DbColumn": "Id",
+      "Placeholder": "",
+      "IsManualInput": false,
+      "CompositeIdVariables": [],
+      "CompositeIdSeparator": "",
+      "DisplayName": "ID",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "OnSearchDataChanged": "",
+      "Name": "Id",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.IdFieldDesign"
+    },
+    {
+      "DbColumn": "Name",
+      "IsMultiline": false,
+      "IsAutoFitRows": false,
+      "Placeholder": "例: ベーシックTシャツ",
+      "TextEditEmptyType": "StringEmpty",
+      "ShouldTrimAfterEdit": true,
+      "IsUpdateProtected": false,
+      "IsSimpleSearchParameter": true,
+      "AllowEmptySearch": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "商品名",
+      "IsRequired": true,
+      "OnDataChanged": "",
+      "Name": "Name",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
+    },
+    {
+      "DbColumn": "Category",
+      "IsMultiline": false,
+      "IsAutoFitRows": false,
+      "Placeholder": "",
+      "TextEditEmptyType": "StringEmpty",
+      "ShouldTrimAfterEdit": true,
+      "IsUpdateProtected": false,
+      "IsSimpleSearchParameter": true,
+      "AllowEmptySearch": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "カテゴリ",
+      "IsRequired": true,
+      "OnDataChanged": "",
+      "Name": "Category",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
+    },
+    {
+      "DbColumn": "Price",
+      "Placeholder": "",
+      "Format": "#,0",
+      "Suffix": "円",
+      "IsUpdateProtected": false,
+      "IsSimpleSearchParameter": false,
+      "AllowEmptySearch": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "価格",
+      "IsRequired": true,
+      "OnDataChanged": "",
+      "Name": "Price",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.NumberFieldDesign"
+    },
+    {
+      "DbColumn": "Stock",
+      "Placeholder": "",
+      "Format": "#,0",
+      "Suffix": "個",
+      "IsUpdateProtected": false,
+      "IsSimpleSearchParameter": false,
+      "AllowEmptySearch": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "在庫",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "Stock",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.NumberFieldDesign"
+    },
+    {
+      "DbColumn": "IsAvailable",
+      "UIType": "CheckBox",
+      "Text": "販売中",
+      "IsUpdateProtected": false,
+      "IsSimpleSearchParameter": false,
+      "AllowEmptySearch": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "販売中",
+      "OnDataChanged": "",
+      "Name": "IsAvailable",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.BooleanFieldDesign"
+    },
+    {
+      "DbColumn": "ReleaseDate",
+      "Placeholder": "",
+      "Format": "yyyy/MM/dd",
+      "IsUpdateProtected": false,
+      "IsSimpleSearchParameter": false,
+      "AllowEmptySearch": true,
+      "OnSearchDataChanged": "",
+      "DisplayName": "発売日",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "ReleaseDate",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.DateFieldDesign"
+    },
+    {
+      "DbColumn": "Description",
+      "IsMultiline": true,
+      "IsAutoFitRows": true,
+      "Placeholder": "",
+      "TextEditEmptyType": "StringEmpty",
+      "ShouldTrimAfterEdit": false,
+      "IsUpdateProtected": false,
+      "IsSimpleSearchParameter": false,
+      "AllowEmptySearch": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "説明",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "Description",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
+    },
+    {
+      "DbColumn": "CreatedAt",
+      "Placeholder": "",
+      "Format": "yyyy/MM/dd HH:mm",
+      "IsUpdateProtected": true,
+      "IsSimpleSearchParameter": false,
+      "AllowEmptySearch": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "作成日時",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "CreatedAt",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.DateTimeFieldDesign"
+    },
+    {
+      "DbColumn": "UpdatedAt",
+      "Placeholder": "",
+      "Format": "yyyy/MM/dd HH:mm",
+      "IsUpdateProtected": true,
+      "IsSimpleSearchParameter": false,
+      "AllowEmptySearch": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "更新日時",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "UpdatedAt",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.DateTimeFieldDesign"
+    },
+    {
+      "Text": "登録",
+      "Icon": "",
+      "Variant": "Primary",
+      "ImageResourceSet": null,
+      "IgnoreModification": false,
+      "Name": "Submit",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.SubmitButtonFieldDesign"
+    }
+  ],
+  "UserWriteCondition": { "ModuleName": "" },
+  "UserReadCondition": { "ModuleName": "" },
+  "DataWriteCondition": { "ModuleName": "" },
+  "DataReadCondition": { "ModuleName": "" },
+  "OnTransaction": "",
+  "DetailLayouts": {
+    "": {
+      "OnBeforeInitialization": "",
+      "OnAfterInitialization": "",
+      "DataOnlyFields": [],
+      "Layout": {
+        "Name": "",
+        "Rows": [
+          { "Columns": [ { "Layout": { "FieldName": "Title", "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign" } } ] },
+          { "Columns": [ { "Layout": { "FieldName": "Id", "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign" } } ] },
+          { "Columns": [ { "Layout": { "FieldName": "Name", "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign" } } ] },
+          { "Columns": [
+            { "Layout": { "FieldName": "Category", "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign" } },
+            { "Layout": { "FieldName": "Price", "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign" } }
+          ] },
+          { "Columns": [
+            { "Layout": { "FieldName": "Stock", "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign" } },
+            { "Layout": { "FieldName": "IsAvailable", "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign" } }
+          ] },
+          { "Columns": [ { "Layout": { "FieldName": "ReleaseDate", "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign" } } ] },
+          { "Columns": [ { "Layout": { "FieldName": "Description", "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign" } } ] },
+          { "Columns": [
+            { "Layout": { "FieldName": "CreatedAt", "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign" } },
+            { "Layout": { "FieldName": "UpdatedAt", "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign" } }
+          ] },
+          { "Columns": [ { "Layout": { "FieldName": "Submit", "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign" } } ] }
+        ],
+        "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
+      }
+    }
+  },
+  "ListLayouts": {
+    "": {
+      "OnBeforeInitialization": "",
+      "OnAfterInitialization": "",
+      "HeaderTitle": "",
+      "Elements": [
+        [
+          { "Label": "商品名",     "FieldName": "Name",        "IsViewOnly": true, "ColumnSpan": 1, "RowSpan": 1 },
+          { "Label": "カテゴリ",   "FieldName": "Category",    "IsViewOnly": true, "ColumnSpan": 1, "RowSpan": 1 },
+          { "Label": "価格",       "FieldName": "Price",       "IsViewOnly": true, "ColumnSpan": 1, "RowSpan": 1 },
+          { "Label": "在庫",       "FieldName": "Stock",       "IsViewOnly": true, "ColumnSpan": 1, "RowSpan": 1 },
+          { "Label": "販売中",     "FieldName": "IsAvailable", "IsViewOnly": true, "ColumnSpan": 1, "RowSpan": 1 },
+          { "Label": "発売日",     "FieldName": "ReleaseDate", "IsViewOnly": true, "ColumnSpan": 1, "RowSpan": 1 }
+        ]
+      ],
+      "DataOnlyFields": []
+    }
+  },
+  "SearchLayouts": {
+    "": {
+      "OnSearchInitialization": "",
+      "Layout": {
+        "Name": "",
+        "Operator": "And",
+        "Rows": [
+          { "Columns": [
+            { "Layout": { "FieldName": "Name", "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign" } },
+            { "Layout": { "FieldName": "Category", "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign" } }
+          ] },
+          { "Columns": [
+            { "Layout": { "FieldName": "Price", "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign" } },
+            { "Layout": { "FieldName": "IsAvailable", "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign" } }
+          ] },
+          { "Columns": [
+            { "Layout": { "FieldName": "ReleaseDate", "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign" } }
+          ] }
+        ],
+        "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.SearchGridLayoutDesign"
+      }
+    }
+  }
+}
