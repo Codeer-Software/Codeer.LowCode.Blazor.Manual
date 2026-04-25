@@ -1,7 +1,7 @@
 {
-  "Name": "Product",
+  "Name": "Customer",
   "DataSourceName": "SampleSQLite",
-  "DbTable": "Products",
+  "DbTable": "Customers",
   "CanCreate": true,
   "CanUpdate": true,
   "CanDelete": true,
@@ -9,7 +9,7 @@
   "CanBulkDataDownload": false,
   "Fields": [
     {
-      "Text": "商品",
+      "Text": "顧客",
       "Icon": "",
       "Style": "H3",
       "RelativeField": "",
@@ -36,14 +36,14 @@
       "DbColumn": "Name",
       "IsMultiline": false,
       "IsAutoFitRows": false,
-      "Placeholder": "例: ベーシックTシャツ",
+      "Placeholder": "例: 田中 太郎",
       "TextEditEmptyType": "StringEmpty",
       "ShouldTrimAfterEdit": true,
       "IsUpdateProtected": false,
       "IsSimpleSearchParameter": true,
       "AllowEmptySearch": false,
       "OnSearchDataChanged": "",
-      "DisplayName": "商品名",
+      "DisplayName": "氏名",
       "IsRequired": true,
       "OnDataChanged": "",
       "Name": "Name",
@@ -51,102 +51,108 @@
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
     },
     {
-      "DbColumn": "Category",
+      "DbColumn": "Email",
       "IsMultiline": false,
       "IsAutoFitRows": false,
-      "Placeholder": "",
-      "TextEditEmptyType": "StringEmpty",
+      "Placeholder": "name@example.com",
+      "TextEditEmptyType": "Null",
       "ShouldTrimAfterEdit": true,
       "IsUpdateProtected": false,
-      "IsSimpleSearchParameter": true,
-      "AllowEmptySearch": false,
+      "IsSimpleSearchParameter": false,
+      "AllowEmptySearch": true,
       "OnSearchDataChanged": "",
-      "DisplayName": "カテゴリ",
-      "IsRequired": true,
+      "DisplayName": "メールアドレス",
+      "IsRequired": false,
       "OnDataChanged": "",
-      "Name": "Category",
+      "Name": "Email",
       "IgnoreModification": false,
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
     },
     {
-      "DbColumn": "Price",
-      "Placeholder": "",
-      "Format": "#,0 円",
-      "IsSlider": false,
+      "DbColumn": "PhoneNumber",
+      "IsMultiline": false,
+      "IsAutoFitRows": false,
+      "Placeholder": "090-XXXX-XXXX",
+      "TextEditEmptyType": "Null",
+      "ShouldTrimAfterEdit": true,
       "IsUpdateProtected": false,
       "IsSimpleSearchParameter": false,
-      "AllowEmptySearch": false,
+      "AllowEmptySearch": true,
       "OnSearchDataChanged": "",
-      "DisplayName": "価格",
-      "IsRequired": true,
-      "OnDataChanged": "",
-      "Name": "Price",
-      "IgnoreModification": false,
-      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.NumberFieldDesign"
-    },
-    {
-      "DbColumn": "Stock",
-      "Placeholder": "",
-      "Format": "#,0",
-      "IsSlider": false,
-      "IsUpdateProtected": false,
-      "IsSimpleSearchParameter": false,
-      "AllowEmptySearch": false,
-      "OnSearchDataChanged": "",
-      "DisplayName": "在庫",
+      "DisplayName": "電話番号",
       "IsRequired": false,
       "OnDataChanged": "",
-      "Name": "Stock",
+      "Name": "PhoneNumber",
       "IgnoreModification": false,
-      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.NumberFieldDesign"
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
     },
     {
-      "Text": "販売中",
-      "DbColumn": "IsAvailable",
-      "UIType": "CheckBox",
-      "TrueText": "",
-      "FalseText": "",
-      "IsUpdateProtected": false,
-      "IsSimpleSearchParameter": false,
-      "AllowEmptySearch": false,
-      "OnSearchDataChanged": "",
-      "DisplayName": "販売中",
-      "IsRequired": false,
-      "OnDataChanged": "",
-      "Name": "IsAvailable",
-      "IgnoreModification": false,
-      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.BooleanFieldDesign"
-    },
-    {
-      "DbColumn": "ReleaseDate",
+      "DbColumn": "BirthDate",
       "Format": "yyyy/MM/dd",
       "IsYearMonthOnly": false,
       "IsUpdateProtected": false,
       "IsSimpleSearchParameter": false,
       "AllowEmptySearch": true,
       "OnSearchDataChanged": "",
-      "DisplayName": "発売日",
+      "DisplayName": "生年月日",
       "IsRequired": false,
       "OnDataChanged": "",
-      "Name": "ReleaseDate",
+      "Name": "BirthDate",
       "IgnoreModification": false,
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.DateFieldDesign"
     },
     {
-      "DbColumn": "Description",
+      "Candidates": [
+        "男性,M",
+        "女性,F",
+        "その他,Other"
+      ],
+      "SearchCondition": {
+        "LimitCount": 50,
+        "SelectFields": [],
+        "SortConditions": [],
+        "SortFieldVariable": "",
+        "SortDescending": false,
+        "ModuleName": "",
+        "Condition": {
+          "IsOrMatch": false,
+          "IsNot": false,
+          "Children": [],
+          "Name": "",
+          "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
+        }
+      },
+      "ValueVariable": "",
+      "DisplayTextVariable": "",
+      "DbColumn": "Gender",
+      "EmptyCandidateType": "StringEmpty",
+      "AllowOrSearch": false,
+      "IsUpdateProtected": false,
+      "IsSimpleSearchParameter": false,
+      "AllowEmptySearch": true,
+      "OnSearchDataChanged": "",
+      "DisplayName": "性別",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "Gender",
+      "IgnoreModification": false,
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.SelectFieldDesign"
+    },
+    {
+      "DbColumn": "Note",
       "IsMultiline": true,
       "IsAutoFitRows": true,
-      "Placeholder": "",
-      "TextEditEmptyType": "StringEmpty",
+      "Placeholder": "メモ・特記事項",
+      "TextEditEmptyType": "Null",
       "ShouldTrimAfterEdit": false,
       "IsUpdateProtected": false,
       "IsSimpleSearchParameter": false,
-      "AllowEmptySearch": false,
+      "AllowEmptySearch": true,
       "OnSearchDataChanged": "",
-      "DisplayName": "説明",
+      "DisplayName": "メモ",
       "IsRequired": false,
       "OnDataChanged": "",
-      "Name": "Description",
+      "Name": "Note",
       "IgnoreModification": false,
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
     },
@@ -334,7 +340,7 @@
             "Columns": [
               {
                 "Layout": {
-                  "FieldName": "Category",
+                  "FieldName": "Email",
                   "ContextMenu": "",
                   "ClassName": "",
                   "FontFamily": "",
@@ -357,7 +363,7 @@
               },
               {
                 "Layout": {
-                  "FieldName": "Price",
+                  "FieldName": "PhoneNumber",
                   "ContextMenu": "",
                   "ClassName": "",
                   "FontFamily": "",
@@ -391,7 +397,7 @@
             "Columns": [
               {
                 "Layout": {
-                  "FieldName": "Stock",
+                  "FieldName": "BirthDate",
                   "ContextMenu": "",
                   "ClassName": "",
                   "FontFamily": "",
@@ -414,7 +420,7 @@
               },
               {
                 "Layout": {
-                  "FieldName": "IsAvailable",
+                  "FieldName": "Gender",
                   "ContextMenu": "",
                   "ClassName": "",
                   "FontFamily": "",
@@ -448,41 +454,7 @@
             "Columns": [
               {
                 "Layout": {
-                  "FieldName": "ReleaseDate",
-                  "ContextMenu": "",
-                  "ClassName": "",
-                  "FontFamily": "",
-                  "Color": "",
-                  "Name": "",
-                  "BackgroundColor": "",
-                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                },
-                "Padding": {},
-                "BackgroundColor": "",
-                "BorderStyle": {
-                  "LeftColor": "",
-                  "TopColor": "",
-                  "RightColor": "",
-                  "BottomColor": ""
-                },
-                "HorizontalAlignment": "Stretch",
-                "CanResize": false,
-                "Border": "None"
-              }
-            ]
-          },
-          {
-            "IsWrap": false,
-            "IsAutoFillWrap": false,
-            "Margin": {},
-            "GridRowType": "Normal",
-            "CanResize": false,
-            "BackgroundColor": "",
-            "IsRowMarginRemoved": false,
-            "Columns": [
-              {
-                "Layout": {
-                  "FieldName": "Description",
+                  "FieldName": "Note",
                   "ContextMenu": "",
                   "ClassName": "",
                   "FontFamily": "",
@@ -610,7 +582,7 @@
       "Elements": [
         [
           {
-            "Label": "商品名",
+            "Label": "氏名",
             "FieldName": "Name",
             "IsViewOnly": true,
             "FontFamily": "",
@@ -619,8 +591,8 @@
             "RowSpan": 1
           },
           {
-            "Label": "カテゴリ",
-            "FieldName": "Category",
+            "Label": "メール",
+            "FieldName": "Email",
             "IsViewOnly": true,
             "FontFamily": "",
             "Color": "",
@@ -628,8 +600,8 @@
             "RowSpan": 1
           },
           {
-            "Label": "価格",
-            "FieldName": "Price",
+            "Label": "電話",
+            "FieldName": "PhoneNumber",
             "IsViewOnly": true,
             "FontFamily": "",
             "Color": "",
@@ -637,8 +609,8 @@
             "RowSpan": 1
           },
           {
-            "Label": "在庫",
-            "FieldName": "Stock",
+            "Label": "生年月日",
+            "FieldName": "BirthDate",
             "IsViewOnly": true,
             "FontFamily": "",
             "Color": "",
@@ -646,17 +618,8 @@
             "RowSpan": 1
           },
           {
-            "Label": "販売中",
-            "FieldName": "IsAvailable",
-            "IsViewOnly": true,
-            "FontFamily": "",
-            "Color": "",
-            "ColumnSpan": 1,
-            "RowSpan": 1
-          },
-          {
-            "Label": "発売日",
-            "FieldName": "ReleaseDate",
+            "Label": "性別",
+            "FieldName": "Gender",
             "IsViewOnly": true,
             "FontFamily": "",
             "Color": "",
@@ -719,7 +682,7 @@
               },
               {
                 "Layout": {
-                  "FieldName": "Category",
+                  "FieldName": "Gender",
                   "ContextMenu": "",
                   "ClassName": "",
                   "FontFamily": "",
@@ -753,7 +716,7 @@
             "Columns": [
               {
                 "Layout": {
-                  "FieldName": "Price",
+                  "FieldName": "Email",
                   "ContextMenu": "",
                   "ClassName": "",
                   "FontFamily": "",
@@ -776,7 +739,7 @@
               },
               {
                 "Layout": {
-                  "FieldName": "IsAvailable",
+                  "FieldName": "PhoneNumber",
                   "ContextMenu": "",
                   "ClassName": "",
                   "FontFamily": "",
@@ -810,7 +773,7 @@
             "Columns": [
               {
                 "Layout": {
-                  "FieldName": "ReleaseDate",
+                  "FieldName": "BirthDate",
                   "ContextMenu": "",
                   "ClassName": "",
                   "FontFamily": "",

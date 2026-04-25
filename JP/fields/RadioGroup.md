@@ -111,8 +111,30 @@ await RankGroup.SetSearchValueAsync("A");
 
 ---
 
+## 検索での挙動
+
+検索フォームには候補と同じラジオボタンが並びます。選んだ値で **完全一致** 検索。
+
+| 設定 | UI |
+|---|---|
+| `IsSimpleSearchParameter=true`（簡易） | ラジオボタン群 |
+| `IsSimpleSearchParameter=false`（詳細） | ラジオボタン群 + モード切替（一致／空白／空白でない） |
+
+### Or 検索（`AllowOrSearch=true`）
+
+ラジオボタンが **チェックボックス** に変わり、複数選択可能になります。選んだ複数値のうちいずれかに一致するデータが対象（`OR` 結合）。
+
+### 空検索（`AllowEmptySearch=true`）
+
+詳細モードで「**空白**」「**空白でない**」が選べるようになります。
+
+検索全体の仕組みは [SearchField](Search.md#検索の仕組み) を参照。
+
+---
+
 ## 関連項目
 
 - [Field 共通プロパティ](common_properties.md)
 - [RadioButton](RadioButton.md) — グループ内のラジオボタン 1 つ
 - [Select](Select.md) — プルダウン
+- [SearchField](Search.md) — 検索全体の仕組み

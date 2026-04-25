@@ -106,19 +106,47 @@ await Price.SetSearchMaxAsync(10000);
 
 ## 検索での挙動
 
-| 設定 | UI | 挙動 |
-|---|---|---|
-| `IsSimpleSearchParameter=true` | 入力欄 1 つ | **≥（以上）** 条件のみ |
-| `IsSimpleSearchParameter=false` | 下限 ～ 上限 + モード切替 | 範囲検索（どちらか空欄可）、空白／空白でない（`AllowEmptySearch=true` 時） |
+数値の検索は **範囲（下限 ～ 上限）** が基本です。簡易／詳細でモード切替の有無が変わります。
 
-例: 価格 1,000 ～ 5,000 円で検索 → 両方の入力値の範囲内。
+### 簡易検索（`IsSimpleSearchParameter=true`）
 
-詳細は [検索ガイド](../designer/search.md#numberfield数値) を参照。
+入力欄が 1 つだけ表示されます。入力した値**以上**（`≥`）のデータが対象。
+
+> 「ちょうどこの値」を検索したい場合は詳細にして範囲の下限と上限に同じ値を入れる必要があります。
+
+### 詳細検索（`IsSimpleSearchParameter=false`）
+
+下限 ～ 上限の **2 入力欄** と、間に **モード切替（`～` ボタン）** が出ます。
+
+| モード | 挙動 |
+|---|---|
+| **範囲（既定）** | 下限・上限のうち入っている方の制約を適用（`>=` / `<=` / 範囲）<br>例: 下限 1000 のみ → `≥ 1000` / 下限 1000 + 上限 5000 → `1000 ≤ x ≤ 5000` |
+| **空白** | `NULL` のデータ（`AllowEmptySearch=true` の時） |
+| **空白でない** | 何か値があるデータ（`AllowEmptySearch=true` の時） |
+
+> モード切替ボタンは `AllowEmptySearch=true` でないと「範囲」固定になります（切替メニューが出ません）。
+
+### スクリプトから検索条件を操作
+
+```csharp
+// 下限を設定（≥）
+await Price.SetSearchMinAsync(1000m);
+
+// 上限を設定（≤）
+await Price.SetSearchMaxAsync(5000m);
+
+// 「空白」モードに切り替え
+await Price.SetSearchIsEmptyAsync(true);   // 空白
+await Price.SetSearchIsEmptyAsync(false);  // 空白でない
+await Price.SetSearchIsEmptyAsync(null);   // 通常モードに戻す
+```
+
+検索全体の仕組み（検索レイアウト・AND/OR・URL パラメータなど）は [SearchField](Search.md#検索の仕組み) を参照。
 
 ---
 
 ## 関連項目
 
 - [Field 共通プロパティ](common_properties.md)
-- [検索ガイド](../designer/search.md) — 範囲検索・空検索の使い方
+- [SearchField](Search.md) — 検索全体の仕組み
 - [スクリプト概要](../overview/script.md)

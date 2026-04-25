@@ -122,9 +122,25 @@ Id には 2 種類があります。
 
 ---
 
+## 検索での挙動
+
+IdField の検索は **テキスト入力** で行います。
+
+| 設定 | UI |
+|---|---|
+| `IsSimpleSearchParameter=true`（簡易） | テキスト入力欄のみ。**部分一致**（LIKE） |
+| `IsSimpleSearchParameter=false`（詳細） | 入力欄 + 比較演算子ドロップダウン（部分一致／一致） |
+
+> ID は通常システムが付番するので、検索では「ID の一部を覚えていてリスト先頭から探す」用途で部分一致が便利です。
+
+検索全体の仕組みは [SearchField](Search.md#検索の仕組み) を参照。
+
+---
+
 ## 関連項目
 
 - [Field 共通プロパティ](common_properties.md)
 - [Field 全体](field.md) — System Field の一覧
 - [Link](Link.md) — 他モジュールの Id を選択する GUI を提供
+- [SearchField](Search.md) — 検索全体の仕組み
 - [チュートリアル: はじめてのモジュール作成](../quickstart/first_module.md)

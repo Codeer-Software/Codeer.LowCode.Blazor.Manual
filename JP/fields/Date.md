@@ -92,14 +92,38 @@ await OrderDate.SetSearchMaxAsync(today);
 
 ## 検索での挙動
 
-| 設定 | UI | 挙動 |
-|---|---|---|
-| `IsSimpleSearchParameter=true` | 日付ピッカー 1 つ | **≥（以降）** 条件のみ |
-| `IsSimpleSearchParameter=false` | 開始日 ～ 終了日 + モード切替 | 範囲検索、空白／空白でない（`AllowEmptySearch=true` 時） |
+日付の検索は **範囲（開始日 ～ 終了日）** が基本です。NumberField の範囲検索とほぼ同じふるまいです。
 
-例: 発売日 2025 年で検索 → 開始=2025-01-01, 終了=2025-12-31。
+### 簡易検索（`IsSimpleSearchParameter=true`）
 
-詳細は [検索ガイド](../designer/search.md#datefield--datetimefield--timefield) を参照。
+日付ピッカーが 1 つだけ表示されます。指定日**以降**（`≥`）のデータが対象。
+
+### 詳細検索（`IsSimpleSearchParameter=false`）
+
+開始日 ～ 終了日の **2 つのピッカー** と、間に **モード切替（`～` ボタン）** が出ます。
+
+| モード | 挙動 |
+|---|---|
+| **範囲（既定）** | 開始・終了のうち入っている方の制約を適用<br>例: 開始 2025-01-01 + 終了 2025-12-31 → 2025 年内 |
+| **空白** | `NULL` のデータ（`AllowEmptySearch=true` の時） |
+| **空白でない** | 何か日付が入っているデータ（`AllowEmptySearch=true` の時） |
+
+> 終了日を指定したときは「**その日を含む**」検索になります（`≤ 2025-12-31` で 12/31 のデータも対象）。
+
+### スクリプトから検索条件を操作
+
+```csharp
+// 開始日（以降）
+await BirthDate.SetSearchMinAsync(new DateOnly(1980, 1, 1));
+
+// 終了日（以前）
+await BirthDate.SetSearchMaxAsync(new DateOnly(1989, 12, 31));
+
+// 「空白」モードに切り替え
+await BirthDate.SetSearchIsEmptyAsync(true);
+```
+
+検索全体の仕組みは [SearchField](Search.md#検索の仕組み) を参照。
 
 ---
 
@@ -108,4 +132,4 @@ await OrderDate.SetSearchMaxAsync(today);
 - [Field 共通プロパティ](common_properties.md)
 - [DateTime](DateTime.md) — 日時
 - [Time](Time.md) — 時刻
-- [検索ガイド](../designer/search.md) — 日付範囲検索の詳細
+- [SearchField](Search.md) — 検索全体の仕組み

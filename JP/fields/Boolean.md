@@ -92,14 +92,31 @@ await IsPublished.SetSearchValueAsync(true);
 
 ## 検索での挙動
 
-常にドロップダウンで選択。
+検索フォームでは **常にドロップダウン** で選択します（簡易／詳細問わず）。
 
 | 設定 | 選択肢 |
 |---|---|
-| `IsSimpleSearchParameter=true` | （未指定）／ True ／ False |
-| `IsSimpleSearchParameter=false` + `AllowEmptySearch=true` | 上記 + 空白／空白でない |
+| `IsSimpleSearchParameter=true`（簡易） | （未指定）／ True ／ False |
+| `IsSimpleSearchParameter=false`（詳細）+ `AllowEmptySearch=false` | 同上 |
+| `IsSimpleSearchParameter=false`（詳細）+ `AllowEmptySearch=true` | 上記 + **空白** ／ **空白でない** |
 
-詳細は [検索ガイド](../designer/search.md#booleanfield真偽値) を参照。
+`TrueText` / `FalseText` を設定していると、ドロップダウンの表示テキストもそれが使われます。
+
+> ⚠ Boolean は **詳細にしないと空検索モードが出ません**。NULL を含めた絞り込みをしたい時は `IsSimpleSearchParameter=false` + `AllowEmptySearch=true` にします。
+
+### スクリプトから
+
+```csharp
+// 検索値を設定（True / False / null）
+IsActive.SearchValue = true;
+
+// 「空白」モード
+await IsActive.SetSearchIsEmptyAsync(true);   // 空白
+await IsActive.SetSearchIsEmptyAsync(false);  // 空白でない
+await IsActive.SetSearchIsEmptyAsync(null);   // 通常モード
+```
+
+検索全体の仕組みは [SearchField](Search.md#検索の仕組み) を参照。
 
 ---
 
@@ -107,5 +124,5 @@ await IsPublished.SetSearchValueAsync(true);
 
 - [Field 共通プロパティ](common_properties.md)
 - [RadioGroup](RadioGroup.md) — 3 つ以上の候補から選ばせたい場合
-- [検索ガイド](../designer/search.md) — 真偽値検索の詳細
+- [SearchField](Search.md) — 検索全体の仕組み
 - [スクリプト概要](../overview/script.md)
