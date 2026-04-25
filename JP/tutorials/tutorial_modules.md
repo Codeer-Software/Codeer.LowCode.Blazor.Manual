@@ -13,7 +13,7 @@
 
 ## 前提
 
-- [はじめてのモジュール作成](../quickstart/first_module.md) を完了している
+- [はじめてのモジュール作成](first_module.md) を完了している
 - [スクリプトの基本](tutorial_script.md) を一読している
 - デザイナのテンプレートに含まれる `Author`・`Recipe`・`CookingStep` サンプルが使えること（別のモジュールでも代替可）
 

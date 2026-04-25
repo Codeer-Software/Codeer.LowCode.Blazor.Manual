@@ -168,4 +168,4 @@ IdField の検索 UI は TextField と同じ挙動です。簡易／詳細 + 空
 - [Field 全体](field.md) — System Field の一覧
 - [Link](Link.md) — 他モジュールの Id を選択する GUI を提供
 - [SearchField](Search.md) — 検索全体の仕組み
-- [チュートリアル: はじめてのモジュール作成](../quickstart/first_module.md)
+- [チュートリアル: はじめてのモジュール作成](../tutorials/first_module.md)

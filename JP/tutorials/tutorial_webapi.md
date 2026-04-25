@@ -12,7 +12,7 @@
 
 ## 前提
 
-- [はじめてのモジュール作成](../quickstart/first_module.md) を完了
+- [はじめてのモジュール作成](first_module.md) を完了
 - [スクリプトの基本](tutorial_script.md) を一読
 
 ---

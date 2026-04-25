@@ -15,7 +15,7 @@ Codeer.LowCode.Blazor では、**認証はユーザーコード側**で実装し
 
 ## 前提
 
-- [はじめてのモジュール作成](../quickstart/first_module.md) を完了している
+- [はじめてのモジュール作成](first_module.md) を完了している
 - プロジェクトを Cookie 認証または Azure Entra ID 認証のテンプレートで作成している
   （Visual Studio の新規作成時に選択）
 
