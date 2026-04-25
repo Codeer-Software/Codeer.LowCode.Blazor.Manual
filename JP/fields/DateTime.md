@@ -91,7 +91,25 @@ DB には UTC で保存され、画面表示時には現地時刻に変換され
 
 ## 検索での挙動
 
-DateField と同じ範囲検索。詳細は [検索ガイド](../designer/search.md#datefield--datetimefield--timefield) を参照。
+[DateField](Date.md#検索での挙動) と同じ **範囲検索**（時刻まで含めた範囲）。
+
+### 簡易検索（`IsSimpleSearchParameter=true`）
+
+日時ピッカーが 1 つだけ表示されます。指定日時**以降**（`≥`）のデータが対象。
+
+### 詳細検索（`IsSimpleSearchParameter=false`）
+
+開始日時 ～ 終了日時の **2 つのピッカー** と、間に **モード切替（`～` ボタン）** が出ます。範囲 / 空白 / 空白でない の 3 モード（空白系は `AllowEmptySearch=true` の時のみ）。
+
+### スクリプトから
+
+```csharp
+await CreatedAt.SetSearchMinAsync(new DateTime(2025, 1, 1, 0, 0, 0));
+await CreatedAt.SetSearchMaxAsync(new DateTime(2025, 12, 31, 23, 59, 59));
+await CreatedAt.SetSearchIsEmptyAsync(true);  // 空白モード
+```
+
+検索全体の仕組みは [SearchField](Search.md#検索の仕組み) を参照。
 
 ---
 
@@ -100,4 +118,4 @@ DateField と同じ範囲検索。詳細は [検索ガイド](../designer/search
 - [Field 共通プロパティ](common_properties.md)
 - [Date](Date.md) — 日付のみ
 - [Time](Time.md) — 時刻のみ
-- [検索ガイド](../designer/search.md) — 日時範囲検索
+- [SearchField](Search.md) — 検索全体の仕組み

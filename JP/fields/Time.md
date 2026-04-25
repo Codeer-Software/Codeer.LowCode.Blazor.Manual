@@ -78,7 +78,17 @@ await OpenTime.SetSearchMaxAsync(new TimeOnly(12, 0));
 
 ## 検索での挙動
 
-DateField と同じ範囲検索。詳細は [検索ガイド](../designer/search.md#datefield--datetimefield--timefield) を参照。
+[DateField](Date.md#検索での挙動) と同じ **範囲検索**（時刻のみ）。
+
+- **簡易**: ピッカー 1 つ。指定時刻**以降**（`≥`）。
+- **詳細**: 開始時刻 ～ 終了時刻の 2 ピッカー + モード切替（範囲 / 空白 / 空白でない）。
+
+```csharp
+await StartTime.SetSearchMinAsync(new TimeOnly(9, 0));
+await StartTime.SetSearchMaxAsync(new TimeOnly(17, 0));
+```
+
+検索全体の仕組みは [SearchField](Search.md#検索の仕組み) を参照。
 
 ---
 
@@ -86,4 +96,4 @@ DateField と同じ範囲検索。詳細は [検索ガイド](../designer/search
 
 - [Field 共通プロパティ](common_properties.md)
 - [Date](Date.md) / [DateTime](DateTime.md)
-- [検索ガイド](../designer/search.md) — 時刻範囲検索
+- [SearchField](Search.md) — 検索全体の仕組み

@@ -141,7 +141,34 @@ await Assignee.ReloadCandidates();
 
 ## 検索での挙動
 
-候補と同じドロップダウンが検索フォームにも出ます。選んだ値で**完全一致**検索。詳細は [検索ガイド](../designer/search.md#selectfield--radiogroupfield) を参照。
+候補と同じドロップダウンが検索フォームに出ます。選んだ値で **完全一致** 検索。
+
+| 設定 | UI |
+|---|---|
+| `IsSimpleSearchParameter=true`（簡易） | ドロップダウン 1 つ |
+| `IsSimpleSearchParameter=false`（詳細） | ドロップダウン + モード切替（一致／空白／空白でない） |
+
+### Or 検索（複数候補の OR 検索、`AllowOrSearch=true`）
+
+候補を**複数選択** できるチェックリスト UI に変わります。選択した複数値のうち**いずれかに一致**するデータが対象（`OR` 結合）。
+
+例: カテゴリで「アパレル」「家電」両方を選択 → どちらかのカテゴリの行を全部表示。
+
+### 空検索（`AllowEmptySearch=true`）
+
+詳細モードの時、ドロップダウンに「**空白**」「**空白でない**」が追加されます。
+
+### スクリプトから
+
+```csharp
+// 検索値を設定
+Category.SearchValue = "アパレル";
+
+// 空白モード
+await Category.SetSearchIsEmptyAsync(true);
+```
+
+検索全体の仕組みは [SearchField](Search.md#検索の仕組み) を参照。
 
 ---
 
@@ -150,4 +177,4 @@ await Assignee.ReloadCandidates();
 - [Field 共通プロパティ](common_properties.md)
 - [Link](Link.md) — 検索ダイアログ付きで他モジュールの 1 件を選ぶ
 - [RadioGroup](RadioGroup.md) — ラジオボタン表示
-- [検索ガイド](../designer/search.md) — セレクト検索
+- [SearchField](Search.md) — 検索全体の仕組み

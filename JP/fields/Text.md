@@ -106,14 +106,43 @@ textarea として表示。`Rows` で表示行数を指定、`IsAutoFitRows: tru
 
 ## 検索での挙動
 
-| 設定 | UI | 挙動 |
+検索レイアウトに置いた TextField は、簡易／詳細の 2 モードで UI が変わります。
+
+### 簡易検索（`IsSimpleSearchParameter=true`）
+
+入力欄のみが描画されます。**常に部分一致**（`LIKE %入力値%` 相当）で検索されます。
+
+例: 「シャツ」と入力 → 商品名に「シャツ」を含むすべての行。
+
+### 詳細検索（`IsSimpleSearchParameter=false`）
+
+入力欄の右側に **比較演算子ドロップダウン** が出ます。
+
+| 演算子 | 挙動 | 表示条件 |
 |---|---|---|
-| `IsSimpleSearchParameter=true` | 入力欄のみ | **部分一致** (`LIKE %値%`) 固定 |
-| `IsSimpleSearchParameter=false` | 入力欄 + 比較演算子ドロップダウン | 部分一致 / 一致（+空白/空白でない: `AllowEmptySearch=true` 時） |
+| **部分一致**（既定） | `LIKE %値%` で含むものを検索 | 常に表示 |
+| **一致** | 完全一致（`= 値`） | 常に表示 |
+| **空白** | `NULL` または空文字のデータ | `AllowEmptySearch=true` の時 |
+| **空白でない** | 何か値があるデータ | `AllowEmptySearch=true` の時 |
 
-例: 「シャツ」で検索 → 商品名に「シャツ」を含むすべて。
+> ⚠ **`SearchComparisonDefaultValue`**: 詳細検索で開いたときのデフォルト演算子を `Like` か `Equal` に固定したい時に指定します。
 
-詳細は [検索ガイド](../designer/search.md#textfieldテキスト) を参照。
+### スクリプトから検索条件を操作
+
+```csharp
+// 値を設定
+Name.SearchValue = "山田";
+
+// 比較演算子を変更（詳細検索時のみ）
+await Name.SetSearchComparisonAsync(MatchComparison.Equal);
+
+// 「空白」モードに切り替え
+await Name.SetSearchIsEmptyAsync(true);   // 空白
+await Name.SetSearchIsEmptyAsync(false);  // 空白でない
+await Name.SetSearchIsEmptyAsync(null);   // 通常モードに戻す
+```
+
+検索全体の仕組み（検索レイアウト・AND/OR・URL パラメータなど）は [SearchField](Search.md#検索の仕組み) を参照。
 
 ---
 
@@ -122,5 +151,5 @@ textarea として表示。`Rows` で表示行数を指定、`IsAutoFitRows: tru
 - [Field 共通プロパティ](common_properties.md)
 - [Password](Password.md) — パスワード入力
 - [MarkupString](MarkupString.md) — HTML 表示
-- [検索ガイド](../designer/search.md) — 検索レイアウトと検索モード
+- [SearchField](Search.md) — 検索全体の仕組み
 - [スクリプト概要](../overview/script.md)

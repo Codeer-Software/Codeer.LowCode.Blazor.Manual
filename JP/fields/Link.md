@@ -108,7 +108,30 @@ await Customer.SetValueAsync(customerId);
 
 ## 検索での挙動
 
-検索ダイアログで関連モジュールから 1 件を選び、その ID で**完全一致**検索。詳細は [検索ガイド](../designer/search.md#linkfield) を参照。
+LinkField の検索 UI は **テキスト入力 + 検索ダイアログを開くアイコン** の組み合わせです。
+
+| モード | 挙動 |
+|---|---|
+| **簡易**（`IsSimpleSearchParameter=true`） | テキスト入力（部分一致）または 検索アイコンから関連モジュールを開いて 1 件選択 |
+| **詳細**（`IsSimpleSearchParameter=false`） | 上記 + 比較演算子ドロップダウン（一致／部分一致／空白／空白でない） |
+
+選択された行の ID で **完全一致** 検索。テキスト入力に直接書いた場合は表示テキスト側で部分一致検索になります（参照先の `DisplayTextField` の値を `LIKE` で比較）。
+
+### 空検索（`AllowEmptySearch=true`）
+
+詳細モードで「**空白**」「**空白でない**」が選べるようになります。外部キーが NULL のレコードを絞り込みたい時に使用。
+
+### スクリプトから
+
+```csharp
+// ID で直接設定
+Customer.SearchValue = "10";
+
+// 空白モード
+await Customer.SetSearchIsEmptyAsync(true);
+```
+
+検索全体の仕組みは [SearchField](Search.md#検索の仕組み) を参照。
 
 ---
 
@@ -117,5 +140,5 @@ await Customer.SetValueAsync(customerId);
 - [Field 共通プロパティ](common_properties.md)
 - [Select](Select.md) — プルダウン形式
 - [Module](Module.md) — 参照先の内容を画面内に埋め込む場合
-- [検索ガイド](../designer/search.md) — Link 検索
+- [SearchField](Search.md) — 検索全体の仕組み
 - [チュートリアル: モジュール連携](../tutorials/tutorial_modules.md)
