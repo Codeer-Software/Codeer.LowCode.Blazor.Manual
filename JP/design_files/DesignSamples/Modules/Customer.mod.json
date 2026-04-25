@@ -5,8 +5,6 @@
   "CanCreate": true,
   "CanUpdate": true,
   "CanDelete": true,
-  "CanBulkDataUpdate": false,
-  "CanBulkDataDownload": false,
   "Fields": [
     {
       "Text": "顧客",
@@ -24,10 +22,13 @@
       "IsManualInput": false,
       "CompositeIdVariables": [],
       "CompositeIdSeparator": "",
+      "IsUpdateProtected": false,
+      "IsSimpleSearchParameter": false,
+      "AllowEmptySearch": false,
+      "OnSearchDataChanged": "",
       "DisplayName": "ID",
       "IsRequired": false,
       "OnDataChanged": "",
-      "OnSearchDataChanged": "",
       "Name": "Id",
       "IgnoreModification": false,
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.IdFieldDesign"
@@ -157,9 +158,9 @@
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
     },
     {
-      "DbColumn": "CreatedAt",
-      "Format": "yyyy/MM/dd HH:mm",
       "SaveAsUtc": false,
+      "Format": "yyyy/MM/dd HH:mm",
+      "DbColumn": "CreatedAt",
       "IsUpdateProtected": true,
       "IsSimpleSearchParameter": false,
       "AllowEmptySearch": false,
@@ -172,9 +173,9 @@
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.DateTimeFieldDesign"
     },
     {
-      "DbColumn": "UpdatedAt",
-      "Format": "yyyy/MM/dd HH:mm",
       "SaveAsUtc": false,
+      "Format": "yyyy/MM/dd HH:mm",
+      "DbColumn": "UpdatedAt",
       "IsUpdateProtected": true,
       "IsSimpleSearchParameter": false,
       "AllowEmptySearch": false,
@@ -188,11 +189,19 @@
     },
     {
       "Text": "登録",
+      "ImageResourcePath": "",
+      "ImageResourceSet": {
+        "Default": "",
+        "Focus": "",
+        "Active": "",
+        "Hover": "",
+        "Disabled": ""
+      },
       "Icon": "",
       "Variant": "Primary",
-      "ImageResourceSet": null,
-      "IgnoreModification": false,
+      "IsBlock": true,
       "Name": "Submit",
+      "IgnoreModification": false,
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.SubmitButtonFieldDesign"
     }
   ],
@@ -208,12 +217,17 @@
   "DataReadCondition": {
     "ModuleName": ""
   },
-  "OnTransaction": "",
   "DetailLayouts": {
     "": {
       "OnBeforeInitialization": "",
       "OnAfterInitialization": "",
+      "OnLocationChanging": "",
+      "OnFieldDataChanged": "",
       "DataOnlyFields": [],
+      "ClassName": "",
+      "Color": "",
+      "BackgroundColor": "",
+      "FontFamily": "",
       "Layout": {
         "Name": "",
         "Padding": {},
@@ -576,64 +590,106 @@
   },
   "ListLayouts": {
     "": {
+      "HeaderTitle": "",
+      "DataOnlyFields": [],
       "OnBeforeInitialization": "",
       "OnAfterInitialization": "",
-      "HeaderTitle": "",
+      "OnFieldDataChanged": "",
       "Elements": [
         [
           {
-            "Label": "氏名",
             "FieldName": "Name",
+            "ContextMenu": "",
+            "Label": "氏名",
+            "ColumnSpan": 1,
+            "RowSpan": 1,
             "IsViewOnly": true,
+            "TextWrap": "Unset",
+            "CanResize": false,
+            "CanUserSort": true,
+            "ClassName": "",
             "FontFamily": "",
             "Color": "",
-            "ColumnSpan": 1,
-            "RowSpan": 1
+            "BackgroundColor": "",
+            "DetailLayoutName": "",
+            "ListElementComponent": ""
           },
           {
-            "Label": "メール",
             "FieldName": "Email",
+            "ContextMenu": "",
+            "Label": "メール",
+            "ColumnSpan": 1,
+            "RowSpan": 1,
             "IsViewOnly": true,
+            "TextWrap": "Unset",
+            "CanResize": false,
+            "CanUserSort": true,
+            "ClassName": "",
             "FontFamily": "",
             "Color": "",
-            "ColumnSpan": 1,
-            "RowSpan": 1
+            "BackgroundColor": "",
+            "DetailLayoutName": "",
+            "ListElementComponent": ""
           },
           {
-            "Label": "電話",
             "FieldName": "PhoneNumber",
+            "ContextMenu": "",
+            "Label": "電話",
+            "ColumnSpan": 1,
+            "RowSpan": 1,
             "IsViewOnly": true,
+            "TextWrap": "Unset",
+            "CanResize": false,
+            "CanUserSort": true,
+            "ClassName": "",
             "FontFamily": "",
             "Color": "",
-            "ColumnSpan": 1,
-            "RowSpan": 1
+            "BackgroundColor": "",
+            "DetailLayoutName": "",
+            "ListElementComponent": ""
           },
           {
-            "Label": "生年月日",
             "FieldName": "BirthDate",
+            "ContextMenu": "",
+            "Label": "生年月日",
+            "ColumnSpan": 1,
+            "RowSpan": 1,
             "IsViewOnly": true,
+            "TextWrap": "Unset",
+            "CanResize": false,
+            "CanUserSort": true,
+            "ClassName": "",
             "FontFamily": "",
             "Color": "",
-            "ColumnSpan": 1,
-            "RowSpan": 1
+            "BackgroundColor": "",
+            "DetailLayoutName": "",
+            "ListElementComponent": ""
           },
           {
-            "Label": "性別",
             "FieldName": "Gender",
+            "ContextMenu": "",
+            "Label": "性別",
+            "ColumnSpan": 1,
+            "RowSpan": 1,
             "IsViewOnly": true,
+            "TextWrap": "Unset",
+            "CanResize": false,
+            "CanUserSort": true,
+            "ClassName": "",
             "FontFamily": "",
             "Color": "",
-            "ColumnSpan": 1,
-            "RowSpan": 1
+            "BackgroundColor": "",
+            "DetailLayoutName": "",
+            "ListElementComponent": ""
           }
         ]
-      ],
-      "DataOnlyFields": []
+      ]
     }
   },
   "SearchLayouts": {
     "": {
       "OnSearchInitialization": "",
+      "ShowDefaultSearchButtons": true,
       "Layout": {
         "Operator": "And",
         "Name": "",
@@ -802,5 +858,41 @@
       }
     }
   },
-  "LinkFieldNames": []
+  "LinkFieldNames": [],
+  "UseListPageSubmitButton": false,
+  "ListPageFieldDesign": {
+    "LayoutName": "",
+    "CanNavigateToDetail": true,
+    "NavigateModuleUrlSegment": "",
+    "CanCustomizeColumns": false,
+    "ApplyBackgroundToBoxInput": false,
+    "DisplayName": "",
+    "SearchCondition": {
+      "LimitCount": 50,
+      "SelectFields": [],
+      "SortConditions": [],
+      "SortFieldVariable": "",
+      "SortDescending": false,
+      "ModuleName": ""
+    },
+    "PagerPosition": "Top",
+    "UseIndexSort": false,
+    "DeleteTogether": false,
+    "CanCreate": false,
+    "CanUpdate": false,
+    "CanDelete": true,
+    "CanUserSort": true,
+    "CanSelect": false,
+    "OnDataChanged": "",
+    "OnSearchDataChanged": "",
+    "OnSelectedIndexChanged": "",
+    "OnSelectedIndexChanging": "",
+    "OnDoubleClickRow": "",
+    "Name": "",
+    "IgnoreModification": false,
+    "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ListFieldDesign"
+  },
+  "CanBulkDataUpdate": false,
+  "CanBulkDataDownload": false,
+  "PageTitle": ""
 }

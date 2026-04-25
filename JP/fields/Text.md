@@ -106,9 +106,11 @@ textarea として表示。`Rows` で表示行数を指定、`IsAutoFitRows: tru
 
 ## 検索での挙動
 
-検索レイアウトに置いた TextField は、簡易／詳細の 2 モードで UI が変わります。
+検索レイアウトに置いた TextField は、簡易／詳細 + 空検索許可 で UI が 3 段階に変わります。
 
 ### 簡易検索（`IsSimpleSearchParameter=true`）
+
+<img src="../../Image/web/fields/text/Text_search_simple.png" alt="TextField 簡易検索" style="border: 1px solid;" width="400">
 
 入力欄のみが描画されます。**常に部分一致**（`LIKE %入力値%` 相当）で検索されます。
 
@@ -116,14 +118,27 @@ textarea として表示。`Rows` で表示行数を指定、`IsAutoFitRows: tru
 
 ### 詳細検索（`IsSimpleSearchParameter=false`）
 
+<img src="../../Image/web/fields/text/Text_search_detailed.png" alt="TextField 詳細検索（既定）" style="border: 1px solid;" width="400">
+
 入力欄の右側に **比較演算子ドロップダウン** が出ます。
 
-| 演算子 | 挙動 | 表示条件 |
-|---|---|---|
-| **部分一致**（既定） | `LIKE %値%` で含むものを検索 | 常に表示 |
-| **一致** | 完全一致（`= 値`） | 常に表示 |
-| **空白** | `NULL` または空文字のデータ | `AllowEmptySearch=true` の時 |
-| **空白でない** | 何か値があるデータ | `AllowEmptySearch=true` の時 |
+| 演算子 | 挙動 |
+|---|---|
+| **部分一致**（既定） | `LIKE %値%` で含むものを検索 |
+| **完全一致** | `= 値` で完全一致 |
+
+### 詳細検索 + 空検索を許可（`IsSimpleSearchParameter=false`, `AllowEmptySearch=true`）
+
+<img src="../../Image/web/fields/text/Text_search_detailed_with_empty.png" alt="TextField 詳細検索（空検索を許可）" style="border: 1px solid;" width="400">
+
+ドロップダウンに **空** / **空以外** が追加されます。
+
+| 演算子 | 挙動 |
+|---|---|
+| **部分一致**（既定） | `LIKE %値%` |
+| **完全一致** | `= 値` |
+| **空** | `NULL` または空文字 |
+| **空以外** | 何か値がある |
 
 > ⚠ **`SearchComparisonDefaultValue`**: 詳細検索で開いたときのデフォルト演算子を `Like` か `Equal` に固定したい時に指定します。
 
@@ -137,8 +152,8 @@ Name.SearchValue = "山田";
 await Name.SetSearchComparisonAsync(MatchComparison.Equal);
 
 // 「空白」モードに切り替え
-await Name.SetSearchIsEmptyAsync(true);   // 空白
-await Name.SetSearchIsEmptyAsync(false);  // 空白でない
+await Name.SetSearchIsEmptyAsync(true);   // 空
+await Name.SetSearchIsEmptyAsync(false);  // 空以外
 await Name.SetSearchIsEmptyAsync(null);   // 通常モードに戻す
 ```
 

@@ -99,14 +99,14 @@ DB には UTC で保存され、画面表示時には現地時刻に変換され
 
 ### 詳細検索（`IsSimpleSearchParameter=false`）
 
-開始日時 ～ 終了日時の **2 つのピッカー** と、間に **モード切替（`～` ボタン）** が出ます。範囲 / 空白 / 空白でない の 3 モード（空白系は `AllowEmptySearch=true` の時のみ）。
+開始日時 ～ 終了日時の **2 つのピッカー** と、間に **モード切替（`～` ボタン）** が出ます。範囲 / 空 / 空以外 の 3 モード（空・空以外は `AllowEmptySearch=true` の時のみ）。
 
 ### スクリプトから
 
 ```csharp
 await CreatedAt.SetSearchMinAsync(new DateTime(2025, 1, 1, 0, 0, 0));
 await CreatedAt.SetSearchMaxAsync(new DateTime(2025, 12, 31, 23, 59, 59));
-await CreatedAt.SetSearchIsEmptyAsync(true);  // 空白モード
+await CreatedAt.SetSearchIsEmptyAsync(true);  // 空モード
 ```
 
 検索全体の仕組みは [SearchField](Search.md#検索の仕組み) を参照。

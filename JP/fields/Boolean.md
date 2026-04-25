@@ -98,7 +98,7 @@ await IsPublished.SetSearchValueAsync(true);
 |---|---|
 | `IsSimpleSearchParameter=true`（簡易） | （未指定）／ True ／ False |
 | `IsSimpleSearchParameter=false`（詳細）+ `AllowEmptySearch=false` | 同上 |
-| `IsSimpleSearchParameter=false`（詳細）+ `AllowEmptySearch=true` | 上記 + **空白** ／ **空白でない** |
+| `IsSimpleSearchParameter=false`（詳細）+ `AllowEmptySearch=true` | 上記 + **空** ／ **空以外** |
 
 `TrueText` / `FalseText` を設定していると、ドロップダウンの表示テキストもそれが使われます。
 
@@ -110,9 +110,9 @@ await IsPublished.SetSearchValueAsync(true);
 // 検索値を設定（True / False / null）
 IsActive.SearchValue = true;
 
-// 「空白」モード
-await IsActive.SetSearchIsEmptyAsync(true);   // 空白
-await IsActive.SetSearchIsEmptyAsync(false);  // 空白でない
+// 「空」モード
+await IsActive.SetSearchIsEmptyAsync(true);   // 空
+await IsActive.SetSearchIsEmptyAsync(false);  // 空以外
 await IsActive.SetSearchIsEmptyAsync(null);   // 通常モード
 ```
 
