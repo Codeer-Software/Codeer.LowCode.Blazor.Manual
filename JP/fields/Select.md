@@ -146,7 +146,7 @@ await Assignee.ReloadCandidates();
 | 設定 | UI |
 |---|---|
 | `IsSimpleSearchParameter=true`（簡易） | ドロップダウン 1 つ |
-| `IsSimpleSearchParameter=false`（詳細） | ドロップダウン + モード切替（一致／空白／空白でない） |
+| `IsSimpleSearchParameter=false`（詳細） | ドロップダウン + モード切替（完全一致／空／空以外） |
 
 ### Or 検索（複数候補の OR 検索、`AllowOrSearch=true`）
 
@@ -156,7 +156,7 @@ await Assignee.ReloadCandidates();
 
 ### 空検索（`AllowEmptySearch=true`）
 
-詳細モードの時、ドロップダウンに「**空白**」「**空白でない**」が追加されます。
+詳細モードの時、ドロップダウンに「**空**」「**空以外**」が追加されます。
 
 ### スクリプトから
 
@@ -164,7 +164,7 @@ await Assignee.ReloadCandidates();
 // 検索値を設定
 Category.SearchValue = "アパレル";
 
-// 空白モード
+// 空モード
 await Category.SetSearchIsEmptyAsync(true);
 ```
 

@@ -105,8 +105,8 @@ await OrderDate.SetSearchMaxAsync(today);
 | モード | 挙動 |
 |---|---|
 | **範囲（既定）** | 開始・終了のうち入っている方の制約を適用<br>例: 開始 2025-01-01 + 終了 2025-12-31 → 2025 年内 |
-| **空白** | `NULL` のデータ（`AllowEmptySearch=true` の時） |
-| **空白でない** | 何か日付が入っているデータ（`AllowEmptySearch=true` の時） |
+| **空** | `NULL` のデータ（`AllowEmptySearch=true` の時） |
+| **空以外** | 何か日付が入っているデータ（`AllowEmptySearch=true` の時） |
 
 > 終了日を指定したときは「**その日を含む**」検索になります（`≤ 2025-12-31` で 12/31 のデータも対象）。
 
@@ -119,7 +119,7 @@ await BirthDate.SetSearchMinAsync(new DateOnly(1980, 1, 1));
 // 終了日（以前）
 await BirthDate.SetSearchMaxAsync(new DateOnly(1989, 12, 31));
 
-// 「空白」モードに切り替え
+// 「空」モードに切り替え
 await BirthDate.SetSearchIsEmptyAsync(true);
 ```
 

@@ -121,8 +121,8 @@ await Price.SetSearchMaxAsync(10000);
 | モード | 挙動 |
 |---|---|
 | **範囲（既定）** | 下限・上限のうち入っている方の制約を適用（`>=` / `<=` / 範囲）<br>例: 下限 1000 のみ → `≥ 1000` / 下限 1000 + 上限 5000 → `1000 ≤ x ≤ 5000` |
-| **空白** | `NULL` のデータ（`AllowEmptySearch=true` の時） |
-| **空白でない** | 何か値があるデータ（`AllowEmptySearch=true` の時） |
+| **空** | `NULL` のデータ（`AllowEmptySearch=true` の時） |
+| **空以外** | 何か値があるデータ（`AllowEmptySearch=true` の時） |
 
 > モード切替ボタンは `AllowEmptySearch=true` でないと「範囲」固定になります（切替メニューが出ません）。
 
@@ -135,9 +135,9 @@ await Price.SetSearchMinAsync(1000m);
 // 上限を設定（≤）
 await Price.SetSearchMaxAsync(5000m);
 
-// 「空白」モードに切り替え
-await Price.SetSearchIsEmptyAsync(true);   // 空白
-await Price.SetSearchIsEmptyAsync(false);  // 空白でない
+// 「空」モードに切り替え
+await Price.SetSearchIsEmptyAsync(true);   // 空
+await Price.SetSearchIsEmptyAsync(false);  // 空以外
 await Price.SetSearchIsEmptyAsync(null);   // 通常モードに戻す
 ```
 

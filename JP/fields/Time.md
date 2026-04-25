@@ -81,7 +81,7 @@ await OpenTime.SetSearchMaxAsync(new TimeOnly(12, 0));
 [DateField](Date.md#検索での挙動) と同じ **範囲検索**（時刻のみ）。
 
 - **簡易**: ピッカー 1 つ。指定時刻**以降**（`≥`）。
-- **詳細**: 開始時刻 ～ 終了時刻の 2 ピッカー + モード切替（範囲 / 空白 / 空白でない）。
+- **詳細**: 開始時刻 ～ 終了時刻の 2 ピッカー + モード切替（範囲 / 空 / 空以外）。
 
 ```csharp
 await StartTime.SetSearchMinAsync(new TimeOnly(9, 0));

@@ -113,13 +113,13 @@ LinkField の検索 UI は **テキスト入力 + 検索ダイアログを開く
 | モード | 挙動 |
 |---|---|
 | **簡易**（`IsSimpleSearchParameter=true`） | テキスト入力（部分一致）または 検索アイコンから関連モジュールを開いて 1 件選択 |
-| **詳細**（`IsSimpleSearchParameter=false`） | 上記 + 比較演算子ドロップダウン（一致／部分一致／空白／空白でない） |
+| **詳細**（`IsSimpleSearchParameter=false`） | 上記 + 比較演算子ドロップダウン（部分一致／完全一致／空／空以外） |
 
 選択された行の ID で **完全一致** 検索。テキスト入力に直接書いた場合は表示テキスト側で部分一致検索になります（参照先の `DisplayTextField` の値を `LIKE` で比較）。
 
 ### 空検索（`AllowEmptySearch=true`）
 
-詳細モードで「**空白**」「**空白でない**」が選べるようになります。外部キーが NULL のレコードを絞り込みたい時に使用。
+詳細モードで「**空**」「**空以外**」が選べるようになります。外部キーが NULL のレコードを絞り込みたい時に使用。
 
 ### スクリプトから
 
@@ -127,7 +127,7 @@ LinkField の検索 UI は **テキスト入力 + 検索ダイアログを開く
 // ID で直接設定
 Customer.SearchValue = "10";
 
-// 空白モード
+// 空モード
 await Customer.SetSearchIsEmptyAsync(true);
 ```
 

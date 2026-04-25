@@ -129,7 +129,7 @@ IdField の検索は **テキスト入力** で行います。
 | 設定 | UI |
 |---|---|
 | `IsSimpleSearchParameter=true`（簡易） | テキスト入力欄のみ。**部分一致**（LIKE） |
-| `IsSimpleSearchParameter=false`（詳細） | 入力欄 + 比較演算子ドロップダウン（部分一致／一致） |
+| `IsSimpleSearchParameter=false`（詳細） | 入力欄 + 比較演算子ドロップダウン（部分一致／完全一致） |
 
 > ID は通常システムが付番するので、検索では「ID の一部を覚えていてリスト先頭から探す」用途で部分一致が便利です。
 
