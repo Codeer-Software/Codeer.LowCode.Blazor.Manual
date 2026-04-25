@@ -89,8 +89,15 @@ DB には UTC で保存され、画面表示時には現地時刻に変換され
 
 ---
 
+## 検索での挙動
+
+DateField と同じ範囲検索。詳細は [検索ガイド](../designer/search.md#datefield--datetimefield--timefield) を参照。
+
+---
+
 ## 関連項目
 
 - [Field 共通プロパティ](common_properties.md)
 - [Date](Date.md) — 日付のみ
 - [Time](Time.md) — 時刻のみ
+- [検索ガイド](../designer/search.md) — 日時範囲検索

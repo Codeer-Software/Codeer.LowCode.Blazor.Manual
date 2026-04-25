@@ -90,8 +90,22 @@ await OrderDate.SetSearchMaxAsync(today);
 
 ---
 
+## 検索での挙動
+
+| 設定 | UI | 挙動 |
+|---|---|---|
+| `IsSimpleSearchParameter=true` | 日付ピッカー 1 つ | **≥（以降）** 条件のみ |
+| `IsSimpleSearchParameter=false` | 開始日 ～ 終了日 + モード切替 | 範囲検索、空白／空白でない（`AllowEmptySearch=true` 時） |
+
+例: 発売日 2025 年で検索 → 開始=2025-01-01, 終了=2025-12-31。
+
+詳細は [検索ガイド](../designer/search.md#datefield--datetimefield--timefield) を参照。
+
+---
+
 ## 関連項目
 
 - [Field 共通プロパティ](common_properties.md)
 - [DateTime](DateTime.md) — 日時
 - [Time](Time.md) — 時刻
+- [検索ガイド](../designer/search.md) — 日付範囲検索の詳細

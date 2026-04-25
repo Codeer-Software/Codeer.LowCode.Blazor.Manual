@@ -90,8 +90,22 @@ await IsPublished.SetSearchValueAsync(true);
 
 ---
 
+## 検索での挙動
+
+常にドロップダウンで選択。
+
+| 設定 | 選択肢 |
+|---|---|
+| `IsSimpleSearchParameter=true` | （未指定）／ True ／ False |
+| `IsSimpleSearchParameter=false` + `AllowEmptySearch=true` | 上記 + 空白／空白でない |
+
+詳細は [検索ガイド](../designer/search.md#booleanfield真偽値) を参照。
+
+---
+
 ## 関連項目
 
 - [Field 共通プロパティ](common_properties.md)
 - [RadioGroup](RadioGroup.md) — 3 つ以上の候補から選ばせたい場合
+- [検索ガイド](../designer/search.md) — 真偽値検索の詳細
 - [スクリプト概要](../overview/script.md)

@@ -139,8 +139,15 @@ await Assignee.ReloadCandidates();
 
 ---
 
+## 検索での挙動
+
+候補と同じドロップダウンが検索フォームにも出ます。選んだ値で**完全一致**検索。詳細は [検索ガイド](../designer/search.md#selectfield--radiogroupfield) を参照。
+
+---
+
 ## 関連項目
 
 - [Field 共通プロパティ](common_properties.md)
 - [Link](Link.md) — 検索ダイアログ付きで他モジュールの 1 件を選ぶ
 - [RadioGroup](RadioGroup.md) — ラジオボタン表示
+- [検索ガイド](../designer/search.md) — セレクト検索
