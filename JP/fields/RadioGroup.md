@@ -113,14 +113,36 @@ await RankGroup.SetSearchValueAsync("A");
 
 ## 検索での挙動
 
-検索 UI は **[SelectField の検索 UI](Select.md#検索での挙動) と同じ** です。候補がラジオボタンとして並ぶ点が違うだけで、検索フォームでは Select と同じドロップダウンになります。
+検索フォームでは **候補のドロップダウン** が出ます。レイアウト上ではラジオボタンが並ぶ Field ですが、検索 UI は SelectField と同じドロップダウン形式です。選んだ値で **一致** 検索が基本です。
 
-- **簡易**: ドロップダウン 1 つ
-- **詳細**: ドロップダウン + モード切替（一致 / 不一致）
-- **詳細 + 空検索**: 上記に **空** / **空以外** が追加
-- **Or 検索（`AllowOrSearch=true`）**: 候補がチェックボックスのリストになり複数選択可
+### 簡易検索（`IsSimpleSearchParameter=true`）
 
-スクリーンショット・詳細は [SelectField の検索での挙動](Select.md#検索での挙動) を参照。
+<img src="../../Image/web/fields/select/Select_search_simple.png" alt="RadioGroupField 簡易検索" style="border: 1px solid;" width="400">
+
+ドロップダウンのみ。選んだ値で一致検索。
+
+### 詳細検索（`IsSimpleSearchParameter=false`）
+
+<img src="../../Image/web/fields/select/Select_search_detailed.png" alt="RadioGroupField 詳細検索（既定）" style="border: 1px solid;" width="400">
+
+ドロップダウンの右側に **モード切替（`一致` ボタン）** が出ます。クリックで **一致** / **不一致** を切り替えられます。
+
+| モード | 挙動 |
+|---|---|
+| **一致**（既定） | 選んだ値と等しいデータ（`= 値`） |
+| **不一致** | 選んだ値と異なるデータ（`!= 値`） |
+
+### 詳細検索 + 空検索を許可（`IsSimpleSearchParameter=false`, `AllowEmptySearch=true`）
+
+<img src="../../Image/web/fields/select/Select_search_detailed_with_empty.png" alt="RadioGroupField 詳細検索（空検索を許可）" style="border: 1px solid;" width="400">
+
+モード切替に **空** / **空以外** が追加されます。
+
+### Or 検索（`AllowOrSearch=true`）
+
+<img src="../../Image/web/fields/select/Select_search_or.png" alt="RadioGroupField Or検索" style="border: 1px solid;" width="400">
+
+候補がチェックボックスのリストに変わり、**複数選択** できます。選択した複数値のうちいずれかに一致するデータが対象（`OR` 結合）。モード切替で **不一致** にすれば「いずれにも一致しない」検索になります。
 
 検索全体の仕組みは [SearchField](Search.md#検索の仕組み) を参照。
 

@@ -124,13 +124,37 @@ Id には 2 種類があります。
 
 ## 検索での挙動
 
-検索 UI は **[TextField の検索 UI](Text.md#検索での挙動) と同じ** です。
+IdField の検索 UI は TextField と同じ挙動です。簡易／詳細 + 空検索許可 で UI が 3 段階に変わります。
 
-- **簡易**: テキスト入力欄のみ（部分一致）
-- **詳細**: 入力欄 + 比較演算子ドロップダウン（部分一致 / 完全一致）
-- **詳細 + 空検索**: 上記に **空** / **空以外** が追加
+### 簡易検索（`IsSimpleSearchParameter=true`）
 
-スクリーンショット・詳細は [TextField の検索での挙動](Text.md#検索での挙動) を参照。
+<img src="../../Image/web/fields/text/Text_search_simple.png" alt="IdField 簡易検索" style="border: 1px solid;" width="400">
+
+入力欄のみが描画されます。**常に部分一致**（`LIKE %入力値%` 相当）で検索されます。
+
+### 詳細検索（`IsSimpleSearchParameter=false`）
+
+<img src="../../Image/web/fields/text/Text_search_detailed.png" alt="IdField 詳細検索（既定）" style="border: 1px solid;" width="400">
+
+入力欄の右側に **比較演算子ドロップダウン** が出ます。
+
+| 演算子 | 挙動 |
+|---|---|
+| **部分一致**（既定） | `LIKE %値%` で含むものを検索 |
+| **完全一致** | `= 値` で完全一致 |
+
+### 詳細検索 + 空検索を許可（`IsSimpleSearchParameter=false`, `AllowEmptySearch=true`）
+
+<img src="../../Image/web/fields/text/Text_search_detailed_with_empty.png" alt="IdField 詳細検索（空検索を許可）" style="border: 1px solid;" width="400">
+
+ドロップダウンに **空** / **空以外** が追加されます。
+
+| 演算子 | 挙動 |
+|---|---|
+| **部分一致**（既定） | `LIKE %値%` |
+| **完全一致** | `= 値` |
+| **空** | `NULL` または空文字 |
+| **空以外** | 何か値がある |
 
 > ID は通常システムが付番するので、検索では「ID の一部を覚えていてリスト先頭から探す」用途で部分一致が便利です。
 
