@@ -47,7 +47,7 @@
 | C#名 | 日本語表示名 | 型 | 既定値 | 説明 |
 |---|---|---|---|---|
 | **IsSimpleSearchParameter** | 簡易検索条件 | bool | `false` | 簡易検索の対象にする |
-| **AllowOrSearch** | 直接入力または選択 | bool | `false` | 検索時の複数選択（OR）を許可 |
+| **AllowOrSearch** | OR検索を許可 | bool | `false` | 検索時の複数選択（OR）を許可 |
 | **AllowEmptySearch** | 空検索を許可 | bool | `false` | 空での検索を許可する |
 | **OnSearchDataChanged** | 検索モードデータ変更イベント | string | `""` | 検索条件が変更された時のスクリプトイベント |
 

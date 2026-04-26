@@ -102,6 +102,7 @@ div.grid-column {
 | **ExpanderLabel** | 折りたたみヘッダのラベル |
 | **IsExpanderDefaultOpened** | 初期状態で開いておくか |
 | **BackgroundColor** | 背景色（指定なしは親からカスケード） |
+| **OnKeyDown** | このグリッド内でキーが押された時のスクリプト（[OnKeyDown イベント](#onkeydown-イベント) 参照） |
 
 > **`.card` の背景透過**: `IsBordered` をオンにすると Bootstrap の `.card` クラスでレンダリングされますが、標準で `background-color: transparent` が当たっています。背景色を付けたい場合は `BackgroundColor` を明示的に設定してください。
 
@@ -258,6 +259,85 @@ Grid の `IsFillAvailable` をオンにすると、**そのグリッドが Modul
 - Tab の各タブ → Grid / Canvas / Tab
 
 これにより「上半分は Grid で入力フォーム、下半分は Tab で関連情報」のような複雑な画面構成が可能です。
+
+---
+
+## OnKeyDown イベント
+
+Grid の `OnKeyDown` プロパティにスクリプトを設定すると、そのグリッド内でキーが押された時に呼び出されます。Enter / Escape / Ctrl+S 等のキー操作に応じた処理を書けます。
+
+```csharp
+void GridLayoutDesign_OnKeyDown(KeyboardEventArgs e)
+{
+    if (e.Key == "Enter")
+    {
+        // 何か処理
+    }
+}
+```
+
+### `KeyboardEventArgs` の主なプロパティ
+
+| プロパティ | 説明 |
+|---|---|
+| `Key` | 押されたキー文字列。`"Enter"` / `"Escape"` / `"a"` / `"ArrowUp"` 等 |
+| `Code` | 物理キーコード |
+| `CtrlKey` / `ShiftKey` / `AltKey` / `MetaKey` | 修飾キー押下状態 |
+| `Repeat` | 長押しによるリピートか |
+
+### IME 変換中のキーは届かない
+
+日本語入力（IME）で変換中に押される Enter キー（変換確定）等は OnKeyDown には届きません。フレームワーク側で IME 変換中のキー入力を除外しているため、変換確定の Enter で意図せず処理が走る心配は不要です。
+
+### Enter 押下時の入力値の確定タイミング
+
+入力中のフィールド（TextField 等）にフォーカスがある状態で Enter を押した場合、**OnKeyDown が呼ばれた瞬間はまだ Field の Value に値が反映されていません**。これはブラウザの仕様で、入力ボックスの値は keydown イベントの**後**に確定するためです。
+
+確定後の値を見たい場合は、ハンドラの先頭で `Task.Delay(1)` を呼んでください。
+
+```csharp
+void GridLayoutDesign_OnKeyDown(KeyboardEventArgs e)
+{
+    if (e.Key == "Enter")
+    {
+        Task.Delay(1);  // ブラウザの値確定処理が走るのを待つ
+        Toaster.Success(NameField.Value);  // ここでは反映済み
+    }
+}
+```
+
+#### なぜ `Task.Delay(1)` で解決できるのか
+
+ブラウザはキー入力をおおよそ次の順で処理します:
+
+1. `keydown` ← OnKeyDown が呼ばれる（**この時点では Value 未確定**）
+2. （内部処理）入力ボックスの値を確定 → Field の Value に反映
+3. `keyup`
+
+`Task.Delay(1)` は「1 ミリ秒後にスクリプトの続きを実行」という意味ですが、その 1 ミリ秒の間にブラウザが上記 2 番の値確定処理を行います。続きの処理が走る時点では Value が最新の状態になっているため、自然に最新値が読めます。
+
+`Task.Delay(0)` でも動作する場合がありますが、`Task.Delay(1)` の方が確実です。
+
+### フォーカスが入力中フィールド以外の場合
+
+ボタンに焦点が当たっている、画面のどこも入力中でない、といった状態で Enter を押した場合は、Value は既に確定済みです。`Task.Delay(1)` は不要で、いきなり値を読んで構いません。
+
+「入力中のフィールド」かどうかは `Field.HasFocus()` で判定できます。
+
+```csharp
+void GridLayoutDesign_OnKeyDown(KeyboardEventArgs e)
+{
+    if (e.Key != "Enter") return;
+
+    // 入力中なら値確定を待つ
+    if (NameField.HasFocus())
+    {
+        Task.Delay(1);
+    }
+
+    Toaster.Success(NameField.Value);
+}
+```
 
 ---
 

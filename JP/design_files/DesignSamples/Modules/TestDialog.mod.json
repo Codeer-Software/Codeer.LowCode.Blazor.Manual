@@ -1,29 +1,11 @@
 {
-  "Name": "Home",
+  "Name": "TestDialog",
   "DataSourceName": "",
   "DbTable": "",
-  "CanCreate": false,
+  "CanCreate": true,
   "CanUpdate": true,
-  "CanDelete": false,
+  "CanDelete": true,
   "Fields": [
-    {
-      "Text": "Hello world, This is Codeer.LowCode.Blazor!",
-      "Icon": "",
-      "Style": "H1",
-      "RelativeField": "",
-      "OnClick": "",
-      "Name": "TitleLabel",
-      "IgnoreModification": false,
-      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
-    },
-    {
-      "ResourcePath": "lc_logo_256.png",
-      "ObjectFit": "Contain",
-      "OnClick": "",
-      "Name": "LCLogo",
-      "IgnoreModification": false,
-      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ImageViewerFieldDesign"
-    },
     {
       "Text": "Button",
       "ImageResourcePath": "",
@@ -41,24 +23,6 @@
       "Name": "ボタン",
       "IgnoreModification": false,
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ButtonFieldDesign"
-    },
-    {
-      "DbColumn": "",
-      "IsMultiline": false,
-      "IsAutoFitRows": false,
-      "Placeholder": "",
-      "TextEditEmptyType": "StringEmpty",
-      "ShouldTrimAfterEdit": false,
-      "IsUpdateProtected": false,
-      "IsSimpleSearchParameter": false,
-      "AllowEmptySearch": false,
-      "OnSearchDataChanged": "",
-      "DisplayName": "",
-      "IsRequired": false,
-      "OnDataChanged": "テキスト_OnDataChanged",
-      "Name": "テキスト",
-      "IgnoreModification": false,
-      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
     }
   ],
   "UserWriteCondition": {
@@ -96,7 +60,7 @@
         "IsAutoFillWrap": false,
         "IsFillAvailable": false,
         "ScrollDirection": "Unset",
-        "OnKeyDown": "GridLayoutDesign_OnKeyDown",
+        "OnKeyDown": "",
         "Rows": [
           {
             "IsWrap": false,
@@ -109,75 +73,7 @@
             "Columns": [
               {
                 "Layout": {
-                  "FieldName": "TitleLabel",
-                  "ContextMenu": "",
-                  "ClassName": "",
-                  "FontFamily": "",
-                  "Color": "",
-                  "Name": "",
-                  "BackgroundColor": "",
-                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                },
-                "Padding": {},
-                "BackgroundColor": "",
-                "BorderStyle": {
-                  "LeftColor": "",
-                  "TopColor": "",
-                  "RightColor": "",
-                  "BottomColor": ""
-                },
-                "HorizontalAlignment": "Center",
-                "CanResize": false,
-                "Border": "None"
-              }
-            ]
-          },
-          {
-            "IsWrap": false,
-            "IsAutoFillWrap": false,
-            "Margin": {},
-            "GridRowType": "Normal",
-            "CanResize": false,
-            "BackgroundColor": "",
-            "IsRowMarginRemoved": false,
-            "Columns": [
-              {
-                "Layout": {
-                  "FieldName": "LCLogo",
-                  "ContextMenu": "",
-                  "ClassName": "",
-                  "FontFamily": "",
-                  "Color": "",
-                  "Name": "",
-                  "BackgroundColor": "",
-                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                },
-                "Padding": {},
-                "BackgroundColor": "",
-                "BorderStyle": {
-                  "LeftColor": "",
-                  "TopColor": "",
-                  "RightColor": "",
-                  "BottomColor": ""
-                },
-                "HorizontalAlignment": "Center",
-                "CanResize": false,
-                "Border": "None"
-              }
-            ]
-          },
-          {
-            "IsWrap": false,
-            "IsAutoFillWrap": false,
-            "Margin": {},
-            "GridRowType": "Normal",
-            "CanResize": false,
-            "BackgroundColor": "",
-            "IsRowMarginRemoved": false,
-            "Columns": [
-              {
-                "Layout": {
-                  "FieldName": "テキスト",
+                  "FieldName": "ボタン",
                   "ContextMenu": "",
                   "ClassName": "",
                   "FontFamily": "",
@@ -198,16 +94,6 @@
                 "Border": "None"
               },
               {
-                "Layout": {
-                  "FieldName": "ボタン",
-                  "ContextMenu": "",
-                  "ClassName": "",
-                  "FontFamily": "",
-                  "Color": "",
-                  "Name": "",
-                  "BackgroundColor": "",
-                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                },
                 "Padding": {},
                 "BackgroundColor": "",
                 "BorderStyle": {
@@ -216,7 +102,30 @@
                   "RightColor": "",
                   "BottomColor": ""
                 },
-                "HorizontalAlignment": "Center",
+                "CanResize": false,
+                "Border": "None"
+              },
+              {
+                "Padding": {},
+                "BackgroundColor": "",
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "CanResize": false,
+                "Border": "None"
+              },
+              {
+                "Padding": {},
+                "BackgroundColor": "",
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
                 "CanResize": false,
                 "Border": "None"
               }
@@ -235,7 +144,26 @@
       "OnBeforeInitialization": "",
       "OnAfterInitialization": "",
       "OnFieldDataChanged": "",
-      "Elements": []
+      "Elements": [
+        [
+          {
+            "FieldName": "",
+            "ContextMenu": "",
+            "Label": "",
+            "ColumnSpan": 1,
+            "RowSpan": 1,
+            "TextWrap": "Unset",
+            "CanResize": false,
+            "CanUserSort": true,
+            "ClassName": "",
+            "FontFamily": "",
+            "Color": "",
+            "BackgroundColor": "",
+            "DetailLayoutName": "",
+            "ListElementComponent": ""
+          }
+        ]
+      ]
     }
   },
   "SearchLayouts": {
@@ -244,12 +172,12 @@
       "ShowDefaultSearchButtons": true,
       "Layout": {
         "Operator": "And",
-        "Name": "",
+        "Name": "SearchGridLayout",
         "Padding": {},
         "IsBordered": false,
         "UseBorderedShrinkWrap": false,
-        "IsExpandable": false,
-        "ExpanderLabel": "",
+        "IsExpandable": true,
+        "ExpanderLabel": "検索条件",
         "IsExpanderDefaultOpened": false,
         "IsFlowLayout": false,
         "IsAutoFillWrap": false,
@@ -326,7 +254,7 @@
   "UseListPageSubmitButton": false,
   "ListPageFieldDesign": {
     "LayoutName": "",
-    "CanNavigateToDetail": false,
+    "CanNavigateToDetail": true,
     "NavigateModuleUrlSegment": "",
     "CanCustomizeColumns": false,
     "ApplyBackgroundToBoxInput": false,
@@ -339,12 +267,12 @@
       "SortDescending": false,
       "ModuleName": ""
     },
-    "PagerPosition": "Bottom",
+    "PagerPosition": "Top",
     "UseIndexSort": false,
     "DeleteTogether": false,
     "CanCreate": false,
     "CanUpdate": false,
-    "CanDelete": false,
+    "CanDelete": true,
     "CanUserSort": true,
     "CanSelect": false,
     "OnDataChanged": "",
