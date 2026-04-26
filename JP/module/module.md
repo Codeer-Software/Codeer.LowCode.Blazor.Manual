@@ -66,6 +66,7 @@ LinkField / ListField など参照側で切り替えて使います。
 | `ModuleLayoutType` | ModuleLayoutType | 現在のレイアウトタイプ（Detail / List / Search） |
 | `IsEnabled` / `IsVisible` / `IsViewOnly` | bool | 全体の有効・表示・読み取り専用 |
 | `IsModified` | bool | 変更されたか |
+| `IsValid` | bool | 配下の全 Field が `IsValid == true` のとき true |
 | `IsNewData` | bool | 新規データか |
 | `IsDeleted` | bool | 削除済みか |
 | `BackgroundColor` / `ForeGroundColor` | string? | 色設定 |
@@ -76,7 +77,7 @@ LinkField / ListField など参照側で切り替えて使います。
 |---|---|---|
 | `Submit()` | Task<bool?> | 登録・更新（標準の Submit 動作） |
 | `Delete()` | Task<bool> | 削除 |
-| `ValidateInput()` | bool | バリデーション実行 |
+| `ValidateInput()` | Task<bool> | バリデーション実行（配下の全 Field を検証）。スクリプトは auto-await されるので `if (Module.ValidateInput())` のように使える |
 | `ShowDialog()` | Task<string> | Module をダイアログで開く |
 | `CloseDialog()` | Task | ダイアログを閉じる |
 | `ReloadWithLock()` | Task | ロック付きで再読み込み |

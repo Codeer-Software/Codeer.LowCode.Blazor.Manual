@@ -13,6 +13,7 @@
 |---|---|---|---|
 | **Name** | string | `""` | フィールド識別子。スクリプトや DB 列の参照で使う |
 | **IgnoreModification** | bool | `false` | 変更検知（IsModified）から除外する |
+| **OnValidateInput** | string | `""` | 入力検証スクリプト。Submit 時に呼ばれ、`bool` を返す（[入力検証](#入力検証-onvalidateinput) 参照） |
 
 ### 値を持つ Field（ValueField 系）に共通
 
@@ -109,6 +110,77 @@
 | `Like` | あいまい検索 |
 | `Exists` | 存在する |
 | `NotExists` | 存在しない |
+
+---
+
+## 入力検証 (OnValidateInput)
+
+各 Field は **Submit 時に検証** が走り、不正な値があると Submit が中断されます。
+
+### 検証が走るタイミング
+
+| 契機 | 説明 |
+|---|---|
+| **SubmitButton クリック** | `Module.ValidateInput()` が走り、配下の全 Field を検証。失敗で Submit 中断 |
+| **AutoSubmit による自動保存** | 上と同じ。検証失敗でエラー表示し保存しない |
+| **`普通のButton` + スクリプトで `Module.Submit()` 呼ぶ** | スクリプトでの呼び出しは検証を走らせない（ユーザー責任）。必要なら自分で `Module.ValidateInput()` を呼ぶ |
+
+### 組込検査と OnValidateInput の流れ
+
+検証は次の順で走ります:
+
+1. **組込検査**（`IsRequired` / `MaxLength` / Number の `Min`/`Max` 等）が失敗したら `SetError` + 中断
+2. 全部通れば **`OnValidateInput` スクリプト** が呼ばれる（Field 共通プロパティ）
+3. スクリプトが `false` を返したら、その時点のエラー状態を保持して中断
+4. スクリプトが `true` を返したら（または未指定なら）、`ClearError` してパス
+
+### OnValidateInput スクリプト
+
+戻り値 `bool` のスクリプトを書きます。`false` を返すと Submit が中断されます。エラー文を出したい場合は `SetError` を併用します。
+
+```csharp
+bool MyField_OnValidateInput()
+{
+    if (StartDate.Value > EndDate.Value)
+    {
+        EndDate.SetError("開始日より後の日付を入力してください");
+        return false;
+    }
+    return true;
+}
+```
+
+### リアルタイム検証 (`OnDataChanged`) との使い分け
+
+| 用途 | 推奨フック |
+|---|---|
+| 値変更時の即時フィードバック（編集中の警告表示） | `OnDataChanged` で `SetError` |
+| Submit 時の最終検証（Submit を止める判断） | `OnValidateInput` |
+
+両方で同じ検証ロジックを走らせたい場合は、**ユーザー定義の関数を 1 つ作って両方から呼ぶ**のが定型です。
+
+```csharp
+bool DoCrossFieldCheck()
+{
+    if (StartDate.Value > EndDate.Value)
+    {
+        EndDate.SetError("開始日より後に");
+        return false;
+    }
+    EndDate.ClearError();
+    return true;
+}
+
+void StartDate_OnDataChanged() { DoCrossFieldCheck(); }
+void EndDate_OnDataChanged() { DoCrossFieldCheck(); }
+bool MyField_OnValidateInput() { return DoCrossFieldCheck(); }
+```
+
+### Submit 時の `SetError` 消失について
+
+`OnDataChanged` の中で `SetError` した内容は、Submit が走った瞬間に **`ValidateInput` の組込検査が通った場合** にクリアされます。Submit 時にもエラーを保持したい場合は、`OnValidateInput` スクリプトで再判定してください。
+
+`普通のButton` + スクリプトの `Module.Submit()` ルートを取れば `ValidateInput` は走らないので、ユーザーの SetError はそのまま残せます。
 
 ---
 

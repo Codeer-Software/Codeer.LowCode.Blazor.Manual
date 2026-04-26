@@ -43,9 +43,13 @@
 1. Module 内のどれかの Field が変更されると `OnExternalFieldChangedAsync` が発火
 2. `ExcludeFields` に含まれる Field 名なら無視
 3. それ以外なら `DelayMilliseconds` ミリ秒のタイマーを設定（既に動いているタイマーはキャンセルして再設定 = デバウンス）
-4. タイマー満了で `Module.SubmitLightweightAsync()` を呼び出し
-5. Submit 中に別の変更が来たら、完了後に再スケジュール
-6. 成功・失敗時は `ShowStatus: true` なら一時的にアイコン表示（3 秒後に自動で消える）
+4. タイマー満了で **入力検証 (`Module.ValidateInput()`) を実行**
+5. 検証失敗の場合は保存せずエラー表示（成功時の保存は行わない）
+6. 検証成功なら `Module.SubmitLightweightAsync()` を呼び出し
+7. Submit 中に別の変更が来たら、完了後に再スケジュール
+8. 成功・失敗時は `ShowStatus: true` なら一時的にアイコン表示（3 秒後に自動で消える）
+
+> 検証フローは [Field 共通プロパティの「入力検証」](common_properties.md#入力検証-onvalidateinput) と同じ。各 Field の組込検査と `OnValidateInput` スクリプトが走る。
 
 ---
 

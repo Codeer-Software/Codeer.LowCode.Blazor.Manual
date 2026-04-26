@@ -17,10 +17,12 @@
 
 クリック時、以下が順に実行されます:
 
-1. `Module.ValidateInput()` を実行
+1. `Module.ValidateInput()` を実行（各 Field の組込検査と `OnValidateInput` スクリプトが走る）
 2. バリデーションに失敗した場合は `UIService.NotifyError` で通知して中断
 3. 成功したら `Module.SubmitAsync()` を呼び出し、DB へ保存
 4. 保存結果に応じて `NotifySuccess` / `NotifyError` で通知
+
+> 検証ロジックを Field ごとにカスタマイズしたい場合は `OnValidateInput` プロパティを使います。詳細は [Field 共通プロパティの「入力検証」](common_properties.md#入力検証-onvalidateinput) を参照。
 
 スクリプトイベントは**ありません**（`OnClick` は持たない）。処理を挟みたい場合は [Button](Button.md) を使い、スクリプトから `await Submit()` を呼び出します。
 

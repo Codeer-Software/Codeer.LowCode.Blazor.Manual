@@ -84,6 +84,7 @@
 | `TotalCount` | int | 総件数 |
 | `Limit` | int? | ページあたりの件数（`SearchCondition.LimitCount`） |
 | `AllowLoad` | bool | ロードの可否 |
+| `IsValid` | bool | List 自身が `SetError` されておらず、かつ**全行の全 Field が IsValid** のとき true |
 | `SearchComparison` | MatchComparison? | 検索比較（`Exists` / `NotExists`） |
 
 ### メソッド
