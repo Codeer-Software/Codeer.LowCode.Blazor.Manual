@@ -131,6 +131,48 @@ newRow.Name.Value = "新規";
 
 ---
 
+## 検索での挙動
+
+ListField を**検索レイアウトに配置**すると、「親レコードを、関連する子レコードの有無で絞り込む」検索 UI として機能します。
+
+例: 顧客モジュールに注文を表示する `Orders` という ListField があるとき、顧客の検索画面に `Orders` を置くと、「注文を持っている顧客」「注文を持っていない顧客」を絞り込めます。
+
+### 検索 UI
+
+<img src="../../Image/web/fields/list/search.png" alt="ListField 検索 UI" style="border: 1px solid;" width="200">
+
+ドロップダウンが 1 つだけ出ます。選択肢は次の 3 つ:
+
+| 選択肢 | 挙動 |
+|---|---|
+| **（空欄）** | この条件で絞り込まない |
+| **行を持つ** | 関連する子レコードが**1 件以上ある**親レコードのみ表示（SQL の `EXISTS` 相当） |
+| **行を持たない** | 関連する子レコードが**1 件もない**親レコードのみ表示（SQL の `NOT EXISTS` 相当） |
+
+### 子レコードの絞り込み条件
+
+「どのレコードを子と見なすか」は、ListField のプロパティ **`SearchCondition.Condition`** で指定した条件で決まります。通常は親と子を結ぶ外部キー関係（`Orders.CustomerId == Customer.Id` 等）を設定しておきます。
+
+`SearchCondition.Condition` に追加の条件（例: `Status == "有効"`）を入れると、それも子の絞り込みに反映されます。例えば「**有効な**注文を持っている顧客だけ表示」という検索になります。
+
+### スクリプトから
+
+検索 UI の状態は `SearchComparison` プロパティで読み書きできます。
+
+```csharp
+// 検索条件をプログラム的に設定
+await Orders.SetSearchComparisonAsync(MatchComparison.Exists);
+
+// 解除
+await Orders.SetSearchComparisonAsync(null);
+```
+
+`SearchComparison` に設定できる値は `Exists` / `NotExists` / `null` のみです。
+
+検索全体の仕組みは [SearchField](Search.md#検索の仕組み) / [モジュール検索設定](../module/module_search.md) を参照。
+
+---
+
 ## 関連項目
 
 - [Field 共通プロパティ](common_properties.md)

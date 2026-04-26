@@ -126,6 +126,9 @@ URL パラメータのキー名は `SearchUrlParameterKey` / `PageIndexUrlParame
 | [RadioGroupField](RadioGroup.md#検索での挙動) | Select と同じ UI（ドロップダウン） | 同上 |
 | [LinkField](Link.md#検索での挙動) | テキスト + ダイアログアイコン（簡易と詳細で UI 同じ） | 空 / 空以外 |
 | [IdField](Id.md#検索での挙動) | TextField と同じ | 部分一致 / 完全一致 / 空 / 空以外 |
+| [ListField](List.md#検索での挙動) | ドロップダウンのみ | 行を持つ / 行を持たない（親レコードを子の有無で絞り込む） |
+| [DetailListField](DetailList.md#検索での挙動) | List と同じ UI（ドロップダウン） | 同上 |
+| [TileListField](TileList.md#検索での挙動) | List と同じ UI（ドロップダウン） | 同上 |
 
 ---
 
