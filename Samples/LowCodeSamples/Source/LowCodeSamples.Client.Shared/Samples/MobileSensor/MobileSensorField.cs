@@ -19,7 +19,5 @@ namespace LowCodeSamples.Client.Shared.Samples.MobileSensor
         public override async Task InitializeDataAsync(FieldDataBase? fieldDataBase) => await Task.CompletedTask;
 
         public override async Task SetDataAsync(FieldDataBase? fieldDataBase) => await Task.CompletedTask;
-
-        public override bool ValidateInput() => true;
     }
 }

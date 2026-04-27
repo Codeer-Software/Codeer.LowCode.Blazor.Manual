@@ -8,8 +8,5 @@ namespace LowCodeSamples.Client.Shared.Samples.ColorPicker
   {
     ColorPickerFieldDesign _design;
     public ColorPickerField(ColorPickerFieldDesign design) : base(design) => _design = design;
-
-    [ScriptHide]
-    public override bool ValidateInput() => true;
   }
 }
