@@ -60,10 +60,9 @@ LinkField / ListField など参照側で切り替えて使います。
 
 | プロパティ | 型 | 説明 |
 |---|---|---|
-| `Name` | string | Module 名 |
-| `PageTitle` | string | ページタイトル |
+| `PageTitle` | string | ページタイトル（スクリプトから動的に変更可） |
 | `LayoutName` | string | 現在のレイアウト名 |
-| `ModuleLayoutType` | ModuleLayoutType | 現在のレイアウトタイプ（Detail / List / Search） |
+| `ModuleLayoutType` | ModuleLayoutType | 現在のレイアウトタイプ（`None` / `Detail` / `List` / `Search`。通常は Detail / List / Search のいずれか） |
 | `IsEnabled` / `IsVisible` / `IsViewOnly` | bool | 全体の有効・表示・読み取り専用 |
 | `IsModified` | bool | 変更されたか |
 | `IsValid` | bool | 配下の全 Field が `IsValid == true` のとき true |
@@ -80,7 +79,7 @@ LinkField / ListField など参照側で切り替えて使います。
 | `ValidateInput()` | Task<bool> | バリデーション実行（配下の全 Field を検証）。スクリプトは auto-await されるので `if (Module.ValidateInput())` のように使える |
 | `ShowDialog()` | Task<string> | Module をダイアログで開く |
 | `CloseDialog()` | Task | ダイアログを閉じる |
-| `ReloadWithLock()` | Task | ロック付きで再読み込み |
+| `Reload()` | Task | データを再読み込み |
 | `ToJsonObject()` | JsonObject | JSON 化 |
 | `SetJsonObject()` | Task | JSON を流し込む |
 | `NotifyStateChanged()` | void | 再描画を促す |

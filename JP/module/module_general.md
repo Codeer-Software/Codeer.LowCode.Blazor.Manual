@@ -10,11 +10,8 @@
 
 | 項目 | 説明 |
 |---|---|
-| **DisplayName** | Module の表示名 |
-| **PageTitle** | HTML のタイトル（ブラウザのタブに表示） |
 | **DataSource** | 対応する DB テーブル / View。[designer.settings](../designer/designer_settings.md) で事前に定義しておく |
-| **ListPageField** | 一覧ページで使用する ListField |
-| **Option** | `作成` / `更新` / `削除` / `一括ダウンロード` / `一括更新` の有効化 |
+| **Options** | `作成` / `更新` / `削除` の有効化 |
 | **Access** | ユーザー・データ単位のアクセス制御。[認証・認可](../authorization/authorization.md) 参照 |
 | **Fields** | Module で使用する Field 一覧（ツールボックスからドロップで追加） |
 | **Scripts** | Module レベルのスクリプト関数 |
