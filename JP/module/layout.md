@@ -55,35 +55,11 @@ Module の Root 要素は **Grid** です。多くの場合 Grid を基本にし
 
 Grid は標準でいくつかのマージン・パディングを持ち、要素間に適切なスペースが確保されています。
 
-- **Grid** — 通常はなし。`IsBordered` オン時は内側に `1rem` のパディング
-- **Row** — 下部に `1rem` のマージン
-- **Column** — 左右に `0.75rem` のパディング（Grid / Canvas を入れたカラムなど一部のケースは適用されない）
+- **Grid** — 通常はなし。`IsBordered` オン時は内側に上下 `1rem` / 左右 `0.625rem` のパディング
+- **Row** — 上下それぞれに `1rem` のマージン
+- **Column** — 左右に `0.375rem` のパディング。`BorderStyle` を指定した Column はさらに上下 `0.5rem` のパディング
 
-`app.css` から CSS 変数で上書き可能:
-
-```css
-/* IsBordered な Grid のパディングを上書き */
-div.grid-bordered {
-  --default-padding-top: 20px;
-  --default-padding-right: 40px;
-  --default-padding-bottom: 80px;
-  --default-padding-left: 160px;
-}
-
-/* Row の上下マージンを上書き */
-div.grid-row {
-  --default-margin-top: 20px;
-  --default-margin-bottom: 40px;
-}
-
-/* Column の左右パディングを上書き */
-div.grid-column {
-  --default-padding-left: 20px;
-  --default-padding-right: 40px;
-}
-```
-
-各 Grid・Row・Column 個別に `Padding` / `Margin` プロパティで上書きすることもできます。
+各 Grid・Row・Column 個別に `Padding` / `Margin` プロパティで上書きすることもできますし、`app.css` から CSS 変数で**アプリ全体の既定値**を上書きすることもできます。変数名・既定値の一覧は [カスタマイズ可能な CSS 変数](../look_and_feel/css.md#カスタマイズ可能な-css-変数) を参照してください。
 
 ### Grid プロパティ
 

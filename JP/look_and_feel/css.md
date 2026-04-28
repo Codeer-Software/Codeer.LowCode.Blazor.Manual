@@ -74,3 +74,56 @@ void OnClick()
 ```
 
 スクリプトで設定することで動的にクラスを変更することができるので、ユーザの操作に応じてフィールドのスタイルを変更することができます。
+
+## カスタマイズ可能な CSS 変数
+
+レイアウトの余白などはあらかじめ CSS 変数で定義されているので、`app.css` で値を上書きすればアプリ全体に反映できます。
+個別の Grid・Row・Column・Tab の `Padding` / `Margin` プロパティを使えば**そのレイアウト単体**で上書きでき、CSS 変数を使えば**アプリ全体の既定値**を変更できます。
+
+### レイアウト（Grid / Row / Column / Tab）の余白
+
+| 変数 | 既定値 | 用途 |
+|---|---|---|
+| `--default-card-padding-top` | `1rem` | Grid `IsBordered` オン時のカード内側 上 |
+| `--default-card-padding-right` | `0.625rem` | 同 右 |
+| `--default-card-padding-bottom` | `1rem` | 同 下 |
+| `--default-card-padding-left` | `0.625rem` | 同 左 |
+| `--default-row-margin-top` | `1rem` | Row の上マージン |
+| `--default-row-margin-bottom` | `1rem` | Row の下マージン |
+| `--default-column-padding-left` | `0.375rem` | Column の左パディング |
+| `--default-column-padding-right` | `0.375rem` | Column の右パディング |
+| `--default-column-border-padding-top` | `0.5rem` | `BorderStyle` 指定ありの Column の上パディング |
+| `--default-column-border-padding-bottom` | `0.5rem` | 同 下 |
+| `--default-tab-padding-top` | `0.625rem` | Tab パネル内側 上 |
+| `--default-tab-padding-right` | `1rem` | 同 右 |
+| `--default-tab-padding-bottom` | `0.625rem` | 同 下 |
+| `--default-tab-padding-left` | `1rem` | 同 左 |
+
+`app.css` で `:root` または `body` に書けばアプリ全体に効きます。
+
+```css
+:root {
+  --default-row-margin-top: 1.5rem;
+  --default-row-margin-bottom: 1.5rem;
+  --default-column-padding-left: 0.5rem;
+  --default-column-padding-right: 0.5rem;
+}
+```
+
+### サイドバー背景グラデーション
+
+| 変数 | 既定値 | 用途 |
+|---|---|---|
+| `--background-start` | `rgb(5, 39, 103)` | サイドバー背景グラデーション 上 |
+| `--background-end` | `#3a0647` | サイドバー背景グラデーション 下 |
+
+```css
+:root {
+  --background-start: #1a1a2e;
+  --background-end: #16213e;
+}
+```
+
+### Bootstrap の CSS 変数
+
+このフレームワークは Bootstrap をベースに描画しています。色や枠線の基本トーンは Bootstrap の CSS 変数（`--bs-body-bg` / `--bs-body-color` / `--bs-border-color` / `--bs-primary` 等）でも調整できます。詳細は [Bootstrap 公式ドキュメント](https://getbootstrap.com/docs/5.3/customize/css-variables/) を参照してください。
