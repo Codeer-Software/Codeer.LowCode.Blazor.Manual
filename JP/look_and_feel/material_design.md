@@ -1,5 +1,7 @@
 # Bootstrap テーマの適用
 
+> **対象テンプレート**: この手順は **WebAssembly テンプレート**（`wwwroot/index.html` を持つ構成）を前提にしています。**Server-side Blazor / Streaming SSR / MAUI** など `index.html` を持たないテンプレートでは、CSS の link を書く場所がそれぞれ異なります（例: `App.razor`、`_Host.cshtml`、`MainLayout.razor` など）。Bootstrap テーマの差し替え自体（`wwwroot/css/...` に CSS を置く / `app.css` を編集する）は同じ要領で適用できます。
+
 ## ダウンロード
 
 ここでは[Material Design for Bootstrap](https://mdbootstrap.com/) からテーマをダウンロードします。

@@ -60,9 +60,13 @@
 | `IsViewOnly` | bool | 編集可／読み取り専用 |
 | `IsModified` | bool | 変更されたか |
 | `IgnoreModification` | bool | 変更検知から除外 |
+| `IsValid` | bool | バリデーション結果が有効か |
+| `ErrorText` | string | 現在のエラーメッセージ |
 | `Focus()` | Task | フォーカスを当てる |
+| `HasFocus()` | Task<bool> | このフィールドがフォーカスを持っているか |
 | `GetClientRect()` | Task<Rect> | 画面上の矩形を取得 |
-| `NotifyStateChanged()` | void | 再描画を促す |
+| `SetError(string)` | void | エラーメッセージを設定（`IsValid` が false になる） |
+| `ClearError()` | void | エラーメッセージをクリア |
 
 ### 値を持つ Field で使える
 

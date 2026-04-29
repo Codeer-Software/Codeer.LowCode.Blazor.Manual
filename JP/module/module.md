@@ -68,7 +68,12 @@ LinkField / ListField など参照側で切り替えて使います。
 | `IsValid` | bool | 配下の全 Field が `IsValid == true` のとき true |
 | `IsNewData` | bool | 新規データか |
 | `IsDeleted` | bool | 削除済みか |
-| `BackgroundColor` / `ForeGroundColor` | string? | 色設定 |
+| `Color` | string? | 文字色 |
+| `BackgroundColor` | string? | 背景色 |
+| `FontFamily` | string? | フォント名 |
+| `FontSize` | int? | フォントサイズ |
+| `ClassName` | string | 任意の CSS クラスを付与 |
+| `DialogTitle` | string | `ShowDialog` / `ShowPopup` / `ShowPanel` で開いた時のタイトル |
 
 ### メソッド
 
@@ -77,8 +82,14 @@ LinkField / ListField など参照側で切り替えて使います。
 | `Submit()` | Task<bool?> | 登録・更新（標準の Submit 動作） |
 | `Delete()` | Task<bool> | 削除 |
 | `ValidateInput()` | Task<bool> | バリデーション実行（配下の全 Field を検証）。スクリプトは auto-await されるので `if (Module.ValidateInput())` のように使える |
-| `ShowDialog()` | Task<string> | Module をダイアログで開く |
-| `CloseDialog()` | Task | ダイアログを閉じる |
+| `NewModule()` | Task | 新規作成状態に遷移 |
+| `CopyModule()` | Task | 現在のデータをコピーして新規作成状態に遷移 |
+| `ShowDialog(params string[] buttons)` | Task<string> | Module をダイアログで開く。押されたボタン名を返す |
+| `ShowPopup(int x, int y, params string[] buttons)` | Task<string> | Module を指定座標のポップアップで開く |
+| `ShowPanel(params string[] buttons)` | Task<string> | Module をパネルで開く（`PanelAlignment` を渡す版もあり） |
+| `CloseDialog(string button)` | Task | `ShowDialog` を閉じる |
+| `ClosePopup(string button)` | Task | `ShowPopup` を閉じる |
+| `ClosePanel(string button)` | Task | `ShowPanel` を閉じる |
 | `Reload()` | Task | データを再読み込み |
 | `ToJsonObject()` | JsonObject | JSON 化 |
 | `SetJsonObject()` | Task | JSON を流し込む |

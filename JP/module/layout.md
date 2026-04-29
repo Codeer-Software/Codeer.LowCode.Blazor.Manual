@@ -25,6 +25,8 @@ Module の Root 要素は **Grid** です。多くの場合 Grid を基本にし
 | **IsViewOnly** | 読み取り専用 |
 | **BackgroundColor** | 背景色（指定なしは親からカスケード） |
 
+このほか、スクリプトからは `IsEnabled` / `IsVisible` / `Color` / `FontFamily` / `FontSize` も全レイアウト共通で操作できます（[スクリプトから](#スクリプトから)参照）。
+
 ---
 
 ## Grid レイアウト
@@ -59,7 +61,12 @@ Grid は標準でいくつかのマージン・パディングを持ち、要素
 - **Row** — 上下それぞれに `1rem` のマージン
 - **Column** — 左右に `0.375rem` のパディング。`BorderStyle` を指定した Column はさらに上下 `0.5rem` のパディング
 
-各 Grid・Row・Column 個別に `Padding` / `Margin` プロパティで上書きすることもできますし、`app.css` から CSS 変数で**アプリ全体の既定値**を上書きすることもできます。変数名・既定値の一覧は [カスタマイズ可能な CSS 変数](../look_and_feel/css.md#カスタマイズ可能な-css-変数) を参照してください。
+優先順位は **個別の `Padding` / `Margin` プロパティ > CSS 変数 > 既定値**。
+
+- 特定の 1 箇所だけ変えたいなら、その Grid・Row・Column の `Padding` / `Margin` プロパティ
+- アプリ全体の既定値を変えたいなら、`app.css` で CSS 変数を上書き
+
+CSS 変数名・既定値の一覧は [カスタマイズ可能な CSS 変数](../look_and_feel/css.md#カスタマイズ可能な-css-変数) を参照してください。
 
 ### Grid プロパティ
 
@@ -68,17 +75,15 @@ Grid は標準でいくつかのマージン・パディングを持ち、要素
 | **Name** | 識別子 |
 | **IsViewOnly** | 読み取り専用 |
 | **IsBordered** | 枠付き（カード）として描画。`background-color` は標準で透過 |
-| **UseBorderedShrinkWrap** | カード幅をコンテンツに収めて余白を作る（`IsBordered` 併用時） |
-| **Padding** | 内側のパディング（上下左右指定） |
-| **IsFlowLayout** | 行・列構造を無視して横並び＋折り返しのフロー配置にする |
-| **IsAutoFillWrap** | 全行を CSS Grid `auto-fit` で均等折り返し（`MinWidth` 必須） |
-| **IsFillAvailable** | このグリッドが root のとき、ページの残り高さを埋めるよう末尾 Normal 行を伸ばす |
-| **ScrollDirection** | スクロール方向。`Unset` / `Vertical` / `Horizontal`（`Flags` なので組合せ可） |
-| **IsExpandable** | 折りたたみ可能なグリッドにする |
-| **ExpanderLabel** | 折りたたみヘッダのラベル |
-| **IsExpanderDefaultOpened** | 初期状態で開いておくか |
+| **UseBorderedShrinkWrap** | `IsBordered` 併用時、カード幅を中身のコンテンツに合わせて縮める。左右に余白ができ、結果として画面中央寄せのカードになる |
+| **Padding** | 内側のパディング（上下左右指定）。指定するとそのカード個別の値になり、CSS 変数より優先される |
 | **BackgroundColor** | 背景色（指定なしは親からカスケード） |
+| **IsFillAvailable** | このグリッドが root のとき、ページの残り高さを埋めるよう末尾 Normal 行を伸ばす（[FillAvailable](#fillavailable残領域に広げる) 参照） |
+| **ScrollDirection** | スクロール方向。`Unset` / `Vertical` / `Horizontal`。`Flags` なので `Vertical, Horizontal` の組合せ指定で両方向スクロール可 |
+| **IsFlowLayout** | 行・列構造を無視して横並び＋折り返しのフロー配置（[Wrap 系の使い分け](#wrap-系の使い分けisflowlayout--isautofillwrap--iswrap) 参照） |
+| **IsAutoFillWrap** | 全行を CSS Grid `auto-fit` で均等折り返し（`MinWidth` 必須。[Wrap 系の使い分け](#wrap-系の使い分けisflowlayout--isautofillwrap--iswrap) 参照） |
 | **OnKeyDown** | このグリッド内でキーが押された時のスクリプト（[OnKeyDown イベント](#onkeydown-イベント) 参照） |
+| **IsExpandable** / **ExpanderLabel** / **IsExpanderDefaultOpened** | 折りたたみグリッド機能。`IsExpandable` で折りたたみ可能になり、`ExpanderLabel` でヘッダ文言、`IsExpanderDefaultOpened` で初期状態（開く / 閉じる）を指定 |
 
 > **`.card` の背景透過**: `IsBordered` をオンにすると Bootstrap の `.card` クラスでレンダリングされますが、標準で `background-color: transparent` が当たっています。背景色を付けたい場合は `BackgroundColor` を明示的に設定してください。
 
@@ -99,9 +104,9 @@ Grid は標準でいくつかのマージン・パディングを持ち、要素
 | プロパティ | 説明 |
 |---|---|
 | **Width** / **MinWidth** / **MaxWidth** | 幅指定（[列幅の決定ルール](#列幅の決定ルール)参照） |
-| **Padding** | カラム内のパディング（上下左右） |
+| **Padding** | カラム内のパディング（上下左右）。指定するとそのカラム個別の値になり、CSS 変数より優先される |
 | **BackgroundColor** | カラムの背景色 |
-| **BorderStyle** | 上下左右それぞれの罫線（太さ・色を辺ごとに指定） |
+| **BorderStyle** | 上下左右それぞれの罫線（太さ・色を辺ごとに指定）。指定すると `--default-column-border-padding-top/bottom`（既定 0.5rem）の上下パディングが追加される |
 | **HorizontalAlignment** | 水平位置。`Start` / `Center` / `End` / `Stretch`（既定: Stretch） |
 | **VerticalAlignment** | 垂直位置。`Top` / `Middle` / `Bottom` / `Stretch`（既定: Stretch） |
 | **CanResize** | ユーザーによる列サイズ変更を許可 |
@@ -135,6 +140,8 @@ Grid は標準でいくつかのマージン・パディングを持ち、要素
 | **Width** / **Height** | サイズ（px） |
 | **ZIndex** | 重なり順 |
 
+> Element 自体には `Name` がないため、スクリプトから個別の Element を直接操作することはできません。Element の中に置いた Layout（Grid / Canvas / Tab）の `Name` を介して操作してください。
+
 ---
 
 ## Tab レイアウト
@@ -147,10 +154,10 @@ Grid は標準でいくつかのマージン・パディングを持ち、要素
 |---|---|
 | **Name** | 識別子 |
 | **Tabs** | タブヘッダのラベル一覧（順番がタブの並び順） |
-| **Padding** | タブパネル内側のパディング |
+| **Padding** | タブパネル内側のパディング。指定すると CSS 変数（`--default-tab-padding-*`、既定 上下 0.625rem / 左右 1rem）より優先される |
 | **IsBordered** | タブパネルを枠付きで描画 |
-| **Color** | タブヘッダの基本色 |
-| **SelectedColor** | 選択中タブの色 |
+| **Color** | タブヘッダ（非選択タブ）の文字色 |
+| **SelectedColor** | 選択中タブの文字色 |
 | **BackgroundColor** | 背景色 |
 | **IsViewOnly** | 読み取り専用 |
 | **OnSelectedIndexChanged** | タブ切替「後」のスクリプト |
@@ -323,9 +330,10 @@ void GridLayoutDesign_OnKeyDown(KeyboardEventArgs e)
 
 | プロパティ | 説明 |
 |---|---|
-| **ClassName** | 任意の CSS クラス名を付与（独自スタイル用） |
-| **ContextMenu** | 右クリック時に表示する `ContextMenuField` を Field 名で指定 |
-| **FontFamily** / **FontSize** / **FontWeight** / **FontStyle** | フォント指定（指定なしは親からカスケード） |
+| **ClassName** | 任意の CSS クラス名を付与（独自スタイル用）。詳細は [css.md](../look_and_feel/css.md#コンポーネントのclassnameプロパティの利用) |
+| **ContextMenu** | 右クリック時に表示する [ContextMenuField](../fields/ContextMenu.md) を Field 名で指定 |
+| **FontFamily** / **FontSize** | フォント指定（指定なしは親からカスケード） |
+| **FontWeight** / **FontStyle** | フォントウェイト・スタイル（カスケード対象外、明示指定したフィールドにだけ適用される） |
 | **Color** | 文字色（指定なしは親からカスケード） |
 
 > 同じ Field を別レイアウトに配置すると、レイアウト個別プロパティは**配置ごとに別々**に持てます（例: 一覧では小さく、詳細では大きく表示）。
@@ -334,7 +342,7 @@ void GridLayoutDesign_OnKeyDown(KeyboardEventArgs e)
 
 ## カスケード（Color / Font / BackgroundColor）
 
-`Color` / `BackgroundColor` / `FontFamily` / `FontSize` は **明示的に指定しない場合、親レイアウトから値を引き継ぎ**ます。
+`Color` / `BackgroundColor` / `FontFamily` / `FontSize` の **4 つだけ**が、**明示的に指定しない場合、親レイアウトから値を引き継ぎ**ます。`FontWeight` / `FontStyle` は親に値があっても継承しません — 明示的に指定したフィールドにだけ適用されます。
 
 ```
 Module (詳細レイアウトの Color/Font 設定)
@@ -367,7 +375,7 @@ Module (詳細レイアウトの Color/Font 設定)
 |---|---|---|
 | `Name` | string | レイアウト名 |
 | `LayoutName` | string | 親モジュールの現在のレイアウト名 |
-| `ModuleLayoutType` | ModuleLayoutType | `Detail` / `List` / `Search` |
+| `ModuleLayoutType` | ModuleLayoutType | `None` / `Detail` / `List` / `Search`（通常は Detail / List / Search のいずれか） |
 | `IsEnabled` | bool | 有効・無効 |
 | `IsVisible` | bool | 表示・非表示 |
 | `IsViewOnly` | bool | 読み取り専用 |
@@ -422,8 +430,6 @@ SearchLayout.IsOrMatch = true;
 
 - [レイアウトガイド - 概要編](https://www.youtube.com/watch?v=DepPNToMjGE)
 - [レイアウトガイド - Grid 編 基本的な使い方](https://www.youtube.com/watch?v=Y7a9al6Wk3Y)
-
-※レイアウトシリーズの動画は順次追加予定
 
 ---
 

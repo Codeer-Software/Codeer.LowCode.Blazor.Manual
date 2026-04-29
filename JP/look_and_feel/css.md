@@ -1,14 +1,22 @@
-# css
+# CSS
 
-見た目は通常のBlazorアプリと同様にcssで変更できます。ご参考までにサンプルを用意いたしました。
+見た目は通常の Blazor アプリと同様に CSS で変更できます。
 
-- [Material Design](material_design.md)
-- [Fluent Design](fluent_design.md)
-- [Custom Styles](custom_styles.md)
+## どこに書くか
 
-こちらのサイトでサイドバーのcssの項目で確認することができます。
+アプリ全体のスタイルは **`wwwroot/css/app.css`** に書きます。Bootstrap・このフレームワーク本体・テンプレートが用意した既定スタイルの**上から**当たるので、ここに書いた CSS が最終的に勝ちます。
 
-https://lowcodedemo.azurewebsites.net
+- 個別の見栄えを上書きしたい → `app.css` に普通の CSS / Bootstrap セレクタで上書き
+- 特定の Module / Field だけスタイルを変えたい → 後述の `data-` 属性セレクタや `ClassName` プロパティ
+- アプリ全体の余白・サイドバー色などの**既定値**を変えたい → 後述の [カスタマイズ可能な CSS 変数](#カスタマイズ可能な-css-変数) を `:root` で上書き
+
+## サンプル
+
+- [Material Design](material_design.md) — Bootstrap テーマを差し替える例
+- [Fluent Design](fluent_design.md) — 同上
+- [Custom Styles](custom_styles.md) — 自前で書くスタイル例
+
+実物を見るには[デモサイト](https://lowcodedemo.azurewebsites.net) のサイドバー「CSS」項目が参考になります。
 
 ## 特定のモジュール・フィールドに対するCSSセレクタの利用
 
@@ -38,17 +46,11 @@ https://lowcodedemo.azurewebsites.net
 
 ## コンポーネントのClassNameプロパティの利用
 
-各コンポーネントは共通のClassNameプロパティを持っています。
-このプロパティを設定することで、各コンポーネントへCSSクラスを追加することができます。
+Field・Layout・Module は共通の `ClassName` プロパティを持ち、ここに任意の CSS クラス名を設定できます。
 
-このCSSクラスは `div.field-layout` に設定されるので設定した任意のクラスを起点にフィールドから生成されるDOM要素に対して
-任意のスタイルを適用することができます。
+Field の場合、設定したクラスは `div.field-layout` に追加されるので、そのクラスを起点に Field 全体のスタイルを変えられます。
 
-例えば、以下のように設定した場合、`div.field-layout` に `my-class` が追加されます。
-
-![image](https://github.com/user-attachments/assets/8a48231c-8544-409c-bf88-788f2e21d810)
-
-この時のDOMは以下のようになります。実際のフィールドがどのように生成されるかはフィールドによって異なるのでブラウザの実行結果から確認してください。
+例えば、Field の `ClassName` に `my-class` を指定すると DOM は次のようになります（中身は Field 種別によって異なります）:
 
 ```html
 <div class="field-layout my-class">
@@ -56,7 +58,7 @@ https://lowcodedemo.azurewebsites.net
 </div>
 ```
 
-たとえば、`my-class` に対して以下のようなCSSを設定した場合、フィールドの背景色が赤くなります。
+`my-class` に対して以下のような CSS を書くと背景色が赤になります。
 
 ```css
 .my-class {
@@ -64,7 +66,7 @@ https://lowcodedemo.azurewebsites.net
 }
 ```
 
-ClassNameプロパティはスクリプトから設定することもできます。このフィールドが `myField` という名前の場合、以下のように設定できます。
+`ClassName` はスクリプトからも設定でき、ユーザー操作に応じてスタイルを動的に切り替えられます:
 
 ```cs
 void OnClick()
@@ -73,7 +75,7 @@ void OnClick()
 }
 ```
 
-スクリプトで設定することで動的にクラスを変更することができるので、ユーザの操作に応じてフィールドのスタイルを変更することができます。
+Layout（Grid / Canvas / Tab）や Module の `ClassName` も同様に、それぞれのレイアウト・モジュールを表す要素に追加されます。設定したクラスを起点に CSS を書くことで、Field と同じ要領でスタイルを適用できます。実際にどの要素にクラスが付くかは、ブラウザの開発者ツールで確認してください。
 
 ## カスタマイズ可能な CSS 変数
 
