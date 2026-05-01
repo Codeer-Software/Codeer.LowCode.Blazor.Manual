@@ -65,6 +65,37 @@ claude
 
 Claude Code はデザインファイルを直接編集します。デザイナのホットリロードが有効な状態であれば、保存と同時に Web アプリ側に反映されます。
 
+## データベース
+
+### テーブル作成も Claude Code に任せられる
+
+モジュールが必要とするテーブルの DDL や、初期データ投入の INSERT 文も自然言語で指示すれば Claude Code が生成・実行してくれます。例:
+
+- 「商品マスタモジュールに対応するテーブルを SQLite に作って。サンプルデータも 5 件入れて」
+- 「`Order` モジュールに `Status` 列を追加して既存テーブルにマイグレーションして」
+- 「`Customer` テーブルから 100 件のテストデータを生成して INSERT 文を書いて」
+
+モジュール定義（`*.mod.json`）と DB スキーマを両方触れるので、フィールド追加 → 列追加までを一気に指示できます。
+
+### サポート DB
+
+新規プロジェクトはテンプレートに同梱されているサンプルの **SQLite** に接続された状態で立ち上がりますが、以下のデータベースをすべてサポートしています。
+
+- Microsoft SQL Server
+- MySQL
+- Oracle Database
+- PostgreSQL
+- SQLite
+
+接続先の切り替えも Claude Code に指示できます。例:
+
+- 「DataSource を SQL Server に切り替えて。接続文字列は `designer.settings.Development.json` に置いて」
+- 「PostgreSQL 用のサンプルデータベースに接続するように変更して」
+
+`designer.settings.json` / `designer.settings.Development.json` / サーバープロジェクトの `appsettings.json` の編集と、必要に応じた DDL 方言の調整までやってくれます。
+
+> 設定ファイルの仕様詳細は [designer.settings](../designer/designer_settings.md) を参照（Claude Code は同等の仕様を `Claude/ClaudeCodeForDesigner/Docs/ProjectSettings.md` から自動取得）。
+
 ## ヒント
 
 - **デザイナと並行して使う**: ビジュアルで配置を細かく調整するのはデザイナ、フィールド・スクリプトの一括追加や繰り返し作業は Claude Code、と使い分けると効率的です。

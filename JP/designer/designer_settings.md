@@ -9,9 +9,9 @@
 | ファイル | 用途 | Git 管理 |
 |---|---|---|
 | **designer.settings.json** | チームで共有する設定（DataSource 名など） | **する** |
-| **designer.settings.Develop.json** | マシン固有・機密情報（接続文字列・パスワード） | **しない**（.gitignore 推奨） |
+| **designer.settings.Development.json** | マシン固有・機密情報（接続文字列・パスワード） | **しない**（.gitignore 推奨） |
 
-両方のファイルは起動時に読み込まれ**マージ**されます。機密情報を `Develop.json` に逃がすことで、設定構造だけをリポジトリで共有できます。
+両方のファイルは起動時に読み込まれ**マージ**されます。機密情報を `Development.json` に逃がすことで、設定構造だけをリポジトリで共有できます。
 
 ---
 
@@ -73,7 +73,7 @@ public class DataSource
 | プロパティ | 内容 |
 |---|---|
 | **Name** | 参照用の名前 |
-| **DataSourceType** | `SQLServer` / `PostgreSQL` / `Oracle` / `SQLite` |
+| **DataSourceType** | `SQLServer` / `PostgreSQL` / `Oracle` / `MySQL` / `SQLite` |
 | **ConnectionString** | 接続文字列（`ConnectionStrings` で別出しにすることが多い） |
 
 ---
@@ -101,7 +101,7 @@ public class DataSource
 }
 ```
 
-### designer.settings.Develop.json（個人・Git 管理外）
+### designer.settings.Development.json（個人・Git 管理外）
 
 ```json
 {
@@ -119,7 +119,7 @@ public class DataSource
 }
 ```
 
-> **重要**: 接続文字列・パスワードなどの機密情報は `designer.settings.Develop.json` 側に書き、`.gitignore` で Git 管理外にしてください。
+> **重要**: 接続文字列・パスワードなどの機密情報は `designer.settings.Development.json` 側に書き、`.gitignore` で Git 管理外にしてください。
 
 ---
 
