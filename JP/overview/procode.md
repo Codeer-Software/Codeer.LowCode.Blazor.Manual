@@ -196,6 +196,36 @@ else
 }
 ```
 
+### 親の高さを使い切って内部スクロールする Field を作る場合
+
+ListField のように **親 Column の高さを使い切って内部に大きなコンテンツを表示し、Field 内部でスクロールしたい** カスタム Field を作るときは、Design クラスに `IFillHeightFieldDesign` インターフェースを実装します。プロパティもメソッドも持たないマーカーインターフェースで、付与するだけでレイアウトエンジンに組み込まれます。
+
+```csharp
+public class MyScrollableFieldDesign : ValueFieldDesignBase, IFillHeightFieldDesign
+{
+    public MyScrollableFieldDesign() : base(typeof(MyScrollableFieldDesign).FullName!) { }
+
+    // ... (通常の FieldDesign 実装)
+}
+```
+
+これを実装すると、この Field を直接配置した列は次のように扱われます。
+
+- 配置先の行（または親 Tab）に **高さの指定がある** 場合、その高さを使い切って Field が広がり、Field の内部にスクロールバーが表示されます
+- 高さ指定がない場合は中身サイズに従って広がります（=通常の Field と同じ挙動）
+
+標準では `ListField` / `DetailListField` / `TileListField` がこのインターフェースを実装しています。`TextField` や `NumberField` のように「中身サイズに従う」 Field はこのインターフェースを実装する必要はありません。
+
+Field 内のスクロール対象要素には次のような CSS を当てます（ListField 等と同じ）。
+
+```css
+.your-scroll-area {
+    overflow: auto;
+    height: 100%;
+    min-height: 0;
+}
+```
+
 ---
 
 ## 5. .NET コードをスクリプトから呼び出す
