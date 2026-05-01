@@ -52,7 +52,28 @@ claude
 ファイル一覧: https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Manual/tree/main/Claude/ClaudeCodeForDesigner/Docs
 ```
 
-このプロンプトをスニペットとして保存しておき、毎セッションの最初に貼り付けると効率的です。
+### 5. 2回目以降のために保存する
+
+毎回プロンプトを貼り付けるのは面倒なので、**初回セッションのうちに Claude Code に永続化を依頼**しておきます。
+
+「上記のリファレンス URL を `./CLAUDE.md` に保存して。次回起動時に Claude Code が自動で読めるように」と伝えると、作業フォルダに `CLAUDE.md` が作成されます。Claude Code は起動時に `CLAUDE.md` を自動読み込みするので、次回からは貼り付け不要です。
+
+> Claude Code 内蔵のメモリ機能（`#` で始まる発言や `/memory` コマンド）でも永続化できます。詳しくは [公式ドキュメント](https://docs.claude.com/ja/docs/claude-code/memory) を参照。
+
+### 6. プロジェクト固有の情報も `CLAUDE.md` に蓄積する
+
+`CLAUDE.md` はリファレンス URL だけでなく、**そのプロジェクト固有の前提・規約**を書いておく場所として活用してください。Claude Code と作業する中で気づいた都度、口頭で「これも CLAUDE.md に追記して」と伝えると蓄積できます。
+
+書くと有効な例:
+
+- **接続先 DB**: 「このプロジェクトは PostgreSQL に接続。テーブル・カラム名は `snake_case`」
+- **命名規約**: 「モジュール名は `Pascal` ＋単数形、フィールド名はキャメルケース」
+- **業務ルール**: 「`Order.Status` は 0=新規, 1=処理中, 2=完了, 9=キャンセル」
+- **共有ライブラリ**: 「日付フォーマットは常に `yyyy-MM-dd HH:mm`」
+- **既存資産**: 「`SharedComponents/` 以下に共通コンポーネントあり、新規作成前に確認」
+- **多言語対応**: 「ja/en の Resources を必ず両方更新」
+
+これらを蓄積していくと、毎回の指示が短くて済み、Claude Code の出力が一貫します。
 
 ## 使い方の例
 
