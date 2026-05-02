@@ -2,7 +2,13 @@
 
 **TypeFullName:** `Codeer.LowCode.Blazor.Repository.Design.IdFieldDesign`
 
-レコードの主キーとなるフィールド。手動入力モードでなければ UUID を自動生成する。複合キーにも対応しており、他フィールドの値をセパレータで結合してIDを構成できる。
+レコードの主キーとなるフィールド。複合キーにも対応しており、他フィールドの値をセパレータで結合してIDを構成できる。
+
+> **重要 (DB スキーマ作成時の規約)**
+> - **DB 列の型は `INTEGER` (long, 64bit 整数) + 自動採番** が原則。`TEXT` / `VARCHAR` で GUID を保存する設計にしないこと。
+> - `IsManualInput = false` のとき、フレームワークが新規レコード作成中に **一時的に UUID 文字列** を `Value` にセットするが、これはアプリ内メモリ上のテンポラリ ID であり、DB に保存されるのはあくまで DB 側で採番された long 値。スクリプト API (`Value`) の型が `string?` なのはこの一時 ID のためで、長期的に文字列 ID を運用する意味ではない。
+> - 詳細は [DatabaseGuidelines.md](../DatabaseGuidelines.md) を参照。
+> - `IsManualInput = true` のように業務的に文字列 ID を使う特殊ケース（社員番号 `EMP-001` 等）に限り、DB 列は `TEXT`/`VARCHAR` でよい。
 
 ## プロパティ
 
@@ -12,14 +18,14 @@
 |---|---|---|---|
 | `DbColumn` | string | `""` | 主キー列名。snake_case推奨（例: `id`）。 |
 | `Placeholder` | string | `""` | 手動入力モード時のプレースホルダーテキスト。 |
-| `IsManualInput` | bool | `false` | `true` の場合、ユーザーがIDを手動入力する。`false` の場合、UUID が自動生成される。 |
+| `IsManualInput` | bool | `false` | `true` の場合、ユーザーがIDを手動入力する。`false` の場合、フレームワークが一時 UUID をセット → DB 保存時に DB 側採番値（long）に置き換わる。 |
 | `CompositeIdVariables` | List\<string\> | `[]` | 複合キーを構成するフィールド名のリスト。指定すると各フィールドの値を結合してIDを生成する。 |
 | `CompositeIdSeparator` | string | `""` | 複合キーの各パーツを結合するセパレータ文字列（例: `"-"`, `"_"`）。 |
 | `SearchComparisonDefaultValue` | MatchComparison? | `null` | 検索時のデフォルト比較演算子。`Equal` または `Like` を指定可能。 |
 
 ## JSON例
 
-### 基本的なUUID自動生成の主キー
+### 基本的な自動採番の主キー（DB 列は `INTEGER` long）
 
 ```json
 {
@@ -87,7 +93,7 @@
 
 ## ランタイム動作
 
-- **UUID自動生成（`IsManualInput = false`）:** レコード新規作成時に `SetTemporaryIdAsync()` が呼ばれ、UUID が自動生成される。ユーザーによる編集は不可。
+- **自動採番（`IsManualInput = false`）:** レコード新規作成時に `SetTemporaryIdAsync()` が呼ばれ、メモリ上で一時 UUID が `Value` にセットされる。ユーザー編集は不可。DB 保存時には DB 側で採番された `long` の値に置き換わる（DB 列は `INTEGER PRIMARY KEY AUTOINCREMENT` 等を使う）。
 - **手動入力（`IsManualInput = true`）:** テキスト入力欄が表示され、ユーザーがIDを直接入力する。`Placeholder` でヒントを表示できる。
 - **複合キー（`CompositeIdVariables` 指定時）:** `CompositeIdVariables` に列挙したフィールドの値を `CompositeIdSeparator` で結合してIDを構成する。例えば `["DepartmentCode.Value", "SequenceNumber.Value"]` で `CompositeIdSeparator = "-"` の場合、`SALES-001` のようなIDが生成される。
 - **更新保護:** `IsUpdateProtected = true` の場合、レコード作成後にIDの変更はできない（主キーの変更防止）。

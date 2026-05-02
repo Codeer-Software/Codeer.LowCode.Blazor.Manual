@@ -811,3 +811,31 @@ stock.Reload();
   "Width": 200
 }
 ```
+
+---
+
+## 33. ID の DB 列を `TEXT`/`VARCHAR` で GUID 保存する設計にする
+
+**症状:** `CREATE TABLE` で `id TEXT PRIMARY KEY`（あるいは `VARCHAR(36)`）を出力し、各行に GUID 文字列を保存するスキーマを生成してしまう。
+
+**原因:** `IdField` のスクリプト API `Value` の型が `string?` であること、ランタイム説明に「UUID を自動生成」とあることから、ID は文字列型と誤解しがち。
+
+**実態:** UUID は **新規作成中のメモリ上だけのテンポラリ ID**。DB に保存される時点で DB 側採番の `long`（INTEGER）値に置き換わる。DB 列は数値型 + 自動採番が原則。
+
+```sql
+-- ❌ 間違い: GUID を DB に保存する設計
+CREATE TABLE customer (
+    id TEXT PRIMARY KEY,
+    name TEXT
+);
+
+-- ✅ 正しい: long 自動採番
+CREATE TABLE customer (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT
+);
+```
+
+**例外:** `IdField.IsManualInput = true` で社員番号 `EMP-001` 等の業務 ID を扱うケースは TEXT/VARCHAR 列でよい。デフォルトの自動採番ケースでは絶対 `INTEGER`。
+
+詳細は [DatabaseGuidelines.md](DatabaseGuidelines.md) と [Fields/IdField.md](Fields/IdField.md) を参照。
