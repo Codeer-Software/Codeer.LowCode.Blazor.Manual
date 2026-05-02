@@ -54,7 +54,7 @@ C:\work\Test\
 │   ├── Modules\
 │   ├── PageFrames\
 │   └── Resources\
-├── ClaudeCodeForDesigner\         ← ZIP から展開
+├── ClaudeCodeForDesigner\         ← ZIP から展開（仕様リファレンス）
 │   ├── CLAUDE.md
 │   └── Docs\
 │       ├── ModuleDesign.md
@@ -64,6 +64,8 @@ C:\work\Test\
 └── CLAUDE.md                      ← ZIP から展開（Claude Code が起動時に自動読み込み）
 ```
 
+`CLAUDE.md` は短いガイドで、`ClaudeCodeForDesigner/` 配下のリファレンスと `Project.md`（次節）を参照すべき場所として Claude Code に伝える役割を持ちます。
+
 ### 4. 作業フォルダで Claude Code を起動する
 
 ```bash
@@ -71,7 +73,7 @@ cd C:\work\Test
 claude
 ```
 
-`CLAUDE.md` が同フォルダにあるので、Claude Code は起動と同時に内容を読み込み、`ClaudeCodeForDesigner/` 以下のリファレンスを参照できる状態になります。
+`CLAUDE.md` が同フォルダにあるので、Claude Code は起動時に自動で読み込み、`ClaudeCodeForDesigner/` 以下の仕様リファレンスを参照できる状態になります。
 
 ### 5. プロジェクト固有の情報を `Project.md` に蓄積する
 
@@ -86,9 +88,7 @@ claude
 - **既存資産**: 「`SharedComponents/` 以下に共通コンポーネントあり、新規作成前に確認」
 - **多言語対応**: 「ja/en の Resources を必ず両方更新」
 
-これらを蓄積していくと、毎回の指示が短くて済み、Claude Code の出力が一貫します。
-
-> ZIP 由来の `CLAUDE.md` と分けることで、リファレンス更新（ZIP 再ダウンロード→上書き）でプロジェクト固有の情報が消える事故を防げます。`Project.md` は ZIP に含まれないので触られません。
+これらを蓄積していくと、毎回の指示が短くて済み、Claude Code の出力が一貫します。`Project.md` は ZIP に含まれないので、リファレンス更新（ZIP 再ダウンロード→上書き）で消える事故を防げます。
 
 > Claude Code 内蔵のメモリ機能（`#` で始まる発言や `/memory` コマンド）でも永続化できます。詳しくは [公式ドキュメント](https://docs.claude.com/ja/docs/claude-code/memory) を参照。
 
