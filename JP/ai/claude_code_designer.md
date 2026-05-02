@@ -28,15 +28,30 @@
 
 ### 3. リファレンス ZIP をダウンロードして配置する
 
-下記から ZIP をダウンロードします。
+#### 3-1. ZIP をダウンロード
 
-- [ClaudeCodeForDesigner.zip をダウンロード](../../Samples/ClaudeCodeForDesigner.zip)
+[GitHub の Samples/ClaudeCodeForDesigner.zip ページ](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Manual/blob/main/Samples/ClaudeCodeForDesigner.zip) を開き、右上の **ダウンロードアイコン**（赤枠）をクリックします。
 
-ダウンロードした ZIP は **インターネットからのファイルとしてブロックされた状態**になっています（Mark of the Web）。展開前に、エクスプローラで ZIP ファイルを **右クリック → プロパティ** を開き、下部にある「**セキュリティ: このファイルは他のコンピュータから取得したものです...**」の **「許可する」**（または「ブロックの解除」）にチェックを入れて OK で閉じてください。
+<img width="700" src="../../Image/claude_code_designer_download.png">
+
+> 上のリンクから [直接ダウンロード](../../Samples/ClaudeCodeForDesigner.zip) も可能です（マニュアルをローカルクローンしている場合）。
+
+#### 3-2. ZIP のブロックを解除
+
+ダウンロードした ZIP は **インターネットからのファイル**としてブロックされた状態になっています（Windows の Mark of the Web）。展開前に **必ずブロック解除** してください。
+
+1. エクスプローラで `ClaudeCodeForDesigner.zip` を **右クリック → プロパティ**
+2. 「全般」タブ下部の **「セキュリティ: このファイルは他のコンピュータから取得したものです…」**
+3. **「許可する」のチェックボックス**（赤枠）にチェック
+4. OK で閉じる
+
+<img width="450" src="../../Image/claude_code_designer_unblock.png">
 
 > 解除しないまま展開すると、中の各ファイルがすべてブロック扱いになり、Claude Code がファイル読み込み時に警告を出すなどの不具合の原因になります。
 
-許可後、ZIP を作業フォルダ（例: `C:\work\Test`）の直下に展開します。中身がフラット構成なので、展開すると下記のように並びます。
+#### 3-3. 作業フォルダに展開
+
+ブロック解除後、ZIP を作業フォルダ（例: `C:\work\Test`）の直下に展開します。中身がフラット構成なので、展開すると下記のように並びます。
 
 ```
 C:\work\Test\
