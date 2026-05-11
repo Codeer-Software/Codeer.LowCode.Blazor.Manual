@@ -59,27 +59,6 @@
       "Format": "0",
       "Min": 0,
       "Max": 100,
-      "IsSlider": true,
-      "Step": 1,
-      "MaxFractionDigits": 0,
-      "IsUpdateProtected": false,
-      "IsSimpleSearchParameter": false,
-      "AllowEmptySearch": false,
-      "OnSearchDataChanged": "",
-      "DisplayName": "",
-      "IsRequired": false,
-      "OnDataChanged": "",
-      "Name": "平均進捗率",
-      "IgnoreModification": false,
-      "OnValidateInput": "",
-      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.NumberFieldDesign"
-    },
-    {
-      "DbColumn": "average_progress",
-      "Placeholder": "",
-      "Format": "0'%'",
-      "Min": 0,
-      "Max": 100,
       "IsSlider": false,
       "MaxFractionDigits": 0,
       "IsUpdateProtected": false,
@@ -89,7 +68,7 @@
       "DisplayName": "",
       "IsRequired": false,
       "OnDataChanged": "",
-      "Name": "進捗率数値",
+      "Name": "平均進捗率",
       "IgnoreModification": false,
       "OnValidateInput": "",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.NumberFieldDesign"
@@ -108,7 +87,7 @@
     "ModuleName": ""
   },
   "DetailLayouts": {
-    "行": {
+    "": {
       "OnBeforeInitialization": "",
       "OnAfterInitialization": "",
       "OnLocationChanging": "",
@@ -142,18 +121,6 @@
             "IsRowMarginRemoved": false,
             "Columns": [
               {
-                "Layout": {
-                  "FieldName": "プロジェクト名",
-                  "ContextMenu": "",
-                  "ClassName": "",
-                  "FontFamily": "",
-                  "Color": "",
-                  "Name": "",
-                  "IsViewOnly": true,
-                  "BackgroundColor": "",
-                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                },
-                "Width": 240,
                 "Padding": {},
                 "BackgroundColor": "",
                 "BorderStyle": {
@@ -166,16 +133,6 @@
                 "Border": "None"
               },
               {
-                "Layout": {
-                  "FieldName": "平均進捗率",
-                  "ContextMenu": "",
-                  "ClassName": "progress-slider",
-                  "FontFamily": "",
-                  "Color": "",
-                  "Name": "",
-                  "BackgroundColor": "",
-                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                },
                 "Padding": {},
                 "BackgroundColor": "",
                 "BorderStyle": {
@@ -184,23 +141,10 @@
                   "RightColor": "",
                   "BottomColor": ""
                 },
-                "VerticalAlignment": "Middle",
                 "CanResize": false,
                 "Border": "None"
               },
               {
-                "Layout": {
-                  "FieldName": "進捗率数値",
-                  "ContextMenu": "",
-                  "ClassName": "",
-                  "FontFamily": "",
-                  "Color": "",
-                  "Name": "",
-                  "IsViewOnly": true,
-                  "BackgroundColor": "",
-                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                },
-                "Width": 80,
                 "Padding": {},
                 "BackgroundColor": "",
                 "BorderStyle": {
@@ -209,8 +153,18 @@
                   "RightColor": "",
                   "BottomColor": ""
                 },
-                "HorizontalAlignment": "Start",
-                "VerticalAlignment": "Middle",
+                "CanResize": false,
+                "Border": "None"
+              },
+              {
+                "Padding": {},
+                "BackgroundColor": "",
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
                 "CanResize": false,
                 "Border": "None"
               }
@@ -232,25 +186,9 @@
       "Elements": [
         [
           {
-            "FieldName": "プロジェクト名",
+            "FieldName": "",
             "ContextMenu": "",
-            "Label": "プロジェクト",
-            "ColumnSpan": 1,
-            "RowSpan": 1,
-            "TextWrap": "Unset",
-            "CanResize": true,
-            "CanUserSort": true,
-            "ClassName": "",
-            "FontFamily": "",
-            "Color": "",
-            "BackgroundColor": "",
-            "DetailLayoutName": "",
-            "ListElementComponent": ""
-          },
-          {
-            "FieldName": "平均進捗率",
-            "ContextMenu": "",
-            "Label": "進捗率",
+            "Label": "",
             "ColumnSpan": 1,
             "RowSpan": 1,
             "TextWrap": "Unset",

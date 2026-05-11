@@ -7,8 +7,16 @@
   "CanDelete": false,
   "Fields": [
     {
-      "LayoutName": "行",
-      "DisplayName": "",
+      "SeriesType": "Bar",
+      "Series": {
+        "Series": [
+          {
+            "Name": "平均進捗率",
+            "Color": "",
+            "Type": "Bar"
+          }
+        ]
+      },
       "SearchCondition": {
         "SelectFields": [],
         "SortConditions": [],
@@ -23,23 +31,14 @@
           "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
         }
       },
-      "PagerPosition": "Top",
-      "UseIndexSort": false,
-      "DeleteTogether": false,
-      "CanCreate": false,
-      "CanUpdate": true,
-      "CanDelete": false,
-      "CanUserSort": false,
-      "CanSelect": false,
-      "OnDataChanged": "",
-      "OnSearchDataChanged": "",
-      "OnSelectedIndexChanged": "",
-      "OnSelectedIndexChanging": "",
-      "OnDoubleClickRow": "",
-      "Name": "プロジェクト進捗",
+      "DisplayName": "プロジェクト別進捗率",
+      "CategoryField": "プロジェクト名",
+      "SeriesFractionDigits": 0,
+      "ShowLegend": true,
+      "Name": "ApexHBarChart",
       "IgnoreModification": false,
       "OnValidateInput": "",
-      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.DetailListFieldDesign"
+      "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexHBarChartFieldDesign"
     },
     {
       "SeriesType": "Bar",
@@ -182,6 +181,7 @@
           {
             "IsWrap": false,
             "IsAutoFillWrap": false,
+            "Height": 300,
             "Margin": {},
             "GridRowType": "Normal",
             "CanResize": false,
@@ -190,7 +190,7 @@
             "Columns": [
               {
                 "Layout": {
-                  "FieldName": "プロジェクト進捗",
+                  "FieldName": "ApexHBarChart",
                   "ContextMenu": "",
                   "ClassName": "",
                   "FontFamily": "",
