@@ -1,0 +1,525 @@
+{
+  "IsApplicationRoot": false,
+  "Name": "ProjectManagement",
+  "Description": "",
+  "Left": {
+    "IsVisible": true,
+    "Home": {
+      "Type": "Text",
+      "Text": "ホーム",
+      "Icon": "",
+      "ResourcePath": ""
+    },
+    "Links": [
+      {
+        "Title": "プロジェクト",
+        "Icon": "",
+        "IconType": "Font",
+        "HideTitle": false,
+        "ModulePageType": "ListToDetail",
+        "ModuleUrlSegment": "",
+        "ActiveModuleSegments": [],
+        "PageFrame": "",
+        "Module": "プロジェクト",
+        "Id": "",
+        "Parameters": "",
+        "ListPageDesign": {
+          "SearchLayoutName": "",
+          "UserUrlParameter": true,
+          "PageTitle": "",
+          "HeaderTitle": "",
+          "CanBulkDataUpdate": false,
+          "CanBulkDataDownload": false,
+          "UseSubmitButton": false,
+          "UseNavigateToCreate": true,
+          "ListFieldDesign": {
+            "LayoutName": "",
+            "CanNavigateToDetail": true,
+            "NavigateModuleUrlSegment": "",
+            "CanCustomizeColumns": false,
+            "ApplyBackgroundToBoxInput": false,
+            "DisplayName": "",
+            "SearchCondition": {
+              "LimitCount": 50,
+              "SelectFields": [],
+              "SortConditions": [
+                {
+                  "Variable": "Id.Value",
+                  "IsDescending": false
+                }
+              ],
+              "SortFieldVariable": "",
+              "SortDescending": false,
+              "ModuleName": "",
+              "Condition": {
+                "IsOrMatch": false,
+                "IsNot": false,
+                "Children": [],
+                "Name": "",
+                "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
+              }
+            },
+            "PagerPosition": "Bottom",
+            "UseIndexSort": false,
+            "DeleteTogether": false,
+            "CanCreate": false,
+            "CanUpdate": false,
+            "CanDelete": true,
+            "CanUserSort": true,
+            "CanSelect": false,
+            "OnDataChanged": "",
+            "OnSearchDataChanged": "",
+            "OnSelectedIndexChanged": "",
+            "OnSelectedIndexChanging": "",
+            "OnDoubleClickRow": "",
+            "Name": "",
+            "IgnoreModification": false,
+            "OnValidateInput": "",
+            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ListFieldDesign"
+          }
+        },
+        "DetailPageDesign": {
+          "PageTitle": "",
+          "LayoutName": "",
+          "UrlParameter": ""
+        }
+      },
+      {
+        "Title": "マスタ/メンバー",
+        "Icon": "",
+        "IconType": "Font",
+        "HideTitle": false,
+        "ModulePageType": "ListToDetail",
+        "ModuleUrlSegment": "",
+        "ActiveModuleSegments": [],
+        "PageFrame": "",
+        "Module": "メンバー",
+        "Id": "",
+        "Parameters": "",
+        "ListPageDesign": {
+          "SearchLayoutName": "",
+          "UserUrlParameter": true,
+          "PageTitle": "",
+          "HeaderTitle": "",
+          "CanBulkDataUpdate": false,
+          "CanBulkDataDownload": false,
+          "UseSubmitButton": false,
+          "UseNavigateToCreate": true,
+          "ListFieldDesign": {
+            "LayoutName": "",
+            "CanNavigateToDetail": true,
+            "NavigateModuleUrlSegment": "",
+            "CanCustomizeColumns": false,
+            "ApplyBackgroundToBoxInput": false,
+            "DisplayName": "",
+            "SearchCondition": {
+              "LimitCount": 50,
+              "SelectFields": [],
+              "SortConditions": [
+                {
+                  "Variable": "Id.Value",
+                  "IsDescending": false
+                }
+              ],
+              "SortFieldVariable": "",
+              "SortDescending": false,
+              "ModuleName": ""
+            },
+            "PagerPosition": "Bottom",
+            "UseIndexSort": false,
+            "DeleteTogether": false,
+            "CanCreate": false,
+            "CanUpdate": false,
+            "CanDelete": true,
+            "CanUserSort": true,
+            "CanSelect": false,
+            "OnDataChanged": "",
+            "OnSearchDataChanged": "",
+            "OnSelectedIndexChanged": "",
+            "OnSelectedIndexChanging": "",
+            "OnDoubleClickRow": "",
+            "Name": "",
+            "IgnoreModification": false,
+            "OnValidateInput": "",
+            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ListFieldDesign"
+          }
+        },
+        "DetailPageDesign": {
+          "PageTitle": "",
+          "LayoutName": "",
+          "UrlParameter": ""
+        }
+      },
+      {
+        "Title": "マスタ/部署",
+        "Icon": "",
+        "IconType": "Font",
+        "HideTitle": false,
+        "ModulePageType": "ListToDetail",
+        "ModuleUrlSegment": "",
+        "ActiveModuleSegments": [],
+        "PageFrame": "",
+        "Module": "部署",
+        "Id": "",
+        "Parameters": "",
+        "ListPageDesign": {
+          "SearchLayoutName": "",
+          "UserUrlParameter": true,
+          "PageTitle": "",
+          "HeaderTitle": "",
+          "CanBulkDataUpdate": false,
+          "CanBulkDataDownload": false,
+          "UseSubmitButton": true,
+          "UseNavigateToCreate": true,
+          "ListFieldDesign": {
+            "LayoutName": "",
+            "CanNavigateToDetail": false,
+            "NavigateModuleUrlSegment": "",
+            "CanCustomizeColumns": false,
+            "ApplyBackgroundToBoxInput": false,
+            "DisplayName": "",
+            "SearchCondition": {
+              "LimitCount": 50,
+              "SelectFields": [],
+              "SortConditions": [
+                {
+                  "Variable": "Id.Value",
+                  "IsDescending": false
+                }
+              ],
+              "SortFieldVariable": "",
+              "SortDescending": false,
+              "ModuleName": "",
+              "Condition": {
+                "IsOrMatch": false,
+                "IsNot": false,
+                "Children": [],
+                "Name": "",
+                "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
+              }
+            },
+            "PagerPosition": "Bottom",
+            "UseIndexSort": false,
+            "DeleteTogether": false,
+            "CanCreate": true,
+            "CanUpdate": true,
+            "CanDelete": true,
+            "CanUserSort": true,
+            "CanSelect": false,
+            "OnDataChanged": "",
+            "OnSearchDataChanged": "",
+            "OnSelectedIndexChanged": "",
+            "OnSelectedIndexChanging": "",
+            "OnDoubleClickRow": "",
+            "Name": "",
+            "IgnoreModification": false,
+            "OnValidateInput": "",
+            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ListFieldDesign"
+          }
+        },
+        "DetailPageDesign": {
+          "PageTitle": "",
+          "LayoutName": "",
+          "UrlParameter": ""
+        }
+      },
+      {
+        "Title": "Codeer.LowCode.Blazor",
+        "Icon": "bi bi-house",
+        "IconType": "Font",
+        "HideTitle": false,
+        "ModulePageType": "Auto",
+        "ModuleUrlSegment": "",
+        "ActiveModuleSegments": [],
+        "PageFrame": "Bootstrap",
+        "Module": "Home",
+        "Id": "",
+        "Parameters": "",
+        "ListPageDesign": {
+          "SearchLayoutName": "",
+          "UserUrlParameter": true,
+          "PageTitle": "",
+          "HeaderTitle": "",
+          "CanBulkDataUpdate": false,
+          "CanBulkDataDownload": false,
+          "UseSubmitButton": false,
+          "UseNavigateToCreate": true,
+          "ListFieldDesign": {
+            "LayoutName": "",
+            "CanNavigateToDetail": true,
+            "NavigateModuleUrlSegment": "",
+            "CanCustomizeColumns": false,
+            "ApplyBackgroundToBoxInput": false,
+            "DisplayName": "",
+            "SearchCondition": {
+              "LimitCount": 50,
+              "SelectFields": [],
+              "SortConditions": [],
+              "SortFieldVariable": "",
+              "SortDescending": false,
+              "ModuleName": ""
+            },
+            "PagerPosition": "Top",
+            "UseIndexSort": false,
+            "DeleteTogether": false,
+            "CanCreate": false,
+            "CanUpdate": false,
+            "CanDelete": true,
+            "CanUserSort": true,
+            "CanSelect": false,
+            "OnDataChanged": "",
+            "OnSearchDataChanged": "",
+            "OnSelectedIndexChanged": "",
+            "OnSelectedIndexChanging": "",
+            "OnDoubleClickRow": "",
+            "Name": "",
+            "IgnoreModification": false,
+            "OnValidateInput": "",
+            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ListFieldDesign"
+          }
+        },
+        "DetailPageDesign": {
+          "PageTitle": "",
+          "LayoutName": "",
+          "UrlParameter": ""
+        }
+      }
+    ],
+    "FontFamily": "",
+    "Color": "#ffffff",
+    "BackgroundColorStart": "#ff4242",
+    "BackgroundColorEnd": "#ffaf7a",
+    "MobileBehavior": "CollapseToHamburger",
+    "UserName": "",
+    "ModuleName": ""
+  },
+  "Right": {
+    "IsVisible": false,
+    "Home": {
+      "Type": "None",
+      "Text": "",
+      "Icon": "",
+      "ResourcePath": ""
+    },
+    "Links": [],
+    "FontFamily": "",
+    "Color": "#ffffff",
+    "BackgroundColorStart": "#052767",
+    "BackgroundColorEnd": "#3a0647",
+    "MobileBehavior": "CollapseToHamburger",
+    "UserName": "",
+    "ModuleName": ""
+  },
+  "Header": {
+    "IsVisible": false,
+    "FontFamily": "",
+    "Color": "#000000",
+    "BackgroundColor": "#f8f9fa",
+    "Home": {
+      "Type": "None",
+      "Text": "",
+      "Icon": "",
+      "ResourcePath": ""
+    },
+    "Links": [],
+    "UserName": "",
+    "ModuleName": ""
+  },
+  "Padding": {},
+  "UserReadCondition": {
+    "ModuleName": ""
+  },
+  "BackgroundColor": "",
+  "Color": "",
+  "FontFamily": "",
+  "OtherPageModuleDesigns": [
+    {
+      "ModulePageType": "Detail",
+      "ModuleUrlSegment": "プロジェクトボード",
+      "ActiveModuleSegments": [],
+      "PageFrame": "",
+      "Module": "プロジェクト",
+      "Id": "",
+      "Parameters": "",
+      "ListPageDesign": {
+        "SearchLayoutName": "",
+        "UserUrlParameter": false,
+        "PageTitle": "",
+        "HeaderTitle": "",
+        "CanBulkDataUpdate": false,
+        "CanBulkDataDownload": false,
+        "UseSubmitButton": false,
+        "UseNavigateToCreate": false,
+        "ListFieldDesign": {
+          "LayoutName": "",
+          "CanNavigateToDetail": false,
+          "NavigateModuleUrlSegment": "",
+          "CanCustomizeColumns": false,
+          "ApplyBackgroundToBoxInput": false,
+          "DisplayName": "",
+          "SearchCondition": {
+            "LimitCount": 50,
+            "SelectFields": [],
+            "SortConditions": [],
+            "SortFieldVariable": "",
+            "SortDescending": false,
+            "ModuleName": "",
+            "Condition": {
+              "IsOrMatch": false,
+              "IsNot": false,
+              "Children": [],
+              "Name": "",
+              "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
+            }
+          },
+          "PagerPosition": "Top",
+          "UseIndexSort": false,
+          "DeleteTogether": false,
+          "CanCreate": false,
+          "CanUpdate": false,
+          "CanDelete": false,
+          "CanUserSort": true,
+          "CanSelect": false,
+          "OnDataChanged": "",
+          "OnSearchDataChanged": "",
+          "OnSelectedIndexChanged": "",
+          "OnSelectedIndexChanging": "",
+          "OnDoubleClickRow": "",
+          "Name": "",
+          "IgnoreModification": false,
+          "OnValidateInput": "",
+          "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ListFieldDesign"
+        }
+      },
+      "DetailPageDesign": {
+        "PageTitle": "ボード",
+        "LayoutName": "ボード行",
+        "UrlParameter": ""
+      }
+    },
+    {
+      "ModulePageType": "Detail",
+      "ModuleUrlSegment": "プロジェクトガント",
+      "ActiveModuleSegments": [],
+      "PageFrame": "",
+      "Module": "プロジェクト",
+      "Id": "",
+      "Parameters": "",
+      "ListPageDesign": {
+        "SearchLayoutName": "",
+        "UserUrlParameter": false,
+        "PageTitle": "",
+        "HeaderTitle": "",
+        "CanBulkDataUpdate": false,
+        "CanBulkDataDownload": false,
+        "UseSubmitButton": false,
+        "UseNavigateToCreate": false,
+        "ListFieldDesign": {
+          "LayoutName": "",
+          "CanNavigateToDetail": false,
+          "NavigateModuleUrlSegment": "",
+          "CanCustomizeColumns": false,
+          "ApplyBackgroundToBoxInput": false,
+          "DisplayName": "",
+          "SearchCondition": {
+            "LimitCount": 50,
+            "SelectFields": [],
+            "SortConditions": [],
+            "SortFieldVariable": "",
+            "SortDescending": false,
+            "ModuleName": "",
+            "Condition": {
+              "IsOrMatch": false,
+              "IsNot": false,
+              "Children": [],
+              "Name": "",
+              "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
+            }
+          },
+          "PagerPosition": "Top",
+          "UseIndexSort": false,
+          "DeleteTogether": false,
+          "CanCreate": false,
+          "CanUpdate": false,
+          "CanDelete": false,
+          "CanUserSort": true,
+          "CanSelect": false,
+          "OnDataChanged": "",
+          "OnSearchDataChanged": "",
+          "OnSelectedIndexChanged": "",
+          "OnSelectedIndexChanging": "",
+          "OnDoubleClickRow": "",
+          "Name": "",
+          "IgnoreModification": false,
+          "OnValidateInput": "",
+          "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ListFieldDesign"
+        }
+      },
+      "DetailPageDesign": {
+        "PageTitle": "ガント",
+        "LayoutName": "ガント行",
+        "UrlParameter": ""
+      }
+    }
+  ],
+  "TopPageModuleDesign": {
+    "ModulePageType": "Auto",
+    "ModuleUrlSegment": "",
+    "ActiveModuleSegments": [],
+    "PageFrame": "",
+    "Module": "ProjectManagementHome",
+    "Id": "",
+    "Parameters": "",
+    "ListPageDesign": {
+      "SearchLayoutName": "",
+      "UserUrlParameter": true,
+      "PageTitle": "",
+      "HeaderTitle": "",
+      "CanBulkDataUpdate": false,
+      "CanBulkDataDownload": false,
+      "UseSubmitButton": false,
+      "UseNavigateToCreate": true,
+      "ListFieldDesign": {
+        "LayoutName": "",
+        "CanNavigateToDetail": false,
+        "NavigateModuleUrlSegment": "",
+        "CanCustomizeColumns": false,
+        "ApplyBackgroundToBoxInput": false,
+        "DisplayName": "",
+        "SearchCondition": {
+          "LimitCount": 50,
+          "SelectFields": [],
+          "SortConditions": [],
+          "SortFieldVariable": "",
+          "SortDescending": false,
+          "ModuleName": ""
+        },
+        "PagerPosition": "Top",
+        "UseIndexSort": false,
+        "DeleteTogether": false,
+        "CanCreate": false,
+        "CanUpdate": false,
+        "CanDelete": false,
+        "CanUserSort": true,
+        "CanSelect": false,
+        "OnDataChanged": "",
+        "OnSearchDataChanged": "",
+        "OnSelectedIndexChanged": "",
+        "OnSelectedIndexChanging": "",
+        "OnDoubleClickRow": "",
+        "Name": "",
+        "IgnoreModification": false,
+        "OnValidateInput": "",
+        "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ListFieldDesign"
+      }
+    },
+    "DetailPageDesign": {
+      "PageTitle": "",
+      "LayoutName": "",
+      "UrlParameter": ""
+    }
+  },
+  "AutoZoom": "None",
+  "TopPageModule": "Home",
+  "OtherPages": []
+}
