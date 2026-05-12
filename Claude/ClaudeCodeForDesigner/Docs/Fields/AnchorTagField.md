@@ -4,6 +4,28 @@
 
 ナビゲーションリンク。URL、別モジュール、ページフレーム、ブラウザ履歴への遷移を実現する。テキストリンクまたはボタン風の表示スタイルを選択可能。
 
+## C# クラス定義 (真実の源)
+
+```csharp
+public class AnchorTagFieldDesign : FieldDesignBase
+{
+    public AnchorStyle Style { get; set; }                // enum: Text / Button / Image
+    public AnchorTarget Target { get; set; }              // enum: Url / HistoryBack / HistoryForward
+    public bool ShouldOpenInNewTab { get; set; }
+    public string Icon { get; set; } = string.Empty;
+    public string TitleText { get; set; } = "Anchor Tag";
+    public string TitleVariable { get; set; } = string.Empty;
+    public string ImageResourcePath { get; set; } = string.Empty;
+    public string PageFrame { get; set; } = string.Empty;
+    public string Module { get; set; } = string.Empty;
+    public string ModuleVariable { get; set; } = string.Empty;
+    public string IdVariable { get; set; } = string.Empty;
+    public string Url { get; set; } = string.Empty;
+    public string OnClick { get; set; } = string.Empty;
+    // 親 FieldDesignBase から継承: Name, IgnoreModification, OnValidateInput
+}
+```
+
 ## プロパティ
 
 > 共通プロパティ（Name, IgnoreModification）は [_FieldCommon.md](_FieldCommon.md) を参照。

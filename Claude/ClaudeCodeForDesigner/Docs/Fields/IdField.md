@@ -10,6 +10,22 @@
 > - 詳細は [DatabaseGuidelines.md](../DatabaseGuidelines.md) を参照。
 > - `IsManualInput = true` のように業務的に文字列 ID を使う特殊ケース（社員番号 `EMP-001` 等）に限り、DB 列は `TEXT`/`VARCHAR` でよい。
 
+## C# クラス定義 (真実の源)
+
+```csharp
+public class IdFieldDesign : DbValueFieldDesignBase
+{
+    public override string DbColumn { get; set; } = string.Empty;
+    public string Placeholder { get; set; } = string.Empty;
+    public bool IsManualInput { get; set; }
+    public List<string> CompositeIdVariables { get; set; } = new();
+    public string CompositeIdSeparator { get; set; } = string.Empty;
+    public MatchComparison? SearchComparisonDefaultValue { get; set; }   // enum: Equal/Like のみ許容
+    // 親階層から継承: Name, IgnoreModification, OnValidateInput, DisplayName, IsRequired,
+    //   OnDataChanged, IsUpdateProtected, IsSimpleSearchParameter, AllowEmptySearch, OnSearchDataChanged
+}
+```
+
 ## プロパティ
 
 > 共通プロパティ（Name, IgnoreModification, DisplayName, IsRequired, OnDataChanged, DbColumn, IsUpdateProtected, IsSimpleSearchParameter, OnSearchDataChanged）は [_FieldCommon.md](_FieldCommon.md) を参照。

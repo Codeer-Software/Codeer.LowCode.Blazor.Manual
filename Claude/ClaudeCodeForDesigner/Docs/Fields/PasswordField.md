@@ -5,6 +5,17 @@
 パスワード入力フィールド。マスク表示でパスワードを入力し、確認用パスワードとの一致検証を行う。
 `ValueFieldDesignBase` を継承する（`DbValueFieldDesignBase` ではないため `DbColumn` を持たない）。
 
+## C# クラス定義 (真実の源)
+
+```csharp
+public class PasswordFieldDesign : ValueFieldDesignBase
+{
+    // 独自プロパティ無し
+    // 親階層から継承: Name, IgnoreModification, OnValidateInput,
+    //                DisplayName, IsRequired, OnDataChanged
+}
+```
+
 ## プロパティ
 
 > 共通プロパティは [_FieldCommon.md](_FieldCommon.md) を参照。

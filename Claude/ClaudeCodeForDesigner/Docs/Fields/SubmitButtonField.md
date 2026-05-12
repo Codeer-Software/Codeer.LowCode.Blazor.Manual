@@ -4,6 +4,21 @@
 
 データ送信ボタン。クリック時に全フィールドのバリデーションを実行し、検証に成功した場合にデータベースへ保存する。カスタムスクリプトは持たず、常にSubmit処理を実行する。
 
+## C# クラス定義 (真実の源)
+
+```csharp
+public class SubmitButtonFieldDesign : FieldDesignBase
+{
+    public string Text { get; set; } = "Submit";
+    [Obsolete] public string ImageResourcePath { get; set; } = string.Empty;
+    public ButtonImageSet ImageResourceSet { get; set; } = new();
+    public string Icon { get; set; } = string.Empty;
+    public ButtonVariant Variant { get; set; } = ButtonVariant.Primary;   // enum: Primary/Secondary/...
+    public bool IsBlock { get; set; } = true;
+    // 親 FieldDesignBase から継承: Name, IgnoreModification, OnValidateInput
+}
+```
+
 ## プロパティ
 
 > 共通プロパティ（Name, IgnoreModification）は [_FieldCommon.md](_FieldCommon.md) を参照。

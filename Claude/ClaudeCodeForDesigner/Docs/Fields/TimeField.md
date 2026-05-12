@@ -4,6 +4,17 @@
 
 時刻データ（TimeOnly 型）を入力するフィールド。`<input type="time">` として動作する。UTC保存モードを備え、タイムゾーンを考慮した保存が可能。
 
+## C# クラス定義 (真実の源)
+
+```csharp
+public class TimeFieldDesign : DbValueFieldDesignBase
+{
+    public bool SaveAsUtc { get; set; }
+    public override string DbColumn { get; set; } = string.Empty;
+    // 親階層から継承 (詳細は _FieldCommon.md)
+}
+```
+
 ## プロパティ
 
 > 共通プロパティ（Name, IgnoreModification, DisplayName, IsRequired, OnDataChanged, DbColumn, IsUpdateProtected, IsSimpleSearchParameter, OnSearchDataChanged）は [_FieldCommon.md](_FieldCommon.md) を参照。

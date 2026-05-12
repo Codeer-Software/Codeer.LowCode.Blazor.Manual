@@ -4,6 +4,26 @@
 
 テキストデータを入力するフィールド。単一行入力（`<input>`）と複数行入力（`<textarea>`）を切り替え可能。最大文字数制限、空値の扱い（空文字列 or null）、編集後のトリムなど、テキスト入力に必要な機能を備える。
 
+## C# クラス定義 (真実の源)
+
+```csharp
+public enum TextEditEmptyType { StringEmpty, Null }
+
+public class TextFieldDesign : DbValueFieldDesignBase
+{
+    public override string DbColumn { get; set; } = string.Empty;
+    public bool IsMultiline { get; set; }
+    public bool IsAutoFitRows { get; set; }
+    public string Placeholder { get; set; } = string.Empty;
+    public int? MaxLength { get; set; }
+    public int? Rows { get; set; }
+    public TextEditEmptyType TextEditEmptyType { get; set; } = TextEditEmptyType.StringEmpty;
+    public bool ShouldTrimAfterEdit { get; set; }
+    public MatchComparison? SearchComparisonDefaultValue { get; set; }   // enum: Equal/Like のみ許容
+    // 親階層から継承 (詳細は _FieldCommon.md)
+}
+```
+
 ## プロパティ
 
 > 共通プロパティ（Name, IgnoreModification, DisplayName, IsRequired, OnDataChanged, DbColumn, IsUpdateProtected, IsSimpleSearchParameter, OnSearchDataChanged）は [_FieldCommon.md](_FieldCommon.md) を参照。

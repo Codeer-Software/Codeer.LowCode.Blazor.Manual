@@ -4,6 +4,20 @@
 
 別モジュールをインラインで埋め込むフィールド。1:1 リレーションシップやネストされたフォームの実現に使用する。外部キー列（DbColumn）で埋め込みモジュールのIDと関連付け、DetailLayout で子モジュールを表示する。
 
+## C# クラス定義 (真実の源)
+
+```csharp
+public class ModuleFieldDesign : FieldDesignBase, IUpdateProtected
+{
+    public string DbColumn { get; set; } = string.Empty;
+    public string ModuleName { get; set; } = string.Empty;
+    public string LayoutName { get; set; } = "";
+    public bool IsUpdateProtected { get; set; }
+    public string OnDataChanged { get; set; } = string.Empty;
+    // 親 FieldDesignBase から継承: Name, IgnoreModification, OnValidateInput
+}
+```
+
 ## プロパティ
 
 > 共通プロパティ（Name, IgnoreModification）は [_FieldCommon.md](_FieldCommon.md) を参照。

@@ -5,6 +5,25 @@
 他モジュールへの外部キーリンクフィールド。検索ダイアログから関連レコードを選択し、外部キー値を保存する。
 `DbValueFieldDesignBase` を継承する。
 
+## C# クラス定義 (真実の源)
+
+```csharp
+public class LinkFieldDesign : DbValueFieldDesignBase
+{
+    public SearchCondition SearchCondition { get; set; } = new() { LimitCount = 50 };
+    public string ValueVariable { get; set; } = string.Empty;
+    public string DisplayTextVariable { get; set; } = string.Empty;
+    public override string DbColumn { get; set; } = string.Empty;
+    public string ListLayoutName { get; set; } = "";
+    public string SearchLayoutName { get; set; } = "";
+    public string OnSearchButtonClicked { get; set; } = string.Empty;
+    // 親階層から継承: Name, IgnoreModification, OnValidateInput, DisplayName, IsRequired,
+    //   OnDataChanged, IsUpdateProtected, IsSimpleSearchParameter, AllowEmptySearch, OnSearchDataChanged
+}
+```
+
+> SearchCondition の構造は [SearchConditions.md](../SearchConditions.md) を参照。`Condition` 配下のオブジェクトは MatchConditionBase 派生で TypeFullName 必須。
+
 ## プロパティ
 
 > 共通プロパティは [_FieldCommon.md](_FieldCommon.md) を参照。

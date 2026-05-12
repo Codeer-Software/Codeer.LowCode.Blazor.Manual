@@ -4,6 +4,20 @@
 
 真偽値（bool）を入力するフィールド。チェックボックス、トグルボタン、スイッチの3種類のUIスタイルから選択可能。表示専用モードでは true/false のカスタムテキストを表示できる。
 
+## C# クラス定義 (真実の源)
+
+```csharp
+public class BooleanFieldDesign : DbValueFieldDesignBase, IDisplayName
+{
+    public string Text { get; set; } = "Boolean";
+    public override string DbColumn { get; set; } = string.Empty;
+    public BooleanUIType UIType { get; set; }                     // enum: CheckBox / ToggleButton / Switch
+    public string TrueText { get; set; } = string.Empty;
+    public string FalseText { get; set; } = string.Empty;
+    // 親階層から継承 (詳細は _FieldCommon.md)
+}
+```
+
 ## プロパティ
 
 > 共通プロパティ（Name, IgnoreModification, DisplayName, IsRequired, OnDataChanged, DbColumn, IsUpdateProtected, IsSimpleSearchParameter, OnSearchDataChanged）は [_FieldCommon.md](_FieldCommon.md) を参照。

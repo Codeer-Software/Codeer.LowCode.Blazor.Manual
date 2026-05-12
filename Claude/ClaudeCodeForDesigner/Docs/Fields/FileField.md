@@ -5,6 +5,26 @@
 ファイルのアップロード・ダウンロード機能を提供するフィールド。ファイルメタデータを3つのDBカラムに分けて保存する。
 `FieldDesignBase` を直接継承し、`IDisplayName` と `IUpdateProtected` を実装する。
 
+## C# クラス定義 (真実の源)
+
+```csharp
+public class FileFieldDesign : FieldDesignBase, IDisplayName, IUpdateProtected
+{
+    public bool IsUpdateProtected { get; set; }
+    public string DisplayName { get; set; } = string.Empty;
+    public bool ShowPreview { get; set; }
+    public string StorageName { get; set; } = string.Empty;
+    public string DbColumnFileName { get; set; } = string.Empty;   // ファイルメタを 3 つの列に分けて保存
+    public string DbColumnFileSize { get; set; } = string.Empty;
+    public string DbColumnFileGuid { get; set; } = string.Empty;
+    public ObjectFit ObjectFit { get; set; } = ObjectFit.Contain;  // enum: Contain / Cover / Fill / None / ScaleDown
+    public string OnDataChanged { get; set; } = string.Empty;
+    public string OnSearchDataChanged { get; set; } = string.Empty;
+    public long? MaxAllowedSize { get; set; }                       // null=デフォルト 500MB
+    // 親 FieldDesignBase から継承: Name, IgnoreModification, OnValidateInput
+}
+```
+
 ## プロパティ
 
 > 共通プロパティは [_FieldCommon.md](_FieldCommon.md) を参照。

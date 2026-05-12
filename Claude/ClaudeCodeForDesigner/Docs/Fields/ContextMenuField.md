@@ -4,6 +4,17 @@
 
 右クリック時に表示されるコンテキストメニューを定義するフィールド。他のフィールドのレイアウトで `ContextMenu` プロパティにこのフィールド名を指定することで、対象フィールド上での右クリックメニューとして機能する。`FieldDesignBase` を直接継承する。
 
+## C# クラス定義 (真実の源)
+
+```csharp
+public class ContextMenuFieldDesign : FieldDesignBase
+{
+    public List<string> Items { get; set; } = [];           // 配列
+    public string OnClick { get; set; } = string.Empty;     // (string item) 引数
+    // 親 FieldDesignBase から継承: Name, IgnoreModification, OnValidateInput
+}
+```
+
 ## プロパティ
 
 > 共通プロパティ（Name, IgnoreModification）は [_FieldCommon.md](_FieldCommon.md) を参照。

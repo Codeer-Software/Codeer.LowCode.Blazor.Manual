@@ -2,11 +2,47 @@
 
 モジュールの画面表示を制御するレイアウト定義のリファレンス。レイアウトには大きく分けて3種類のラッパー（DetailLayout, ListLayout, SearchLayout）と、その中で使用する配置レイアウト（GridLayout, TabLayout, CanvasLayout）がある。
 
+> **このドキュメントの読み方 (Claude 向け)**
+>
+> 各クラスのセクションには **「C# クラス定義 (真実の源)」** を貼ってある。これはソースコード `Source/Codeer.LowCode.Blazor/Repository/Design/*.cs` から転記したもので、JSON のスキーマの **唯一の真実**。
+>
+> JSON で書く時に「このプロパティは配列か Dictionary か」「null 許容か」「初期値は何か」で迷ったら、必ず C# 定義を見ること。表形式の説明や JSON 例を読んで判断するのは曖昧さが残るため不可。
+>
+> 例: `public List<LayoutDesignBase> Layouts { get; set; }` なら **配列** (`[...]`)、`public Dictionary<string, LayoutDesignBase> Layouts` なら **オブジェクト** (`{"key": ...}`)。形が違えばデシリアライズで失敗してデザイナがモジュールを認識しなくなる。
+>
+> C# 定義の `[Designer(...)]` などの属性は無視して良い (デザイナー UI 用)。重要なのは:
+> - **プロパティの型** (`List<T>` / `Dictionary<K,V>` / `T?` / `string` / 列挙型 など)
+> - **初期値** (`= new()`, `= "";`, `= []`, デフォルト)
+> - **継承関係** (`: LayoutDesignBase` なら親クラスのプロパティも持つ)
+> - **`[Obsolete]` のついたプロパティは新規 JSON で使わない**
+
 ---
 
 ## 1. DetailLayoutDesign - 詳細画面レイアウト
 
 フォーム/詳細画面のラッパー。モジュールの `DetailLayouts` ディクショナリに格納される。
+
+### C# クラス定義 (真実の源)
+
+```csharp
+public class DetailLayoutDesign  // JsonAbstract 派生ではないので TypeFullName 不要
+{
+    public string OnBeforeInitialization { get; set; } = string.Empty;
+    public string OnAfterInitialization { get; set; } = string.Empty;
+    public string OnLocationChanging { get; set; } = string.Empty;     // bool 返却で離脱キャンセル
+    public string OnFieldDataChanged { get; set; } = string.Empty;     // (string fieldName) 引数
+    public List<string> DataOnlyFields { get; set; } = [];
+    public string ClassName { get; set; } = string.Empty;
+    public string Color { get; set; } = string.Empty;
+    public string BackgroundColor { get; set; } = string.Empty;
+    public string FontFamily { get; set; } = string.Empty;
+    public int? FontSize { get; set; }
+    public LayoutDesignBase Layout { get; set; }   // 通常 GridLayoutDesign / TabLayoutDesign / CanvasLayoutDesign
+        = new GridLayoutDesign { Rows = [GridRow.CreateEmptyRow()] };
+}
+```
+
+> モジュールの `DetailLayouts` プロパティは `Dictionary<string, DetailLayoutDesign>` 型 (= JSON では **オブジェクト** `{"": {...}}`)。`""` (空文字列) キーがデフォルトレイアウト。
 
 ### プロパティ
 
@@ -132,6 +168,50 @@ void Detail_OnFieldChanged(string fieldName)
 
 **注意:** 表示専用モジュール（`DbTable` が空、チャートダッシュボードやダイアログ等）では `ListLayouts` の Elements にフィールドを入れないこと。フィールドを入れると一覧表示モジュールと認識されてしまう。
 
+### C# クラス定義 (真実の源)
+
+```csharp
+public class ListLayoutDesign
+{
+    [Obsolete] public string HeaderTitle { get; set; } = string.Empty;
+    public List<string> DataOnlyFields { get; set; } = new();
+    public string OnBeforeInitialization { get; set; } = string.Empty;
+    public string OnAfterInitialization { get; set; } = string.Empty;
+    public string OnFieldDataChanged { get; set; } = string.Empty;     // (string fieldName) 引数
+    public List<List<ListElement>> Elements { get; set; } = [[new()]];
+    // ↑ Elements は List<List<...>>。外側=行 (通常 1 個)、内側=その行内の列。
+    //   通常の 1 行ヘッダーなら [[col1, col2, col3]] と書く。
+    //   [[col1], [col2]] と書くと 2 行ヘッダー扱いで縦に並ぶので注意。
+}
+
+public class ListElement : IFontAppearance
+{
+    public string FieldName { get; set; } = string.Empty;
+    public string ContextMenu { get; set; } = string.Empty;
+    public string Label { get; set; } = string.Empty;
+    public double? Width { get; set; }
+    public int ColumnSpan { get; set; } = 1;          // int (1.0 のような小数 NG)
+    public int RowSpan { get; set; } = 1;             // int
+    public bool? IsViewOnly { get; set; }
+    public TextWrap TextWrap { get; set; }            // enum: Unset / BreakAll / Ellipsis
+    public bool CanResize { get; set; }
+    public bool CanUserSort { get; set; } = true;
+    public HorizontalAlignment? HeaderHorizontalAlignment { get; set; }
+    public HorizontalAlignment? HorizontalAlignment { get; set; }
+    public string ClassName { get; set; } = string.Empty;
+    public string FontFamily { get; set; } = string.Empty;
+    public int? FontSize { get; set; }                // int? (14.0 NG、14 と書く)
+    public CssFontWeight? FontWeight { get; set; }
+    public CssFontStyle? FontStyle { get; set; }
+    public string Color { get; set; } = string.Empty;
+    public string BackgroundColor { get; set; } = string.Empty;
+    public string DetailLayoutName { get; set; } = string.Empty;
+    public string ListElementComponent { get; set; } = string.Empty;
+}
+```
+
+> モジュールの `ListLayouts` プロパティは `Dictionary<string, ListLayoutDesign>` 型 (= JSON では **オブジェクト** `{"": {...}}`)。`""` キーがデフォルト。
+
 ### プロパティ
 
 | プロパティ | 型 | デフォルト | 説明 |
@@ -247,6 +327,27 @@ void Detail_OnFieldChanged(string fieldName)
 
 検索フォームのラッパー。モジュールの `SearchLayouts` ディクショナリに格納される。
 
+### C# クラス定義 (真実の源)
+
+```csharp
+public class SearchLayoutDesign
+{
+    public string OnSearchInitialization { get; set; } = string.Empty;
+    public bool ShowDefaultSearchButtons { get; set; } = true;
+    public LayoutDesignBase Layout { get; set; }   // 通常 SearchGridLayoutDesign
+        = new SearchGridLayoutDesign { Rows = [GridRow.CreateEmptyRow()], IsExpandable = true, ... };
+}
+
+public class SearchGridLayoutDesign : GridLayoutDesign
+{
+    public SearchOperator Operator { get; set; } = SearchOperator.And;   // enum: And / Or / UserSpecified
+    // 親 GridLayoutDesign の全プロパティを継承 (Rows / Padding / IsBordered / IsExpandable / etc)
+}
+```
+
+> モジュールの `SearchLayouts` プロパティは `Dictionary<string, SearchLayoutDesign>` 型 (= JSON では **オブジェクト** `{"": {...}}`)。`""` キーがデフォルト。
+> SearchGridLayoutDesign の `TypeFullName`: `Codeer.LowCode.Blazor.Repository.Design.SearchGridLayoutDesign` (GridLayoutDesign ではなく専用)。
+
 ### プロパティ
 
 | プロパティ | 型 | デフォルト | 説明 |
@@ -331,6 +432,63 @@ GridLayoutDesign を継承し、以下のプロパティを追加。
 最も基本的な配置レイアウト。行と列のグリッド構造でフィールドを配置する。
 
 `TypeFullName`: `Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign`
+
+### C# クラス定義 (真実の源)
+
+```csharp
+public abstract class LayoutDesignBase : JsonAbstract
+{
+    public virtual string Name { get; set; } = string.Empty;
+    public bool? IsViewOnly { get; set; }
+    public string BackgroundColor { get; set; } = string.Empty;
+}
+
+public class GridLayoutDesign : LayoutDesignBase
+{
+    public override string Name { get; set; } = string.Empty;
+    public ThicknessDesign Padding { get; set; } = new();
+    public bool IsBordered { get; set; }
+    public bool UseBorderedShrinkWrap { get; set; }
+    public bool IsExpandable { get; set; }
+    public string ExpanderLabel { get; set; } = string.Empty;
+    public bool IsExpanderDefaultOpened { get; set; }
+    public bool IsFlowLayout { get; set; }
+    public bool IsAutoFillWrap { get; set; }
+    public bool IsFillAvailable { get; set; }
+    public ScrollDirection ScrollDirection { get; set; }  // enum: Unset / Vertical / Horizontal
+    public string OnKeyDown { get; set; } = string.Empty;
+    public List<GridRow> Rows { get; set; } = new();
+}
+
+public class GridRow
+{
+    public bool IsWrap { get; set; }
+    public bool IsAutoFillWrap { get; set; }
+    public double? Height { get; set; }
+    public ThicknessDesign Margin { get; set; } = new();
+    public GridRowType GridRowType { get; set; }  // enum: Normal / Header / Footer
+    public bool CanResize { get; set; }
+    public string BackgroundColor { get; set; } = string.Empty;
+    [Obsolete] public bool IsRowMarginRemoved { get; set; }
+    public virtual List<GridColumn> Columns { get; init; } = new();
+}
+
+public class GridColumn
+{
+    public LayoutDesignBase? Layout { get; set; }  // null=空セル / Field/Grid/Tab/Canvas/Flow
+    public double? Width { get; set; }
+    public double? MinWidth { get; set; }
+    public double? MaxWidth { get; set; }
+    public ThicknessDesign Padding { get; set; } = new();
+    public string BackgroundColor { get; set; } = string.Empty;
+    public BorderStyleDesign BorderStyle { get; set; } = new();
+    public HorizontalAlignment? HorizontalAlignment { get; set; }  // enum: Start / Center / End / Stretch
+    public VerticalAlignment? VerticalAlignment { get; set; }      // enum: Top / Middle / Bottom / Stretch
+    public bool CanResize { get; set; }
+    [Obsolete] public string? Background { get; set; }
+    [Obsolete] public BorderDesign Border { get; set; }
+}
+```
 
 ### プロパティ
 
@@ -461,6 +619,23 @@ GridLayoutDesign の Column.Layout に指定して、フィールドを配置す
 
 `TypeFullName`: `Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign`
 
+### C# クラス定義 (真実の源)
+
+```csharp
+public class FieldLayoutDesign : LayoutDesignBase, IFontAppearance
+{
+    public string FieldName { get; set; } = string.Empty;
+    public string ContextMenu { get; set; } = string.Empty;
+    public string ClassName { get; set; } = string.Empty;
+    public string FontFamily { get; set; } = string.Empty;
+    public int? FontSize { get; set; }
+    public CssFontWeight? FontWeight { get; set; }
+    public CssFontStyle? FontStyle { get; set; }
+    public string Color { get; set; } = string.Empty;
+    // 親 LayoutDesignBase から継承: Name, IsViewOnly, BackgroundColor
+}
+```
+
 ### プロパティ
 
 | プロパティ | 型 | デフォルト | 説明 |
@@ -502,6 +677,27 @@ GridLayoutDesign の Column.Layout に指定して、フィールドを配置す
 タブ切り替え式のレイアウト。各タブに別々のレイアウトを配置できる。
 
 `TypeFullName`: `Codeer.LowCode.Blazor.Repository.Design.TabLayoutDesign`
+
+### C# クラス定義 (真実の源)
+
+```csharp
+public class TabLayoutDesign : LayoutDesignBase
+{
+    public override string Name { get; set; } = string.Empty;
+    public List<string> Tabs { get; set; } = ["Tab 1"];           // 配列 (object NG)
+    public ThicknessDesign Padding { get; set; } = new();
+    public bool IsBordered { get; set; }
+    public string Color { get; set; } = string.Empty;
+    public string SelectedColor { get; set; } = string.Empty;
+    public virtual List<LayoutDesignBase> Layouts { get; set; }    // 配列 (object NG)
+        = [new GridLayoutDesign { Rows = [GridRow.CreateEmptyRow()] }];
+    public string OnSelectedIndexChanged { get; set; } = string.Empty;
+    public string OnSelectedIndexChanging { get; set; } = string.Empty;
+    // 親 LayoutDesignBase から継承: IsViewOnly, BackgroundColor
+}
+```
+
+> **注意 (Claude 向け)**: `Tabs` も `Layouts` も `List<T>` = JSON では **配列** (`[...]`)。`Layouts` を `{"0": ..., "1": ...}` のオブジェクトで書くとデシリアライズに失敗してモジュールがデザイナで認識されなくなる。`Tabs` と `Layouts` は同じ要素数で、`Tabs[i]` のラベルに対応するレイアウトが `Layouts[i]`。
 
 ### プロパティ
 
@@ -629,6 +825,29 @@ void Tab_OnChanged()
 
 `TypeFullName`: `Codeer.LowCode.Blazor.Repository.Design.CanvasLayoutDesign`
 
+### C# クラス定義 (真実の源)
+
+```csharp
+public class CanvasLayoutDesign : LayoutDesignBase
+{
+    public List<CanvasElement> Elements { get; set; } = new();
+    public bool IsBordered { get; set; }
+    public ScrollDirection ScrollDirection { get; set; }  // enum: Unset / Vertical / Horizontal
+    // 親 LayoutDesignBase から継承: Name, IsViewOnly, BackgroundColor
+}
+
+public class CanvasElement
+{
+    public LayoutDesignBase? Layout { get; set; }  // FieldLayoutDesign / Grid / Tab / Canvas
+    public double Left { get; set; }
+    public double Top { get; set; }
+    public double? Width { get; set; }
+    public double? Height { get; set; }
+    public int? ZIndex { get; set; }
+    // CanvasElement 自体には Name プロパティは存在しない
+}
+```
+
 ### プロパティ
 
 | プロパティ | 型 | デフォルト | 説明 |
@@ -740,6 +959,18 @@ GridLayoutDesign の Column.Layout には FieldLayoutDesign だけでなく、Gr
 
 Padding や Margin で使用される。
 
+### C# クラス定義 (真実の源)
+
+```csharp
+public class ThicknessDesign
+{
+    public double? Left { get; set; }
+    public double? Top { get; set; }
+    public double? Right { get; set; }
+    public double? Bottom { get; set; }
+}
+```
+
 ```json
 {
   "Left": 10,
@@ -754,6 +985,22 @@ Padding や Margin で使用される。
 ## BorderStyleDesign 構造
 
 GridColumn の `BorderStyle` で使用される。枠線の幅と色を各辺ごとに設定できる。
+
+### C# クラス定義 (真実の源)
+
+```csharp
+public class BorderStyleDesign
+{
+    public double? Left { get; set; }
+    public double? Top { get; set; }
+    public double? Right { get; set; }
+    public double? Bottom { get; set; }
+    public string LeftColor { get; set; } = string.Empty;
+    public string TopColor { get; set; } = string.Empty;
+    public string RightColor { get; set; } = string.Empty;
+    public string BottomColor { get; set; } = string.Empty;
+}
+```
 
 ### プロパティ
 

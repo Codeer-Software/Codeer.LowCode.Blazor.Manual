@@ -2,6 +2,51 @@
 
 モジュールはアプリケーションの画面・データ定義の中核となるファイルである。1つのモジュールが1つの画面（ページ/フォーム）に対応し、フィールド定義、レイアウト、CRUD権限、検索条件等を含む。
 
+## C# クラス定義 (真実の源)
+
+ソースコード `Source/Codeer.LowCode.Blazor/Repository/Design/ModuleDesign.cs` から転記。JSON のスキーマの **唯一の真実**。プロパティの型 (`List<T>` / `Dictionary<K,V>` / `T?`) や初期値で迷ったら必ずここを見る。`[Obsolete]` 付きのプロパティは新規作成 JSON で書かなくてよい (互換のため出力されることはある)。
+
+```csharp
+public class ModuleDesign
+{
+    public string Name { get; set; } = string.Empty;
+    public string DataSourceName { get; set; } = string.Empty;
+    public string DbTable { get; set; } = string.Empty;
+    public bool CanCreate { get; set; } = true;
+    public bool CanUpdate { get; set; } = true;
+    public bool CanDelete { get; set; } = true;
+
+    public List<FieldDesignBase> Fields { get; set; } = new();   // 配列。各要素 TypeFullName 必須
+
+    public ModuleMatchCondition UserWriteCondition { get; set; } = new();
+    public ModuleMatchCondition UserReadCondition { get; set; } = new();
+    public ModuleMatchCondition DataWriteCondition { get; set; } = new();
+    public ModuleMatchCondition DataReadCondition { get; set; } = new();
+
+    public Dictionary<string, DetailLayoutDesign> DetailLayouts { get; set; }   // {"": {...}} (object)
+        = new() { { string.Empty, new() } };
+    public Dictionary<string, ListLayoutDesign>   ListLayouts   { get; set; }   // {"": {...}}
+        = new() { { string.Empty, new() } };
+    public Dictionary<string, SearchLayoutDesign> SearchLayouts { get; set; }   // {"": {...}}
+        = new() { { string.Empty, SearchLayoutDesign.CreateFirstSearchLayout() } };
+
+    public List<string> LinkFieldNames { get; set; } = new();   // 配列
+
+    [Obsolete] public bool UseListPageSubmitButton { get; set; }
+    [Obsolete] public FieldDesignBase ListPageFieldDesign { get; set; }
+        = ListPageDesign.CreateDefaultListPageFieldDesign();
+    [Obsolete] public bool CanBulkDataUpdate { get; set; }
+    [Obsolete] public bool CanBulkDataDownload { get; set; }
+    [Obsolete] public string PageTitle { get; set; } = string.Empty;
+}
+```
+
+> **注意 (Claude 向け)**:
+> - `Fields` は `List<FieldDesignBase>` (= JSON 配列)。各要素は `TypeFullName` 必須 (`LabelFieldDesign` / `TextFieldDesign` 等のサブクラス)。
+> - `DetailLayouts` / `ListLayouts` / `SearchLayouts` は `Dictionary<string, ...>` (= JSON オブジェクト `{"": {...}}`)。`""` キーがデフォルト。**配列で書くと NG**。
+> - `LinkFieldNames` は `List<string>` (= JSON 配列)。
+> - `[Obsolete]` 5 つは新規モジュールに書かない (PageFrame の ListPageDesign 側に移行済み)。古い mod.json には残っていることがあるが触らないで OK。
+
 ## ファイル命名規則
 
 ```

@@ -4,6 +4,45 @@
 
 ---
 
+## C# クラス定義 (真実の源)
+
+ソースコード `Source/Codeer.LowCode.Blazor/Repository/Design/AppSettingsDesign.cs` 等から転記。`Versions` / `DataSources` / `FileStorages` はすべて `List<...>` (= JSON 配列)。
+
+```csharp
+public class AppSettingsDesign
+{
+    public string CurrentUserModuleDesignName { get; set; } = string.Empty;
+    public ModuleMatchCondition AppAccessConditions { get; set; } = new();
+    public string BackgroundColor { get; set; } = string.Empty;
+    public string Color { get; set; } = string.Empty;
+    public string FontFamily { get; set; } = string.Empty;
+    public int? FontSize { get; set; }
+    public List<VersionInfo> Versions { get; set; } = new();    // 配列
+    public string LocalizeResourcePath { get; set; } = string.Empty;
+}
+
+public class VersionInfo
+{
+    public string AssemblyName { get; set; } = string.Empty;
+    public string Version { get; set; } = string.Empty;
+}
+
+public enum DataSourceType { SQLServer, PostgreSQL, Oracle, MySQL, SQLite }
+
+public class DataSource
+{
+    public string Name { get; set; } = string.Empty;
+    public DataSourceType DataSourceType { get; set; }
+    public string ConnectionString { get; set; } = string.Empty;
+    // designer.settings.json (パブリック) には ConnectionString は含めず、
+    // designer.settings.Development.json (gitignore 対象) に持つ運用が標準
+}
+```
+
+> **注意 (Claude 向け)**: `app.clprj` は `AppSettingsDesign` の JSON 直接シリアライズ。`designer.settings.json` の `DataSources` / `FileStorages` は `List<...>` 配列。接続文字列等の機密は `designer.settings.Development.json` (gitignore 対象) に分離する。
+
+---
+
 ## 1. app.clprj - プロジェクトファイル
 
 アプリケーション全体の基本設定を定義する。アプリケーションルートに配置。

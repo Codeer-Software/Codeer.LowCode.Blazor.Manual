@@ -8,6 +8,10 @@
 
 円グラフ・ドーナツチャート等の円形系チャートには [ApexRadialChartField.md](ApexRadialChartField.md) を使用する。
 
+## C# クラス定義 (真実の源)
+
+このフィールドは外部ライブラリ `Codeer.LowCode.Bindings.Blazor-ApexCharts` で定義されているため、`Codeer.LowCode.Blazor` リポジトリ内に C# 定義は存在しない。プロパティ仕様は本ドキュメントの表とライブラリの NuGet パッケージのソースを参照。`FieldDesignBase` を継承するため、共通プロパティ (Name / IgnoreModification / OnValidateInput) を持つ。
+
 ## プロパティ
 
 > 共通プロパティ（Name, IgnoreModification）は [_FieldCommon.md](_FieldCommon.md) を参照。

@@ -6,6 +6,16 @@
 
 > 行となる「行モジュール」を別途定義し、`SearchCondition.ModuleName` で参照する構成パターン（ListField/TileListField と行モジュールを共有する方法、デモデータの作り方）は [../RowModulePattern.md](../RowModulePattern.md) を参照。
 
+## C# クラス定義 (真実の源)
+
+```csharp
+public class DetailListFieldDesign : ListFieldDesignBase, IFillHeightFieldDesign
+{
+    public override string LayoutName { get; set; } = "";
+    // 親 ListFieldDesignBase / FieldDesignBase の全プロパティを継承 (詳細は _FieldCommon.md)
+}
+```
+
 ## プロパティ
 
 > 共通プロパティ（Name, IgnoreModification）は [_FieldCommon.md](_FieldCommon.md) を参照。

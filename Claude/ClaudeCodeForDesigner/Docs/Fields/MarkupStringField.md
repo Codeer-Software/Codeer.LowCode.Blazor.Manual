@@ -4,6 +4,17 @@
 
 生のHTMLマークアップをフォーム上に表示するフィールド。リソースファイルからのHTML読み込み、またはインラインでのHTML記述に対応する。`FieldDesignBase` を直接継承する。
 
+## C# クラス定義 (真実の源)
+
+```csharp
+public class MarkupStringFieldDesign : FieldDesignBase
+{
+    public string ResourcePath { get; set; } = string.Empty;
+    public string RawHtml { get; set; } = string.Empty;
+    // 親 FieldDesignBase から継承: Name, IgnoreModification, OnValidateInput
+}
+```
+
 ## プロパティ
 
 > 共通プロパティ（Name, IgnoreModification）は [_FieldCommon.md](_FieldCommon.md) を参照。

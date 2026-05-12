@@ -4,6 +4,23 @@
 
 数値データ（decimal 型）を入力するフィールド。通常の数値入力（`<input type="number">`）とスライダー（`<input type="range">`）を切り替え可能。最小値・最大値のバリデーション、小数桁数の制御、表示フォーマットをサポートする。
 
+## C# クラス定義 (真実の源)
+
+```csharp
+public class NumberFieldDesign : DbValueFieldDesignBase
+{
+    public override string DbColumn { get; set; } = string.Empty;
+    public string Placeholder { get; set; } = string.Empty;
+    public string Format { get; set; } = string.Empty;
+    public decimal? Min { get; set; }
+    public decimal? Max { get; set; }
+    public bool IsSlider { get; set; }
+    public decimal? Step { get; set; }
+    public int? MaxFractionDigits { get; set; }
+    // 親階層から継承 (詳細は _FieldCommon.md)
+}
+```
+
 ## プロパティ
 
 > 共通プロパティ（Name, IgnoreModification, DisplayName, IsRequired, OnDataChanged, DbColumn, IsUpdateProtected, IsSimpleSearchParameter, OnSearchDataChanged）は [_FieldCommon.md](_FieldCommon.md) を参照。

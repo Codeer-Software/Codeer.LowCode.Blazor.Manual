@@ -4,6 +4,21 @@
 
 現在のレコードデータをコピーして新規レコードとして開くボタンフィールド。既存データをテンプレートとして新しいレコードを作成する場合に使用する。`FieldDesignBase` を直接継承する。
 
+## C# クラス定義 (真実の源)
+
+```csharp
+public class CopyModuleButtonFieldDesign : FieldDesignBase
+{
+    public string Text { get; set; } = "Copy";
+    [Obsolete] public string ImageResourcePath { get; set; } = string.Empty;
+    public ButtonImageSet ImageResourceSet { get; set; } = new();
+    public string Icon { get; set; } = string.Empty;
+    public ButtonVariant Variant { get; set; } = ButtonVariant.Primary;
+    public bool IsBlock { get; set; } = true;
+    // 親 FieldDesignBase から継承: Name, IgnoreModification, OnValidateInput
+}
+```
+
 ## プロパティ
 
 > 共通プロパティ（Name, IgnoreModification）は [_FieldCommon.md](_FieldCommon.md) を参照。

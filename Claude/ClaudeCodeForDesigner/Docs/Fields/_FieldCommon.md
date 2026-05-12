@@ -28,6 +28,57 @@ FieldDesignBase                         ← 全フィールド共通
 └── ViewEditToggleButtonFieldDesign
 ```
 
+## C# クラス定義 (真実の源)
+
+ソースコード `Source/Codeer.LowCode.Blazor/Repository/Design/{FieldDesignBase,ValueFieldDesignBase,DbValueFieldDesignBase,ListFieldDesignBase}.cs` から転記。JSON のスキーマの **唯一の真実**。プロパティの型 (`List<T>` / `T?` / 列挙) や初期値で迷ったら必ずここを見る。`[Obsolete]` 付きは新規 JSON で使わない。
+
+```csharp
+public abstract class FieldDesignBase : JsonAbstract
+{
+    public string Name { get; set; } = string.Empty;
+    public bool IgnoreModification { get; set; }
+    public string OnValidateInput { get; set; } = string.Empty;   // bool 返却
+    // JsonAbstract から: TypeFullName (基底コンストラクタで自動セット)
+}
+
+public abstract class ValueFieldDesignBase : FieldDesignBase, IRequired, IDisplayName
+{
+    public string DisplayName { get; set; } = string.Empty;
+    public bool IsRequired { get; set; }
+    public string OnDataChanged { get; set; } = string.Empty;
+}
+
+public abstract class DbValueFieldDesignBase : ValueFieldDesignBase, IUpdateProtected
+{
+    public bool IsUpdateProtected { get; set; }
+    public bool IsSimpleSearchParameter { get; set; } = false;
+    public abstract string DbColumn { get; set; }
+    public bool AllowEmptySearch { get; set; }
+    public string OnSearchDataChanged { get; set; } = string.Empty;
+}
+
+public abstract class ListFieldDesignBase : FieldDesignBase, IListFieldDesign, IDisplayName
+{
+    public string DisplayName { get; set; } = string.Empty;
+    public SearchCondition SearchCondition { get; set; } = new();
+    public abstract string LayoutName { get; set; }
+    public PagerPosition PagerPosition { get; set; } = PagerPosition.Top;  // enum: Top / Bottom / Both / None
+    public bool UseIndexSort { get; set; }
+    public bool DeleteTogether { get; set; }
+    public bool CanCreate { get; set; }
+    public bool CanUpdate { get; set; }
+    public bool CanDelete { get; set; }
+    public bool CanUserSort { get; set; } = true;
+    public bool CanSelect { get; set; }
+    public bool? ConfirmBeforeDelete { get; set; }
+    public string OnDataChanged { get; set; } = string.Empty;
+    public string OnSearchDataChanged { get; set; } = string.Empty;
+    public string OnSelectedIndexChanged { get; set; } = string.Empty;
+    public string OnSelectedIndexChanging { get; set; } = string.Empty;   // (int index) → bool 返却
+    public string OnDoubleClickRow { get; set; } = string.Empty;          // (int index) 引数
+}
+```
+
 ## FieldDesignBase （全フィールド共通）
 
 全てのフィールドが持つプロパティ。
