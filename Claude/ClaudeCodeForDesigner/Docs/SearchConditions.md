@@ -4,6 +4,93 @@
 
 ---
 
+## C# クラス定義 (真実の源)
+
+ソースコード `Source/Codeer.LowCode.Blazor/Repository/Match/*.cs` および `Source/Codeer.LowCode.Blazor/Repository/MultiTypeValue.cs` から転記。JSON のスキーマの **唯一の真実**。`MatchConditionBase` 派生と `MultiTypeValue` 派生は `JsonAbstract` の polymorphic デシリアライズ対象なので、`TypeFullName` を **必ず** 書く。
+
+```csharp
+public class ModuleMatchCondition
+{
+    public string ModuleName { get; set; } = string.Empty;
+    public MatchConditionBase? Condition { get; set; }    // null 可、または MatchConditionBase 派生 (要 TypeFullName)
+}
+
+public class SortCondition
+{
+    public string Variable { get; set; } = string.Empty;
+    public bool IsDescending { get; set; }
+}
+
+public class SearchCondition : ModuleMatchCondition
+{
+    public int? LimitCount { get; set; }
+    public List<string> SelectFields { get; set; } = new();
+    public List<SortCondition> SortConditions { get; set; } = new();
+    [Obsolete] public string SortFieldVariable { get; set; } = string.Empty;
+    [Obsolete] public bool SortDescending { get; set; }
+    // 親 ModuleMatchCondition から: ModuleName, Condition
+}
+
+// --- MatchCondition (polymorphic, TypeFullName 必須) ---
+public abstract class MatchConditionBase : JsonAbstract { }
+
+public class MultiMatchCondition : MatchConditionBase
+{
+    // TypeFullName: Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition
+    public bool IsOrMatch { get; set; }
+    public bool IsNot { get; set; }
+    public List<MatchConditionBase> Children { get; set; } = new();   // 子も TypeFullName 必須
+    public string Name { get; set; } = string.Empty;
+}
+
+public class FieldVariableMatchCondition : MatchConditionBase, IFieldMatchCondition
+{
+    // TypeFullName: Codeer.LowCode.Blazor.Repository.Match.FieldVariableMatchCondition
+    public string SearchTargetVariable { get; set; } = string.Empty;
+    public MatchComparison Comparison { get; set; }   // enum: Equal/NotEqual/LessThan/.../Like/In/NotIn/Exists/NotExists
+    public string Variable { get; set; } = string.Empty;
+}
+
+public class FieldValueMatchCondition : MatchConditionBase, IFieldMatchCondition
+{
+    // TypeFullName: Codeer.LowCode.Blazor.Repository.Match.FieldValueMatchCondition
+    public string SearchTargetVariable { get; set; } = string.Empty;
+    public MatchComparison Comparison { get; set; }
+    public MultiTypeValue Value { get; set; } = new NullValue();   // ★ Value も TypeFullName 必須 (下記参照)
+}
+
+public class FieldValueMatchConditionNonNull : FieldValueMatchCondition
+{
+    // TypeFullName: Codeer.LowCode.Blazor.Repository.Match.FieldValueMatchConditionNonNull
+}
+
+public class FieldMatchCondition : MultiMatchCondition
+{
+    // TypeFullName: Codeer.LowCode.Blazor.Repository.Match.FieldMatchCondition
+    public string FieldName { get; set; } = string.Empty;
+}
+
+// --- MultiTypeValue (polymorphic、FieldValueMatchCondition.Value 等で使う、TypeFullName 必須) ---
+public abstract class MultiTypeValue : JsonAbstract { }
+
+public class NullValue        : MultiTypeValue { }                          // .NullValue
+public class StringValue      : MultiTypeValue { public string?   Value { get; set; } }   // .StringValue
+public class DecimalValue     : MultiTypeValue { public decimal?  Value { get; set; } }   // .DecimalValue (整数も decimal で格納)
+public class BooleanValue     : MultiTypeValue { public bool?     Value { get; set; } }   // .BooleanValue
+public class DateOnlyValue    : MultiTypeValue { public DateOnly? Value { get; set; } }   // .DateOnlyValue
+public class TimeOnlyValue    : MultiTypeValue { public TimeOnly? Value { get; set; } }   // .TimeOnlyValue
+public class DateTimeValue    : MultiTypeValue { public DateTime? Value { get; set; } }   // .DateTimeValue
+public class BinaryValue      : MultiTypeValue { public byte[]?   Value { get; set; } }   // .BinaryValue
+public class EnumValue<T>     : MultiTypeValue { public T?        Value { get; set; } }   // .EnumValue`1[[T...]]
+public class ListValue<T>     : MultiTypeValue { public List<T>?  Value { get; set; } }   // .ListValue`1[[T...]]
+```
+
+> **注意 (Claude 向け)**:
+> - `MatchConditionBase` 派生 (= `Condition` プロパティや `Children` 配列要素) は **必ず** `TypeFullName` を含めること。書き忘れるとデシリアライズ失敗。
+> - `FieldValueMatchCondition.Value` は `MultiTypeValue` 派生で、これも **必ず** `TypeFullName` を含める。例: `"Value": {"Value": "AH", "TypeFullName": "Codeer.LowCode.Blazor.Repository.StringValue"}`。
+> - 数値は整数も `DecimalValue` を使う (`IntValue` のような型は無い)。
+> - `Children` は `List<MatchConditionBase>` = JSON 配列。`Condition` 単体は object。
+
 ## SearchCondition
 
 データ取得全体の条件を定義する。ListField, LinkField, SelectField 等の `SearchCondition` プロパティで使用。

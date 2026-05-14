@@ -4,6 +4,18 @@
 
 楽観的排他制御（Optimistic Concurrency Control）を実現するフィールド。レコード更新時にバージョン値を比較し、他のユーザーによる変更を検出する。`FieldDesignBase` を直接継承する。
 
+## C# クラス定義 (真実の源)
+
+```csharp
+public class OptimisticLockingFieldDesign : FieldDesignBase
+{
+    public string DbColumn { get; set; } = string.Empty;
+    public bool IncrementVersion { get; set; }
+    // 親 FieldDesignBase から継承: Name, IgnoreModification, OnValidateInput
+    // 注意: DbValueFieldDesignBase ではないので DbColumn は親階層から来ない (このクラス独自)
+}
+```
+
 ## プロパティ
 
 > 共通プロパティ（Name, IgnoreModification）は [_FieldCommon.md](_FieldCommon.md) を参照。

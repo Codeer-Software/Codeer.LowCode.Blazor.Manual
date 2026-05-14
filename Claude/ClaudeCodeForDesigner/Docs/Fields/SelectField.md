@@ -5,6 +5,23 @@
 ドロップダウン形式の選択フィールド。静的な候補リスト、または別モジュールからの動的候補読み込みに対応する。
 `DbValueFieldDesignBase` を継承し、選択された値をDBカラムに保存する。
 
+## C# クラス定義 (真実の源)
+
+```csharp
+public class SelectFieldDesign : DbValueFieldDesignBase
+{
+    public List<string> Candidates { get; set; } = new();   // "表示テキスト,値" 形式の文字列配列
+    public SearchCondition SearchCondition { get; set; } = new();
+    public string ValueVariable { get; set; } = string.Empty;
+    public string DisplayTextVariable { get; set; } = string.Empty;
+    public override string DbColumn { get; set; } = string.Empty;
+    public SelectEmptyCandidateType EmptyCandidateType { get; set; } = SelectEmptyCandidateType.StringEmpty;
+    public bool AllowOrSearch { get; set; }
+    // 親階層から継承: Name, IgnoreModification, OnValidateInput, DisplayName, IsRequired,
+    //   OnDataChanged, IsUpdateProtected, IsSimpleSearchParameter, AllowEmptySearch, OnSearchDataChanged
+}
+```
+
 ## プロパティ
 
 > 共通プロパティは [_FieldCommon.md](_FieldCommon.md) を参照。

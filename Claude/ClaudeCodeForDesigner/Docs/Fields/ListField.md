@@ -6,6 +6,24 @@
 
 > 行となる「行モジュール」を別途定義し、`SearchCondition.ModuleName` で参照する構成パターン（DetailListField/TileListField と行モジュールを共有する方法、デモデータの作り方）は [../RowModulePattern.md](../RowModulePattern.md) を参照。
 
+## C# クラス定義 (真実の源)
+
+```csharp
+public class ListFieldDesign : ListFieldDesignBase, IFillHeightFieldDesign
+{
+    public override string LayoutName { get; set; } = "";
+    public bool CanNavigateToDetail { get; set; }
+    public string NavigateModuleUrlSegment { get; set; } = string.Empty;
+    public bool CanCustomizeColumns { get; set; }
+    public FormControlStyle? FormControlStyle { get; set; }   // enum: Box / Inline
+    public bool ApplyBackgroundToBoxInput { get; set; }
+    // 親 ListFieldDesignBase から継承: DisplayName, SearchCondition, PagerPosition, UseIndexSort,
+    //   DeleteTogether, CanCreate, CanUpdate, CanDelete, CanUserSort, CanSelect, ConfirmBeforeDelete,
+    //   OnDataChanged, OnSearchDataChanged, OnSelectedIndexChanged, OnSelectedIndexChanging, OnDoubleClickRow
+    // 親 FieldDesignBase から: Name, IgnoreModification, OnValidateInput
+}
+```
+
 ## プロパティ
 
 > 共通プロパティ（Name, IgnoreModification）は [_FieldCommon.md](_FieldCommon.md) を参照。

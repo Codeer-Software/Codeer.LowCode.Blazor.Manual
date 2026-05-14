@@ -2,6 +2,132 @@
 
 ページフレームはアプリケーションのナビゲーション構造を定義する。サイドバー、ヘッダー、ページ遷移先のリンクを構成し、アプリケーション全体の骨格となる。
 
+## C# クラス定義 (真実の源)
+
+ソースコード `Source/Codeer.LowCode.Blazor/Repository/Design/{PageFrameDesign,SideBarDesign,HeaderDesign,HomeLabel,PageLink}.cs` から転記。`Left.Links` / `Right.Links` / `Header.Links` は `List<PageLink>` (= JSON 配列)。`PageLink` は `ModulePageDesign` を継承。
+
+```csharp
+public class PageFrameDesign
+{
+    public bool IsApplicationRoot { get; set; }
+    public string Name { get; set; } = string.Empty;
+    public string Description { get; set; } = string.Empty;
+    public SideBarDesign Left { get; set; } = new();
+    public SideBarDesign Right { get; set; } = new();
+    public HeaderDesign Header { get; set; } = new();
+    public ThicknessDesign? Padding { get; set; } = new();
+    public ModuleMatchCondition UserReadCondition { get; set; } = new();
+    public string BackgroundColor { get; set; } = string.Empty;
+    public string Color { get; set; } = string.Empty;
+    public string FontFamily { get; set; } = string.Empty;
+    public int? FontSize { get; set; }
+    public List<ModulePageDesign> OtherPageModuleDesigns { get; set; } = new();
+    public ModulePageDesign? TopPageModuleDesign { get; set; } = new();
+    public AutoZoomMode AutoZoom { get; set; } = AutoZoomMode.None;     // enum: None / etc
+    public double? BaseWidth { get; set; }
+    [Obsolete] public string TopPageModule { get; set; } = string.Empty;
+    [Obsolete] public string? Background { get; set; }
+    [Obsolete] public List<string> OtherPages { get; set; } = new();
+}
+
+public enum MobileBehavior { None, CollapseToHamburger }
+
+public class SideBarDesign
+{
+    public bool IsVisible { get; set; }
+    public HomeLabel Home { get; set; } = new();
+    public List<PageLink> Links { get; set; } = new();              // 配列
+    public string FontFamily { get; set; } = string.Empty;
+    public int? FontSize { get; set; }
+    public string Color { get; set; } = "#ffffff";
+    public string BackgroundColorStart { get; set; } = "#052767";
+    public string BackgroundColorEnd { get; set; } = "#3a0647";
+    public MobileBehavior MobileBehavior { get; set; } = MobileBehavior.CollapseToHamburger;
+    public double? Width { get; set; }
+    public string UserName { get; set; } = string.Empty;
+    public string ModuleName { get; set; } = string.Empty;          // 標準サイドバー代替モジュール
+    [Obsolete] public string? Foreground { get; set; }
+    [Obsolete] public string? BackgroundStart { get; set; }
+    [Obsolete] public string? BackgroundEnd { get; set; }
+}
+
+public class HeaderDesign
+{
+    public bool IsVisible { get; set; }
+    public string FontFamily { get; set; } = string.Empty;
+    public int? FontSize { get; set; }
+    public string Color { get; set; } = "#000000";
+    public string BackgroundColor { get; set; } = "#f8f9fa";
+    public double? Height { get; set; }
+    public HomeLabel Home { get; set; } = new();
+    public List<PageLink> Links { get; set; } = [];
+    public string UserName { get; set; } = string.Empty;
+    public string ModuleName { get; set; } = string.Empty;          // 標準ヘッダー代替モジュール
+    [Obsolete] public string? Foreground { get; set; }
+    [Obsolete] public string? Background { get; set; }
+}
+
+public class HomeLabel
+{
+    public HomeLabelType Type { get; set; }                          // enum: Text / etc
+    public string Text { get; set; } = string.Empty;
+    public string Icon { get; set; } = string.Empty;
+    public string ResourcePath { get; set; } = string.Empty;
+}
+
+// --- ページ定義 (リンク + ページ設定) ---
+public enum ModulePageType { Auto, ListToDetail, List, Detail }
+public enum IconType       { Font, ResourceImage }
+
+public class ModulePageDesign
+{
+    public ModulePageType ModulePageType { get; set; }
+    public string ModuleUrlSegment { get; set; } = string.Empty;
+    public List<string> ActiveModuleSegments { get; set; } = new();
+    public string PageFrame { get; set; } = string.Empty;            // 別 PageFrame 名 (空=同フレーム)
+    public string Module { get; set; } = string.Empty;               // モジュール名
+    public string Id { get; set; } = string.Empty;
+    public string Parameters { get; set; } = string.Empty;
+    public ListPageDesign ListPageDesign { get; set; } = new();
+    public DetailPageDesign DetailPageDesign { get; set; } = new();
+}
+
+public class PageLink : ModulePageDesign
+{
+    public string Title { get; set; } = string.Empty;                // "/" 区切りで階層メニュー
+    public string Icon { get; set; } = string.Empty;
+    public IconType IconType { get; set; } = IconType.Font;
+    public bool HideTitle { get; set; }
+}
+
+public class ListPageDesign
+{
+    public string SearchLayoutName { get; set; } = string.Empty;
+    public bool UserUrlParameter { get; set; } = true;
+    public string PageTitle { get; set; } = string.Empty;
+    public string HeaderTitle { get; set; } = string.Empty;
+    public bool CanBulkDataUpdate { get; set; }
+    public bool CanBulkDataDownload { get; set; }
+    public bool UseSubmitButton { get; set; }
+    public bool UseNavigateToCreate { get; set; } = true;
+    public FieldDesignBase ListFieldDesign { get; set; } = ...;       // 通常 ListFieldDesign。TypeFullName 必須
+}
+
+public class DetailPageDesign
+{
+    public string PageTitle { get; set; } = string.Empty;
+    public string LayoutName { get; set; } = string.Empty;
+    public string UrlParameter { get; set; } = string.Empty;
+}
+```
+
+> **注意 (Claude 向け)**:
+> - `Left.Links` / `Right.Links` / `Header.Links` / `OtherPageModuleDesigns` はすべて `List<...>` (= JSON 配列)。
+> - `PageLink` は `ModulePageDesign` を継承するので、PageLink エントリには `Title/Icon/IconType/HideTitle` に加えて親クラスの `ModulePageType/Module/PageFrame/ListPageDesign/DetailPageDesign/...` も書く。
+> - `ListPageDesign.ListFieldDesign` は `FieldDesignBase` 派生 (通常 `ListFieldDesign`) で **`TypeFullName` 必須** (polymorphic)。
+> - サイドバーの **Title に `/` 区切り** (例: `"マスタ/取引先"`) で階層メニューが自動生成される。
+> - `Left.ModuleName` / `Right.ModuleName` / `Header.ModuleName` を指定すると、標準 UI の代わりに指定モジュールの DetailLayouts[""] が描画される (Home/Links/Logout は出なくなる)。
+
 ## ファイル命名規則
 
 ```

@@ -12,6 +12,22 @@
 
 一覧フィールドに対するページング制御UIを表示するフィールド。対象のリストフィールドを指定してページナビゲーションを行う。`FieldDesignBase` を直接継承する。
 
+## C# クラス定義 (真実の源)
+
+```csharp
+public class ListNumberFieldDesign : FieldDesignBase
+{
+    // 独自プロパティ無し
+    // 親 FieldDesignBase から継承: Name, IgnoreModification, OnValidateInput
+}
+
+public class ListPagingFieldDesign : FieldDesignBase
+{
+    public string ListFieldName { get; set; } = string.Empty;   // 対象 List/DetailList/TileList の Name
+    // 親 FieldDesignBase から継承: Name, IgnoreModification, OnValidateInput
+}
+```
+
 ## プロパティ
 
 > 共通プロパティ（Name, IgnoreModification）は [_FieldCommon.md](_FieldCommon.md) を参照。

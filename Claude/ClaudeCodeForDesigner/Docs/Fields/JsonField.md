@@ -4,6 +4,17 @@
 
 構造化されたJSONデータをDB列に保存するフィールド。`JsonFieldSettings` でスキーマを定義し、各ノードが入力フィールドとしてレンダリングされる。`DbValueFieldDesignBase` を継承する。
 
+## C# クラス定義 (真実の源)
+
+```csharp
+public class JsonFieldDesign : DbValueFieldDesignBase
+{
+    public JsonFieldSettings JsonFieldSettings { get; set; } = new();
+    public override string DbColumn { get; set; } = string.Empty;
+    // 親階層から継承 (詳細は _FieldCommon.md)
+}
+```
+
 ## プロパティ
 
 > 共通プロパティ（Name, IgnoreModification, DisplayName, IsRequired, OnDataChanged, DbColumn, IsUpdateProtected, IsSimpleSearchParameter, OnSearchDataChanged）は [_FieldCommon.md](_FieldCommon.md) を参照。

@@ -4,6 +4,21 @@ Inherits: FieldDesignBase (implements IDbParameterSettingHolder, IHideDesignForF
 
 Purpose: Execute custom SQL statements or stored procedures. Supports INSERT/UPDATE/DELETE and stored procedures with input/output parameters. Can execute at specific timing during CRUD operations.
 
+C# class definition (truth source):
+```csharp
+public enum ExecuteSqlWithStandardIO { None, Before, After }
+public enum ExecuteSqlTiming { Standalone, Create, Update, Delete }
+
+public class ExecuteSqlFieldDesign : FieldDesignBase, IDbParameterSettingHolder, IHideDesignForFront
+{
+    public ExecuteSqlTiming Timing { get; set; }
+    public ExecuteSqlWithStandardIO WithStandardIO { get; set; }
+    public ExecuteSqlSetting ExecuteSqlSetting { get; set; } = new();
+    // 親 FieldDesignBase から継承: Name, IgnoreModification, OnValidateInput
+}
+```
+ExecuteSqlSetting / DbParameterSetting の構造は QueryAndSql.md を参照。
+
 Properties:
 - Timing (ExecuteSqlTiming): When to execute: Standalone, Create, Update, Delete
 - WithStandardIO (ExecuteSqlWithStandardIO): Relationship to standard CRUD: None (custom only), Before (standard first), After (custom first)

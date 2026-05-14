@@ -4,6 +4,22 @@
 
 検索フォーム。SearchLayout で検索条件の入力フォームを構成し、ユーザーの入力から検索条件を組み立てて ListField 等の結果表示フィールドに適用する。
 
+## C# クラス定義 (真実の源)
+
+```csharp
+public class SearchFieldDesign : FieldDesignBase
+{
+    public string ResultsViewFieldName { get; set; } = string.Empty;       // List/DetailList/TileList の Name
+    public string LayoutName { get; set; } = string.Empty;
+    public string OnSearched { get; set; } = string.Empty;
+    public bool UserUrlParameter { get; set; }
+    public string SearchUrlParameterKey { get; set; } = string.Empty;
+    public string PageIndexUrlParameterKey { get; set; } = string.Empty;
+    public string SearchInitializationTriggerUrlParameter { get; set; } = string.Empty;
+    // 親 FieldDesignBase から継承: Name, IgnoreModification, OnValidateInput
+}
+```
+
 ## プロパティ
 
 > 共通プロパティ（Name, IgnoreModification）は [_FieldCommon.md](_FieldCommon.md) を参照。

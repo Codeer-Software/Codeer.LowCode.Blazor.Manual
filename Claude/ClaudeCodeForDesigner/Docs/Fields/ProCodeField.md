@@ -4,6 +4,17 @@
 
 カスタム開発した Blazor コンポーネント（`ProCodeComponentBase` 継承）をローコードフォームに埋め込むフィールド。ローコードとプロコードを組み合わせたハイブリッド開発を実現する。`FieldDesignBase` を直接継承する。
 
+## C# クラス定義 (真実の源)
+
+```csharp
+public class ProCodeFieldDesign : FieldDesignBase
+{
+    public string ProCodeComponent { get; set; } = string.Empty;
+    public string OnComponentSet { get; set; } = string.Empty;
+    // 親 FieldDesignBase から継承: Name, IgnoreModification, OnValidateInput
+}
+```
+
 ## プロパティ
 
 > 共通プロパティ（Name, IgnoreModification）は [_FieldCommon.md](_FieldCommon.md) を参照。

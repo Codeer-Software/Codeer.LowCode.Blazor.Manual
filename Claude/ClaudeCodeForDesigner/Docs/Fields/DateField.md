@@ -4,6 +4,18 @@
 
 日付データ（DateOnly 型）を入力するフィールド。日付ピッカー（`<input type="date">`）または年月ピッカー（`<input type="month">`）として動作する。表示専用モードではフォーマット文字列で書式化して表示できる。
 
+## C# クラス定義 (真実の源)
+
+```csharp
+public class DateFieldDesign : DbValueFieldDesignBase
+{
+    public override string DbColumn { get; set; } = string.Empty;
+    public string Format { get; set; } = string.Empty;
+    public bool IsYearMonthOnly { get; set; }
+    // 親階層から継承 (詳細は _FieldCommon.md)
+}
+```
+
 ## プロパティ
 
 > 共通プロパティ（Name, IgnoreModification, DisplayName, IsRequired, OnDataChanged, DbColumn, IsUpdateProtected, IsSimpleSearchParameter, OnSearchDataChanged）は [_FieldCommon.md](_FieldCommon.md) を参照。

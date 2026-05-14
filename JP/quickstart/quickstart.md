@@ -18,6 +18,10 @@ Visual Studio のテンプレートから、サンプル入りのプロジェク
 - Windows 環境（デザイナは WPF アプリのため）
 - Visual Studio 2022 以降
 - .NET 8.0 SDK
+- **Microsoft Edge WebView2 ランタイム**（デザイナ内のプレビュー描画に必要）
+  - Windows 11 は標準搭載。Windows 10 でも Microsoft Edge と一緒にインストールされていることが多いです。
+  - デザイナでモジュールを開いてもプレビューが真っ白／コンポーネントが描画されない場合は未インストールの可能性があります。
+  - 入っていない場合は [Microsoft Edge WebView2 ダウンロードページ](https://developer.microsoft.com/microsoft-edge/webview2/) から「Evergreen Standalone Installer」をインストールしてください。
 
 ---
 

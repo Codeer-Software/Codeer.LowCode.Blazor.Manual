@@ -4,6 +4,22 @@
 
 アクションボタン。クリック時にスクリプトイベントを実行する。データの永続化は行わず、UI操作専用のフィールド。
 
+## C# クラス定義 (真実の源)
+
+```csharp
+public class ButtonFieldDesign : FieldDesignBase
+{
+    public string Text { get; set; } = "Button";
+    [Obsolete] public string ImageResourcePath { get; set; } = string.Empty;
+    public ButtonImageSet ImageResourceSet { get; set; } = new();
+    public string Icon { get; set; } = string.Empty;
+    public ButtonVariant Variant { get; set; } = ButtonVariant.Primary;   // enum: Primary/Secondary/...
+    public string OnClick { get; set; } = string.Empty;
+    public bool ShowTextInToolTip { get; set; }
+    // 親 FieldDesignBase から継承: Name, IgnoreModification, OnValidateInput
+}
+```
+
 ## プロパティ
 
 > 共通プロパティ（Name, IgnoreModification）は [_FieldCommon.md](_FieldCommon.md) を参照。

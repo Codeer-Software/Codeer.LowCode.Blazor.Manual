@@ -1,4 +1,8 @@
 # Webサーバーへデプロイする
+
+> Web アプリ（Blazor の Server プロジェクト）を Web サーバーでホストする場合、サーバー側に Microsoft Edge WebView2 ランタイムは不要です。
+> ただし、Windows Server 上で **WPF / WinForms 版のクライアントアプリ** や **デザイナ** を動かす場合は別途 WebView2 ランタイムのインストールが必要です（Windows Server は標準では未搭載）。詳細は [Visual Studio ソリューションおよびデプロイ — デプロイ先 PC の前提](vs_projects.md#デプロイ先-pc-の前提) を参照してください。
+
 ## Visual Studioで発行してサーバーへデプロイ
 ### ```プロジェクト名.Server```プロジェクトを右クリックして、「発行」を実行します
 <img width=600 src="../../Image/Deploy_Vs_Menu.png">

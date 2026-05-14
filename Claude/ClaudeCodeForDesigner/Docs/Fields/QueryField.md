@@ -4,6 +4,16 @@ Inherits: FieldDesignBase (implements IDbParameterSettingHolder, IHideDesignForF
 
 Purpose: Execute custom SELECT SQL queries. Used instead of the auto-generated SELECT when custom queries are needed. Supports pagination and sorting.
 
+C# class definition (truth source):
+```csharp
+public class QueryFieldDesign : FieldDesignBase, IDbParameterSettingHolder, IHideDesignForFront
+{
+    public QuerySetting QuerySetting { get; set; } = new();
+    // 親 FieldDesignBase から継承: Name, IgnoreModification, OnValidateInput
+}
+```
+QuerySetting / DbParameterSetting の構造は QueryAndSql.md を参照。
+
 Properties:
 - QuerySetting (QuerySetting, new()): Query configuration containing:
   - QuerySortType (QuerySortType): None or System. If System, framework adds ORDER BY.

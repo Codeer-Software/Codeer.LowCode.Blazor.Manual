@@ -5,6 +5,20 @@
 表示専用のラベルフィールド。静的テキストの表示、または他フィールドの値をラベルとして表示する。
 `FieldDesignBase` を直接継承する。DBマッピングなし。
 
+## C# クラス定義 (真実の源)
+
+```csharp
+public class LabelFieldDesign : FieldDesignBase
+{
+    public string Text { get; set; } = "Label";
+    public string Icon { get; set; } = string.Empty;
+    public LabelStyle Style { get; set; } = LabelStyle.Default;   // enum: Default / H1〜H6
+    public string RelativeField { get; set; } = string.Empty;
+    public string OnClick { get; set; } = string.Empty;
+    // 親 FieldDesignBase から継承: Name, IgnoreModification, OnValidateInput
+}
+```
+
 ## プロパティ
 
 > 共通プロパティは [_FieldCommon.md](_FieldCommon.md) を参照。

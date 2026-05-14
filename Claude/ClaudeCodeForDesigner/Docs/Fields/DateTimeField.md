@@ -4,6 +4,18 @@
 
 日時データ（DateTime 型）を入力するフィールド。`<input type="datetime-local">` として動作する。UTC保存モードを備え、タイムゾーンを考慮した保存が可能。表示専用モードではフォーマット文字列で書式化して表示できる。
 
+## C# クラス定義 (真実の源)
+
+```csharp
+public class DateTimeFieldDesign : DbValueFieldDesignBase
+{
+    public bool SaveAsUtc { get; set; }
+    public string Format { get; set; } = string.Empty;
+    public override string DbColumn { get; set; } = string.Empty;
+    // 親階層から継承 (詳細は _FieldCommon.md)
+}
+```
+
 ## プロパティ
 
 > 共通プロパティ（Name, IgnoreModification, DisplayName, IsRequired, OnDataChanged, DbColumn, IsUpdateProtected, IsSimpleSearchParameter, OnSearchDataChanged）は [_FieldCommon.md](_FieldCommon.md) を参照。

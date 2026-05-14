@@ -5,6 +5,18 @@
 リソースフォルダの静的画像を表示するフィールド。ロゴやアイコン等の装飾的な画像表示に使用する。
 `FieldDesignBase` を直接継承する。DBマッピングなし。
 
+## C# クラス定義 (真実の源)
+
+```csharp
+public class ImageViewerFieldDesign : FieldDesignBase
+{
+    public string ResourcePath { get; set; } = string.Empty;
+    public ObjectFit ObjectFit { get; set; } = ObjectFit.Contain;   // enum: Contain/Cover/Fill/None/ScaleDown
+    public string OnClick { get; set; } = string.Empty;
+    // 親 FieldDesignBase から継承: Name, IgnoreModification, OnValidateInput
+}
+```
+
 ## プロパティ
 
 > 共通プロパティは [_FieldCommon.md](_FieldCommon.md) を参照。

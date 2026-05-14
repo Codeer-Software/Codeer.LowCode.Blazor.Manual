@@ -12,6 +12,23 @@
 
 ページフレームのサイドバー部分に表示されるナビゲーションメニューコンポーネント。`FieldDesignBase` を直接継承する。
 
+## C# クラス定義 (真実の源)
+
+```csharp
+public class HeaderMenuFieldDesign : FieldDesignBase
+{
+    public HeaderMenuType Type { get; set; } = HeaderMenuType.Items;   // enum: Items / カスタム種別
+    // 親 FieldDesignBase から継承: Name, IgnoreModification, OnValidateInput
+}
+
+public class SidebarMenuFieldDesign : FieldDesignBase
+{
+    public SidebarPlacement Placement { get; set; } = SidebarPlacement.Left;   // enum: Left / Right
+    public SidebarMenuType Type { get; set; } = SidebarMenuType.Items;
+    // 親 FieldDesignBase から継承: Name, IgnoreModification, OnValidateInput
+}
+```
+
 ## プロパティ
 
 > 共通プロパティ（Name, IgnoreModification）は [_FieldCommon.md](_FieldCommon.md) を参照。

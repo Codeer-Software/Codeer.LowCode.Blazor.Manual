@@ -13,6 +13,28 @@
 
 ラジオボタンの個別選択肢。`FieldDesignBase` を直接継承する（値は親の RadioGroupField が保持するため）。
 
+## C# クラス定義 (真実の源)
+
+```csharp
+public class RadioGroupFieldDesign : DbValueFieldDesignBase
+{
+    public override string DbColumn { get; set; } = string.Empty;
+    public bool AllowOrSearch { get; set; }
+    public bool PopulateRadioButtons { get; set; }
+    public bool ShowRadioButtonText { get; set; }
+    // 親階層から継承 (詳細は _FieldCommon.md)
+}
+
+public class RadioButtonFieldDesign : FieldDesignBase, IDisplayName, IDataDependentField
+{
+    public string Text { get; set; } = "Radio";
+    public string Value { get; set; } = string.Empty;
+    public string GroupField { get; set; } = string.Empty;     // 親 RadioGroupField の Name
+    [JsonIgnore] public string DisplayName => Text;
+    // 親 FieldDesignBase から継承: Name, IgnoreModification, OnValidateInput
+}
+```
+
 ## プロパティ
 
 > 共通プロパティは [_FieldCommon.md](_FieldCommon.md) を参照。

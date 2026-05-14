@@ -4,6 +4,22 @@
 
 フォームの表示専用モードと編集モードを切り替えるトグルボタンフィールド。親モジュールの `IsViewOnly` 状態を制御し、全フィールドの編集可否を一括で切り替える。`FieldDesignBase` を直接継承する。
 
+## C# クラス定義 (真実の源)
+
+```csharp
+public class ViewEditToggleButtonFieldDesign : FieldDesignBase
+{
+    public string ToEditText { get; set; } = "Edit";
+    public string ToViewText { get; set; } = "View";
+    public string ToEditIcon { get; set; } = string.Empty;
+    public string ToViewIcon { get; set; } = string.Empty;
+    public ButtonVariant Variant { get; set; } = ButtonVariant.Primary;
+    // 親 FieldDesignBase から継承: Name, IgnoreModification, OnValidateInput
+}
+```
+
+> **注意**: このフィールドをモジュールに置くと、初期化時に同一モジュール内の全 `SubmitButtonField` が `IsVisible=false` になる (編集モード時のみ表示)。
+
 ## プロパティ
 
 > 共通プロパティ（Name, IgnoreModification）は [_FieldCommon.md](_FieldCommon.md) を参照。
