@@ -1,0 +1,475 @@
+
+-- 仕入先
+CREATE TABLE supplier (
+    id SERIAL PRIMARY KEY,
+    name TEXT,
+    contact_name TEXT,
+    phone TEXT,
+    email TEXT,
+    address TEXT,
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP
+);
+
+-- 倉庫
+CREATE TABLE warehouse (
+    id SERIAL PRIMARY KEY,
+    name TEXT,
+    address TEXT,
+    note TEXT,
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP
+);
+
+-- 商品
+CREATE TABLE product (
+    id SERIAL PRIMARY KEY,
+    code TEXT,
+    name TEXT,
+    category TEXT,
+    unit TEXT,
+    unit_price INTEGER,
+    reorder_point INTEGER,
+    safety_stock INTEGER,
+    supplier_id INTEGER,
+    note TEXT,
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP
+);
+CREATE UNIQUE INDEX idx_product_code_unique ON product(code);
+CREATE INDEX idx_product_supplier ON product(supplier_id);
+CREATE INDEX idx_product_category ON product(category);
+
+-- 入庫ヘッダ
+CREATE TABLE receiving (
+    id SERIAL PRIMARY KEY,
+    receiving_date DATE,
+    warehouse_id INTEGER,
+    supplier_id INTEGER,
+    note TEXT,
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP
+);
+CREATE INDEX idx_receiving_warehouse ON receiving(warehouse_id);
+CREATE INDEX idx_receiving_supplier ON receiving(supplier_id);
+CREATE INDEX idx_receiving_date ON receiving(receiving_date);
+
+-- 入庫明細
+CREATE TABLE receiving_detail (
+    id SERIAL PRIMARY KEY,
+    receiving_id INTEGER,
+    product_id INTEGER,
+    product_code TEXT,
+    product_name TEXT,
+    quantity INTEGER,
+    unit_price INTEGER,
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP
+);
+CREATE INDEX idx_receiving_detail_receiving ON receiving_detail(receiving_id);
+CREATE INDEX idx_receiving_detail_product ON receiving_detail(product_id);
+
+-- 出庫ヘッダ
+CREATE TABLE shipping (
+    id SERIAL PRIMARY KEY,
+    shipping_date DATE,
+    warehouse_id INTEGER,
+    shipped_to TEXT,
+    note TEXT,
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP
+);
+CREATE INDEX idx_shipping_warehouse ON shipping(warehouse_id);
+CREATE INDEX idx_shipping_date ON shipping(shipping_date);
+
+-- 出庫明細
+CREATE TABLE shipping_detail (
+    id SERIAL PRIMARY KEY,
+    shipping_id INTEGER,
+    product_id INTEGER,
+    product_code TEXT,
+    product_name TEXT,
+    quantity INTEGER,
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP
+);
+CREATE INDEX idx_shipping_detail_shipping ON shipping_detail(shipping_id);
+CREATE INDEX idx_shipping_detail_product ON shipping_detail(product_id);
+
+-- 棚卸しヘッダ
+CREATE TABLE stocktaking (
+    id SERIAL PRIMARY KEY,
+    stocktake_date DATE,
+    warehouse_id INTEGER,
+    note TEXT,
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP
+);
+CREATE INDEX idx_stocktaking_warehouse ON stocktaking(warehouse_id);
+CREATE INDEX idx_stocktaking_date ON stocktaking(stocktake_date);
+
+-- 棚卸し明細
+CREATE TABLE stocktaking_detail (
+    id SERIAL PRIMARY KEY,
+    stocktaking_id INTEGER,
+    product_id INTEGER,
+    product_code TEXT,
+    product_name TEXT,
+    inventory_id INTEGER,
+    book_quantity INTEGER,
+    actual_quantity INTEGER,
+    difference INTEGER,
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP
+);
+CREATE INDEX idx_stocktaking_detail_stocktaking ON stocktaking_detail(stocktaking_id);
+CREATE INDEX idx_stocktaking_detail_product ON stocktaking_detail(product_id);
+CREATE INDEX idx_stocktaking_detail_inventory ON stocktaking_detail(inventory_id);
+
+-- 在庫
+CREATE TABLE inventory (
+    id SERIAL PRIMARY KEY,
+    product_id INTEGER,
+    warehouse_id INTEGER,
+    current_stock INTEGER,
+    version INTEGER,
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP,
+    UNIQUE (product_id, warehouse_id)
+);
+CREATE INDEX idx_inventory_product ON inventory(product_id);
+CREATE INDEX idx_inventory_warehouse ON inventory(warehouse_id);
+
+-- 発注ヘッダ
+CREATE TABLE purchase_order (
+    id SERIAL PRIMARY KEY,
+    order_no TEXT,
+    order_date DATE,
+    desired_delivery_date DATE,
+    supplier_id INTEGER,
+    warehouse_id INTEGER,
+    status TEXT,
+    note TEXT,
+    version INTEGER,
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP
+);
+CREATE UNIQUE INDEX idx_purchase_order_no_unique ON purchase_order(order_no) WHERE order_no IS NOT NULL;
+CREATE INDEX idx_purchase_order_supplier ON purchase_order(supplier_id);
+CREATE INDEX idx_purchase_order_warehouse ON purchase_order(warehouse_id);
+CREATE INDEX idx_purchase_order_status ON purchase_order(status);
+CREATE INDEX idx_purchase_order_date ON purchase_order(order_date);
+
+-- 発注明細
+CREATE TABLE purchase_order_line (
+    id SERIAL PRIMARY KEY,
+    purchase_order_id INTEGER,
+    product_id INTEGER,
+    product_code TEXT,
+    product_name TEXT,
+    quantity INTEGER,
+    unit_price INTEGER,
+    received_quantity INTEGER,
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP
+);
+CREATE INDEX idx_purchase_order_line_order ON purchase_order_line(purchase_order_id);
+CREATE INDEX idx_purchase_order_line_product ON purchase_order_line(product_id);
+
+
+
+-- 仕入先 (5社)
+INSERT INTO supplier (id, name, contact_name, phone, email, address, created_at, updated_at) VALUES
+(1, 'オフィスサプライ商事',   '伊藤 真',     '03-1100-1100',  'ito@office-supply.example.com',    '東京都中央区八重洲',     '2025-04-01 09:00:00', '2025-04-01 09:00:00'),
+(2, '関東ペーパー株式会社',   '渡部 由香',   '048-200-2200',  'watabe@kanto-paper.example.com',   '埼玉県さいたま市大宮区', '2025-04-01 09:00:00', '2025-04-01 09:00:00'),
+(3, 'グリーンビバレッジ商会', '長谷川 智彦', '03-3300-3300',  'hasegawa@green-bev.example.com',   '東京都港区芝浦',         '2025-04-01 09:00:00', '2025-04-01 09:00:00'),
+(4, 'クリーンライフ販売',     '岡本 美咲',   '06-4400-4400',  'okamoto@cleanlife.example.com',    '大阪府大阪市中央区本町', '2025-04-01 09:00:00', '2025-04-01 09:00:00'),
+(5, 'デジタルパーツ商会',     '高木 雄一',   '045-5500-5500', 'takagi@digital-parts.example.com', '神奈川県横浜市西区',     '2025-04-01 09:00:00', '2025-04-01 09:00:00');
+
+-- 倉庫 (2拠点)
+INSERT INTO warehouse (id, name, address, note, created_at, updated_at) VALUES
+(1, '本社倉庫', '東京都江東区豊洲',   '関東圏向け出荷拠点', '2025-04-01 09:00:00', '2025-04-01 09:00:00'),
+(2, '関西倉庫', '大阪府吹田市江坂町', '関西圏向け出荷拠点', '2025-04-01 09:00:00', '2025-04-01 09:00:00');
+
+-- 商品 (20種類)
+INSERT INTO product (id, code, name, category, unit, unit_price, reorder_point, safety_stock, supplier_id, note, created_at, updated_at) VALUES
+(1,  'P001', '黒ボールペン 10本入',           '文房具',     '箱',     800,  50, 30, 1, NULL, '2025-04-15 10:00:00', '2025-04-15 10:00:00'),
+(2,  'P002', 'A4ノート 5冊入',                '文房具',     '箱',     600,  30, 20, 1, NULL, '2025-04-15 10:00:00', '2025-04-15 10:00:00'),
+(3,  'P003', '付箋 75x75 5冊入',              '文房具',     '箱',     400,  30, 20, 1, NULL, '2025-04-15 10:00:00', '2025-04-15 10:00:00'),
+(4,  'P004', 'ホッチキス 中型',               '文房具',     '個',     500,  10,  5, 1, NULL, '2025-04-15 10:00:00', '2025-04-15 10:00:00'),
+(5,  'P005', '消しゴム 10個入',               '文房具',     '箱',     300,  30, 20, 1, NULL, '2025-04-15 10:00:00', '2025-04-15 10:00:00'),
+(6,  'P006', 'コピー用紙 A4 500枚',           '紙製品',     '冊',     350, 100, 50, 2, NULL, '2025-04-15 10:00:00', '2025-04-15 10:00:00'),
+(7,  'P007', '封筒 角2 100枚',                '紙製品',     '束',    1200,  30, 20, 2, NULL, '2025-04-15 10:00:00', '2025-04-15 10:00:00'),
+(8,  'P008', 'クリアファイル A4 100枚',       '紙製品',     '箱',     800,  30, 20, 2, NULL, '2025-04-15 10:00:00', '2025-04-15 10:00:00'),
+(9,  'P009', 'ファイルケース',                '紙製品',     '個',    1500,  20, 10, 2, NULL, '2025-04-15 10:00:00', '2025-04-15 10:00:00'),
+(10, 'P010', 'インスタントコーヒー 200g',     '飲料',       '袋',    1200,  30, 20, 3, NULL, '2025-04-15 10:00:00', '2025-04-15 10:00:00'),
+(11, 'P011', '緑茶ティーバッグ 50P',          '飲料',       '袋',     800,  30, 20, 3, NULL, '2025-04-15 10:00:00', '2025-04-15 10:00:00'),
+(12, 'P012', 'ミネラルウォーター 500ml 24本', '飲料',       'ケース', 1800,  20, 10, 3, NULL, '2025-04-15 10:00:00', '2025-04-15 10:00:00'),
+(13, 'P013', 'ティッシュ 5箱組',              '清掃用品',   '組',     500,  50, 30, 4, NULL, '2025-04-15 10:00:00', '2025-04-15 10:00:00'),
+(14, 'P014', 'トイレットペーパー 12ロール',   '清掃用品',   '袋',     800,  40, 20, 4, NULL, '2025-04-15 10:00:00', '2025-04-15 10:00:00'),
+(15, 'P015', 'ハンドソープ 詰替 1L',          '清掃用品',   '本',     600,  20, 10, 4, NULL, '2025-04-15 10:00:00', '2025-04-15 10:00:00'),
+(16, 'P016', '食器用洗剤 1L',                 '清掃用品',   '本',     400,  20, 10, 4, NULL, '2025-04-15 10:00:00', '2025-04-15 10:00:00'),
+(17, 'P017', 'USB メモリ 32GB',               '家電・小物', '個',    1500,  20, 10, 5, NULL, '2025-04-15 10:00:00', '2025-04-15 10:00:00'),
+(18, 'P018', 'LAN ケーブル 2m',               '家電・小物', '本',     700,  30, 20, 5, NULL, '2025-04-15 10:00:00', '2025-04-15 10:00:00'),
+(19, 'P019', '電源タップ 6口',                '家電・小物', '個',    1800,  15, 10, 5, NULL, '2025-04-15 10:00:00', '2025-04-15 10:00:00'),
+(20, 'P020', 'HDMI ケーブル 2m',              '家電・小物', '本',    1200,  20, 10, 5, NULL, '2025-04-15 10:00:00', '2025-04-15 10:00:00');
+
+-- 入庫ヘッダ
+INSERT INTO receiving (id, receiving_date, warehouse_id, supplier_id, note, created_at, updated_at) VALUES
+(1,  '2025-11-15', 1, 1, '期初仕入れ',         '2025-11-15 10:00:00', '2025-11-15 10:00:00'),
+(2,  '2025-11-15', 1, 2, '期初仕入れ',         '2025-11-15 11:00:00', '2025-11-15 11:00:00'),
+(3,  '2025-11-15', 1, 3, '期初仕入れ',         '2025-11-15 13:00:00', '2025-11-15 13:00:00'),
+(4,  '2025-11-15', 1, 4, '期初仕入れ',         '2025-11-15 14:00:00', '2025-11-15 14:00:00'),
+(5,  '2025-11-15', 1, 5, '期初仕入れ',         '2025-11-15 15:00:00', '2025-11-15 15:00:00'),
+(6,  '2025-12-01', 2, 1, '関西拠点立ち上げ',   '2025-12-01 10:00:00', '2025-12-01 10:00:00'),
+(7,  '2025-12-15', 1, 4, '月次補充',           '2025-12-15 10:00:00', '2025-12-15 10:00:00'),
+(8,  '2026-01-10', 1, 2, '月次補充',           '2026-01-10 10:00:00', '2026-01-10 10:00:00'),
+(9,  '2026-01-25', 1, 3, '月次補充',           '2026-01-25 11:00:00', '2026-01-25 11:00:00'),
+(10, '2026-02-12', 1, 1, '月次補充',           '2026-02-12 10:00:00', '2026-02-12 10:00:00'),
+(11, '2026-02-20', 2, 5, '関西向け補充',       '2026-02-20 13:00:00', '2026-02-20 13:00:00'),
+(12, '2026-03-10', 1, 4, '月次補充',           '2026-03-10 10:00:00', '2026-03-10 10:00:00'),
+(13, '2026-03-22', 1, 2, '月次補充',           '2026-03-22 11:00:00', '2026-03-22 11:00:00'),
+(14, '2026-04-08', 1, 3, '月次補充',           '2026-04-08 10:00:00', '2026-04-08 10:00:00'),
+(15, '2026-04-20', 1, 5, '月次補充',           '2026-04-20 13:00:00', '2026-04-20 13:00:00'),
+(16, '2026-05-02', 1, 1, '5月補充',            '2026-05-02 10:00:00', '2026-05-02 10:00:00'),
+(17, '2026-05-08', 1, 4, '5月補充',            '2026-05-08 11:00:00', '2026-05-08 11:00:00');
+
+-- 入庫明細
+INSERT INTO receiving_detail (receiving_id, product_id, quantity, unit_price, created_at, updated_at) VALUES
+(1,   1, 200,  800, '2025-11-15 10:00:00', '2025-11-15 10:00:00'),
+(1,   2, 120,  600, '2025-11-15 10:00:00', '2025-11-15 10:00:00'),
+(1,   3, 100,  400, '2025-11-15 10:00:00', '2025-11-15 10:00:00'),
+(1,   4,  40,  500, '2025-11-15 10:00:00', '2025-11-15 10:00:00'),
+(1,   5, 100,  300, '2025-11-15 10:00:00', '2025-11-15 10:00:00'),
+(2,   6, 400,  350, '2025-11-15 11:00:00', '2025-11-15 11:00:00'),
+(2,   7,  80, 1200, '2025-11-15 11:00:00', '2025-11-15 11:00:00'),
+(2,   8, 100,  800, '2025-11-15 11:00:00', '2025-11-15 11:00:00'),
+(2,   9,  50, 1500, '2025-11-15 11:00:00', '2025-11-15 11:00:00'),
+(3,  10, 120, 1200, '2025-11-15 13:00:00', '2025-11-15 13:00:00'),
+(3,  11, 100,  800, '2025-11-15 13:00:00', '2025-11-15 13:00:00'),
+(3,  12,  60, 1800, '2025-11-15 13:00:00', '2025-11-15 13:00:00'),
+(4,  13, 200,  500, '2025-11-15 14:00:00', '2025-11-15 14:00:00'),
+(4,  14, 150,  800, '2025-11-15 14:00:00', '2025-11-15 14:00:00'),
+(4,  15,  80,  600, '2025-11-15 14:00:00', '2025-11-15 14:00:00'),
+(4,  16,  80,  400, '2025-11-15 14:00:00', '2025-11-15 14:00:00'),
+(5,  17,  60, 1500, '2025-11-15 15:00:00', '2025-11-15 15:00:00'),
+(5,  18,  80,  700, '2025-11-15 15:00:00', '2025-11-15 15:00:00'),
+(5,  19,  40, 1800, '2025-11-15 15:00:00', '2025-11-15 15:00:00'),
+(5,  20,  60, 1200, '2025-11-15 15:00:00', '2025-11-15 15:00:00'),
+(6,   1, 100,  800, '2025-12-01 10:00:00', '2025-12-01 10:00:00'),
+(6,   2,  60,  600, '2025-12-01 10:00:00', '2025-12-01 10:00:00'),
+(6,   6, 200,  350, '2025-12-01 10:00:00', '2025-12-01 10:00:00'),
+(7,  13, 100,  500, '2025-12-15 10:00:00', '2025-12-15 10:00:00'),
+(7,  14,  80,  800, '2025-12-15 10:00:00', '2025-12-15 10:00:00'),
+(8,   6, 200,  350, '2026-01-10 10:00:00', '2026-01-10 10:00:00'),
+(8,   8,  60,  800, '2026-01-10 10:00:00', '2026-01-10 10:00:00'),
+(9,  10,  80, 1200, '2026-01-25 11:00:00', '2026-01-25 11:00:00'),
+(9,  11,  60,  800, '2026-01-25 11:00:00', '2026-01-25 11:00:00'),
+(10,  1, 100,  800, '2026-02-12 10:00:00', '2026-02-12 10:00:00'),
+(10,  3,  50,  400, '2026-02-12 10:00:00', '2026-02-12 10:00:00'),
+(11, 17,  30, 1500, '2026-02-20 13:00:00', '2026-02-20 13:00:00'),
+(11, 18,  50,  700, '2026-02-20 13:00:00', '2026-02-20 13:00:00'),
+(12, 13, 100,  500, '2026-03-10 10:00:00', '2026-03-10 10:00:00'),
+(12, 14,  60,  800, '2026-03-10 10:00:00', '2026-03-10 10:00:00'),
+(12, 15,  40,  600, '2026-03-10 10:00:00', '2026-03-10 10:00:00'),
+(13,  6, 150,  350, '2026-03-22 11:00:00', '2026-03-22 11:00:00'),
+(13,  7,  40, 1200, '2026-03-22 11:00:00', '2026-03-22 11:00:00'),
+(14, 10,  60, 1200, '2026-04-08 10:00:00', '2026-04-08 10:00:00'),
+(14, 12,  30, 1800, '2026-04-08 10:00:00', '2026-04-08 10:00:00'),
+(15, 19,  20, 1800, '2026-04-20 13:00:00', '2026-04-20 13:00:00'),
+(15, 20,  30, 1200, '2026-04-20 13:00:00', '2026-04-20 13:00:00'),
+(16,  2,  60,  600, '2026-05-02 10:00:00', '2026-05-02 10:00:00'),
+(16,  4,  20,  500, '2026-05-02 10:00:00', '2026-05-02 10:00:00'),
+(17, 13,  80,  500, '2026-05-08 11:00:00', '2026-05-08 11:00:00'),
+(17, 16,  30,  400, '2026-05-08 11:00:00', '2026-05-08 11:00:00');
+
+-- 出庫ヘッダ
+INSERT INTO shipping (id, shipping_date, warehouse_id, shipped_to, note, created_at, updated_at) VALUES
+(1,  '2025-11-25', 1, '株式会社サクラオフィス',                 NULL, '2025-11-25 14:00:00', '2025-11-25 14:00:00'),
+(2,  '2025-12-05', 1, '東京コーポレートサービス株式会社',       NULL, '2025-12-05 10:00:00', '2025-12-05 10:00:00'),
+(3,  '2025-12-12', 2, '株式会社みやこ事務機',                   NULL, '2025-12-12 11:00:00', '2025-12-12 11:00:00'),
+(4,  '2025-12-22', 1, 'まごころ商事株式会社',                   NULL, '2025-12-22 13:00:00', '2025-12-22 13:00:00'),
+(5,  '2026-01-08', 1, '株式会社ニュービジネスソリューションズ', NULL, '2026-01-08 10:00:00', '2026-01-08 10:00:00'),
+(6,  '2026-01-15', 1, 'みらいシステムズ株式会社',               NULL, '2026-01-15 11:00:00', '2026-01-15 11:00:00'),
+(7,  '2026-01-28', 1, '株式会社サクラオフィス',                 NULL, '2026-01-28 14:00:00', '2026-01-28 14:00:00'),
+(8,  '2026-02-05', 1, '東京コーポレートサービス株式会社',       NULL, '2026-02-05 10:00:00', '2026-02-05 10:00:00'),
+(9,  '2026-02-18', 1, '株式会社グリーンマネジメント',           NULL, '2026-02-18 13:00:00', '2026-02-18 13:00:00'),
+(10, '2026-02-25', 2, '株式会社みやこ事務機',                   NULL, '2026-02-25 14:00:00', '2026-02-25 14:00:00'),
+(11, '2026-03-05', 1, 'まごころ商事株式会社',                   NULL, '2026-03-05 11:00:00', '2026-03-05 11:00:00'),
+(12, '2026-03-18', 1, '株式会社ニュービジネスソリューションズ', NULL, '2026-03-18 10:00:00', '2026-03-18 10:00:00'),
+(13, '2026-03-28', 1, 'みらいシステムズ株式会社',               NULL, '2026-03-28 13:00:00', '2026-03-28 13:00:00'),
+(14, '2026-04-10', 1, '株式会社サクラオフィス',                 NULL, '2026-04-10 10:00:00', '2026-04-10 10:00:00'),
+(15, '2026-04-22', 1, '株式会社グリーンマネジメント',           NULL, '2026-04-22 11:00:00', '2026-04-22 11:00:00'),
+(16, '2026-05-06', 1, '東京コーポレートサービス株式会社',       NULL, '2026-05-06 13:00:00', '2026-05-06 13:00:00'),
+(17, '2026-05-09', 1, 'まごころ商事株式会社',                   NULL, '2026-05-09 11:00:00', '2026-05-09 11:00:00');
+
+-- 出庫明細
+INSERT INTO shipping_detail (shipping_id, product_id, quantity, created_at, updated_at) VALUES
+(1,   1, 20, '2025-11-25 14:00:00', '2025-11-25 14:00:00'),
+(1,   6, 50, '2025-11-25 14:00:00', '2025-11-25 14:00:00'),
+(1,  13, 30, '2025-11-25 14:00:00', '2025-11-25 14:00:00'),
+(2,   6, 80, '2025-12-05 10:00:00', '2025-12-05 10:00:00'),
+(2,   8, 30, '2025-12-05 10:00:00', '2025-12-05 10:00:00'),
+(2,  10, 40, '2025-12-05 10:00:00', '2025-12-05 10:00:00'),
+(3,   1, 30, '2025-12-12 11:00:00', '2025-12-12 11:00:00'),
+(3,   6, 60, '2025-12-12 11:00:00', '2025-12-12 11:00:00'),
+(4,  13, 40, '2025-12-22 13:00:00', '2025-12-22 13:00:00'),
+(4,  14, 30, '2025-12-22 13:00:00', '2025-12-22 13:00:00'),
+(4,  17, 10, '2025-12-22 13:00:00', '2025-12-22 13:00:00'),
+(5,   1, 30, '2026-01-08 10:00:00', '2026-01-08 10:00:00'),
+(5,   2, 25, '2026-01-08 10:00:00', '2026-01-08 10:00:00'),
+(5,   6, 70, '2026-01-08 10:00:00', '2026-01-08 10:00:00'),
+(6,  18, 20, '2026-01-15 11:00:00', '2026-01-15 11:00:00'),
+(6,  19,  8, '2026-01-15 11:00:00', '2026-01-15 11:00:00'),
+(6,  20, 15, '2026-01-15 11:00:00', '2026-01-15 11:00:00'),
+(7,   6, 60, '2026-01-28 14:00:00', '2026-01-28 14:00:00'),
+(7,  13, 30, '2026-01-28 14:00:00', '2026-01-28 14:00:00'),
+(7,  15, 20, '2026-01-28 14:00:00', '2026-01-28 14:00:00'),
+(8,  10, 30, '2026-02-05 10:00:00', '2026-02-05 10:00:00'),
+(8,  11, 25, '2026-02-05 10:00:00', '2026-02-05 10:00:00'),
+(8,  12, 20, '2026-02-05 10:00:00', '2026-02-05 10:00:00'),
+(9,   2, 20, '2026-02-18 13:00:00', '2026-02-18 13:00:00'),
+(9,   3, 30, '2026-02-18 13:00:00', '2026-02-18 13:00:00'),
+(9,   5, 25, '2026-02-18 13:00:00', '2026-02-18 13:00:00'),
+(10,  1, 25, '2026-02-25 14:00:00', '2026-02-25 14:00:00'),
+(10,  6, 80, '2026-02-25 14:00:00', '2026-02-25 14:00:00'),
+(10, 17, 12, '2026-02-25 14:00:00', '2026-02-25 14:00:00'),
+(11, 13, 40, '2026-03-05 11:00:00', '2026-03-05 11:00:00'),
+(11, 14, 30, '2026-03-05 11:00:00', '2026-03-05 11:00:00'),
+(11, 16, 25, '2026-03-05 11:00:00', '2026-03-05 11:00:00'),
+(12,  1, 40, '2026-03-18 10:00:00', '2026-03-18 10:00:00'),
+(12,  6, 70, '2026-03-18 10:00:00', '2026-03-18 10:00:00'),
+(12,  7, 25, '2026-03-18 10:00:00', '2026-03-18 10:00:00'),
+(13, 18, 25, '2026-03-28 13:00:00', '2026-03-28 13:00:00'),
+(13, 20, 18, '2026-03-28 13:00:00', '2026-03-28 13:00:00'),
+(14,  6, 60, '2026-04-10 10:00:00', '2026-04-10 10:00:00'),
+(14, 10, 25, '2026-04-10 10:00:00', '2026-04-10 10:00:00'),
+(14, 13, 25, '2026-04-10 10:00:00', '2026-04-10 10:00:00'),
+(15, 11, 25, '2026-04-22 11:00:00', '2026-04-22 11:00:00'),
+(15, 12, 15, '2026-04-22 11:00:00', '2026-04-22 11:00:00'),
+(15, 15, 15, '2026-04-22 11:00:00', '2026-04-22 11:00:00'),
+(16,  1, 30, '2026-05-06 13:00:00', '2026-05-06 13:00:00'),
+(16,  8, 25, '2026-05-06 13:00:00', '2026-05-06 13:00:00'),
+(16, 19,  6, '2026-05-06 13:00:00', '2026-05-06 13:00:00'),
+(17, 13, 35, '2026-05-09 11:00:00', '2026-05-09 11:00:00'),
+(17, 14, 25, '2026-05-09 11:00:00', '2026-05-09 11:00:00');
+
+-- 棚卸しヘッダ
+INSERT INTO stocktaking (id, stocktake_date, warehouse_id, note, created_at, updated_at) VALUES
+(1, '2026-03-31', 1, '期末棚卸し', '2026-03-31 17:00:00', '2026-03-31 17:00:00');
+
+-- 棚卸し明細
+INSERT INTO stocktaking_detail (stocktaking_id, product_id, book_quantity, actual_quantity, difference, created_at, updated_at) VALUES
+(1,  1, 130, 128, -2, '2026-03-31 17:00:00', '2026-03-31 17:00:00'),
+(1,  6, 410, 405, -5, '2026-03-31 17:00:00', '2026-03-31 17:00:00'),
+(1, 13, 235, 233, -2, '2026-03-31 17:00:00', '2026-03-31 17:00:00'),
+(1, 14, 200, 200,  0, '2026-03-31 17:00:00', '2026-03-31 17:00:00'),
+(1, 17,  38,  37, -1, '2026-03-31 17:00:00', '2026-03-31 17:00:00');
+
+-- 発注ヘッダ
+INSERT INTO purchase_order (id, order_no, order_date, desired_delivery_date, supplier_id, warehouse_id, status, note, version, created_at, updated_at) VALUES
+(1,  NULL,              '2026-05-13', '2026-05-27', 1, 1, '仮登録',     NULL,                                   0, '2026-05-13 09:30:00', '2026-05-13 09:30:00'),
+(2,  NULL,              '2026-05-13', '2026-05-25', 4, 1, '仮登録',     NULL,                                   0, '2026-05-13 14:00:00', '2026-05-13 14:00:00'),
+(3,  'PO-20260512-001', '2026-05-12', '2026-05-26', 2, 1, '発注中',     NULL,                                   0, '2026-05-12 10:00:00', '2026-05-12 10:00:00'),
+(4,  'PO-20260511-001', '2026-05-11', '2026-05-25', 1, 2, '発注中',     NULL,                                   0, '2026-05-11 11:00:00', '2026-05-11 11:00:00'),
+(5,  'PO-20260510-001', '2026-05-10', '2026-05-24', 3, 1, '発注中',     NULL,                                   0, '2026-05-10 13:00:00', '2026-05-10 13:00:00'),
+(6,  'PO-20260508-001', '2026-05-08', '2026-05-22', 5, 2, '発注中',     NULL,                                   0, '2026-05-08 14:00:00', '2026-05-08 14:00:00'),
+(7,  'PO-20260507-001', '2026-05-07', '2026-05-21', 4, 1, '発注中',     NULL,                                   0, '2026-05-07 10:00:00', '2026-05-07 10:00:00'),
+(8,  'PO-20260505-001', '2026-05-05', '2026-05-19', 2, 1, '発注中',     NULL,                                   0, '2026-05-05 11:00:00', '2026-05-05 11:00:00'),
+(9,  'PO-20260420-001', '2026-04-20', '2026-05-04', 1, 1, '完了',       '入庫16で受領',                         0, '2026-04-20 10:00:00', '2026-05-02 10:00:00'),
+(10, 'PO-20260325-001', '2026-03-25', '2026-04-08', 3, 1, '完了',       '入庫14で受領',                         0, '2026-03-25 13:00:00', '2026-04-08 10:00:00'),
+(11, 'PO-20260406-001', '2026-04-06', '2026-04-20', 5, 1, '完了',       '入庫15で受領',                         0, '2026-04-06 14:00:00', '2026-04-20 13:00:00'),
+(12, 'PO-20260426-001', '2026-04-26', '2026-05-10', 4, 1, '完了',       '入庫17で受領',                         0, '2026-04-26 11:00:00', '2026-05-08 11:00:00'),
+(13, 'PO-20260502-001', '2026-05-02', '2026-05-16', 2, 1, 'キャンセル', '仕入先側で在庫切れのためキャンセル',   0, '2026-05-02 10:00:00', '2026-05-04 09:00:00'),
+(14, 'PO-20260428-001', '2026-04-28', '2026-05-12', 1, 1, 'キャンセル', '数量誤りのため再発注予定',             0, '2026-04-28 11:00:00', '2026-04-29 09:00:00');
+
+-- 発注明細
+INSERT INTO purchase_order_line (purchase_order_id, product_id, quantity, unit_price, received_quantity, created_at, updated_at) VALUES
+(1,   1,  50,  800,  0, '2026-05-13 09:30:00', '2026-05-13 09:30:00'),
+(1,   3,  30,  400,  0, '2026-05-13 09:30:00', '2026-05-13 09:30:00'),
+(2,  15,  20,  600,  0, '2026-05-13 14:00:00', '2026-05-13 14:00:00'),
+(2,  16,  25,  400,  0, '2026-05-13 14:00:00', '2026-05-13 14:00:00'),
+(3,   6, 100,  350,  0, '2026-05-12 10:00:00', '2026-05-12 10:00:00'),
+(3,   7,  30, 1200,  0, '2026-05-12 10:00:00', '2026-05-12 10:00:00'),
+(3,   9,  20, 1500,  0, '2026-05-12 10:00:00', '2026-05-12 10:00:00'),
+(4,   1,  80,  800,  0, '2026-05-11 11:00:00', '2026-05-11 11:00:00'),
+(4,   2,  50,  600,  0, '2026-05-11 11:00:00', '2026-05-11 11:00:00'),
+(5,  10,  40, 1200,  0, '2026-05-10 13:00:00', '2026-05-10 13:00:00'),
+(5,  11,  30,  800,  0, '2026-05-10 13:00:00', '2026-05-10 13:00:00'),
+(5,  12,  20, 1800,  0, '2026-05-10 13:00:00', '2026-05-10 13:00:00'),
+(6,  18,  30,  700,  0, '2026-05-08 14:00:00', '2026-05-08 14:00:00'),
+(6,  20,  20, 1200,  0, '2026-05-08 14:00:00', '2026-05-08 14:00:00'),
+(7,  13,  50,  500,  0, '2026-05-07 10:00:00', '2026-05-07 10:00:00'),
+(7,  14,  40,  800,  0, '2026-05-07 10:00:00', '2026-05-07 10:00:00'),
+(8,   6, 150,  350,  0, '2026-05-05 11:00:00', '2026-05-05 11:00:00'),
+(8,   8,  50,  800,  0, '2026-05-05 11:00:00', '2026-05-05 11:00:00'),
+(9,   2,  60,  600, 60, '2026-04-20 10:00:00', '2026-04-20 10:00:00'),
+(9,   4,  20,  500, 20, '2026-04-20 10:00:00', '2026-04-20 10:00:00'),
+(10, 10,  60, 1200, 60, '2026-03-25 13:00:00', '2026-03-25 13:00:00'),
+(10, 12,  30, 1800, 30, '2026-03-25 13:00:00', '2026-03-25 13:00:00'),
+(11, 19,  20, 1800, 20, '2026-04-06 14:00:00', '2026-04-06 14:00:00'),
+(11, 20,  30, 1200, 30, '2026-04-06 14:00:00', '2026-04-06 14:00:00'),
+(12, 13,  80,  500, 80, '2026-04-26 11:00:00', '2026-04-26 11:00:00'),
+(12, 16,  30,  400, 30, '2026-04-26 11:00:00', '2026-04-26 11:00:00'),
+(13,  6, 200,  350,  0, '2026-05-02 10:00:00', '2026-05-02 10:00:00'),
+(13,  7,  50, 1200,  0, '2026-05-02 10:00:00', '2026-05-02 10:00:00'),
+(14,  4,  20,  500,  0, '2026-04-28 11:00:00', '2026-04-28 11:00:00');
+
+-- 明細に商品コード・商品名を商品マスタから転記
+UPDATE receiving_detail
+SET product_code = (SELECT code FROM product WHERE product.id = receiving_detail.product_id),
+    product_name = (SELECT name FROM product WHERE product.id = receiving_detail.product_id);
+
+UPDATE shipping_detail
+SET product_code = (SELECT code FROM product WHERE product.id = shipping_detail.product_id),
+    product_name = (SELECT name FROM product WHERE product.id = shipping_detail.product_id);
+
+UPDATE stocktaking_detail
+SET product_code = (SELECT code FROM product WHERE product.id = stocktaking_detail.product_id),
+    product_name = (SELECT name FROM product WHERE product.id = stocktaking_detail.product_id);
+
+UPDATE purchase_order_line
+SET product_code = (SELECT code FROM product WHERE product.id = purchase_order_line.product_id),
+    product_name = (SELECT name FROM product WHERE product.id = purchase_order_line.product_id);
+
+-- 在庫スナップショット（入出庫実績から集計して初期化）
+INSERT INTO inventory (product_id, warehouse_id, current_stock, version, created_at, updated_at)
+SELECT
+    p.id,
+    w.id,
+    COALESCE(ri.in_qty, 0) - COALESCE(si.out_qty, 0) + COALESCE(ai.adj_qty, 0),
+    0,
+    '2026-05-12 00:00:00',
+    '2026-05-12 00:00:00'
+FROM product p
+CROSS JOIN warehouse w
+LEFT JOIN (
+    SELECT r.warehouse_id, rd.product_id, SUM(rd.quantity) AS in_qty
+    FROM receiving r JOIN receiving_detail rd ON rd.receiving_id = r.id
+    GROUP BY r.warehouse_id, rd.product_id
+) ri ON ri.warehouse_id = w.id AND ri.product_id = p.id
+LEFT JOIN (
+    SELECT s.warehouse_id, sd.product_id, SUM(sd.quantity) AS out_qty
+    FROM shipping s JOIN shipping_detail sd ON sd.shipping_id = s.id
+    GROUP BY s.warehouse_id, sd.product_id
+) si ON si.warehouse_id = w.id AND si.product_id = p.id
+LEFT JOIN (
+    SELECT st.warehouse_id, std.product_id, SUM(std.difference) AS adj_qty
+    FROM stocktaking st JOIN stocktaking_detail std ON std.stocktaking_id = st.id
+    GROUP BY st.warehouse_id, std.product_id
+) ai ON ai.warehouse_id = w.id AND ai.product_id = p.id
+WHERE ri.in_qty IS NOT NULL OR si.out_qty IS NOT NULL OR ai.adj_qty IS NOT NULL;
+
+-- SERIAL シーケンスを最大 ID + 1 に進める（明示 ID で INSERT したため必須）
+SELECT setval('supplier_id_seq',              (SELECT MAX(id) FROM supplier));
+SELECT setval('warehouse_id_seq',             (SELECT MAX(id) FROM warehouse));
+SELECT setval('product_id_seq',               (SELECT MAX(id) FROM product));
+SELECT setval('receiving_id_seq',             (SELECT MAX(id) FROM receiving));
+SELECT setval('receiving_detail_id_seq',      (SELECT MAX(id) FROM receiving_detail));
+SELECT setval('shipping_id_seq',              (SELECT MAX(id) FROM shipping));
+SELECT setval('shipping_detail_id_seq',       (SELECT MAX(id) FROM shipping_detail));
+SELECT setval('stocktaking_id_seq',           (SELECT MAX(id) FROM stocktaking));
+SELECT setval('stocktaking_detail_id_seq',    (SELECT MAX(id) FROM stocktaking_detail));
+SELECT setval('inventory_id_seq',             (SELECT MAX(id) FROM inventory));
+SELECT setval('purchase_order_id_seq',        (SELECT MAX(id) FROM purchase_order));
+SELECT setval('purchase_order_line_id_seq', (SELECT MAX(id) FROM purchase_order_line));
