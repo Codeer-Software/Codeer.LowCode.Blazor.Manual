@@ -27,7 +27,7 @@ void 終了日_OnDataChanged()
 // ボード行の詳細ボタン: プロジェクト詳細（メンバー含む）をダイアログ表示
 void 詳細ボタン_OnClick()
 {
-    var dlg = new プロジェクト(ModuleLayoutType.Detail);
+    var dlg = new プロジェクト(ModuleLayoutType.Detail, "ダイアログ用");
     dlg.Id.Value = Id.Value;
     dlg.Reload();
     dlg.ShowDialog("閉じる");
