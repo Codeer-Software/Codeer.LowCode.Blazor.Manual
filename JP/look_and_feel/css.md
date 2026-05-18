@@ -11,6 +11,74 @@
 - 個別の見栄えを上書きしたい → `app.css` に普通の CSS / Bootstrap セレクタで上書き
 - 特定の Module / Field だけスタイルを変えたい → 後述の [`data-` 属性セレクタ](#識別属性-data--でスタイルを当てる) や [ClassName プロパティ](#classname-プロパティでクラスを付ける)
 - アプリ全体の余白・サイドバー色などの**既定値**を変えたい → 後述の [カスタマイズ可能な CSS 変数](#カスタマイズ可能な-css-変数) を `:root` で上書き
+- **特定の PageFrame でだけ** 違う見栄えにしたい → 後述の [PageFrame ごとの CSS](#pageframe-ごとの-css) を使う
+
+## PageFrame ごとの CSS
+
+PageFrame 単位で独立した CSS を持たせることができます。**現在表示中の PageFrame に対応する CSS だけが動的に注入され**、別の PageFrame に切り替えるとその CSS が外れて切り替え先のものに入れ替わります。
+
+「管理者画面と顧客画面で配色を全く変えたい」「ある画面群だけサイドバーを隠したい」といった、**PageFrame 単位で大きく見栄えを変えたい**場面で使います。
+
+### 書き方
+
+デザインプロジェクトの `PageFrames/` フォルダに、PageFrame と**同名の `.css` ファイル**を置くだけです。
+
+```
+App/
+├── app.css                       ← アプリ全体に常に効く
+└── PageFrames/
+    ├── Main.frm.json             ← Main フレーム定義
+    ├── Main.css                  ← Main フレーム表示中だけ効く CSS
+    ├── AdminFrame.frm.json       ← AdminFrame フレーム定義
+    └── AdminFrame.css            ← AdminFrame 表示中だけ効く CSS
+```
+
+デザイナの Solution Explorer で PageFrame を右クリックして「CSS ファイルを作成」を選ぶと、対応する `.css` ファイルが追加されます (既存ファイルがあればその項目は出ません)。PageFrame をリネーム / 削除すると、対応する CSS ファイルも追従します。
+
+### 読み込み順序
+
+CSS は次の順で読み込まれます。後勝ち (= 後ろが上書きする):
+
+```
+Bootstrap → フレームワーク既定 → app.css → PageFrame の CSS (現在表示中のものだけ)
+```
+
+つまり PageFrame ごとの CSS が一番強いので、`app.css` のスタイルを部分的に上書きする使い方ができます。
+
+### 例: PageFrame ごとにテーマカラーを変える
+
+`PageFrames/AdminFrame.css`:
+```css
+:root {
+  --bs-primary: #b91c1c;        /* 管理者画面は赤系 */
+  --background-start: #4a0303;
+  --background-end: #1a0000;
+}
+```
+
+`PageFrames/CustomerFrame.css`:
+```css
+:root {
+  --bs-primary: #1d4ed8;        /* 顧客画面は青系 */
+  --background-start: #052767;
+  --background-end: #0a1f4d;
+}
+```
+
+`app.css` 側でフレーム全体に共通の調整を入れたまま、PageFrame 別の差分だけ各 CSS に書ける構成にできます。
+
+### `data-pageframe` セレクタとの使い分け
+
+PageFrame ごとに見た目を変える方法は 2 つあります。
+
+| 方法 | 適している場面 |
+|---|---|
+| **`PageFrames/{name}.css`** | PageFrame 単位で**たくさん**スタイルを差し替える時 (テーマ全体の差替など)。CSS が個別ファイルなので管理しやすい |
+| **`[data-pageframe="..."]` セレクタ** | `app.css` 内で**少しだけ**フレーム別の調整を入れたい時 |
+
+両者は併用できます。`app.css` で共通スタイル + `data-pageframe` で軽い分岐 + 大規模な差替は PageFrame 個別 CSS、という使い分けが現実的です。
+
+---
 
 ## 識別属性 (`data-*`) でスタイルを当てる
 
@@ -296,6 +364,7 @@ td[data-name="Status"] {
 | アプリ全体の色・余白の既定値を変える | **CSS 変数** を `:root` で上書き |
 | 特定のモジュール / フィールド単位でスタイル変更 | **`data-module` × `data-name`** で絞り込み |
 | 検索バー・サイドバー・行操作ボタン等のシステム UI 部品の見栄えを変える/隠す | **`data-system="..."`** セレクタ |
+| **PageFrame ごとに大きく見栄えを変える** | **`PageFrames/{name}.css`** に書く |
 | ユーザー操作に応じて動的に切り替え | **`ClassName` プロパティ** をスクリプトで設定 |
 | 単純に Bootstrap テーマを差し替えたい | 下記 [サンプル](#サンプル-特殊例) を丸ごとコピー |
 
