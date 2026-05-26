@@ -104,6 +104,23 @@ public class ModuleFieldDesign : FieldDesignBase, IUpdateProtected
 |---|---|---|
 | `SetModule(string moduleName, string layoutName)` | void | モジュールとレイアウトを動的に切り替える |
 
+#### `SetModule` の制約
+
+- **`Design.DbColumn` が空のフィールドでのみ使用可能** (= DB列を持たない、フロント側のみで使う ModuleField)。`DbColumn` が設定されているフィールドは DB に永続化されるため、SetModule で動的に差し替えるとデータ整合性が壊れるので例外: `SetModule on ModuleField '{0}' is not allowed: Design.DbColumn is set (DB-persisted).`
+- **`Design.ModuleName` / `Design.LayoutName` が設定済みでも、`DbColumn` が空なら SetModule で上書き可能**。これらは「フロント側の初期値」扱いで、DB に書かれない以上は動的差し替えしても永続化整合性に影響しない (SetModule を呼んだ側の責任で UI 表示が期待と異なる可能性はある)。
+- 現在の effective state (`ModuleName == 引数 moduleName && ModuleLayoutName == 引数 layoutName`) と完全一致するときは no-op で return (idempotent。`ChildModule` も再生成されず、編集中データが保持される)。
+
+```csharp
+// OK: DbColumn 空 → 任意のモジュールに切替可能
+EmbeddedSlot.SetModule("SettingsForm", "");
+
+// OK: DbColumn 空 + Design.ModuleName 設定済 → 上書き OK
+EmbeddedSlot.SetModule("OtherForm", "CompactView");
+
+// NG: DbColumn 設定済 → 例外
+PersistedSlot.SetModule("AnyForm", ""); // throws LowCodeException
+```
+
 > 共通スクリプトプロパティ（Color, BackgroundColor, IsEnabled, IsVisible, IsViewOnly 等）は [_FieldCommon.md](_FieldCommon.md) の「FieldDesignBase」、[_ScriptApi.md](_ScriptApi.md) を参照。
 
 ---
