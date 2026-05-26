@@ -34,7 +34,7 @@ orders                     order_details
 - 子 (`OrderDetail`) には `LinkField` (DbColumn=`order_id`) で親への FK を持たせる
 - 親の Submit で **子の Add/Update/Delete を 1 トランザクションでまとめて保存** (CLB が自動処理)
 
-## PatternShowcase の対応
+## 標準パターン集の対応
 
 - サイドバー **`データ操作/親子 (1:N)`** → `Order` + `OrderDetail`
 - サイドバー **`データ操作/多段ネスト`** → `Project` + `Phase` + `Task` (3 段ネスト)

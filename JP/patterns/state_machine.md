@@ -34,9 +34,9 @@ leave_requests
 - ボタンの `IsVisible` を現在状態によって出し分け、不正な遷移を UI レベルで防ぐ
 - スクリプト側にも `if (Status.Value != "Draft") { return; }` のようなガードを入れる (UI 回避された場合の保険)
 
-## PatternShowcase / PatternShowcaseAuth の対応
+## 標準パターン集 / 認証付きパターン集の対応
 
-PatternShowcase には専用サンプルなし。承認フロー付きの完全例は **PatternShowcaseAuth テンプレート** (認証付き) の `LeaveRequest` / `ExpenseRequest` + `ApprovalFlow` を参照。
+標準パターン集には専用サンプルなし。承認フロー付きの完全例は **認証付きパターン集** テンプレート (内部名 `PatternShowcaseAuth`) の `LeaveRequest` / `ExpenseRequest` + `ApprovalFlow` を参照。
 
 ## 関連ドキュメント
 

@@ -35,7 +35,7 @@ products                   categories
 - `ValueVariable`: `Id.Value`
 - `DisplayTextVariable`: `Name.Value` (画面表示用)
 
-## PatternShowcase の対応
+## 標準パターン集の対応
 
 `LookupCustomer` などで `LinkField` の使用例。`Article` モジュールでも使われている。
 

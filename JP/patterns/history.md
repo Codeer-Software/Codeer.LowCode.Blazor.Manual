@@ -22,9 +22,9 @@
 
 サーバー側 `appsettings.json` の `DataChangeHistoryTableInfo` で対象テーブルを指定するだけ。Submit のたびに CLB が変更差分を自動記録する (アプリ側で書く必要なし)。
 
-## PatternShowcase の対応
+## 標準パターン集の対応
 
-(現状 PatternShowcase 単体には専用サンプルなし。サーバー側設定例は [認証 / 認可の概要](../authorization/authorization.md) や Help セクション参照)
+(現状 標準パターン集には専用サンプルなし。サーバー側設定例は [認証 / 認可の概要](../authorization/authorization.md) や Help セクション参照)
 
 ## 関連ドキュメント
 

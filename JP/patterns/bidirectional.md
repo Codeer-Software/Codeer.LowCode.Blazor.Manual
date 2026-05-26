@@ -58,7 +58,7 @@ void OnAfterInitialization()
 
 - 双方向の FK 列のどちらか (もしくは両方) が **NULL 許容**であること (片方を NULL Insert するため)。NOT NULL 制約が両方に付いてると CLB の解決ロジックでも DB エラーになる
 
-## PatternShowcase の対応
+## 標準パターン集の対応
 
 サイドバー **`データ操作/双方向ID (1:1)`** → `MutualMain` + `MutualSub`
 

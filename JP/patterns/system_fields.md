@@ -38,7 +38,7 @@ sample_items
 | `Creator` | Link → ユーザー | 作成者を自動セット |
 | `Updater` | Link → ユーザー | 更新者を自動セット |
 
-## PatternShowcase の対応
+## 標準パターン集の対応
 
 サイドバー **`データ操作/作成日時・更新日時`** → `SystemFieldsSample`
 

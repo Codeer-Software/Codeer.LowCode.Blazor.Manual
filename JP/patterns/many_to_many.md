@@ -35,7 +35,7 @@ articles            article_tags                tags
 - 本体 (`Article`) の Detail に `DetailListField` で中間を内包。`SearchCondition` で「`ArticleTag.ArticleId == this.Id.Value`」で逆引き
 - ユーザーは中間の Tag フィールドで紐付け先を選択
 
-## PatternShowcase の対応
+## 標準パターン集の対応
 
 サイドバー **`データ操作/多対多`** → `Article` + `ArticleTag` + `Tag`
 

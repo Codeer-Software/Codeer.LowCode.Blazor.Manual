@@ -29,7 +29,7 @@ departments
 
 `LinkField` の `SearchCondition.ModuleName` に **自モジュール名 (自分自身)** を指定。`parent_id` が NULL を許容する設計に。
 
-## PatternShowcase の対応
+## 標準パターン集の対応
 
 サイドバー **`データ操作/階層構造`** → `Department`
 

@@ -28,7 +28,7 @@ products
 
 1モジュール = 1テーブル。`DataSourceName` + `DbTable` を指定し、`IdFieldDesign` + 各カラムに対応する Field + `SubmitButton` を並べる。
 
-## PatternShowcase の対応
+## 標準パターン集の対応
 
 サイドバー **`データ操作/CRUD`** → `Product` モジュール
 

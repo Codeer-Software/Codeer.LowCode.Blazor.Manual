@@ -30,7 +30,7 @@ soft_delete_items
 - 一覧表示時も `LogicalDelete = false` で自動フィルタされる
 - UI には出さず Fields にだけ定義 (一覧で空セルになるので)
 
-## PatternShowcase の対応
+## 標準パターン集の対応
 
 - サイドバー **`データ操作/論理削除`** → `SoftDeleteItem` (一般画面)
 - サイドバー **`データ操作/論理削除(管理)`** → `SoftDeleteItemAdmin` (削除済も見える管理画面)
