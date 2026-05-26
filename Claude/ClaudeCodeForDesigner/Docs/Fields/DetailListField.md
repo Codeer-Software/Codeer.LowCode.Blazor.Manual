@@ -35,6 +35,28 @@ public class DetailListFieldDesign : ListFieldDesignBase, IFillHeightFieldDesign
 | 詳細遷移 | `CanNavigateToDetail` で対応 | なし（行自体が編集フォーム） |
 | ModuleLayoutType | List | Detail |
 
+## 重要: 行となる Module の DetailLayout はカード化する (絶対常識)
+
+DetailListField (および TileListField) で参照される **行/タイル単位の Module** の `DetailLayouts[""].Layout` は、**最外 Grid を `IsBordered: true` にしてカード化** する。これは "DetailListField/TileListField で並べたときに 1 レコードが視覚的に1ブロックに見える" ための必須セットアップ。
+
+- ListField (表形式) の場合は表自体が罫線で区切るので不要
+- DetailListField/TileListField はレコードが**フォーム/タイル**としてただ縦やグリッドに並ぶだけなので、カード化しないと境界が見えず、複数レコードが連続したフォームに見えてしまう
+- 行 Module を**他の用途 (単独の詳細編集ページ等) で使い回す**場合は、行 Module の DetailLayouts に専用の名前付きレイアウト ("Card" 等) を追加し、DetailListField/TileListField からは `LayoutName: "Card"` で参照する手もある
+
+```json
+"DetailLayouts": {
+  "": {
+    ...
+    "Layout": {
+      "IsBordered": true,    ← これを必ず true に
+      ...
+    }
+  }
+}
+```
+
+PatternShowcase / GettingStarted の DetailListField/TileListField 子モジュール (例: `DetailListDemoChild`, `LookupCustomer`) は全てカード化済み。
+
 ## JSON例
 
 ### 基本的な明細リスト（注文明細のインライン編集）

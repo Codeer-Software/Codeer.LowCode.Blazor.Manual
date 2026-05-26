@@ -31,6 +31,24 @@ public class TileListFieldDesign : ListFieldDesignBase, IFillHeightFieldDesign
 | `TileWidth` | int | `200` | 各タイルの幅（px）。**整数のみ（`200.0` は不可、`200` と書くこと）** |
 | `FillSpaces` | bool | `false` | `true` の場合、タイル間の余白を均等に埋めて全幅を使用する。 |
 
+## 重要: タイルとなる Module の DetailLayout はカード化する (絶対常識)
+
+TileListField (および DetailListField) で参照されるタイル単位の Module の `DetailLayouts[""].Layout` は、**最外 Grid を `IsBordered: true` にしてカード化** する。これがないとタイルとタイルの境界が見えず、画面上で1ブロックに見えない。
+
+```json
+"DetailLayouts": {
+  "": {
+    ...
+    "Layout": {
+      "IsBordered": true,    ← これを必ず true に
+      ...
+    }
+  }
+}
+```
+
+詳細は [DetailListField.md](DetailListField.md#重要-行となる-module-の-detaillayout-はカード化する-絶対常識) も参照。
+
 ## JSON例
 
 ### 商品カタログのタイル一覧

@@ -576,6 +576,67 @@ Logger.Warn("警告メッセージ");
 Logger.Error("エラーメッセージ");
 ```
 
+### Toaster (App側拡張サービス)
+
+画面右下にトースト通知を表示する。
+
+```csharp
+Toaster.Success("保存しました");
+Toaster.Info("確認してください");
+Toaster.Warn("注意が必要です");
+Toaster.Error("失敗しました");
+```
+
+**メソッド:**
+
+| メソッド | 説明 |
+|---|---|
+| `Success(string s)` | 緑色の成功トースト |
+| `Info(string s)` | 青色の情報トースト |
+| `Warn(string s)` | 黄色の警告トースト |
+| `Error(string s)` | 赤色のエラートースト |
+
+> **注意**: `Toaster.Warning` は存在しない。警告は `Toaster.Warn` を使う。
+
+実装: `Source/App/WebApp.Client.Shared/ScriptObjects/Toaster.cs`
+
+### LoadingService
+
+ローディングオーバーレイの表示制御。`StartLoading(int? delayTime)` で `LoadingScope (IDisposable)` を返し、`using` スコープ内で重なりを管理する。
+
+**2 つの使い方**:
+
+```csharp
+// 使い方 1: 短時間処理のチラつき防止 (1000ms 経たないと表示しない)
+void SubmitButton_OnClick()
+{
+    using var scope = LoadingService.StartLoading(1000);
+    var ret = this.Submit();
+    if (ret != true) { Toaster.Error("保存失敗"); return; }
+    Toaster.Success("保存しました");
+}
+
+// 使い方 2: 複数通信を 1 つのインジケータでまとめる (delayTime=0)
+void Approve_OnClick()
+{
+    using var loading = LoadingService.StartLoading(0);
+    parent.Submit();           // 1回目通信
+    OtherList.Reload();         // 2回目通信
+    parent.Submit();           // 3回目通信
+    // ↑ using スコープ全体で 1 つのローディング表示にまとまる
+}
+```
+
+挙動:
+- `_loadingCount` で scope の重なりを管理。複数 scope を入れ子にしても 1 つの状態
+- `delayTime` は **最初の呼び出しの値が記録される** (以後の値は無視)
+- `delayTime` 経過前に全 scope が Dispose されれば一度も表示されない
+- 内部の `Submit()` が短時間ローディング表示を試みても、外側 scope が生きている限り維持される
+
+実装: `Source/Codeer.LowCode.Blazor/Components/AppParts/Loading/LoadingService.cs`
+
+詳細な使い分けは [Docs/ScriptGuidelines.md](ScriptGuidelines.md) の「複数フィールド更新 + 通信は SuspendNotifyStateChanged + StartLoading でまとめる」セクション参照。
+
 ### NavigationService
 
 ```csharp
@@ -791,6 +852,30 @@ var isValid = this.ValidateInput();
 var names = this.GetModifiedFieldNames();
 ```
 
+### 再描画抑止 (SuspendNotifyStateChanged)
+
+複数フィールドを連続で書き換える間、画面の再描画 (StateHasChanged) を抑止する。
+
+```csharp
+void Approve_OnClick()
+{
+    using var suspend = GetParentModule().SuspendNotifyStateChanged();
+
+    member.Status.Value = "Approved";       // ← 画面更新走らず
+    member.ActorUser.Value = ...;            // ← 画面更新走らず
+    member.ApprovedAt.Value = ...;           // ← 画面更新走らず
+    // ... using スコープ終了で 1 回だけ再描画
+}
+```
+
+挙動:
+- `Module.SuspendNotifyStateChanged()` で `ResumeNotifyStateChangedInvoker (IDisposable)` 返却
+- `_blockNotifyStateChangedCount` で重なりを管理 (入れ子可)
+- 期間中の `NotifyStateChanged()` は Pending キューに溜まる
+- Dispose で `ResumeNotifyStateChanged()` → カウント減 → 0 で flush して 1 回だけ実 StateHasChanged
+
+**使う場面**: ボタンハンドラ等で複数フィールドを連続更新するとき。**親モジュールで呼ぶ**のが基本 (子モジュールも巻き込んで抑止される)。
+
 ### JSON操作
 
 ```csharp
@@ -892,10 +977,18 @@ bool StockInOut_OnTransaction(TransactionMode mode)
 - LINQ（`.Where()`, `.Select()` 等）
 - 多次元配列（`int[,]`, `int[][]`）
 - 一般的なラムダ式（ModuleSearcher以外では使用不可）
+- 複数引数ラムダ式 `(a, b) => ...` (SimpleLambda = 単一引数のみ)
+- 式メソッド `=>` (expression-bodied method) — `string F() => "x";` は **不可**、ブロック体 `string F() { return "x"; }` を使う
+- 名前付き引数 `method(name: value)` — 位置引数で渡す
+- `try` / `catch` / `finally`
+- `yield return` / `yield break`
+- 文字列補間 `$"..."` → 文字列連結（`+` 演算子）を使う
+- パターンマッチング (`x is Y y`, switch 式)
+- 範囲演算子 `..`
 - Nullable の `.Value` プロパティ
 - Null条件インデクサ（`?[]`）
-- String Interpolation（`$"..."`）→ 文字列連結（`+`演算子）を使うこと
 - Nullable の `.HasValue` → `!= null` で比較すること
+- `bool x = dynamicValue;` のような明示型代入 — 動的型 (parent モジュールのプロパティ等) を bool に直接代入できない。`var x = dynamicValue;` で受ける必要
 
 ---
 

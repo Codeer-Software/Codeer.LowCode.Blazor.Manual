@@ -613,6 +613,33 @@ App/
 }
 ```
 
+### 検索 AND/OR セレクタの幅
+
+`SearchGridLayoutDesign.Operator = "UserSpecified"` を指定すると、検索カードの先頭に AND/OR を選ぶ Select が表示される。既定幅は 200px (フィールドと同じ `grid-row` / `grid-column` 構造で配置され、左端は配下のフィールド列と揃う)。
+
+幅やマージンを変えたいときは、`data-system="search-condition-field"` 属性を持つ `grid-column` をターゲットにする。CSS 変数 (`--search-condition-field-width`) を上書きする方法と、属性セレクタで直接指定する方法の 2 通りある。
+
+```css
+/* 方法1: CSS 変数で幅だけ変える (推奨) */
+:root {
+  --search-condition-field-width: 300px;
+}
+
+/* 方法2: 属性セレクタで自由に */
+.grid-column[data-system="search-condition-field"] {
+  min-width: 240px;
+  max-width: 240px;
+}
+
+/* 特定モジュールだけ調整したいとき */
+[data-name="ComplexSearch"] .grid-column[data-system="search-condition-field"] {
+  min-width: 160px;
+  max-width: 160px;
+}
+```
+
+フレームワークの既定は `:where(.grid-column[data-system="search-condition-field"])` で定義されているため詳細度 0。`.grid-column[...]` で指定するだけで上書きできる。
+
 ### Bootstrap クラスのカスタマイズ
 
 ```css

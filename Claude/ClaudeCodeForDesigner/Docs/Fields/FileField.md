@@ -135,6 +135,45 @@ void ProcessFile_OnClick()
 }
 ```
 
+## サーバ側設定が必須 (これがないと動かない)
+
+`FileField` は **サーバ側に一時ファイル管理テーブルと `TemporaryFileTableInfo` 設定が必要**。デザインプロジェクトの JSON だけでは動かず、サーバの `appsettings.json` 設定と DB テーブル作成がセット。
+
+1. **`appsettings.json` の `TemporaryFileTableInfo` 配列**:
+   ```json
+   "TemporaryFileTableInfo": [
+     {
+       "DataSourceName": "Main",
+       "Table": "temporary_files",
+       "GuidColumn": "guid",
+       "CreatedDateTimeColumn": "created_date_time"
+     }
+   ]
+   ```
+   - `DataSourceName` は `designer.settings.json` の DataSource 名に揃える
+   - DataSource ごとに 1 エントリ必要
+
+2. **対応するテーブル作成** (各 DataSource):
+   ```sql
+   CREATE TABLE temporary_files (
+     guid TEXT PRIMARY KEY,
+     created_date_time DATETIME NOT NULL
+   );
+   ```
+   - 列名・型は `appsettings.json` で指定した名前に合わせる
+
+3. **`designer.settings.json` の `FileStorages`**:
+   ```json
+   "FileStorages": [
+     { "Name": "Local", "FileStorageType": "FileSystem" }
+   ]
+   ```
+   - 本番では `AzureBlobStorage` 等も選べる
+
+これらが未設定だと、`FileField` のアップロード/ダウンロードがランタイム例外で失敗する (ファイル選択ダイアログ自体は出るが、サーバが受け取れない)。
+
+サンプル/デモプロジェクトに `FileField` / `ImageField` 系を入れるときは、上の3点が揃っているか必ず確認すること。
+
 ## ランタイム動作
 
 - ファイルアップロード時、設定されたストレージ（`StorageName`）にファイルを保存する。

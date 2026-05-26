@@ -4,6 +4,50 @@
 
 ---
 
+## レイアウト最小化の原則
+
+**「削れるだけ削る」がデザインの基本**。ラベル・ページャー・ヘッダー等は「あって当然」と思い込まずに、削っても情報が失われないかチェックする。
+
+### 削れる候補チェックリスト
+
+| 削除候補 | 削れる条件 | 代替・備考 |
+|---|---|---|
+| **「○○状況」「○○情報」「明細」のような囲みラベル** | カードや表で囲まれていて、見た目で何のセクションか自明 | カード化 + 内容で十分伝わる |
+| **入力欄の「コメント」「メモ」等のラベル** | placeholder で代用できる | `Placeholder: "コメント"` |
+| **DetailListField / ListField の DisplayName ラベル** | テーブルヘッダー (列ラベル) で何のリストか自明 | ListField の DisplayName 空にする |
+| **ページャー** | 件数が少なく (~20件) 全件 1 画面で見たい用途 | `PagerPosition: "None"` + `SearchCondition.LimitCount: null` |
+| **ユーザーソート (列ヘッダクリック)** | 表示順が業務上固定 (時系列・優先順位等) | `CanUserSort: false` + `SortConditions: [{Variable: "...Value", IsDescending: ...}]` で固定順設定 |
+| **「状態」「現在の担当」のような単独表示** | 他の情報と統合して 1 行で表現可能 | テキスト連結 (`状態:進行中  A→▶B→C`) |
+| **申請者・申請日時の Detail 表示** | 履歴の最古エントリで分かる | 一覧 (List) には残し、Detail から削る |
+| **連番 Id 列** | 業務的に無意味 | ListLayout / DetailLayout どちらにも出さない (cf. [#45](../CLAUDE.md)) |
+| **承認/却下のような状態依存ボタン** | 該当状態じゃないとき | スクリプトで `IsVisible` 制御 |
+
+### 削減の前にやる確認
+
+- そのフィールド/ラベル/UI 要素を削ったとき、ユーザーが「何の情報か分からなくなる」か?
+- 同じ情報を他の場所 (履歴、テーブルヘッダ、placeholder) で代用できるか?
+- 「念のため出しておく」のような曖昧な理由なら削る候補
+
+### 統合の発想
+
+複数のフィールドを 1 行に圧縮すると省スペースになる。例:
+
+```
+[Before]
+状態         : 進行中
+現在の承認者 : アリス
+承認順番     :
+ 順番 1  状態 進行中
+ アリス [必須] 待ち
+
+[After]
+状態:進行中  ✓アリス→▶アリス
+```
+
+スクリプトで TextField (`IsViewOnly: true`) に動的に文字列を組み立てて表示するパターン。マーカー記号 (`✓` / `✗` / `▶` / `—`) で状態を表現する。
+
+---
+
 ## DetailLayout - GridColumn の HorizontalAlignment
 
 | フィールド種別 | HorizontalAlignment | 備考 |
@@ -17,18 +61,57 @@
 ## DetailLayout - 戻るボタンとタイトル行
 
 詳細画面の先頭行には、戻るボタンとページタイトルを同じ行に配置する。
-レイアウトのバランスを取るため3カラム構成にする。
+レイアウトのバランスを取るため**3カラム構成**にし、**両端のカラムに固定 Width を設定して、真ん中 (タイトル) が残り全幅で伸びる**ようにする。
 
 **フィールド定義:**
 - `BackButton` - AnchorTagFieldDesign, Target: `HistoryBack`, Icon: `bi bi-arrow-left-circle-fill`
-- `TitleLabel` - LabelFieldDesign, Style: `H2`, テキストはページの内容に応じた名称
-- `Spacer` - LabelFieldDesign, Text: `""` (空文字、右側バランス用)
+- `TitleLabel` (or `PageTitle`) - LabelFieldDesign, Style: `H4` 以上, テキストはページの内容に応じた名称
+- 3つ目のカラムは **Layout 省略の空セル**
 
-**レイアウト (3カラム、幅指定なし):**
+**レイアウト (3カラム、両端固定/真ん中 flex):**
 
-| カラム1 | カラム2 | カラム3 |
+| カラム1 (Width: 60) | カラム2 (Width 未指定) | カラム3 (Width: 60) |
 |---|---|---|
-| BackButton (FontSize: 30) | TitleLabel (HorizontalAlignment: Center) | Spacer |
+| BackButton (FontSize: 30) | TitleLabel (HorizontalAlignment: Center) | 空セル (Layout 省略) |
+
+**ポイント:**
+- カラム1とカラム3に **`Width: 60`** を入れる (戻るアイコンの自然サイズに合わせた値)。両端を等幅にすることで視覚的バランスが取れる
+- カラム2 (タイトル) は **Width 未指定** にして flex で残り全幅を占有させる
+- カラム3 は `Layout` プロパティ自体を**省略** (空セル)。`HorizontalAlignment: Center` のカラム2でタイトルが中央寄せされる
+- 両端の Width を入れないと、カラム2 のコンテンツサイズに依存して挙動が変わるので、明示的に固定する
+
+**JSON 例:**
+
+```json
+{
+  "Columns": [
+    {
+      "Layout": {
+        "FieldName": "BackButton",
+        "FontSize": 30,
+        "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+      },
+      "Width": 60,
+      "BorderStyle": { "LeftColor": "", "TopColor": "", "RightColor": "", "BottomColor": "" },
+      "Border": "None"
+    },
+    {
+      "Layout": {
+        "FieldName": "PageTitle",
+        "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+      },
+      "HorizontalAlignment": "Center",
+      "BorderStyle": { "LeftColor": "", "TopColor": "", "RightColor": "", "BottomColor": "" },
+      "Border": "None"
+    },
+    {
+      "Width": 60,
+      "BorderStyle": { "LeftColor": "", "TopColor": "", "RightColor": "", "BottomColor": "" },
+      "Border": "None"
+    }
+  ]
+}
+```
 
 ---
 
@@ -82,7 +165,7 @@ GridLayout で要素を中央・左寄せ・右寄せに配置するには、**L
 
 ---
 
-## DetailLayout - ラベルを上に配置する場合
+## DetailLayout - ラベルを上に配置する場合 (縦並び)
 
 ラベルを入力フィールドの上に縦に並べるときは、外側の行に直接2行で並べるのではなく、**カラム内にネストした GridLayoutDesign** を使う。ラベル行の `Margin.Bottom` を `0` にしてラベルと入力欄の間隔を詰める。
 
@@ -101,6 +184,48 @@ GridLayout で要素を中央・左寄せ・右寄せに配置するには、**L
 - ラベル行の `Margin.Bottom` を `0` に設定し、ラベルと入力欄の間の余白を除去する
 - ラベルの `VerticalAlignment` は `"Bottom"` にする
 - 横並びの場合は、1つの外側 Row に複数の Column を配置し、各 Column 内にそれぞれネスト Grid を持たせる
+- `IsRowMarginRemoved: true` は **非推奨**。`Margin.Bottom: 0` だけで詰める
+
+---
+
+## DetailLayout - ラベルとフィールドを一行に並べる場合 (横並び)
+
+ラベルを入力フィールドの**左**に並べるときは、外側 Row の中に2列 (ラベル列・フィールド列) を置く。
+
+```
+Row
+  ├─ Column[0]: ラベル (Width: 130 等で固定, VerticalAlignment: "Middle")
+  └─ Column[1]: 入力フィールド
+```
+
+**ポイント:**
+- ラベル列に `Width` (例: 130px) を固定値で指定し、フィールド列は自動幅
+- ラベル列の `VerticalAlignment: "Middle"` を必ず設定 (デフォルトの Top だと、入力欄の中央高さと揃わない)
+- ラベル側の `RelativeField` に対応するフィールド名を入れると、その Field の `DisplayName` がラベルテキストとして自動表示される
+
+---
+
+## SearchLayout - 検索フィールドのラベル/入力縦並び
+
+検索レイアウトでは、**ラベルを入力フィールドの上**に配置するのが標準的。1行に複数の検索条件を横並びに置き、各列でラベル/入力を縦に積む構造になる。
+
+実装は **「DetailLayout - ラベルを上に配置する場合」と同じネスト Grid パターン**を使う。外側は `SearchGridLayoutDesign`、各列で `GridLayoutDesign` を入れ子にして 2 行 (ラベル/入力) に分ける。
+
+```
+SearchGridLayoutDesign
+  └─ Row 0
+       ├─ Column[0]: ネスト GridLayoutDesign  ← 検索条件1
+       │    ├─ Row (Margin: { Bottom: 0 }): ラベル (VerticalAlignment: Bottom)
+       │    └─ Row: 入力フィールド
+       ├─ Column[1]: ネスト GridLayoutDesign  ← 検索条件2
+       │    └─ (同様)
+       └─ Column[N]: 空セル (Layout 省略, スペーサー)
+```
+
+**ポイント:**
+- 検索条件はラベルを下揃え (`VerticalAlignment: "Bottom"`)、入力欄を上揃えで詰める
+- 行内の最後に**空列** (Layout が空 or 省略) を1つ置くと、検索ボックスが画面幅いっぱいに広がるのを防げる
+- 折りたたみ可能にする場合は外側に `IsExpandable: true` の Grid を被せる ([このファイル下部の SearchLayout セクション](#searchlayout---検索画面は折りたたみ可能にする)を参照)
 
 ---
 
@@ -120,6 +245,35 @@ DetailListField（明細リスト）の子モジュールの DetailLayout では
   ...
 }
 ```
+
+---
+
+## ListLayout - Id 列を Elements に入れない (慣行)
+
+`IdFieldDesign` の `Id` フィールドは **ListLayout の Elements に入れない**のが CLB の慣行。Id を入れると空セルが描画されてしまう (IdField は UI 上で値を出さない仕様)。
+
+行番号が欲しいときは `ListNumberFieldDesign` を Fields に追加し、ListLayout の先頭列に置く。
+
+```json
+// ❌ 悪い: Id 列が空セルになる
+"Elements": [[
+  { "FieldName": "Id", "Width": 80 },
+  { "FieldName": "Name", "Width": 240 }
+]]
+
+// ✅ 良い: Id 列を入れない
+"Elements": [[
+  { "FieldName": "Name", "Width": 240 }
+]]
+
+// ✅ 行番号が欲しい場合: ListNumberField を使う
+"Elements": [[
+  { "FieldName": "RowNo", "Width": 60 },   // ListNumberFieldDesign
+  { "FieldName": "Name", "Width": 240 }
+]]
+```
+
+GettingStarted の `Author.mod.json` / `Recipe.mod.json` も同じパターン (Id 不在、ListNumber を使う場合あり)。
 
 ---
 

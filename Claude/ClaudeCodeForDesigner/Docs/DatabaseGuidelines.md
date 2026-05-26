@@ -72,6 +72,38 @@ CREATE TABLE child (
 | テキスト | `TEXT` | |
 | 数値（整数） | `INTEGER` | |
 | 数値（小数） | `REAL` | |
-| 日付 | `TEXT` | ISO 8601形式 |
-| 日時 | `TEXT` | ISO 8601形式 |
+| 日付 | `DATE` | DateOnly にマップ |
+| 日時 | `DATETIME` (または `TIMESTAMP`) | DateTime にマップ |
+| 時刻 | `TIME` | TimeOnly にマップ |
 | 真偽値 | `INTEGER` | 0/1 |
+
+### SQLite 日付/時刻列は TEXT で宣言しない
+
+SQLite は型なし DB だが、CLB は宣言型 (`PRAGMA table_info` で取得) をフックして .NET 型にマップする (`DbDefinitionServiceSQLite.ConvertToNetType`)。**日付/時刻列を `TEXT` で宣言してはいけない**。
+
+- `DATE` → `DateOnly`
+- `DATETIME` / `TIMESTAMP` → `DateTime`
+- `TIME` → `TimeOnly`
+- `TEXT` → `string` ← これだと CLB が DateOnly を `obj.ToString()` で InvariantCulture (MM/dd/yyyy) 文字列化し、SQLite TEXT 比較が cross-year で破綻する。範囲検索が壊れる
+
+```sql
+-- ✅ 正しい
+CREATE TABLE Order (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    order_date DATE,
+    updated_at DATETIME,
+    start_time TIME,
+    ...
+);
+
+-- ❌ 範囲検索が壊れる (年跨ぎ等)
+CREATE TABLE Order (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    order_date TEXT,
+    updated_at TEXT,
+    start_time TEXT,
+    ...
+);
+```
+
+**スキーマ変更後はサーバ再起動が必須**: `DbAccessor._dbTableDefinitionCache` は static で列定義を保持するため、ALTER TABLE / DROP-CREATE しても HotReload では反映されない。

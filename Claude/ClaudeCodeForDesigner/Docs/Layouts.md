@@ -378,9 +378,35 @@ GridLayoutDesign を継承し、以下のプロパティを追加。
 
 | プロパティ | 型 | デフォルト | 説明 |
 |---|---|---|---|
-| `Operator` | string | `"And"` | 検索条件の結合方式: `And` / `Or` |
+| `Operator` | string | `"And"` | 検索条件の結合方式: `And` / `Or` / `UserSpecified` |
 
 `TypeFullName`: `Codeer.LowCode.Blazor.Repository.Design.SearchGridLayoutDesign`
+
+**Operator の値:**
+- `"And"` — 配下の条件はすべて AND 結合 (デフォルト)
+- `"Or"` — 配下の条件はすべて OR 結合
+- `"UserSpecified"` — カード先頭に AND/OR セレクタが表示され、ユーザーが切替可能
+
+**UserSpecified のレイアウト:**
+
+`UserSpecified` のとき、カード (`card-body`) の先頭に AND/OR セレクタ用の `grid-row` / `grid-column` が挿入される。下の検索フィールド列と同じ `grid-row` / `grid-column` 構造で配置されるため左端が揃う。既定幅 200px。
+
+```html
+<div class="card-body grid-frame">
+  <div class="grid-row" data-row="mb">                <!-- AND/OR セレクタ行 -->
+    <div class="grid-column" data-system="search-condition-field">
+      <select>...AND/OR...</select>
+    </div>
+  </div>
+  <div class="grid-row" data-row="...">                <!-- フィールド行 -->
+    <div class="grid-column">...フィールド...</div>
+  </div>
+</div>
+```
+
+幅の調整は app.css から可能 (詳細は [Docs/AppCss.md](AppCss.md) の「検索 AND/OR セレクタの幅」セクション参照)。`--search-condition-field-width` CSS 変数または `.grid-column[data-system="search-condition-field"]` セレクタで上書きする。
+
+ネスト構造で `Operator: "UserSpecified"` を使うと、ネストカード内に AND/OR セレクタが表示され、複雑な論理式 (例: `A AND (B OR (C AND D))`) を画面から組み立てられる。
 
 ### JSON例
 
@@ -520,6 +546,7 @@ public class GridColumn
 | `CanResize` | bool | `false` | ユーザーによる行高さ変更を許可 |
 | `BackgroundColor` | string | `""` | 行の背景色 |
 | `IsRowMarginRemoved` | bool | `false` | 行間マージンを除去するか |
+| `KeepInFillAvailableGrid` | bool | `false` | **基本 `false` のまま。`true` 化は超絶レア** (詳細は [CommonMistakes.md](CommonMistakes.md) #49 を必読)。`IsFillAvailable=true` の Grid の最終行 (FillAvailable target) が「ListField の内部スクロールでも `ProCode` の自前スクロールでもなく、`Button` や `Label` のような中身が固定高さの要素」のときに限り `true` にする。`ListField` や `ProCodeField` の最終行に `true` を立てるとモードが切り替わって**画面下端まで広がらなくなる**ので絶対やってはいけない |
 | `Columns` | List\<GridColumn\> | `[]` | 列定義 |
 
 ### GridColumn プロパティ
