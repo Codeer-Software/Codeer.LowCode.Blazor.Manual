@@ -4,6 +4,8 @@
 
 ## アプリの作り
 
+
+<img src="../../Image/web/patterns/many_to_many.png" alt="記事の詳細画面 (タグ付けリスト)" style="border: 1px solid #ccc;" width="800">
 - 記事の詳細画面で「タグ追加」ボタンを押す
 - タグ検索ダイアログから 1 件選んで追加
 - 記事画面に紐付いたタグがリストで並ぶ。不要なタグは削除可能

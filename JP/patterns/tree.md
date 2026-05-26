@@ -4,6 +4,8 @@
 
 ## アプリの作り
 
+
+<img src="../../Image/web/patterns/tree.png" alt="部署一覧 (階層構造)" style="border: 1px solid #ccc;" width="800">
 - 部署一覧で各レコードに「親部署」フィールド
 - 親部署は同じ部署マスタから選ぶ (自分自身も部署、相手も部署)
 - ルート部署は親部署が空 (NULL)

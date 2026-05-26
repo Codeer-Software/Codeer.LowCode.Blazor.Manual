@@ -4,6 +4,8 @@
 
 ## アプリの作り
 
+
+<img src="../../Image/web/patterns/soft_delete.png" alt="論理削除の一覧画面" style="border: 1px solid #ccc;" width="800">
 - 一般ユーザー画面: 「削除」ボタンを押すとレコードが見えなくなる (一覧から消える)
 - 管理画面: 削除済みレコードも表示。フラグを戻して復活できる
 

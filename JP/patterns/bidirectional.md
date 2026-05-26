@@ -12,6 +12,8 @@
 
 ## アプリの作り
 
+
+<img src="../../Image/web/patterns/bidirectional.png" alt="親モジュールの詳細画面 (子モジュールを内包)" style="border: 1px solid #ccc;" width="800">
 申請 ↔ 承認フローを例にすると:
 - 申請の詳細画面に **承認フローが ModuleField で内包**されている (申請 → 承認フロー方向)
 - 承認待ち一覧から「申請を開く」ボタンで申請画面に戻れる (承認フロー → 申請方向)

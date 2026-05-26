@@ -4,6 +4,8 @@
 
 ## アプリの作り
 
+
+<img src="../../Image/web/patterns/single_crud.png" alt="商品一覧画面 (単一CRUDの例)" style="border: 1px solid #ccc;" width="800">
 - サイドバーから「商品」を開くと一覧画面
 - 一覧から行を開くと詳細画面 (登録/編集も同じ画面)
 - 「新規」ボタンで新規登録、「保存」ボタンで保存、「削除」で削除
