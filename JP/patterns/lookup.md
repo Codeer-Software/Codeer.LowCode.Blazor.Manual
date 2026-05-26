@@ -1,48 +1,50 @@
-# マスタ参照 (商品にカテゴリを紐付けるような 多対1)
+# マスタ参照 (店舗に業態を紐付けるような 多対1)
 
-**いつ使う**: 商品にカテゴリを紐付け、注文に顧客を紐付け、社員に部署を紐付けるなど、**他のマスタから 1 件選んで参照する**操作。
+**いつ使う**: 商品にカテゴリを紐付け、注文に顧客を紐付け、店舗に業態を紐付けるなど、**他のマスタから 1 件選んで参照する**操作。
 
 ## アプリの作り
 
-- 商品の詳細画面で「カテゴリ」フィールドの 🔍 ボタンを押すと検索ダイアログ
-- ダイアログでカテゴリ一覧から 1 件選択
-- 商品レコードにそのカテゴリの ID が保存され、画面にはカテゴリ名が表示される
+<img src="../../Image/web/patterns/lookup.png" alt="店舗の詳細画面 (業態マスタを LinkField で参照)" style="border: 1px solid #ccc;" width="800">
+
+- 店舗の詳細画面で「業態」フィールドの 🔍 ボタンを押すと検索ダイアログ
+- ダイアログで業態マスタから 1 件選択 (例: 「飲食店」)
+- 店舗レコードにその業態の ID が保存され、画面には業態名が表示される
 
 ## 支えるデータ構造
 
 ```
-products                   categories
-├── id                     ├── id        PK
-├── name                   ├── name      TEXT
-├── category_id  FK ─────→ └── ...
+shops                          shop_types
+├── id                         ├── id        PK
+├── name                       ├── name      TEXT
+├── shop_type_id  FK ─────────→└── ...
 └── ...
 ```
 
-参照する側 (`products`) が FK 列 (`category_id`) を持つ。
+参照する側 (`shops`) が FK 列 (`shop_type_id`) を持つ。
 
 ## モジュールとテーブルの対応
 
 | モジュール | テーブル | 役割 | 主な参照 |
 |---|---|---|---|
-| `Product` | `products` | 参照する側 | `Category` (`LinkField` → `Category`) で FK を保持 |
-| `Category` | `categories` | 参照される側 (マスタ) | 通常の CRUD モジュール |
+| `Shop` | `shops` | 参照する側 | `ShopTypeRef` (`LinkField` → `ShopType`) で FK を保持 |
+| `ShopType` | `shop_types` | 参照される側 (マスタ) | 通常の CRUD モジュール |
 
 ## CLB ではこう作る
 
-参照する側 (`Product`) に `LinkField` を1つ追加:
-- `DbColumn`: 外部キー列名 (`category_id`)
-- `SearchCondition.ModuleName`: 参照先モジュール名 (`Category`)
+参照する側 (`Shop`) に `LinkField` を1つ追加:
+- `DbColumn`: 外部キー列名 (`shop_type_id`)
+- `SearchCondition.ModuleName`: 参照先モジュール名 (`ShopType`)
 - `ValueVariable`: `Id.Value`
 - `DisplayTextVariable`: `Name.Value` (画面表示用)
 
 ## 標準パターン集の対応
 
-`LookupCustomer` などで `LinkField` の使用例。`Article` モジュールでも使われている。
+サイドバー **`データ操作/マスタ参照`** → `Shop` + `ShopType`
 
 ## 落とし穴
 
 - 参照先モジュールが PageFrame に登録されてないと、検索ダイアログで開けないことがある
-- 表示用に参照先の他フィールドを引きたいとき (例: カテゴリ名 + カテゴリの説明) は、親モジュールの `LinkFieldNames` にパス追加 + レイアウトで参照する
+- 表示用に参照先の他フィールドを引きたいとき (例: 業態名 + 業態の説明) は、参照する側モジュールの `LinkFieldNames` にパス追加 + レイアウトで参照する
 
 ## 関連ドキュメント
 
