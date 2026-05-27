@@ -1,5 +1,6 @@
 using ApexCharts;
 using Blazor.KHandyInterop;
+using Codeer.LowCode.Bindings.ApexCharts.Designer;
 using Codeer.LowCode.Bindings.ApexCharts.Designer.Controls;
 using Codeer.LowCode.Bindings.ApexCharts.Designs;
 using Codeer.LowCode.Bindings.ApexCharts.Models;
@@ -43,7 +44,8 @@ namespace LowCodeSamples.Designer
 
             MudBlazorLoader.LoadAssemblies();
             RadzenLoader.LoadAssemblies();
-            ExtrasDesignerInitializer.Initialize();
+            ApexChartsDesignerInitializer.Initialize(BlazorRuntime);
+            ExtrasDesignerInitializer.Initialize(BlazorRuntime);
 
             Services.AddApexCharts();
             PropertyTypeManager.AddPropertyControl<ChartSeries, ChartSeriesPropertyControl>();
