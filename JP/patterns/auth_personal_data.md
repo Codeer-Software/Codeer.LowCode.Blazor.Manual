@@ -62,7 +62,7 @@ personal_memos
 
 ## 関連ドキュメント
 
-- [認証パターン集 入口](auth_patterns.md)
+- [認証パターン集 一覧](auth_patterns.md)
 - [認証 / 認可の概要](../authorization/authorization.md)
 - [検索条件の初期化](search_patterns.md#検索条件の初期化)
 - [作成日時・更新日時 (システムフィールド)](system_fields.md)

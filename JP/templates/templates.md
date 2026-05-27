@@ -44,6 +44,6 @@
 
 ## 関連ドキュメント
 
-- [アプリ作成パターン入口](../patterns/patterns.md) — 部品単位のパターン集
+- [アプリ作成パターン一覧](../patterns/patterns.md) — 部品単位のパターン集
 - [デザイナ概要](../designer/designer.md)
 - [Visual Studio ソリューションとデプロイ](../overview/vs_projects.md)

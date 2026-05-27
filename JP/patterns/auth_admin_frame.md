@@ -52,6 +52,6 @@ PageFrame の分割で実現するため、モジュール側というよりは 
 
 ## 関連ドキュメント
 
-- [認証パターン集 入口](auth_patterns.md)
+- [認証パターン集 一覧](auth_patterns.md)
 - [PageFrame の設定](../designer/page_frame.md)
 - [認証 / 認可の概要](../authorization/authorization.md)

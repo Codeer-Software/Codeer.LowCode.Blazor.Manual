@@ -51,6 +51,6 @@ sample_items
 
 ## 関連ドキュメント
 
-- [アプリ作成パターン入口](patterns.md) ─ 全パターンのインデックス
+- [アプリ作成パターン一覧](patterns.md) ─ 全パターンのインデックス
 - [モジュール定義の全体構造](../module/module.md)
 - [Field リファレンス](../fields/) ─ LinkField / ListField / DetailListField / ModuleField 等の詳細

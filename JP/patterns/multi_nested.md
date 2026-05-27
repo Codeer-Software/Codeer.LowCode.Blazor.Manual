@@ -52,7 +52,7 @@ projects                phases                          tasks
 
 ## 関連ドキュメント
 
-- [アプリ作成パターン入口](patterns.md) ─ 全パターンのインデックス
+- [アプリ作成パターン一覧](patterns.md) ─ 全パターンのインデックス
 - [ヘッダ詳細 (1:N)](header_detail.md) ─ 2 段の親子関係 (多段ネストの基本形)
 - [モジュール定義の全体構造](../module/module.md)
 - [Field リファレンス](../fields/) ─ ListField / DetailListField の詳細

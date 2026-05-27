@@ -28,6 +28,6 @@
 
 ## 関連ドキュメント
 
-- [標準パターン集 入口](patterns.md) ─ 認証なしの全パターン
+- [標準パターン集 一覧](patterns.md) ─ 認証なしの全パターン
 - [認証 / 認可の概要](../authorization/authorization.md)
 - [PageFrame の設定](../designer/page_frame.md)

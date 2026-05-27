@@ -107,8 +107,8 @@
 
 ## 関連ドキュメント
 
-- [業務テンプレート入口](templates.md)
-- [アプリ作成パターン入口](../patterns/patterns.md)
+- [業務テンプレート一覧](templates.md)
+- [アプリ作成パターン一覧](../patterns/patterns.md)
 - [多対多パターン](../patterns/many_to_many.md) — メンバー × プロジェクトの中間テーブル
 - [ヘッダ詳細 (1:N) パターン](../patterns/header_detail.md) — プロジェクト＋タスクの作り方
 - [自動保存パターン](../patterns/auto_save.md) — `AutoSubmitField` の使い方

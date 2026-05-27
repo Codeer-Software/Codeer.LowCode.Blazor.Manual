@@ -92,8 +92,8 @@
 
 ## 関連ドキュメント
 
-- [業務テンプレート入口](templates.md)
-- [アプリ作成パターン入口](../patterns/patterns.md)
+- [業務テンプレート一覧](templates.md)
+- [アプリ作成パターン一覧](../patterns/patterns.md)
 - [ヘッダ詳細 (1:N) パターン](../patterns/header_detail.md) — 顧客＋顧客担当者、商談＋活動履歴の作り方
 - [マスタ参照（多対1）](../patterns/lookup.md) — 顧客 → 業種、商談 → 営業担当者などの参照
 - [連動入力パターン](../patterns/input_patterns.md) — 商談の顧客に応じて顧客担当者の選択肢を絞り込む方式

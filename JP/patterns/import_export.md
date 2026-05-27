@@ -45,6 +45,6 @@ import_exports
 
 ## 関連ドキュメント
 
-- [アプリ作成パターン入口](patterns.md) ─ 全パターンのインデックス
+- [アプリ作成パターン一覧](patterns.md) ─ 全パターンのインデックス
 - [モジュール定義の全体構造](../module/module.md)
 - [PageFrame の設定](../designer/page_frame.md)

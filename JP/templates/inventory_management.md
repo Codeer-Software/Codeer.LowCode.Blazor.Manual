@@ -111,8 +111,8 @@
 
 ## 関連ドキュメント
 
-- [業務テンプレート入口](templates.md)
-- [アプリ作成パターン入口](../patterns/patterns.md)
+- [業務テンプレート一覧](templates.md)
+- [アプリ作成パターン一覧](../patterns/patterns.md)
 - [ヘッダ詳細 (1:N) パターン](../patterns/header_detail.md) — 伝票＋明細の作り方
 - [楽観ロック](../patterns/optimistic_lock.md) — 棚卸し更新の保護方式
 - [マスタ参照（多対1）](../patterns/lookup.md) — 商品 → 仕入先などの参照

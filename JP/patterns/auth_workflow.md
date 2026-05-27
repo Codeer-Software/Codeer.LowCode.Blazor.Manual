@@ -91,7 +91,7 @@ if (IsNewData)
 
 ## 関連ドキュメント
 
-- [認証パターン集 入口](auth_patterns.md)
+- [認証パターン集 一覧](auth_patterns.md)
 - [双方向 ID 持ち合い (1:1)](bidirectional.md) ─ 申請 ↔ 承認フローの基盤パターン
 - [多段ネスト](multi_nested.md) ─ Flow → Order → Member の 3 段構造
 - [検索条件の初期化](search_patterns.md#検索条件の初期化)
