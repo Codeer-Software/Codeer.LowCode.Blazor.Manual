@@ -3,8 +3,8 @@ AIの機能はテンプレートで出力したコードで実現しています
 
 ## 必要なものと設定
 - OpenAIやAzure Open AI等のサブスクリプション
-- 開発Windowsの環境変数へEndPointとKeyの登録
-- Codeer.LowCode.BlazorのサーバープロジェクトでEndPointとKeyの登録
+- 開発Windowsの環境変数へEndPoint・Key・Modelの登録
+- Codeer.LowCode.BlazorのサーバープロジェクトでEndPoint・Key・Modelの登録
 - PDF/画像分析を使用する場合はDocumentAnalysisEndPoint及びDocumentAnalysisKeyの登録も必要
 ## 設定方法
 以下のステップは、Azure Open AI等のEndPointとKeyが取得済みであることを前提とします。
@@ -12,7 +12,7 @@ AIの機能はテンプレートで出力したコードで実現しています
 ## Desingerで開発時に利用するAIの設定
 ### 開発Windowsの環境変数の設定
 1. Windowsの環境変数エディタを開きます：スタートメニュー　→　「環境変数」で検索
-2. ユーザー環境変数リストに以下２つの項目を新規追加します：
+2. ユーザー環境変数リストに以下３つの項目を新規追加します：
    ```
    変数名：AZURE_OPENAI_API_ENDPOINT
    変数値：EndPointのURL
@@ -20,6 +20,10 @@ AIの機能はテンプレートで出力したコードで実現しています
    ```
    変数名：AZURE_OPENAI_API_KEY
    変数値：APIキー
+   ```
+   ```
+   変数名：AZURE_OPENAI_API_MODEL
+   変数値：使用するチャットモデル名（例：gpt-4o、gpt-4o-mini など）
    ```
    変数名はデフォルトで上記となりますが、変更することが可能です。
    Codeer.LowCode.BlazorのデザイナプロジェクトのApp.xaml.csで変更できます。
@@ -29,7 +33,7 @@ AIの機能はテンプレートで出力したコードで実現しています
            {
             AISettings.Instance.OpenAIEndPoint = Environment.GetEnvironmentVariable("AZURE_OPENAI_API_ENDPOINT") ?? string.Empty;
             AISettings.Instance.OpenAIKey = Environment.GetEnvironmentVariable("AZURE_OPENAI_API_KEY") ?? string.Empty;
-            AISettings.Instance.ChatModel = "gpt-4o";
+            AISettings.Instance.ChatModel = Environment.GetEnvironmentVariable("AZURE_OPENAI_API_MODEL") ?? string.Empty;
             //...
            }
    ```
