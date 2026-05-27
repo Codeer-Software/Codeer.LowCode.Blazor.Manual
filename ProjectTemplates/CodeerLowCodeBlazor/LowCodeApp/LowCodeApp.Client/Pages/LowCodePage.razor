@@ -1,0 +1,58 @@
+@page "/"
+@page "/{PageFrameName}"
+@page "/{PageFrameName}/{ModuleDesignName}"
+@page "/{PageFrameName}/{ModuleDesignName}/{Id}"
+@using LowCodeApp.Client.Shared.Services
+@using Codeer.LowCode.Blazor.Components.AppParts.Page
+@using Codeer.LowCode.Blazor.RequestInterfaces
+@inject IAppInfoService AppInfoService
+@inject INavigationService NavigationService
+
+@if (_isValid)
+{
+  <LowCodePageComponent ModuleDesignName="@ModuleDesignName" PageFrameName="@PageFrameName" Id="@Id"></LowCodePageComponent>
+}
+else
+{
+  <svg class="loading-progress">
+    <circle r="40%" cx="50%" cy="50%" />
+    <circle r="40%" cx="50%" cy="50%" />
+  </svg>
+  <div class="loading-progress-text"></div>
+  <div class="app-init-note" aria-live="polite">
+    App Initializing
+  </div>
+}
+
+@code {
+  [Parameter]
+  public string? PageFrameName { get; set; }
+
+  [Parameter]
+  public string? ModuleDesignName { get; set; }
+
+  [Parameter]
+  public string? Id { get; set; }
+
+  bool _isValid = false;
+
+  protected override async Task OnInitializedAsync()
+  {
+    _isValid = false;
+    await base.OnInitializedAsync();
+  }
+
+  protected override async Task OnParametersSetAsync()
+  {
+    await base.OnParametersSetAsync();
+    await InitPage();
+  }
+
+  private async Task InitPage()
+  {
+    _isValid = false;
+    await AppInfoService.AsImplement().InitializeAppAsync();
+    NavigationService.CompleteUrl(AppInfoService, PageFrameName, ModuleDesignName);
+    _isValid = true;
+  }
+}

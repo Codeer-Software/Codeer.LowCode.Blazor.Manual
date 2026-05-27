@@ -1,0 +1,77 @@
+@page "/"
+@page "/{PageFrameName}"
+@page "/{PageFrameName}/{ModuleDesignName}"
+@page "/{PageFrameName}/{ModuleDesignName}/{Id}"
+@using LowCodeApp.Cookie.Client.Shared.Services
+@using Codeer.LowCode.Blazor.Components.AppParts.Page
+@using Codeer.LowCode.Blazor.RequestInterfaces
+@using Codeer.LowCode.Blazor.Utils
+@inject IAppInfoService AppInfoService
+@inject Services Services
+@inject HttpClient HttpClient
+@inject NavigationManager NavigationManager
+@inject INavigationService NavigationService
+
+@if (_isValid)
+{
+  <LowCodePageComponent ModuleDesignName="@ModuleDesignName" PageFrameName="@PageFrameName" Id="@Id"></LowCodePageComponent>
+}
+else
+{
+  <svg class="loading-progress">
+    <circle r="40%" cx="50%" cy="50%" />
+    <circle r="40%" cx="50%" cy="50%" />
+  </svg>
+  <div class="loading-progress-text"></div>
+  <div class="app-init-note" aria-live="polite">
+    App Initializing
+  </div>
+}
+
+@code {
+  [Parameter]
+  public string? PageFrameName { get; set; }
+
+  [Parameter]
+  public string? ModuleDesignName { get; set; }
+
+  [Parameter]
+  public string? Id { get; set; }
+
+  bool _isValid = false;
+  bool _toLoginPage = false;
+
+  protected override async Task OnInitializedAsync()
+  {
+    _isValid = false;
+    await base.OnInitializedAsync();
+    try
+    {
+      var id = await HttpClient.GetFromJsonAsync<StringWrapper>("api/account/current_user");
+      AppInfoService.AsImplement().SetCurrentUserId(id?.Value??string.Empty);
+    }
+    catch
+    {
+      AppInfoService.AsImplement().SetCurrentUserId(string.Empty);
+    }
+
+    if (!string.IsNullOrEmpty(Services.AppInfoService.CurrentUserId)) return;
+    _toLoginPage = true;
+    NavigationManager.NavigateTo("/login?redirect=" + NavigationManager.Uri);
+  }
+
+  protected override async Task OnParametersSetAsync()
+  {
+    if (_toLoginPage) return;
+    await base.OnParametersSetAsync();
+    await InitPage();
+  }
+
+  private async Task InitPage()
+  {
+    _isValid = false;
+    await AppInfoService.AsImplement().InitializeAppAsync();
+    NavigationService.CompleteUrl(AppInfoService, PageFrameName, ModuleDesignName);
+    _isValid = true;
+  }
+}

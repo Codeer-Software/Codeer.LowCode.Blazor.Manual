@@ -1,0 +1,57 @@
+@page "/"
+@page "/{PageFrameName}"
+@page "/{PageFrameName}/{ModuleDesignName}"
+@page "/{PageFrameName}/{ModuleDesignName}/{Id}"
+@using LowCodeApp.WPF.LowCodeApp.Services
+@using Codeer.LowCode.Blazor.Repository.Design
+@using Codeer.LowCode.Blazor.Components.AppParts.PageFrame
+@using Codeer.LowCode.Blazor.Components.AppParts.Page
+@using Codeer.LowCode.Blazor.RequestInterfaces
+@using Codeer.LowCode.Blazor.Utils
+@using Codeer.LowCode.Blazor.DesignLogic
+@implements IDisposable
+@inject IAppInfoService AppInfoService
+@inject INavigationService NavigationService
+
+@if (_isValid)
+{
+  <LowCodePageComponent ModuleDesignName="@ModuleDesignName" PageFrameName="@PageFrameName" Id="@Id"></LowCodePageComponent>
+}
+
+@code {
+
+  [Parameter]
+  public string? PageFrameName { get; set; }
+
+  [Parameter]
+  public string? ModuleDesignName { get; set; }
+
+  [Parameter]
+  public string? Id { get; set; }
+
+  bool _isValid = false;
+
+  protected override async Task OnInitializedAsync()
+  {
+    await base.OnInitializedAsync();
+  }
+
+  public void Dispose()
+  {
+    AppInfoService.AsImplement().Dispose();
+  }
+
+  protected override async Task OnParametersSetAsync()
+  {
+    await base.OnParametersSetAsync();
+    await InitPage();
+  }
+
+  private async Task InitPage()
+  {
+    _isValid = false;
+    await AppInfoService.AsImplement().InitializeAppAsync();
+    _isValid = true;
+    NavigationService.CompleteUrl(AppInfoService, PageFrameName, ModuleDesignName);
+  }
+}

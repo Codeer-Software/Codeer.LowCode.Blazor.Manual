@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <base href="/" />
+  <title>Login</title>
+
+  <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
+  <link href="css/app.css" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <style>
+    .empty-center {
+      padding: 16px;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="empty-center">
+    <div>
+      <h1>Login</h1>
+      <form id="LoginForm" novalidate>
+        <div class="mb-2">
+          User ID
+          <input id="Id" name="Id" type="text" style="width:300px" class="form-control" autocomplete="username" required />
+        </div>
+        <div class="mb-2">
+          Password
+          <input id="Password" name="Password" type="password" style="width:300px" class="form-control" autocomplete="current-password" required />
+        </div>
+        <div class="mb-3">
+          <input id="IsPersistent" name="IsPersistent" type="checkbox" />
+          <label for="IsPersistent" class="ms-1">Remember me?</label>
+        </div>
+        <button id="LoginButton" type="submit" class="btn btn-primary">Login</button>
+        <div id="ErrorMessage" class="text-danger mt-3" style="display:none;">Login failed.</div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(location.search);
+    const redirect = sanitizeReturnUrl(params.get("returnUrl"));
+    const token = getCookie("X-ANTIFORGERY-TOKEN");
+
+    (async () => {
+      if (window.__blazorStarted) location.reload();
+    })();
+
+    document.getElementById("LoginForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const id = document.getElementById("Id").value;
+      const password = document.getElementById("Password").value;
+      const isPersistent = document.getElementById("IsPersistent").checked;
+
+      if (!id || !password) {
+        showError(); return;
+      }
+
+      const btn = document.getElementById("LoginButton");
+      const err = document.getElementById("ErrorMessage");
+      btn.disabled = true;
+      err.style.display = "none";
+
+      try {
+        const res = await fetch("/api/account/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "X-ANTIFORGERY-TOKEN":token },
+          body: JSON.stringify({ Id: id, Password: password, IsPersistent: isPersistent }),
+          credentials: "include",
+          cache: "no-store"
+        });
+
+        if (res.ok) {
+          const me = await fetch("/api/account/current_user", { credentials: "include", cache: "no-store" });
+          if (me.ok) {
+            const j = await me.json();
+            const uid = (j?.value ?? j?.Value ?? "").trim();
+            if (uid) {
+              if (redirect === "/" || redirect === "") location.href = "/";
+              else location.href = redirect;
+              return;
+            }
+          }
+          showError();
+        } else {
+          showError();
+        }
+      } catch {
+        showError();
+      } finally {
+        btn.disabled = false;
+      }
+    });
+    function getCookie(name) {
+      return document.cookie
+        .split("; ")
+        .find(x => x.startsWith(name + "="))
+        ?.split("=")[1] ?? "";
+    }
+    function showError() {
+      const el = document.getElementById("ErrorMessage");
+      el.textContent = "Login failed";
+      el.style.display = "block";
+    }
+    function sanitizeReturnUrl(u) {
+      try {
+        if (!u) return "/";
+        if (!u.startsWith("/")) return "/";
+        if (u.startsWith("//")) return "/";
+        return u;
+      } catch { return "/"; }
+    }
+  </script>
+</body>
+</html>

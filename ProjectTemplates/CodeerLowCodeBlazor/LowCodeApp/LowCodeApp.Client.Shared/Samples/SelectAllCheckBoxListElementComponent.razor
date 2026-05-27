@@ -1,0 +1,30 @@
+@using Codeer.LowCode.Blazor.OperatingModel
+@using Codeer.LowCode.Blazor.RequestInterfaces
+@using Microsoft.AspNetCore.Components.Web
+@using Codeer.LowCode.Blazor.ProCode
+@using Codeer.LowCode.Blazor.Components
+@inherits ListElementComponentBase
+@inject IAppInfoService AppInfoService
+
+<input class="form-check-input cursor-pointer" type="checkbox" disabled="@(IsDisabled)"
+       @bind:get="@IsChecked" @bind:set="@OnChange" tabindex="@ViewOnlyTabIndex" />
+
+@code {
+  int? ViewOnlyTabIndex => AppInfoService.IsDesignMode ? null : Field.IsViewOnly? -1 : null;
+  bool IsDisabled => AppInfoService.IsDesignMode ? false : Field.IsEnabled == false;
+
+  private async Task OnChange(bool isChecked)
+  {
+    if (AppInfoService.IsDesignMode) return;
+
+    IsChecked = isChecked;
+
+    foreach (var e in Field.Rows)
+    {
+      var b = e.GetField(ListElement.FieldName) as BooleanField;
+      if (b == null) continue;
+      await b.SetValueAsync(isChecked);
+    }
+  }
+  private bool IsChecked { get; set; }
+}
