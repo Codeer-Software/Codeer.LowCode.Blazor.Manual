@@ -40,6 +40,8 @@ Visual Studio Marketplace から拡張機能をインストールします。
 Visual Studio の「新しいプロジェクトの作成」から `Codeer.LowCode.Blazor` を検索します。
 Blazor / WPF / WinForms の 3 種類のテンプレートが表示されます。**初めての場合は Blazor がおすすめ**です。
 
+> **認証付きのデザインテンプレを使う場合は「Cookie」バリアントで作成してください。** デザイナで後から「空のプロジェクト（認証付き）」や「認証パターン集」テンプレートを取り込む予定があるなら、Visual Studio のテンプレ選択時に Cookie バリアント（ASP.NET Identity ベース）を選んでおく必要があります。AAD / MultiTenant など他のバリアントだと認証付きデザインと整合しません。
+
 <img width=800 src="../../Image/step1.png">
 
 作成されるソリューションには以下のプロジェクトが含まれます:
