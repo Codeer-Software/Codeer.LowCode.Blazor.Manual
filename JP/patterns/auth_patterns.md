@@ -11,7 +11,7 @@
 - Cookie 認証 (ASP.NET Identity) で alice / bob / carol / dave / admin の 5 ユーザーが seed されている (パスワード: `test`、admin は `admin`)
 - 一般ユーザー画面 (`Main` フレーム) と管理者画面 (`AdminFrame`) の 2 つの PageFrame で構成
 
-> **⚠ Visual Studio 側のソリューションは「Cookie」バリアントで作成してください。** このテンプレートは Cookie 認証 (ASP.NET Identity) を前提に組まれているため、AAD / MultiTenant / Normal など他のバリアントとは整合しません。「空のプロジェクト（認証付き）」テンプレートも同様です。
+> **⚠ Visual Studio 側のソリューションは「Codeer.LowCode.Blazor.Cookie」で作成してください。その他のものとは整合しません。** 「空のプロジェクト（認証付き）」テンプレートも同様です。
 
 > [標準パターン集](patterns.md) (`PatternShowcase`) は認証なしでパターン単位の機能を見せるためのもの。**業務アプリらしい認証/権限/ワークフローを総合的に見たいときは認証パターン集**を開いてください。
 
