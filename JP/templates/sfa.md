@@ -53,6 +53,19 @@
 
 商談を中心に、活動履歴で営業活動を時系列に記録する **6 テーブル構成**。各テーブルは `id`（PK） / `created_at` / `updated_at` を共通で持ちます。
 
+### テーブル一覧
+
+| テーブル | 用途 |
+|---|---|
+| `deal` | 商談 |
+| `activity` | 活動履歴（商談に紐付く訪問・電話・メール等の記録） |
+| `customer` | 顧客（会社） |
+| `contact` | 顧客担当者（顧客に紐付く個人） |
+| `industry` | 業種マスタ |
+| `salesperson` | 営業担当者（自社メンバー） |
+
+### 各テーブルの主な列
+
 | テーブル | 主な列 |
 |---|---|
 | `deal`（商談） | name（案件名）/ status（フェーズ）/ probability（確度）/ expected_amount（予測金額）/ expected_close_date（受注予定日）/ won_lost_reason / memo / customer_id（→ customer）/ owner_id（→ salesperson） |
