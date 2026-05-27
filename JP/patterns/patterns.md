@@ -72,9 +72,14 @@ Visual Studio で新規プロジェクトを作るときに選べる **「標準
 
 `PageFrame` 単位のサンプル (3 パターン): ヘッダー型ナビ / 自動ズーム / 色テーマ変更
 
-### J. 認証・認可パターン (執筆予定)
+### J. [認証付きパターン集](auth_patterns.md) (別テンプレート)
 
-ログインユーザー連動、ロール別権限、データ単位権限、マルチテナント。当面は [認証 / 認可の概要](../authorization/authorization.md) を参照。
+「**認証付きパターン集**」テンプレート (内部名 `PatternShowcaseAuth`) の各パターン (4 個別ファイル):
+
+- [ユーザーモジュールと認証連動](auth_user_module.md) ─ `AppUser` / `CurrentUser` / パスワード変更
+- [個人データのフィルタと権限](auth_personal_data.md) ─ `DataReadCondition` で本人のみ閲覧、検索初期値で「自分のデータ」絞り込み
+- [承認フローのワークフロー](auth_workflow.md) ─ 申請 → 承認フロー → 履歴のテンプレート駆動ワークフロー
+- [一般画面と管理画面の分離 (複数 PageFrame)](auth_admin_frame.md) ─ `Main` フレーム / `AdminFrame` の使い分け
 
 ---
 
