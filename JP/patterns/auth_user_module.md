@@ -41,7 +41,7 @@ app_users  (ASP.NET Identity の AspNetUsers をベースに拡張)
 - **MyProfile** は表示専用モジュール (`DbTable: ""`)。`CurrentUser.表示名.Value` 等を Label/Text に流し込んで表示
 - **パスワード変更**は ChangePasswordDialog (同じ `app_users` テーブルを参照する別モジュール) を `ShowDialog` で開く
 
-## 認証付きパターン集の対応
+## 認証パターン集の対応
 
 - サイドバー **`マイプロフィール`** → `MyProfile`
 - サイドバー **`管理画面へ` → `ユーザー管理`** → `AppUser` (管理者のみアクセス)

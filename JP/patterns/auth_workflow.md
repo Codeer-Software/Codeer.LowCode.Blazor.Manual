@@ -76,7 +76,7 @@ if (IsNewData)
 
 サイドバー「承認待ち」は `ApprovalFlow` モジュール自体の一覧 + `CurrentApprover` (`LinkField` → AppUser) で「現在の承認者 = 自分」を初期検索値にする ([検索初期値パターン](search_patterns.md#検索条件の初期化))。「開く」ボタンで申請モジュール (LeaveRequest / ExpenseRequest) に遷移。
 
-## 認証付きパターン集の対応
+## 認証パターン集の対応
 
 - サイドバー **`休暇申請`** → `LeaveRequest`
 - サイドバー **`経費精算`** → `ExpenseRequest`
