@@ -1,0 +1,22 @@
+<style>
+body { font-family: Arial, sans-serif; }
+h2 { color: #ffd76b; }
+h3 { color: #80c1ff; }
+p, li { color: #e0e0e0; }
+code { color: #ffaaaa; }
+</style>
+<h2>CSS 1 本で作るダークテーマ PageFrame</h2>
+<p>この PageFrame は <b>JSON のプロパティではなく、CSS サイドカーだけで全色を定義</b>しています。</p>
+<h3>仕組み</h3>
+<ul>
+  <li>PageFrame の <code>BackgroundColor</code>/<code>Color</code>/<code>Left.BackgroundColorStart/End</code> は全て空</li>
+  <li><code>PageFrames/ColorFrame.css</code> に <code>main</code> 背景、<code>.sidebar</code> グラデーション、入力欄、カード、テーブル、ボタンまで全部書く</li>
+  <li>StyleLoader が ColorFrame 表示中だけ自動注入 → 他フレームには漏れない</li>
+</ul>
+<h3>なぜ CSS だけにするのか</h3>
+<ul>
+  <li>ダークテーマは Field レベル (入力欄, カード, テーブルの行) まで届かないと白く浮いてしまう → どうせ CSS が必須</li>
+  <li>JSON プロパティと CSS の二重管理を避けて、テーマ定義を 1 ファイルに集約できる</li>
+  <li>「軽い色変えはプロパティで、本格テーマは CSS サイドカーで」という使い分けの目安になる</li>
+</ul>
+<p>同じモジュールでも、所属する PageFrame の CSS によって全体の見た目が変わります。テナント別や画面用途別 (公開/管理) でテーマを切り替えるのに便利。</p>

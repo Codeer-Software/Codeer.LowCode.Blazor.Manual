@@ -1,0 +1,18 @@
+<style>
+body { font-family: Arial, sans-serif; }
+h2 { color: #c62828; }
+h3 { color: #d84315; }
+p, li { color: #333; }
+</style>
+
+<h2>管理画面 (admin 専用 PageFrame)</h2>
+<p>この PageFrame は <code>UserReadCondition</code> で <b>admin ロールのユーザーだけ</b>がアクセスできます。</p>
+
+<h3>管理画面メニュー</h3>
+<ul>
+  <li><b>ユーザー管理 (AppUser)</b> &mdash; ユーザーの新規作成 / Role 設定 / IsActive 切替</li>
+</ul>
+
+<h3>AppUser モジュールの権限について</h3>
+<p>AppUser モジュール自体には UserReadCondition / UserWriteCondition を付けていません。理由: AppUser は <code>CurrentUser</code> のソースなので、ここに制限を掛けると マイプロフィール / パスワード変更 / LinkField (担当者などの表示) が全て壊れてしまうため。</p>
+<p>本格的に「一般ユーザーには他人の情報を見せたくない」を実現したい場合は、DataReadCondition で「自分の行だけ」に絞るか、別途「公開用 AppUser」モジュール (一部カラムだけ参照する Module) を作るなどの設計が必要です。サンプルでは PageFrame レベル (AdminFrame の UserReadCondition) で管理画面へのアクセスだけ admin に絞っています。</p>

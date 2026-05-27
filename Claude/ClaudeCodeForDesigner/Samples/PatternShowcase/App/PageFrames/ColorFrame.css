@@ -1,0 +1,151 @@
+/* ColorFrame 専用 CSS (PageFrames/{Name}.css サイドカー)。
+   StyleLoader が ColorFrame 表示中のみ自動注入する。
+
+   方針: ダークテーマは「CSS 1 本で完結」させる。
+   PageFrame の BackgroundColor/Color/Left.BackgroundColorStart/End 等の Property は空にし、
+   フレーム全体・サイドバー・main エリア・Field レイヤーまで全て CSS でここに集約。
+   こうすると「ダークテーマがどう実現されているか」が ColorFrame.css を見るだけで分かる。 */
+
+[data-pageframe="ColorFrame"] {
+    /* ------- フレーム全体 (main コンテンツ領域) ------- */
+    main {
+        background-color: #1e1e1e;
+        color: #e0e0e0;
+    }
+
+    /* ------- サイドバー -------
+       サイドバーは MainLayoutCore.razor.css 側で
+       background-image: linear-gradient(180deg, var(--background-start) 0%, var(--background-end) 70%)
+       となっているので、CSS 変数で渡せばグラデーションが効く。 */
+    .sidebar {
+        --background-start: #0f1419;
+        --background-end: #1a2735;
+        color: #cfd8dc;
+    }
+
+    /* ------- テキスト入力系 ------- */
+    .form-control,
+    .form-select {
+        background-color: #2a2d31;
+        color: #e0e0e0;
+        border-color: #4a4d51;
+    }
+    .form-control:focus,
+    .form-select:focus {
+        background-color: #2a2d31;
+        color: #ffffff;
+        border-color: #80c1ff;
+        box-shadow: 0 0 0 0.2rem rgba(128, 193, 255, 0.25);
+    }
+    .form-control::placeholder {
+        color: #888;
+    }
+    .form-control:disabled,
+    .form-control[readonly] {
+        background-color: #232529;
+        color: #999;
+    }
+
+    /* ------- チェックボックス・ラジオ ------- */
+    .form-check-input {
+        background-color: #2a2d31;
+        border-color: #4a4d51;
+    }
+    .form-check-input:checked {
+        background-color: #1976d2;
+        border-color: #1976d2;
+    }
+    .form-check-label {
+        color: #e0e0e0;
+    }
+
+    /* ------- 罫線・カード ------- */
+    .card {
+        background-color: #2a2d31;
+        border-color: #4a4d51;
+        color: #e0e0e0;
+    }
+    .card-header,
+    .card-footer {
+        background-color: #232529;
+        border-color: #4a4d51;
+    }
+
+    /* ------- テーブル (一覧 ListField) -------
+       Bootstrap の table-striped は --bs-table-bg / --bs-table-striped-bg / --bs-table-color を
+       CSS 変数で持つので、変数自体を上書きするのが一番きれい。
+       これをやらないと偶数行が white のまま残って 1 行だけ浮いて見える。 */
+    table {
+        --bs-table-bg: #2a2d31;
+        --bs-table-striped-bg: #25282c;
+        --bs-table-color: #e0e0e0;
+        --bs-table-striped-color: #e0e0e0;
+        --bs-table-hover-bg: #3a3d41;
+        --bs-table-hover-color: #ffffff;
+        --bs-table-border-color: #4a4d51;
+        color: #e0e0e0;
+    }
+    /* thead は CLB ランタイムが `table-light` クラス付きで描画する。
+       これで --bs-table-bg が #f8f9fa (Bootstrap の light) に塗り替わるので、
+       th を background-color で上書きしただけだと枠線色や border 周辺で
+       白っぽさが滲んで見える。--bs-table-bg 自体をダークに揃えるのが安全。 */
+    table thead,
+    table thead.table-light {
+        --bs-table-bg: #232529;
+        --bs-table-color: #cfd8dc;
+        --bs-table-border-color: #4a4d51;
+    }
+    table th {
+        background-color: #232529;
+        color: #cfd8dc;
+        border-color: #4a4d51;
+    }
+    table td {
+        border-color: #3a3d41;
+    }
+
+    /* ------- ボタン (アウトライン系を読みやすく) ------- */
+    .btn-outline-primary,
+    .btn-outline-secondary,
+    .btn-outline-success,
+    .btn-outline-info,
+    .btn-outline-warning,
+    .btn-outline-danger {
+        color: #cfd8dc;
+    }
+    .btn-outline-primary:hover,
+    .btn-outline-secondary:hover,
+    .btn-outline-success:hover,
+    .btn-outline-info:hover,
+    .btn-outline-warning:hover,
+    .btn-outline-danger:hover { color: #ffffff; }
+
+    /* Link 色 */
+    a {
+        color: #80c1ff;
+    }
+    a:hover {
+        color: #b3d9ff;
+    }
+
+    /* ------- ページタイトル等の見出し ------- */
+    h1, h2, h3, h4, h5, h6 {
+        color: #ffd76b;
+    }
+
+    /* ------- ページネーション ------- */
+    .pagination .page-link {
+        background-color: #2a2d31;
+        color: #cfd8dc;
+        border-color: #4a4d51;
+    }
+    .pagination .page-item.active .page-link {
+        background-color: #1976d2;
+        border-color: #1976d2;
+        color: #ffffff;
+    }
+    .pagination .page-item.disabled .page-link {
+        background-color: #1f2125;
+        color: #666;
+    }
+}

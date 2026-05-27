@@ -1,0 +1,49 @@
+<style>
+body { font-family: Arial, sans-serif; }
+h2 { color: #2a5078; }
+h3 { color: #4a6fa5; }
+p, li { color: #333; }
+.note { color: #666; font-size: 0.9em; }
+</style>
+
+<h2>認証パターン集</h2>
+<p>Cookie 認証を組み込んだ、認証ならではのパターンサンプル集です。</p>
+
+<h3>登録済ユーザー</h3>
+<ul>
+  <li><b>admin / admin</b> (管理者) &mdash; role=admin / 管理画面アクセス可</li>
+  <li><b>alice / test</b> (アリス) &mdash; role=user</li>
+  <li><b>bob / test</b> (ボブ) &mdash; role=user</li>
+  <li><b>carol / test</b> (キャロル) &mdash; role=user</li>
+  <li><b>dave / test</b> (デイブ) &mdash; role=user</li>
+</ul>
+
+<h3>収録パターン</h3>
+<ul>
+  <li><b>ユーザー管理 / パスワード変更</b> &mdash; AppUser CRUD / マイプロフィール (CurrentUser バインド + パスワード変更ダイアログ)</li>
+  <li><b>アプリ権限</b> &mdash; app.clprj.AppAccessConditions = IsActive==true → admin が他ユーザー無効化でログイン遮断</li>
+  <li><b>PageFrame 権限</b> &mdash; 管理画面 (AdminFrame) は UserReadCondition で admin 限定。サイドバーから管理画面に入れるのは admin だけ</li>
+  <li><b>行レベルセキュリティ</b> &mdash; 個人メモ は DataReadCondition で自分のレコードに絞り込み</li>
+  <li><b>作成者・更新者の自動記録</b> &mdash; Creator / Updater / CreatedAt / UpdatedAt 予約名フィールドで Submit 時自動セット</li>
+  <li><b>サイドバーにログインユーザー名表示</b> &mdash; SideBarDesign.UserName プロパティ</li>
+  <li><b>自分宛タスク</b> &mdash; OnSearchInitialization で担当者初期値を CurrentUser に → 自分のタスクだけ表示</li>
+</ul>
+
+<p class="note">※ admin で他ユーザーの IsActive をオフにすると、そのユーザーは再ログイン時にアプリにアクセスできなくなります。</p>
+
+<h3>ワークフロー (多段並列承認)</h3>
+<ul>
+  <li><b>経費精算 / 休暇申請</b> &mdash; 申請モジュール2種類。新規申請時に金額/日数で自動的にテンプレートが選ばれる</li>
+  <li><b>承認待ち</b> &mdash; 自分が今承認すべき申請の一覧 (クロスモジュール検索)</li>
+  <li><b>全申請履歴</b> &mdash; 申請全体の状況閲覧 (全員閲覧可、承認は本人/管理者のみ)</li>
+  <li><b>承認フローテンプレート</b> (管理画面) &mdash; テンプレート作成・編集 (並列必須/並列任意の組合せ可能)</li>
+</ul>
+
+<h3>承認シナリオ例</h3>
+<ol>
+  <li>alice でログイン → 経費精算で「金額 30,000円」を新規申請 (SimpleExpense テンプレ適用、承認者=alice 自身)</li>
+  <li>金額 100,000円で申請 → FullExpense (並列必須 alice+bob → 並列任意 carol/dave)</li>
+  <li>alice/bob でログイン → 「承認待ち」から自分宛の申請を承認</li>
+  <li>却下されたら申請者が「再申請」で再度フローを回せる (履歴は積算)</li>
+  <li>admin はどの申請も代理承認できる (Active な順番内のみ)</li>
+</ol>
