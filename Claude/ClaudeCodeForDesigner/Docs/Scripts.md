@@ -138,7 +138,7 @@ a = b = 3;  // 両方 3
 | 型 | 説明 |
 |---|---|
 | `bool` | 真偽値 |
-| `byte`, `short`, `ushort` | 小数部なし整数 |
+| `sbyte`, `byte`, `short`, `ushort` | 小数部なし整数 |
 | `int`, `uint` | 32ビット整数 |
 | `long`, `ulong` | 64ビット整数 |
 | `float`, `double` | 浮動小数点数 |
@@ -241,6 +241,8 @@ var b = new DateTime(2025, 1, 3);
 var isEarlier = a < b;  // true
 ```
 
+> **注意**: `decimal` と `double` / `float` の `==` / `!=` 比較も可能（数値フィールドの値とリテラル `1.5` の比較などでエラーにならない）。
+
 ### 論理演算子
 
 ```csharp
@@ -328,6 +330,27 @@ var nd2 = (double?)nx2; // 100.0
 Module x = new SearchTestAB();
 var typed = (SearchTestAB)x;
 ```
+
+#### 数値・文字列の変換ルール
+
+C# のキャスト挙動に揃えてある。代入・初期化・キャスト・関数の引数・戻り値のいずれでも同じルールが適用される。
+
+```csharp
+// 小数 → 整数型は「切り捨て」(ゼロ方向)。四捨五入ではない
+int a = 1.9;        // 1
+var b = (int)1.9;   // 1
+int c = -1.9;       // -1
+
+// 文字列 → 数値型は変換される
+var d = (int)"5";   // 5
+int e = "1.9";      // 1 (小数形式の文字列も切り捨てで整数化)
+
+// null → 非 nullable の数値型は 0
+var f = (int)null;  // 0
+int g = null;       // 0
+```
+
+> **注意**: 変換できない値を **非 nullable 型** に入れると**実行時エラー**になる（例: 数値に変換できない文字列を `int` に代入）。**nullable 型** (`int?` 等) への変換に失敗した場合は `null` になる。
 
 ### 制御構文
 
