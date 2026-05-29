@@ -311,8 +311,8 @@ var result = x < 100 ? 1 : 200 <= y ? 2 : 3;  // ネスト可能
 int x = 100;
 var d = (double)x;     // int → double
 
-double y = 100.1;
-var i = (int)y;        // double → int (100)
+double y = 100.9;
+var i = (int)y;        // double → int は切り捨て (100。四捨五入ではない)
 
 int z = 100;
 var dec = (decimal)z;  // int → decimal
