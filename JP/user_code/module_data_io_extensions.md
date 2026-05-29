@@ -90,6 +90,15 @@ var condition = new SearchCondition<Customer>()
 
 `MatchComparisonHelper` には `Like` / `In` / `NotIn` があります。
 
+> **式の中で使えない書き方**
+> 条件式はフィールドと値の比較を組み立てるためのもので、次のような書き方はできません（エラーになります）。代わりに用意されたヘルパを使ってください。
+>
+> | 書きたいこと | 使えない書き方 | 代わりに |
+> |----|----|----|
+> | 部分一致 | `e.Name!.Value!.Contains("山田")` / `StartsWith` / `EndsWith` | `MatchComparisonHelper.Like(e.Name!.Value, "山田")` |
+> | いずれかに一致 | `list.Contains(e.Rank!.Value)` | `MatchComparisonHelper.In(e.Rank!.Value, list)` |
+> | フィールド同士の比較 | `e.A!.Value == e.B!.Value` | （未対応。値との比較のみ） |
+
 ### AddParameter（クエリのパラメータをセットする）
 
 `QueryField` のように、あらかじめ用意した SQL にパラメータを持たせている場合は、
