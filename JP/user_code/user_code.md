@@ -42,3 +42,8 @@ Windowsアプリ（クライアントサーバー）<br>
 
 CustomizedModuleDataIOカスタマイズポイント<br>
 ![Windowsアプリ](images/module_data_io.png)
+
+## C# でのデータ取得
+
+`IModuleDataService` / `ModuleDataIO` にモジュールに対応した C# クラスと条件を渡して、型付きでデータを読むためのヘルパがあります。
+[C# でのデータ取得ヘルパ](module_data_io_extensions.md) を参照してください。
