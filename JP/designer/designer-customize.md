@@ -120,6 +120,7 @@ IconCandidate.Icons.Add("fa-regular fa-comment");
 ### スタイルの追加
 
 追加したクラス名に対して正しくアイコンが表示されるようにするためには、CSSを追加する必要があります。
+この CSS ファイルには、追加したアイコン（Font Awesome など）が提供する CSS（`@font-face` とアイコンのクラス定義）を記述します。これにより、`一覧への追加` で登録したクラス名が実際のアイコンとして描画されます。
 ここではアイコンを `WebApp.Client.Shared` プロジェクトの `wwwroot/css` へ `additional-icon.css` という名前で追加した例を示します。
 
 ```cs
