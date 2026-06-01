@@ -10,6 +10,7 @@
 public class PageFrameDesign
 {
     public bool IsApplicationRoot { get; set; }
+    public int Priority { get; set; }                                   // 複数の application root にアクセス可能なユーザーで、大きいほど優先して開く (既定 0)
     public string Name { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
     public SideBarDesign Left { get; set; } = new();
@@ -144,6 +145,7 @@ public class DetailPageDesign
 | プロパティ | 型 | デフォルト | 説明 |
 |---|---|---|---|
 | `IsApplicationRoot` | bool | `false` | アプリケーションのルートフレームかどうか |
+| `Priority` | int | `0` | 複数の application root にアクセスできるユーザーで、ルート URL で先に開くフレームの優先度。**大きいほど優先**（同値は定義順）。`IsApplicationRoot` が true のときだけ意味を持つ |
 | `Name` | string | `""` | フレーム識別名 |
 | `Description` | string | `""` | 説明文 |
 | `Left` | SideBarDesign | | 左サイドバー |
