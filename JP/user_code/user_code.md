@@ -48,7 +48,8 @@ CustomizedModuleDataIOカスタマイズポイント<br>
 `IModuleDataService` / `ModuleDataIO` にモジュールに対応した C# クラスと条件を渡して、型付きでデータを読むためのヘルパがあります。
 [C# でのデータ取得ヘルパ](module_data_io_extensions.md) を参照してください。
 
-## 検索条件でまとめて削除する
+## C# でのデータ保存（追加・更新・削除）
 
-検索条件に一致するデータをまとめて削除する `SearchDelete`（プロコード専用）があります。
-[検索条件でまとめて削除する（SearchDelete）](search_delete.md) を参照してください。
+`ModuleSubmitData` を組み立てて、データの追加・更新・削除を行えます。
+[プロコードでのデータ保存（追加・更新・削除）](data_submit.md) を参照してください。
+検索条件に一致するデータをまとめて削除する [SearchDelete](search_delete.md) もあります。
