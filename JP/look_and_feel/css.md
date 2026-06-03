@@ -300,6 +300,20 @@ td[data-name="Status"] {
 }
 ```
 
+### List の `IsEnabled=false` を従来の透過表示に戻す
+
+List フィールドのセルで `IsEnabled=false` にした入力欄は、読み取り専用（ViewOnly）の透過表示と見分けられるよう、**無効状態のグレー背景**で表示されます。以前と同じ透過表示に戻したい場合は、`app.css` に次を貼り付けてください。
+
+```css
+/* List の IsEnabled=false の入力欄を透過表示に戻す */
+#app table td input.form-control:disabled,
+#app table td textarea.form-control:disabled {
+  background: transparent !important;
+}
+```
+
+製品側のルールは `!important` 付きのスコープ CSS なので、アプリのルート要素 `#app` を前置して詳細度を上げ、`!important` で上書きしています。
+
 ---
 
 ## カスタマイズ可能な CSS 変数
