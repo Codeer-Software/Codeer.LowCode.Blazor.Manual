@@ -300,14 +300,26 @@ td[data-name="Status"] {
 }
 ```
 
-### List の `IsEnabled=false` を従来の透過表示に戻す
+### `IsEnabled=false` を従来の透過表示（背景なし）に戻す
 
-List フィールドのセルで `IsEnabled=false` にした入力欄は、読み取り専用（ViewOnly）の透過表示と見分けられるよう、**無効状態のグレー背景**で表示されます。以前と同じ透過表示に戻したい場合は、`app.css` に次を貼り付けてください。
+`IsEnabled=false` のフィールドは、読み取り専用（ViewOnly）の透過表示と見分けられるよう、**無効状態のグレー背景**で表示されます（一覧セル・詳細レイアウトの両方、すべての UI フィールド型）。一覧セルではセル全体が、詳細ではコントロール部分が灰色になります。
+
+以前の「背景なし」の表示に戻したい場合は、`app.css` に次を貼り付けてください（`PageFrames/{name}.css` のサイドカー CSS に置けば、そのページフレームだけを戻すこともできます）。
 
 ```css
-/* List の IsEnabled=false の入力欄を透過表示に戻す */
-#app table td input.form-control:disabled,
-#app table td textarea.form-control:disabled {
+/* 入力系 (Bootstrap / 一覧由来の灰) */
+#app td input.form-control:disabled,
+#app td textarea.form-control:disabled,
+#app td select.form-select:disabled,
+/* Boolean / Radio などの灰マーカーと、Link の枠・検索ボタン */
+#app td .cl-disabled-bg,
+#app td .link-field-container.disabled,
+#app td button.btn-outline-secondary:disabled {
+  background: transparent !important;
+}
+
+/* セルいっぱいに敷く灰レイヤー (Boolean / Link / Button / File の塗り) */
+#app td .cl-disabled-bg-fill::before {
   background: transparent !important;
 }
 ```
