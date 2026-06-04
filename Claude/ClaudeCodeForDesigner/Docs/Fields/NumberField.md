@@ -17,6 +17,7 @@ public class NumberFieldDesign : DbValueFieldDesignBase
     public bool IsSlider { get; set; }
     public decimal? Step { get; set; }
     public int? MaxFractionDigits { get; set; }
+    public string OnInput { get; set; } = string.Empty;
     // 親階層から継承 (詳細は _FieldCommon.md)
 }
 ```
@@ -35,6 +36,7 @@ public class NumberFieldDesign : DbValueFieldDesignBase
 | `IsSlider` | bool | `false` | `true` でスライダー（レンジ入力）、`false` で通常の数値入力。 |
 | `Step` | decimal? | `null` | 入力のステップ値。スライダーや数値入力の増減単位。HTML の `step` 属性に設定される。 |
 | `MaxFractionDigits` | int? | `null` | 最大小数桁数。`SetValueAsync` 内で指定桁数を超える小数部を切り捨て（truncate）する。丸め（round）ではない点に注意。**整数のみ（`2.0` は不可、`2` と書くこと）** |
+| `OnInput` | string | `""` | 入力中イベント。入力のたび（スライダーはドラッグ中も）発火するスクリプトイベント。値確定時の `OnDataChanged` より前のタイミング。関数シグネチャは `void Func(decimal? value)`（下記参照） |
 
 ## JSON例
 
@@ -50,6 +52,7 @@ public class NumberFieldDesign : DbValueFieldDesignBase
   "IsSlider": false,
   "Step": null,
   "MaxFractionDigits": 0,
+  "OnInput": "",
   "IsUpdateProtected": false,
   "IsSimpleSearchParameter": false,
   "OnSearchDataChanged": "",
@@ -74,6 +77,7 @@ public class NumberFieldDesign : DbValueFieldDesignBase
   "IsSlider": false,
   "Step": 0.01,
   "MaxFractionDigits": 2,
+  "OnInput": "",
   "IsUpdateProtected": false,
   "IsSimpleSearchParameter": false,
   "OnSearchDataChanged": "",
@@ -98,6 +102,7 @@ public class NumberFieldDesign : DbValueFieldDesignBase
   "IsSlider": true,
   "Step": 1,
   "MaxFractionDigits": 0,
+  "OnInput": "",
   "IsUpdateProtected": false,
   "IsSimpleSearchParameter": false,
   "OnSearchDataChanged": "",
@@ -118,6 +123,23 @@ public class NumberFieldDesign : DbValueFieldDesignBase
 - **MaxFractionDigits:** `SetValueAsync` 内で値の小数部が指定桁数を超える場合に切り捨てる。例えば `MaxFractionDigits = 2` で `3.14159` を入力すると `3.14` に切り捨てられる。丸め（四捨五入）ではなく切り捨て（truncate）である点に注意。
 - **Format:** 表示専用モード（閲覧時）で数値を書式化して表示する。編集モードでは Format は適用されない。
 - **表示専用モード:** `Format` に従ってフォーマットされた値が表示される。
+- **OnInput イベント:** 入力のたび（スライダーはドラッグ中も連続で）発火する。値確定（フォーカスアウト/Enter）で発生する `OnDataChanged` より前のタイミング。発火時点で `Value` はまだ確定前（古い値）のままで、入力中の値は引数で受け取る。
+
+## OnInput イベント（入力中イベント）
+
+`OnDataChanged` が値確定時に1回なのに対し、`OnInput` は入力中リアルタイムに発火する。スライダーのライブプレビューや入力に追従する計算表示に使う。
+
+スクリプト関数は `decimal? value` を引数に取る:
+
+```csharp
+// NumberField "Rating" の OnInput に "Rating_OnInput" を設定した場合
+void Rating_OnInput(decimal? value)
+{
+    // value = 入力中の値。数値として解釈できない間や空は null
+    // この時点で Rating.Value はまだ確定前の値のまま
+    PreviewLabel.Text = "評価: " + value;
+}
+```
 
 ## 検索
 

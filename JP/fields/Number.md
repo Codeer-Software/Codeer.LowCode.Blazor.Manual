@@ -41,6 +41,7 @@
 | **MaxFractionDigits** | 小数点以下有効桁数 | int? | null | 小数点以下の最大桁数 |
 | **IsRequired** | 必須 | bool | `false` | 入力必須 |
 | **IsUpdateProtected** | 更新無効 | bool | `false` | 更新時に値を変更できないようにする |
+| **OnInput** | 入力中イベント | string | `""` | 入力中、値が変わるたびに発火するスクリプトイベント（確定前） |
 | **OnDataChanged** | データ変更イベント | string | `""` | 値変更時のスクリプトイベント |
 | **IgnoreModification** | 変更判定から除外 | bool | `false` | 変更検知（IsModified）から除外 |
 
@@ -84,6 +85,24 @@ if (Price.Value < 0)
 await Price.SetSearchMinAsync(1000);
 await Price.SetSearchMaxAsync(10000);
 ```
+
+### 入力中イベント（OnInput）
+
+**データ変更イベント（OnDataChanged）** は入力欄からフォーカスが外れて値が確定したときに発火しますが、**入力中イベント（OnInput）** は 1 文字入力するたび（スライダーではドラッグ中も）リアルタイムに発火します。スライダーのライブプレビューや、入力に追従する表示の更新に使えます。
+
+イベント関数は入力中の値を引数で受け取ります。
+
+```csharp
+// NumberField「Rating」の 入力中イベント に "Rating_OnInput" を設定した場合
+void Rating_OnInput(decimal? value)
+{
+    // value: 入力中の値（数値として読めない間や空のときは null）
+    // この時点では Rating.Value はまだ確定前の値のままです
+    PreviewLabel.Text = "評価: " + value;
+}
+```
+
+> 値の確定（`Value` への反映とデータ変更イベントの発火）は従来どおりフォーカスアウト・Enter のタイミングです。
 
 ---
 
