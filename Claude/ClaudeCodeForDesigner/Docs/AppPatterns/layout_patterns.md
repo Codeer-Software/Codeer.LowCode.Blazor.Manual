@@ -100,5 +100,6 @@ Row の `IsProportionalScale: true` で、その行の各列の `Width` を**固
 ## 関連ドキュメント
 
 - [アプリ作成パターン一覧](patterns.md) ─ 全パターンのインデックス
+- [レスポンシブ対応の実現方法](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Manual/blob/main/JP/look_and_feel/responsive.md) ─ 画面幅・デバイスへの追従に使う機能のまとめ
 - [モジュール定義の全体構造](../ModuleDesign.md)
 - [Field リファレンス](../Fields/)
