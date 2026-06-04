@@ -245,7 +245,7 @@ public class ListElement : IFontAppearance
 | `FontSize` | int? | null | フォントサイズ。**整数のみ（`14.0` は不可、`14` と書くこと）** |
 | `FontWeight` | CssFontWeight? | null | フォント太さ |
 | `FontStyle` | CssFontStyle? | null | フォントスタイル |
-| `DetailLayoutName` | string | `""` | インライン編集時に使用する DetailLayout 名 |
+| `DetailLayoutName` | string | `""` | セルの中にこの名前の DetailLayout をまるごと描画する。指定時は `FieldName` を空にする (通常列と混在可)。セル用のコンパクトな DetailLayout を別途用意するのが定石。実装サンプル: PatternShowcase の `DetailInListSample` + `ListSampleItems` (`DetailLayouts["InListCell"]` / `ListLayouts["DetailInList"]`) |
 | `ContextMenu` | string | `""` | コンテキストメニューの ContextMenuField 名 |
 | `ListElementComponent` | string | `""` | カスタムコンポーネント名 |
 

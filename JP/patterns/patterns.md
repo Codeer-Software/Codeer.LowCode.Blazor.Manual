@@ -48,7 +48,7 @@
 
 ### C. [リスト系フィールドの使い分け](list_patterns.md)
 
-複数レコード表示 3 種 (`ListField` 表 / `DetailListField` フォーム並び / `TileListField` タイル並び) の選び方
+複数レコード表示 3 種 (`ListField` 表 / `DetailListField` フォーム並び / `TileListField` タイル並び) の選び方 + セルに詳細レイアウト (ListField 応用)
 
 ### D. [一覧ページのパターン](listpage_patterns.md)
 
