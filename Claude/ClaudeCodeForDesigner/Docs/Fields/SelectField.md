@@ -166,6 +166,15 @@ void Status_OnSearchDataChanged()
         CompletedDate.IsVisible = true;
     }
 }
+
+// OnSearchDataChanged: 検索条件の Select→Select 連動 (重要パターン)
+// 候補絞り込み (SearchCondition の FieldVariableMatchCondition) が参照するのは Value だが、
+// 検索フォームの入力は SearchValue に入るため、1 行コピーで橋渡しする。
+// これで連動先の候補がリアルタイムに取り直され、候補から外れた選択値は自動クリアされる。
+void SelectedProject_OnSearchDataChanged()
+{
+    SelectedProject.Value = SelectedProject.SearchValue;
+}
 ```
 
 ## ランタイム動作

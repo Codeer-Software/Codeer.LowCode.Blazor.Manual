@@ -40,6 +40,26 @@ SearchLayout の `SearchOperator` を `UserSpecified` にすると、画面で *
 **標準パターン集の対応**: サイドバー **`検索/AND・OR → `AndOrSearch``**
 
 ---
+## 検索条件の Select 連動
+
+<!-- 画像参照: Manual の Image/web/patterns/search_select_cascade.png (ここではコメントアウト) -->
+
+検索条件の Select 同士を連動させるパターン (例: プロジェクト → フェーズ)。子の `SelectField.SearchCondition` に `FieldVariableMatchCondition` で「親フィールドの値で候補を絞り込む」を宣言します。
+
+ポイントは、**検索条件の入力は `SearchValue` に入るが、候補絞り込みの参照先は `Value`** という点。親の `OnSearchDataChanged` スクリプトで 1 行コピーすると、親を変えた瞬間に子の候補がリアルタイムに取り直され、候補から外れた子の選択値は自動でクリアされます。
+
+```csharp
+void SelectedProject_OnSearchDataChanged()
+{
+    SelectedProject.Value = SelectedProject.SearchValue;
+}
+```
+
+詳細画面の入力欄の連動は宣言だけで動きます ([連動入力 (検索条件で宣言)](input_patterns.md#連動入力-検索条件で宣言) 参照)。このスクリプトが要るのは**検索条件として置いた場合だけ**です。
+
+**標準パターン集の対応**: サイドバー **`検索/Select連動 → `CascadeSearch``**
+
+---
 ## 検索条件の初期化
 
 <!-- 画像参照: Manual の Image/web/patterns/search_init.png (ここではコメントアウト) -->

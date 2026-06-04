@@ -110,13 +110,13 @@ void Func1()
 ### 変数宣言と型
 
 ```csharp
-// 型指定
+// 型指定（明示型）: 型が固定される
 int x = 100;
 string text = "abc";
 bool flag = true;
 decimal amount = 10.5;
 
-// 型推論
+// var: 動的（型を固定しない）
 var y = 200;
 
 // Nullable
@@ -132,6 +132,25 @@ b = 3;
 int a, b;
 a = b = 3;  // 両方 3
 ```
+
+#### `var` は動的（C# の型推論 var とは別物）
+
+CLB スクリプトの `var` は **JavaScript の `var` に近い動的な変数**で、型を固定しない。C# の `var`（初期化子から型を推論して固定する静的型）とは挙動が違う。
+
+```csharp
+var x = 0;
+x = DateTime.Now;   // OK（違う型でも代入できる。デザインチェックもエラーにしない）
+x = 1.2;            // OK。int に固定されないので 1.2 のまま（切り捨てられない）
+```
+
+**ローカル変数は基本 `var` を使えばよい。** 型を固定しないので代入で型エラーにならず、補完も最後に代入した型に追従する。`Field` / `Module` / 動的な戻り値を受けるときも `var` が無難。
+
+明示型を書く主な場面は **関数定義（引数・戻り値の型）** くらい。ローカル変数で明示型を使うのは「整数で受けて小数を切り捨てたい」など型を固定したい特定ケースだけ。
+
+- 違う型の再代入が許される（明示型 `int x` なら型固定なので、代入できない型はエラー）。
+- 入力補完は「最後に代入された型」に追従する（`x = DateTime.Now` のあとは `DateTime` のメンバが出る）。
+
+> 関連: 動的型（`GetParentModule()` の戻り値や `Rows[i]` のメンバ等）を受けるときは、明示型ではなく `var` で受ける（`bool isNew = parent.IsNewData;` は「bool = var 不正な代入です」エラー、`var isNew = parent.IsNewData;` が正）。[ScriptGuidelines.md](ScriptGuidelines.md) 参照。
 
 ### サポートされるプリミティブ型
 

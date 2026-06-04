@@ -143,6 +143,8 @@ await Assignee.ReloadCandidates();
 
 候補と同じドロップダウンが検索フォームに出ます。選んだ値で **一致** 検索が基本です。
 
+> **検索条件の Select 同士を連動させる場合**: 候補の絞り込み条件（`SearchCondition` の `FieldVariableMatchCondition`）が参照するのは `Value` ですが、検索条件の入力は `SearchValue` に入ります。親側の `OnSearchDataChanged` で `親.Value = 親.SearchValue;` と 1 行コピーすると、親の変更で子の候補がリアルタイムに取り直され、候補から外れた子の選択値は自動でクリアされます。詳細は [検索条件の Select 連動](../patterns/search_patterns.md#検索条件の-select-連動) を参照。
+
 ### 簡易検索（`IsSimpleSearchParameter=true`）
 
 <img src="../../Image/web/fields/select/Select_search_simple.png" alt="SelectField 簡易検索" style="border: 1px solid;" width="400">

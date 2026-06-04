@@ -118,3 +118,21 @@ PageFrame のホームラベル種別。
 | `ListToDetail` | 一覧→詳細の遷移型 |
 | `List` | 一覧のみ |
 | `Detail` | 詳細のみ |
+
+## DeviceTarget
+PageFrame (application root) の対象デバイス。ルート URL アクセス時の振り分けに使う ([PageFrame.md](PageFrame.md) 参照)。判定は「ポインタが粗いか (タッチ端末か)」で行う。
+
+| 値 | 説明 |
+|---|---|
+| `Any` | デバイス問わず対象 (既定) |
+| `PC` | マウス等の細かいポインタ (= PC) のときだけ対象 |
+| `Touch` | 指等の粗いポインタ (= タッチ端末) のときだけ対象 |
+
+## ListReplaceMode
+ListField の洗い替え方式 ([Fields/ListField.md](Fields/ListField.md) 参照)。
+
+| 値 | 説明 |
+|---|---|
+| `None` | 洗い替えしない (通常の Add/Update/Delete、既定) |
+| `All` | 完全洗い替え: 検索条件に一致する DB 上のデータを全件削除し、現在の行をすべて新規追加 |
+| `UpdateAsDeleteInsert` | 更新行を「削除+追加」に置き換え (一意キーの入れ替えで制約エラーを回避) |

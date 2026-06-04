@@ -10,7 +10,7 @@
 public class PageFrameDesign
 {
     public bool IsApplicationRoot { get; set; }
-    public int Priority { get; set; }                                   // 複数の application root にアクセス可能なユーザーで、大きいほど優先して開く (既定 0)
+    public int Priority { get; set; }                                   // 複数 application root の優先度 (大きいほど優先)
     public string Name { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
     public SideBarDesign Left { get; set; } = new();
@@ -26,6 +26,8 @@ public class PageFrameDesign
     public ModulePageDesign? TopPageModuleDesign { get; set; } = new();
     public AutoZoomMode AutoZoom { get; set; } = AutoZoomMode.None;     // enum: None / etc
     public double? BaseWidth { get; set; }
+    public DeviceTarget TargetDevice { get; set; } = DeviceTarget.Any;  // enum: Any / PC / Touch (対象デバイス)
+    public double? WidthFrom { get; set; }                              // 適用開始幅 (この画面幅以上で対象)
     [Obsolete] public string TopPageModule { get; set; } = string.Empty;
     [Obsolete] public string? Background { get; set; }
     [Obsolete] public List<string> OtherPages { get; set; } = new();
@@ -145,7 +147,9 @@ public class DetailPageDesign
 | プロパティ | 型 | デフォルト | 説明 |
 |---|---|---|---|
 | `IsApplicationRoot` | bool | `false` | アプリケーションのルートフレームかどうか |
-| `Priority` | int | `0` | 複数の application root にアクセスできるユーザーで、ルート URL で先に開くフレームの優先度。**大きいほど優先**（同値は定義順）。`IsApplicationRoot` が true のときだけ意味を持つ |
+| `Priority` | int | `0` | 複数 application root の優先度。**大きいほど優先**。`IsApplicationRoot: true` のときだけ意味を持つ |
+| `TargetDevice` | DeviceTarget | `"Any"` | 対象デバイス。ルート URL で開くときにこの root を採用するデバイス: `Any` / `PC` (細かいポインタ) / `Touch` (タッチ端末) |
+| `WidthFrom` | double? | null | 適用開始幅。ルート URL で開くときにこの root を採用する**画面幅の下限** (px)。null は幅の条件なし |
 | `Name` | string | `""` | フレーム識別名 |
 | `Description` | string | `""` | 説明文 |
 | `Left` | SideBarDesign | | 左サイドバー |
@@ -159,6 +163,27 @@ public class DetailPageDesign
 | `FontSize` | int? | null | フォントサイズ。**整数のみ（`14.0` は不可、`14` と書くこと）** |
 | `TopPageModuleDesign` | ModulePageDesign | | デフォルト/ホームページの設定 |
 | `OtherPageModuleDesigns` | List\<ModulePageDesign\> | `[]` | サイドバー以外の追加ページ定義 |
+
+---
+
+## 画面幅・デバイスでアプリケーションルートを切り替える (TargetDevice / WidthFrom)
+
+複数の `IsApplicationRoot: true` フレームに `TargetDevice` / `WidthFrom` を設定すると、**ルート URL (`/`) を開いたとき**に使う PageFrame を画面サイズやデバイスで出し分けできる (PC は通常サイドバー型、スマホはコンパクト型など)。
+
+選択ルール (`MainPageFrameSelector`):
+
+1. アクセス可能な application root のうち `TargetDevice` / `WidthFrom` の条件に一致するものが候補 (`WidthFrom` は「画面幅がこの値以上で対象」の下限)
+2. デバイス指定 (`PC` / `Touch`) のある候補が `Any` より優先
+3. `WidthFrom` が一番大きい (= 一番フィットする) ものが選ばれる
+4. 同値は `Priority` (大きいほど優先)
+
+注意:
+
+- どのフレームにも `TargetDevice` / `WidthFrom` が無い場合は従来どおり `Priority` だけで選ばれる (後方互換)
+- **URL でモジュールを直接指定した場合 (`/Main/Home` 等) はこの判定の対象外** — 切替が起きるのはルート URL を開いた瞬間だけで、ウィンドウリサイズで動的に切り替わるわけではない
+- 例: `Main` (WidthFrom: 900) + `Compact` (条件なし、Priority: 1) → 画面幅 900px 以上は Main、未満は Compact
+
+実装サンプル: `Samples/PatternShowcase/App/PageFrames/Compact.frm.json` + `Modules/CompactHome.mod.json` / `DeviceFrameSample.mod.json` (サイドバー「別フレーム/画面幅で切替」)
 
 ---
 

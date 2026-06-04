@@ -32,6 +32,7 @@
 | [多対多](many_to_many.md) | 記事にタグ、ユーザーにロール (中間テーブル) |
 | [階層構造 (自己参照)](hierarchy.md) | カテゴリ階層・組織図 |
 | [一括処理](bulk_processing.md) | チェック行をまとめて削除/更新 |
+| [洗い替え](replace_mode.md) | 明細の全件入れ替え、一意キー (座席番号等) の入れ替え |
 | [取込書出](import_export.md) | CSV/Excel での一括入出力 |
 | [楽観ロック](optimistic_lock.md) | 同時編集の競合検出 |
 | [論理削除](soft_delete.md) | 削除フラグで非表示にする |
@@ -43,7 +44,7 @@
 
 ### B. [検索のパターン](search_patterns.md)
 
-リストの絞り込み入力 (5 パターン): 全フィールド検索 / 簡易検索パラメータ / 空検索 / AND・OR 切替 / 検索条件の初期化
+リストの絞り込み入力 (6 パターン): 全フィールド検索 / 簡易検索パラメータ / 空検索 / AND・OR 切替 / 検索条件の Select 連動 / 検索条件の初期化
 
 ### C. [リスト系フィールドの使い分け](list_patterns.md)
 
@@ -59,7 +60,7 @@
 
 ### F. [画面レイアウトのパターン](layout_patterns.md)
 
-`GridLayout` / `TabLayout` / `CanvasLayout` の組み合わせ (9 パターン): フォーム整形 / タブ分割 / FillAvailable / 折り返し / 罫線・カード / リサイズ / モジュール埋め込み / 自由配置 / ウィザード
+`GridLayout` / `TabLayout` / `CanvasLayout` の組み合わせ (10 パターン): フォーム整形 / タブ分割 / FillAvailable / 折り返し / 罫線・カード / リサイズ / 列幅を比率で拡大縮小 / モジュール埋め込み / 自由配置 / ウィザード
 
 ### G. [入力 UX のパターン](input_patterns.md)
 
@@ -71,7 +72,7 @@
 
 ### I. [別フレームのパターン](frame_patterns.md)
 
-`PageFrame` 単位のサンプル (3 パターン): ヘッダー型ナビ / 自動ズーム / 色テーマ変更
+`PageFrame` 単位のサンプル (4 パターン): ヘッダー型ナビ / 自動ズーム / 色テーマ変更 / 画面幅で切替
 
 ### J. [認証パターン集](auth_patterns.md) (別テンプレート)
 

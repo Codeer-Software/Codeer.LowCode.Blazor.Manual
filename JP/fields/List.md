@@ -38,6 +38,7 @@
 | **PagerPosition** | ページャーの位置 | enum | `Top` | ページャーの位置（`Top` / `Bottom`） |
 | **UseIndexSort** | インデックスソート | bool | `false` | 表示順を Index として保存 |
 | **DeleteTogether** | 親テーブルと一緒に削除 | bool | `false` | 親データ削除時に一括削除 |
+| **ReplaceMode** | 洗い替え | enum | `None` | 保存時の入れ替え方式（`None` / `All` / `UpdateAsDeleteInsert`）。[下記](#洗い替えreplacemode) 参照 |
 | **CanCreate** | 追加 | bool | `false` | 親画面から新規作成を許可 |
 | **CanUpdate** | 更新 | bool | `false` | 親画面から編集を許可 |
 | **CanDelete** | 削除 | bool | `false` | 親画面から削除を許可 |
@@ -129,6 +130,24 @@ await List.Reload();
 var newRow = await List.AddRow();
 newRow.Name.Value = "新規";
 ```
+
+---
+
+## 洗い替え（ReplaceMode）
+
+保存（Submit）時の挙動を「差分の追加/更新/削除」から**入れ替え**に切り替えるプロパティです。
+
+| 値 | 挙動 |
+|---|---|
+| `None`（既定） | 通常の追加/更新/削除 |
+| `All` | `SearchCondition` に一致する DB 上のデータを**全件削除**し、現在の行を**すべて新規行として追加**し直す（完全洗い替え） |
+| `UpdateAsDeleteInsert` | **変更行だけ**を「削除してから新規追加」に置き換える。未変更行はそのまま、新規行は通常どおり追加、UI で削除した行は削除 |
+
+- `All` は取込データの総入れ替えや構成明細の確定保存に。削除範囲は `SearchCondition`（親 Id で絞った条件）に一致する分だけで、他の親の明細には影響しません。条件が空のときは全件削除を防ぐためサーバー側でエラーになります
+- `UpdateAsDeleteInsert` は一意制約のある列（座席番号・表示順など）の**値の入れ替え**が UPDATE だと制約違反になるのを、削除が先に実行されることで回避します
+- どちらも作り直された行の **Id は振り直され**、`CreatedAt` 等の予約システムフィールドは新規としてセットし直されます
+
+具体的な作り方は [洗い替えパターン](../patterns/replace_mode.md) を参照。
 
 ---
 

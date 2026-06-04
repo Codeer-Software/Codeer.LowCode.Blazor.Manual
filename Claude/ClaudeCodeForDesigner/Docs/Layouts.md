@@ -495,6 +495,7 @@ public class GridRow
     public GridRowType GridRowType { get; set; }  // enum: Normal / Header / Footer
     public bool CanResize { get; set; }
     public string BackgroundColor { get; set; } = string.Empty;
+    public bool IsProportionalScale { get; set; }  // 列幅を比率で拡大縮小
     [Obsolete] public bool IsRowMarginRemoved { get; set; }
     public virtual List<GridColumn> Columns { get; init; } = new();
 }
@@ -546,6 +547,7 @@ public class GridColumn
 | `CanResize` | bool | `false` | ユーザーによる行高さ変更を許可 |
 | `BackgroundColor` | string | `""` | 行の背景色 |
 | `IsRowMarginRemoved` | bool | `false` | 行間マージンを除去するか |
+| `IsProportionalScale` | bool | `false` | 列幅を比率で拡大縮小。`true` でこの行の各列の `Width` を固定 px ではなく**比率**として扱い、行幅に合わせて比率を保ったままスケールする (例: `100/200/100` → 常に 25%/50%/25%)。**全列に `Width` 必須**、`MinWidth`/`MaxWidth`・`CanResize`・`IsWrap`/`IsAutoFillWrap`・`IsFlowLayout` とは併用不可 (デザインチェックで検証)。サンプル: `Samples/PatternShowcase/App/Modules/ProportionalScaleSample.mod.json` |
 | `KeepInFillAvailableGrid` | bool | `false` | **基本 `false` のまま。`true` 化は超絶レア** (詳細は [CommonMistakes.md](CommonMistakes.md) #49 を必読)。`IsFillAvailable=true` の Grid の最終行 (FillAvailable target) が「ListField の内部スクロールでも `ProCode` の自前スクロールでもなく、`Button` や `Label` のような中身が固定高さの要素」のときに限り `true` にする。`ListField` や `ProCodeField` の最終行に `true` を立てるとモードが切り替わって**画面下端まで広がらなくなる**ので絶対やってはいけない |
 | `Columns` | List\<GridColumn\> | `[]` | 列定義 |
 
@@ -554,7 +556,7 @@ public class GridColumn
 | プロパティ | 型 | デフォルト | 説明 |
 |---|---|---|---|
 | `Layout` | LayoutDesignBase | null | 配置するレイアウト（FieldLayoutDesign またはネストされたレイアウト）。null の場合は空セル。 |
-| `Width` | double? | null | 列幅（px）。null で自動（残り領域を均等分割）。 |
+| `Width` | double? | null | 列幅（px）。null で自動（残り領域を均等分割）。行が `IsProportionalScale: true` のときは比率として扱われる。 |
 | `MinWidth` | double? | null | 最小幅（px）。flex:1と組み合わせて均等配置。IsAutoFillWrapで使用 |
 | `MaxWidth` | double? | null | 最大幅（px）。MinWidthと組み合わせて伸びすぎを防止。※IsAutoFillWrap時は無効 |
 | `Padding` | ThicknessDesign | `{}` | セルの内側余白 |

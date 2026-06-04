@@ -18,7 +18,7 @@ public class ListFieldDesign : ListFieldDesignBase, IFillHeightFieldDesign
     public FormControlStyle? FormControlStyle { get; set; }   // enum: Box / Inline
     public bool ApplyBackgroundToBoxInput { get; set; }
     // 親 ListFieldDesignBase から継承: DisplayName, SearchCondition, PagerPosition, UseIndexSort,
-    //   DeleteTogether, CanCreate, CanUpdate, CanDelete, CanUserSort, CanSelect, ConfirmBeforeDelete,
+    //   DeleteTogether, ReplaceMode, CanCreate, CanUpdate, CanDelete, CanUserSort, CanSelect, ConfirmBeforeDelete,
     //   OnDataChanged, OnSearchDataChanged, OnSelectedIndexChanged, OnSelectedIndexChanging, OnDoubleClickRow
     // 親 FieldDesignBase から: Name, IgnoreModification, OnValidateInput
 }
@@ -55,6 +55,26 @@ public class ListFieldDesign : ListFieldDesignBase, IFillHeightFieldDesign
 - **Condition.Children:** フィルタ条件を指定する。親子関係の場合、`FieldVariableMatchCondition` で親レコードのIDと子レコードの外部キーを関連付ける。
 - **LimitCount:** 1ページあたりの表示件数。
 - **SortConditions:** 初期ソート条件。
+
+## 洗い替え (ReplaceMode)
+
+Submit 時の保存方式を「差分の追加/更新/削除」から入れ替えに切り替える (`ListFieldDesignBase.ReplaceMode`)。デザイナ表示名は「洗い替え」。
+
+| 値 | 挙動 |
+|---|---|
+| `None` (既定) | 通常の Add/Update/Delete |
+| `All` | `SearchCondition` に一致する DB 上のデータを全件削除し、現在の行を**変更の有無に関わらず**すべて新規行として追加し直す (完全洗い替え) |
+| `UpdateAsDeleteInsert` | 更新になる行 (= 既存の変更行) だけを「削除 + 新規追加」に置き換える。未変更行はそのまま、新規行は通常どおり追加、UI 上で削除された行は削除 |
+
+```json
+{ "ReplaceMode": "All", ... }
+```
+
+**用途と注意:**
+- `All`: 取込データの総入れ替え、構成明細の確定保存。削除範囲は `SearchCondition` (親 Id で絞った条件) に一致する分だけ。**条件が空だとサーバー側の安全ガードで拒否される** (`SearchDelete には検索条件の指定が必要です`) ため、親子構成の ListField で使う。親が新規 (テンポラリ Id) のときは削除をスキップして追加のみ実行
+- `UpdateAsDeleteInsert`: 一意制約列 (座席番号・表示順等) の**値の入れ替え**が UPDATE だと一意制約違反になるのを、Delete が先に実行されることで回避する
+- どちらも作り直された行の **Id は振り直され**、`CreatedAt` / `Creator` 等の予約システムフィールドは新規としてセットし直される。子の Id を外部から FK 参照している構造では使わない
+- 実装サンプル: `Samples/PatternShowcase/App/Modules/ReplaceAllSample.mod.json` (+ `ReplaceAllItem`) / `SeatReplaceSample.mod.json` (+ `Seat`)。パターン解説は [AppPatterns/replace_mode.md](../AppPatterns/replace_mode.md)
 
 ## JSON例
 
