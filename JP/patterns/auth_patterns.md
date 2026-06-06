@@ -30,6 +30,7 @@
 
 ## 関連ドキュメント
 
+- [認証付きプロジェクトの始め方](../authorization/auth_getting_started.md) ─ Cookie ソリューション作成からテンプレート展開・サンプルの動かし方まで
 - [標準パターン集 一覧](patterns.md) ─ 認証なしの全パターン
 - [認証 / 認可の概要](../authorization/authorization.md)
 - [PageFrame の設定](../designer/page_frame.md)
