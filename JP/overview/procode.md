@@ -152,7 +152,7 @@ public class ColorPickerFieldDesign : ValueFieldDesignBase
 ### XxxField の例
 
 ```csharp
-public class ColorPickerField : ValueField<ColorPickerFieldDesign, ColorPickerFieldData, string>
+public class ColorPickerField : ValueFieldBase<ColorPickerFieldDesign, ColorPickerFieldData, string>
 {
     public ColorPickerField(ColorPickerFieldDesign design) : base(design) { }
 
@@ -247,5 +247,6 @@ scriptRuntimeTypeManager.AddService(new WebApiService(http, logger));
 - [スクリプト概要](../script/script.md)
 - [スクリプトの拡張](../script/script_extend.md)
 - [ProCode フィールド](../fields/ProCode.md)
+- [拡張サービスの登録と利用](../user_code/extension_services.md) — 自作サービスをカスタム Field / ProCode コンポーネントから使う
 - [チュートリアル: WebAPI 連携](../tutorials/tutorial_webapi.md)
 - [ユーザーコード](../user_code/user_code.md)

@@ -100,4 +100,5 @@ void MyProCode_OnComponentSet()
 
 - [Field 共通プロパティ](common_properties.md)
 - [プロコード概要](../overview/procode.md)
+- [拡張サービスの登録と利用](../user_code/extension_services.md) — 自作サービスを ProCode コンポーネントから使う
 - [ユーザーコード](../user_code/user_code.md)
