@@ -44,7 +44,7 @@ namespace LowCodeSamples.Server.Controllers
             {
                 ret.Add(await _dataService.ModuleDataIO.GetListAsync(e.Condition, e.PageIndex));
             }
-            return Ok(new MemoryStream(MessagePackSerializer.Typeless.Serialize(ret)));
+            return File(new MemoryStream(MessagePackSerializer.Typeless.Serialize(ret)), "application/octet-stream");
         }
 
         [HttpPost]
@@ -69,14 +69,17 @@ namespace LowCodeSamples.Server.Controllers
 
         [HttpGet("resource")]
         public IActionResult GetResourceAsync(string? resource)
-            => Ok(DesignerService.GetResource(resource ?? string.Empty));
+        {
+            var mem = DesignerService.GetResource(resource ?? string.Empty);
+            return mem == null ? Ok() : File(mem, "application/octet-stream");
+        }
 
         [HttpGet("download")]
         public async Task<IActionResult> DownloadFileAsync(string? moduleName, string? id, string? fieldName)
         {
             var location = await _dataService.ModuleDataIO.FileFieldDataIO.GetFileLocation(moduleName!, id!, fieldName!);
             await _dataService.DbAccess.ClearAsync();
-            return Ok(await StorageAccess.ReadFileAsync(location));
+            return File(await StorageAccess.ReadFileAsync(location), "application/octet-stream");
         }
 
         [HttpPost("upload")]
