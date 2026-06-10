@@ -882,6 +882,17 @@ var total = result.TotalCount;
 | `ExecuteRawPage(pageIndex)` | `ModuleDataPageResult` | 生データの指定ページ `Items` と総件数 `TotalCount` |
 | `ExecuteFirstOrDefault()` | `Module?` | 先頭 1 件。該当なしは `null`（マスタ参照向け） |
 
+```csharp
+// マスタ参照: 1 件だけ欲しいときは ExecuteFirstOrDefault
+var search = new ModuleSearcher<Product>();
+search.AddEquals(e => e.Code.Value, ProductCode.Value);
+var product = search.ExecuteFirstOrDefault();
+if (product != null)
+{
+    UnitPrice.Value = product.UnitPrice.Value;
+}
+```
+
 ### IN検索の例
 
 ```csharp
