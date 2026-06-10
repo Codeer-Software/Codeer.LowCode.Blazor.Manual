@@ -928,6 +928,17 @@ var foods = response.GetAt(0);    // List<Module>
 var drinks = response.GetAt(1);   // List<Module>
 ```
 
+| メソッド | 戻り値 | 説明 |
+|---|---|---|
+| `GetAt(index)` | `List<Module>` | 渡した順番（0 始まり）で結果を取得 |
+| `GetBy(searcher)` | `List<Module>` | 渡した `ModuleSearcher` を指定して結果を取得（インデックス管理不要、バッチ外の searcher は例外） |
+
+```csharp
+// インデックスではなく searcher 指定で取得
+var foods = response.GetBy(search1);
+var drinks = response.GetBy(search2);
+```
+
 ---
 
 ## Module API

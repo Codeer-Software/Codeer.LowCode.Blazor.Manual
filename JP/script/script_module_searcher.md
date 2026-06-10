@@ -186,6 +186,19 @@ var customers = response.GetAt(0);   // s1 の結果
 var orders = response.GetAt(1);      // s2 の結果
 ```
 
+| メソッド | 説明 |
+|---|---|
+| `GetAt(index)` | 渡した順番（0 始まり）で結果を取得 |
+| `GetBy(searcher)` | 渡した `ModuleSearcher` を指定して結果を取得（インデックス管理が不要） |
+
+`GetBy` は `Execute` に渡した `ModuleSearcher` そのものを指定して結果を引きます。`GetAt` のように
+インデックスを覚えておく必要がありません。バッチに渡していない `ModuleSearcher` を指定すると例外になります。
+
+```csharp
+var customers = response.GetBy(s1);   // s1 の結果
+var orders = response.GetBy(s2);      // s2 の結果
+```
+
 ---
 
 ## 9. パターン集
