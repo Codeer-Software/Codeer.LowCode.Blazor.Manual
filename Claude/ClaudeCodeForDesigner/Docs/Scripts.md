@@ -211,6 +211,14 @@ set.Add("item");
 Home[] modules = new Home[10];
 modules[0] = new Home();
 
+// 初期化子つき配列
+int[] arr = new int[]{1, 2, 3};
+
+// 暗黙型配列（型を省略）。要素の値から型が決まる
+var a = new[]{1, 2, 3};        // int[]
+var b = new[]{1, 2.5};         // decimal[]（数値混在）
+var c = new[]{1, "a", null};   // object[]
+
 // ネストされたList
 var nested = new List<List<int>>();
 var inner = new List<int>();
@@ -219,6 +227,19 @@ nested.Add(inner);
 ```
 
 > **注意**: 多次元配列 (`int[,]`, `int[][]`) はサポートされない。
+
+#### 暗黙型配列 `new[]{ ... }` の要素型
+
+型を省略した `new[]{ ... }` は、要素の値から配列の型が決まる（C# の「最適共通型」とは異なる規則）。
+
+| 要素 | 配列の型 | 例 |
+|---|---|---|
+| 全要素が同じ型 | その型の配列 | `new[]{1, 2, 3}` → `int[]` |
+| 数値で型が混在 | `decimal[]`（数値演算の decimal 統一と整合） | `new[]{1, 2.5}` → `decimal[]` |
+| `null` を含む | `object[]` | `new[]{1, null}` → `object[]` |
+| 上記以外（非数値の混在など） | `object[]` | `new[]{1, "a"}` → `object[]` |
+
+要素の型を固定したいときは `new int[]{ ... }` のように明示する。
 
 ### 算術演算子
 
@@ -324,6 +345,28 @@ var displayName = product?.Name.Value ?? "未設定";
 var x = 100;
 var y = 200;
 var result = x < 100 ? 1 : 200 <= y ? 2 : 3;  // ネスト可能
+```
+
+### 文字列補間 `$"..."`
+
+`$"..."` で文字列の中に式を埋め込める。`+` での連結の代わりに使える。
+
+```csharp
+var name = "Bob";
+var count = 3;
+var msg = $"Hello {name}! ({count} 件)";   // "Hello Bob! (3 件)"
+var sum = $"合計 {price * qty} 円";          // 式も書ける
+```
+
+- 埋め込む値が `null` のときは空文字になる。
+- 書式指定 `:fmt` と桁揃え `,N` が使える（内部で `string.Format` に委譲、現在カルチャで整形）。
+- `{` / `}` そのものを出したいときは `{{` / `}}`。
+
+```csharp
+var a = $"{1234.5:N2}";                 // "1,234.50"（書式指定）
+var b = $"{DateTime.Now:yyyy/MM/dd}";   // 日付の書式
+var c = $"[{id,5}]";                    // 桁揃え（幅5・右寄せ）
+var d = $"{{{value}}}";                 // "{...}"（波括弧のエスケープ）
 ```
 
 ### 型キャスト
@@ -1024,7 +1067,6 @@ bool StockInOut_OnTransaction(TransactionMode mode)
 - 名前付き引数 `method(name: value)` — 位置引数で渡す
 - `try` / `catch` / `finally`
 - `yield return` / `yield break`
-- 文字列補間 `$"..."` → 文字列連結（`+` 演算子）を使う
 - パターンマッチング (`x is Y y`, switch 式)
 - 範囲演算子 `..`
 - Nullable の `.Value` プロパティ
