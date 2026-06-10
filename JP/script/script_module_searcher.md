@@ -47,6 +47,7 @@ var rawList = await searcher.ExecuteRaw();   // List<ModuleData>
 | メソッド | 比較 |
 |---|---|
 | `AddEquals(lambda, value)` | 一致（`=`） |
+| `AddNotEqual(lambda, value)` | 不一致（`<>`、`value` が `null` なら `IS NOT NULL`） |
 | `AddLessThan(lambda, value)` | 未満（`<`） |
 | `AddLessThanOrEqual(lambda, value)` | 以下（`<=`） |
 | `AddGreaterThan(lambda, value)` | より大きい（`>`） |
@@ -112,7 +113,52 @@ searcher.Select(c => c.Id.Value, c => c.Name.Value);
 
 ---
 
-## 6. ジェネリックなしの ModuleSearcher
+## 6. 件数上限とページング
+
+`Limit` で取得件数の上限を設定します。指定しないと**条件に一致する全件**を取得するため、
+データ量の多いモジュールを検索するときは必ず設定してください。
+
+```csharp
+searcher.Limit(50);
+var list = await searcher.Execute();   // 最大 50 件
+```
+
+ページングは `Limit` と `ExecutePage(pageIndex)` を併用します（`pageIndex` は 0 始まり、1 ページの件数は `Limit` の値）。
+当該ページの一覧と**総件数**を **1 回のクエリ**で取得でき、戻り値 `ModulePageResult` の `Items` / `TotalCount` で受け取ります。
+
+```csharp
+var searcher = new ModuleSearcher<Customer>();
+searcher.OrderBy(c => c.Id.Value);
+searcher.Limit(50);
+
+var result = await searcher.ExecutePage(0);   // 1 ページ目
+var rows = result.Items;                       // 当該ページ（最大 50 件）
+var total = result.TotalCount;                 // 条件に一致する全件数（ページャー表示用）
+```
+
+`Module` 実体が不要な軽量処理では、生データ版の `ExecuteRawPage(pageIndex)`（戻り値 `ModuleDataPageResult`）を使います。
+
+```csharp
+var result = await searcher.ExecuteRawPage(0);
+var rows = result.Items;          // List<ModuleData>
+var total = result.TotalCount;
+```
+
+> `TotalCount` は `Limit` 設定時のみ `COUNT(*)` で算出されます。`Limit` 未設定（全件取得）のときは取得した件数がそのまま総件数になります。
+
+### 実行メソッドまとめ
+
+| メソッド | 戻り値 | 説明 |
+|---|---|---|
+| `Execute()` | `List<Module>` | 条件に一致するモジュール一覧（ページングしない） |
+| `ExecutePage(pageIndex)` | `ModulePageResult` | 指定ページの `Items` と総件数 `TotalCount` |
+| `ExecuteRaw()` | `List<ModuleData>` | 生データ一覧（`Module` 実体を作らない軽量版） |
+| `ExecuteRawPage(pageIndex)` | `ModuleDataPageResult` | 生データの指定ページ `Items` と総件数 `TotalCount` |
+| `ExecuteFirstOrDefault()` | `Module?` | 先頭 1 件。該当なしは `null` |
+
+---
+
+## 7. ジェネリックなしの ModuleSearcher
 
 モジュール名が動的に決まる場合は文字列で指定します。
 
@@ -123,7 +169,7 @@ var searcher = new ModuleSearcher("Customer");
 
 ---
 
-## 7. BatchSearcher — 複数検索を一括
+## 8. BatchSearcher — 複数検索を一括
 
 複数の `ModuleSearcher` を 1 回のリクエストにまとめます。**サーバーラウンドトリップが減ります**。
 
@@ -142,23 +188,31 @@ var orders = response.GetAt(1);      // s2 の結果
 
 ---
 
-## 8. パターン集
+## 9. パターン集
 
-### 1 件だけ取りたい
+### 1 件だけ取りたい（マスタ参照）
+
+`ExecuteFirstOrDefault` は先頭 1 件を返し、該当が無ければ `null` を返します。
 
 ```csharp
 var searcher = new ModuleSearcher<Customer>();
 searcher.AddEquals(c => c.Email.Value, EmailField.Value);
-var list = await searcher.Execute();
-if (list.Count == 0) return;
-var customer = list[0];
+var customer = await searcher.ExecuteFirstOrDefault();
+if (customer == null) return;
+// customer.Name.Value ...
 ```
 
 ### 件数だけ知りたい
 
+総件数だけが必要なときは、`Limit` を小さく設定して `ExecuteRawPage` の `TotalCount` を使うと
+全件分の `Module` を生成せずに済みます。
+
 ```csharp
-var list = await searcher.ExecuteRaw();
-var count = list.Count;
+var searcher = new ModuleSearcher<Customer>();
+searcher.AddEquals(c => c.Status.Value, "Active");
+searcher.Limit(1);
+var page = await searcher.ExecuteRawPage(0);
+var count = page.TotalCount;
 ```
 
 ### List コンポーネントの絞り込みに使う

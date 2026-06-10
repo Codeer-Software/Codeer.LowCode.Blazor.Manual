@@ -63,6 +63,7 @@ void ListLayoutDesign_OnAfterInitialization()
   | メソッド名                   | 戻り値  | 使用例        |
   |-------------------------|------|-----------|
   | AddEquals()             | void |AddEquals(x=>x.Name.Value, "test")|
+  | AddNotEqual()           | void |AddNotEqual(x=>x.Status.Value, "Closed")|
   | AddLessThan()           | void |AddLessThan(x=>x.Age.Value, 20) |
   | AddLessThanOrEqual()    | void |AddLessThanOrEqual(x=>x.Age.Value, 20) |
   | AddGreaterThan()        | void |AddGreaterThan(x=>x.Age.Value, 20)|

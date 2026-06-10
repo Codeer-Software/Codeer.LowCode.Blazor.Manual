@@ -811,6 +811,7 @@ foreach (var product in results)
 | メソッド | 説明 |
 |---|---|
 | `AddEquals(lambda, value)` | 等価 |
+| `AddNotEqual(lambda, value)` | 不等価（`value` に `null` を渡すと `is not null`） |
 | `AddLessThan(lambda, value)` | 未満 |
 | `AddLessThanOrEqual(lambda, value)` | 以下 |
 | `AddGreaterThan(lambda, value)` | 超過 |
@@ -846,12 +847,40 @@ search.ThenByDescending(e => e.Price);
 search.Select(e => e.Name, e => e.Price);
 ```
 
+### 件数上限・ページング
+
+`Limit(count)` で取得件数の上限を設定する。指定しないと**全件取得**になるため、大量データを扱うモジュールでは必ず設定する。
+ページングは `Limit` と `ExecutePage(pageIndex)` を併用する（`pageIndex` は 0 始まり、1 ページのサイズは `Limit` の値）。
+当該ページの一覧と総件数を **1 クエリ**で取得でき、`ModulePageResult.Items` / `.TotalCount` で受け取る。
+
+```csharp
+var search = new ModuleSearcher<Product>();
+search.OrderBy(e => e.Code);
+search.Limit(50);
+var result = search.ExecutePage(0);   // 1 ページ目
+var rows = result.Items;              // 当該ページ (最大 50 件)
+var total = result.TotalCount;        // 条件に一致する全件数 (ページャー表示用)
+```
+
+`Module` 実体が不要な軽量処理では、生データ版の `ExecuteRawPage(pageIndex)`（`ModuleDataPageResult`）を使う。
+
+```csharp
+var result = search.ExecuteRawPage(0);
+var rows = result.Items;          // List<ModuleData>
+var total = result.TotalCount;
+```
+
+> `TotalCount` は `Limit` 設定時のみ `count(*)` で算出される。`Limit` 未設定（全件取得）のときは取得した件数がそのまま総件数になる。
+
 ### 実行メソッド
 
 | メソッド | 戻り値 | 説明 |
 |---|---|---|
-| `Execute()` | `List<Module>` | モジュールインスタンスのリスト |
-| `ExecuteRaw()` | `List<ModuleData>` | 生のデータリスト |
+| `Execute()` | `List<Module>` | 条件に一致するモジュール一覧（ページングしない） |
+| `ExecutePage(pageIndex)` | `ModulePageResult` | 指定ページの `Items` と総件数 `TotalCount` を 1 クエリで取得 |
+| `ExecuteRaw()` | `List<ModuleData>` | 生のデータリスト（`Module` 実体を作らない軽量版） |
+| `ExecuteRawPage(pageIndex)` | `ModuleDataPageResult` | 生データの指定ページ `Items` と総件数 `TotalCount` |
+| `ExecuteFirstOrDefault()` | `Module?` | 先頭 1 件。該当なしは `null`（マスタ参照向け） |
 
 ### IN検索の例
 
