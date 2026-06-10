@@ -120,6 +120,23 @@ public class ModuleDesign
 | DBテーブル名 (DbTable) | snake_case | `product_category` |
 | DBカラム名 (Field.DbColumn) | snake_case | `product_name` |
 
+### 名前の一意性（デザインチェックでエラー）
+
+「型として扱われる名前」は **種別を跨いで一意** でなければならない。次がすべて同じ名前空間を共有する:
+
+- モジュール名 / ページフレーム名
+- フィールドの型名（`TextField` `NumberField` 等）/ スクリプトで使える型・サービス名（`DateTime` `Math` `List` `Dictionary` `Logger` `MessageBox` 等）
+- ProCodeComponent / ProCodeModule / ListElementComponent のクラス名
+
+ルール:
+
+- **重複禁止**: モジュール名・ページフレーム名を、他のモジュール/ページフレーム/上記のいずれかと同じ名前にしない（例: モジュール名 `DateTime` や `TextField`、`List` は不可）。
+- **大文字小文字は区別しない**: `Order` と `order` は重複扱い（設計はファイル `{Name}.mod.json` で保存され、Windows のファイルシステムも大小無視のため、そもそも共存できない）。
+- **C# の識別子として有効**にする: 先頭は文字か `_`、以降は文字・数字・`_`。日本語などの Unicode 文字は可。`.`・空白・`-` や C# キーワード（`if` `class` `int` 等）は不可。
+- **ProCodeBehind は対象外**: コードビハインドのクラス名は対応するモジュール名と一致させる前提なので、重複として扱わない（むしろ一致させる）。
+
+これらに反するとデザインチェックでエラーになる。
+
 ## 完全なJSON例
 
 以下は基本的なCRUDモジュールの例。商品情報の登録・編集・削除が可能なモジュールである。
