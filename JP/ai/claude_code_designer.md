@@ -16,17 +16,17 @@
 
 #### 2-1. ZIP をダウンロード
 
-[GitHub の Samples/ClaudeCodeForDesigner.zip ページ](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Manual/blob/main/Samples/ClaudeCodeForDesigner.zip) を開き、右上の **ダウンロードアイコン**（赤枠）をクリックします。
+[GitHub の Samples/Designer.zip ページ](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Manual/blob/main/Samples/Designer.zip) を開き、右上の **ダウンロードアイコン**（赤枠）をクリックします。
 
 <img width="700" src="../../Image/claude_code_designer_download.png">
 
-> 上のリンクから [直接ダウンロード](../../Samples/ClaudeCodeForDesigner.zip) も可能です（マニュアルをローカルクローンしている場合）。
+> 上のリンクから [直接ダウンロード](../../Samples/Designer.zip) も可能です（マニュアルをローカルクローンしている場合）。
 
 #### 2-2. ZIP のブロックを解除
 
 ダウンロードした ZIP は **インターネットからのファイル**としてブロックされた状態になっています（Windows の Mark of the Web）。展開前に **必ずブロック解除** してください。
 
-1. エクスプローラで `ClaudeCodeForDesigner.zip` を **右クリック → プロパティ**
+1. エクスプローラで `Designer.zip` を **右クリック → プロパティ**
 2. 「全般」タブ下部の **「セキュリティ: このファイルは他のコンピュータから取得したものです…」**
 3. **「許可する」のチェックボックス**（赤枠）にチェック
 4. OK で閉じる
@@ -37,7 +37,7 @@
 
 #### 2-3. 作業フォルダに展開
 
-ブロック解除後、ZIP を作業フォルダ（例: `C:\work\Test`）の直下に展開します。展開すると `Designer` という名前の **ワークスペースフォルダ**が 1 つできます。このフォルダ名は自由に変更してかまいません（例: プロジェクト名に合わせる）。本マニュアルでは `Designer` のまま進めます。
+ブロック解除後、`Designer.zip` を **右クリック →「すべて展開」** で作業フォルダ（例: `C:\work\Test`）に展開します。ZIP 名にあわせて `Designer` という **ワークスペースフォルダ**が作られ、その中に一式が入ります（例: `C:\work\Test\Designer`）。このフォルダ名は自由に変更してかまいません（例: プロジェクト名に合わせる）。本マニュアルでは `Designer` のまま進めます。
 
 ```
 C:\work\Test\
