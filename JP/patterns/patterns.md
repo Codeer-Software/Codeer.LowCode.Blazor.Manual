@@ -106,5 +106,5 @@
 - [業務テンプレート一覧](../templates/templates.md) — 完成形のアプリをまるごとコピーして自社向けに改造する起点（在庫管理 / SFA / プロジェクト管理）
 - [モジュール定義の全体構造](../module/module.md) — モジュールファイル `*.mod.json` の構成
 - [Field リファレンス](../fields/) — 各フィールド型の詳細
-- [一覧ページパターン集](../../Claude/ClaudeCodeForDesigner/Docs/ListPagePatterns.md) — 一覧ページ系の追加パターン
+- [一覧ページパターン集](../../ClaudeCode/Designer/ClaudeCodeForDesigner/Docs/ListPagePatterns.md) — 一覧ページ系の追加パターン
 - [認証 / 認可の概要](../authorization/authorization.md)

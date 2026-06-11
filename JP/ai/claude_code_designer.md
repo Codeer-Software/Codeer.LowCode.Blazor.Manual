@@ -4,25 +4,17 @@
 
 「自然言語で指示 → モジュール／レイアウト／スクリプトを作成・編集」する流れで、デザイナでの操作と組み合わせて使うことを想定しています。
 
+リファレンス一式は **ワークスペース**（`Designer` フォルダ）として ZIP で配布しています。これを展開したフォルダの中でデザインプロジェクトを作り、そこで Claude Code を起動します。ワークスペースには、Claude Code 向けの作業ルール（`CLAUDE.md`）・CLB の仕様リファレンス（`ClaudeCodeForDesigner/`）・プロジェクト固有ルールのひな形（`Project.md.sample`）などが含まれます。
+
 ## 手順
 
 ### 1. 作業フォルダを作成する
 
 任意の場所に作業フォルダを作成します。本マニュアルでは `C:\work\Test` を例として使用します。
 
-### 2. デザイナでデザインプロジェクトを作成する
+### 2. リファレンス ZIP をダウンロードしてワークスペースを展開する
 
-デザイナを起動し、`File` → `New Project` を選択してプロジェクトを作成します。
-
-- **Name**: 任意（例: `Design`）
-- **Folder**: 1. で作った作業フォルダ（例: `C:\work\Test`）
-- **Template**: 任意（例: `Empty`）
-
-<img width="500" src="../../Image/claude_code_designer_create_project.png">
-
-### 3. リファレンス ZIP をダウンロードして配置する
-
-#### 3-1. ZIP をダウンロード
+#### 2-1. ZIP をダウンロード
 
 [GitHub の Samples/ClaudeCodeForDesigner.zip ページ](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Manual/blob/main/Samples/ClaudeCodeForDesigner.zip) を開き、右上の **ダウンロードアイコン**（赤枠）をクリックします。
 
@@ -30,7 +22,7 @@
 
 > 上のリンクから [直接ダウンロード](../../Samples/ClaudeCodeForDesigner.zip) も可能です（マニュアルをローカルクローンしている場合）。
 
-#### 3-2. ZIP のブロックを解除
+#### 2-2. ZIP のブロックを解除
 
 ダウンロードした ZIP は **インターネットからのファイル**としてブロックされた状態になっています（Windows の Mark of the Web）。展開前に **必ずブロック解除** してください。
 
@@ -43,41 +35,57 @@
 
 > 解除しないまま展開すると、中の各ファイルがすべてブロック扱いになり、Claude Code がファイル読み込み時に警告を出すなどの不具合の原因になります。
 
-#### 3-3. 作業フォルダに展開
+#### 2-3. 作業フォルダに展開
 
-ブロック解除後、ZIP を作業フォルダ（例: `C:\work\Test`）の直下に展開します。中身がフラット構成なので、展開すると下記のように並びます。
+ブロック解除後、ZIP を作業フォルダ（例: `C:\work\Test`）の直下に展開します。展開すると `Designer` という名前の **ワークスペースフォルダ**が 1 つできます。このフォルダ名は自由に変更してかまいません（例: プロジェクト名に合わせる）。本マニュアルでは `Designer` のまま進めます。
 
 ```
 C:\work\Test\
-├── Design\                        ← 2. で作ったデザインプロジェクト
-│   ├── app.clprj
-│   ├── Modules\
-│   ├── PageFrames\
-│   └── Resources\
-├── ClaudeCodeForDesigner\         ← ZIP から展開（仕様リファレンス）
-│   ├── CLAUDE.md
-│   └── Docs\
-│       ├── ModuleDesign.md
-│       ├── Layouts.md
-│       ├── Fields\
-│       └── ...
-└── CLAUDE.md                      ← ZIP から展開（Claude Code が起動時に自動読み込み）
+└── Designer\                      ← ZIP から展開したワークスペース（この中で Claude Code を起動する）
+    ├── CLAUDE.md                  ← Claude Code が起動時に自動読み込み（作業ルール）
+    ├── ClaudeCodeForDesigner\     ← CLB の仕様リファレンス
+    │   ├── CLAUDE.md
+    │   ├── Docs\                  ← モジュール / レイアウト / フィールド / スクリプト等の詳細
+    │   ├── Defaults\              ← 各フィールド・レイアウトの既定 JSON（コピー元）
+    │   └── Samples\               ← 実装サンプル一式
+    ├── Project.md.sample          ← Project.md にコピーしてプロジェクト固有ルールを書く（後述）
+    ├── .claude\                   ← Claude Code 用の許可設定
+    ├── ddl\                       ← テーブル作成用 SQL（DDL）を置く場所
+    └── temporary\                 ← 作業中の一時ファイルを置く場所
 ```
 
-`CLAUDE.md` は短いガイドで、`ClaudeCodeForDesigner/` 配下のリファレンスと `Project.md`（次節）を参照すべき場所として Claude Code に伝える役割を持ちます。
+`CLAUDE.md` は Claude Code への作業ルールで、`ClaudeCodeForDesigner/` 配下の仕様リファレンスと `Project.md`（後述）を参照すべき場所として Claude Code に伝える役割を持ちます。
 
-### 4. 作業フォルダで Claude Code を起動する
+### 3. デザイナでデザインプロジェクトを作成する
 
-```bash
-cd C:\work\Test
-claude
+デザイナを起動し、`File` → `New Project` を選択して、**ワークスペースフォルダの中**にデザインプロジェクトを作成します。
+
+- **Name**: `Design`（ワークスペース直下に `Design\` フォルダが作られます）
+- **Folder**: 2. で展開したワークスペースフォルダ（例: `C:\work\Test\Designer`）
+- **Template**: 任意（例: `Empty`）
+
+<img width="500" src="../../Image/claude_code_designer_create_project.png">
+
+作成すると、ワークスペースの中にデザインプロジェクトが並びます。
+
+```
+C:\work\Test\Designer\
+├── CLAUDE.md
+├── ClaudeCodeForDesigner\
+├── Project.md.sample
+├── .claude\
+├── ddl\
+├── temporary\
+└── Design\                        ← 3. で作ったデザインプロジェクト
+    ├── app.clprj
+    ├── Modules\
+    ├── PageFrames\
+    └── Resources\
 ```
 
-`CLAUDE.md` が同フォルダにあるので、Claude Code は起動時に自動で読み込み、`ClaudeCodeForDesigner/` 以下の仕様リファレンスを参照できる状態になります。
+### 4. プロジェクト固有の情報を `Project.md` に蓄積する
 
-### 5. プロジェクト固有の情報を `Project.md` に蓄積する
-
-そのプロジェクト固有の前提・規約は **`Project.md`** に書いておくと、Claude Code が作業時に読み取って参照してくれます。Claude Code と作業する中で気づいた都度、口頭で「これも `./Project.md` に追記して」と伝えると蓄積できます。
+ワークスペースには `Project.md.sample` というひな形が同梱されています。これを **同じフォルダに `Project.md` という名前でコピー**し、そのプロジェクト固有の前提・規約を書いておくと、Claude Code が作業時に読み取って参照してくれます。Claude Code と作業する中で気づいた都度、口頭で「これも `./Project.md` に追記して」と伝えると蓄積できます。
 
 書くと有効な例:
 
@@ -88,9 +96,20 @@ claude
 - **既存資産**: 「`SharedComponents/` 以下に共通コンポーネントあり、新規作成前に確認」
 - **多言語対応**: 「ja/en の Resources を必ず両方更新」
 
-これらを蓄積していくと、毎回の指示が短くて済み、Claude Code の出力が一貫します。`Project.md` は ZIP に含まれないので、リファレンス更新（ZIP 再ダウンロード→上書き）で消える事故を防げます。
+これらを蓄積していくと、毎回の指示が短くて済み、Claude Code の出力が一貫します。コピーして作った `Project.md` はリファレンス更新（ZIP 再ダウンロード→上書き）の対象外（同梱されるのは `Project.md.sample` の方）なので、更新で消える事故を防げます。
 
 > Claude Code 内蔵のメモリ機能（`#` で始まる発言や `/memory` コマンド）でも永続化できます。詳しくは [公式ドキュメント](https://docs.claude.com/ja/docs/claude-code/memory) を参照。
+
+### 5. ワークスペースで Claude Code を起動する
+
+```bash
+cd C:\work\Test\Designer
+claude
+```
+
+`CLAUDE.md` がワークスペース直下にあるので、Claude Code は起動時に自動で読み込み、`ClaudeCodeForDesigner/` 以下の仕様リファレンスや `Project.md` を参照できる状態になります。あとは自然言語で指示を出せば、`Design/` 配下のデザインファイルを作成・編集してくれます。
+
+> ワークスペースの `CLAUDE.md` には、作成・編集したデザイン定義を検証する「デザインチェック」や、DB の中身確認・テストデータ投入を Claude Code から行うための手順も含まれています。これらを使うには、`.claude/settings.local.json.sample` を同じフォルダに `settings.local.json` としてコピーし、デザイナ exe のパスを記入します（マシン固有の設定なので、このファイルは配布・共有しません）。
 
 ## 使い方の例
 
@@ -137,7 +156,7 @@ claude
 - **デザイナと並行して使う**: ビジュアルで配置を細かく調整するのはデザイナ、フィールド・スクリプトの一括追加や繰り返し作業は Claude Code、と使い分けると効率的です。
 - **指示は具体的に**: 「いい感じに」より「Title フィールドを追加し、ListLayout にも表示」など、対象モジュール・フィールド名・配置先を明示するほうが意図通りに動きます。
 - **生成結果は必ず確認**: スクリプトや SQL は実行前にデザイナでプレビューする / バージョン管理にコミットして差分を確認する運用を推奨します。
-- **リファレンスを最新に保つ**: フレームワーク／マニュアルが更新されたら ZIP を再ダウンロードし、`CLAUDE.md` と `ClaudeCodeForDesigner/` を上書きしてください。`Project.md` は ZIP に含まれないので触られず、プロジェクト固有の情報は維持されます。
+- **リファレンスを最新に保つ**: フレームワーク／マニュアルが更新されたら ZIP を再ダウンロードし、ワークスペースの `CLAUDE.md` と `ClaudeCodeForDesigner/`（必要なら `Project.md.sample`）を上書きしてください。自分でコピーして作った `Project.md` と `Design/` のデザインプロジェクトは上書き対象外なので、プロジェクト固有の情報は維持されます。
 
 ## 関連情報
 
@@ -145,4 +164,4 @@ claude
 - [デザイナ概要](../designer/designer.md)
 - [AI 概要](ai_overview.md)
 - [AI でモジュールを作成（デザイナ内蔵 AI）](ai_modules.md)
-- [GitHub: ClaudeCodeForDesigner](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Manual/tree/main/Claude/ClaudeCodeForDesigner)
+- [GitHub: ClaudeCodeForDesigner](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Manual/tree/main/ClaudeCode/Designer/ClaudeCodeForDesigner)

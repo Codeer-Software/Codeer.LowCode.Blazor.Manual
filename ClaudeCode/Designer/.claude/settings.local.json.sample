@@ -1,0 +1,9 @@
+{
+  "_README": "マシン固有の許可。このファイルを同じフォルダの settings.local.json にコピーし、<デザイナexeのパス> を実際のパス (例: C:\\\\path\\\\to\\\\Designer.WpfApp.exe) に置き換える。settings.local.json はマシンごとなので配布・共有しない (Claude Code がローカル上書きとして読む)。sql を許可してよいのは、DB 側の designer.settings.json で AllowCliSqlAccess:true のデータソースだけが実行対象になるため (false のデータソースは CLI 側で拒否される)。",
+  "permissions": {
+    "allow": [
+      "Bash(\"<デザイナexeのパス>\" designcheck:*)",
+      "Bash(\"<デザイナexeのパス>\" sql:*)"
+    ]
+  }
+}

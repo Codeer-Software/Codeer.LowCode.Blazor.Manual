@@ -85,7 +85,7 @@ if (IsNewData)
 
 ## 落とし穴
 
-- 申請モジュール内の `ApprovalFlow.ChildModule.Members[*].Status.Value` などの子孫モジュール参照は遅延ロードで空のことがある。`ModuleSearcher` で DB から再取得する → [スクリプトガイドライン](../../Claude/ClaudeCodeForDesigner/Docs/ScriptGuidelines.md) の「ChildModule の LinkField/SelectField」セクション
+- 申請モジュール内の `ApprovalFlow.ChildModule.Members[*].Status.Value` などの子孫モジュール参照は遅延ロードで空のことがある。`ModuleSearcher` で DB から再取得する → [スクリプトガイドライン](../../ClaudeCode/Designer/ClaudeCodeForDesigner/Docs/ScriptGuidelines.md) の「ChildModule の LinkField/SelectField」セクション
 - テンプレ駆動なので Order の並び順は `UseIndexSort` で自動採番。スクリプト側で `OrderNo` を直接代入しない
 - 承認フローの初期化は親モジュール側 (`LeaveRequest.OnAfterInitialization`) で呼ぶ。子モジュール (`ApprovalFlow`) の初期化スクリプトに書いてはいけない (タイミングがズレる)
 
