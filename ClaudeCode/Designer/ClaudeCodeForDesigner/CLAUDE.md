@@ -9,6 +9,12 @@ Claude Code が直接読み書きできる。
 従来はGUIデザイナー（WPFアプリ）でのみ作成していたが、
 Claude Code を活用することで、自然言語の指示からアプリケーション定義を生成可能になる。
 
+## 大前提（本書すべてに掛かる）
+
+本書（この CLAUDE.md と `Docs/` 配下）に書かれた規則・ガイドライン・「絶対常識」表記は、**すべて「原理原則（既定で従う最善）」であって、絶対不可侵ではない**。**ユーザーが明示的に別の方針を求めたら、その規則から離れてユーザーの要望に従う**。個別の規則にいちいち「ただし要望なら別」とは書いていないが、全規則にこの前提が掛かる。規則を盾にユーザーの明示要望を却下しない。
+
+（`ToString("D3")` が実行時に落ちる・`IsApplicationRoot:true` が無いとルート着地できない・システム予約名の綴り、のような**技術的事実／制約は「規則」ではなく現実**。ユーザーが求めても結果は変わらないので、却下ではなく制約を説明して代替を示す。）
+
 ## 作業の進め方（着手前に必ず読む）
 
 デザインファイルは「JSON 構文として妥当」でも「業務的に間違い」になりうる。`LimitCount: 0` で明細が 0 件になる、システム項目を編集欄に出す、といった**意味的バグは designcheck では検出できない**（JSON として妥当なため素通りする）。これを着手段階で防ぐためのルール:
@@ -159,6 +165,7 @@ DDL (CREATE / ALTER / DROP) は実行されるが `recordsAffected` は `-1` か
 | [Docs/Scripts.md](Docs/Scripts.md) | C#スクリプト (*.mod.cs) 文法リファレンス、組み込みサービス、Module/Field API |
 | [Docs/ScriptExtensions.md](Docs/ScriptExtensions.md) | スクリプト拡張サービス (Excel, WebApi, Toaster, Mail 等) と独自拡張の追加方法 |
 | [Docs/ProjectSettings.md](Docs/ProjectSettings.md) | プロジェクト設定 (app.clprj, designer.settings.json) |
+| [Docs/Authentication.md](Docs/Authentication.md) | 認証の仕組み (既定の Cookie 認証)。ログインの流れ・ユーザーテーブルの契約 (`PasswordCheckUserTableInfo`)・`AppUser` モジュールの必須構成・パスワードハッシュ・`CurrentUser`・権限の出し分け |
 | [Docs/Enums.md](Docs/Enums.md) | 全列挙型リファレンス |
 | [Docs/AppCss.md](Docs/AppCss.md) | カスタムCSS (app.css) DOM構造・セレクタパターン |
 | [Docs/LayoutGuidelines.md](Docs/LayoutGuidelines.md) | レイアウト作成時の推奨ルール（好みに応じて変更可能） |
@@ -1096,3 +1103,6 @@ void Search_OnSearchDataChanged()
 69. **承認・ワークフローは求められない限り作らない／非認証アプリに承認を足さない** - 既定は CRUD（ヘッダ＋明細＋合計等）に留め、承認ボタン等を勝手に足さない・「推奨」もしない。承認は本来 承認者・段階・差し戻し・履歴・権限を伴う重い機能で、認証（ログイン）が前提。非認証アプリでは申請者と承認者を区別できず無意味。承認が必要なら認証前提で `Samples/PatternShowcaseAuth/` の承認フロー（`ApprovalFlow` 系）として正式に作る
 70. **明細表 (ヘッダ＋明細) は `ListField`。`DetailListField` ではない (致命的・最頻出の誤り)** - 「注文＋明細」「請求書＋明細」「経費精算＋明細」のように日付・科目・金額… を**列の揃った表**で 1 行ずつ並べる明細は **`ListFieldDesign`** を使い、**列定義は子 (行) モジュール側の `ListLayouts[""].Elements`** に書く。子の親 FK は `IdFieldDesign` (`IsManualInput:false`)。`DetailListFieldDesign` は名前に「明細 (Detail)」が入っているので「明細表＝DetailListField」と短絡しがちだが**意味は逆** — "Detail" は「各行を DetailLayout (フォーム/カード) で描く」の意味で、業務の「明細行」ではない。`DetailListField`/`TileListField` を選ぶのは「1 レコード＝1 枚のフォーム/カード」にしたいと明確に判断したときだけ (その場合は子を `IsBordered:true` でカード化必須)。**迷ったら `ListField`。** 実装に迷ったら正典 `Samples/PatternShowcase/App/Modules/Order.mod.json` (`Details`＝`ListFieldDesign`) と `OrderDetail.mod.json` (`OrderId`＝`IdFieldDesign`、列は `ListLayouts`) を必ず開いて型を確認する。詳細は [Docs/CommonMistakes.md](Docs/CommonMistakes.md) の #53 / [Docs/AppPatterns/header_detail.md](Docs/AppPatterns/header_detail.md) を参照
 71. **PageFrame は最低 1 つ `IsApplicationRoot: true` (ルート URL の着地フレーム) を作る (絶対常識)** - `IsApplicationRoot` の C# 既定は `false`。新規 PageFrame を起こして着地フレーム (通常 `Main`) に `true` を立て忘れると、プロジェクトに application root が 0 件になり、ルート URL (`/`) を開いたとき CLB が**非 application-root のフレームにフォールバック**する。`UserReadCondition` で権限ゲートした管理フレーム (`AdminFrame` 等) が既定ランディングに選ばれる事故になる (admin だけ管理画面がホームになる等)。**着地フレームは `true`、補助フレームは `false`**。複数の `true` は PC/スマホ出し分け (`TargetDevice`/`WidthFrom`/`Priority`) のときだけ。単一フレームのプロジェクトでもその 1 枚を必ず `true` にする (空テンプレ複製時に踏みやすい)。正典: `Samples/PatternShowcaseAuth/App/PageFrames/Main.frm.json` (`true`) + `AdminFrame.frm.json` (`false`)。詳細は [Docs/CommonMistakes.md](Docs/CommonMistakes.md) の #54 / [Docs/PageFrame.md](Docs/PageFrame.md) 冒頭ルールを参照
+72. **スクリプトの数値書式・ゼロ埋めは `ToString("D3")` ではなく文字列補間 `$"{n:000}"` を使う (実行時エラー・デバッグ困難)** - CLB のスクリプトは数値を `decimal` に統一して計算するため、`(n).ToString("D3")` のような整数専用書式は**実行時に `Format specifier was invalid.` で失敗**する (designcheck は緑で素通り)。`$"{cnt + 1:000}"` / `$"{date:yyMMdd}"` なら `string.Format` 経由で動く。厄介なのは、例外でイベントハンドラが**途中停止**し後続 (合計再計算・ボタン出し分け等) が走らず、一見**別の不具合**に見える点。書式まわりで挙動が変なときはまず `ToString(書式)` を疑う。詳細は [Docs/CommonMistakes.md](Docs/CommonMistakes.md) の #55 / [Docs/Scripts.md](Docs/Scripts.md) の文字列補間を参照
+73. **DB の集計・件数を `ModuleSearcher` のループで回さない (N+1)** - 状態別件数などを状態の数だけ `ModuleSearcher.Execute()` でループすると、WASM のクライアント→サーバ→DB 往復が件数分発生する。**集計・件数は `QueryField`/`ExecuteSqlField` で `GROUP BY` の 1 クエリ**にまとめる。画面上の明細集計は `Rows`、複数の独立取得は `BatchSearcher` で 1 往復に束ねる。「この処理は問い合わせ何回か」を実装前に見積もり、ループ内で I/O を回したら赤信号。詳細は [Docs/CommonMistakes.md](Docs/CommonMistakes.md) の #56 / [Docs/QueryAndSql.md](Docs/QueryAndSql.md) を参照
+74. **「ログインする人」(担当者/作成者/承認者) に並行する別マスタを reflex で作らない** - 担当者＝ログインユーザー＝既存の `AppUser` なら、別途「担当者マスタ」を新設して二重管理しない。担当割当は `AppUser` への `LinkField` (または `CurrentUser`)、作成者/更新者は予約名 `Creator`/`Updater` の自動セットを使う ([#47](Docs/CommonMistakes.md))。新マスタを作る前に「この概念はモデルに既に存在しないか」を必ず問い、既存資産と重複を照合してからモデルを確定する。詳細は [Docs/CommonMistakes.md](Docs/CommonMistakes.md) の #57 を参照

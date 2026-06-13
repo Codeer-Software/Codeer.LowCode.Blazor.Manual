@@ -367,7 +367,10 @@ var a = $"{1234.5:N2}";                 // "1,234.50"（書式指定）
 var b = $"{DateTime.Now:yyyy/MM/dd}";   // 日付の書式
 var c = $"[{id,5}]";                    // 桁揃え（幅5・右寄せ）
 var d = $"{{{value}}}";                 // "{...}"（波括弧のエスケープ）
+var e = $"{count:000}";                 // "007"（ゼロ埋め3桁）
 ```
+
+> ⚠ **数値の書式化・ゼロ埋めは `ToString(書式)` ではなく、この補間の書式を使う。** スクリプトの数値は **`decimal` に統一して計算**されるため、`(count).ToString("D3")` のような**整数専用書式 (`D`/`X` 等) は実行時に `Format specifier was invalid.` で失敗する**。`$"{count:000}"` / `$"{date:yyMMdd}"` なら `string.Format` 経由で正しく整形される（カスタム数値書式 `000` は `decimal` でも有効）。失敗時の波及（ハンドラ途中停止）は [CommonMistakes.md](CommonMistakes.md) の #55 を参照。
 
 ### 型キャスト
 

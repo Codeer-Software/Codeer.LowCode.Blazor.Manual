@@ -1064,7 +1064,7 @@ public bool CanDelete { get; set; } = true;   // デフォルト true
 **ポイント:**
 - `Module` 名を指定するだけで、デフォルトの一覧/詳細レイアウトが描画される
 - ダイアログ用 (Detail のみ表示) なら `ModulePageType: "Detail"`、通常の CRUD 系は `Auto`
-- `SearchCondition.ModuleName` も該当モジュール名で揃える ([#?? 参照](#))
+- `SearchCondition.ModuleName` も該当モジュール名で揃える
 
 詳細は [PageFrame.md](PageFrame.md) の `OtherPageModuleDesigns` セクションを参照。
 
@@ -1859,3 +1859,50 @@ Value が変わると CLB が連動先の候補をリアルタイムに取り直
 - 複数の着地フレームを作るのは **PC/スマホで出し分けたいときだけ**。その場合は複数を `true` にして `TargetDevice` / `WidthFrom` / `Priority` で振り分ける ([PageFrame.md](PageFrame.md) の「画面幅・デバイスでアプリケーションルートを切り替える」)。
 - 正典: `Samples/PatternShowcaseAuth/App/PageFrames/Main.frm.json` (`true`) + `AdminFrame.frm.json` (`false`)。
 - 詳細は [PageFrame.md](PageFrame.md) の冒頭ルールを参照。
+
+---
+
+## 55. スクリプトの `ToString("D3")` 等の書式指定子は使わない — 数値は decimal、整数書式は実行時エラー (高・デバッグが難しい)
+
+**症状:** 受付番号のゼロ埋め等で `(cnt + 1).ToString("D3")` や `i.ToString("X")` と書くと、**実行時に**トーストで `... Format specifier was invalid.` が出て失敗する (designcheck は緑で素通り)。
+
+**原因:** CLB のスクリプトは**数値を `decimal` に統一して計算**する。`D` / `X` などの**整数専用書式は `decimal` に対して無効**なため、.NET の `decimal.ToString("D3")` が `FormatException` を投げる。`DateTime.ToString(...)` も含め、`ToString(書式)` に頼らないのが安全。
+
+**正しい書き方 — 文字列補間の書式を使う** (内部で `string.Format` に委譲され動作する。[Scripts.md](Scripts.md) の文字列補間):
+
+```csharp
+// ✅ ゼロ埋め・書式は補間で
+OrderNo.Value = $"R{today:yyMMdd}-{cnt + 1:000}";   // 例: R260613-001
+// ✅ 手動ゼロ埋めでも可
+string Pad3(int n) { if (n < 10) return "00" + n; if (n < 100) return "0" + n; return n.ToString(); }
+```
+
+```csharp
+// ❌ 実行時に "Format specifier was invalid." で落ちる
+OrderNo.Value = "R" + today.ToString("yyMMdd") + "-" + (cnt + 1).ToString("D3");
+```
+
+**なぜ厄介か (ここが重要):** 例外が出るとそのイベントハンドラは**途中で停止**し、**後続の処理 (合計再計算・状態に応じたボタン出し分け等) が実行されない**。結果「採番が空」「隠すはずのボタンが全部出る」など、一見**別の不具合**に見える壊れ方になり、根本原因 (書式) にたどり着きにくい。書式まわりで挙動がおかしいときは、まず `ToString(書式)` を疑い、補間に置き換える。これは **designcheck では検出できない実行時バグ**の代表例 (designcheck の緑は読み込み妥当性までの保証。計算・採番・状態遷移などの挙動はブラウザで確認する)。
+
+## 56. DB の集計・件数取得を `ModuleSearcher` のループで回さない (N+1 / ファンアウト)
+
+**症状:** ダッシュボードの「状態別件数」などを、状態の数だけ `ModuleSearcher` を `Execute()` してループで数える。5 状態なら 5 往復。
+
+**原因 / 正しい判断軸:** `ModuleSearcher.Execute()` は WASM の**クライアント→サーバ→DB 往復**。ループ内で回すと典型的な **N+1 (ファンアウト)** になる。実装前に「**この処理は問い合わせが何回になるか**」を見積もり、**ループ内で I/O (DB / 通信) を回したら赤信号**。
+
+**正解:**
+- **集計・件数は DB 側で 1 回** — `QueryField` / `ExecuteSqlField` で `GROUP BY` する ([QueryAndSql.md](QueryAndSql.md))。例: `SELECT status, COUNT(*) FROM repair_order GROUP BY status` の 1 クエリ。
+- **画面上の明細行の集計**は DB に行かず `Rows` を使う (#4 参照)。
+- **複数の独立した取得**は `BatchSearcher` で 1 往復に束ねる ([Scripts.md](Scripts.md) の BatchSearcher)。
+- これはフレームワーク非依存の一般原則 (N+1 を避ける) の CLB 版。詳細は [ScriptGuidelines.md](ScriptGuidelines.md) の「ModuleSearcher の正しい使い方 / 誤った用途」。
+
+## 57. 「ログインする人」(担当者 / 作成者 / 承認者) に並行する別マスタを reflex で作らない
+
+**症状:** 「担当者」マスタを新しく作ったが、担当者＝ログインする人＝既存の `AppUser` (認証ユーザー) と同一だった。同じ人を 2 テーブルで二重管理し、紐付けや整合で破綻する。
+
+**原因 / 正しい判断軸:** 新しいマスタを作る前に「**この概念はモデルに既に存在しないか**」を必ず問う。CLB の認証バリアントには既に `AppUser` (ログインユーザー) がある。担当者・作成者・更新者・承認者など「**ログインする人**」は `AppUser` を使う。
+
+**正解:**
+- 担当割当は `AppUser` への参照 (`LinkField` で `AppUser` を検索ピッカー、または `CurrentUser` 系) にする。reflex で新マスタを並行に作らない。
+- 作成者・更新者は予約名 `Creator` / `Updater` で CLB が自動セット (#42-A / [ScriptGuidelines.md](ScriptGuidelines.md) の予約名フィールド)。スクリプトで代入しない。
+- 既存資産 (テーブル / 認証基盤) を見つけたら、自分の設計と**重複を照合してからモデルを確定**する。「気づいたが後回し」で橋渡し列を生やして継ぎ足さない。

@@ -14,23 +14,23 @@
 ## 支えるデータ構造
 
 ```
-app_users  (ASP.NET Identity の AspNetUsers をベースに拡張)
-├── Id              PK
-├── UserName        TEXT (ログイン ID)
-├── PasswordHash    TEXT (Extras の PasswordHashField でハッシュ管理)
-├── 表示名           TEXT
-├── EmailAddress    TEXT
-├── IsActive        BOOLEAN
-└── ...
+app_users  (プレーンなユーザーテーブル。ASP.NET Identity ではない)
+├── id          PK
+├── user_name   TEXT (ログイン ID)
+├── name        TEXT (表示名)
+├── hash        TEXT (Extras の PasswordHashField がサーバ側で書き込む)
+├── salt        TEXT (同上)
+├── role        TEXT
+└── is_active   BOOLEAN
 ```
 
-`AppUser` は Cookie 認証 (ASP.NET Identity) の `AspNetUsers` テーブルに紐づく。CLB の `app.clprj` の `CurrentUserModuleDesignName: "AppUser"` で「現在のログインユーザー = AppUser のレコード」と紐づけ、スクリプトから `CurrentUser.表示名.Value` のようにアクセスできるようになる。
+`AppUser` は既定の Cookie 認証が使う**プレーンな `app_users` テーブル**に紐づく (ASP.NET Identity / `AspNetUsers` ではなく、独自ハッシュで照合する素朴な実装)。CLB の `app.clprj` の `CurrentUserModuleDesignName: "AppUser"` で「現在のログインユーザー = AppUser のレコード」と紐づけ、スクリプトから `CurrentUser.表示名.Value` のようにアクセスできるようになる。**認証の仕組み・テーブルの契約・必須フィールドの詳細は [認証の仕組み (Cookie 認証)](../Authentication.md) を参照。**
 
 ## モジュールとテーブルの対応
 
 | モジュール | テーブル | 主な役割 |
 |---|---|---|
-| `AppUser` | `app_users` (= AspNetUsers) | ユーザーマスタ。管理画面で CRUD |
+| `AppUser` | `app_users` | ユーザーマスタ。管理画面で CRUD |
 | `MyProfile` | (なし、表示専用) | ログイン中ユーザーの自分用情報表示 + パスワード変更ボタン |
 | `ChangePasswordDialog` | `app_users` (同じテーブル) | 自分のパスワードだけ更新できるダイアログ用モジュール |
 
