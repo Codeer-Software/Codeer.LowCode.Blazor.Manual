@@ -28,6 +28,18 @@ TileListField ──┘                                     ├─ DetailLayouts
 → **行モジュールには `DetailLayouts` と `ListLayouts` の両方を定義しておく**と、
 3 形式すべてで再利用可能になる。
 
+### どれを選ぶか (意味ではなく用途で選ぶ)
+
+上の表は「各 Field がどのレイアウトを描くか」という**仕組み**。実際にどれを選ぶかは**子レコードの見せ方**で決める:
+
+| 子レコードの見え方 | 選ぶ Field |
+|---|---|
+| **列の揃った均一な表** (日付・科目・金額… を 1 行ずつ) ← ヘッダ＋明細はこれ | **`ListField`** |
+| 1 レコードが**複雑なフォーム** (項目多・縦組み・行ごとにラベル) | `DetailListField` (子を `IsBordered:true` でカード化) |
+| カード／タイルを**グリッド状**に並べる | `TileListField` |
+
+> **「明細だから `DetailListField`」は誤り (最頻出の致命傷)。** `DetailListField` の "Detail" は「各行を DetailLayout (フォーム) で描く」という仕組みの話で、業務の「明細行」ではない。**ヘッダ＋明細の明細表は `ListField`。迷ったら `ListField`。** → [CommonMistakes #53](CommonMistakes.md) / [AppPatterns/header_detail.md](AppPatterns/header_detail.md)
+
 ## ポイント
 
 1. **行モジュールも `DbTable=""` で OK**
@@ -46,8 +58,8 @@ TileListField ──┘                                     ├─ DetailLayouts
 
 ## 完全な例: テスト/デモ用の List/DetailList/TileList を 1 画面に並べる
 
-実例: `Source/TestData/UITest/Modules/CardItem.mod.json` と
-`Source/TestData/UITest/Modules/CardListTest.mod.json` を参照。
+実例: `Samples/PatternShowcase/App/Modules/` の `ListFieldOverview` / `DetailListFieldOverview` / `TileListFieldOverview`
+（行モジュール `LookupCustomer`（List/Tile で共有）/ `DetailListDemoChild`（DetailList 用）を参照する構成）を参照。
 
 ### 1. 行モジュール (`CardItem.mod.json`)
 

@@ -2,6 +2,8 @@
 
 ページフレームはアプリケーションのナビゲーション構造を定義する。サイドバー、ヘッダー、ページ遷移先のリンクを構成し、アプリケーション全体の骨格となる。
 
+> **必ず「ルート URL (`/`) の着地フレーム」を 1 つ用意する＝そのフレームの `IsApplicationRoot` を `true` にする (絶対常識)。** `IsApplicationRoot: true` のフレームが 0 件だと、`/` を開いたときに着地対象が無く、CLB は**非 application-root のフレームにフォールバック**する。`UserReadCondition` で権限ゲートした管理フレーム (例: `AdminFrame`) が既定ランディングに選ばれてしまう事故につながる。通常は `Main` を `true`、`AdminFrame` 等の補助フレームは `false`。複数の着地フレーム (PC/スマホ出し分け) を作るときだけ複数を `true` にして `TargetDevice`/`WidthFrom`/`Priority` で振り分ける。**プロパティの C# 既定が `false` なので、新規 PageFrame を作ったら着地フレームに明示的に `true` を立て忘れないこと** ([CommonMistakes #54](CommonMistakes.md))。
+
 ## C# クラス定義 (真実の源)
 
 ソースコード `Source/Codeer.LowCode.Blazor/Repository/Design/{PageFrameDesign,SideBarDesign,HeaderDesign,HomeLabel,PageLink}.cs` から転記。`Left.Links` / `Right.Links` / `Header.Links` は `List<PageLink>` (= JSON 配列)。`PageLink` は `ModulePageDesign` を継承。
@@ -146,7 +148,7 @@ public class DetailPageDesign
 
 | プロパティ | 型 | デフォルト | 説明 |
 |---|---|---|---|
-| `IsApplicationRoot` | bool | `false` | アプリケーションのルートフレームかどうか |
+| `IsApplicationRoot` | bool | `false` | アプリケーションのルートフレーム (ルート URL `/` の着地先) かどうか。**プロジェクトに最低 1 つは `true` が必要** (通常 `Main`)。全フレーム `false` は不可 → 非root/権限ゲート画面にフォールバックする ([CommonMistakes #54](CommonMistakes.md)) |
 | `Priority` | int | `0` | 複数 application root の優先度。**大きいほど優先**。`IsApplicationRoot: true` のときだけ意味を持つ |
 | `TargetDevice` | DeviceTarget | `"Any"` | 対象デバイス。ルート URL で開くときにこの root を採用するデバイス: `Any` / `PC` (細かいポインタ) / `Touch` (タッチ端末) |
 | `WidthFrom` | double? | null | 適用開始幅。ルート URL で開くときにこの root を採用する**画面幅の下限** (px)。null は幅の条件なし |

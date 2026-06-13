@@ -761,7 +761,7 @@ stock.ReloadWithLock();
 stock.Reload();
 ```
 
-`Source/TestData/Demo20231211/` 配下のスクリプトサンプルで `ReloadWithLock()` の使用例が残っているが、これは**過去バージョンの遺物**。コピーして使わないこと。
+古いバージョンのスクリプト例で `ReloadWithLock()` の使用が残っていることがあるが、これは**過去バージョンの遺物**。コピーして使わないこと。
 
 ロック付き再読込が本当に必要な場合は、サーバー側の SQL でロック処理を行う（`ExecuteSqlField` で `SELECT ... FOR UPDATE` 等）か、トランザクション内で再読込する設計を検討する。
 
@@ -910,7 +910,7 @@ CREATE TABLE customer (
 
 **原因:** 詳細レイアウトに「戻る」UI を入れ忘れ。詳細画面は単独で完結する作りにしがちで、ナビゲーションを忘れる。
 
-**標準パターン (GettingStarted の `Author` モジュールを参考):**
+**標準パターン (`Samples/PatternShowcase/App/Modules/Product.mod.json` 等の詳細レイアウトを参考):**
 
 詳細レイアウトの **1 行目に AnchorTagField (HistoryBack)** を配置する。アイコンは Bootstrap Icons の `bi bi-arrow-left-circle-fill`、FontSize 30 で大きめに。
 
@@ -1154,7 +1154,7 @@ public bool CanDelete { get; set; } = true;   // デフォルト true
 
 **多対多も同じパターン:** 中間モジュール (例: `ArticleTag`) を作って、親 (Article) の ListField に `ArticleId.Value = Id.Value` の絞り込みを入れる。中間モジュール内では `LinkField` で他方のマスタ (Tag) を参照。
 
-参考: `Source/TestData/GettingStartedTemplate/App/Modules/Recipe.mod.json` の `IngredientList` 設定を参照。
+参考: `Samples/PatternShowcase/App/Modules/Order.mod.json` の `Details` (ListField) + `OrderDetail.mod.json` を参照。
 
 ---
 
@@ -1483,7 +1483,7 @@ void DeleteSelected_OnClick()
 - 管理者向けの内部画面
 
 **ListNumberField を使う:**
-行番号を見せたい場合は `IdField` ではなく `ListNumberFieldDesign` を Fields に追加し、ListLayout の先頭列に入れる。GettingStarted の `Author.mod.json` / `Recipe.mod.json` がこのパターン。
+行番号を見せたい場合は `IdField` ではなく `ListNumberFieldDesign` を Fields に追加し、ListLayout の先頭列に入れる。
 
 ```json
 "Fields": [
@@ -1665,7 +1665,7 @@ new_link = {
 
 ### 立てて良いケース (超絶レア)
 
-`IsFillAvailable=true` の Grid で、**実質最終行が ListField/ProCode じゃなく、Button や見出し Label のような固定高さの要素** のとき。例えば「上にスクロール可能なリスト、下にボタンバーを画面下端から押し出して見せたい (はみ出し時はページスクロール)」のような特殊レイアウト。`Source/TestData/UITest/Modules/LastRowFitButtonTest.mod.json` がその例。
+`IsFillAvailable=true` の Grid で、**実質最終行が ListField/ProCode じゃなく、Button や見出し Label のような固定高さの要素** のとき。例えば「上にスクロール可能なリスト、下にボタンバーを画面下端から押し出して見せたい (はみ出し時はページスクロール)」のような特殊レイアウト。
 
 > 「リストを最終行に置きたい」のような一般用途では **必ず `false` のまま** にする。
 
@@ -1814,3 +1814,48 @@ Value が変わると CLB が連動先の候補をリアルタイムに取り直
 - 詳細画面 (入力欄) の連動は宣言だけで動く。このスクリプトが要るのは**検索レイアウトに置いた場合だけ**
 - #46 (検索ページは SearchValue を使う) の逆方向の話。検索条件としては SearchValue が正だが、**候補絞り込みの参照先は Value** という二面性がある
 - 実装サンプル: `Samples/PatternShowcase/App/Modules/CascadeSearch.mod.json` + `CascadeSearch.mod.cs` (サイドバー「検索/Select連動」)
+
+## 53. 明細表 (ヘッダ＋明細) に `DetailListField` を使わない — `ListField` が正解 (致命的・最頻出)
+
+**症状:** 「注文＋注文明細」「請求書＋明細行」「経費精算＋明細」のような **ヘッダ＋明細 (1:N)** で、明細行 (日付・科目・金額… を 1 行ずつ並べる表) を作るとき、`DetailListFieldDesign` を選んでしまう。これは**誤り**。
+
+**正解:** 明細表は **`ListFieldDesign`** を使う。明細の**列は子 (行) モジュール側の `ListLayouts[""].Elements`** に定義する。親の明細フィールドは `ListField` 1 つを置き、`SearchCondition.Condition` の `FieldVariableMatchCondition` (`SearchTargetVariable: "OrderId.Value"` / `Variable: "Id.Value"` / `Equal`) で子を逆引きする。子の親 FK は `IdFieldDesign` (`IsManualInput:false`)。
+
+**なぜ間違えるのか (名前の罠):** `DetailListField` は名前に「明細 (Detail)」が入っているので「明細表 = DetailListField」と短絡しやすい。だが意味は**逆**。`DetailList` の "Detail" は「各行を **DetailLayout (フォーム)** で描く」という意味であって、業務でいう「明細行」ではない。
+
+| 子レコードの見え方 | 使うフィールド | 行の描画に使う子側レイアウト |
+|---|---|---|
+| **列の揃った均一な表** (日付・科目・金額…) ← ヘッダ＋明細はこれ | **`ListField`** | 子の `ListLayouts[""].Elements` |
+| 1 レコードが**複雑なフォーム** (項目多・縦組み・行ごとにラベル) | `DetailListField` | 子の `DetailLayouts[""]` (カード化 `IsBordered:true` 必須) |
+| カード／タイルを**グリッド状**に並べる | `TileListField` | 子の `DetailLayouts[""]` |
+
+**正典サンプル (必ずこれをコピー元にする):**
+
+- `Samples/PatternShowcase/App/Modules/Order.mod.json` … `Details` フィールドは **`ListFieldDesign`** (`DetailListFieldDesign` ではない)
+- `Samples/PatternShowcase/App/Modules/OrderDetail.mod.json` … 親 FK `OrderId` は **`IdFieldDesign`** (`IsManualInput:false`)、明細列は `ListLayouts[""].Elements` に Product/Quantity/UnitPrice/Subtotal を定義
+
+**鉄則:** 迷ったら **`ListField`**。`DetailListField` を選ぶのは「各行を 1 枚のフォーム/カードにしたい」と明確に判断したときだけ。均一な明細表に `DetailListField` を使うと、行ごとにラベルが重複し、子モジュールに表示用ラベルとカード用 DetailLayout を足す羽目になって冗長。**パターンドキュメントやサンプルの Description を鵜呑みにせず、実装に迷ったら必ず `Order.mod.json` / `OrderDetail.mod.json` を開いて型を確認する。** 関連: [AppPatterns/header_detail.md](AppPatterns/header_detail.md) / [Fields/ListField.md](Fields/ListField.md) / [Fields/DetailListField.md](Fields/DetailListField.md) の「どちらを選ぶか」。
+
+---
+
+## 54. PageFrame は最低 1 つ `IsApplicationRoot: true` (ルート URL の着地フレーム) を作る (絶対常識)
+
+**症状:** アプリにアクセス (`/` を開く) すると、意図しないフレーム — 特に `UserReadCondition` で権限ゲートした管理フレーム (`AdminFrame` 等) — に着地してしまう。admin ユーザーだけ管理画面がホームになる、といった挙動。
+
+**原因:** どの PageFrame も `IsApplicationRoot: true` になっていない。`IsApplicationRoot` の C# 既定は **`false`** なので、新規に PageFrame を起こして立て忘れると、プロジェクト内に application root が 0 件になる。ルート URL の着地先が無いため、CLB は**アクセス可能な (UserReadCondition を満たす) 非 application-root フレームにフォールバック**する。admin は AdminFrame の条件にも一致するので、名前順等で AdminFrame が拾われて管理画面に着地する。
+
+**正解:** **ルート URL で着地させたいフレーム (通常 `Main`) の `IsApplicationRoot` を `true` にする。** プロジェクトに最低 1 つは `true` が必須。補助フレーム (`AdminFrame` 等) は `false` のまま。
+
+```json
+// Main.frm.json (着地フレーム)
+{ "IsApplicationRoot": true,  "Name": "Main", ... }
+// AdminFrame.frm.json (権限ゲート付き補助フレーム)
+{ "IsApplicationRoot": false, "Name": "AdminFrame", "UserReadCondition": { ... }, ... }
+```
+
+**ポイント:**
+
+- **空テンプレートから複製するときが特に危険。** 単一フレームのプロジェクトでも、その 1 枚を `true` にしておかないとフォールバックを踏む (種テンプレが `false` で出荷されていた不具合あり・修正済)。
+- 複数の着地フレームを作るのは **PC/スマホで出し分けたいときだけ**。その場合は複数を `true` にして `TargetDevice` / `WidthFrom` / `Priority` で振り分ける ([PageFrame.md](PageFrame.md) の「画面幅・デバイスでアプリケーションルートを切り替える」)。
+- 正典: `Samples/PatternShowcaseAuth/App/PageFrames/Main.frm.json` (`true`) + `AdminFrame.frm.json` (`false`)。
+- 詳細は [PageFrame.md](PageFrame.md) の冒頭ルールを参照。

@@ -27,15 +27,16 @@ articles            article_tags                tags
 
 | モジュール | テーブル | 役割 | 主な参照 |
 |---|---|---|---|
-| `Article` | `articles` | 本体 | `Tags` (`DetailListField` → `ArticleTag`) で中間モジュールを内包 |
-| `ArticleTag` | `article_tags` | 中間 (紐付け) | `ArticleId` (Link → `Article`) + `TagId` (Link → `Tag`) |
+| `Article` | `articles` | 本体 | `Tags` (**`ListField`** → `ArticleTag`) で中間モジュールを内包 |
+| `ArticleTag` | `article_tags` | 中間 (紐付け) | `ArticleId` (**`IdField`** ← 本体 FK) + `TagLink` (**`LinkField`** → `Tag`) |
 | `Tag` | `tags` | 相手 (マスタ) | 通常の CRUD モジュール |
 
 ## CLB ではこう作る
 
-- 中間モジュール (`ArticleTag`) に **`LinkField` を2つ** (両側への FK)
-- 本体 (`Article`) の Detail に `DetailListField` で中間を内包。`SearchCondition` で「`ArticleTag.ArticleId == this.Id.Value`」で逆引き
-- ユーザーは中間の Tag フィールドで紐付け先を選択
+- 中間モジュール (`ArticleTag`) は、本体への FK を **`IdFieldDesign`** (`ArticleId`, `IsManualInput:false`)、相手マスタへの参照を **`LinkFieldDesign`** (`TagLink`) で持つ。本体保存時に `ArticleId` は CLB が自動セット
+- 本体 (`Article`) の Detail に **`ListField`** (表形式) で中間を内包。`SearchCondition.Condition` の `FieldVariableMatchCondition` (`SearchTargetVariable: "ArticleId.Value"` / `Variable: "Id.Value"` / `Equal`) で逆引き。**`DetailListField` ではない** ([CommonMistakes #53](../CommonMistakes.md))
+- ユーザーは各行の Tag リンク (`TagLink`) で紐付け先を選択
+- 正典: `Samples/PatternShowcase/App/Modules/Article.mod.json` (`Tags`＝`ListFieldDesign`) + `ArticleTag.mod.json` (`ArticleId`＝`IdFieldDesign` / `TagLink`＝`LinkFieldDesign`)
 
 ## 標準パターン集の対応
 

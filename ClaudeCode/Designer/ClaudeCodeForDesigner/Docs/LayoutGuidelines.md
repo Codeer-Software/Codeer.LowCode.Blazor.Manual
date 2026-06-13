@@ -273,8 +273,6 @@ DetailListField（明細リスト）の子モジュールの DetailLayout では
 ]]
 ```
 
-GettingStarted の `Author.mod.json` / `Recipe.mod.json` も同じパターン (Id 不在、ListNumber を使う場合あり)。
-
 ---
 
 ## ListLayout - Elements の構造

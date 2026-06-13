@@ -48,7 +48,7 @@ projects                phases                          tasks
 ## 落とし穴
 
 - 各階層の Submit は基本的にその階層単独 (孫を含む全 Submit ではない)。トランザクション境界を意識する
-- 多段でネストが深くなると、画面が縦長になりがち。`ListField` は別画面遷移、`DetailListField` はインライン、と使い分ける
+- 多段でネストが深くなると画面が縦長になりがち。表示形式は**子の見え方**で選ぶ: 列の揃った表は `ListField` (この階層パターンの標準。`CanNavigateToDetail` で行から孫の編集画面へ遷移も可)、各行を 1 枚のフォーム/カードにしたいときだけ `DetailListField`。「明細だから DetailListField」と短絡しない → [CommonMistakes #53](../CommonMistakes.md)
 
 ## 関連ドキュメント
 
