@@ -39,6 +39,10 @@ sample_items
 | `UpdatedAt` | DateTime | レコード更新時に自動セット |
 | `Creator` | Link → ユーザー | 作成者を自動セット |
 | `Updater` | Link → ユーザー | 更新者を自動セット |
+| `DeletedAt` | DateTime | **論理削除時**に削除時刻を自動セット |
+| `Deleter` | Link → ユーザー | **論理削除時**に削除実行者を自動セット |
+
+`DeletedAt` / `Deleter` は論理削除のタイミングで動く監査用フィールド。詳細は [論理削除](soft_delete.md) を参照。
 
 ## 標準パターン集の対応
 

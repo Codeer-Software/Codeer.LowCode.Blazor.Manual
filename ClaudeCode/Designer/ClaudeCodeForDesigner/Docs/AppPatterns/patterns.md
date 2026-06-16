@@ -35,9 +35,9 @@
 | [洗い替え](replace_mode.md) | 明細の全件入れ替え、一意キー (座席番号等) の入れ替え |
 | [取込書出](import_export.md) | CSV/Excel での一括入出力 |
 | [楽観ロック](optimistic_lock.md) | 同時編集の競合検出 |
-| [論理削除](soft_delete.md) | 削除フラグで非表示にする |
+| [論理削除](soft_delete.md) | 削除フラグで非表示にする / 削除時刻 (`DeletedAt`)・削除者 (`Deleter`) の自動記録 |
 | [自動保存](auto_save.md) | 保存ボタンなしで編集を自動 DB 反映 |
-| [作成日時・更新日時](system_fields.md) | システムフィールドで自動セット |
+| [作成日時・更新日時](system_fields.md) | システムフィールドで自動セット (`CreatedAt`/`UpdatedAt`/`Creator`/`Updater`/`DeletedAt`/`Deleter`) |
 | [**双方向 ID 持ち合い (1:1)**](bidirectional.md) | 会社↔代表者、申請↔承認フロー |
 
 各パターンは「**アプリの作り** (ユーザーが見る/操作する画面) → **支えるデータ構造** (テーブル) → **モジュールとテーブルの対応** → **CLB ではこう作る**」の流れで読めます。
