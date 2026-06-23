@@ -194,14 +194,63 @@ GridLayout で要素を中央・左寄せ・右寄せに配置するには、**L
 
 ```
 Row
-  ├─ Column[0]: ラベル (Width: 130 等で固定, VerticalAlignment: "Middle")
+  ├─ Column[0]: ラベル用 LabelField (Width: 130 等で固定, VerticalAlignment: "Middle")
   └─ Column[1]: 入力フィールド
+```
+
+### 鉄則: ラベル列には「新しく作った LabelField」を置く。データフィールドを2回置かない
+
+左のラベル列に入れるのは、入力フィールドとは**別に新規作成した `LabelFieldDesign`**（例: `CustomerCodeLabel`）。
+1つの入力フィールドにつき、ラベル用 LabelField を1つ `Fields` に追加し、左列でそれを参照する。
+
+> ⚠️ **同じフィールド名 (`FieldName`) を、同一レイアウト内の複数の列・行に置いてはいけない。**
+> 入力フィールドを左列と右列の両方に置くと、同じ入力欄が2つ描画されてレイアウトが壊れる。
+> 「ラベル列にとりあえず同じフィールドを置く」は誤り。ラベルは必ず専用の LabelField を作る。
+
+```json
+// ❌ 絶対ダメ: 同じ CustomerCode を2列に置く → 入力欄が2個出て壊れる
+"Columns": [
+  { "Layout": { "FieldName": "CustomerCode", "TypeFullName": "...FieldLayoutDesign" }, "Width": 140 },
+  { "Layout": { "FieldName": "CustomerCode", "TypeFullName": "...FieldLayoutDesign" } }
+]
+
+// ✅ 正しい: 左 = ラベル用 LabelField、右 = 入力フィールド
+"Columns": [
+  { "Layout": { "FieldName": "CustomerCodeLabel", "TypeFullName": "...FieldLayoutDesign" }, "Width": 140, "VerticalAlignment": "Middle" },
+  { "Layout": { "FieldName": "CustomerCode", "TypeFullName": "...FieldLayoutDesign" } }
+]
+```
+
+ラベル用 LabelField は `Fields` に追加する。ラベル文字列の指定方法は2通り:
+
+```json
+// 方法A: Text にラベル文字列を直接書く (固定文字。対象フィールドの表示名とは連動しない)
+{
+  "Name": "CustomerCodeLabel",
+  "Text": "顧客コード",
+  "RelativeField": "CustomerCode",
+  "Style": "Default",
+  "Icon": "",
+  "IsHtml": false,
+  "OnClick": "",
+  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+}
+
+// 方法B: Text を空にして RelativeField で対象フィールドを指す (対象の表示名 DisplayName がラベルになり、表示名変更にも追従)
+//   ※ Text のデフォルトは "Label"。空にしないと "Label" と表示されるので必ず "" を明記する
+{
+  "Name": "CustomerCodeLabel",
+  "Text": "",
+  "RelativeField": "CustomerCode",
+  "Style": "Default",
+  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+}
 ```
 
 **ポイント:**
 - ラベル列に `Width` (例: 130px) を固定値で指定し、フィールド列は自動幅
 - ラベル列の `VerticalAlignment: "Middle"` を必ず設定 (デフォルトの Top だと、入力欄の中央高さと揃わない)
-- ラベル側の `RelativeField` に対応するフィールド名を入れると、その Field の `DisplayName` がラベルテキストとして自動表示される
+- `RelativeField` に対象フィールド名を入れると、ラベルクリックで入力欄にフォーカスが移る (for 連動)。`Text` を空にすればその Field の `DisplayName` がラベルになる (Text のデフォルト "Label" に注意)
 
 ---
 
@@ -399,3 +448,28 @@ DetailLayout / ListLayout の `DataOnlyFields` に指定したフィールドは
 ### `IsUpdateProtected` は読み取り専用化ではない
 
 `IsUpdateProtected: true` は「**既存レコードの更新時にその列を上書きしない**」ための設定。**入力欄を編集不可にする効果も、新規作成時の手入力を防ぐ効果も無い**。編集させたくないなら上記の `IsViewOnly` を使う。
+
+---
+
+## レイアウト共通 - 同じフィールドは1箇所だけ（配置＝移動）
+
+レイアウト内で同じ `FieldName` の `FieldLayoutDesign` は**1箇所にしか置けない**。すでに配置済みのフィールドを別の場所に「配置」「追加」「入れる」のは**移動**を意味する。
+
+- 新しい位置に `FieldLayoutDesign` を置く
+- **元の位置からは必ず削除する**（その `GridColumn` の `Layout` を出力しない＝空セルにする）
+- 同じフィールドが複数箇所に出現するレイアウトは不正。
+
+## TabLayout - Tabs と Layouts の整合性
+
+`TabLayoutDesign` は `Tabs`（タブ名）と `Layouts`（各タブの中身）を持つ。
+
+- **`Tabs.Count == Layouts.Count` を必ず一致させる**。タブを1つ追加したら、同じインデックスに対応する `Layouts` も1つ追加する（既存 Layouts は変更しない）。
+- タブ追加時に中身の指定が無ければ、その `Layouts` 要素には「1行×4列・全列が空（Layout 省略）の `GridLayoutDesign`」を初期形として入れる。
+- 既存タブを配置場所に使うときは「空の `GridColumn`（Layout 省略）」を優先し、無ければ最小限 Column/Row を足す。既存 Column の幅・パディング等は変えない。
+
+## ListLayout - 行追加と結合は別の操作
+
+- **「段（行）を増やす」**＝既存行と同じ列数の**空行を追加**する。各セルは `{ "FieldName": "", "ColumnSpan": 1, "RowSpan": 1 }`。既存セルは一切変えない（`RowSpan` 変更もフィールド移動もしない）。
+- **「結合する／またがる」**＝`RowSpan` / `ColumnSpan` を使う。**明示的に結合を指示されたときだけ**。
+- 結合を指示されていないのに `RowSpan` を 2 以上にしたり、結合用プレースホルダーを作ったりしない。
+- 複数行ヘッダーで `FieldName: ""` のセルは、`RowSpan` で上のセルに覆われた位置のプレースホルダー専用。データ表示セルには必ず `FieldName` を設定する。

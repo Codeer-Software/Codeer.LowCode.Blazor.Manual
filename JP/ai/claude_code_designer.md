@@ -163,5 +163,4 @@ claude
 - [Codeer.LowCode.Blazor とは](../introduction/what_is_lowcode.md)
 - [デザイナ概要](../designer/designer.md)
 - [AI 概要](ai_overview.md)
-- [AI でモジュールを作成（デザイナ内蔵 AI）](ai_modules.md)
 - [GitHub: ClaudeCodeForDesigner](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Manual/tree/main/ClaudeCode/Designer/ClaudeCodeForDesigner)

@@ -470,3 +470,50 @@ Recipe モジュールが Author（著者）への LinkField を持つ場合:
 2. **レイアウトの名前付き定義**: `DetailLayouts` / `ListLayouts` / `SearchLayouts` のキーに名前を付けることで、複数レイアウトを切り替え可能。`""` がデフォルト。
 3. **LinkFieldNames**: LinkField を使って他モジュールのフィールドを表示する場合、そのパス（`"LinkFieldName.FieldName"`）をここに列挙する。上記「LinkFieldNames の詳細」を参照
 4. **フィールドの TypeFullName**: 全フィールドに `TypeFullName` が必須。これによりデシリアライズ時に正しい型が復元される
+
+---
+
+## システムフィールド（予約名・型が固定）
+
+以下の `Name` は CLB の予約名で型が決まっている。この綴りの `Name` にすると CLB が自動で振る舞う（主キー / 論理削除フィルタ / 時刻自動セット / ユーザー自動セット / 楽観ロック）。指示がない限り変更しない。`DbColumn` は任意の列名でよい。
+
+| Name | 型 | 説明 |
+|---|---|---|
+| Id | IdFieldDesign | 主キー |
+| LogicalDelete | BooleanFieldDesign | 論理削除フラグ |
+| CreatedAt | DateTimeFieldDesign | 作成日時（保存時に自動セット） |
+| UpdatedAt | DateTimeFieldDesign | 更新日時（保存時に自動セット） |
+| Creator | LinkFieldDesign | 作成者（保存時に自動セット） |
+| Updater | LinkFieldDesign | 更新者（保存時に自動セット） |
+| OptimisticLocking | OptimisticLockingFieldDesign | 楽観ロック |
+
+---
+
+## フィールド型カタログ（用途早見）
+
+`Fields` 配列に入れるフィールド型の早見。各型の詳細プロパティは [Fields/](Fields/) の各ドキュメントを参照。
+
+### 入力系（DBカラムと紐づく）
+- IdFieldDesign(主キー) / TextFieldDesign(テキスト) / NumberFieldDesign(数値) / BooleanFieldDesign(真偽) / DateFieldDesign(日付) / DateTimeFieldDesign(日時) / TimeFieldDesign(時刻) / PasswordFieldDesign(パスワード,DB列なし)
+- SelectFieldDesign(ドロップダウン。Candidates "表示,値" または SearchCondition+ValueVariable+DisplayTextVariable)
+- RadioGroupFieldDesign + RadioButtonFieldDesign(ラジオ。RadioButtonのGroupFieldにRadioGroupのNameを指定)
+- LinkFieldDesign(外部キー。SearchCondition.ModuleNameで参照先、ValueVariable/DisplayTextVariableで表示)
+- FileFieldDesign(ファイル) / JsonFieldDesign(JSON構造化データ)
+
+### 表示系（DB列なし）
+- LabelFieldDesign(ラベル) / ImageViewerFieldDesign(画像) / MarkupStringFieldDesign(HTML) / AnchorTagFieldDesign(リンク/遷移)
+
+### ボタン系（DB列なし）
+- ButtonFieldDesign(汎用,OnClick) / SubmitButtonFieldDesign(保存) / CopyModuleButtonFieldDesign(コピー) / ViewEditToggleButtonFieldDesign(表示/編集切替)
+
+### 一覧・構造系
+- ListFieldDesign(表形式一覧) / DetailListFieldDesign(明細インライン編集) / TileListFieldDesign(タイル) / ListPagingFieldDesign(ページング) / ListNumberFieldDesign(行番号) / SearchFieldDesign(検索フォーム) / ModuleFieldDesign(他モジュール埋め込み)
+
+### メニュー系（DB列なし）
+- HeaderMenuFieldDesign / SidebarMenuFieldDesign / ContextMenuFieldDesign
+
+### チャート系（外部ライブラリ, DB列なし）
+- ApexChartFieldDesign(棒/折れ線/面/散布/ヒートマップ) / ApexRadialChartFieldDesign(円/ドーナツ/極座標)
+
+### その他
+- OptimisticLockingFieldDesign(楽観ロック) / ProCodeFieldDesign(カスタムBlazorコンポーネント)

@@ -74,6 +74,8 @@ if (!document.RootElement.TryGetProperty("TypeFullName", out JsonElement typePro
 | ListPagingFieldDesign | `Codeer.LowCode.Blazor.Repository.Design.ListPagingFieldDesign` |
 | OptimisticLockingFieldDesign | `Codeer.LowCode.Blazor.Repository.Design.OptimisticLockingFieldDesign` |
 | ProCodeFieldDesign | `Codeer.LowCode.Blazor.Repository.Design.ProCodeFieldDesign` |
+| ApexChartFieldDesign（外部ライブラリ） | `Codeer.LowCode.Bindings.ApexCharts.Designs.ApexChartFieldDesign` |
+| ApexRadialChartFieldDesign（外部ライブラリ） | `Codeer.LowCode.Bindings.ApexCharts.Designs.ApexRadialChartFieldDesign` |
 
 ### 2. レイアウト（LayoutDesignBase 継承）
 
@@ -114,6 +116,7 @@ if (!document.RootElement.TryGetProperty("TypeFullName", out JsonElement typePro
 |---|---|
 | MultiMatchCondition | `Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition` |
 | FieldValueMatchCondition | `Codeer.LowCode.Blazor.Repository.Match.FieldValueMatchCondition` |
+| FieldValueMatchConditionNonNull | `Codeer.LowCode.Blazor.Repository.Match.FieldValueMatchConditionNonNull` |
 | FieldVariableMatchCondition | `Codeer.LowCode.Blazor.Repository.Match.FieldVariableMatchCondition` |
 
 ### 4. 値オブジェクト（MultiTypeValue 継承）⚠️ 最も間違えやすい
