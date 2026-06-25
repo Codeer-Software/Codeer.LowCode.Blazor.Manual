@@ -9,6 +9,7 @@
 @implements IDisposable
 @inject IAppInfoService AppInfoService
 @inject INavigationService NavigationService
+@inject IJSRuntime JS
 
 <StyleLoader>
   @@import url('https://fonts.googleapis.com/css2?family=Red+Hat+Display:ital,wght@0,300..900;1,300..900&family=Noto+Sans+JP:wght@100..900&family=Paytone+One&display=swap');
@@ -149,9 +150,9 @@ else
         await InitPage();
     }
 
-    private void PageBase_OnHotReload(object? sender, EventArgs e)
+    private async void PageBase_OnHotReload(object? sender, EventArgs e)
     {
-        NavigationService.CompleteUrl(AppInfoService, PageFrameName, ModuleDesignName);
+        await NavigationService.CompleteUrl(AppInfoService, PageFrameName, ModuleDesignName, JS);
         StateHasChanged();
     }
 

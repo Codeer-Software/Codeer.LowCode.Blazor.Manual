@@ -10,6 +10,7 @@
 @implements IDisposable
 @inject IAppInfoService AppInfoService
 @inject INavigationService NavigationService
+@inject IJSRuntime JS
 
 <StyleLoader Href="_content/MudBlazor/MudBlazor.min.css" />
 <StyleLoader Href="_content/Heron.MudCalendar/Heron.MudCalendar.min.css" />
@@ -56,9 +57,9 @@ else
     await InitPage();
   }
 
-  private void PageBase_OnHotReload(object? sender, EventArgs e)
+  private async void PageBase_OnHotReload(object? sender, EventArgs e)
   {
-    NavigationService.CompleteUrl(AppInfoService, PageFrameName, ModuleDesignName);
+    await NavigationService.CompleteUrl(AppInfoService, PageFrameName, ModuleDesignName, JS);
     StateHasChanged();
   }
 
