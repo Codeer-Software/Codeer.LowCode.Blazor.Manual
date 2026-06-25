@@ -977,10 +977,11 @@ this.CopyModule();
 // データ再読み込み
 this.Reload();
 
-// 保存
-this.Submit();
+// 保存（戻り値 bool? で必ず成否分岐: true=成功 / false=中断 / null=キャンセル）
+var ok = this.Submit();
+if (ok != true) return;   // 保存できていないなら後続を続けない
 
-// 同時保存（トランザクション）
+// 同時保存（this＋リストを1トランザクション。失敗時は全ロールバック）
 this.Submit(simultaneousWriteModules);
 
 // 削除

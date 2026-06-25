@@ -8,6 +8,15 @@
 
 DB列へのマッピングは持たず、カードレコードは親モジュールの Submit で一括保存される。`IFillHeightFieldDesign`（高さいっぱい）・`ISearchResultsViewFieldDesign`（検索結果ビュー化可）を実装する。
 
+> **使い方の実用パターンは [../AppPatterns/visualization_dashboard.md](../AppPatterns/visualization_dashboard.md) を必ず読む**（親詳細への埋め込み・親FK自動セット・編集ダイアログ作法・高さ・横断ビューの保存制約）。
+>
+> 要点:
+> - 親詳細に埋め込むと **`ListField` と同等**（`SearchCondition` の `FieldVariableMatchCondition` で子を絞り、カード追加時に親FK自動セット）。子モジュールに `DataSourceName` と FK が必須。
+> - **`Statuses.Items` は配列**。各要素が `DisplayText`/`Value`/`Color`/`BackgroundColor`/`CanAdd` を**別プロパティ**で持つ（SelectField の「表示,値」区切り方式ではない）。カードの所属列は `StatusField` の値と `Statuses.Items[i].Value` の**文字列一致**で決まる。
+> - **`StatusField` は `SelectField` か `TextField` のみ**。SelectField を使うなら `Candidates` の値部と `Statuses.Items[i].Value` を一致させる。
+> - **`SortIndexField`（NumberField）が無いと並べ替えが永続化されない**。
+> - **`DbTable:""` の表示専用モジュールに埋めると保存できない**（横断ビューは閲覧専用と割り切る）。
+
 ## C# クラス定義 (真実の源)
 
 このフィールドは外部ライブラリ `Codeer.LowCode.Blazor.Extras` で定義されている。`FieldDesignBase` を継承し、`IDisplayName` / `ISearchResultsViewFieldDesign` / `IFillHeightFieldDesign` を実装する。

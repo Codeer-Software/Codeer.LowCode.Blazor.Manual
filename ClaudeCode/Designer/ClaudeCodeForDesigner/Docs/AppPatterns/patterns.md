@@ -66,15 +66,21 @@
 
 フォーム入力体験向上 (8 パターン): 入力検証 / 連動入力 / 連動入力 (検索条件) / 自動計算 / 既定値 / ショートカット / ファイル添付 / 画像
 
-### H. [出力のパターン](output_patterns.md)
+### H. [可視化・ダッシュボードのパターン](visualization_dashboard.md)
+
+ガント (`GanttField`) / タスクボード (`TaskBoardField`) / グラフ (`ApexChart` 系) の実用結線: 親詳細への埋め込み (親FK自動セット・編集ダイアログ作法) / ステータス列 / 高さの出し方 / 横断ビューの保存制約 / ダッシュボード (集計クエリ＋チャート二層・チャートはフィールド `Name` 参照) / 他モジュール生成・更新の同時保存 (在庫自動増減)
+
+> 外部ライブラリ (Extras / ApexCharts) のフィールド。実装サンプルは [`Samples/ProjectManagementTemplate/`](../../Samples/ProjectManagementTemplate/App/Modules/) を開いて読む（`プロジェクト.mod.json` にガント＋タスクボード、`Home.mod.json` にチャート、`クエリ/` に集計クエリの実物）。
+
+### I. [出力のパターン](output_patterns.md)
 
 帳票出力 (1 パターン): Excel / PDF 帳票
 
-### I. [別フレームのパターン](frame_patterns.md)
+### J. [別フレームのパターン](frame_patterns.md)
 
 `PageFrame` 単位のサンプル (4 パターン): ヘッダー型ナビ / 自動ズーム / 色テーマ変更 / 画面幅で切替
 
-### J. [認証パターン集](auth_patterns.md) (別テンプレート)
+### K. [認証パターン集](auth_patterns.md) (別テンプレート)
 
 「**認証パターン集**」テンプレート (内部名 `PatternShowcaseAuth`) の各パターン (4 個別ファイル):
 

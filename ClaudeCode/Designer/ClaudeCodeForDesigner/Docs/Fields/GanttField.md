@@ -10,6 +10,13 @@ DB列へのマッピングは持たず、表示中のタスク／依存レコー
 
 > ガント Field はヘッドレス（Playwright headless 等）では描画されないことがある（実機/headed で確認する）。
 
+> **使い方の実用パターンは [../AppPatterns/visualization_dashboard.md](../AppPatterns/visualization_dashboard.md) を必ず読む**（親レコード詳細への埋め込み・親FK自動セット・編集ダイアログ作法・高さの出し方・横断ビューの保存制約）。本ページはプロパティ仕様の正典。
+>
+> 要点:
+> - **親詳細に埋め込むと親子は `ListField` と同等に動く**。`SearchCondition.Condition` の `FieldVariableMatchCondition`（`SearchTargetVariable`＝子FK、`Variable`＝親 `Id.Value`）で子を絞り、**バー追加時に親FKが自動セットされる**。対象（子）モジュールには `DataSourceName` と FK フィールドが必須。
+> - **`DbTable:""` の表示専用モジュールに埋めると編集を保存できない**（保存は埋め込み先の親モジュールの Submit に依存）。横断ビュー専用画面は閲覧専用と割り切る。
+> - **旧 `FrappeGantt`（`...Bindings.FrappeGantt...`、プロパティ名 `NameField`/`StartDateField`/`EndDateField`）とは別フィールド型**。現行 Extras Gantt は `TextField`/`StartField`/`EndField`。旧 FrappeGantt の例（`NameField`/`StartDateField` を使うもの）は**参照しない**。実装サンプルは [`Samples/ProjectManagementTemplate/App/Modules/プロジェクト.mod.json`](../../Samples/ProjectManagementTemplate/App/Modules/) を開く。
+
 ## C# クラス定義 (真実の源)
 
 このフィールドは外部ライブラリ `Codeer.LowCode.Blazor.Extras` で定義されている。`FieldDesignBase` を継承し、`IDisplayName` / `ISearchResultsViewFieldDesign` / `IFillHeightFieldDesign` を実装する。

@@ -487,6 +487,24 @@ Recipe モジュールが Author（著者）への LinkField を持つ場合:
 | Updater | LinkFieldDesign | 更新者（保存時に自動セット） |
 | OptimisticLocking | OptimisticLockingFieldDesign | 楽観ロック |
 
+### OptimisticLocking（楽観ロック）の設定
+
+`OptimisticLockingFieldDesign` の重要プロパティ:
+- `DbColumn`: バージョンを保存する列名
+- `IncrementVersion`: アプリ（ソフト）側でバージョンを増やすか
+
+モードは2通り:
+
+1. **アプリ（ソフト）でインクリメント**（一般的）: `IncrementVersion: true`。保存のたびにアプリがバージョン番号を +1 する。
+   この方式は**バージョンを保存する整数列が必須**なので、`DbColumn` に列名（snake_case、例 `optimistic_locking`）を**必ず設定する**。その列は DB に追加が必要（整数型。`Create DDL` で追加できる）。
+   → 「アプリ/ソフトでインクリメント」「カラム名を入れて」と言われたら **`IncrementVersion: true` かつ `DbColumn: "optimistic_locking"`**。`DbColumn` を空にしてはいけない。
+
+2. **DB のネイティブ行バージョン**（PostgreSQL の `xmin` 等）: `IncrementVersion: false`。`DbColumn` に既存のネイティブ版管理列を指定する。新しい列の追加は不要。
+
+**よくある誤り**: 「楽観ロックは DB 非依存だから `DbColumn` は空」は**誤り**。アプリインクリメント方式では `DbColumn`（整数列）が必要。指示で `DbColumn` を求められたら必ず列名を入れること。
+
+**プロパティはこれだけ**: `OptimisticLockingFieldDesign` が持つのは `Name` / `DbColumn` / `IncrementVersion`（＋共通の `IgnoreModification` / `OnValidateInput`）のみ。**`DisplayName` や `IsRequired` などの値フィールド用プロパティは持たない**ので付けないこと（存在しないプロパティを書くとエラーになり、設定全体が適用されません）。`DisplayName` 等の共通プロパティを持つのは値フィールド（`ValueFieldDesignBase` 派生＝Text/Number/Boolean/Date/Select/Link 等）だけ。Button/Label 以外の非値フィールドに共通プロパティを付けないこと。
+
 ---
 
 ## フィールド型カタログ（用途早見）
@@ -509,6 +527,10 @@ Recipe モジュールが Author（著者）への LinkField を持つ場合:
 ### 一覧・構造系
 - ListFieldDesign(表形式一覧) / DetailListFieldDesign(明細インライン編集) / TileListFieldDesign(タイル) / ListPagingFieldDesign(ページング) / ListNumberFieldDesign(行番号) / SearchFieldDesign(検索フォーム) / ModuleFieldDesign(他モジュール埋め込み)
 
+**ListField と DetailListField の選び方（最頻出の誤り）**: 「リストを追加」「一覧で表示」「明細を表示」のような“他モジュールのレコードを並べる”依頼は、既定で **`ListFieldDesign`（表形式・列が揃った表。子モジュールの `ListLayouts` で列を描く）** を使う。`DetailListFieldDesign` は「各行を子モジュールの**詳細レイアウト（フォーム/カード）**でインライン編集する」特殊な並べ方で、明確に「各レコードを 1 枚のフォーム/カードにして並べたい」「その場でフォーム編集したい」と判断したときだけ選ぶ。
+- **参照先モジュール名に「明細」が含まれていても、それを理由に `DetailListFieldDesign` を選ばない。** 例:「リストを追加して、モジュールは請求書明細を使って」「明細を追加して、モジュールは請求書明細を使って」→ 求められているのは **`ListFieldDesign`**（請求書明細モジュールを参照する表形式一覧）。`請求書明細` は**モジュール名**であって、フィールド型の指定ではない。"DetailList" の "Detail" は「詳細レイアウトで描く」の意味で、業務用語の「明細行」ではない。
+- **迷ったら `ListFieldDesign`。**
+
 ### メニュー系（DB列なし）
 - HeaderMenuFieldDesign / SidebarMenuFieldDesign / ContextMenuFieldDesign
 
@@ -517,3 +539,24 @@ Recipe モジュールが Author（著者）への LinkField を持つ場合:
 
 ### その他
 - OptimisticLockingFieldDesign(楽観ロック) / ProCodeFieldDesign(カスタムBlazorコンポーネント)
+
+---
+
+## 型固有プロパティ早見（作成・編集時に設定する主なもの）
+
+ユーザーが「最大長」「小数桁」「複数行」「候補」等を求めたら、対応する**型固有プロパティを必ず設定する**こと（共通基底の DisplayName / IsRequired 等は [_FieldCommon] 参照）。現在 null のプロパティでも、その型に存在するものは設定してよい。
+
+| 型 | 主な型固有プロパティ |
+|---|---|
+| TextFieldDesign | `MaxLength`(最大長, int?) / `IsMultiline`(複数行, bool) / `Rows`(複数行の行数, int?) / `Placeholder`(プレースホルダ) |
+| NumberFieldDesign | `MaxFractionDigits`(小数桁数, int?。「小数2桁」なら 2) / `Max`(最大値, decimal?) / `IsSlider`(スライダ) / `Format`(書式) |
+| DateFieldDesign / DateTimeFieldDesign / TimeFieldDesign | `SaveAsUtc`(UTC保存, bool。CreatedAt/UpdatedAt 等は true) |
+| SelectFieldDesign | `Candidates`(List<string>。**`"表示,値"` の順**。例 `"有効,1"`) ※ または SearchCondition + ValueVariable + DisplayTextVariable |
+| RadioGroupFieldDesign + RadioButtonFieldDesign | RadioButton 側に `GroupField`(= RadioGroup の Name) / `Text`(表示) / `Value`(値) を設定 |
+| LinkFieldDesign | `SearchCondition.ModuleName`(参照先モジュール) / `ValueVariable`(値の変数) / `DisplayTextVariable`(表示の変数) |
+| FileFieldDesign | `DbColumnFileGuid` / `DbColumnFileName` / `DbColumnFileSize`（3列。単一の DbColumn ではない） |
+| AnchorTagFieldDesign | `Target`(遷移種別) / `Url` / `Module` / `Icon` / `TitleText` |
+| ButtonFieldDesign | `OnClick`(スクリプト) / `Label` |
+| OptimisticLockingFieldDesign | `DbColumn` / `IncrementVersion`（[システムフィールド] の楽観ロック参照） |
+
+詳細プロパティは各型の定義に従う。ここに無い型固有プロパティも、現在のモジュール設定JSON（null 含む全プロパティが見える）から名前を確認して設定できる。

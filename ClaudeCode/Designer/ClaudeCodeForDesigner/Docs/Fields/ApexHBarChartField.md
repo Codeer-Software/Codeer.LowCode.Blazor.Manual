@@ -8,6 +8,8 @@
 
 縦棒・折れ線・面・散布・ヒートマップ等の混在チャートには [ApexChartField.md](ApexChartField.md)、円グラフ・ドーナツチャート等の円形系には [ApexRadialChartField.md](ApexRadialChartField.md) を使う。このフィールドは**横棒に特化**しており、`ApexChartField` のような系列ごとのチャートタイプ切り替えやグリッド線の設定オプションは持たない。
 
+> ダッシュボードの組み方は [../AppPatterns/visualization_dashboard.md](../AppPatterns/visualization_dashboard.md)。`CategoryField` / `Series[].Name` は `SearchCondition.ModuleName` のモジュールの**フィールド `Name`**（DB列名でない）を指す。集計は GROUP BY した QueryField モジュールをデータ元にする。
+
 ## C# クラス定義 (真実の源)
 
 このフィールドは外部ライブラリ `Codeer.LowCode.Bindings.Blazor-ApexCharts` で定義されているため、`Codeer.LowCode.Blazor` リポジトリ内に C# 定義は存在しない。`ApexChartFieldDesignBase` を継承し、`SeriesType` と `Series` のみを固有プロパティとして持つ。

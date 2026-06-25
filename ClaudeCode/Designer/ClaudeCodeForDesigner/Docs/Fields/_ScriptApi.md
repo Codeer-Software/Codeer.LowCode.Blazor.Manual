@@ -92,8 +92,8 @@ if (!Name.IsValid)
 
 | メソッド | 戻り値 | 説明 |
 |---|---|---|
-| `Submit()` | void | 現在のデータをDB保存する |
-| `Submit(List<Module> simultaneousWriteModules)` | void | 複数モジュールを同時保存 |
+| `Submit()` | bool? | 現在のデータをDB保存する。戻り値は `true`=保存成功 / `false`=バリデーション等で中断 / `null`=確認ダイアログでキャンセル。**必ず戻り値で成否分岐すること**（保存できていないのに後続処理を続けない） |
+| `Submit(List<Module> simultaneousWriteModules)` | bool? | `this`（自モジュール）と引数リストの全モジュールを**1トランザクションで同時保存**する。戻り値は `Submit()` と同じ `bool?`。`this` も一緒に保存されるので、`this` を引数リストに入れる必要はない。失敗時は全ロールバック。他モジュールのレコードを生成・更新して一括保存するときに使う（後述の「他モジュールの生成・更新と同時保存」参照） |
 | `Delete()` | void | レコードを削除する |
 | `Reload()` | void | DBからデータを再読み込みする |
 | `NewModule()` | void | 新規レコードモードにする |

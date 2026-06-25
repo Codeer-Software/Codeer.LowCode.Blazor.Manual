@@ -8,6 +8,8 @@
 
 棒グラフ・折れ線グラフ・散布図等には [ApexChartField.md](ApexChartField.md) を使用する。
 
+> ダッシュボードの組み方は [../AppPatterns/visualization_dashboard.md](../AppPatterns/visualization_dashboard.md)。このフィールドは系列配列ではなく **`CategoryField`＋`SeriesField`（単数の数値フィールド `Name`）** で構成する。`CategoryField`/`SeriesField` は `SearchCondition.ModuleName` のモジュールの**フィールド `Name`**（DB列名でない）を指し、集計は GROUP BY した QueryField モジュールをデータ元にする。
+
 ## C# クラス定義 (真実の源)
 
 このフィールドは外部ライブラリ `Codeer.LowCode.Bindings.Blazor-ApexCharts` で定義されているため、`Codeer.LowCode.Blazor` リポジトリ内に C# 定義は存在しない。プロパティ仕様は本ドキュメントの表とライブラリの NuGet パッケージのソースを参照。

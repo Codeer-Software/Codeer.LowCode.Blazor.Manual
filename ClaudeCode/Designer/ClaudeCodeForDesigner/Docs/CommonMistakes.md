@@ -1180,15 +1180,15 @@ public bool CanDelete { get; set; } = true;   // デフォルト true
 - 削除ボタン → `UPDATE table SET logical_delete = 1 WHERE Id = ?`
 - 一覧表示で `LogicalDelete = false` のみフィルタ (CLB のデフォルト挙動)
 
-**他のシステム予約名 (`SystemFieldNames.cs`):**
-- `Id` - 主キー
-- `LogicalDelete` - 論理削除フラグ (Boolean)
-- `CreatedAt` / `UpdatedAt` - 作成・更新時刻 (自動)
-- `Creator` / `Updater` - 作成者・更新者 (要認証)
-- `OptimisticLocking` - 楽観ロック (= OptimisticLockingFieldDesign)
-- `CurrentUser` - スクリプトで現在ユーザー参照
+**他のシステム予約名と使うフィールド型 (`SystemFieldNames.cs`):**
+- `Id` - 主キー … `IdFieldDesign`
+- `LogicalDelete` - 論理削除フラグ … `BooleanFieldDesign`
+- `CreatedAt` / `UpdatedAt` - 作成・更新時刻 (自動セット) … **`DateTimeFieldDesign`**
+- `Creator` / `Updater` - 作成者・更新者 (要認証・自動セット) … **`LinkFieldDesign`**（`AppUser` を参照。`ValueVariable:"Id.Value"` / `DisplayTextVariable:"表示名.Value"`。DB列は `creator` / `updater` の INTEGER）
+- `OptimisticLocking` - 楽観ロック … `OptimisticLockingFieldDesign`
+- `CurrentUser` - スクリプトで現在ユーザー参照（フィールドではない）
 
-詳細は `Source/Codeer.LowCode.Blazor/DesignLogic/SystemFieldNames.cs` 参照。
+これら（`CreatedAt`/`UpdatedAt`/`Creator`/`Updater` 等）は **Fields に定義は必須だが UI（ListLayout/DetailLayout）の編集欄には出さない**（自動セットされる）。型と動作の対応表・実例は [AppPatterns/system_fields.md](AppPatterns/system_fields.md)、詳細は `Source/Codeer.LowCode.Blazor/DesignLogic/SystemFieldNames.cs` 参照。
 
 **論理削除フラグを管理画面で見たい場合の回避策:**
 

@@ -237,6 +237,26 @@ public class ListValue<T>     : MultiTypeValue { public List<T>?  Value { get; s
 }
 ```
 
+#### 現在のログインユーザーで絞り込む（データ権限の行レベルセキュリティ）
+
+`Variable` に **`CurrentUser.<フィールド名>.Value`** を指定すると、**現在ログインしているユーザー**の値を参照できる。
+データ権限（DataReadCondition / DataWriteCondition）で「自分が作成したデータだけ読める/書ける」のような行レベルセキュリティを実現する定番。
+
+- 現在ユーザーの主キー（Id）は `CurrentUser.Id.Value`。AppUser モジュールの任意フィールドも `CurrentUser.<フィールド名>.Value` で参照可。
+- **誤り例**: 「作成者＝ログインユーザー」を `Variable: "Creator.Value"`（＝自分自身と比較）にしてはいけない。比較相手の現在ユーザーは必ず `CurrentUser....` で表す。
+
+```jsonc
+// 例: DataReadCondition「作成者(Creator)が現在のログインユーザーのデータだけ表示」
+{
+  "SearchTargetVariable": "Creator.Value",
+  "Comparison": "Equal",
+  "Variable": "CurrentUser.Id.Value",
+  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.FieldVariableMatchCondition"
+}
+```
+
+(ユーザー権限 UserReadCondition / UserWriteCondition でロール等を見る場合は、`FieldValueMatchConditionNonNull` で現在ユーザーのフィールドを固定値と比較する。例: `SearchTargetVariable: "Role.Value"` == `"admin"`。)
+
 ### 4. FieldValueMatchConditionNonNull - Null除外付きフィールドと固定値の比較
 
 FieldValueMatchCondition と同じだが、Null値を除外した上で比較する。
