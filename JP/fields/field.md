@@ -26,6 +26,8 @@
 | **Updater** | Link | 更新者（CurrentUserModule 設定時） |
 | **OptimisticLocking** | OptimisticLocking | 楽観ロック |
 
+> このほか、削除時にレコードを別テーブルへ退避してから物理削除する予約名 **DeleteArchive** の System Field があります。詳細は [DeleteArchive](DeleteArchive.md) を参照。
+
 ---
 
 ## DB Field — DB のカラムから自動生成
@@ -111,6 +113,7 @@ Module に Data Source を設定すると、ツールボックスに「DB フィ
 |---|---|
 | [ProCode](ProCode.md) | 独自の Blazor コンポーネントを埋め込み |
 | [OptimisticLocking](OptimisticLocking.md) | 楽観ロック（System Field） |
+| [DeleteArchive](DeleteArchive.md) | 削除時にレコードを退避テーブルへ移す（System Field） |
 
 ### DB 系（データベースセクション参照）
 
