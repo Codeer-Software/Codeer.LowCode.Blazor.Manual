@@ -35,10 +35,10 @@ namespace LowCodeSamples.Client.Shared.Services
              => await ExecuteReturnHttpResponseMessage(async () => await _http.PostAsync(url, data), loading);
 
         public async Task<bool> PostAsJsonAsync<TValue>(string url, TValue data, bool loading = true)
-             => await ExecuteReturnBool(async () => await _http.PostAsJsonAsync(url, data, CreateJsonOption()), loading);
+             => await ExecuteReturnBool(async () => await _http.PostAsJsonAsync(url, data, _jsonOptions), loading);
 
         public async Task<TResult?> PostAsJsonAsync<TValue, TResult>(string url, TValue data, bool loading = true) where TResult : class
-             => await ExecuteReturnJson<TResult>(async () => await _http.PostAsJsonAsync(url, data, CreateJsonOption()), loading);
+             => await ExecuteReturnJson<TResult>(async () => await _http.PostAsJsonAsync(url, data, _jsonOptions), loading);
 
         public async Task<TResult?> PostContentAsJsonAsync<TResult>(string requestUri, HttpContent? content, bool loading = true) where TResult : class
              => await ExecuteReturnJson<TResult>(async () => await _http.PostAsync(requestUri, content), loading);
@@ -47,7 +47,7 @@ namespace LowCodeSamples.Client.Shared.Services
              => await ExecuteReturnHttpResponseMessage(async () => await _http.PostAsync(requestUri, content), loading);
 
         public async Task<HttpResponseMessage?> PostAsJsonReturnHttpResponseAsync<TValue>(string url, TValue data, bool loading = true)
-             => await ExecuteReturnHttpResponseMessage(async () => await _http.PostAsJsonAsync(url, data, CreateJsonOption()), loading);
+             => await ExecuteReturnHttpResponseMessage(async () => await _http.PostAsJsonAsync(url, data, _jsonOptions), loading);
 
         public async Task<HttpResponseMessage?> PutAsync(string url, HttpContent data, bool loading = true)
              => await ExecuteReturnHttpResponseMessage(async () => await _http.PutAsync(url, data), loading);
@@ -64,7 +64,7 @@ namespace LowCodeSamples.Client.Shared.Services
             var response = await ExecuteReturnHttpResponseMessage(a, loading);
             try
             {
-                return response == null ? null : await response.Content.ReadFromJsonAsync<T>(CreateJsonOption());
+                return response == null ? null : await response.Content.ReadFromJsonAsync<T>(_jsonOptions);
             }
             catch (Exception e)
             {
@@ -123,6 +123,7 @@ namespace LowCodeSamples.Client.Shared.Services
             return false;
         }
 
+        static readonly JsonSerializerOptions _jsonOptions = CreateJsonOption();
         static JsonSerializerOptions CreateJsonOption()
         {
             var options = new JsonSerializerOptions(JsonSerializerDefaults.Web);

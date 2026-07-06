@@ -32,8 +32,9 @@ namespace LowCodeSamples.Server.Controllers
         [HttpGet("design")]
         public async Task<IActionResult> GetDesignData()
         {
+            await LicenseService.UpdateAsync(Request);
             await _dataService.ModuleDataIO.CheckAppAuthorization();
-            return File(DesignerService.GetDesignDataForFront(await _dataService.ModuleDataIO.GetCurrentUser()), "application/octet-stream");
+            return this.FileWithETag(DesignerService.GetDesignDataForFront(await _dataService.ModuleDataIO.GetCurrentUser()), "application/octet-stream");
         }
 
         [HttpPost("list")]
@@ -50,7 +51,7 @@ namespace LowCodeSamples.Server.Controllers
         [HttpPost]
         public async Task<List<ModuleSubmitResult>> SubmitAsync(List<ModuleSubmitData>? data)
         {
-            if (!SystemConfig.Instance.CanUpdate) throw new Exception("ƒfƒ‚—p‚Ì‚½‚ßƒf[ƒ^‚ÌXV‚Í‚Å‚«‚Ü‚¹‚ñ");
+            if (!SystemConfig.Instance.CanUpdate) throw new Exception("ï¿½fï¿½ï¿½ï¿½pï¿½Ì‚ï¿½ï¿½ßƒfï¿½[ï¿½^ï¿½ÌXï¿½Vï¿½Í‚Å‚ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½");
             return await _dataService.ModuleDataIO.SubmitWithTransactionAsync(data!);
         }
 
@@ -61,7 +62,7 @@ namespace LowCodeSamples.Server.Controllers
         [HttpPost("excel_upload")]
         public async Task<List<ModuleSubmitResult>> ExcelUploadFileAsync(string? moduleName)
         {
-            if (!SystemConfig.Instance.CanUpdate) throw new Exception("ƒfƒ‚—p‚Ì‚½‚ßƒf[ƒ^‚ÌXV‚Í‚Å‚«‚Ü‚¹‚ñ");
+            if (!SystemConfig.Instance.CanUpdate) throw new Exception("ï¿½fï¿½ï¿½ï¿½pï¿½Ì‚ï¿½ï¿½ßƒfï¿½[ï¿½^ï¿½ÌXï¿½Vï¿½Í‚Å‚ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½");
             var texts = await ExcelUtils.ReadAllTextsFromExcelBinary(Request.Body);
             if (500 < texts.Count) throw LowCodeException.Create("Excel has a maximum of 500 rows");
             return await _dataService.ModuleDataIO.SubmitWithTransactionByTableTextsAsync(moduleName, texts);
@@ -71,7 +72,7 @@ namespace LowCodeSamples.Server.Controllers
         public IActionResult GetResourceAsync(string? resource)
         {
             var mem = DesignerService.GetResource(resource ?? string.Empty);
-            return mem == null ? Ok() : File(mem, "application/octet-stream");
+            return mem == null ? Ok() : this.FileWithETag(mem.ToArray(), "application/octet-stream");
         }
 
         [HttpGet("download")]
@@ -85,7 +86,7 @@ namespace LowCodeSamples.Server.Controllers
         [HttpPost("upload")]
         public async Task<Codeer.LowCode.Blazor.DataIO.FileInfo> UploadFileAsync(string? moduleName, string? fieldName, string? fileName)
         {
-            if (!SystemConfig.Instance.CanUpdate) throw new Exception("ƒfƒ‚—p‚Ì‚½‚ßƒf[ƒ^‚ÌXV‚Í‚Å‚«‚Ü‚¹‚ñ");
+            if (!SystemConfig.Instance.CanUpdate) throw new Exception("ï¿½fï¿½ï¿½ï¿½pï¿½Ì‚ï¿½ï¿½ßƒfï¿½[ï¿½^ï¿½ÌXï¿½Vï¿½Í‚Å‚ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½");
             var info = _dataService.ModuleDataIO.FileFieldDataIO.GetFileSaveInfo(moduleName ?? string.Empty, fieldName ?? string.Empty);
             return await _dataService.TemporaryFileManager.AddFileAsync(info, fileName, Request.Body);
         }

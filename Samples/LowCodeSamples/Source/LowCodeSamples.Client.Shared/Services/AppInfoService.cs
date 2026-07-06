@@ -63,21 +63,29 @@ namespace LowCodeSamples.Client.Shared.Services
         {
             using var scope = _loadingService.StartLoading(int.MaxValue);
 
-            await InitializeHotReloadAsync();
             if (_design != null) return;
 
-            _design = DesignDataTransferLogic.ToDesignData(await _http.GetFromStreamAsync($"/api/module_data/design"));
+            //設定取得(+開発時のホットリロード接続)はデザインデータと独立なので並列に走らせる
+            var hotReloadTask = InitializeHotReloadAsync();
+
+            using var designDataStream = await _http.GetFromStreamAsync($"/api/module_data/design");
+            _design = DesignDataTransferLogic.ToDesignData(designDataStream);
+
             var currentUserModule = _design.Modules.Find(_design.AppSettings.CurrentUserModuleDesignName);
-            if (currentUserModule == null || string.IsNullOrEmpty(CurrentUserId)) return;
-            var currentUserRequest = new GetListRequest
+            if (currentUserModule != null && !string.IsNullOrEmpty(CurrentUserId))
             {
-                Condition = new()
+                var currentUserRequest = new GetListRequest
                 {
-                    ModuleName = currentUserModule.Name,
-                    Condition = new FieldValueMatchCondition { SearchTargetVariable = "Id.Value", Comparison = MatchComparison.Equal, Value = MultiTypeValue.Create(CurrentUserId) }
-                }
-            };
-            CurrentUserData = (await ModuleDataService.GetListAsync(_http, [currentUserRequest]))?.FirstOrDefault()?.Items.FirstOrDefault();
+                    Condition = new()
+                    {
+                        ModuleName = currentUserModule.Name,
+                        Condition = new FieldValueMatchCondition { SearchTargetVariable = "Id.Value", Comparison = MatchComparison.Equal, Value = MultiTypeValue.Create(CurrentUserId) }
+                    }
+                };
+                CurrentUserData = (await ModuleDataService.GetListAsync(_http, [currentUserRequest]))?.FirstOrDefault()?.Items.FirstOrDefault();
+            }
+
+            await hotReloadTask;
         }
 
         public ScriptRuntimeTypeManager GetScriptRuntimeTypeManager()
