@@ -59,6 +59,16 @@ soft_delete_items
 - サイドバー **`削除監査`** → `AuditDeleteItem` (一般画面、`Deleter` + `DeletedAt` で削除者・時刻を自動記録)
 - 管理画面 (`AdminFrame`) サイドバー **`削除監査 (管理)`** → `AuditDeleteItemAdmin` (削除済の「いつ・誰が」を表示)
 
+## 別方式: 退避テーブルへ移してから物理削除する (DeleteArchive)
+
+行を残す論理削除ではなく、**削除時に別テーブルへコピーしてから元テーブルから物理削除する**方式もある。`DeleteArchiveFieldDesign` を Module に 1 つ置くと削除操作がこの動作に切り替わる。元テーブルを「生きているデータだけ」に保ちたい (肥大化を避けたい) ときに使う。
+
+- フィールド名は必ず予約名 **`DeleteArchive`** にする (`LogicalDelete` と同じく、この綴りでないと退避動作が発火しない)
+- 退避先テーブルは元テーブルと同じ列 + 任意の削除日時・削除者列で用意する
+- **論理削除 (`LogicalDelete` / `DeletedAt` / `Deleter`) とは併用不可** — 併存させると designcheck がエラーにする。どちらか一方を選ぶ
+
+プロパティ・JSON 例・designcheck が見る項目は [DeleteArchiveField](temporary/_field_catalog.md) を参照。
+
 ## 落とし穴
 
 - フィールド名は必ず `LogicalDelete` の綴り。`IsDeleted` 等の任意名だと CLB の自動動作が効かない

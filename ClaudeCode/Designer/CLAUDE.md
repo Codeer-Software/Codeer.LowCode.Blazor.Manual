@@ -4,7 +4,7 @@
 
 ## まず読むもの（デザイン作業の前に必ず）
 
-- **`./ClaudeCodeForDesigner/CLAUDE.md`** — デザインファイル作成の詳細指示書（CLB の仕様・フィールド・レイアウト・designcheck / sql CLI・Defaults・規約）。**着手前に通読する**。`./ClaudeCodeForDesigner/Docs/` 各リファレンスの索引も兼ねる
+- **`./ClaudeCodeForDesigner/CLAUDE.md`** — デザインファイル作成の詳細指示書（CLB の仕様・フィールド・レイアウト・designcheck / sql / rename CLI・Defaults・規約）。**着手前に通読する**。`./ClaudeCodeForDesigner/Docs/` 各リファレンスの索引も兼ねる
 - **`./Project.md`** — このプロジェクト固有のルール（接続先 DB・命名・業務ルール・既存資産）。**絶対に守る**
 
 下の「作業の進め方」はこのワークスペースで**常に効く運用ルール**。デザインの中身の作り方は `ClaudeCodeForDesigner/` を見る。
@@ -13,7 +13,9 @@
 
 ### 1. 外部ツールは「セットアップは一度・以後は確認なし」
 - **デザイナ exe を起動中プロセスから勝手に特定して即実行しない。** 初回に、使う exe のパスを**ユーザーと確定**する（候補が複数あれば列挙して選ばせる）。確定したパスは `.claude/settings.local.json`（マシン固有・`settings.local.json.sample` を複製して記入）に登録する
-- 登録後は **`designcheck` / `sql` を確認なしで実行してよい**。どの DB に SQL を流せるかは、各データソースの `designer.settings.json` の **`AllowCliSqlAccess`**（ユーザーが設定済み）が決める。`false` のデータソースには CLI からそもそも実行できないので、これが安全境界
+- 登録後は **`designcheck` / `sql` / `rename-*`（rename-field / rename-module / rename-pageframe / rename-layout / 一括の rename-batch）を確認なしで実行してよい**。どの DB に SQL を流せるかは、各データソースの `designer.settings.json` の **`AllowCliSqlAccess`**（ユーザーが設定済み）が決める。`false` のデータソースには CLI からそもそも実行できないので、これが安全境界。`rename-*` は DB 接続せずデザインファイル内で完結する（詳細は `./ClaudeCodeForDesigner/CLAUDE.md`「リネーム CLI」）
+- **`designer.settings.Development.json` は基本読まない・書かない（許可制）。** 接続文字列・デプロイ設定（秘密情報）の置き場で、デザイン作業でこの中身が必要になることは無い — データソースの名前と種別は `designer.settings.json`（秘密なし）にあり、DB のスキーマ・データ確認は `sql` / `designcheck` CLI が接続文字列を内部で解決してくれる。扱うのはユーザーが明示的に依頼したときだけ（`.claude/settings.json` の ask 設定で確認が出る）。**その場合も、許可を求める前に「このファイルの内容（接続文字列やパスワード）は読むと LLM への送信と会話ログへの記録が発生する」ことを一言伝え、リスクを了解したうえで承認してもらう**。データソースやデプロイ設定の追加は、デザイナのソリューションツリーで設定ファイルを右クリック（「データソースの追加」等）からもできるので、そちらを案内するのも良い
+- **CLI サブコマンドが未対応のとき（古いデザイナ）**: 未知のサブコマンドを渡すと GUI が起動してしまい `--out` が生成されないことがある。`--out` の JSON が出来ていない／ウィンドウが開いた場合は「その版が未対応」と判断し、**別の方法で一旦対処したうえでユーザーにデザイナのバージョンアップを促す**（詳細は `./ClaudeCodeForDesigner/CLAUDE.md`「インストール済みデザイナが CLI サブコマンドに未対応のとき」）
 - **動作確認のサーバ URL は、ブラウザ確認に着手する時点で必ずユーザーに聞く**（毎回これで良いか確認）。依存の導入（Playwright 等）や `.claude` の許可追加も、勝手に広げずユーザーに諮る
 
 ### 2. ツールの使い方（許可ブロック・エラーを増やさない）

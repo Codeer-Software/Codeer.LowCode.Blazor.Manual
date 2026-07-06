@@ -26,6 +26,7 @@ Claude Code を活用することで、自然言語の指示からアプリケ�
    - モジュール一式は [Samples/PatternShowcase/App/Modules/](Samples/PatternShowcase/App/Modules/) の近いモジュールを正典として複製し、差分だけ直す。
 4. **designcheck の緑は「読み込める」までの保証**。0 件表示・編集可能なシステム項目・桁区切りが効かない等の挙動バグは別途、画面（ブラウザ）で確認して潰す（[Docs/BrowserTestGuide.md](Docs/BrowserTestGuide.md)）。
 5. **DB を触るときは SQL 実行 CLI**（後述）。テーブル作成（DDL）・テストデータ投入・中身の確認（件数 / 列 / 親子の紐付け）は、自前で DB に接続せず `sql` サブコマンドで行う。
+6. **フィールド／モジュール／ページフレーム／レイアウトの名前を変えるときはリネーム CLI**（後述）。手作業のテキスト置換で参照を追うと**必ず漏れる**（スクリプト・リンク越しの参照・他モジュールからの参照など）。`rename-*` サブコマンドはデザイナ GUI と同じリファクタリングで全参照を一括追従させるので、リネームは原則これで行う。
 
 ## Codeer.LowCode.Blazor とは
 
@@ -150,6 +151,127 @@ DDL (CREATE / ALTER / DROP) は実行されるが `recordsAffected` は `-1` か
 
 `designcheck` と同じ (上記「デザイナ exe のパスの調べ方」を参照)。GUI 起動中でも別プロセスで実行して問題ない。
 
+## リネーム CLI (フィールド / モジュール / ページフレーム / レイアウトの名前変更)
+
+フィールド・モジュール・ページフレーム・レイアウトの名前を変えるときは、**手作業で JSON をテキスト置換しない**。参照は JSON のプロパティだけでなく、スクリプト (C# 構文解析が必要)・リンク越しの参照 (`○○Link.対象名`)・他モジュールの条件/レイアウトなど広範に散在し、テキスト置換では**必ず取りこぼす／別物まで巻き込む**。
+
+**デザイナ exe の headless リネームモード**を使う。デザイナ GUI と同じリファクタリングロジックで全参照を一括追従させ、`.sql`/スクリプト/CSS などのサイドカーファイルやデザインファイル自体の改名も行う。`designcheck` と同じ exe・同じ headless 経路で、**DB 接続は不要**。
+
+### 実行方法
+
+```
+"<デザイナexeのパス>" rename-field     "<プロジェクトのルートフォルダ>" --module <モジュール名> --from <旧名> --to <新名> --out "<結果JSON>"
+"<デザイナexeのパス>" rename-module    "<プロジェクトのルートフォルダ>" --from <旧名> --to <新名> --out "<結果JSON>"
+"<デザイナexeのパス>" rename-pageframe "<プロジェクトのルートフォルダ>" --from <旧名> --to <新名> --out "<結果JSON>"
+"<デザイナexeのパス>" rename-layout    "<プロジェクトのルートフォルダ>" --module <モジュール名> --layout-type <Detail|List|Search> --from <旧名> --to <新名> --out "<結果JSON>"
+```
+
+- 第2引数 … `app.clprj` があるプロジェクトのルートフォルダ
+- `--module` … 対象モジュール名 (`rename-field` / `rename-layout` で必須)
+- `--layout-type` … `Detail` / `List` / `Search` (`rename-layout` で必須)
+- `--from` / `--to` … 旧名 / 新名
+- `--out` … 結果 JSON の出力先 (UTF-8)。省略時は標準出力
+- **終了コード**: `0` = 成功 / `2` = 失敗 (対象が見つからない・新名が重複・引数不正・例外)
+
+### 何をやってくれるか
+
+- **参照の追従（大半）** — レイアウトの `FieldName`・各種条件 (UserRead/Write 等)・スクリプト・`LinkField`/`ModuleField`/`SelectField`・他モジュールからの直接参照・ページフレームなどを横断して張り替える
+- **サイドカー / ファイル自体の改名**:
+  - `rename-field`: Query/ExecuteSql フィールドなら `{module}.{field}.sql` も改名
+  - `rename-module`: `{module}.mod.json` 本体・`.mod.cs` (スクリプト)・配下の `.sql` サイドカーを改名
+  - `rename-pageframe`: `{pageFrame}.frm.json` 本体・`{pageFrame}.css` サイドカーを改名
+  - `rename-layout`: レイアウト辞書のキー (レイアウト名) を張り替え
+- **表示テキストは対象外** — フィールド一覧列の `Label`・`DisplayName`・ボタンの `Text`・`LabelField` の `Text` など、画面に出る**表示キャプションは（参照ではなく文言なので）変更しない**。「業務用語に合わせてリネーム」のような依頼では、フィールド名を変えても旧語のキャプションが画面に残る。表示も揃えたい場合は、リネーム後にこれら表示テキストを別途手で直す（designcheck では壊れないので検出されない）。
+
+### 追従しきれない参照がある → designcheck→手修正 まで必ずワンセット (重要)
+
+リネームは手作業より遥かに漏れが少ないが、**万能ではない**。特に **リンクフィールド越しの参照は追従しないことがある**。例えばフィールド `商品.品名` を `Name` に変えても、別モジュールのスクリプト/並べ替え条件にある **`商品コードLink.品名`（`商品` を指すリンクを辿って `品名` を参照する形）は旧名のまま残る**（対象フィールドを直接指す参照ではなく、リンク経由で辿る参照のため）。
+
+そのため **リネーム後は必ず `designcheck` を実行し、旧名を指す宙吊り参照を手で直すところまでを 1 セット**にする。designcheck はこれらを「`○○.品名 存在しない識別子です`」等として確実に検出する（＝黙って壊れることはない）。手順:
+
+1. `rename-*` / `rename-batch` を実行
+2. `designcheck` を実行し、findings を見る（DB テーブル未作成系のノイズは除く）
+3. 旧名を指す残存参照（スクリプトの `link.旧名`、条件の変数など）を手修正する。**探すときの正典は designcheck の findings**（`○○.旧名 存在しない識別子です` が場所を正確に指す）。grep で旧名を探すのは補助にとどめる — 特に**日本語のフィールド名は部分一致で誤検知だらけになる**（旧名 `品名` は新名 `商品名` の部分文字列、`単価` は `仕入単価`/`標準単価` の部分文字列）。素朴に `品名`/`単価` で grep すると新名・別モジュールの同名別フィールドまで大量にヒットして判定できない。grep するなら `商品コードLink.品名` のような**「参照の形」で絞り込み**、残す/直すの最終判断は designcheck に置く
+4. 再度 `designcheck` して旧名由来の findings が 0 になるまで繰り返す
+
+> 補足: 実行後は `--out` の JSON を読み、`error` が無いこと・終了コード 0 を確認する。`renamed` フィールドは「対象自身以外にも変更が波及したか」の目安で、`false` でもリネーム自体は成功している (対象モジュール内で完結した場合)。**成否の最終判断は上の designcheck 手修正まで込みで行う。**
+
+### 大量に一気にリネームするとき (rename-batch)
+
+「英語の名前を全部日本語にする」のように**多数のリネームを一度に**行うときは、単体 verb を件数分呼ぶのではなく **`rename-batch`** を使う。単体 verb は 1 回ごとに全デザインの再読込 (+DB スキーマ取得) が走るため、件数に比例して遅くなる (実測: 10 件で連続呼び出し 約14秒 → 一括 約2秒)。`rename-batch` は**プロジェクト読込 1 回**で全 op を順に適用する。
+
+```
+"<デザイナexeのパス>" rename-batch "<プロジェクトのルートフォルダ>" --file "<ops.json>" --out "<結果JSON>"
+```
+
+`ops.json` は次の形の配列。各 op は単体 verb と同じ処理をする:
+
+```json
+[
+  { "type": "module",    "from": "Product", "to": "商品" },
+  { "type": "field",     "module": "商品", "from": "Name", "to": "品名" },
+  { "type": "pageframe", "from": "Main", "to": "メイン" },
+  { "type": "layout",    "module": "商品", "layoutType": "Detail", "from": "card", "to": "カード" }
+]
+```
+
+- **順序が重要**: 上から順に適用される。モジュール名を変える op は、その**新しい名前**で field/layout を指す op より**前**に置く (例: 先に `Product→商品`、その後 `{"type":"field","module":"商品",...}`)。`field`/`layout` の `module` は「その時点での現在名」。
+- **途中失敗で停止**: いずれかの op が失敗するとそこで止まる。**それまでの op はディスクに保存済み** (トランザクションではない) なので、`--out` の `results[]` でどこまで適用されたかを確認し、原因を直してから残りを再実行する。
+- 終了コード: `0` = 全 op 成功 / `2` = 失敗あり。`--out` の `results[]` に op ごとの `ok` / `renamed` / `error`。
+- 少数 (数件) なら単体 verb でよい。**「全部◯◯にして」系はこの一括を使う。**
+
+### デザイナ exe のパス
+
+`designcheck` と同じ (上記「デザイナ exe のパスの調べ方」を参照)。
+
+## インストール済みデザイナが CLI サブコマンドに未対応のとき (バージョンアップを促す)
+
+CLI サブコマンドは今後も増えていく。**古いデザイナ exe には、まだそのサブコマンドが無い**ことがある。未対応の exe に未知のサブコマンドを渡すと、headless として認識されず**GUI ウィンドウが起動してしまう**ことがある (エラーで即終了せず、`--out` の JSON も作られない)。
+
+そのため、CLI 実行後は必ず次で成否を判定する:
+
+- `--out` に指定した JSON が**生成され**、`error` が無く、終了コードが期待どおり (`designcheck`=0/1、その他=0) か
+- 生成されない / デザイナのウィンドウが開いた / 応答しない ときは、**その版が当該サブコマンド未対応**と判断する
+
+未対応と判断したら:
+
+1. **その場は別の方法で一旦対処する** (例: リネームなら手作業のテキスト置換を慎重に行い designcheck で検証する / チェックならブラウザ確認に切り替える 等)。ただし代替手段は取りこぼしの多い次善策である旨を明示する
+2. **ユーザーにデザイナのバージョンアップを促す** — 「この操作は新しいデザイナの `<サブコマンド名>` を使うのが正式な方法です。お使いのデザイナが未対応のようなので、最新版に更新してください」と伝える。恒久対応はバージョンアップ後に正式 CLI で行う
+
+## フィールド型カタログ CLI (field-catalog) — このプロジェクトで使える全フィールド型
+
+`Docs/Fields/` の各 `.md` は「読み物としての解説」だが、**実際にこのプロジェクトで使えるフィールド型の正確な一覧 (組み込み + このプロジェクトに追加された独自フィールド) は、デザイナ exe から動的に取得する**。独自フィールド (ProCode / 拡張ライブラリ) は `Docs/Fields/` に載っていないため、独自フィールドを含むプロジェクトでは特にこのカタログが真実の源になる。
+
+### 実行方法
+
+```
+"<デザイナexeのパス>" field-catalog "<プロジェクトのルートフォルダ>" --out "temporary/_field_catalog.md"
+```
+
+- `field-catalog` … サブコマンド。プロジェクトを開いて (独自フィールドのアセンブリを読み込み)、全フィールド型の TypeFullName・プロパティ・既定値・候補・登録ドキュメント (`## Design` / `## Script` / `## CSS`) を Markdown で出力する
+- **DB 接続は不要** (reflection ベース。開けなくても組み込み型は出力される)
+- 終了コード: `0` = 成功 / `2` = 失敗
+
+### 出力先
+
+**出力先は `temporary/`（作業物置き場）**。`temporary/_field_catalog.md` は毎回作り直す**生成物**で、gitignore 済み（`ClaudeCodeForDesigner/` 配下には置かない＝配布ドキュメントに差分ノイズを出さない）。
+
+### 自動再生成（ビルド検知）
+
+`.claude/settings.local.json`（`settings.local.json.sample` を複製して exe パスを記入）の **SessionStart / UserPromptSubmit フック**が `.claude/refresh-field-catalog.ps1` を呼び、次の仕組みで**必要なときだけ**カタログを作り直す:
+
+- デザイナ exe は独自フィールドライブラリを参照してビルドされるため、フィールドの追加/削除は**再ビルド = exe と同フォルダ DLL のタイムスタンプ更新**として現れる。
+- スクリプトはそのタイムスタンプ最大値を `temporary/_field_catalog.stamp` に記録し、**前回と同じならスキップ・変化していれば全取得**する。全取得は `--out` の全体上書き（＝全置換）なので、**削除されたフィールドも消える**。
+- これでセッション途中に ProCode / 拡張ライブラリ（Extras / Bindings）を再ビルド・追加しても、**次のプロンプトで自動的に最新化**される（再生成は DB 接続不要・リフレクションのみで一瞬）。
+
+**それでもカタログに無い型を使おうとしている等、古い疑いがあれば手動で作り直してよい**（`field-catalog` は許可リスト済みで確認不要）:
+
+```
+"<デザイナexeのパス>" field-catalog "<プロジェクトのルートフォルダ>" --out "temporary/_field_catalog.md"
+```
+
+> フィールド型を使うときは、まず `temporary/_field_catalog.md`（このプロジェクトで実際に使える型の一覧・構造）を確認し、解説が必要なら `Docs/Fields/` を読む。独自フィールドは `Docs/Fields/` に無いのでカタログが唯一の情報源になる。
+
 ## 詳細リファレンス (Docs/)
 
 各設定の詳細なプロパティ、JSON例、ランタイム動作は `Docs/` 以下のドキュメントを参照。
@@ -192,17 +314,13 @@ DDL (CREATE / ALTER / DROP) は実行されるが `recordsAffected` は `-1` か
 
 > 注: このディレクトリは [Manual リポジトリ](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Manual) の `JP/patterns/` と**対になる内容**だが、機械的なコピーではない。Manual は人間向け（解説・画像つき）、こちらは Claude Code 向け（CommonMistakes 参照・JsonAbstract TypeFullName・実装上の注意）で、読者・トーン・リンク先が異なるため、**どちらかを直したらもう一方も読者に合わせて手で反映する**（一括コピーするスクリプトは廃止）。両者で事実（フィールド型・データ構造など）が食い違わないことだけは必ず揃える。
 
-### フィールド型リファレンス (Docs/Fields/)
+### フィールド型リファレンス
 
-`Docs/Fields/` ディレクトリ内の全 `.md` ファイルがフィールド型ドキュメント。
-フィールド名で該当ファイルを参照すること（例: TextField → `Docs/Fields/TextField.md`）。
-外部ライブラリのフィールドも同ディレクトリに含まれる。
+各フィールド型（組み込み + このプロジェクトの独自フィールド）の TypeFullName・プロパティ・既定値・候補・`## Design`/`## Script`/`## CSS` ドキュメントは、**自動生成カタログ [temporary/_field_catalog.md](temporary/_field_catalog.md) に集約**されている（デザイナ exe の `field-catalog` サブコマンドが生成、SessionStart フックで最新化。前述「フィールド型カタログ CLI」参照）。フィールド型を使うときはまずこのカタログで型名を grep して構造・例を確認する。**独自フィールド（ProCode / 拡張ライブラリ）はここにしか載らない**ので、独自フィールドを含むプロジェクトでは唯一の情報源になる。
 
-**共通ドキュメント（`_` プレフィックス）:**
+**共通ドキュメント（`_` プレフィックス、カタログには含まれない共通基底）:**
 - [Fields/_FieldCommon.md](Docs/Fields/_FieldCommon.md) - 共通基底プロパティ（FieldDesignBase, ValueFieldDesignBase, DbValueFieldDesignBase, ListFieldDesignBase）
 - [Fields/_ScriptApi.md](Docs/Fields/_ScriptApi.md) - フィールド共通スクリプトAPI（全フィールド共通・値フィールド共通のプロパティ/メソッド）
-
-**各フィールド型:** `Docs/Fields/{FieldType}Field.md` の命名規則。外部ライブラリのフィールドも同様。各ファイルにTypeFullName、プロパティ、JSON例、スクリプトAPI、列挙型がすべて自己完結で記載されている。
 
 ## デザインファイルの構成
 
@@ -1060,7 +1178,7 @@ void Search_OnSearchDataChanged()
 26. **表示専用モジュールでも入力があるなら CanUpdate: true** - `DbTable` が空のモジュールでも、リスト内に入力可能フィールド（チェックボックス、枚数入力等）がある場合は `CanUpdate: true` にしないと画面全体がViewOnlyになる。詳細は [Docs/CommonMistakes.md](Docs/CommonMistakes.md) の #27 を参照
 27. **FieldValueMatchCondition の Value には TypeFullName が必須** - `Value` プロパティは `MultiTypeValue`（抽象クラス）のため、`StringValue` / `DecimalValue` / `BooleanValue` 等の TypeFullName を必ず指定する。例: `{"Value": "AH", "TypeFullName": "Codeer.LowCode.Blazor.Repository.StringValue"}`。詳細は [Docs/CommonMistakes.md](Docs/CommonMistakes.md) の #28 を参照
 28. **外部キーには NumberField を使わない** - 親子関係の外部キーフィールドには `LinkFieldDesign` または `IdFieldDesign` を使う。`NumberFieldDesign` は不可。フレームワーク内部で親レコード未保存時にテンポラリ ID（文字列）が一時的に使われるため。DB カラムの型は実際の ID 型（INTEGER 等）でよい。詳細は [Docs/CommonMistakes.md](Docs/CommonMistakes.md) の #23 を参照
-29. **ViewEditToggleButton は SubmitButton を初期非表示にする** - ViewEditToggleButtonField をモジュールに置くと、初期化時に同一モジュール内の全 SubmitButton が `IsVisible = false` になる（編集モードに入ったときだけ表示）。知らないと「Submit が消えた」バグに見える。詳細は [Docs/Fields/ViewEditToggleButtonField.md](Docs/Fields/ViewEditToggleButtonField.md) と [Docs/CommonMistakes.md](Docs/CommonMistakes.md) の #29 を参照
+29. **ViewEditToggleButton は SubmitButton を初期非表示にする** - ViewEditToggleButtonField をモジュールに置くと、初期化時に同一モジュール内の全 SubmitButton が `IsVisible = false` になる（編集モードに入ったときだけ表示）。知らないと「Submit が消えた」バグに見える。詳細は [ViewEditToggleButtonField](temporary/_field_catalog.md) と [Docs/CommonMistakes.md](Docs/CommonMistakes.md) の #29 を参照
 30. **Grid 中央配置は空セルパターンを使う** - `[空 \| content \| 空]` のように Layout=null の空セルで挟むと、中身はコンテンツサイズで中央配置、左寄せは `[content \| 空]`、右寄せは `[空 \| content]`。詳細は [Docs/LayoutGuidelines.md](Docs/LayoutGuidelines.md) の Grid 中央配置パターンを参照
 31. **サイドバー/ヘッダーをモジュール化できる** - `SideBarDesign.ModuleName` / `HeaderDesign.ModuleName` に表示専用モジュールを指定すると、標準UIの代わりにそのモジュールの `DetailLayouts[""]` が描画される。Home/Links/Logout は出なくなるので必要なら自前実装する。詳細は [Docs/PageFrame.md](Docs/PageFrame.md) の ModuleName セクションを参照
 32. **ReloadWithLock() は存在しない** - 古いバージョンのスクリプト例に `module.ReloadWithLock()` を呼ぶものが残っていることがあるが、現在の公開APIには存在しない。再読込は `module.Reload()` を使う。ロック付き再読込が必要なら `ExecuteSqlField` で `SELECT ... FOR UPDATE` する方針を検討。詳細は [Docs/CommonMistakes.md](Docs/CommonMistakes.md) の #30 を参照
@@ -1080,11 +1198,11 @@ void Search_OnSearchDataChanged()
 46. **論理削除モジュールでは LogicalDelete を UI に出さない** - `LogicalDelete` (BooleanField 予約名) は Fields に定義するが、ListLayout/DetailLayout のどちらにも入れない。フラグ確認用に管理画面が必要なら**別モジュール**を作って同じ DbTable + Boolean 名を `LogicalDelete` 以外 (例: `DeletedFlag`) にして CLB の自動フィルタを回避。管理モジュールは `CanDelete: false` (物理削除誤防止) + `CanNavigateToDetail: true` (詳細で復活)。詳細は [Docs/CommonMistakes.md](Docs/CommonMistakes.md) の #41 を参照
 47. **CLB システムフィールドは `SystemFieldNames` 予約名で定義する (絶対常識)** - `Id` / `LogicalDelete` / `OptimisticLocking` / `CreatedAt` / `UpdatedAt` / `Creator` / `Updater` は CLB の予約名。Field の `Name` をこれら**そのままの綴り**にすると、ランタイムが自動で振る舞う (主キー扱い / 削除フィルタ / 楽観ロック / 時刻自動セット / ユーザー自動セット)。`Version`/`IsDeleted` 等の任意名では自動動作が**一切効かない**。`DbColumn` は別途任意の DB 列名でよい。`Id`/`LogicalDelete`/`OptimisticLocking` は **UI 非表示** が原則。**`Creator`/`CreatedAt`/`Updater`/`UpdatedAt` は CLB の保存処理が自動でセットするので、スクリプトで `Creator.Value = CurrentUser.Id.Value` のように代入する必要はない** ([Docs/ScriptGuidelines.md](Docs/ScriptGuidelines.md) 参照)。詳細は [Docs/CommonMistakes.md](Docs/CommonMistakes.md) の #42-A を参照 (`SystemFieldNames.cs` ベースの一覧表)
 48. **検索ページのスクリプトは `SearchValue`/`SearchMin`/`SearchMax` を使う (絶対常識)** - `OnSearchInitialization` 等の検索コンテキストで `Status.Value = "進行中"` のように **`.Value` をセットしても無視される**。検索ページのフィールドは検索専用プロパティ系統で動く。単一値系 (Text/Id/Link/Boolean/Select/RadioGroup) は `SearchValue`、範囲系 (Number/Date/DateTime/Time = `RangeSearchField`) は `SearchMin`/`SearchMax`。Text/Id/Link は `SearchComparison` も併用。`OnSearchInitialization` スクリプトは URL に `?initialize_search=true` が付いている時だけ発火 (サイドバー Link 経由は自動付与、直接 URL は付かない)。詳細は [Docs/CommonMistakes.md](Docs/CommonMistakes.md) の #46 を参照
-49. **DetailListField/TileListField で並べる Module の DetailLayout はカード化する (絶対常識)** - DetailListField や TileListField で参照される行/タイル単位の Module は、`DetailLayouts[""].Layout.IsBordered: true` でカード化必須。ListField (表形式) は表自体が罫線で区切るので不要だが、DetailListField/TileListField はレコードがフォーム/タイルとしてただ並ぶだけなのでカード化しないと境界が見えず、複数レコードが連続したフォームに見える。一覧ページの `ListPageDesign.ListFieldDesign` を `DetailListFieldDesign`/`TileListFieldDesign` に差し替えるパターンでも同じ。行 Module を他用途で使い回す場合は専用の DetailLayout 名 ("Card" 等) を追加して `LayoutName` で切り替える。詳細は [Docs/Fields/DetailListField.md](Docs/Fields/DetailListField.md) のカード化セクションを参照
+49. **DetailListField/TileListField で並べる Module の DetailLayout はカード化する (絶対常識)** - DetailListField や TileListField で参照される行/タイル単位の Module は、`DetailLayouts[""].Layout.IsBordered: true` でカード化必須。ListField (表形式) は表自体が罫線で区切るので不要だが、DetailListField/TileListField はレコードがフォーム/タイルとしてただ並ぶだけなのでカード化しないと境界が見えず、複数レコードが連続したフォームに見える。一覧ページの `ListPageDesign.ListFieldDesign` を `DetailListFieldDesign`/`TileListFieldDesign` に差し替えるパターンでも同じ。行 Module を他用途で使い回す場合は専用の DetailLayout 名 ("Card" 等) を追加して `LayoutName` で切り替える。詳細は [DetailListField](temporary/_field_catalog.md) のカード化セクションを参照
 50. **`FieldBase.LayoutName` と `*FieldDesign.LayoutName` を混同しない** - `FieldBase.LayoutName` は `Parent?.LayoutName ?? ""` で親 Module の LayoutName を継承する値 (Detail Layout 名)。一方、`SearchFieldDesign.LayoutName` / `ListFieldDesign.LayoutName` 等は「Design 側で指定する参照先 Layout 名」(Search/List Layout のキー)。同じ「LayoutName」だが意味が違う。`field.LayoutName` (継承) でなく `field.Design.LayoutName` (Design 経由) を使うのがほぼ常に正解。製品コード側では `ListPageComponentVM.GetSearchLayout()` が前者を使っていて SearchLayoutName 指定が無視されるバグになっていた (修正済)。詳細は [Docs/ListPagePatterns.md](Docs/ListPagePatterns.md) の落とし穴セクションを参照
 51. **一覧ページ・カスタム一覧の組み立ては パターン集を引く** - 「一覧ページ作って」「Excel 入出力」「Detail/Tile 形式で並べたい」「並び順固定」「カスタム一覧 (検索 + サマリ + List)」等の指示は [Docs/ListPagePatterns.md](Docs/ListPagePatterns.md) に再現可能なレシピがある。SearchLayouts 空辞書禁止、複数 Link を同一 Module に置くときの ModuleUrlSegment 分離、列幅は1列だけ可変にして末尾ボタン列を伸ばさない、SearchField を使うパターンと SearchLayout に Field 参照が必要なことなど、レイアウトずれ・無描画の落とし穴も同ドキュメントに集約。詳細は [Docs/ListPagePatterns.md](Docs/ListPagePatterns.md) を参照
 52. **PageFrame の Link / Module / Field / Layout 等の複雑 JSON を「ゼロから書き起こさない」 (致命的)** - 特に PageFrame `Link` (ListPageDesign / DetailPageDesign / ListFieldDesign など深いネスト) を Python で組み立てて作ると、必須プロパティが 1 つでも欠けるだけで **PageFrame 全体の読み込みが失敗し、サイドバーが完全に消え画面真っ白** という致命的事態になる。スクリプトで Link を生成するときは **必ず既存 Link を `copy.deepcopy()` して、`Title` / `Module` / `ListFieldDesign.LayoutName` 等の必要箇所だけ差し替える** こと。Module / Field / Layout / SearchCondition も同様で、デフォルト値のうち網羅が困難なものがある (`IsStriped` / `IconType` / `HideTitle` 等の見落とし常連) ため、既存ファイルからの deepcopy が安全。新規モジュールを 1 から組むときは、Designer で 1 件雛形を作って commit → それを毎回 deepcopy する運用にする。スキーマを覚えで書くのは禁止。詳細は [Docs/CommonMistakes.md](Docs/CommonMistakes.md) の #47 を参照
-53. **FileField / ImageField はサーバ側設定 + 一時ファイルテーブルが必要 (重要)** - `FileField` を JSON に置くだけでは動かず、ランタイムで添付エラーになる。サーバ側 `appsettings.json` の `TemporaryFileTableInfo` (DataSource毎)・対応する `temporary_files` テーブル (DataSource毎)・`designer.settings.json` の `FileStorages` の 3点セットが揃って初めて動作する。サンプル/ショーケースに添付サンプルを入れるときは事前にこれらが用意されているか必ず確認すること (入れたが動かないと「ただのデモ崩れ」になる)。詳細は [Docs/CommonMistakes.md](Docs/CommonMistakes.md) の #48 と [Docs/Fields/FileField.md](Docs/Fields/FileField.md) の「サーバ側設定が必須」セクション参照
+53. **FileField / ImageField はサーバ側設定 + 一時ファイルテーブルが必要 (重要)** - `FileField` を JSON に置くだけでは動かず、ランタイムで添付エラーになる。サーバ側 `appsettings.json` の `TemporaryFileTableInfo` (DataSource毎)・対応する `temporary_files` テーブル (DataSource毎)・`designer.settings.json` の `FileStorages` の 3点セットが揃って初めて動作する。サンプル/ショーケースに添付サンプルを入れるときは事前にこれらが用意されているか必ず確認すること (入れたが動かないと「ただのデモ崩れ」になる)。詳細は [Docs/CommonMistakes.md](Docs/CommonMistakes.md) の #48 と [FileField](temporary/_field_catalog.md) の「サーバ側設定が必須」セクション参照
 54. **機能存在の根拠は CLB コアソース、サンプル側 Description は信用しない (致命的)** - サンプル Module の Description テキストや過去の README に「CSV ダウンロードできます」「PDF出力対応」等と書いてあっても、それは過去の AI 生成や見切り発車で書かれた**フィクションの可能性**がある。機能の実在は必ず `Source/Codeer.LowCode.Blazor/` 配下のコアソースを grep して裏取りすること。例: `CanBulkDataDownload` は `ListPageComponent.razor` で `DownloadExcel()` を呼ぶ Excel 専用機能で、CSV 機能は CLB に存在しない。ホーム説明・ドキュメント・新規サンプルを書くときに「サンプル側のテキストを根拠」にしてはいけない。**裏取りなしで機能名を書くのは禁止**。サイドバー Link 表記とも整合させる (「CSVダウンロード」「CSVエクスポート」のような同義語でも乖離扱い)。サンプル Link の追加/削除/リネーム時は `Home.mod.json` / `home.txt` / 関連ドキュメントも同タイミングで同期する
 55. **`GridRow.KeepInFillAvailableGrid` は Claude が `true` にしない。ユーザ操作専用 (絶対)** - `IsFillAvailable=true` の Grid の最終行 (FillAvailable target) には2モードあり、デフォルト `false` = DirectList モード (`ListField` / `ProCodeField` の内部スクロールが画面下端まで広がる、これがほぼ全ケースの正解)、`true` = FitContent モード (`Button` / `Label` のような固定高さ最終行用、超絶レア)。**ユーザから「最終行フィットモード」「KeepInFillAvailableGrid を true に」と明示的な指示があった場合でも、Claude は `true` にしない**。立てる判断は Designer 上でユーザが手動でやる前提。ユーザの言葉に "true" や "FitContent" が出ても、Claude 側は **常に `false` のまま**。立てたい時はユーザが Designer GUI でチェックを入れる。`ListField` を最終行に置くシナリオで `true` を立てると **FillAvailable の効果が消えて画面下端まで広がらなくなる**致命的な見た目バグになる。プロパティ名に "FillAvailable" が入っているせいで「FillAvailable させる ON フラグ」と誤解しがちだが、意味は逆 (`false` が普通の FillAvailable 動作、`true` は特殊モード切替)。詳細は [Docs/CommonMistakes.md](Docs/CommonMistakes.md) の #49、`GridRow` プロパティ表は [Docs/Layouts.md](Docs/Layouts.md) 参照
 56. **「ラベル列 + 入力列」 2カラムフォームでは、ラベル列に `VerticalAlignment: "Middle"` を必ず設定 (マスト)** - `<ラベル(80-120px)> | <入力欄(伸縮)>` の典型レイアウトでは、ラベル列の Column に **必ず `VerticalAlignment: "Middle"` を設定する**。これが無いと、入力列が縦に伸びるケース (Multiline TextField, FileField のプレビュー枠, 長文プレースホルダで折り返し, ListField/DetailListField を埋め込んだ複合フォーム等) で **ラベルだけがセル上端に張り付き、入力欄の中央とずれて見栄えが崩れる**。短文の単行入力時には差が出ないので見落としやすいが、後で必ず破綻するので**最初から全てのラベル列に Middle を入れておく**のが正解。地味だが業務UI品質には致命的に効く。既存サンプル (`FormLayoutSample` / `EditDialogTarget` / `ShowPanelTarget` 等) は全てこれが入っている — そのまま deepcopy すれば自然に守られる。詳細は [Docs/CommonMistakes.md](Docs/CommonMistakes.md) の #50 を参照
@@ -1097,8 +1215,8 @@ void Search_OnSearchDataChanged()
 63. **レイアウトは「削れるだけ削る」(デザイン基本原則)** - 囲みラベル / 入力欄ラベル (placeholder で代用) / DetailListField の DisplayName / ページャー / ユーザーソート / 単独「状態」「担当者」表示 / 連番 Id 列 / 状態に応じないボタン などは削れる候補。複数フィールドを 1 行のテキストに統合する発想も有効 (例: `状態:進行中  ✓A→▶B→C` のように Status + フロー + 現在担当を 1 行のマーカー付き文字列で表現)。削減チェックリストと統合パターンは [Docs/LayoutGuidelines.md](Docs/LayoutGuidelines.md) の「レイアウト最小化の原則」セクション参照
 64. **複数フィールド更新 + 通信は `SuspendNotifyStateChanged` + `LoadingService.StartLoading` でまとめる** - ボタンハンドラ (承認/却下/キャンセル等) で `Field.Value = ...` を連続させると毎回 StateHasChanged が走って画面チラつく。`using var s = GetParentModule().SuspendNotifyStateChanged();` で再描画を 1 回にまとめる。さらに `LoadingService.StartLoading(int? delay)` は (1) `delay=0` で**複数通信のローディングを 1 個にまとめる** (2) `delay=1000` で**短時間処理ならインジケータを出さない** の 2 通り。組合せ例: `using var suspend = GetParentModule().SuspendNotifyStateChanged(); using var loading = LoadingService.StartLoading(0);` 詳細は [Docs/ScriptGuidelines.md](Docs/ScriptGuidelines.md) と [Docs/Scripts.md](Docs/Scripts.md) 参照
 65. **検索条件の Select→Select 連動は `OnSearchDataChanged` で `SearchValue` → `Value` をコピーする** - `SelectField.SearchCondition` + `FieldVariableMatchCondition` の宣言的連動 (CascadeInputBySearch パターン) は、検索レイアウトに置くと**そのままでは連動しない**。候補絞り込みの `Variable` が参照するのは `Value` だが、検索フォームの入力は `SearchValue` に入るため。親 Select の `OnSearchDataChanged` に `親.Value = 親.SearchValue;` の 1 行スクリプトを足すと、連動先の候補がリアルタイムに取り直され、候補から外れた子の選択値は自動クリアされる。実装サンプル: `Samples/PatternShowcase/App/Modules/CascadeSearch.mod.json` (サイドバー「検索/Select連動」)。詳細は [Docs/CommonMistakes.md](Docs/CommonMistakes.md) の #52 を参照
-66. **明細の総入れ替え・一意キーの入れ替えは `ListField` の洗い替え (`ReplaceMode`) を使う** - `All` = Submit 時に `SearchCondition` 一致分を全件削除して現在行を全件新規追加 (完全洗い替え。条件が空だとサーバー側ガードで拒否されるため親子構成で使う)、`UpdateAsDeleteInsert` = 変更行だけ削除+新規追加に置き換え (座席番号・表示順など UNIQUE 制約列の値入れ替えが UPDATE の制約違反にならない)。どちらも作り直された行の Id は振り直される。実装サンプル: `ReplaceAllSample` / `SeatReplaceSample` (サイドバー「データ操作/洗い替え (完全)/(更新行)」)。詳細は [Docs/Fields/ListField.md](Docs/Fields/ListField.md) の洗い替えセクションと [Docs/AppPatterns/replace_mode.md](Docs/AppPatterns/replace_mode.md) を参照
-67. **候補が少ないマスタ参照は LinkField でなく SelectField (マスタ参照)** - 費目・区分・ステータスのように候補が数件〜十数件でドロップダウンから直接選べるマスタは、検索ピッカーの `LinkFieldDesign` ではなく `SelectFieldDesign`（マスタ参照: `Candidates: []` + `SearchCondition.ModuleName` + `ValueVariable`/`DisplayTextVariable` + `DbColumn`）を使う。「マスタで管理＝LinkField」ではない。LinkField は候補が多く自由検索で 1 件絞り込むとき。正典: `Samples/PatternShowcase/App/Modules/CascadeSearch.mod.json` の `SelectedProject`。詳細は [Docs/Fields/SelectField.md](Docs/Fields/SelectField.md) / [Docs/Fields/LinkField.md](Docs/Fields/LinkField.md) の「使い分け」参照
+66. **明細の総入れ替え・一意キーの入れ替えは `ListField` の洗い替え (`ReplaceMode`) を使う** - `All` = Submit 時に `SearchCondition` 一致分を全件削除して現在行を全件新規追加 (完全洗い替え。条件が空だとサーバー側ガードで拒否されるため親子構成で使う)、`UpdateAsDeleteInsert` = 変更行だけ削除+新規追加に置き換え (座席番号・表示順など UNIQUE 制約列の値入れ替えが UPDATE の制約違反にならない)。どちらも作り直された行の Id は振り直される。実装サンプル: `ReplaceAllSample` / `SeatReplaceSample` (サイドバー「データ操作/洗い替え (完全)/(更新行)」)。詳細は [ListField](temporary/_field_catalog.md) の洗い替えセクションと [Docs/AppPatterns/replace_mode.md](Docs/AppPatterns/replace_mode.md) を参照
+67. **候補が少ないマスタ参照は LinkField でなく SelectField (マスタ参照)** - 費目・区分・ステータスのように候補が数件〜十数件でドロップダウンから直接選べるマスタは、検索ピッカーの `LinkFieldDesign` ではなく `SelectFieldDesign`（マスタ参照: `Candidates: []` + `SearchCondition.ModuleName` + `ValueVariable`/`DisplayTextVariable` + `DbColumn`）を使う。「マスタで管理＝LinkField」ではない。LinkField は候補が多く自由検索で 1 件絞り込むとき。正典: `Samples/PatternShowcase/App/Modules/CascadeSearch.mod.json` の `SelectedProject`。詳細は [SelectField](temporary/_field_catalog.md) / [LinkField](temporary/_field_catalog.md) の「使い分け」参照
 68. **一覧専用モジュールは `DetailLayouts: {}` にする** - 親の `ListField`（表形式）にインライン表示するだけで詳細ページへ遷移しない（`CanNavigateToDetail: false`）子明細モジュールは `DetailLayouts` を空 `{}` にして詳細デザインを作らない。`ListField` の行は `ListLayouts[""]` で描画され `DetailLayouts` は未使用なので、作り込むと使われないラベル・カードが増えて冗長。逆に詳細遷移する / `DetailListField`・`TileListField` でフォーム・タイル表示するモジュールは `DetailLayouts[""]` が必要（後者はカード化 `IsBordered: true` も必須）。詳細は [Docs/LayoutGuidelines.md](Docs/LayoutGuidelines.md) の「一覧専用モジュールは DetailLayouts を作らない」参照
 69. **承認・ワークフローは求められない限り作らない／非認証アプリに承認を足さない** - 既定は CRUD（ヘッダ＋明細＋合計等）に留め、承認ボタン等を勝手に足さない・「推奨」もしない。承認は本来 承認者・段階・差し戻し・履歴・権限を伴う重い機能で、認証（ログイン）が前提。非認証アプリでは申請者と承認者を区別できず無意味。承認が必要なら認証前提で `Samples/PatternShowcaseAuth/` の承認フロー（`ApprovalFlow` 系）として正式に作る
 70. **明細表 (ヘッダ＋明細) は `ListField`。`DetailListField` ではない (致命的・最頻出の誤り)** - 「注文＋明細」「請求書＋明細」「経費精算＋明細」のように日付・科目・金額… を**列の揃った表**で 1 行ずつ並べる明細は **`ListFieldDesign`** を使い、**列定義は子 (行) モジュール側の `ListLayouts[""].Elements`** に書く。子の親 FK は `IdFieldDesign` (`IsManualInput:false`)。`DetailListFieldDesign` は名前に「明細 (Detail)」が入っているので「明細表＝DetailListField」と短絡しがちだが**意味は逆** — "Detail" は「各行を DetailLayout (フォーム/カード) で描く」の意味で、業務の「明細行」ではない。`DetailListField`/`TileListField` を選ぶのは「1 レコード＝1 枚のフォーム/カード」にしたいと明確に判断したときだけ (その場合は子を `IsBordered:true` でカード化必須)。**迷ったら `ListField`。** 実装に迷ったら正典 `Samples/PatternShowcase/App/Modules/Order.mod.json` (`Details`＝`ListFieldDesign`) と `OrderDetail.mod.json` (`OrderId`＝`IdFieldDesign`、列は `ListLayouts`) を必ず開いて型を確認する。詳細は [Docs/CommonMistakes.md](Docs/CommonMistakes.md) の #53 / [Docs/AppPatterns/header_detail.md](Docs/AppPatterns/header_detail.md) を参照

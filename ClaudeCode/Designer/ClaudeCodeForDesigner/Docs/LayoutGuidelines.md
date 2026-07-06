@@ -495,7 +495,7 @@ DBと結びつかない表示専用モジュール（チャートダッシュボ
 - 遷移しないなら `DetailLayouts` は完全に未使用。作り込むと使われないラベル・カードが増えて冗長
 - `DetailLayouts` の C# 既定値は `{}`（空）なので、空でも読み込み・インライン編集に支障はない
 
-**逆に `DetailLayouts[""]` が必要なのは:** 詳細ページへ遷移するモジュール／`DetailListField`・`TileListField` でフォーム・タイル表示するモジュール（後者はカード化 `IsBordered: true` も必須 → [Fields/DetailListField.md](Fields/DetailListField.md)）。
+**逆に `DetailLayouts[""]` が必要なのは:** 詳細ページへ遷移するモジュール／`DetailListField`・`TileListField` でフォーム・タイル表示するモジュール（後者はカード化 `IsBordered: true` も必須 → [DetailListField](temporary/_field_catalog.md)）。
 
 ---
 

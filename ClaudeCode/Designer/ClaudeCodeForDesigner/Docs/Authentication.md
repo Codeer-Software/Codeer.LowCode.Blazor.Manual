@@ -56,7 +56,7 @@ CLB の**既定の認証バリアントは Cookie 認証**で、サーバ実装�
 | `Role` | `SelectFieldDesign` | `role` | 権限の出し分けに使う (任意) |
 | `IsActive` | `BooleanFieldDesign` | `is_active` | 有効/無効 (任意) |
 
-- **パスワードのハッシュ化はサーバが自動でやる。** サーバの `CustomizedModuleDataIO` が Add/Update のたびに `PasswordHashHelper.ApplyPasswordHash` を呼び、`PasswordField` の平文から `hash`+`salt` を生成して `PasswordHashField` の 2 列に書き込む。**デザイン側にハッシュ化スクリプトは要らない**。`PasswordField` と `PasswordHashField` をペアで Fields に置くだけ (`PasswordHashField` はレイアウトに出さなくてよい＝UI なし)。詳細は [Extras の PasswordHashField ドキュメント](Fields/PasswordHashField.md)。
+- **パスワードのハッシュ化はサーバが自動でやる。** サーバの `CustomizedModuleDataIO` が Add/Update のたびに `PasswordHashHelper.ApplyPasswordHash` を呼び、`PasswordField` の平文から `hash`+`salt` を生成して `PasswordHashField` の 2 列に書き込む。**デザイン側にハッシュ化スクリプトは要らない**。`PasswordField` と `PasswordHashField` をペアで Fields に置くだけ (`PasswordHashField` はレイアウトに出さなくてよい＝UI なし)。詳細は [PasswordHashField](temporary/_field_catalog.md)。
 - **初期ユーザーは自動作成される。** ユーザーテーブルが空のとき、サーバ起動時に `admin` / パスワード `admin` を 1 件 INSERT する。
 
 #### ユーザーテーブル DDL (SQLite 例)
@@ -115,5 +115,5 @@ var role = CurrentUser.Role.Value;       // 権限
 - [認証パターン集 一覧](AppPatterns/auth_patterns.md) ─ 実機サンプル (`PatternShowcaseAuth` テンプレート)
 - [ユーザーモジュールと認証連動](AppPatterns/auth_user_module.md) ─ AppUser / マイプロフィール / パスワード変更の作り
 - [一般画面と管理画面の分離](AppPatterns/auth_admin_frame.md) ─ 複数 PageFrame と権限ゲート
-- [PasswordHashField (Extras)](Fields/PasswordHashField.md) ─ パスワードハッシュ用フィールドの詳細
+- [PasswordHashField](temporary/_field_catalog.md) ─ パスワードハッシュ用フィールドの詳細
 - [ProjectSettings.md](ProjectSettings.md) ─ `app.clprj` の `CurrentUserModuleDesignName`

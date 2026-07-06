@@ -26,8 +26,8 @@ public class PageFrameDesign
     public int? FontSize { get; set; }
     public List<ModulePageDesign> OtherPageModuleDesigns { get; set; } = new();
     public ModulePageDesign? TopPageModuleDesign { get; set; } = new();
-    public AutoZoomMode AutoZoom { get; set; } = AutoZoomMode.None;     // enum: None / etc
-    public double? BaseWidth { get; set; }
+    public AutoZoomMode AutoZoom { get; set; } = AutoZoomMode.None;     // enum: None / FitToWidth (自動ズーム)
+    public double? BaseWidth { get; set; }                              // 基準幅 (px)。FitToWidth のときこの幅を基準に全体を拡大縮小
     public DeviceTarget TargetDevice { get; set; } = DeviceTarget.Any;  // enum: Any / PC / Touch (対象デバイス)
     public double? WidthFrom { get; set; }                              // 適用開始幅 (この画面幅以上で対象)
     [Obsolete] public string TopPageModule { get; set; } = string.Empty;
@@ -152,6 +152,8 @@ public class DetailPageDesign
 | `Priority` | int | `0` | 複数 application root の優先度。**大きいほど優先**。`IsApplicationRoot: true` のときだけ意味を持つ |
 | `TargetDevice` | DeviceTarget | `"Any"` | 対象デバイス。ルート URL で開くときにこの root を採用するデバイス: `Any` / `PC` (細かいポインタ) / `Touch` (タッチ端末) |
 | `WidthFrom` | double? | null | 適用開始幅。ルート URL で開くときにこの root を採用する**画面幅の下限** (px)。null は幅の条件なし |
+| `AutoZoom` | AutoZoomMode | `"None"` | 自動ズーム。`None` (ズームしない) / `FitToWidth` (画面幅に合わせて UI 全体をブラウザズーム風に拡大縮小)。詳細は下記「自動ズーム」節 |
+| `BaseWidth` | double? | null | 基準幅 (px)。`AutoZoom: FitToWidth` のとき、この幅を基準に実画面幅との比率で全体をズームする。`FitToWidth` のときのみ意味を持つ |
 | `Name` | string | `""` | フレーム識別名 |
 | `Description` | string | `""` | 説明文 |
 | `Left` | SideBarDesign | | 左サイドバー |
@@ -186,6 +188,33 @@ public class DetailPageDesign
 - 例: `Main` (WidthFrom: 900) + `Compact` (条件なし、Priority: 1) → 画面幅 900px 以上は Main、未満は Compact
 
 実装サンプル: `Samples/PatternShowcase/App/PageFrames/Compact.frm.json` + `Modules/CompactHome.mod.json` / `DeviceFrameSample.mod.json` (サイドバー「別フレーム/画面幅で切替」)
+
+---
+
+## 自動ズーム (AutoZoom / BaseWidth)
+
+PC 向けに固定幅で作った画面を、レイアウトを作り直さずに**そのまま縮小/拡大**して別の画面幅に収める機能。ブラウザズーム (Ctrl + ホイール) と同じく、フォント・余白まで含めて **UI 全体を一律の倍率で拡大縮小**する (折り返しや列の再配置はしない)。
+
+設定 (PageFrame のルートプロパティ):
+
+```json
+{
+  "AutoZoom": "FitToWidth",
+  "BaseWidth": 1280
+}
+```
+
+- `AutoZoom`: `"None"` (既定・ズームしない) / `"FitToWidth"` (画面幅に合わせて全体をズーム)
+- `BaseWidth`: 「この画面を設計したときの幅」(px)。実画面幅 ÷ BaseWidth の比率で全体がズームされる (BaseWidth より狭ければ縮小、広ければ拡大)
+- **`BaseWidth` はコンテンツ部分 (メイン領域) の幅**。表示中のサイドバー幅は内部で自動加算してから比率計算するので、BaseWidth にはサイドバーを除いたコンテンツ幅を指定する
+- `AutoZoom` が `"None"`、または `BaseWidth` が未指定/0 以下ならズームしない
+
+使い分けと注意:
+
+- 全体を一律に縮める機能なので、**折り返し系 (`IsWrap` / `IsAutoFillWrap`) や比率伸縮 (`IsProportionalScale`) と役割が重なる**。1 つの PageFrame ではどちらかに寄せる
+- 画面幅で**構成そのものを変えたい**ときは自動ズームではなく上の `TargetDevice` / `WidthFrom` によるフレーム出し分けを使う。自動ズーム = 同じ画面をそのまま拡縮、フレーム切替 = 別の画面に差し替え
+
+実装サンプル: `Samples/PatternShowcase/App/PageFrames/ZoomFrame.frm.json` (`FitToWidth` + `BaseWidth: 1280`。サイドバー「別フレーム/自動ズーム」)
 
 ---
 

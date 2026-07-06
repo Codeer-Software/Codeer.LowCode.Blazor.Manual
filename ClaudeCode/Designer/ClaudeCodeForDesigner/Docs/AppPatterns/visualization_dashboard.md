@@ -1,6 +1,6 @@
 # 可視化・ダッシュボードのパターン（ガント / タスクボード / グラフ）
 
-ガントチャート（`GanttField`）・タスクボード（`TaskBoardField`）・グラフ（`ApexChartField` 系）を業務アプリに組み込むときの**実用パターン**。各フィールドのプロパティ一覧は [Fields/GanttField.md](../Fields/GanttField.md) / [Fields/TaskBoardField.md](../Fields/TaskBoardField.md) / [Fields/ApexChartField.md](../Fields/ApexChartField.md) を参照。ここは「**どう結線して動く画面にするか**」をまとめる。
+ガントチャート（`GanttField`）・タスクボード（`TaskBoardField`）・グラフ（`ApexChartField` 系）を業務アプリに組み込むときの**実用パターン**。各フィールドのプロパティ一覧は [GanttField](temporary/_field_catalog.md) / [TaskBoardField](temporary/_field_catalog.md) / [ApexChartField](temporary/_field_catalog.md) を参照。ここは「**どう結線して動く画面にするか**」をまとめる。
 
 > いずれも外部ライブラリのフィールド。`app.clprj` の `Versions` に `Codeer.LowCode.Blazor.Extras`（ガント/ボード）・`Codeer.LowCode.Bindings.ApexCharts`（グラフ）を入れる。ガントとグラフはヘッドレスでは描画されないことがある（実機で確認）。
 
@@ -226,7 +226,7 @@ void ConfirmButton_OnClick()
 
 ## 関連
 
-- フィールド詳細: [Fields/GanttField.md](../Fields/GanttField.md) / [Fields/TaskBoardField.md](../Fields/TaskBoardField.md) / [Fields/ApexChartField.md](../Fields/ApexChartField.md) / [Fields/ApexHBarChartField.md](../Fields/ApexHBarChartField.md) / [Fields/ApexRadialChartField.md](../Fields/ApexRadialChartField.md) / [Fields/QueryField.md](../Fields/QueryField.md)
+- フィールド詳細: [GanttField](temporary/_field_catalog.md) / [TaskBoardField](temporary/_field_catalog.md) / [ApexChartField](temporary/_field_catalog.md) / [ApexHBarChartField](temporary/_field_catalog.md) / [ApexRadialChartField](temporary/_field_catalog.md) / [QueryField](temporary/_field_catalog.md)
 - ヘッダ＋明細の基本: [header_detail.md](header_detail.md) / [multi_nested.md](multi_nested.md)
 - クエリ/SQL: [../QueryAndSql.md](../QueryAndSql.md) ／ スクリプト: [../Scripts.md](../Scripts.md)
 </content>

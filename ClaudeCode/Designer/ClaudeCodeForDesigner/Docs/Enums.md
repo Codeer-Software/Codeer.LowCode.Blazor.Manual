@@ -128,8 +128,16 @@ PageFrame (application root) の対象デバイス。ルート URL アクセス�
 | `PC` | マウス等の細かいポインタ (= PC) のときだけ対象 |
 | `Touch` | 指等の粗いポインタ (= タッチ端末) のときだけ対象 |
 
+## AutoZoomMode
+PageFrame の自動ズーム方式。UI 全体をブラウザズーム風に拡大縮小する ([PageFrame.md](PageFrame.md) の「自動ズーム」参照)。`BaseWidth` (基準幅) と併用する。
+
+| 値 | 説明 |
+|---|---|
+| `None` | ズームしない (既定) |
+| `FitToWidth` | 画面幅に合わせて UI 全体を拡大縮小 (実画面幅 ÷ `BaseWidth` の比率) |
+
 ## ListReplaceMode
-ListField の洗い替え方式 ([Fields/ListField.md](Fields/ListField.md) 参照)。
+ListField の洗い替え方式 ([ListField](temporary/_field_catalog.md) 参照)。
 
 | 値 | 説明 |
 |---|---|
