@@ -1,5 +1,5 @@
 {
-  "Name": "ExtrasHome",
+  "Name": "ExtrasProgressTask",
   "DataSourceName": "",
   "DbTable": "",
   "CanCreate": true,
@@ -7,65 +7,71 @@
   "CanDelete": true,
   "Fields": [
     {
-      "Text": "Codeer.LowCode.Blazor.Extras",
-      "Icon": "",
-      "Style": "H1",
-      "RelativeField": "",
-      "OnClick": "",
-      "Name": "Label",
+      "DbColumn": "",
+      "IsMultiline": false,
+      "IsAutoFitRows": false,
+      "Placeholder": "",
+      "TextEditEmptyType": "StringEmpty",
+      "ShouldTrimAfterEdit": false,
+      "IsUpdateProtected": false,
+      "IsSimpleSearchParameter": false,
+      "AllowEmptySearch": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "タスク",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "タスク名",
       "IgnoreModification": false,
       "OnValidateInput": "",
-      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
     },
     {
-      "ResourcePath": "lc_logo_256.png",
-      "ObjectFit": "Contain",
-      "OnClick": "",
-      "Name": "LCLogo",
+      "DbColumn": "",
+      "Placeholder": "",
+      "Format": "",
+      "Min": 0,
+      "Max": 100,
+      "IsSlider": true,
+      "IsUpdateProtected": false,
+      "IsSimpleSearchParameter": false,
+      "AllowEmptySearch": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "進捗値",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "進捗",
       "IgnoreModification": false,
       "OnValidateInput": "",
-      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ImageViewerFieldDesign"
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.NumberFieldDesign"
     },
     {
-      "Text": "Codeer.LowCode.Blazor 向けの拡張フィールドライブラリ (MIT)",
-      "Icon": "",
-      "Style": "H3",
-      "RelativeField": "",
-      "OnClick": "",
-      "Name": "Sub",
+      "DbColumn": "",
+      "IsMultiline": false,
+      "IsAutoFitRows": false,
+      "Placeholder": "",
+      "TextEditEmptyType": "StringEmpty",
+      "ShouldTrimAfterEdit": false,
+      "IsUpdateProtected": false,
+      "IsSimpleSearchParameter": false,
+      "AllowEmptySearch": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "バー色",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "バー色",
       "IgnoreModification": false,
       "OnValidateInput": "",
-      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
     },
     {
-      "Text": "カレンダー / ガントチャート / タスクボード / リッチテキスト / 画像マーカー / Enterフォーカス移動 / QRコード / 進捗表示 などの高機能 UI コンポーネントをローコードフレームワークに追加します。左のメニューから各フィールドのサンプルを確認できます。",
-      "Icon": "",
-      "Style": "Default",
-      "RelativeField": "",
-      "OnClick": "",
-      "Name": "Desc",
+      "ValueField": "進捗",
+      "ColorField": "バー色",
+      "BarColor": "",
+      "ShowValueLabel": true,
+      "Name": "Progress",
       "IgnoreModification": false,
       "OnValidateInput": "",
-      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
-    },
-    {
-      "Style": "Text",
-      "Target": "Url",
-      "ShouldOpenInNewTab": true,
-      "Icon": "",
-      "TitleText": "Codeer.LowCode.Blazor.Extras (GitHub)",
-      "TitleVariable": "",
-      "ImageResourcePath": "",
-      "PageFrame": "",
-      "Module": "",
-      "ModuleVariable": "",
-      "IdVariable": "",
-      "Url": "https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras",
-      "OnClick": "",
-      "Name": "Title",
-      "IgnoreModification": false,
-      "OnValidateInput": "",
-      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.AnchorTagFieldDesign"
+      "TypeFullName": "Codeer.LowCode.Blazor.Extras.Designs.ProgressFieldDesign"
     }
   ],
   "UserWriteCondition": {
@@ -117,7 +123,7 @@
             "Columns": [
               {
                 "Layout": {
-                  "FieldName": "Label",
+                  "FieldName": "タスク名",
                   "ContextMenu": "",
                   "ClassName": "",
                   "FontFamily": "",
@@ -134,7 +140,29 @@
                   "RightColor": "",
                   "BottomColor": ""
                 },
-                "HorizontalAlignment": "Center",
+                "CanResize": false,
+                "AllowOverflow": false,
+                "Border": "None"
+              },
+              {
+                "Layout": {
+                  "FieldName": "進捗",
+                  "ContextMenu": "",
+                  "ClassName": "",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "",
+                  "BackgroundColor": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Padding": {},
+                "BackgroundColor": "",
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
                 "CanResize": false,
                 "AllowOverflow": false,
                 "Border": "None"
@@ -153,7 +181,7 @@
             "Columns": [
               {
                 "Layout": {
-                  "FieldName": "LCLogo",
+                  "FieldName": "Progress",
                   "ContextMenu": "",
                   "ClassName": "",
                   "FontFamily": "",
@@ -170,115 +198,6 @@
                   "RightColor": "",
                   "BottomColor": ""
                 },
-                "HorizontalAlignment": "Center",
-                "CanResize": false,
-                "AllowOverflow": false,
-                "Border": "None"
-              }
-            ]
-          },
-          {
-            "IsWrap": false,
-            "IsAutoFillWrap": false,
-            "Margin": {},
-            "GridRowType": "Normal",
-            "CanResize": false,
-            "BackgroundColor": "",
-            "KeepInFillAvailableGrid": false,
-            "IsRowMarginRemoved": false,
-            "Columns": [
-              {
-                "Layout": {
-                  "FieldName": "Sub",
-                  "ContextMenu": "",
-                  "ClassName": "",
-                  "FontFamily": "",
-                  "Color": "",
-                  "Name": "",
-                  "BackgroundColor": "",
-                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                },
-                "Padding": {},
-                "BackgroundColor": "",
-                "BorderStyle": {
-                  "LeftColor": "",
-                  "TopColor": "",
-                  "RightColor": "",
-                  "BottomColor": ""
-                },
-                "HorizontalAlignment": "Center",
-                "CanResize": false,
-                "AllowOverflow": false,
-                "Border": "None"
-              }
-            ]
-          },
-          {
-            "IsWrap": false,
-            "IsAutoFillWrap": false,
-            "Margin": {},
-            "GridRowType": "Normal",
-            "CanResize": false,
-            "BackgroundColor": "",
-            "KeepInFillAvailableGrid": false,
-            "IsRowMarginRemoved": false,
-            "Columns": [
-              {
-                "Layout": {
-                  "FieldName": "Desc",
-                  "ContextMenu": "",
-                  "ClassName": "",
-                  "FontFamily": "",
-                  "Color": "",
-                  "Name": "",
-                  "BackgroundColor": "",
-                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                },
-                "Padding": {},
-                "BackgroundColor": "",
-                "BorderStyle": {
-                  "LeftColor": "",
-                  "TopColor": "",
-                  "RightColor": "",
-                  "BottomColor": ""
-                },
-                "HorizontalAlignment": "Center",
-                "CanResize": false,
-                "AllowOverflow": false,
-                "Border": "None"
-              }
-            ]
-          },
-          {
-            "IsWrap": false,
-            "IsAutoFillWrap": false,
-            "Margin": {},
-            "GridRowType": "Normal",
-            "CanResize": false,
-            "BackgroundColor": "",
-            "KeepInFillAvailableGrid": false,
-            "IsRowMarginRemoved": false,
-            "Columns": [
-              {
-                "Layout": {
-                  "FieldName": "Title",
-                  "ContextMenu": "",
-                  "ClassName": "",
-                  "FontFamily": "",
-                  "Color": "",
-                  "Name": "",
-                  "BackgroundColor": "",
-                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                },
-                "Padding": {},
-                "BackgroundColor": "",
-                "BorderStyle": {
-                  "LeftColor": "",
-                  "TopColor": "",
-                  "RightColor": "",
-                  "BottomColor": ""
-                },
-                "HorizontalAlignment": "Center",
                 "CanResize": false,
                 "AllowOverflow": false,
                 "Border": "None"
@@ -294,11 +213,66 @@
   "ListLayouts": {
     "": {
       "HeaderTitle": "",
-      "DataOnlyFields": [],
+      "DataOnlyFields": [
+        "バー色"
+      ],
       "OnBeforeInitialization": "",
       "OnAfterInitialization": "",
       "OnFieldDataChanged": "",
-      "Elements": []
+      "Elements": [
+        [
+          {
+            "FieldName": "タスク名",
+            "ContextMenu": "",
+            "Label": "タスク",
+            "ColumnSpan": 1,
+            "RowSpan": 1,
+            "TextWrap": "Unset",
+            "CanResize": false,
+            "CanUserSort": true,
+            "ClassName": "",
+            "FontFamily": "",
+            "Color": "",
+            "BackgroundColor": "",
+            "DetailLayoutName": "",
+            "ListElementComponent": ""
+          },
+          {
+            "FieldName": "進捗",
+            "ContextMenu": "",
+            "Label": "進捗値 (スライダー)",
+            "Width": 200,
+            "ColumnSpan": 1,
+            "RowSpan": 1,
+            "TextWrap": "Unset",
+            "CanResize": false,
+            "CanUserSort": true,
+            "ClassName": "",
+            "FontFamily": "",
+            "Color": "",
+            "BackgroundColor": "",
+            "DetailLayoutName": "",
+            "ListElementComponent": ""
+          },
+          {
+            "FieldName": "Progress",
+            "ContextMenu": "",
+            "Label": "進捗",
+            "Width": 300,
+            "ColumnSpan": 1,
+            "RowSpan": 1,
+            "TextWrap": "Unset",
+            "CanResize": false,
+            "CanUserSort": true,
+            "ClassName": "",
+            "FontFamily": "",
+            "Color": "",
+            "BackgroundColor": "",
+            "DetailLayoutName": "",
+            "ListElementComponent": ""
+          }
+        ]
+      ]
     }
   },
   "SearchLayouts": {
