@@ -8,11 +8,14 @@ using Codeer.LowCode.Blazor.Json;
 using Codeer.LowCode.Blazor.License;
 using Codeer.LowCode.Blazor.SystemSettings;
 using LowCodeSamples.Client.Shared.Samples.ColorPicker;
+using Codeer.LowCode.Blazor.Extras.Server.AI;
+using Codeer.LowCode.Blazor.Extras.Server.Excel;
+using Codeer.LowCode.Blazor.Extras.Server.FileManagement;
+using Codeer.LowCode.Blazor.Extras.Server.Web;
 using LowCodeSamples.Server.Services;
-using LowCodeSamples.Server.Services.AI;
 using LowCodeSamples.Server.Services.DataChangeHistory;
-using LowCodeSamples.Server.Services.FileManagement;
 using Microsoft.AspNetCore.ResponseCompression;
+using Microsoft.AspNetCore.SignalR;
 using PdfSharp.Fonts;
 using System.Globalization;
 using System.Text.Json.Serialization;
@@ -28,8 +31,6 @@ RadzenLoader.LoadAssemblies();
 ExtrasServerInitializer.Initialize();
 
 var builder = WebApplication.CreateBuilder(args);
-
-GlobalFontSettings.FontResolver = new CustomFontResolver();
 
 LicenseManager.DomainLicense = builder.Configuration.GetSection("DomainLicense").Get<string>() ?? string.Empty;
 LicenseManager.IsAutoUpdate = builder.Configuration.GetSection("IsLicenseAutoUpdate").Get<bool>();
@@ -47,6 +48,8 @@ SystemConfig.Instance.DataSources.ToList().ForEach(e => e.ConnectionString = bui
 SystemConfig.Instance.FileStorages.ToList().ForEach(e => e.ConnectionString = builder.Configuration.GetConnectionString(e.Name) ?? string.Empty);
 SystemConfig.Instance.AISettings.OpenAIKey = builder.Configuration.GetConnectionString("OpenAIKey") ?? string.Empty;
 SystemConfig.Instance.AISettings.DocumentAnalysisKey = builder.Configuration.GetConnectionString("DocumentAnalysisKey") ?? string.Empty;
+
+GlobalFontSettings.FontResolver = new CustomFontResolver(SystemConfig.Instance.FontFileDirectory);
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
@@ -73,7 +76,8 @@ builder.Services.AddResponseCompression(options =>
 if (SystemConfig.Instance.UseHotReload)
 {
     builder.Services.AddSignalR();
-    builder.Services.AddHostedService<FileWatcherService>();
+    builder.Services.AddHostedService(sp => new FileWatcherService(
+        sp.GetRequiredService<IHubContext<HotReloadHub>>(), SystemConfig.Instance.DesignFileDirectory));
 }
 
 //Localize

@@ -1,8 +1,8 @@
-﻿using Codeer.LowCode.Blazor.DesignLogic;
-using Codeer.LowCode.Blazor.OperatingModel;
+﻿using Codeer.LowCode.Blazor;
+using Codeer.LowCode.Blazor.Extras.Designs;
+using Codeer.LowCode.Blazor.Extras.Server.AI;
 using Codeer.LowCode.Blazor.Repository.Data;
 using LowCodeSamples.Server.Services;
-using LowCodeSamples.Server.Services.AI;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LowCodeSamples.Server.Controllers
@@ -42,7 +42,9 @@ namespace LowCodeSamples.Server.Controllers
             memoryStream.Position = 0;
             try
             {
-                return await AITextAnalyzeService.FileToDataAsync(_dataService.ModuleDataIO, moduleName, fieldName, fileName, memoryStream);
+                return await new AITextAnalyzeService(SystemConfig.Instance.AISettings).FileToDataAsync(
+                    _dataService.ModuleDataIO, DesignerService.GetDesignData().Modules,
+                    moduleName ?? string.Empty, GetRemarks(moduleName, fieldName), fileName, memoryStream);
             }
             catch
             {
@@ -57,12 +59,22 @@ namespace LowCodeSamples.Server.Controllers
 
             try
             {
-                return await AITextAnalyzeService.TextToDataAsync(_dataService.ModuleDataIO, moduleName, fieldName, text ?? string.Empty);
+                return await new AITextAnalyzeService(SystemConfig.Instance.AISettings).TextToDataAsync(
+                    _dataService.ModuleDataIO, DesignerService.GetDesignData().Modules,
+                    moduleName ?? string.Empty, GetRemarks(moduleName, fieldName), text ?? string.Empty);
             }
             catch
             {
                 throw new Exception("AI analysis failed. Retrying may succeed.");
             }
+        }
+
+        static string GetRemarks(string? moduleName, string? fieldName)
+        {
+            var mod = DesignerService.GetDesignData().Modules.Find(moduleName ?? string.Empty);
+            var field = mod?.Fields.FirstOrDefault(e => e.Name == fieldName) as AITextAnalyzerFieldDesign;
+            if (field == null) throw LowCodeException.Create($"Invalid Field {moduleName}.{fieldName}");
+            return field.Remarks;
         }
     }
 }

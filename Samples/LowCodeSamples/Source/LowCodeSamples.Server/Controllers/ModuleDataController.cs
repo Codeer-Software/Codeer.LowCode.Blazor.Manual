@@ -7,7 +7,8 @@ using Codeer.LowCode.Blazor.Utils;
 using Excel.Report.PDF;
 using LowCodeSamples.Client.Shared.Services;
 using LowCodeSamples.Server.Services;
-using LowCodeSamples.Server.Services.FileManagement;
+using Codeer.LowCode.Blazor.Extras.Server.FileManagement;
+using Codeer.LowCode.Blazor.Extras.Server.Web;
 using MessagePack;
 using Microsoft.AspNetCore.Mvc;
 
@@ -80,7 +81,7 @@ namespace LowCodeSamples.Server.Controllers
         {
             var location = await _dataService.ModuleDataIO.FileFieldDataIO.GetFileLocation(moduleName!, id!, fieldName!);
             await _dataService.DbAccess.ClearAsync();
-            return File(await StorageAccess.ReadFileAsync(location), "application/octet-stream");
+            return this.FileWithETag((await StorageAccess.ReadFileAsync(SystemConfig.Instance.FileStorages, location)).ToArray(), "application/octet-stream");
         }
 
         [HttpPost("upload")]

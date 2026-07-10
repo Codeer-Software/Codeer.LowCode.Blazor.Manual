@@ -5,12 +5,13 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\LowCodeSamples.Server.Shared\LowCodeSamples.Server.Shared.csproj" />
     <ProjectReference Include="..\LowCodeSamples.Client\LowCodeSamples.Client.csproj" />
   </ItemGroup>
   <ItemGroup>
-	<PackageReference Include="Azure.AI.FormRecognizer" Version="4.1.0" />
-	<PackageReference Include="Azure.AI.OpenAI" Version="2.1.0" />
+	<PackageReference Include="Codeer.LowCode.Blazor.Extras.Server" Version="0.2.0" />
+	<!-- Extras.Server が推移的に参照する古いパッケージの既知脆弱性(NU1903)回避のため明示的に上書き -->
+	<PackageReference Include="SQLitePCLRaw.lib.e_sqlite3" Version="3.53.3" />
+
 	<PackageReference Include="Azure.Identity" Version="1.21.0" />
 	<PackageReference Include="PdfPig" Version="0.1.15" />
     <PackageReference Include="Azure.Storage.Blobs" Version="12.29.1" />

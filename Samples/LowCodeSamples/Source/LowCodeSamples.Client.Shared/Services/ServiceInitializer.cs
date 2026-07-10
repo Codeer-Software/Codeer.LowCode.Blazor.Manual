@@ -1,8 +1,10 @@
 using Codeer.LowCode.Blazor.Components.AppParts.Loading;
 using Codeer.LowCode.Blazor.Components.AppParts.PageFrame;
 using Codeer.LowCode.Blazor.Components.Dialog;
+using Codeer.LowCode.Blazor.Extras.Fields;
+using Codeer.LowCode.Blazor.Extras.ScriptObjects;
+using Codeer.LowCode.Blazor.Extras.Services;
 using Codeer.LowCode.Blazor.RequestInterfaces;
-using LowCodeSamples.Client.Shared.AITextAnalyzer;
 using Microsoft.Extensions.DependencyInjection;
 using Sotsera.Blazor.Toaster.Core.Models;
 using System.Globalization;
@@ -13,6 +15,11 @@ namespace LowCodeSamples.Client.Shared.Services
     {
         public static void AddSharedServices(this IServiceCollection services)
         {
+            //Extras の組み込みサービスが使うエンドポイント。URL はアプリ(Controller を持つ側)の持ち物なのでここで一元定義する
+            Codeer.LowCode.Blazor.Extras.ScriptObjects.Excel.ConvertPdfEndPoint = "api/excel/pdf";
+            AITextAnalyzerField.FileToModuleDataEndPoint = "/api/ai_text_analyze/file";
+            AITextAnalyzerField.TextToModuleDataEndPoint = "/api/ai_text_analyze/text";
+
             services.AddScoped<IAppInfoService, AppInfoService>();
             services.AddScoped<IModuleDataService, ModuleDataService>();
             services.AddScoped<IUIService, UIService>();
@@ -27,9 +34,8 @@ namespace LowCodeSamples.Client.Shared.Services
                 config.ShowTransitionDuration = 10;
                 config.HideTransitionDuration = 500;
             });
-            services.AddScoped<ToasterEx>();
-            services.AddScoped<HttpService>();
-            services.AddScoped<IAITextAnalyzerCore, AITextAnalyzerCore>();
+            services.AddScoped<IToastService, ToastService>();
+            services.AddScoped<IHttpService, HttpService>();
 
             var cultureName = CultureInfo.CurrentCulture.Name;
             if (cultureName == "ja") cultureName = "ja-JP";

@@ -18,8 +18,7 @@ using Codeer.LowCode.Blazor.Extras.Designer;
 using Codeer.LowCode.Blazor.Repository.Data;
 using Codeer.LowCode.Blazor.Script;
 using IgniteUI.Blazor.Controls;
-using LowCodeSamples.Client.Shared.AITextAnalyzer;
-using LowCodeSamples.Client.Shared.ScriptObjects;
+using Codeer.LowCode.Blazor.Extras.ScriptObjects;
 using LowCodeSamples.Designer.Lib.ModuleToClass;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.FluentUI.AspNetCore.Components;
@@ -37,6 +36,8 @@ namespace LowCodeSamples.Designer
     {
         protected override void OnStartup(StartupEventArgs e)
         {
+            //load dll.
+            typeof(LowCodeSamples.Client.Shared.Services.AppInfoService).ToString();
             typeof(ApexChartFieldDesign).ToString();
             typeof(SeriesType).ToString(); 
             typeof(FluentTextFieldDesign).ToString();
@@ -53,16 +54,17 @@ namespace LowCodeSamples.Designer
             Codeer.LowCode.Blazor.License.LicenseManager.IsAutoUpdate = bool.TryParse(ConfigurationManager.AppSettings["IsLicenseAutoUpdate"], out var val) ? val : true;
 
             Services.AddSingleton<IDbAccessorFactory, DbAccessorFactory>();
-            Services.AddSingleton<IAITextAnalyzerCore, AITextAnalyzerCoreDummy>();
             Services.AddIgniteUIBlazor();
             Services.AddIgniteUIBlazor(typeof(IgbGridModule), typeof(IgbLegendModule), typeof(IgbCategoryChartModule));
             Services.AddMudServices();
             Services.AddRadzenComponents();
             ScriptRuntimeTypeManager.AddType(typeof(ExcelCellIndex));
-            ScriptRuntimeTypeManager.AddType(typeof(LowCodeSamples.Client.Shared.ScriptObjects.Excel));
+            ScriptRuntimeTypeManager.AddType(typeof(Codeer.LowCode.Blazor.Extras.ScriptObjects.Excel));
             ScriptRuntimeTypeManager.AddService(new Toaster(null!));
             ScriptRuntimeTypeManager.AddService(new WebApiService(null!, null!));
             ScriptRuntimeTypeManager.AddType<WebApiResult>();
+            ScriptRuntimeTypeManager.AddService(new MailService());
+            ScriptRuntimeTypeManager.AddType<MailMessage>();
             ScriptRuntimeTypeManager.AddService(new KJS(null!));
             Services.AddFluentUIComponents();
 
@@ -95,15 +97,6 @@ namespace LowCodeSamples.Designer
 
             MainWindow.Title = "LowCodeSamples";
             DesignerEnvironment.AddSolutionExplorerMenu(CreateFieldDataClass, SolutionExplorerMenuTarget.Module, "Create FieldData Class");
-        }
-
-        class AITextAnalyzerCoreDummy : IAITextAnalyzerCore
-        {
-            public Task<ModuleData?> FileToModuleDataAsync(string moduleName, string fieldName, string fileName, StreamContent content)
-               => throw new NotImplementedException();
-
-            public Task<ModuleData?> TextToModuleDataAsync(string moduleName, string fieldName, string text)
-                => throw new NotImplementedException();
         }
 
         private void CreateFieldDataClass(SolutionExplorerMenuClickEventArgs e)

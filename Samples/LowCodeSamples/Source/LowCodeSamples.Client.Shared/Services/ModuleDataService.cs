@@ -1,3 +1,4 @@
+using Codeer.LowCode.Blazor.Extras.Services;
 using Codeer.LowCode.Blazor;
 using Codeer.LowCode.Blazor.DataIO;
 using Codeer.LowCode.Blazor.Repository.Data;
@@ -10,15 +11,15 @@ namespace LowCodeSamples.Client.Shared.Services
 {
     public class ModuleDataService : IModuleDataService
     {
-        readonly HttpService _http;
+        readonly IHttpService _http;
 
-        public ModuleDataService(HttpService http)
+        public ModuleDataService(IHttpService http)
             => _http = http;
 
         public async Task<List<Paging<ModuleData>>> GetListAsync(List<GetListRequest> request)
             => await GetListAsync(_http, request);
 
-        public static async Task<List<Paging<ModuleData>>> GetListAsync(HttpService http, List<GetListRequest> request)
+        public static async Task<List<Paging<ModuleData>>> GetListAsync(IHttpService http, List<GetListRequest> request)
         {
             var result = await http.PostAsJsonReturnHttpResponseAsync($"/api/module_data/list", request);
             if (result == null) return new();

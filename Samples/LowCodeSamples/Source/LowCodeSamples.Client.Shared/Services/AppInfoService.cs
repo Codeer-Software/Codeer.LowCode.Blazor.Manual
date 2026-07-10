@@ -3,13 +3,13 @@ using Codeer.LowCode.Blazor.Components.AppParts.Loading;
 using Codeer.LowCode.Blazor.DesignLogic;
 using Codeer.LowCode.Blazor.DesignLogic.Transfer;
 using Codeer.LowCode.Blazor.Extras;
+using Codeer.LowCode.Blazor.Extras.Services;
 using Codeer.LowCode.Blazor.Repository;
 using Codeer.LowCode.Blazor.Repository.Data;
 using Codeer.LowCode.Blazor.Repository.Match;
 using Codeer.LowCode.Blazor.RequestInterfaces;
 using Codeer.LowCode.Blazor.Script;
 using Codeer.LowCode.Blazor.Utils;
-using LowCodeSamples.Client.Shared.ScriptObjects;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.JSInterop;
@@ -19,9 +19,9 @@ namespace LowCodeSamples.Client.Shared.Services
     public class AppInfoService : IAppInfoService
     {
         readonly NavigationManager _navigationManager;
-        readonly HttpService _http;
+        readonly IHttpService _http;
         readonly ScriptRuntimeTypeManager _scriptRuntimeTypeManager = new();
-        readonly ToasterEx _toaster;
+        readonly IToastService _toaster;
         readonly LoadingService _loadingService;
         HubConnection? _hubConnection;
         DesignData? _design;
@@ -42,21 +42,18 @@ namespace LowCodeSamples.Client.Shared.Services
 
         public bool CanScriptDebug => _config?.CanScriptDebug == true;
 
-        public AppInfoService(HttpService http, LoadingService loadingService, NavigationManager navigationManager, ILogger logger, ToasterEx toaster, IJSRuntime js)
+        public AppInfoService(IHttpService http, LoadingService loadingService, NavigationManager navigationManager, ILogger logger, IToastService toaster, IJSRuntime js)
         {
             _http = http;
             _navigationManager = navigationManager;
             _toaster = toaster;
             _loadingService = loadingService;
-            _scriptRuntimeTypeManager.AddCustomInjector(() => http);
-            _scriptRuntimeTypeManager.AddType(typeof(ScriptObjects.Excel));
-            _scriptRuntimeTypeManager.AddType(typeof(ExcelCellIndex));
-            _scriptRuntimeTypeManager.AddType<WebApiResult>();
-            _scriptRuntimeTypeManager.AddService(new WebApiService(http, logger));
-            _scriptRuntimeTypeManager.AddService(new Toaster(toaster));
+            _scriptRuntimeTypeManager.AddService(loadingService);
+            _scriptRuntimeTypeManager.AddType<LoadingService.LoadingScope>();
             _scriptRuntimeTypeManager.AddService(new KJS(js));
 
-            ExtrasClientInitializer.Initialize(this);
+            //Extras の組み込みスクリプトオブジェクト (Excel / WebApi / Toaster / Mail) を一括登録
+            ExtrasClientInitializer.Initialize(this, http, logger, toaster);
         }
 
         public async Task InitializeAppAsync()
