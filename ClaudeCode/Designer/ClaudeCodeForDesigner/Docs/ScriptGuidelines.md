@@ -357,7 +357,7 @@ void CustomExport_OnClick()
 
 ### Excel メソッド一覧
 
-全メソッドの詳細は [ScriptExtensions.md](ScriptExtensions.md) の Excel セクションを参照。
+全メソッドの正確なシグネチャと使用例は [temporary/_script_catalog.md](../temporary/_script_catalog.md) の Excel セクションを参照。
 
 ---
 

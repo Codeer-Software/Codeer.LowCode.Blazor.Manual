@@ -235,7 +235,7 @@ CLI サブコマンドは今後も増えていく。**古いデザイナ exe に
 
 未対応と判断したら:
 
-1. **その場は別の方法で一旦対処する** (例: リネームなら手作業のテキスト置換を慎重に行い designcheck で検証する / チェックならブラウザ確認に切り替える 等)。ただし代替手段は取りこぼしの多い次善策である旨を明示する
+1. **その場は別の方法で一旦対処する** (例: リネームなら手作業のテキスト置換を慎重に行い designcheck で検証する / チェックならブラウザ確認に切り替える / field-catalog・script-catalog なら各カタログ節の「カタログが生成できないとき」の代替情報源で補う 等)。ただし代替手段は取りこぼしの多い次善策である旨を明示する
 2. **ユーザーにデザイナのバージョンアップを促す** — 「この操作は新しいデザイナの `<サブコマンド名>` を使うのが正式な方法です。お使いのデザイナが未対応のようなので、最新版に更新してください」と伝える。恒久対応はバージョンアップ後に正式 CLI で行う
 
 ## フィールド型カタログ CLI (field-catalog) — このプロジェクトで使える全フィールド型
@@ -272,6 +272,46 @@ CLI サブコマンドは今後も増えていく。**古いデザイナ exe に
 
 > フィールド型を使うときは、まず `temporary/_field_catalog.md`（このプロジェクトで実際に使える型の一覧・構造）を確認し、解説が必要なら `Docs/Fields/` を読む。独自フィールドは `Docs/Fields/` に無いのでカタログが唯一の情報源になる。
 
+### カタログが生成できないとき（古いデザイナでの代替）
+
+インストール済みの Codeer.LowCode.Blazor / Codeer.LowCode.Blazor.Designer が本書の期待するバージョンより古いと、
+`temporary/_field_catalog.md` が生成されない・内容が不足することがある。その場合は次で代替して作業を続ける:
+
+- **組み込みフィールド**: [Defaults/](Defaults/) の `{型名}.json`（デザイナの新規追加と同一の既定状態 = TypeFullName・プロパティ構造・既定値の正）と、[Samples/](Samples/) の実物モジュールを情報源にする
+- **独自フィールド（Extras / ProCode 等）**: ワークスペース内に情報源が無い。デザイナ GUI で対象フィールドを 1 つ配置して保存してもらい、その JSON を雛形に deepcopy する。意味が不明なプロパティは推測で埋めず既定値のまま残す
+- 代替はカタログより精度が落ちる。作業は続けつつ、ユーザーにデザイナのバージョンアップを促す
+
+## スクリプトオブジェクトカタログ CLI (script-catalog) — スクリプトで使える全サービス・型
+
+**この環境でスクリプト (*.mod.cs) から実際に使えるサービス・型・列挙型の一覧と使い方は、デザイナ exe から動的に取得する**。拡張ライブラリ (Extras 等) や独自登録のスクリプトオブジェクトはデザイナのビルドによって変わるため、このカタログが唯一の真実の源になる (入力補完と同じ型モデルから生成 = スクリプトで呼べないメンバーは載らない)。
+
+### 実行方法
+
+```
+"<デザイナexeのパス>" script-catalog "<プロジェクトのルートフォルダ>" --out "temporary/_script_catalog.md"
+```
+
+- `script-catalog` … サブコマンド (デザイナ 1.3.12 以降)。登録済みのサービス (サービス名で直接アクセス) / new で生成できる型 / 列挙型を、メンバーシグネチャと登録ドキュメント (使い方・例) 付きの Markdown で出力する
+- **DB 接続は不要**。終了コード: `0` = 成功 / `2` = 失敗
+
+### 出力先と自動再生成
+
+field-catalog と同じ扱い: **出力先は `temporary/_script_catalog.md`**（毎回作り直す生成物・gitignore 済み）。`.claude/refresh-field-catalog.ps1` フックが field-catalog と同時に「デザイナ再ビルド検知時だけ」再生成する（script-catalog 未対応の古いデザイナでは Designer.dll のバージョン判定で自動スキップされる）。
+
+> 組み込み外のサービス (Excel / WebApi / Toaster / Mail 等) をスクリプトで使うときは、`temporary/_script_catalog.md` でこの環境に登録されているか・正確なシグネチャ・使用例を確認する。カタログに無いサービス・型は使えない。独自のサービス/型を追加する方法は [Docs/ScriptExtensions.md](Docs/ScriptExtensions.md) を参照。
+
+### カタログが生成できないとき（古いデザイナでの代替）
+
+デザイナが 1.3.12 未満だと script-catalog が無く、`temporary/_script_catalog.md` は生成されない。
+**ファイルが無いときは、まず一度 `script-catalog` を手動実行してみる**（許可リスト済みで確認不要。フック未設定なだけの環境はこれで生成できる）。
+`--out` の Markdown が生成されない／デザイナのウィンドウが開いた場合は未対応版と判断し
+（前述「インストール済みデザイナが CLI サブコマンドに未対応のとき」参照）、次で代替して作業を続ける:
+
+- **組み込みサービス（Logger / MessageBox / NavigationService / LoadingService 等）**: [Docs/Scripts.md](Docs/Scripts.md) と [Docs/Fields/_ScriptApi.md](Docs/Fields/_ScriptApi.md) が情報源
+- **拡張サービス（Excel / WebApi / Toaster / Mail 等）**: [Samples/](Samples/) のスクリプト実例から呼び方を拾う（例: `PatternShowcase/App/Modules/ReportSample.mod.cs` = Excel、`ToastSample.mod.cs` = Toaster）。[Docs/ScriptGuidelines.md](Docs/ScriptGuidelines.md) の Excel 注意事項も有効
+- **最終確認は designcheck**: 存在しないサービス・メソッド参照はスクリプト解析エラーとして検出されるので、「書く → designcheck → 直す」のループで確定できる。シグネチャに確信が持てない呼び出しを未検証のまま残さない
+- 代替はカタログより精度が落ちる（そのデザイナに Extras 等が入っているかも確認できない）。作業は続けつつ、ユーザーにデザイナのバージョンアップを促す
+
 ## 詳細リファレンス (Docs/)
 
 各設定の詳細なプロパティ、JSON例、ランタイム動作は `Docs/` 以下のドキュメントを参照。
@@ -285,7 +325,7 @@ CLI サブコマンドは今後も増えていく。**古いデザイナ exe に
 | [Docs/SearchConditions.md](Docs/SearchConditions.md) | 検索条件 (FieldValueMatch, FieldVariableMatch, MultiMatch) |
 | [Docs/QueryAndSql.md](Docs/QueryAndSql.md) | クエリとSQL実行の総合ガイド（QueryField / ExecuteSqlField） |
 | [Docs/Scripts.md](Docs/Scripts.md) | C#スクリプト (*.mod.cs) 文法リファレンス、組み込みサービス、Module/Field API |
-| [Docs/ScriptExtensions.md](Docs/ScriptExtensions.md) | スクリプト拡張サービス (Excel, WebApi, Toaster, Mail 等) と独自拡張の追加方法 |
+| [Docs/ScriptExtensions.md](Docs/ScriptExtensions.md) | スクリプト拡張の仕組みと独自拡張の追加方法 (登録済みサービスの一覧・使い方は `temporary/_script_catalog.md`) |
 | [Docs/ProjectSettings.md](Docs/ProjectSettings.md) | プロジェクト設定 (app.clprj, designer.settings.json) |
 | [Docs/Authentication.md](Docs/Authentication.md) | 認証の仕組み (既定の Cookie 認証)。ログインの流れ・ユーザーテーブルの契約 (`PasswordCheckUserTableInfo`)・`AppUser` モジュールの必須構成・パスワードハッシュ・`CurrentUser`・権限の出し分け |
 | [Docs/Enums.md](Docs/Enums.md) | 全列挙型リファレンス |

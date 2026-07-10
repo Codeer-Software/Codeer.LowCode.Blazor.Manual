@@ -1,284 +1,37 @@
-# スクリプト拡張サービス
+# スクリプト拡張の仕組みと独自拡張の追加方法
 
 スクリプトエンジンはアプリケーション側で拡張可能。`ScriptRuntimeTypeManager` に型やサービスを登録することで、
 スクリプトから新しいクラスやサービスにアクセスできるようになる。
 
-このドキュメントでは、標準アプリケーションテンプレート（`WebApp.Client.Shared`）で登録される拡張サービスを説明する。
+**登録済みサービス・型の一覧と使い方 (Excel / WebApi / Toaster / Mail 等) はこのドキュメントには載せない。**
+この環境で実際に使える正確な一覧 (メンバーシグネチャ・使用例付き) は、デザイナ exe の `script-catalog`
+サブコマンドが生成する `temporary/_script_catalog.md` を参照 (入力補完と同じ型モデルから生成されるため、
+スクリプトで呼べないメンバーは載らない)。このドキュメントは「カタログに載る側 (拡張) を作る方法」を扱う。
 
 ---
 
 ## 拡張の仕組み
 
-`Source/App/WebApp.Client.Shared/Services/AppInfoService.cs` で以下のように登録される。
+標準テンプレートの Excel / WebApi / Toaster / Mail は `Codeer.LowCode.Blazor.Extras` パッケージが提供し
+(ソースは MIT で公開)、`Source/App/WebApp.Client.Shared/Services/AppInfoService.cs` で以下のように登録される。
 
 ```csharp
-// 型の登録（new で生成可能になる）
-_scriptRuntimeTypeManager.AddType(typeof(Excel));
-_scriptRuntimeTypeManager.AddType(typeof(ExcelCellIndex));
-_scriptRuntimeTypeManager.AddType<WebApiResult>();
+// テンプレート固有の登録
+_scriptRuntimeTypeManager.AddService(loadingService);
 _scriptRuntimeTypeManager.AddType<LoadingService.LoadingScope>();
 
-// サービスの登録（スクリプト内でサービス名で直接アクセス可能）
-_scriptRuntimeTypeManager.AddService(new WebApiService(http, logger));
-_scriptRuntimeTypeManager.AddService(new Toaster(toaster));
-_scriptRuntimeTypeManager.AddService(new MailService());
-_scriptRuntimeTypeManager.AddService(loadingService);
-
-// カスタムインジェクター（[ScriptInject]プロパティへの注入）
-_scriptRuntimeTypeManager.AddCustomInjector(() => http);
+// Extras パッケージの組み込みスクリプトオブジェクトを一括登録
+// (型: Excel, ExcelCellIndex, WebApiResult, MailMessage /
+//  サービス: WebApiService, Toaster, MailService / [ScriptInject] 用インジェクター)
+ExtrasClientInitializer.Initialize(this, http, logger, toaster);
 ```
 
----
-
-## 標準拡張サービス一覧
-
-| サービス / 型 | アクセス方法 | 説明 |
-|---|---|---|
-| `WebApiService` | サービス名で直接 | HTTP API呼び出し |
-| `Toaster` | サービス名で直接 | トースト通知表示 |
-| `MailService` | サービス名で直接 | メール送信 |
-| `LoadingService` | サービス名で直接 | ローディング表示 |
-| `Excel` | `new Excel(...)` | Excel操作 |
-| `ExcelCellIndex` | `new ExcelCellIndex()` | Excelセル位置 |
-| `WebApiResult` | 戻り値型 | WebAPI応答 |
-
----
-
-## WebApiService
-
-外部APIにHTTPリクエストを送信する。
-
-### メソッド
-
-| メソッド | 戻り値 | 説明 |
-|---|---|---|
-| `Get(string url)` | `WebApiResult` | GETリクエスト |
-| `Post(string url, JsonObject data)` | `WebApiResult` | POSTリクエスト |
-| `Put(string url, JsonObject data)` | `WebApiResult` | PUTリクエスト |
-| `Delete(string url)` | `WebApiResult` | DELETEリクエスト |
-
-### WebApiResult
-
-| プロパティ | 型 | 説明 |
-|---|---|---|
-| `JsonObject` | JsonObject | レスポンスボディ（JSON） |
-| `StatusCode` | int | HTTPステータスコード |
-
-### 使用例
+メール送信・Excel PDF 変換などのエンドポイント URL はアプリ（コントローラを持つ側）の持ち物なので、
+`Source/App/WebApp.Client.Shared/Services/ServiceInitializer.cs` で各機能の static プロパティに設定する。
 
 ```csharp
-// GETリクエスト
-var result = WebApiService.Get("/api/products");
-var data = result.JsonObject;
-
-// POSTリクエスト
-var body = new JsonObject();
-body.Name = "新商品";
-body.Price = 1000;
-var result = WebApiService.Post("/api/products", body);
-if (result.StatusCode == 200)
-{
-    Toaster.Success("登録しました");
-}
-
-// データの一括取得と表示
-void FetchData_OnClick()
-{
-    var data = WebApiService.Get("/api/data").JsonObject;
-    foreach (var e in data)
-    {
-        var row = new DataItem();
-        row.Name.Value = e.Name;
-        row.Value.Value = e.Value;
-        DataList.AddRow(row);
-    }
-}
-```
-
----
-
-## Toaster
-
-画面にトースト（一時通知）を表示する。
-
-### メソッド
-
-| メソッド | 説明 |
-|---|---|
-| `Success(string message)` | 成功トースト（緑） |
-| `Warn(string message)` | 警告トースト（黄） |
-| `Error(string message)` | エラートースト（赤） |
-
-### 使用例
-
-```csharp
-void SaveButton_OnClick()
-{
-    this.Submit();
-    Toaster.Success("保存しました");
-}
-
-void Delete_OnClick()
-{
-    var result = MessageBox.Show("削除しますか？", "はい", "いいえ");
-    if (result == "はい")
-    {
-        this.Delete();
-        Toaster.Warn("削除しました");
-    }
-}
-```
-
----
-
-## MailService
-
-メールを送信する。サーバー側で `SendEmailAsyncCore` の設定が必要。
-
-### メソッド
-
-| メソッド | 戻り値 | 説明 |
-|---|---|---|
-| `SendEmail(string address, string subject, string message)` | `bool` | メール送信。成功時 `true` |
-
-### 使用例
-
-```csharp
-void SendNotification_OnClick()
-{
-    var success = MailService.SendEmail(
-        Email.Value,
-        "注文確認",
-        "ご注文ありがとうございます。注文番号: " + OrderId.Value
-    );
-    if (success)
-    {
-        Toaster.Success("メールを送信しました");
-    }
-    else
-    {
-        Toaster.Error("メール送信に失敗しました");
-    }
-}
-```
-
----
-
-## LoadingService
-
-ローディングスピナーを表示する。
-
-### メソッド
-
-| メソッド | 戻り値 | 説明 |
-|---|---|---|
-| `StartLoading()` | `LoadingScope` | ローディング開始。`Dispose()` で終了 |
-| `StartLoading(int? delayTime)` | `LoadingScope` | 遅延付きローディング開始 |
-
-### 使用例
-
-```csharp
-void HeavyProcess_OnClick()
-{
-    using (var loading = LoadingService.StartLoading())
-    {
-        // 重い処理
-        var search = new ModuleSearcher<Product>();
-        var list = search.Execute();
-        foreach (var item in list)
-        {
-            item.Status.Value = "Processed";
-            item.Submit();
-        }
-    }
-    // using を抜けるとローディング自動終了
-    Toaster.Success("処理完了");
-}
-```
-
----
-
-## Excel
-
-Excelファイルの読み書きとダウンロード。`IDisposable` のため `using` で使用すること。
-
-### コンストラクタ
-
-```csharp
-new Excel(MemoryStream? stream, string fileName)
-```
-
-### メソッド
-
-| メソッド | 戻り値 | 説明 |
-|---|---|---|
-| `OverWrite(Module data)` | void | モジュールデータでExcelを上書き |
-| `FindCellByText(string text)` | `ExcelCellIndex?` | テキストでセルを検索 |
-| `SetCellValue(ExcelCellIndex cell, object value)` | void | セルに値を設定 |
-| `CopyCells(ExcelCellIndex source, ExcelCellIndex dest, int rows, int cols)` | void | セル範囲コピー |
-| `AddImage(ExcelCellIndex cell, Stream stream)` | void | 画像を挿入 |
-| `Download()` | bool | xlsxとしてダウンロード |
-| `DownloadPdf()` | bool | PDFに変換してダウンロード |
-
-### ExcelCellIndex
-
-| プロパティ | 型 | 説明 |
-|---|---|---|
-| `RowIndex` | int | 行インデックス |
-| `ColumnIndex` | int | 列インデックス |
-| `GetNext(int rowOffset, int colOffset)` | ExcelCellIndex | オフセットした新しい位置 |
-
-### 使用例
-
-```csharp
-// テンプレートExcelに書き出してダウンロード
-void ExportExcel_OnClick()
-{
-    var searchFile = new ModuleSearcher<TestFiles>();
-    searchFile.AddEquals(e => e.Name.Value, "Template");
-    var file = searchFile.Execute()[0];
-
-    using (var memory = file.File.GetMemoryStream())
-    using (var excel = new Excel(memory, file.File.FileName))
-    {
-        excel.OverWrite(this);
-        excel.Download();
-    }
-}
-
-// PDFとしてダウンロード
-void ExportPdf_OnClick()
-{
-    var searchFile = new ModuleSearcher<TestFiles>();
-    searchFile.AddEquals(e => e.Name.Value, "Template");
-    var file = searchFile.Execute()[0];
-
-    using (var memory = file.File.GetMemoryStream())
-    using (var excel = new Excel(memory, file.File.FileName))
-    {
-        excel.OverWrite(this);
-        excel.DownloadPdf();
-    }
-}
-
-// セルを個別に操作
-void CustomExport_OnClick()
-{
-    var searchFile = new ModuleSearcher<TestFiles>();
-    searchFile.AddEquals(e => e.Name.Value, "Template");
-    var file = searchFile.Execute()[0];
-
-    using (var memory = file.File.GetMemoryStream())
-    using (var excel = new Excel(memory, file.File.FileName))
-    {
-        var cell = excel.FindCellByText("{{Name}}");
-        if (cell != null)
-        {
-            excel.SetCellValue(cell, Name.Value);
-        }
-        excel.Download();
-    }
-}
+MailService.SendMailEndPoint = "/api/mail";
+Codeer.LowCode.Blazor.Extras.ScriptObjects.Excel.ConvertPdfEndPoint = "api/excel/pdf";
 ```
 
 ---
@@ -297,7 +50,7 @@ public class MyService
     public Services? Services { get; set; }
 
     [ScriptInject]
-    public HttpService? Http { get; set; }
+    public IHttpService? Http { get; set; }
 
     [ScriptName("DoSomething")]
     public async Task<string> DoSomethingAsync(string input)
@@ -354,6 +107,9 @@ Logger.Log(data.Format());
 _scriptRuntimeTypeManager.AddCustomInjector(() => myDependency);
 ```
 
+インジェクターは**プロパティの型と完全一致**で引かれる。`Func<IHttpService>` で登録したら
+受け側プロパティも `IHttpService` 型にする（具象型 `HttpService` では注入されない）。
+
 ---
 
 ## スクリプト属性リファレンス
@@ -367,13 +123,8 @@ _scriptRuntimeTypeManager.AddCustomInjector(() => myDependency);
 | `[ScriptInject]` | プロパティ | フレームワークサービスを自動注入 |
 | `[ScriptMethodToProperty("Name")]` | メソッド | 非同期メソッドをプロパティとして公開。例: `SetValueAsync` → `Value` のセッター |
 
----
-
-## アプリバリアント別の対応状況
-
-| バリアント | Excel | WebApi | Toaster | Mail | Loading |
-|---|---|---|---|---|---|
-| Blazor WASM (Cookie等) | ○ | ○ | ○ | ○ | ○ |
-| Server-Side Blazor | ○ | ○ | ○ | - | - |
-| WPF Desktop | ○ | ○ | ○ | - | - |
-| WinForms Desktop | ○ | ○ | ○ | - | - |
+登録した拡張がスクリプトからどう見えるか（メンバーの取捨・シグネチャ変換の結果）は、
+`script-catalog` を再実行して `temporary/_script_catalog.md` で確認できる。
+リフレクションで表現できない情報（使い方・例・注意）を AI に渡したい場合は、
+デザイナ拡張の初期化コードで `ScriptObjectCatalog.Add(type, markdown)` を呼ぶとカタログと AI チャットに載る
+（Extras の `ScriptObjectDocs/*.md` が実例）。

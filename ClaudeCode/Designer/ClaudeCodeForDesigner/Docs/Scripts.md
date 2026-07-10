@@ -668,27 +668,8 @@ Logger.Error("エラーメッセージ");
 
 ### Toaster (App側拡張サービス)
 
-画面右下にトースト通知を表示する。
-
-```csharp
-Toaster.Success("保存しました");
-Toaster.Info("確認してください");
-Toaster.Warn("注意が必要です");
-Toaster.Error("失敗しました");
-```
-
-**メソッド:**
-
-| メソッド | 説明 |
-|---|---|
-| `Success(string s)` | 緑色の成功トースト |
-| `Info(string s)` | 青色の情報トースト |
-| `Warn(string s)` | 黄色の警告トースト |
-| `Error(string s)` | 赤色のエラートースト |
-
-> **注意**: `Toaster.Warning` は存在しない。警告は `Toaster.Warn` を使う。
-
-実装: `Source/App/WebApp.Client.Shared/ScriptObjects/Toaster.cs`
+画面右下にトースト通知を表示する (`Codeer.LowCode.Blazor.Extras` パッケージが提供)。
+メソッド一覧・使用例・注意 (`Toaster.Warning` は存在しない等) は `temporary/_script_catalog.md` を参照。
 
 ### LoadingService
 
@@ -1135,4 +1116,4 @@ bool StockInOut_OnTransaction(TransactionMode mode)
 
 ## 拡張サービス
 
-アプリケーション側で追加登録されたサービス（Excel, WebApi, Toaster, Mail 等）については [ScriptExtensions.md](ScriptExtensions.md) を参照。
+アプリケーション側で追加登録されたサービス（Excel, WebApi, Toaster, Mail 等）の一覧と使い方は、`script-catalog` CLI が生成する `temporary/_script_catalog.md` を参照（この環境で使える正確なシグネチャ・使用例が載る）。独自拡張の追加方法は [ScriptExtensions.md](ScriptExtensions.md) を参照。
