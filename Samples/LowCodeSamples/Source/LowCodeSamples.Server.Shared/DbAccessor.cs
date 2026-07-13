@@ -16,6 +16,9 @@ namespace LowCodeSamples.Server.Shared
 {
   public class DbAccessor : IDbAccessor, IDisposable
   {
+    //DB固有型変換のTypeHandler登録(RawDbValueConverterのstaticコンストラクタ)を確実に走らせる
+    static DbAccessor() => RawDbValueConverter.Initialize();
+
     bool _transactionMode;
 
     private class ConnectionOwner
@@ -28,6 +31,10 @@ namespace LowCodeSamples.Server.Shared
         NoNeedDispose = noNeedDispose;
       }
     }
+
+    static DbTableDefinitionCache _dbTableDefinitionCache = new();
+    public DbTableDefinitionCache? DbTableDefinitionCache => _dbTableDefinitionCache;
+    public static void ClearTableDefinitionCache() => _dbTableDefinitionCache = new();
 
     readonly Dictionary<string, ConnectionOwner> _connections = new();
     readonly Dictionary<string, DbTransaction> _transactions = new();
@@ -85,6 +92,7 @@ namespace LowCodeSamples.Server.Shared
       {
         if (e.Value.NoNeedDispose) continue;
         await e.Value.Connection.DisposeAsync();
+        if (e.Value.Connection is SQLiteConnection sqliteConn) SQLiteConnection.ClearPool(sqliteConn);
       }
       _connections.Clear();
 
@@ -103,6 +111,7 @@ namespace LowCodeSamples.Server.Shared
       {
         if (e.Value.NoNeedDispose) continue;
         e.Value.Connection.Dispose();
+        if (e.Value.Connection is SQLiteConnection sqliteConn) SQLiteConnection.ClearPool(sqliteConn);
       }
       _connections.Clear();
 
@@ -192,6 +201,10 @@ namespace LowCodeSamples.Server.Shared
       var conn = GetConnection(dataSourceName);
       return (await conn.QueryAsync<object>(query, CreateParameter(args), GetTransaction(dataSourceName))).Select(e => (IDictionary<string, object>)e).ToList();
     }
+
+    //未解決のDB固有型の値を実際にbindできる値へ変換する。独自の型を扱う場合はここをoverrideする
+    public virtual object? ConvertFieldValueToDbValue(string dataSourceName, string rawDbTypeName, object? value)
+        => RawDbValueConverter.ConvertFieldValueToDbValue(GetDataSource(dataSourceName)?.DataSourceType, rawDbTypeName, value);
 
     public virtual Task<string> SubmitIdentityUserAsync(string userId, Dictionary<string, object?> columnAndValue, string? password)
         => throw new NotImplementedException();

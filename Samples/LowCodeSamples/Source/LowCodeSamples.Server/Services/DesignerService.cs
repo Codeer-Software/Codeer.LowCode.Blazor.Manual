@@ -3,6 +3,7 @@ using Codeer.LowCode.Blazor.DesignLogic.Transfer;
 using Codeer.LowCode.Blazor.Json;
 using Codeer.LowCode.Blazor.Repository.Data;
 using LowCodeSamples.Client.Shared.Services;
+using LowCodeSamples.Server.Shared;
 
 namespace LowCodeSamples.Server.Services
 {
@@ -18,6 +19,7 @@ namespace LowCodeSamples.Server.Services
       {
         var designData = DesignDataFileManager.GetDesignData(SystemConfig.Instance.DesignFileDirectory, _designData);
         if (ReferenceEquals(_designData, designData)) return _designData;
+        DbAccessor.ClearTableDefinitionCache();
         _designData = designData;
         _transferData = _designData.CreateTransferDesignData();
         return _designData;

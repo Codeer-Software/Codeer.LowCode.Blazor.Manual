@@ -50,9 +50,14 @@ namespace LowCodeSamples.Server.Controllers
         }
 
         [HttpPost]
-        public async Task<List<ModuleSubmitResult>> SubmitAsync(List<ModuleSubmitData>? data)
+        public async Task<List<ModuleSubmitResult>> SubmitAsync()
         {
-            if (!SystemConfig.Instance.CanUpdate) throw new Exception("�f���p�̂��߃f�[�^�̍X�V�͂ł��܂���");
+            if (!SystemConfig.Instance.CanUpdate) throw new Exception("デモ用のためデータの更新はできません");
+            //FileFieldのDB列格納モードでファイル実体(byte[])を運ぶため、listの応答と同様にMessagePackで受ける
+            using var memory = new MemoryStream();
+            await Request.Body.CopyToAsync(memory);
+            memory.Position = 0;
+            var data = MessagePackSerializer.Typeless.Deserialize(memory) as List<ModuleSubmitData>;
             return await _dataService.ModuleDataIO.SubmitWithTransactionAsync(data!);
         }
 
@@ -63,7 +68,7 @@ namespace LowCodeSamples.Server.Controllers
         [HttpPost("excel_upload")]
         public async Task<List<ModuleSubmitResult>> ExcelUploadFileAsync(string? moduleName)
         {
-            if (!SystemConfig.Instance.CanUpdate) throw new Exception("�f���p�̂��߃f�[�^�̍X�V�͂ł��܂���");
+            if (!SystemConfig.Instance.CanUpdate) throw new Exception("デモ用のためデータの更新はできません");
             var texts = await ExcelUtils.ReadAllTextsFromExcelBinary(Request.Body);
             if (500 < texts.Count) throw LowCodeException.Create("Excel has a maximum of 500 rows");
             return await _dataService.ModuleDataIO.SubmitWithTransactionByTableTextsAsync(moduleName, texts);
@@ -87,7 +92,7 @@ namespace LowCodeSamples.Server.Controllers
         [HttpPost("upload")]
         public async Task<Codeer.LowCode.Blazor.DataIO.FileInfo> UploadFileAsync(string? moduleName, string? fieldName, string? fileName)
         {
-            if (!SystemConfig.Instance.CanUpdate) throw new Exception("�f���p�̂��߃f�[�^�̍X�V�͂ł��܂���");
+            if (!SystemConfig.Instance.CanUpdate) throw new Exception("デモ用のためデータの更新はできません");
             var info = _dataService.ModuleDataIO.FileFieldDataIO.GetFileSaveInfo(moduleName ?? string.Empty, fieldName ?? string.Empty);
             return await _dataService.TemporaryFileManager.AddFileAsync(info, fileName, Request.Body);
         }

@@ -24,7 +24,7 @@ namespace LowCodeSamples.Server.Shared
       // For fixed length characters, use string.length
       return new DbString
       {
-        IsAnsi = param.IsUnicodeStringRawDbTypeName(),
+        IsAnsi = !param.IsUnicodeStringRawDbTypeName(),
         IsFixedLength = stringFixed,
         Value = text,
         Length = stringFixed ? text.Length : -1
