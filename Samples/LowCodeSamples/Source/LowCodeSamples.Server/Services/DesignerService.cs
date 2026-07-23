@@ -3,7 +3,7 @@ using Codeer.LowCode.Blazor.DesignLogic.Transfer;
 using Codeer.LowCode.Blazor.Json;
 using Codeer.LowCode.Blazor.Repository.Data;
 using LowCodeSamples.Client.Shared.Services;
-using LowCodeSamples.Server.Shared;
+using Codeer.LowCode.Blazor.DbAccess;
 
 namespace LowCodeSamples.Server.Services
 {

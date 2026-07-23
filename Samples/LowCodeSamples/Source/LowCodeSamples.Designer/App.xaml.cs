@@ -80,13 +80,13 @@ namespace LowCodeSamples.Designer
 
             IconCandidate.Icons.AddRange(LowCodeSamples.Designer.Properties.Resources.bootstrap_icons.Split(["\r\n", "\n"], StringSplitOptions.RemoveEmptyEntries).Order());
 
-            DesignerTemplateCandidate.Templates.Add(new DesignerTemplate
+            ProjectCatalog.Add(new ProjectCatalogEntry
             {
                 Create = CreateGettingStandard,
                 Name = "GettingStarted",
                 Description = "The sample project reads, writes, and deletes data in the \r\n\"C:\\Codeer.LowCode.Blazor.Local\"; folder. \r\n;Please do not place any data in this folder that would be problematic if overwritten or deleted. You can change this folder later.",
             });
-            DesignerTemplateCandidate.Templates.Add(new DesignerTemplate
+            ProjectCatalog.Add(new ProjectCatalogEntry
             {
                 Create = CreateEmpty,
                 Name = "Empty",

@@ -1,7 +1,7 @@
 using Codeer.LowCode.Blazor.DataIO.Db;
 using Codeer.LowCode.Blazor.Designer;
 using Codeer.LowCode.Blazor.SystemSettings;
-using LowCodeSamples.Server.Shared;
+using Codeer.LowCode.Blazor.DbAccess;
 
 namespace LowCodeSamples.Designer
 {
