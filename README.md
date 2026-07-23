@@ -300,4 +300,4 @@ Codeer.LowCode.Blazor のライセンスは以下の通りです。
 
 これらを参考・利用・流用したこと（サンプルやテンプレートを元に構築したアプリケーションの動作・運用を含む）に起因するいかなる損害についても、Codeer Software は一切の責任を負いません。利用はすべて利用者自身の責任と判断で行ってください。
 
-なお、`ClaudeCode/` 配下の Claude Code 用ワークスペースの利用時の注意（AI ツールによるデータ送信等）は [ClaudeCode/README.md](ClaudeCode/README.md) を参照してください。
+なお、Claude Code 用ワークスペースはデザイナ（Tools > Claude Code Workspace）から展開する方式です。利用時の注意（AI ツールによるデータ送信等）は [ClaudeCode/README.md](ClaudeCode/README.md) を参照してください。
