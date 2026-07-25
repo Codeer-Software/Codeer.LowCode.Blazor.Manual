@@ -46,6 +46,18 @@ UI は持ちません。デザイナでの設定のみで動作します。
 | **Delete** | 一覧画面で削除ボタンが押されたとき |
 | **Standalone** | 上記のどれでもない時。Submit ボタンが押された時に実行 |
 
+### アクセス権
+
+`Standalone` の SQL を実行するには、そのモジュールの**書き込みの条件**を満たす必要があります（ListField の行モジュールで実行されるものは行モジュール側の条件）。
+`Create` / `Update` / `Delete` は Submit の一部として実行されるので、元から書き込みの条件が必要です。
+
+SQL 文の内容は Codeer.LowCode.Blazor からは判断できないため、**データによる認可（行の条件）と項目単位の権限は SQL には効きません。**
+行や項目で絞りたい場合は SQL の WHERE で絞ってください（ログインユーザーの値を持つフィールドをモジュールに置き、パラメータとして SQL に渡します）。
+
+`Standalone` の ExecuteSqlField を持つモジュールにデータによる認可を設定していると、デザインチェックが知らせます。
+
+→ [認証・認可](../authorization/authorization.md)
+
 ### WithStandardIO（標準 IO との関係）
 
 `Standalone` 以外の時に有効。標準の CRUD 処理とカスタム SQL の実行順を指定します。
