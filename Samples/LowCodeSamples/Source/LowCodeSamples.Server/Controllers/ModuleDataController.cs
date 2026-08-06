@@ -7,6 +7,7 @@ using Codeer.LowCode.Blazor.Utils;
 using Excel.Report.PDF;
 using LowCodeSamples.Client.Shared.Services;
 using LowCodeSamples.Server.Services;
+using Codeer.LowCode.Blazor.Extras.Server.BulkFile;
 using Codeer.LowCode.Blazor.Extras.Server.FileManagement;
 using Codeer.LowCode.Blazor.Extras.Server.Web;
 using MessagePack;
@@ -61,18 +62,39 @@ namespace LowCodeSamples.Server.Controllers
             return await _dataService.ModuleDataIO.SubmitWithTransactionAsync(data!);
         }
 
-        [HttpPost("excel_download")]
-        public async Task<IActionResult> ExcelDownloadFileAsync(SearchCondition? condition)
-            => Ok(ExcelUtils.CreateExcelBinary(await _dataService.ModuleDataIO.GetTableTextsAsync(condition!), "data"));
+        [HttpPost("list_file")]
+        public async Task<IActionResult> GetListFileAsync(SearchCondition? condition)
+            => Ok(await BulkFileTransfer.GetListFileAsync(DesignerService.GetDesignData(), _dataService.ModuleDataIO, condition!));
 
-        [HttpPost("excel_upload")]
-        public async Task<List<ModuleSubmitResult>> ExcelUploadFileAsync(string? moduleName)
+        [HttpPost("submit_by_file")]
+        public async Task<List<ModuleSubmitResult>> SubmitByFileAsync(string? moduleName)
         {
             if (!SystemConfig.Instance.CanUpdate) throw new Exception("デモ用のためデータの更新はできません");
-            var texts = await ExcelUtils.ReadAllTextsFromExcelBinary(Request.Body);
-            if (500 < texts.Count) throw LowCodeException.Create("Excel has a maximum of 500 rows");
-            return await _dataService.ModuleDataIO.SubmitWithTransactionByTableTextsAsync(moduleName, texts);
+            return await BulkFileTransfer.SubmitByFileAsync(DesignerService.GetDesignData(), _dataService.ModuleDataIO, moduleName, Request.Body);
         }
+
+        //スクリプトの一括ファイル出力 (BulkFileTransferService.Download(List<Module>)) 用。
+        //クライアントで加工済みのモジュールデータ列をそのままファイル化する
+        [HttpPost("list_file_by_data")]
+        public async Task<IActionResult> GetListFileByDataAsync(string? moduleName)
+            => Ok(await BulkFileTransfer.GetListFileByDataAsync(DesignerService.GetDesignData(), _dataService.ModuleDataIO, moduleName, Request.Body));
+
+        //スクリプトの一括保存 (BulkFileTransferService.Submit(List<Module>)) 用。
+        //クライアントで加工済みのモジュールデータ列を一括保存する (ファイル取込と同じ追加/更新判定の経路)
+        [HttpPost("bulk_submit")]
+        public async Task<IActionResult> BulkSubmitAsync(string? moduleName)
+        {
+            if (!SystemConfig.Instance.CanUpdate) throw new Exception("デモ用のためデータの更新はできません");
+            return Content(await BulkFileTransfer.BulkSubmitAsync(_dataService.ModuleDataIO, moduleName, Request.Body), "application/json");
+        }
+
+        //スクリプトの一括ファイル取込 (BulkFileReader) 用。ファイルを解析してモジュールデータ列を返す (DB には書き込まない)。
+        //ModuleData はポリモーフィックなので JsonConverterEx で直列化して返す
+        [HttpPost("parse_file")]
+        public async Task<IActionResult> ParseFileAsync(string? moduleName)
+            => Content(Codeer.LowCode.Blazor.Json.JsonConverterEx.SerializeObject(
+                await BulkFileTransfer.ParseFileAsync(DesignerService.GetDesignData(), _dataService.ModuleDataIO, moduleName, Request.Body)),
+                "application/json");
 
         [HttpGet("resource")]
         public IActionResult GetResourceAsync(string? resource)

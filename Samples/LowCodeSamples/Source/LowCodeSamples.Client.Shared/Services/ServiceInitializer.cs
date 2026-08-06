@@ -19,6 +19,9 @@ namespace LowCodeSamples.Client.Shared.Services
             Codeer.LowCode.Blazor.Extras.ScriptObjects.Excel.ConvertPdfEndPoint = "api/excel/pdf";
             AITextAnalyzerField.FileToModuleDataEndPoint = "/api/ai_text_analyze/file";
             AITextAnalyzerField.TextToModuleDataEndPoint = "/api/ai_text_analyze/text";
+            BulkFileReader.ParseFileEndPoint = "/api/module_data/parse_file";
+            BulkFileTransferService.ListFileByDataEndPoint = "/api/module_data/list_file_by_data";
+            BulkFileTransferService.BulkSubmitEndPoint = "/api/module_data/bulk_submit";
 
             services.AddScoped<IAppInfoService, AppInfoService>();
             services.AddScoped<IModuleDataService, ModuleDataService>();
