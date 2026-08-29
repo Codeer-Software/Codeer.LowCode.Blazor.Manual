@@ -39,7 +39,7 @@ namespace LowCodeSamples.Designer
             //load dll.
             typeof(LowCodeSamples.Client.Shared.Services.AppInfoService).ToString();
             typeof(ApexChartFieldDesign).ToString();
-            typeof(SeriesType).ToString(); 
+            typeof(global::ApexCharts.SeriesType).ToString();
             typeof(FluentTextFieldDesign).ToString();
             typeof(Appearance).ToString();
 
