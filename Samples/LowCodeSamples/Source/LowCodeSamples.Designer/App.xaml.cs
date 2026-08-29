@@ -96,6 +96,9 @@ namespace LowCodeSamples.Designer
             base.OnStartup(e);
 
             MainWindow.Title = "LowCodeSamples";
+
+            //Extras のセットアップメニュー (Tools > 承認フローのセットアップ / メールのセットアップ)
+            ExtrasDesignerInitializer.Setup(DesignerEnvironment);
             DesignerEnvironment.AddSolutionExplorerMenu(CreateFieldDataClass, SolutionExplorerMenuTarget.Module, "Create FieldData Class");
         }
 

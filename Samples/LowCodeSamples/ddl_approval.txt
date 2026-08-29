@@ -1,0 +1,212 @@
+-- Codeer.LowCode.Blazor.Extras 承認フロー / メール送信履歴 サンプル用テーブル (PostgreSQL)
+-- Extras フレーム配下の 経費申請 / 購買申請 / 承認待ち / 承認状況 / 承認経路マスタ / ユーザー / メール送信履歴 で使用。
+-- 承認モジュール群・メール履歴のテーブル定義は デザイナの Tools > 承認フローのセットアップ / メールのセットアップ が生成した DDL。
+-- デモサイトは認証を持たないため、操作ユーザーは appsettings の DemoUserId (= app_users.id) で固定している (既定 2 = 佐藤 花子・課長)。
+
+-- ユーザー (Current User Module = AppUser)
+CREATE TABLE app_users (
+    id SERIAL PRIMARY KEY,
+    name TEXT,
+    email TEXT
+);
+
+-- 申請書: 経費申請 (ApprovalFlowField の FK 列 = approval_id)
+CREATE TABLE expense_requests (
+    id SERIAL PRIMARY KEY,
+    title TEXT,
+    amount NUMERIC,
+    approval_id TEXT
+);
+
+-- 申請書: 購買申請 (assessed_amount = 最終承認者だけが記入できる査定額)
+CREATE TABLE purchase_requests (
+    id SERIAL PRIMARY KEY,
+    title TEXT,
+    amount NUMERIC,
+    approval_id TEXT,
+    assessed_amount NUMERIC
+);
+
+-- 承認フロー (生成 DDL)
+CREATE TABLE approval_flows (
+  id BIGSERIAL PRIMARY KEY,
+  status TEXT,
+  target_module_name TEXT,
+  target_id TEXT,
+  applicant TEXT,
+  attempt_no INTEGER,
+  current_step_no INTEGER,
+  version INTEGER
+);
+CREATE TABLE approval_flow_members (
+  id BIGSERIAL PRIMARY KEY,
+  flow_id TEXT,
+  attempt_no INTEGER,
+  step_no INTEGER,
+  step_name TEXT,
+  step_type TEXT,
+  completion_policy TEXT,
+  is_comment_required_on_reject BOOLEAN,
+  return_scope TEXT,
+  approver_user TEXT,
+  is_required BOOLEAN,
+  is_final_step BOOLEAN,
+  status TEXT,
+  acted_at TIMESTAMP
+);
+CREATE TABLE approval_histories (
+  id BIGSERIAL PRIMARY KEY,
+  flow_id TEXT,
+  attempt_no INTEGER,
+  action TEXT,
+  actor_user TEXT,
+  comment TEXT,
+  acted_at TIMESTAMP
+);
+CREATE TABLE approval_routes (
+  id BIGSERIAL PRIMARY KEY,
+  route_name TEXT NOT NULL
+);
+CREATE TABLE approval_route_steps (
+  id BIGSERIAL PRIMARY KEY,
+  approval_route_id TEXT,
+  step_no INTEGER,
+  step_name TEXT NOT NULL,
+  step_type TEXT,
+  completion_policy TEXT,
+  is_comment_required BOOLEAN,
+  return_scope TEXT
+);
+CREATE TABLE approval_route_step_members (
+  id BIGSERIAL PRIMARY KEY,
+  approval_route_step_id TEXT,
+  approver_user TEXT NOT NULL,
+  is_required BOOLEAN
+);
+
+-- メール送信履歴 (生成 DDL)
+CREATE TABLE mail_histories (
+  id BIGSERIAL PRIMARY KEY,
+  sent_at TIMESTAMP,
+  mail_infra_name TEXT,
+  subject TEXT,
+  total_count INTEGER,
+  success_count INTEGER,
+  failure_details TEXT,
+  source_module TEXT,
+  source_id TEXT
+);
+CREATE TABLE mail_history_details (
+  id BIGSERIAL PRIMARY KEY,
+  history_id TEXT,
+  to_address TEXT,
+  subject TEXT,
+  body TEXT,
+  is_success BOOLEAN,
+  error TEXT
+);
+
+-- ===== サンプルデータ =====
+
+-- ユーザー (2 = デモの操作ユーザー)
+INSERT INTO app_users (id, name, email) VALUES
+(1, '山田 太郎', 'yamada@example.com'),
+(2, '佐藤 花子', 'sato@example.com'),
+(3, '鈴木 一郎', 'suzuki@example.com'),
+(4, '高橋 次郎', 'takahashi@example.com');
+
+-- 承認経路マスタ
+INSERT INTO approval_routes (id, route_name) VALUES
+(1, '経費ルート'),
+(2, '購買ルート'),
+(3, '購買ルート(高額)');
+
+INSERT INTO approval_route_steps (id, approval_route_id, step_no, step_name, step_type, completion_policy, is_comment_required, return_scope) VALUES
+(1, '1', 1, '課長承認', 'Approval', 'RequiredMembers', TRUE, 'ApplicantOnly'),
+(2, '1', 2, '経理回覧', 'Confirmation', 'RequiredMembers', TRUE, 'ApplicantOnly'),
+(3, '2', 1, '課長承認', 'Approval', 'RequiredMembers', TRUE, 'ApplicantOnly'),
+(4, '3', 1, '課長承認', 'Approval', 'RequiredMembers', TRUE, 'ApplicantOnly'),
+(5, '3', 2, '部長承認', 'Approval', 'RequiredMembers', TRUE, 'AnyPreviousStep');
+
+INSERT INTO approval_route_step_members (id, approval_route_step_id, approver_user, is_required) VALUES
+(1, '1', '2', TRUE),
+(2, '2', '4', TRUE),
+(3, '3', '2', TRUE),
+(4, '4', '2', TRUE),
+(5, '5', '3', TRUE);
+
+-- 申請書 (approval_id = approval_flows.id。NULL は未申請)
+INSERT INTO expense_requests (id, title, amount, approval_id) VALUES
+(1, '出張旅費 (大阪・2日間)', 45000, '1'),
+(2, '技術書籍の購入', 8800, '2'),
+(3, 'チーム懇親会費', 12000, '5'),
+(4, 'タクシー代 (深夜帰宅)', 3200, NULL);
+
+INSERT INTO purchase_requests (id, title, amount, approval_id, assessed_amount) VALUES
+(1, '27インチモニター ×2', 120000, '3', NULL),
+(2, 'オフィスチェア', 35000, '4', NULL),
+(3, 'カラープリンター', 60000, '6', 58000),
+(4, '開発用ノートPC', 180000, NULL, NULL);
+
+-- 承認フロー
+INSERT INTO approval_flows (id, status, target_module_name, target_id, applicant, attempt_no, current_step_no, version) VALUES
+(1, 'InProgress', 'ExpenseRequest',  '1', '1', 1, 1, 1),  -- 課長 (2) の承認待ち
+(2, 'Completed',  'ExpenseRequest',  '2', '1', 1, 2, 3),  -- 承認済み・経理回覧済み
+(3, 'Rejected',   'PurchaseRequest', '1', '1', 1, 2, 3),  -- 部長 (3) が却下
+(4, 'InProgress', 'PurchaseRequest', '2', '1', 1, 1, 1),  -- 課長 (2) の承認待ち (最終承認 = 査定額を記入できる)
+(5, 'Returned',   'ExpenseRequest',  '3', '1', 1, 1, 2),  -- 課長 (2) が差し戻し
+(6, 'Completed',  'PurchaseRequest', '3', '1', 1, 1, 2);  -- 課長 (2) が承認 (査定額 58,000)
+
+INSERT INTO approval_flow_members (id, flow_id, attempt_no, step_no, step_name, step_type, completion_policy, is_comment_required_on_reject, return_scope, approver_user, is_required, is_final_step, status, acted_at) VALUES
+-- flow 1 (経費ルート)
+(1,  '1', 1, 1, '課長承認', 'Approval',     'RequiredMembers', TRUE, 'ApplicantOnly',   '2', TRUE, TRUE,  'Waiting',   NULL),
+(2,  '1', 1, 2, '経理回覧', 'Confirmation', 'RequiredMembers', TRUE, 'ApplicantOnly',   '4', TRUE, FALSE, 'Pending',   NULL),
+-- flow 2 (経費ルート)
+(3,  '2', 1, 1, '課長承認', 'Approval',     'RequiredMembers', TRUE, 'ApplicantOnly',   '2', TRUE, TRUE,  'Approved',  '2026-08-20 10:15:00'),
+(4,  '2', 1, 2, '経理回覧', 'Confirmation', 'RequiredMembers', TRUE, 'ApplicantOnly',   '4', TRUE, FALSE, 'Confirmed', '2026-08-20 14:40:00'),
+-- flow 3 (購買ルート(高額))
+(5,  '3', 1, 1, '課長承認', 'Approval',     'RequiredMembers', TRUE, 'ApplicantOnly',   '2', TRUE, FALSE, 'Approved',  '2026-08-21 09:30:00'),
+(6,  '3', 1, 2, '部長承認', 'Approval',     'RequiredMembers', TRUE, 'AnyPreviousStep', '3', TRUE, TRUE,  'Rejected',  '2026-08-22 16:05:00'),
+-- flow 4 (購買ルート)
+(7,  '4', 1, 1, '課長承認', 'Approval',     'RequiredMembers', TRUE, 'ApplicantOnly',   '2', TRUE, TRUE,  'Waiting',   NULL),
+-- flow 5 (経費ルート・差し戻し)
+(8,  '5', 1, 1, '課長承認', 'Approval',     'RequiredMembers', TRUE, 'ApplicantOnly',   '2', TRUE, TRUE,  'Pending',   NULL),
+(9,  '5', 1, 2, '経理回覧', 'Confirmation', 'RequiredMembers', TRUE, 'ApplicantOnly',   '4', TRUE, FALSE, 'Pending',   NULL),
+-- flow 6 (購買ルート)
+(10, '6', 1, 1, '課長承認', 'Approval',     'RequiredMembers', TRUE, 'ApplicantOnly',   '2', TRUE, TRUE,  'Approved',  '2026-08-25 11:20:00');
+
+INSERT INTO approval_histories (id, flow_id, attempt_no, action, actor_user, comment, acted_at) VALUES
+(1, '1', 1, 'Submit',  '1', '大阪出張 (顧客訪問) の旅費です。', '2026-08-27 09:00:00'),
+(2, '2', 1, 'Submit',  '1', '設計パターンの技術書 2 冊です。', '2026-08-19 17:30:00'),
+(3, '2', 1, 'Approve', '2', '承認します。', '2026-08-20 10:15:00'),
+(4, '2', 1, 'Confirm', '4', '経理で確認しました。', '2026-08-20 14:40:00'),
+(5, '3', 1, 'Submit',  '1', 'デュアルモニター化のため 2 台購入します。', '2026-08-21 08:50:00'),
+(6, '3', 1, 'Approve', '2', '業務効率化のため承認します。', '2026-08-21 09:30:00'),
+(7, '3', 1, 'Reject',  '3', '今期の予算を超過しています。来期に再申請してください。', '2026-08-22 16:05:00'),
+(8, '4', 1, 'Submit',  '1', '現在の椅子が破損したため買い替えます。', '2026-08-28 13:10:00'),
+(9, '5', 1, 'Submit',  '1', '8/22 のチーム懇親会費 (6名) です。', '2026-08-25 09:45:00'),
+(10, '5', 1, 'Return', '2', '領収書を添付してください。', '2026-08-25 10:30:00'),
+(11, '6', 1, 'Submit', '1', '既存プリンターの故障による買い替えです。', '2026-08-24 15:00:00'),
+(12, '6', 1, 'Approve', '2', '相見積の安い方 (58,000円) で承認します。', '2026-08-25 11:20:00');
+
+-- メール送信履歴 (承認の順番到達通知)
+INSERT INTO mail_histories (id, sent_at, mail_infra_name, subject, total_count, success_count, failure_details, source_module, source_id) VALUES
+(1, '2026-08-27 09:00:05', 'Smtp', '【承認依頼】経費申請 (課長承認) の承認をお願いします', 1, 1, NULL, 'ApprovalFlowMember', '1'),
+(2, '2026-08-28 13:10:04', 'Smtp', '【承認依頼】購買申請 (課長承認) の承認をお願いします', 1, 1, NULL, 'ApprovalFlowMember', '7');
+
+INSERT INTO mail_history_details (id, history_id, to_address, subject, body, is_success, error) VALUES
+(1, '1', 'sato@example.com', '【承認依頼】経費申請 (課長承認) の承認をお願いします', E'佐藤 花子 様\n\n山田 太郎 さんから 経費申請「出張旅費 (大阪・2日間)」が申請されました。\n承認待ち一覧から内容を確認し、承認または差し戻しをお願いします。', TRUE, NULL),
+(2, '2', 'sato@example.com', '【承認依頼】購買申請 (課長承認) の承認をお願いします', E'佐藤 花子 様\n\n山田 太郎 さんから 購買申請「オフィスチェア」が申請されました。\n承認待ち一覧から内容を確認し、承認または差し戻しをお願いします。', TRUE, NULL);
+
+-- 明示 Id で投入したシーケンスを進める
+SELECT setval('app_users_id_seq', (SELECT MAX(id) FROM app_users));
+SELECT setval('expense_requests_id_seq', (SELECT MAX(id) FROM expense_requests));
+SELECT setval('purchase_requests_id_seq', (SELECT MAX(id) FROM purchase_requests));
+SELECT setval('approval_flows_id_seq', (SELECT MAX(id) FROM approval_flows));
+SELECT setval('approval_flow_members_id_seq', (SELECT MAX(id) FROM approval_flow_members));
+SELECT setval('approval_histories_id_seq', (SELECT MAX(id) FROM approval_histories));
+SELECT setval('approval_routes_id_seq', (SELECT MAX(id) FROM approval_routes));
+SELECT setval('approval_route_steps_id_seq', (SELECT MAX(id) FROM approval_route_steps));
+SELECT setval('approval_route_step_members_id_seq', (SELECT MAX(id) FROM approval_route_step_members));
+SELECT setval('mail_histories_id_seq', (SELECT MAX(id) FROM mail_histories));
+SELECT setval('mail_history_details_id_seq', (SELECT MAX(id) FROM mail_history_details));

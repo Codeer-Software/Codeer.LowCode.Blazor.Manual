@@ -1,7 +1,9 @@
 using Codeer.LowCode.Blazor.Components.AppParts.Loading;
 using Codeer.LowCode.Blazor.Components.AppParts.PageFrame;
 using Codeer.LowCode.Blazor.Components.Dialog;
+using Codeer.LowCode.Blazor.Extras.Approval;
 using Codeer.LowCode.Blazor.Extras.Fields;
+using Codeer.LowCode.Blazor.Extras.Mail;
 using Codeer.LowCode.Blazor.Extras.ScriptObjects;
 using Codeer.LowCode.Blazor.Extras.Services;
 using Codeer.LowCode.Blazor.RequestInterfaces;
@@ -16,6 +18,11 @@ namespace LowCodeSamples.Client.Shared.Services
         public static void AddSharedServices(this IServiceCollection services)
         {
             //Extras の組み込みサービスが使うエンドポイント。URL はアプリ(Controller を持つ側)の持ち物なのでここで一元定義する
+            MailTransport.SendMailEndPoint = "/api/mail";
+            MailTransport.BulkSearchMailEndPoint = "/api/mail/bulk_search";
+            MailTransport.PreviewMailEndPoint = "/api/mail/preview";
+            MailTransport.BulkPreviewMailEndPoint = "/api/mail/bulk_preview";
+            ApprovalTransport.EndPointBase = "/api/approval";
             Codeer.LowCode.Blazor.Extras.ScriptObjects.Excel.ConvertPdfEndPoint = "api/excel/pdf";
             AITextAnalyzerField.FileToModuleDataEndPoint = "/api/ai_text_analyze/file";
             AITextAnalyzerField.TextToModuleDataEndPoint = "/api/ai_text_analyze/text";

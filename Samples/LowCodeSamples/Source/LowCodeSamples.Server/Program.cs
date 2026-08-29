@@ -11,6 +11,7 @@ using LowCodeSamples.Client.Shared.Samples.ColorPicker;
 using Codeer.LowCode.Blazor.Extras.Server.AI;
 using Codeer.LowCode.Blazor.Extras.Server.Excel;
 using Codeer.LowCode.Blazor.Extras.Server.FileManagement;
+using Codeer.LowCode.Blazor.Extras.Server.Mail;
 using Codeer.LowCode.Blazor.Extras.Server.Web;
 using LowCodeSamples.Server.Services;
 using LowCodeSamples.Server.Services.DataChangeHistory;
@@ -38,14 +39,21 @@ SystemConfig.Instance.CanUpdate = builder.Configuration.GetSection("CanUpdate").
 SystemConfig.Instance.UseHotReload = builder.Configuration.GetSection("UseHotReload").Get<bool>();
 SystemConfig.Instance.CanScriptDebug = builder.Configuration.GetSection("CanScriptDebug").Get<bool>();
 SystemConfig.Instance.DataSources = builder.Configuration.GetSection("DataSources").Get<DataSource[]>() ?? [];
-SystemConfig.Instance.FileStorages = builder.Configuration.GetSection("FileStorages").Get<FileStorage[]>() ?? [];
+//ファイル保存先は種類ごとのセクションを FileStorageTable が読む (FileSystemStorages / AzureBlobStorages / S3Storages / 簡易形式 FileStorages)
+SystemConfig.Instance.FileStorages = FileStorageTable.Create(builder.Configuration);
 SystemConfig.Instance.DataChangeHistoryTableInfo = builder.Configuration.GetSection("DataChangeHistoryTableInfo").Get<DataChangeHistoryTableInfo[]>() ?? [];
 SystemConfig.Instance.TemporaryFileTableInfo = builder.Configuration.GetSection("TemporaryFileTableInfo").Get<TemporaryFileTableInfo[]>() ?? [];
 SystemConfig.Instance.DesignFileDirectory = builder.Configuration["DesignFileDirectory"] ?? string.Empty;
 SystemConfig.Instance.FontFileDirectory = builder.Configuration["FontFileDirectory"] ?? string.Empty;
 SystemConfig.Instance.AISettings = builder.Configuration.GetSection("AISettings").Get<AISettings>() ?? new();
+SystemConfig.Instance.Mail = builder.Configuration.GetSection("Mail").Get<MailConfig>() ?? new();
+//メールのプロバイダ設定はそれぞれ独立したセクション (使うものだけ書けばよい)
+SystemConfig.Instance.Smtp = builder.Configuration.GetSection("Smtp").Get<SmtpSettings>() ?? new();
+SystemConfig.Instance.GraphApi = builder.Configuration.GetSection("GraphApi").Get<GraphApiSettings>() ?? new();
+SystemConfig.Instance.Gmail = builder.Configuration.GetSection("Gmail").Get<GmailSettings>() ?? new();
+//デモサイトは認証を持たないため、承認フロー等の「操作ユーザー」は appsettings の DemoUserId (AppUser の Id) で固定する
+SystemConfig.Instance.DemoUserId = builder.Configuration["DemoUserId"] ?? string.Empty;
 SystemConfig.Instance.DataSources.ToList().ForEach(e => e.ConnectionString = builder.Configuration.GetConnectionString(e.Name) ?? string.Empty);
-SystemConfig.Instance.FileStorages.ToList().ForEach(e => e.ConnectionString = builder.Configuration.GetConnectionString(e.Name) ?? string.Empty);
 SystemConfig.Instance.AISettings.OpenAIKey = builder.Configuration.GetConnectionString("OpenAIKey") ?? string.Empty;
 SystemConfig.Instance.AISettings.DocumentAnalysisKey = builder.Configuration.GetConnectionString("DocumentAnalysisKey") ?? string.Empty;
 

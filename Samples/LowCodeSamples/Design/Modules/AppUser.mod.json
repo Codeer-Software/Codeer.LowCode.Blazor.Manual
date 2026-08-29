@@ -1,0 +1,96 @@
+﻿{
+  "Name": "AppUser",
+  "DataSourceName": "Main",
+  "DbTable": "app_users",
+  "CanCreate": true,
+  "CanUpdate": true,
+  "CanDelete": true,
+  "Fields": [
+    {
+      "Name": "Id",
+      "DbColumn": "id",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.IdFieldDesign"
+    },
+    {
+      "Name": "Name",
+      "DbColumn": "name",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign",
+      "Placeholder": "氏名"
+    },
+    {
+      "Name": "NameLabel",
+      "Text": "氏名",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Name": "EmailLabel",
+      "Text": "メール",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Name": "Email",
+      "DbColumn": "email",
+      "Placeholder": "メールアドレス",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
+    }
+  ],
+  "DetailLayouts": {
+    "": {
+      "Layout": {
+        "Rows": [
+          {
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "NameLabel",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Width": 140
+              },
+              {
+                "Layout": {
+                  "FieldName": "Name",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                }
+              }
+            ]
+          },
+          {
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "EmailLabel",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Width": 140
+              },
+              {
+                "Layout": {
+                  "FieldName": "Email",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                }
+              }
+            ]
+          }
+        ],
+        "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
+      }
+    }
+  },
+  "ListLayouts": {
+    "": {
+      "Elements": [
+        [
+          {
+            "FieldName": "Name",
+            "Label": "氏名"
+          },
+          {
+            "FieldName": "Email",
+            "Label": "メール"
+          }
+        ]
+      ]
+    }
+  }
+}

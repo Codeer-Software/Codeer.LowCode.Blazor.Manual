@@ -1,0 +1,345 @@
+{
+  "Name": "PurchaseRequest",
+  "DataSourceName": "Main",
+  "DbTable": "purchase_requests",
+  "CanCreate": true,
+  "CanUpdate": true,
+  "CanDelete": true,
+  "Fields": [
+    {
+      "Name": "Id",
+      "DbColumn": "id",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.IdFieldDesign"
+    },
+    {
+      "Name": "Title",
+      "DbColumn": "title",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign",
+      "Placeholder": "件名",
+      "IsRequired": true
+    },
+    {
+      "Name": "Amount",
+      "DbColumn": "amount",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.NumberFieldDesign",
+      "Placeholder": "金額"
+    },
+    {
+      "Name": "Approval",
+      "DbColumn": "approval_id",
+      "FlowModuleName": "ApprovalFlow",
+      "TypeFullName": "Codeer.LowCode.Blazor.Extras.Designs.ApprovalFlowFieldDesign",
+      "OnBuildRoute": "OnBuildRoute"
+    },
+    {
+      "Name": "TitleLabel",
+      "Text": "件名",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Name": "AmountLabel",
+      "Text": "金額",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Name": "AssessedAmount",
+      "DbColumn": "assessed_amount",
+      "Placeholder": "査定額",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.NumberFieldDesign"
+    },
+    {
+      "Name": "AssessedAmountLabel",
+      "Text": "査定額(最終承認者)",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Name": "SaveButton",
+      "Text": "保存",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.SubmitButtonFieldDesign"
+    },
+    {
+      "Name": "RequestFieldsPermission",
+      "TargetFields": [
+        "Title",
+        "Amount"
+      ],
+      "WriteCondition": {
+        "ModuleName": "PurchaseRequest",
+        "Condition": {
+          "IsOrMatch": true,
+          "Children": [
+            {
+              "SearchTargetVariable": "Approval.Status.Value",
+              "Comparison": "Equal",
+              "Value": {
+                "TypeFullName": "Codeer.LowCode.Blazor.Repository.NullValue"
+              },
+              "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.FieldValueMatchCondition"
+            },
+            {
+              "SearchTargetVariable": "Approval.Applicant.Value",
+              "Comparison": "Equal",
+              "Variable": "CurrentUser.Id.Value",
+              "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.FieldVariableMatchCondition"
+            }
+          ],
+          "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
+        }
+      },
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.PermissionFieldDesign"
+    },
+    {
+      "Name": "AssessedAmountPermission",
+      "TargetFields": [
+        "AssessedAmount"
+      ],
+      "WriteCondition": {
+        "ModuleName": "PurchaseRequest",
+        "Condition": {
+          "IsOrMatch": false,
+          "Children": [
+            {
+              "SearchTargetVariable": "Approval.Status.Value",
+              "Comparison": "Equal",
+              "Value": {
+                "Value": "InProgress",
+                "TypeFullName": "Codeer.LowCode.Blazor.Repository.StringValue"
+              },
+              "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.FieldValueMatchConditionNonNull"
+            },
+            {
+              "SearchTargetVariable": "Approval.Members.IsFinalStep.Value",
+              "Comparison": "Equal",
+              "Value": {
+                "Value": true,
+                "TypeFullName": "Codeer.LowCode.Blazor.Repository.BooleanValue"
+              },
+              "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.FieldValueMatchConditionNonNull"
+            },
+            {
+              "SearchTargetVariable": "Approval.Members.Status.Value",
+              "Comparison": "Equal",
+              "Value": {
+                "Value": "Waiting",
+                "TypeFullName": "Codeer.LowCode.Blazor.Repository.StringValue"
+              },
+              "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.FieldValueMatchConditionNonNull"
+            },
+            {
+              "SearchTargetVariable": "Approval.Members.ApproverUser.Value",
+              "Comparison": "Equal",
+              "Variable": "CurrentUser.Id.Value",
+              "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.FieldVariableMatchCondition"
+            }
+          ],
+          "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
+        }
+      },
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.PermissionFieldDesign"
+    },
+    {
+      "Name": "RouteNote",
+      "Text": "承認経路は金額で選ばれます (10万円未満: 購買ルート / 10万円以上: 購買ルート(高額)。承認経路マスタで管理)",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    }
+  ],
+  "PageTitle": "購買申請",
+  "DataWriteCondition": {
+    "ModuleName": "PurchaseRequest",
+    "Condition": {
+      "IsOrMatch": true,
+      "Children": [
+        {
+          "SearchTargetVariable": "Approval.Status.Value",
+          "Comparison": "Equal",
+          "Value": {
+            "TypeFullName": "Codeer.LowCode.Blazor.Repository.NullValue"
+          },
+          "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.FieldValueMatchCondition"
+        },
+        {
+          "SearchTargetVariable": "Approval.Status.Value",
+          "Comparison": "Equal",
+          "Value": {
+            "Value": "Returned",
+            "TypeFullName": "Codeer.LowCode.Blazor.Repository.StringValue"
+          },
+          "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.FieldValueMatchConditionNonNull"
+        },
+        {
+          "SearchTargetVariable": "Approval.Status.Value",
+          "Comparison": "Equal",
+          "Value": {
+            "Value": "Withdrawn",
+            "TypeFullName": "Codeer.LowCode.Blazor.Repository.StringValue"
+          },
+          "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.FieldValueMatchConditionNonNull"
+        },
+        {
+          "SearchTargetVariable": "Approval.Status.Value",
+          "Comparison": "Equal",
+          "Value": {
+            "Value": "Rejected",
+            "TypeFullName": "Codeer.LowCode.Blazor.Repository.StringValue"
+          },
+          "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.FieldValueMatchConditionNonNull"
+        },
+        {
+          "IsOrMatch": false,
+          "Children": [
+            {
+              "SearchTargetVariable": "Approval.Status.Value",
+              "Comparison": "Equal",
+              "Value": {
+                "Value": "InProgress",
+                "TypeFullName": "Codeer.LowCode.Blazor.Repository.StringValue"
+              },
+              "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.FieldValueMatchConditionNonNull"
+            },
+            {
+              "SearchTargetVariable": "Approval.Members.StepType.Value",
+              "Comparison": "Equal",
+              "Value": {
+                "Value": "Approval",
+                "TypeFullName": "Codeer.LowCode.Blazor.Repository.StringValue"
+              },
+              "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.FieldValueMatchConditionNonNull"
+            },
+            {
+              "SearchTargetVariable": "Approval.Members.Status.Value",
+              "Comparison": "Equal",
+              "Value": {
+                "Value": "Waiting",
+                "TypeFullName": "Codeer.LowCode.Blazor.Repository.StringValue"
+              },
+              "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.FieldValueMatchConditionNonNull"
+            },
+            {
+              "SearchTargetVariable": "Approval.Members.ApproverUser.Value",
+              "Comparison": "Equal",
+              "Variable": "CurrentUser.Id.Value",
+              "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.FieldVariableMatchCondition"
+            }
+          ],
+          "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
+        }
+      ],
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
+    }
+  },
+  "DetailLayouts": {
+    "": {
+      "Layout": {
+        "Rows": [
+          {
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "TitleLabel",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Width": 140
+              },
+              {
+                "Layout": {
+                  "FieldName": "Title",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                }
+              }
+            ]
+          },
+          {
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "AmountLabel",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Width": 140
+              },
+              {
+                "Layout": {
+                  "FieldName": "Amount",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                }
+              }
+            ]
+          },
+          {
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "RouteNote",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                }
+              }
+            ]
+          },
+          {
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "AssessedAmountLabel",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Width": 140
+              },
+              {
+                "Layout": {
+                  "FieldName": "AssessedAmount",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                }
+              }
+            ]
+          },
+          {
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "SaveButton",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                }
+              }
+            ]
+          },
+          {
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "Approval",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                }
+              }
+            ]
+          }
+        ],
+        "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
+      },
+      "DataOnlyFields": [
+        "Approval.Members",
+        "Approval.Status",
+        "Approval.Applicant"
+      ]
+    }
+  },
+  "ListLayouts": {
+    "": {
+      "Elements": [
+        [
+          {
+            "FieldName": "Title",
+            "Label": "件名"
+          },
+          {
+            "FieldName": "Amount",
+            "Label": "金額"
+          },
+          {
+            "FieldName": "Approval.Status",
+            "Label": "承認状態"
+          }
+        ]
+      ]
+    }
+  }
+}
