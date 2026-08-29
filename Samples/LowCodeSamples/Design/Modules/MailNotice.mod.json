@@ -1,0 +1,526 @@
+{
+  "Name": "MailNotice",
+  "DataSourceName": "Main",
+  "DbTable": "mail_notices",
+  "CanCreate": true,
+  "CanUpdate": true,
+  "CanDelete": true,
+  "Fields": [
+    {
+      "Name": "Id",
+      "DbColumn": "id",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.IdFieldDesign"
+    },
+    {
+      "Name": "Head",
+      "Text": "お知らせメール",
+      "Style": "H2",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Name": "Lead",
+      "Text": "件名・本文に {変数} を書くと、送信時に自レコード (単発) / 宛先の行 (一斉) で解決されます。「送信」はデモサイトのためサーバーで拒否されますが、「プレビュー」は実際の送信と同じ経路で宛先・件名・本文を解決した HTML をダウンロードできます。",
+      "Style": "Default",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Name": "TitleLabel",
+      "Text": "件名",
+      "Style": "Default",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Name": "Title",
+      "DbColumn": "title",
+      "Placeholder": "件名 ({変数} 可)",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
+    },
+    {
+      "Name": "BodyLabel",
+      "Text": "本文",
+      "Style": "Default",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Name": "Body",
+      "DbColumn": "body",
+      "IsMultiline": true,
+      "Placeholder": "本文 ({変数} 可)",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
+    },
+    {
+      "Name": "ToLabel",
+      "Text": "宛先 (単発)",
+      "Style": "Default",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Name": "ToAddress",
+      "DbColumn": "to_address",
+      "Placeholder": "カンマ区切りで複数可",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
+    },
+    {
+      "Name": "SingleLabel",
+      "Text": "単発送信 (MailField)",
+      "Style": "Default",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Name": "Notice",
+      "ToVariable": "ToAddress.Value",
+      "SubjectVariable": "Title.Value",
+      "BodyVariable": "Body.Value",
+      "ShowPreviewButton": true,
+      "TypeFullName": "Codeer.LowCode.Blazor.Extras.Designs.MailFieldDesign"
+    },
+    {
+      "Name": "RecipientsTitle",
+      "Text": "一斉送信の宛先 (名簿)",
+      "Style": "H4",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Name": "Recipients",
+      "LayoutName": "",
+      "DisplayName": "",
+      "CanCreate": false,
+      "CanUpdate": false,
+      "CanDelete": false,
+      "CanSelect": false,
+      "PagerPosition": "None",
+      "SearchCondition": {
+        "LimitCount": null,
+        "SelectFields": [],
+        "SortConditions": [],
+        "SortFieldVariable": "",
+        "SortDescending": false,
+        "ModuleName": "MailNoticeRecipient",
+        "Condition": {
+          "IsOrMatch": false,
+          "IsNot": false,
+          "Children": [
+            {
+              "SearchTargetVariable": "Notice.Value",
+              "Comparison": "Equal",
+              "Variable": "Id.Value",
+              "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.FieldVariableMatchCondition"
+            }
+          ],
+          "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
+        }
+      },
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ListFieldDesign"
+    },
+    {
+      "Name": "BulkLabel",
+      "Text": "一斉送信 (BulkMailField)",
+      "Style": "Default",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Name": "Bulk",
+      "RecipientListFieldName": "Recipients",
+      "SubjectVariable": "Title.Value",
+      "BodyVariable": "Body.Value",
+      "ShowPreviewButton": true,
+      "TypeFullName": "Codeer.LowCode.Blazor.Extras.Designs.BulkMailFieldDesign"
+    },
+    {
+      "Name": "SenderTitle",
+      "Text": "ダウンロードしたプレビューは MailSender で送れます",
+      "Style": "H4",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Name": "Sender1",
+      "Text": "プレビュー HTML は、宛先ごとに解決済みの件名・本文を含む「送信パッケージ」です。デスクトップアプリ MailSender で開くと、内容を確認してから Microsoft 365 (Graph) / Gmail / SMTP の自分のアカウントでそのまま送信できます。たとえば「差出人は担当者本人にして、顧客名簿へ一括送信する」「サーバーにメール設定を持たず、送る前に人が目を通す」といった運用に便利です。",
+      "Style": "Default",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Name": "SenderImage",
+      "ResourcePath": "mailsender_main.png",
+      "ObjectFit": "Contain",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ImageViewerFieldDesign"
+    },
+    {
+      "Name": "SenderLink",
+      "Style": "Text",
+      "Target": "Url",
+      "ShouldOpenInNewTab": true,
+      "TitleText": "MailSender の使い方 (GitHub)",
+      "Url": "https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras/blob/main/docs/MailSender.md",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.AnchorTagFieldDesign"
+    },
+    {
+      "Name": "MailDoc",
+      "Style": "Text",
+      "Target": "Url",
+      "ShouldOpenInNewTab": true,
+      "TitleText": "MailField / BulkMailField の仕様 (GitHub)",
+      "Url": "https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras/blob/main/docs/Mail.md",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.AnchorTagFieldDesign"
+    }
+  ],
+  "DetailLayouts": {
+    "": {
+      "DataOnlyFields": [],
+      "Layout": {
+        "Rows": [
+          {
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "Head",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                }
+              }
+            ]
+          },
+          {
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "Lead",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                }
+              }
+            ]
+          },
+          {
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "TitleLabel",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Width": 160,
+                "BackgroundColor": "#f3f4f6",
+                "VerticalAlignment": "Middle",
+                "Padding": {
+                  "Left": 12,
+                  "Top": 6,
+                  "Right": 12,
+                  "Bottom": 6
+                },
+                "BorderStyle": {
+                  "Right": 1,
+                  "Bottom": 1,
+                  "RightColor": "#d0d0d0",
+                  "BottomColor": "#d0d0d0",
+                  "Left": 1,
+                  "LeftColor": "#d0d0d0",
+                  "Top": 1,
+                  "TopColor": "#d0d0d0"
+                }
+              },
+              {
+                "Layout": {
+                  "FieldName": "Title",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "VerticalAlignment": "Middle",
+                "Padding": {
+                  "Left": 12,
+                  "Top": 6,
+                  "Right": 12,
+                  "Bottom": 6
+                },
+                "BorderStyle": {
+                  "Right": 1,
+                  "Bottom": 1,
+                  "RightColor": "#d0d0d0",
+                  "BottomColor": "#d0d0d0",
+                  "Top": 1,
+                  "TopColor": "#d0d0d0"
+                }
+              }
+            ]
+          },
+          {
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "BodyLabel",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Width": 160,
+                "BackgroundColor": "#f3f4f6",
+                "VerticalAlignment": "Middle",
+                "Padding": {
+                  "Left": 12,
+                  "Top": 6,
+                  "Right": 12,
+                  "Bottom": 6
+                },
+                "BorderStyle": {
+                  "Right": 1,
+                  "Bottom": 1,
+                  "RightColor": "#d0d0d0",
+                  "BottomColor": "#d0d0d0",
+                  "Left": 1,
+                  "LeftColor": "#d0d0d0"
+                }
+              },
+              {
+                "Layout": {
+                  "FieldName": "Body",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "VerticalAlignment": "Middle",
+                "Padding": {
+                  "Left": 12,
+                  "Top": 6,
+                  "Right": 12,
+                  "Bottom": 6
+                },
+                "BorderStyle": {
+                  "Right": 1,
+                  "Bottom": 1,
+                  "RightColor": "#d0d0d0",
+                  "BottomColor": "#d0d0d0"
+                }
+              }
+            ]
+          },
+          {
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "ToLabel",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Width": 160,
+                "BackgroundColor": "#f3f4f6",
+                "VerticalAlignment": "Middle",
+                "Padding": {
+                  "Left": 12,
+                  "Top": 6,
+                  "Right": 12,
+                  "Bottom": 6
+                },
+                "BorderStyle": {
+                  "Right": 1,
+                  "Bottom": 1,
+                  "RightColor": "#d0d0d0",
+                  "BottomColor": "#d0d0d0",
+                  "Left": 1,
+                  "LeftColor": "#d0d0d0"
+                }
+              },
+              {
+                "Layout": {
+                  "FieldName": "ToAddress",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "VerticalAlignment": "Middle",
+                "Padding": {
+                  "Left": 12,
+                  "Top": 6,
+                  "Right": 12,
+                  "Bottom": 6
+                },
+                "BorderStyle": {
+                  "Right": 1,
+                  "Bottom": 1,
+                  "RightColor": "#d0d0d0",
+                  "BottomColor": "#d0d0d0"
+                }
+              }
+            ]
+          },
+          {
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "SingleLabel",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Width": 160,
+                "BackgroundColor": "#f3f4f6",
+                "VerticalAlignment": "Middle",
+                "Padding": {
+                  "Left": 12,
+                  "Top": 6,
+                  "Right": 12,
+                  "Bottom": 6
+                },
+                "BorderStyle": {
+                  "Right": 1,
+                  "Bottom": 1,
+                  "RightColor": "#d0d0d0",
+                  "BottomColor": "#d0d0d0",
+                  "Left": 1,
+                  "LeftColor": "#d0d0d0"
+                }
+              },
+              {
+                "Layout": {
+                  "FieldName": "Notice",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "VerticalAlignment": "Middle",
+                "Padding": {
+                  "Left": 12,
+                  "Top": 6,
+                  "Right": 12,
+                  "Bottom": 6
+                },
+                "BorderStyle": {
+                  "Right": 1,
+                  "Bottom": 1,
+                  "RightColor": "#d0d0d0",
+                  "BottomColor": "#d0d0d0"
+                }
+              }
+            ]
+          },
+          {
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "RecipientsTitle",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                }
+              }
+            ],
+            "Margin": {
+              "Bottom": 4
+            }
+          },
+          {
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "Recipients",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                }
+              }
+            ]
+          },
+          {
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "BulkLabel",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Width": 160,
+                "BackgroundColor": "#f3f4f6",
+                "VerticalAlignment": "Middle",
+                "Padding": {
+                  "Left": 12,
+                  "Top": 6,
+                  "Right": 12,
+                  "Bottom": 6
+                },
+                "BorderStyle": {
+                  "Right": 1,
+                  "Bottom": 1,
+                  "RightColor": "#d0d0d0",
+                  "BottomColor": "#d0d0d0",
+                  "Left": 1,
+                  "LeftColor": "#d0d0d0",
+                  "Top": 1,
+                  "TopColor": "#d0d0d0"
+                }
+              },
+              {
+                "Layout": {
+                  "FieldName": "Bulk",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "VerticalAlignment": "Middle",
+                "Padding": {
+                  "Left": 12,
+                  "Top": 6,
+                  "Right": 12,
+                  "Bottom": 6
+                },
+                "BorderStyle": {
+                  "Right": 1,
+                  "Bottom": 1,
+                  "RightColor": "#d0d0d0",
+                  "BottomColor": "#d0d0d0",
+                  "Top": 1,
+                  "TopColor": "#d0d0d0"
+                }
+              }
+            ]
+          },
+          {
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "SenderTitle",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                }
+              }
+            ]
+          },
+          {
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "Sender1",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                }
+              }
+            ]
+          },
+          {
+            "Height": 540,
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "SenderImage",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Width": 800,
+                "HorizontalAlignment": "Start"
+              }
+            ]
+          },
+          {
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "SenderLink",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                }
+              }
+            ]
+          },
+          {
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "MailDoc",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                }
+              }
+            ]
+          }
+        ],
+        "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
+      }
+    }
+  },
+  "ListLayouts": {
+    "": {
+      "Elements": [
+        [
+          {
+            "FieldName": "Title",
+            "Label": "件名"
+          },
+          {
+            "FieldName": "ToAddress",
+            "Label": "宛先 (単発)"
+          }
+        ]
+      ]
+    }
+  }
+}

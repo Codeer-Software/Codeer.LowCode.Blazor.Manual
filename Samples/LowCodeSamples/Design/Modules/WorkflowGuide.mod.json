@@ -1,0 +1,320 @@
+{
+  "Name": "WorkflowGuide",
+  "DataSourceName": "",
+  "DbTable": "",
+  "CanCreate": false,
+  "CanUpdate": false,
+  "CanDelete": false,
+  "Fields": [
+    {
+      "Name": "Title",
+      "Text": "承認フロー (Codeer.LowCode.Blazor.Extras)",
+      "Style": "H1",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Name": "Lead",
+      "Text": "申請書モジュールに ApprovalFlowField を 1 つ置くだけで、申請・承認・却下・差し戻し・取り下げ・再申請・回覧と、ステッパー形式の進捗表示・コメント・履歴を備えたワークフローになります。承認モジュール群はデザイナのメニュー「承認フローのセットアップ」が自動生成し、状態遷移はすべてサーバーが検証します。",
+      "Style": "Default",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Name": "WhoTitle",
+      "Text": "このデモの見かた",
+      "Style": "H3",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Name": "Who1",
+      "Text": "・ログインユーザーは「佐藤 花子 (課長)」に固定しています。左メニュー下部に表示されています。",
+      "Style": "Default",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Name": "Who2",
+      "Text": "・「承認待ち」には、佐藤さんが今承認を待たれている申請だけが並びます (自分の番だけが Waiting になる設計)。「開く」から申請書を開くと、承認・却下・差し戻しのボタンが表示されます。",
+      "Style": "Default",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Name": "Who3",
+      "Text": "・「承認状況」は全申請の横断一覧です。未申請 / 承認中 (複数人が同時に待たれている合議ステップを含む) / 承認済み / 却下 / 差し戻し / 取り下げ の各状態と、現在の担当者を確認できます。",
+      "Style": "Default",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Name": "Who4",
+      "Text": "・「経費申請」「購買申請」は 2 種類の申請書です。同じ承認モジュール群を共有しており、購買申請は金額 (10 万円以上) で経路が変わります。高額ルートは 課長 → 部長 → 本部長 → 役員 (2 名の合議) → 経理回覧 の 5 ステップで、承認完了まで 6 人が関わります。最終承認者だけが査定額を記入できる権限制御も含みます。",
+      "Style": "Default",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Name": "Who5",
+      "Text": "・「承認経路マスタ」は経路 → ステップ → 承認者の 3 段のマスタです。申請書のスクリプト (OnBuildRoute) がここから経路を組み立てます。",
+      "Style": "Default",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Name": "Note",
+      "Text": "デモサイトのためデータの更新 (申請・承認などの操作) はサーバーで拒否されますが、画面表示・ボタンの出し分け・一覧・履歴はすべて実際の動作です。",
+      "Style": "H5",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Name": "SetupTitle",
+      "Text": "承認モジュール群はデザイナが生成します",
+      "Style": "H3",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Name": "Setup1",
+      "Text": "承認フローは仕組み上、申請書とは別に定型的なモジュール群 (フロー / メンバー / 履歴、承認待ち・承認状況の一覧、承認経路マスタ) が必要です。これらは手で作らず、デザイナのメニュー Tools > 承認フローのセットアップ から生成します。ダイアログでデータソースとユーザーモジュールを選ぶだけで、モジュール群・承認対象 enum・サイドバーのリンク・テーブル作成 DDL がまとめて作られます (このデモの承認モジュールもこの手順で生成したものです)。",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Name": "SetupImage",
+      "ResourcePath": "approval_setup.png",
+      "ObjectFit": "Contain",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ImageViewerFieldDesign"
+    },
+    {
+      "Name": "Setup2",
+      "Text": "通知メールの送信履歴は Tools > メールのセットアップ が同じ要領で生成します。あとは申請書モジュールに ApprovalFlowField を置き、経路を組み立てるスクリプト (OnBuildRoute) を 1 つ書けば承認フローが動きます。",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Name": "MailSetupImage",
+      "ResourcePath": "mail_setup.png",
+      "ObjectFit": "Contain",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ImageViewerFieldDesign"
+    },
+    {
+      "Name": "MailTitle",
+      "Text": "通知メール",
+      "Style": "H3",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Name": "Mail1",
+      "Text": "承認の順番が回ってきたメンバーには、メンバーモジュールに置いた MailField のテンプレートで通知メールが送られます。送信内容は「メール > 送信履歴」に 1 送信 1 レコード (宛先ごとの明細付き) で記録されます。",
+      "Style": "Default",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Name": "Doc",
+      "Style": "Text",
+      "Target": "Url",
+      "ShouldOpenInNewTab": true,
+      "TitleText": "ApprovalFlowField の仕様 (GitHub)",
+      "Url": "https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras/blob/main/docs/ApprovalFlow.md",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.AnchorTagFieldDesign"
+    },
+    {
+      "Name": "Repo",
+      "Style": "Text",
+      "Target": "Url",
+      "ShouldOpenInNewTab": true,
+      "TitleText": "Codeer.LowCode.Blazor.Extras (GitHub)",
+      "Url": "https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.AnchorTagFieldDesign"
+    }
+  ],
+  "DetailLayouts": {
+    "": {
+      "Layout": {
+        "Rows": [
+          {
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "Title",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                }
+              }
+            ]
+          },
+          {
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "Lead",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                }
+              }
+            ]
+          },
+          {
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "WhoTitle",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                }
+              }
+            ]
+          },
+          {
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "Who1",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                }
+              }
+            ]
+          },
+          {
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "Who2",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                }
+              }
+            ]
+          },
+          {
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "Who3",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                }
+              }
+            ]
+          },
+          {
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "Who4",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                }
+              }
+            ]
+          },
+          {
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "Who5",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                }
+              }
+            ]
+          },
+          {
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "Note",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                }
+              }
+            ]
+          },
+          {
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "SetupTitle",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                }
+              }
+            ]
+          },
+          {
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "Setup1",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                }
+              }
+            ]
+          },
+          {
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "SetupImage",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Width": 560,
+                "HorizontalAlignment": "Start"
+              }
+            ]
+          },
+          {
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "Setup2",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                }
+              }
+            ]
+          },
+          {
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "MailSetupImage",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "Width": 560,
+                "HorizontalAlignment": "Start"
+              }
+            ]
+          },
+          {
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "MailTitle",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                }
+              }
+            ]
+          },
+          {
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "Mail1",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                }
+              }
+            ]
+          },
+          {
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "Doc",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                }
+              }
+            ]
+          },
+          {
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "Repo",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                }
+              }
+            ]
+          }
+        ],
+        "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
+      }
+    }
+  },
+  "ListLayouts": {
+    "": {
+      "Elements": []
+    }
+  }
+}

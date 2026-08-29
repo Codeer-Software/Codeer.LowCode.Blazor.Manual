@@ -27,8 +27,6 @@ namespace LowCodeSamples.Server.Services
         public SmtpSettings Smtp { get; set; } = new();
         public GraphApiSettings GraphApi { get; set; } = new();
         public GmailSettings Gmail { get; set; } = new();
-        //デモ用の固定操作ユーザー (AppUser の Id)。認証を持たないデモサイトで承認フロー等を見せるためのもの
-        public string DemoUserId { get; set; } = string.Empty;
-        public SystemConfigForFront ForFront() => new SystemConfigForFront { CanScriptDebug = CanScriptDebug, UseHotReload = UseHotReload };
+        public SystemConfigForFront ForFront() => new SystemConfigForFront { CanScriptDebug = CanScriptDebug, UseHotReload = UseHotReload, CurrentUserId = DataService.DemoUserId };
     }
 }

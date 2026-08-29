@@ -106,6 +106,19 @@ CREATE TABLE mail_history_details (
   error TEXT
 );
 
+-- お知らせメール (MailField / BulkMailField のデモ)
+CREATE TABLE mail_notices (
+    id SERIAL PRIMARY KEY,
+    title TEXT,
+    body TEXT,
+    to_address TEXT
+);
+CREATE TABLE mail_notice_recipients (
+    id SERIAL PRIMARY KEY,
+    notice_id TEXT,
+    user_id TEXT
+);
+
 -- ===== サンプルデータ =====
 
 -- ユーザー (2 = デモの操作ユーザー)
@@ -166,7 +179,7 @@ INSERT INTO approval_flow_members (id, flow_id, attempt_no, step_no, step_name, 
 (4,  '2', 1, 2, '経理回覧', 'Confirmation', 'RequiredMembers', TRUE, 'ApplicantOnly',   '4', TRUE, FALSE, 'Confirmed', '2026-08-20 14:40:00'),
 -- flow 3 (購買ルート(高額))
 (5,  '3', 1, 1, '課長承認', 'Approval',     'RequiredMembers', TRUE, 'ApplicantOnly',   '2', TRUE, FALSE, 'Approved',  '2026-08-21 09:30:00'),
-(6,  '3', 1, 2, '部長承認', 'Approval',     'RequiredMembers', TRUE, 'AnyPreviousStep', '3', TRUE, TRUE,  'Rejected',  '2026-08-22 16:05:00'),
+(6,  '3', 1, 2, '部長承認', 'Approval',     'RequiredMembers', TRUE, 'AnyPreviousStep', '3', TRUE, FALSE, 'Rejected',  '2026-08-22 16:05:00'),
 -- flow 4 (購買ルート)
 (7,  '4', 1, 1, '課長承認', 'Approval',     'RequiredMembers', TRUE, 'ApplicantOnly',   '2', TRUE, TRUE,  'Waiting',   NULL),
 -- flow 5 (経費ルート・差し戻し)
@@ -198,7 +211,103 @@ INSERT INTO mail_history_details (id, history_id, to_address, subject, body, is_
 (1, '1', 'sato@example.com', '【承認依頼】経費申請 (課長承認) の承認をお願いします', E'佐藤 花子 様\n\n山田 太郎 さんから 経費申請「出張旅費 (大阪・2日間)」が申請されました。\n承認待ち一覧から内容を確認し、承認または差し戻しをお願いします。', TRUE, NULL),
 (2, '2', 'sato@example.com', '【承認依頼】購買申請 (課長承認) の承認をお願いします', E'佐藤 花子 様\n\n山田 太郎 さんから 購買申請「オフィスチェア」が申請されました。\n承認待ち一覧から内容を確認し、承認または差し戻しをお願いします。', TRUE, NULL);
 
+-- お知らせメール
+INSERT INTO mail_notices (id, title, body, to_address) VALUES
+(1, '【全社】9月の全体会議のご案内', E'{User.Name.Value} さん\n\n9月の全体会議は 9/5 (金) 15:00 から本社 3F 会議室で行います。\nリモート参加の方には前日までに接続先をお送りします。\n\n総務部', 'all-staff@example.com'),
+(2, '【システム】定期メンテナンスのお知らせ', E'{User.Name.Value} さん\n\n9/12 (金) 22:00 〜 24:00 に社内システムの定期メンテナンスを行います。\nこの間は承認フロー・経費申請を含む全機能が停止します。\n\n情報システム部', 'it-notice@example.com');
+
+INSERT INTO mail_notice_recipients (id, notice_id, user_id) VALUES
+(1, '1', '1'), (2, '1', '2'), (3, '1', '3'), (4, '1', '4'),
+(5, '2', '1'), (6, '2', '2'), (7, '2', '3'), (8, '2', '4');
+
+-- ===== 追加デモデータ (承認フローを「見せる」ための拡充) =====
+
+-- ユーザー追加 (本部長 / 役員 2 名)
+INSERT INTO app_users (id, name, email) VALUES
+(5, '伊藤 美咲', 'ito@example.com'),
+(6, '渡辺 健', 'watanabe@example.com'),
+(7, '中村 由美', 'nakamura@example.com');
+
+-- 購買ルート(高額) を 5 ステップに拡張: 課長 → 部長 → 本部長 → 役員 (2 名合議) → 経理回覧
+INSERT INTO approval_route_steps (id, approval_route_id, step_no, step_name, step_type, completion_policy, is_comment_required, return_scope) VALUES
+(6, '3', 3, '本部長承認', 'Approval',     'RequiredMembers', TRUE, 'AnyPreviousStep'),
+(7, '3', 4, '役員承認',   'Approval',     'All',             TRUE, 'AnyPreviousStep'),
+(8, '3', 5, '経理回覧',   'Confirmation', 'RequiredMembers', TRUE, 'ApplicantOnly');
+INSERT INTO approval_route_step_members (id, approval_route_step_id, approver_user, is_required) VALUES
+(6, '6', '5', TRUE),
+(7, '7', '6', TRUE),
+(8, '7', '7', TRUE),
+(9, '8', '4', TRUE);
+
+-- 既存の却下フロー (flow 3・高額ルート) に未到達ステップのメンバーを補完 (申請時に全ステップ分のメンバーが作られる)
+INSERT INTO approval_flow_members (id, flow_id, attempt_no, step_no, step_name, step_type, completion_policy, is_comment_required_on_reject, return_scope, approver_user, is_required, is_final_step, status, acted_at) VALUES
+(11, '3', 1, 3, '本部長承認', 'Approval',     'RequiredMembers', TRUE, 'AnyPreviousStep', '5', TRUE, FALSE, 'Pending', NULL),
+(12, '3', 1, 4, '役員承認',   'Approval',     'All',             TRUE, 'AnyPreviousStep', '6', TRUE, TRUE,  'Pending', NULL),
+(13, '3', 1, 4, '役員承認',   'Approval',     'All',             TRUE, 'AnyPreviousStep', '7', TRUE, TRUE,  'Pending', NULL),
+(14, '3', 1, 5, '経理回覧',   'Confirmation', 'RequiredMembers', TRUE, 'ApplicantOnly',   '4', TRUE, FALSE, 'Pending', NULL);
+
+-- 申請書追加
+INSERT INTO purchase_requests (id, title, amount, approval_id, assessed_amount) VALUES
+(5, '開発用ノートPC 10台 (年度更新)', 1800000, '7', 1750000),   -- 承認完了 (5 ステップ・6 人)
+(6, 'サーバー更改 (仮想化基盤)',       2400000, '8', NULL),      -- 承認途中 (役員 2 名の合議: 1 名承認済み・1 名待ち)
+(7, '会議室モニター 65インチ',          350000, '9', NULL);      -- 承認途中 (部長の承認待ち)
+INSERT INTO expense_requests (id, title, amount, approval_id) VALUES
+(5, '出張旅費 (福岡・日帰り)', 68000, '10');                     -- 取り下げ
+
+-- フロー
+INSERT INTO approval_flows (id, status, target_module_name, target_id, applicant, attempt_no, current_step_no, version) VALUES
+(7,  'Completed',  'PurchaseRequest', '5', '1', 1, 5, 7),
+(8,  'InProgress', 'PurchaseRequest', '6', '1', 1, 4, 5),
+(9,  'InProgress', 'PurchaseRequest', '7', '1', 1, 2, 2),
+(10, 'Withdrawn',  'ExpenseRequest',  '5', '1', 1, 1, 2);
+
+INSERT INTO approval_flow_members (id, flow_id, attempt_no, step_no, step_name, step_type, completion_policy, is_comment_required_on_reject, return_scope, approver_user, is_required, is_final_step, status, acted_at) VALUES
+-- flow 7 (完了)
+(15, '7', 1, 1, '課長承認',   'Approval',     'RequiredMembers', TRUE, 'ApplicantOnly',   '2', TRUE, FALSE, 'Approved',  '2026-08-10 10:00:00'),
+(16, '7', 1, 2, '部長承認',   'Approval',     'RequiredMembers', TRUE, 'AnyPreviousStep', '3', TRUE, FALSE, 'Approved',  '2026-08-10 15:30:00'),
+(17, '7', 1, 3, '本部長承認', 'Approval',     'RequiredMembers', TRUE, 'AnyPreviousStep', '5', TRUE, FALSE, 'Approved',  '2026-08-12 09:10:00'),
+(18, '7', 1, 4, '役員承認',   'Approval',     'All',             TRUE, 'AnyPreviousStep', '6', TRUE, TRUE,  'Approved',  '2026-08-13 11:00:00'),
+(19, '7', 1, 4, '役員承認',   'Approval',     'All',             TRUE, 'AnyPreviousStep', '7', TRUE, TRUE,  'Approved',  '2026-08-14 16:20:00'),
+(20, '7', 1, 5, '経理回覧',   'Confirmation', 'RequiredMembers', TRUE, 'ApplicantOnly',   '4', TRUE, FALSE, 'Confirmed', '2026-08-15 09:00:00'),
+-- flow 8 (役員合議の途中)
+(21, '8', 1, 1, '課長承認',   'Approval',     'RequiredMembers', TRUE, 'ApplicantOnly',   '2', TRUE, FALSE, 'Approved',  '2026-08-26 10:40:00'),
+(22, '8', 1, 2, '部長承認',   'Approval',     'RequiredMembers', TRUE, 'AnyPreviousStep', '3', TRUE, FALSE, 'Approved',  '2026-08-26 17:15:00'),
+(23, '8', 1, 3, '本部長承認', 'Approval',     'RequiredMembers', TRUE, 'AnyPreviousStep', '5', TRUE, FALSE, 'Approved',  '2026-08-27 13:05:00'),
+(24, '8', 1, 4, '役員承認',   'Approval',     'All',             TRUE, 'AnyPreviousStep', '6', TRUE, TRUE,  'Approved',  '2026-08-28 09:50:00'),
+(25, '8', 1, 4, '役員承認',   'Approval',     'All',             TRUE, 'AnyPreviousStep', '7', TRUE, TRUE,  'Waiting',   NULL),
+(26, '8', 1, 5, '経理回覧',   'Confirmation', 'RequiredMembers', TRUE, 'ApplicantOnly',   '4', TRUE, FALSE, 'Pending',   NULL),
+-- flow 9 (部長の承認待ち)
+(27, '9', 1, 1, '課長承認',   'Approval',     'RequiredMembers', TRUE, 'ApplicantOnly',   '2', TRUE, FALSE, 'Approved',  '2026-08-28 17:00:00'),
+(28, '9', 1, 2, '部長承認',   'Approval',     'RequiredMembers', TRUE, 'AnyPreviousStep', '3', TRUE, FALSE, 'Waiting',   NULL),
+(29, '9', 1, 3, '本部長承認', 'Approval',     'RequiredMembers', TRUE, 'AnyPreviousStep', '5', TRUE, FALSE, 'Pending',   NULL),
+(30, '9', 1, 4, '役員承認',   'Approval',     'All',             TRUE, 'AnyPreviousStep', '6', TRUE, TRUE,  'Pending',   NULL),
+(31, '9', 1, 4, '役員承認',   'Approval',     'All',             TRUE, 'AnyPreviousStep', '7', TRUE, TRUE,  'Pending',   NULL),
+(32, '9', 1, 5, '経理回覧',   'Confirmation', 'RequiredMembers', TRUE, 'ApplicantOnly',   '4', TRUE, FALSE, 'Pending',   NULL),
+-- flow 10 (取り下げ・経費ルート)
+(33, '10', 1, 1, '課長承認', 'Approval',     'RequiredMembers', TRUE, 'ApplicantOnly',   '2', TRUE, TRUE,  'Skipped',   NULL),
+(34, '10', 1, 2, '経理回覧', 'Confirmation', 'RequiredMembers', TRUE, 'ApplicantOnly',   '4', TRUE, FALSE, 'Skipped',   NULL);
+
+INSERT INTO approval_histories (id, flow_id, attempt_no, action, actor_user, comment, acted_at) VALUES
+(13, '7', 1, 'Submit',  '1', '年度更新分の開発用ノートPC 10 台です。相見積 2 社の安い方で申請します。', '2026-08-10 09:00:00'),
+(14, '7', 1, 'Approve', '2', '台数・スペックとも計画どおりです。', '2026-08-10 10:00:00'),
+(15, '7', 1, 'Approve', '3', '予算内です。承認します。', '2026-08-10 15:30:00'),
+(16, '7', 1, 'Approve', '5', '来期の増員分も見越して問題ありません。', '2026-08-12 09:10:00'),
+(17, '7', 1, 'Approve', '6', '承認します。納期を確認してください。', '2026-08-13 11:00:00'),
+(18, '7', 1, 'Approve', '7', '査定額 1,750,000 円で承認します。', '2026-08-14 16:20:00'),
+(19, '7', 1, 'Confirm', '4', '固定資産として登録します。', '2026-08-15 09:00:00'),
+(20, '8', 1, 'Submit',  '1', '仮想化基盤の保守切れに伴う更改です。', '2026-08-26 09:30:00'),
+(21, '8', 1, 'Approve', '2', '現行機の保守切れは 10 月末。承認します。', '2026-08-26 10:40:00'),
+(22, '8', 1, 'Approve', '3', '構成は情シスと確認済みです。', '2026-08-26 17:15:00'),
+(23, '8', 1, 'Approve', '5', '承認します。', '2026-08-27 13:05:00'),
+(24, '8', 1, 'Approve', '6', '承認します。中村社長の判断待ちです。', '2026-08-28 09:50:00'),
+(25, '9', 1, 'Submit',  '1', '第 2 会議室のモニターが故障したため買い替えます。', '2026-08-28 16:20:00'),
+(26, '9', 1, 'Approve', '2', '承認します。', '2026-08-28 17:00:00'),
+(27, '10', 1, 'Submit',  '1', '福岡の顧客訪問 (日帰り) の旅費です。', '2026-08-18 09:20:00'),
+(28, '10', 1, 'Withdraw', '1', '訪問日程が変更になったため取り下げます。', '2026-08-18 11:05:00');
+
 -- 明示 Id で投入したシーケンスを進める
+SELECT setval('mail_notices_id_seq', (SELECT MAX(id) FROM mail_notices));
+SELECT setval('mail_notice_recipients_id_seq', (SELECT MAX(id) FROM mail_notice_recipients));
 SELECT setval('app_users_id_seq', (SELECT MAX(id) FROM app_users));
 SELECT setval('expense_requests_id_seq', (SELECT MAX(id) FROM expense_requests));
 SELECT setval('purchase_requests_id_seq', (SELECT MAX(id) FROM purchase_requests));

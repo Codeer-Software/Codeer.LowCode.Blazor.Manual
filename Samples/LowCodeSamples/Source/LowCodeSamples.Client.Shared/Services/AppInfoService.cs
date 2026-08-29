@@ -62,7 +62,10 @@ namespace LowCodeSamples.Client.Shared.Services
 
             if (_design != null) return;
 
-            //設定取得(+開発時のホットリロード接続)はデザインデータと独立なので並列に走らせる
+            //設定を先に取得し、デモサイトの固定操作ユーザー (サーバーが決める) を現在ユーザーにする。
+            //ホットリロード接続はデザインデータと独立なので並列に走らせる
+            _config ??= await _http.GetFromJsonAsync<SystemConfigForFront>($"/api/module_data/config");
+            CurrentUserId = _config?.CurrentUserId ?? string.Empty;
             var hotReloadTask = InitializeHotReloadAsync();
 
             using var designDataStream = await _http.GetFromStreamAsync($"/api/module_data/design");

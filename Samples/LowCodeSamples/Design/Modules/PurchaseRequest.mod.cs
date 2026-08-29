@@ -18,3 +18,9 @@ ApprovalRouteData OnBuildRoute()
     var routeName = Amount.Value >= 100000 ? "購買ルート(高額)" : "購買ルート";
     return new ApprovalRoute().Load(routeName);
 }
+
+// 保存ボタンは編集できるとき (未申請 / 差し戻し等、または自分の承認番で査定額を記入できるとき) だけ表示する
+void OnAfterInitialization()
+{
+    SaveButton.IsVisible = !IsViewOnly;
+}

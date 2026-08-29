@@ -22,7 +22,8 @@
       "Name": "Amount",
       "DbColumn": "amount",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.NumberFieldDesign",
-      "Placeholder": "金額"
+      "Placeholder": "金額",
+      "Format": "N0"
     },
     {
       "Name": "Approval",
@@ -45,7 +46,8 @@
       "Name": "AssessedAmount",
       "DbColumn": "assessed_amount",
       "Placeholder": "査定額",
-      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.NumberFieldDesign"
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.NumberFieldDesign",
+      "Format": "N0"
     },
     {
       "Name": "AssessedAmountLabel",
@@ -238,12 +240,45 @@
                   "FieldName": "TitleLabel",
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
-                "Width": 140
+                "Width": 160,
+                "BackgroundColor": "#f3f4f6",
+                "VerticalAlignment": "Middle",
+                "Padding": {
+                  "Left": 12,
+                  "Top": 6,
+                  "Right": 12,
+                  "Bottom": 6
+                },
+                "BorderStyle": {
+                  "Right": 1,
+                  "Bottom": 1,
+                  "RightColor": "#d0d0d0",
+                  "BottomColor": "#d0d0d0",
+                  "Left": 1,
+                  "LeftColor": "#d0d0d0",
+                  "Top": 1,
+                  "TopColor": "#d0d0d0"
+                }
               },
               {
                 "Layout": {
                   "FieldName": "Title",
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "VerticalAlignment": "Middle",
+                "Padding": {
+                  "Left": 12,
+                  "Top": 6,
+                  "Right": 12,
+                  "Bottom": 6
+                },
+                "BorderStyle": {
+                  "Right": 1,
+                  "Bottom": 1,
+                  "RightColor": "#d0d0d0",
+                  "BottomColor": "#d0d0d0",
+                  "Top": 1,
+                  "TopColor": "#d0d0d0"
                 }
               }
             ]
@@ -255,12 +290,41 @@
                   "FieldName": "AmountLabel",
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
-                "Width": 140
+                "Width": 160,
+                "BackgroundColor": "#f3f4f6",
+                "VerticalAlignment": "Middle",
+                "Padding": {
+                  "Left": 12,
+                  "Top": 6,
+                  "Right": 12,
+                  "Bottom": 6
+                },
+                "BorderStyle": {
+                  "Right": 1,
+                  "Bottom": 1,
+                  "RightColor": "#d0d0d0",
+                  "BottomColor": "#d0d0d0",
+                  "Left": 1,
+                  "LeftColor": "#d0d0d0"
+                }
               },
               {
                 "Layout": {
                   "FieldName": "Amount",
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "VerticalAlignment": "Middle",
+                "Padding": {
+                  "Left": 12,
+                  "Top": 6,
+                  "Right": 12,
+                  "Bottom": 6
+                },
+                "BorderStyle": {
+                  "Right": 1,
+                  "Bottom": 1,
+                  "RightColor": "#d0d0d0",
+                  "BottomColor": "#d0d0d0"
                 }
               }
             ]
@@ -282,12 +346,45 @@
                   "FieldName": "AssessedAmountLabel",
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
-                "Width": 140
+                "Width": 160,
+                "BackgroundColor": "#f3f4f6",
+                "VerticalAlignment": "Middle",
+                "Padding": {
+                  "Left": 12,
+                  "Top": 6,
+                  "Right": 12,
+                  "Bottom": 6
+                },
+                "BorderStyle": {
+                  "Right": 1,
+                  "Bottom": 1,
+                  "RightColor": "#d0d0d0",
+                  "BottomColor": "#d0d0d0",
+                  "Left": 1,
+                  "LeftColor": "#d0d0d0",
+                  "Top": 1,
+                  "TopColor": "#d0d0d0"
+                }
               },
               {
                 "Layout": {
                   "FieldName": "AssessedAmount",
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "VerticalAlignment": "Middle",
+                "Padding": {
+                  "Left": 12,
+                  "Top": 6,
+                  "Right": 12,
+                  "Bottom": 6
+                },
+                "BorderStyle": {
+                  "Right": 1,
+                  "Bottom": 1,
+                  "RightColor": "#d0d0d0",
+                  "BottomColor": "#d0d0d0",
+                  "Top": 1,
+                  "TopColor": "#d0d0d0"
                 }
               }
             ]
@@ -298,7 +395,8 @@
                 "Layout": {
                   "FieldName": "SaveButton",
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                }
+                },
+                "Width": 120
               }
             ]
           },
@@ -319,7 +417,8 @@
         "Approval.Members",
         "Approval.Status",
         "Approval.Applicant"
-      ]
+      ],
+      "OnAfterInitialization": "OnAfterInitialization"
     }
   },
   "ListLayouts": {

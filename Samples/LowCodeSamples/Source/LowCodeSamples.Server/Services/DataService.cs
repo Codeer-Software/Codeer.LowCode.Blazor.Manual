@@ -17,12 +17,14 @@ namespace LowCodeSamples.Server.Services
             ModuleDataIO = new CustomizedModuleDataIO(DesignerService.GetDesignData(), this, DbAccess, TemporaryFileManager);
         }
 
-        //デモサイトは認証を持たないため、操作ユーザーは appsettings の DemoUserId で固定する
-        //(承認フローの「自分の番」判定や CurrentUser 変数に使われる。実運用は Cookie / AAD バリアントのテンプレートを使うこと)
+        //デモサイトは認証を持たないため、操作ユーザーは固定 (AppUser の Id=2 「佐藤 花子 (課長)」)。
+        //承認フローの「自分の番」判定や CurrentUser 変数に使われる。実運用は Cookie / AAD バリアントのテンプレートを使うこと
+        public const string DemoUserId = "2";
+
         public async Task<string> GetCurrentUserIdAsync()
         {
             await Task.CompletedTask;
-            return SystemConfig.Instance.DemoUserId;
+            return DemoUserId;
         }
 
         public async ValueTask DisposeAsync()

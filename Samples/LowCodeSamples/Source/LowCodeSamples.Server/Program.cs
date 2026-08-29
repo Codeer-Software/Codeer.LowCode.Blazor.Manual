@@ -33,6 +33,12 @@ ExtrasServerInitializer.Initialize();
 
 var builder = WebApplication.CreateBuilder(args);
 
+//日本語デモサイトのため、サーバーの既定カルチャを ja-JP に固定する。
+//デザインの読込時に解決されるコード定義 enum (承認状態など) の表示名はサーバーのカルチャで決まり、
+//Azure 上では既定が英語になるため (ブラウザの言語に関係なく "In Progress" と表示されてしまう)
+CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("ja-JP");
+CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("ja-JP");
+
 LicenseManager.DomainLicense = builder.Configuration.GetSection("DomainLicense").Get<string>() ?? string.Empty;
 LicenseManager.IsAutoUpdate = builder.Configuration.GetSection("IsLicenseAutoUpdate").Get<bool>();
 SystemConfig.Instance.CanUpdate = builder.Configuration.GetSection("CanUpdate").Get<bool>();
@@ -51,8 +57,6 @@ SystemConfig.Instance.Mail = builder.Configuration.GetSection("Mail").Get<MailCo
 SystemConfig.Instance.Smtp = builder.Configuration.GetSection("Smtp").Get<SmtpSettings>() ?? new();
 SystemConfig.Instance.GraphApi = builder.Configuration.GetSection("GraphApi").Get<GraphApiSettings>() ?? new();
 SystemConfig.Instance.Gmail = builder.Configuration.GetSection("Gmail").Get<GmailSettings>() ?? new();
-//デモサイトは認証を持たないため、承認フロー等の「操作ユーザー」は appsettings の DemoUserId (AppUser の Id) で固定する
-SystemConfig.Instance.DemoUserId = builder.Configuration["DemoUserId"] ?? string.Empty;
 SystemConfig.Instance.DataSources.ToList().ForEach(e => e.ConnectionString = builder.Configuration.GetConnectionString(e.Name) ?? string.Empty);
 SystemConfig.Instance.AISettings.OpenAIKey = builder.Configuration.GetConnectionString("OpenAIKey") ?? string.Empty;
 SystemConfig.Instance.AISettings.DocumentAnalysisKey = builder.Configuration.GetConnectionString("DocumentAnalysisKey") ?? string.Empty;
