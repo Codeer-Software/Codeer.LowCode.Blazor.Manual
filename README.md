@@ -15,6 +15,7 @@ Codeer.LowCode.Blazor は、**Blazor アプリにローコード機能を組み�
 |---|---|
 | **まず何ができるか知りたい** | → [Codeer.LowCode.Blazor とは](JP/introduction/what_is_lowcode.md) |
 | **とりあえず動かしてみたい** | → [クイックスタート（10 分）](JP/quickstart/quickstart.md) |
+| **環境構築を Claude Code に任せたい** | → [Claude Code に全部やらせる](JP/quickstart/quickstart.md#claude-code-に環境構築を任せる) |
 | **段階的に力をつけたい** | → [チュートリアル](#3-チュートリアル段階的に学ぶ) |
 | **特定の機能の作り方を知りたい** | → [ガイド](#4-ガイド目的別の作り方) |
 | **全仕様を引きたい** | → [リファレンス](#5-リファレンス全仕様) |
@@ -38,6 +39,7 @@ Codeer.LowCode.Blazor を触り始める前に、全体像を掴むためのセ�
 サンプル入りプロジェクトを最短で動かして感触をつかむセクションです。
 
 - [クイックスタート（10 分）](JP/quickstart/quickstart.md) — サンプル入りプロジェクトを作成して Web で動かす
+- [Claude Code に環境構築を任せる](JP/quickstart/quickstart.md#claude-code-に環境構築を任せる) — 空のフォルダで [Starter リポジトリ](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Starter) の URL を渡すだけで、ビルドからサーバー・デザイナの起動まで進む
 
 ---
 
@@ -63,7 +65,7 @@ Codeer.LowCode.Blazor を触り始める前に、全体像を掴むためのセ�
 
 - [アプリ作成パターン一覧](JP/patterns/patterns.md)
 
-  標準パターン集 (`PatternShowcase`) + 認証パターン集 (`PatternShowcaseAuth`) を起点にした全パターンを網羅。A〜J の 10 カテゴリ (アプリの基本13個 / 検索 / リスト系 / 一覧ページ / ダイアログ・通知 / 画面レイアウト / 入力UX / 出力 / 別フレーム / **認証パターン集** 4個別) を「アプリの作り → データ構造 → モジュール構成 → CLB ではこう作る」の流れで解説
+  標準パターン集 (`PatternShowcase`) を起点にした全パターンを網羅。A〜J の 10 カテゴリ (アプリの基本13個 / 検索 / リスト系 / 一覧ページ / ダイアログ・通知 / 画面レイアウト / 入力UX / 出力 / 別フレーム / **認証・権限・承認** 4個別) を「アプリの作り → データ構造 → モジュール構成 → CLB ではこう作る」の流れで解説
 
 ### 業務テンプレート（アプリのたたき台）
 
@@ -98,7 +100,7 @@ Codeer.LowCode.Blazor を触り始める前に、全体像を掴むためのセ�
 
 ### 認証・認可
 
-- [認証付きプロジェクトの始め方](JP/authorization/auth_getting_started.md) — Cookie テンプレート +「空のプロジェクト（認証付き）」/「認証パターン集」
+- [認証付きプロジェクトの始め方](JP/authorization/auth_getting_started.md) — ログイン機能はすべてのテンプレートに含まれる。初期ユーザーと、標準パターン集の認証・権限・承認サンプルの動かし方
 - [認証 / 認可の概要](JP/authorization/authorization.md)
 
 ### AI 連携

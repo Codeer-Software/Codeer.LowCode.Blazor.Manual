@@ -2,7 +2,7 @@
 
 中小規模の営業組織が、商談の進捗と活動履歴を共有しつつ、パイプライン全体の健康度をひと目で把握できるようにするための雛形アプリ。Excel・SaaS から脱却する SFA（Sales Force Automation）のたたき台です。
 
-内部名: `SFATemplate`
+内部名: `SFA`
 
 <img src="../../Image/web/templates/template_sfa_home.png" alt="SFA ホーム（対象年月セレクタ + 要対応 + KPI + パイプライン）" style="border: 1px solid #ccc;" width="900">
 

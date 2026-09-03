@@ -82,6 +82,10 @@ claude
 
 > ワークスペースの `CLAUDE.md` には、作成・編集したデザイン定義を検証する「デザインチェック」や、DB の中身確認・テストデータ投入を Claude Code から行うための手順も含まれています。
 
+### ホストのソリューションごと Claude Code に用意させる場合
+
+Visual Studio のソリューション作成からデザイナの起動までを Claude Code に任せることもできます。空のフォルダで Claude Code を起動し、[Starter リポジトリ](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Starter) の URL を渡すだけです（[クイックスタート](../quickstart/quickstart.md#claude-code-に環境構築を任せる) 参照）。この場合、ワークスペースは `DesignProjects\<名前>\`（デザインプロジェクト本体は `design\`）に展開され、上の手順 1・2 は不要です。
+
 ## 使い方の例
 
 準備が整ったら自然言語で指示を出します。

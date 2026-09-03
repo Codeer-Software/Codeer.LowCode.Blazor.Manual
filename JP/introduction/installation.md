@@ -72,7 +72,7 @@ Visual Studio の拡張機能管理画面から直接インストールするこ
 
 ### クライアントサーバーアプリ
 
-WPF / WinForms のプロジェクトを作成するとライセンス登録用アプリも生成されます。
+WPF / WinForms のデスクトップ構成（[Starter リポジトリ](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Starter) の `Source/Hosts/Wpf`・`Source/Hosts/WinForms`）にはライセンス登録用アプリが含まれています。
 
 - [LicenseRegister について](../overview/license_license_register_application.md)
 

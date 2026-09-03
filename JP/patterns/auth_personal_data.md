@@ -50,10 +50,10 @@ personal_memos
 ```
 を書くと、サイドバーリンクから開いたとき**初期検索条件として担当者=自分**がセットされる。ユーザーが検索条件を変えれば他人のタスクも見られる ([検索初期値パターン](search_patterns.md#検索条件の初期化) と同様の仕組み)。
 
-## 認証パターン集の対応
+## 標準パターン集の対応 (認証・権限)
 
-- サイドバー **`個人メモ`** → `PersonalMemo` (`DataReadCondition` で本人のみ閲覧可)
-- サイドバー **`タスク`** → `MyTask` (`OnSearchInitialization` で自分のタスクをデフォルト表示)
+- サイドバー **`認証・権限/個人メモ (行レベルセキュリティ)`** → `PersonalMemo` (`DataReadCondition` で本人のみ閲覧可)
+- サイドバー **`認証・権限/自分宛タスク`** → `MyTask` (`OnSearchInitialization` で自分のタスクをデフォルト表示)
 
 ## 落とし穴
 
@@ -62,7 +62,7 @@ personal_memos
 
 ## 関連ドキュメント
 
-- [認証パターン集 一覧](auth_patterns.md)
+- [認証・権限・承認のパターン 一覧](auth_patterns.md)
 - [認証 / 認可の概要](../authorization/authorization.md)
 - [検索条件の初期化](search_patterns.md#検索条件の初期化)
 - [作成日時・更新日時 (システムフィールド)](system_fields.md)

@@ -2,7 +2,7 @@
 
 中小規模の小売・卸売・製造業が、商品の入出庫・棚卸し・現在庫を一元管理し、適正在庫を維持するための雛形アプリ。Excel・紙台帳から脱却して、複数人同時編集・自動集計・発注点アラート付きのデジタル管理へ移行するためのたたき台です。
 
-内部名: `InventoryManagementTemplate`
+内部名: `InventoryManagement`
 
 <img src="../../Image/web/templates/template_inventory_home.png" alt="在庫管理ホーム（KPI 8枚 + 月次入出庫推移）" style="border: 1px solid #ccc;" width="900">
 

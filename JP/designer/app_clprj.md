@@ -16,7 +16,7 @@
 - スクリプトや検索条件から `CurrentUser` という名前で参照できます
 - このモジュールのデータに存在しないユーザーは、**アプリのどこにもアクセスできません**
 
-> CurrentUserModule の設定は認証機能を前提としています。Cookie 認証・Azure Entra ID 認証はテンプレートで標準提供されており、それ以外の認証はユーザーコードで実装できます。詳しくは [認証・認可](../authorization/authorization.md) 参照。
+> CurrentUserModule の設定は認証機能を前提としています。Cookie 認証はテンプレートで標準提供されており、それ以外の認証（Azure Entra ID 等）はこれを土台にユーザーコードで実装できます。詳しくは [認証・認可](../authorization/authorization.md) 参照。
 
 ### App Access
 

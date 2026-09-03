@@ -7,7 +7,7 @@
 - 認証 = **誰か**を特定する仕組み（ログイン）
 - 認可 = **何ができるか**を制御する仕組み（アクセス権）
 
-Codeer.LowCode.Blazor では、**認証はユーザーコード側**で実装し、**認可はデザイナで設定**します。認証は Cookie 認証や Azure Entra ID 認証のテンプレートが用意されています。
+Codeer.LowCode.Blazor では、**認証はユーザーコード側**で実装し、**認可はデザイナで設定**します。認証は Cookie 認証のユーザーコードがテンプレートに含まれています。
 
 ![認証・認可の全体像](../authorization/images/authorization.png)
 
@@ -16,8 +16,8 @@ Codeer.LowCode.Blazor では、**認証はユーザーコード側**で実装し
 ## 前提
 
 - [はじめてのモジュール作成](first_module.md) を完了している
-- プロジェクトを Cookie 認証または Azure Entra ID 認証のテンプレートで作成している
-  （Visual Studio の新規作成時に選択）
+- プロジェクトを Visual Studio テンプレート（`Codeer.LowCode.Blazor`）で作成している
+  （Cookie 認証のユーザーコードが含まれる。[認証付きプロジェクトの始め方](../authorization/auth_getting_started.md) 参照）
 
 ---
 

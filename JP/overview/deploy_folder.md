@@ -17,9 +17,7 @@ Visual Studioで```[プロジェクト名].Server``` → ```appsettings.Developm
 Designerのソリューションパネルで```designer.settings.Development.json```でフォルダ場所を指定できます。
 
 ### WinForm/WPFアプリの場合
-[Codeer.LowCode.Blazor.Templates](https://marketplace.visualstudio.com/items?itemName=Codeer.LowCodeBlazor)はBlazorプロジェクト以外にWinForms/WPFプロジェクトも作成できます。
-
-プロジェクトの構造は異なりますが、それぞれのプロジェクトで```appsettings.Development.json```を編集することでデプロイフォルダの場所を変更できます。
+[Starter リポジトリ](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Starter) の WPF / WinForms ホストを使う場合も、それぞれのプロジェクトの```appsettings.Development.json```を編集することでデプロイフォルダの場所を変更できます。
 
 ## 関連ページ
 - [Visual Studioプロジェクト](vs_projects.md)

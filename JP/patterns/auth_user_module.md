@@ -41,10 +41,10 @@ app_users  (ASP.NET Identity の AspNetUsers をベースに拡張)
 - **MyProfile** は表示専用モジュール (`DbTable: ""`)。`CurrentUser.表示名.Value` 等を Label/Text に流し込んで表示
 - **パスワード変更**は ChangePasswordDialog (同じ `app_users` テーブルを参照する別モジュール) を `ShowDialog` で開く
 
-## 認証パターン集の対応
+## 標準パターン集の対応 (認証・権限)
 
-- サイドバー **`マイプロフィール`** → `MyProfile`
-- サイドバー **`管理画面へ` → `ユーザー管理`** → `AppUser` (管理者のみアクセス)
+- サイドバー **`認証・権限/マイプロフィール`** → `MyProfile`
+- サイドバー **`認証・権限/ユーザー管理`**、および **`管理画面へ` → `ユーザー管理`** → `AppUser` (管理画面側は管理者のみアクセス)
 
 ## 落とし穴
 
@@ -53,5 +53,5 @@ app_users  (ASP.NET Identity の AspNetUsers をベースに拡張)
 
 ## 関連ドキュメント
 
-- [認証パターン集 一覧](auth_patterns.md)
+- [認証・権限・承認のパターン 一覧](auth_patterns.md)
 - [認証 / 認可の概要](../authorization/authorization.md)

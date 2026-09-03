@@ -13,7 +13,7 @@ Codeer.LowCode.Blazor は、**Blazor アプリにローコード機能を組み�
 - 一覧 / 詳細 / 検索 / ダイアログを組み合わせた CRUD 画面
 - 認証・認可・監査ログ・楽観ロックなど、業務アプリで必要になる機能の標準サポート
 - Excel 入出力、PDF 帳票、メール送信
-- Blazor だけでなく **WPF / WinForms のデスクトップアプリ**としても展開可能
+- Web アプリだけでなく **.NET MAUI（Android / iOS）のスマートフォンアプリ**としても配布可能。WPF / WinForms のデスクトップ構成も用意
 - AI（OpenAI API）によるテキスト解析・モジュール自動生成
 
 ---

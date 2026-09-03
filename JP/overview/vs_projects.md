@@ -1,39 +1,55 @@
 # Visual Studio ソリューションおよびデプロイ
 ## 概要
 [Codeer.LowCode.Blazor.Templates](https://marketplace.visualstudio.com/items?itemName=Codeer.LowCodeBlazor)を使ってVisual Studioソリューションを作成すれば、複数のプロジェクトに含まれる「**ユーザーコード**」が出力されます。
-テンプレートのタイプはBlazor/WPF/WinFormsになります。
+テンプレートは 2 種類です。
+
+| テンプレート | 内容 |
+|---|---|
+| `Codeer.LowCode.Blazor` | Blazor WebAssembly クライアント + ASP.NET Core サーバー + デザイナ。ログイン機能（Cookie 認証）を含む。**通常はこちら** |
+| `Codeer.LowCode.Blazor.Maui` | .NET MAUI（Android / iOS）クライアントのみ。上のテンプレートで作ったサーバーに接続するスマートフォンアプリ |
+
 <img width=800 src="../../Image/Project_Templetes.png">
 
+同じ内容のソリューションは [Starter リポジトリ](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Starter) からも入手できます（Claude Code に環境構築を任せる場合もこのリポジトリを使います）。
+
 ## プロジェクトの種類と役割
-### Blazorタイプのソリューション
+### Web ソリューション（Codeer.LowCode.Blazor）
 
 <img width=800 src="../../Image/step2.png">
 
 | Project | 説明 |
-| --------------- | --------------- | 
-|[ProjectName].Server  | Blazorアプリのサーバー部分、 WebApi等でカスタマイズ可能 | 
-|[ProjectName].Server.Shared  | DesignerとServerが共有する部分| 
-|[ProjectName].Client  |BlazorアプリのClient(WebAssembly)部分、HTML/JS/CSS等を含むことが可能です| 
-|[ProjectName].Client.Shared  | DesignerとClientが共有する部分| 
-|[ProjectName].Designer  | Designer(WPF)アプリの部分、プロコードによるメニュー追加カスタマイズ可能 | 
+| --------------- | --------------- |
+|[ProjectName].Server  | Blazorアプリのサーバー部分。ログイン処理・WebApi等でカスタマイズ可能 |
+|[ProjectName].Client  |BlazorアプリのClient(WebAssembly)部分、HTML/JS/CSS等を含むことが可能です|
+|[ProjectName].Client.Shared  | DesignerとClientが共有する部分|
+|[ProjectName].Designer  | Designer(WPF)アプリの部分、プロコードによるメニュー追加カスタマイズ可能 |
+|[ProjectName].LicenseRegisterCli  | ライセンス登録用のコマンドラインツール（[Windows で CLI 登録](licence_windows_cli_registration.md)） |
 
-これらのプロジェクトに[プロコード](overview/procode.md)を格納することが可能です。
+これらのプロジェクトに[プロコード](procode.md)を格納することが可能です。
 
-### WPF/WinFormsソリューション
+### MAUI テンプレート（Codeer.LowCode.Blazor.Maui）
 
-WPF/WinFormsソリューションでは、ServerおよびClientプロジェクトはWPFあるいはWinFormsプロジェクトに集約されています。
+| Project | 説明 |
+| --------------- | --------------- |
+|[ProjectName].Maui  | .NET MAUI（Android / iOS）アプリ。起動中の Web ソリューションのサーバーに接続する（URL はアプリの設定画面で入力） |
+|[ProjectName].Client.Shared  | Web ソリューションと同じ共有部分 |
 
-<img width=800 src="../../Image/Wpf_WinForms_Solutions.png">
+サーバー・デザイナ・ライセンスツールは Web ソリューション側のものを使います。デザインの変更はサーバー側のデプロイで反映されるため、ストアの更新は不要です。
+
+### WPF / WinForms・認証なしの構成
+
+WPF / WinForms のデスクトップアプリ構成、ログイン画面のない構成、マルチテナント構成は Visual Studio テンプレートとしては提供していません。
+[Starter リポジトリ](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Starter) の `Source/Hosts/` に参考用のホスト（`Wpf` / `WinForms` / `Normal` / `MultiTenant`）があります。ログイン画面だけを外したい場合は、同リポジトリの `CLAUDE.md`「認証を外す」の手順で Web ソリューションから認証部分を外してください。
 
 ## デプロイ方法
-### Blazor/WPF/WinFormsアプリの部分
-成果物としてアプリをデプロイするには、Server/WPF/WinFormsプロジェクトを選択したうえで、Visual Studioの「**ビルド**」メニューから「**発行**」あるいは「**公開**」してください。
+### Web アプリの部分
+成果物としてアプリをデプロイするには、Serverプロジェクトを選択したうえで、Visual Studioの「**ビルド**」メニューから「**発行**」あるいは「**公開**」してください。詳細は [Web サーバーへのデプロイ](server_deploy.md) を参照してください。
 ### Designerの部分
 同上。
 
 ```注意：Debug構成でデザイナをビルドしますと、正常に動作しない場合がありますので、必ずRelease設定でビルドしてください。```
-### Designerプロジェクトの部分
-デザイナメニュー「ファイル」→「デプロイ」を選んでください。デザイナプロジェクトの関連ファイルは[デプロイフォルダ](deploy_folder.md)に出力されます。
+### デザインプロジェクトの部分
+デザイナメニュー「ファイル」→「デプロイ」を選んでください。デザインプロジェクトの関連ファイルは[デプロイフォルダ](deploy_folder.md)に出力されます。
 
 ## デプロイ先 PC の前提
 
@@ -51,5 +67,6 @@ WPF / WinForms / Designer は内部で **Microsoft Edge WebView2** を使ってB
 - 未インストールの場合は [Microsoft Edge WebView2 ダウンロードページ](https://developer.microsoft.com/microsoft-edge/webview2/) から「Evergreen Standalone Installer」をインストールしてください。
 
 ## 関連ページ
-- [プロコード](overview/procode.md)
+- [プロコード](procode.md)
 - [デプロイフォルダ](deploy_folder.md)
+- [Web サーバーへのデプロイ](server_deploy.md)

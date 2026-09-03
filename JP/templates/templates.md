@@ -21,13 +21,14 @@
 
 | テンプレート | 内部名 | 概要 |
 |---|---|---|
-| [在庫管理テンプレート](inventory_management.md) | `InventoryManagementTemplate` | 入出庫・棚卸し・発注・在庫一覧・要発注品アラート・ダッシュボード |
-| [営業支援 (SFA) テンプレート](sfa.md) | `SFATemplate` | 商談・活動履歴・顧客/担当者管理・パイプラインダッシュボード |
-| [プロジェクト管理テンプレート](project_management.md) | `ProjectManagementTemplate` | プロジェクト・タスク・ガント・タスクボード・進捗ダッシュボード |
+| [在庫管理テンプレート](inventory_management.md) | `InventoryManagement` | 入出庫・棚卸し・発注・在庫一覧・要発注品アラート・ダッシュボード |
+| [営業支援 (SFA) テンプレート](sfa.md) | `SFA` | 商談・活動履歴・顧客/担当者管理・パイプラインダッシュボード |
+| [プロジェクト管理テンプレート](project_management.md) | `ProjectManagement` | プロジェクト・タスク・ガント・タスクボード・進捗ダッシュボード |
 
 いずれも次の共通構成です。
 
 - **DB**: SQLite サンプル同梱（PostgreSQL / SQL Server / MySQL / Oracle に差し替え可能）
+- **ログイン**: ユーザーマスタ（`AppUser`）と初期ユーザー admin / admin を含む（他のテンプレートと共通）
 - **実行形態**: Blazor WebAssembly
 - **拡張ライブラリ**: ApexCharts（ダッシュボードのグラフ）。プロジェクト管理はさらに Codeer.LowCode.Blazor.Extras（ガント・タスクボード）を使用
 

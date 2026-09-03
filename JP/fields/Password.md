@@ -80,9 +80,9 @@ void SaveButton_OnClick()
 
 PasswordField が扱うのは**画面での入力**のみで、DB への保存・検証は別に用意された **PasswordHashField** と、ユーザーコード側の **CustomizedModuleDataIO** / **PasswordHashHelper** で行われます。
 
-この構成は Visual Studio テンプレートで **Cookie 認証バリアント**を選んで新規作成すると自動で出力されます。
+この構成は Visual Studio テンプレート（`Codeer.LowCode.Blazor`）で新規作成したソリューションに最初から含まれています。デザイナの各テンプレートに入っている `AppUser` モジュールも、この仕組みでパスワードを保存しています。
 
-> **他のバリアント（Normal / MultiTenant 等）でも PasswordHashField 自体はテンプレートから出力されますが、認証フローと結び付いていないため、そのまま使っても意味はありません。** 自前の認証と繋ぎ込むか、Cookie 認証テンプレートから再作成してください。
+> ログイン機能を外したホストでは PasswordHashField はどの認証とも結び付かないため、自前の認証と繋ぎ込まない限り意味を持ちません。
 
 ### 仕組み
 

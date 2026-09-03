@@ -2,7 +2,7 @@
 
 中小規模のプロジェクトチームが、タスクの計画・進捗・負荷状況をひと目で把握できるようにするための雛形アプリ。一覧 / ガントチャート / タスクボード / ダッシュボード を一つのアプリにまとめたたたき台です。
 
-内部名: `ProjectManagementTemplate`
+内部名: `ProjectManagement`
 
 <img src="../../Image/web/templates/template_project_home.png" alt="プロジェクト管理ホーム（進捗率 / 遅延件数 / 消化率 / 部署別負荷）" style="border: 1px solid #ccc;" width="900">
 

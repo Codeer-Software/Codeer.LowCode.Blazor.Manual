@@ -4,8 +4,8 @@
 
 Codeer.LowCode.Blazorでは認可に関する機能があります。
 認証に関してはユーザーコードで実装する必要があります。
-ただテンプレートでCookie認証とAzure Entra Idによる認証のユーザーコードを作成できます。
-テンプレートは認証機能はAsp.Netの標準的な機能で実装しています。
+ただテンプレートで作成したソリューションには Cookie 認証のユーザーコードが最初から含まれています。
+テンプレートの認証は ASP.NET の標準的な機能で実装しています。Azure Entra ID など別の認証を使う場合も、この Cookie 認証を土台にログインの発行部分を差し替える形で実装できます。
 
 ```cs
 [Authorize, AutoValidateAntiforgeryToken]

@@ -25,7 +25,7 @@ soft_delete_items
 | `SoftDeleteItem` | `soft_delete_items` | 一般ユーザー用。`LogicalDelete` 予約名で論理削除自動動作 |
 | `SoftDeleteItemAdmin` | `soft_delete_items` (同じテーブル) | 管理用。Boolean 名を予約名以外 (例: `DeletedFlag`) にして自動フィルタを回避 |
 | `DeletedAtItem` / `DeletedAtItemAdmin` | `deleted_at_items` | 削除時刻 (`DeletedAt`) を自動記録するバリエーション (標準パターン集)。下記参照 |
-| `AuditDeleteItem` / `AuditDeleteItemAdmin` | `audit_delete_items` | 削除者 + 削除時刻 (`Deleter` + `DeletedAt`) を自動記録する監査バリエーション (認証パターン集)。下記参照 |
+| `AuditDeleteItem` / `AuditDeleteItemAdmin` | `audit_delete_items` | 削除者 + 削除時刻 (`Deleter` + `DeletedAt`) を自動記録する監査バリエーション (「認証・権限」グループ)。下記参照 |
 
 ## CLB ではこう作る
 
@@ -43,8 +43,8 @@ soft_delete_items
 | `DeletedAt` | DateTime | 削除時刻を自動セット |
 | `Deleter` | Link → ユーザー (AppUser) | 削除実行者 (ログインユーザー) を自動セット |
 
-- **`DeletedAt` は認証不要**。時刻だけなのでログインの有無に関係なく動く → 標準パターン集に収録
-- **`Deleter` は認証が前提**。ログインユーザーを `AppUser` へのリンクとして記録するため、認証パターン集に収録 (非認証アプリでは実行者を特定できず空になる)
+- **`DeletedAt` は認証不要**。時刻だけなのでログインの有無に関係なく動く
+- **`Deleter` は認証が前提**。ログインユーザーを `AppUser` へのリンクとして記録する (認証を外したアプリでは実行者を特定できず空になる)。標準パターン集ではサイドバー「認証・権限」グループに収録
 - 管理画面は `LogicalDelete` 版と同じく **別モジュール (同じテーブル) + フィールド名を予約名以外** (`DeletedAtView` / `DeleterView`) にして自動フィルタを回避し、削除済みの「いつ・誰が」を表示する。`DeletedAtView` を空にして更新すると復活する
 
 ## 標準パターン集の対応
@@ -54,9 +54,9 @@ soft_delete_items
 - サイドバー **`データ操作/論理削除/時刻`** → `DeletedAtItem` (一般画面、`DeletedAt` で削除時刻を自動記録)
 - サイドバー **`データ操作/論理削除/時刻管理`** → `DeletedAtItemAdmin` (削除済の削除時刻を表示する管理画面)
 
-## 認証パターン集の対応
+## 標準パターン集の対応 (認証・権限)
 
-- サイドバー **`削除監査`** → `AuditDeleteItem` (一般画面、`Deleter` + `DeletedAt` で削除者・時刻を自動記録)
+- サイドバー **`認証・権限/削除監査 (削除者記録)`** → `AuditDeleteItem` (一般画面、`Deleter` + `DeletedAt` で削除者・時刻を自動記録)
 - 管理画面 (`AdminFrame`) サイドバー **`削除監査 (管理)`** → `AuditDeleteItemAdmin` (削除済の「いつ・誰が」を表示)
 
 ## バリエーション: 別テーブルへ退避してから物理削除する (DeleteArchive)
