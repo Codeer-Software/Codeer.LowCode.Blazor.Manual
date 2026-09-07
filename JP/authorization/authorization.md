@@ -2,28 +2,26 @@
 
 > 認証付きプロジェクトの立ち上げ方（テンプレートの選び方とサンプルの動かし方）は [認証付きプロジェクトの始め方](auth_getting_started.md) を参照してください。
 
-Codeer.LowCode.Blazorでは認可に関する機能があります。
-認証に関してはユーザーコードで実装する必要があります。
-ただテンプレートで作成したソリューションには Cookie 認証のユーザーコードが最初から含まれています。
-テンプレートの認証は ASP.NET の標準的な機能で実装しています。Azure Entra ID など別の認証を使う場合も、この Cookie 認証を土台にログインの発行部分を差し替える形で実装できます。
+Codeer.LowCode.Blazor 本体が持つのは**認可**の機能です。**認証** (ログイン) はライブラリには含まれません。
+認証はテンプレートで作成したソリューション (ホストアプリ) の担当で、その実装は MIT ライセンスの拡張ライブラリ [Codeer.LowCode.Blazor.Extras](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras) が提供しています。
+テンプレートには Cookie 認証のログイン画面とサーバー側のコードが最初から入っており、次の方式をデザインと設定だけで使えます。
+
+| 方式 | 有効にする方法 | 詳細 |
+|---|---|---|
+| ID / パスワード | ユーザーモジュールの `LoginAccountContractField` (契約フィールド。テンプレートの `AppUser` に配置済み) | [認証の全体像](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras/blob/main/docs/Authentication.md) |
+| Entra ID / Google / AWS Cognito / OpenID Connect | サーバーの appsettings に IdP の設定を書く | [外部ログイン](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras/blob/main/docs/ExternalLogin.md) |
+| 二要素認証 (認証アプリ TOTP / メールのワンタイムコード) | 契約フィールドに TOTP の列、またはメール送信先のフィールドを設定 | [二要素認証](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras/blob/main/docs/TwoFactorLogin.md) |
+
+どの方式でログインしても、本体に渡るのは「ログイン中ユーザーの Id」だけなので、以下の認可の設定は認証方式に影響されません。
+認証のコードはテンプレートが生成するソースと Extras のソース (MIT) なので、社内 SSO など独自の方式に差し替えることもできます。
+
+サーバーのコントローラは `[Authorize]` 付きで、`IAuthenticationContext.GetCurrentUserIdAsync` が Cookie からログイン中ユーザーの Id を返します。本体はこの Id を Current User Module の行に結びつけます。
 
 ```cs
 [Authorize, AutoValidateAntiforgeryToken]
 [ApiController]
 [Route("api/module_data")]
 public class ModuleDataController : ControllerBase, IAuthenticationContext, IAsyncDisposable
-```
-```cs
-public static class ControllerExtensions
-{
-    public static async Task<string> GetCurrentUserIdAsync(this ControllerBase ctrl, ApplicationDbContext context)
-    {
-        //Cookie認証では認証情報を元にはUsersテーブルでヒットするユーザーのIdを取得しています。
-        var userName = ctrl.User?.Identity?.Name;
-        var user = await context.Users.FirstOrDefaultAsync(e => e.UserName == userName);
-        return user?.Id??string.Empty;
-    }
-}
 ```
 
 ## 認可

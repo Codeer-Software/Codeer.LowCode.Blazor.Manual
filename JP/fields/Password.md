@@ -76,9 +76,9 @@ void SaveButton_OnClick()
 
 ---
 
-## PasswordHashField との組み合わせ
+## 保存の仕組み (ログインアカウント契約 / PasswordHashField)
 
-PasswordField が扱うのは**画面での入力**のみで、DB への保存・検証は別に用意された **PasswordHashField** と、ユーザーコード側の **CustomizedModuleDataIO** / **PasswordHashHelper** で行われます。
+PasswordField が扱うのは**画面での入力**のみで、DB への保存・検証はサーバー側 (**CustomizedModuleDataIO** / **PasswordHashHelper**) で行われます。ハッシュ / ソルトをどの列に書くかは、ユーザーモジュールでは **LoginAccountContractField** (ログインアカウント契約) の `PasswordField`、それ以外のモジュール (パスワード変更ダイアログなど) では **PasswordHashField** が宣言します。
 
 この構成は Visual Studio テンプレート（`Codeer.LowCode.Blazor`）で新規作成したソリューションに最初から含まれています。デザイナの各テンプレートに入っている `AppUser` モジュールも、この仕組みでパスワードを保存しています。
 
@@ -104,19 +104,23 @@ PasswordField が扱うのは**画面での入力**のみで、DB への保存�
 
 1. ユーザーが PasswordField に入力
 2. Submit → サーバー側の `CustomizedModuleDataIO.AddAsync` / `UpdateAsync` が呼ばれる
-3. `PasswordHashHelper.ApplyPasswordHash` が Module 内の `PasswordHashField` を走査
-4. 対応する PasswordField の値をハッシュ化して `PasswordHashField` に格納
-5. PasswordHashField が Hash / Salt を DB に書き込む
+3. `PasswordHashHelper.ApplyPasswordHash` が Module 内の `LoginAccountContractField` (PasswordField 指定あり) または `PasswordHashField` を見つける
+4. 対応する PasswordField の値をハッシュ化してそのフィールドのデータに格納
+5. 宣言されたハッシュ / ソルトの列に書き込まれる
 
 ### 配置手順
 
+ユーザーモジュール (`AppUser`):
+
 1. Module に **PasswordField** を配置（画面入力用）
-2. 同じ Module に **PasswordHashField** を配置（DB 保存用、画面には表示されない）
-3. PasswordHashField のプロパティで:
-   - `PasswordFieldName` — 対応する PasswordField の名前（例: `Password`）
-   - `DbColumnHash` — ハッシュ値を保存する DB 列
-   - `DbColumnSalt` — ソルトを保存する DB 列
-4. ユーザーコード側で `CustomizedModuleDataIO` が登録されていることを確認（テンプレート出力のまま OK）
+2. 同じ Module の **LoginAccountContractField** の `PasswordField` にその名前を指定し、`DbColumnPasswordHash` / `DbColumnPasswordSalt` にハッシュ・ソルトの列を指定（テンプレートの AppUser は設定済み）
+
+その他のモジュール (同じテーブルを参照するパスワード変更ダイアログなど):
+
+1. Module に **PasswordField** を配置
+2. 同じ Module に **PasswordHashField** を配置（DB 保存用、画面には表示されない）し、`PasswordFieldName` / `DbColumnHash` / `DbColumnSalt` を指定
+
+どちらもサーバー側で `CustomizedModuleDataIO` が登録されていることが前提です（テンプレート出力のまま OK）。
 
 ### ログイン時の検証
 
@@ -125,8 +129,9 @@ Cookie 認証テンプレートのログイン処理に組み込まれている�
 
 ### 独自認証に差し替える場合
 
-- PasswordHashField と CustomizedModuleDataIO の仕組みをそのまま使える場合はそのままで OK
-- 独自のハッシュアルゴリズムを使いたい場合は、`CustomizedModuleDataIO.AddAsync` / `UpdateAsync` と `PasswordHashHelper` を書き換えます
+- 契約 / PasswordHashField と CustomizedModuleDataIO の仕組みをそのまま使える場合はそのままで OK
+- 独自のハッシュアルゴリズムを使いたい場合は、`CustomizedModuleDataIO.AddAsync` / `UpdateAsync` と `PasswordHashHelper` を書き換えます（Extras は MIT なのでコピーして改変できます）
+- ログインの仕組み全体は [Extras の認証ドキュメント](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras/blob/main/docs/Authentication.md) を参照
 
 ---
 

@@ -26,7 +26,8 @@ Visual Studio の「新しいプロジェクトの作成」で `Codeer.LowCode.B
 
 - ログイン / ログアウト画面
 - Cookie 認証（ASP.NET の標準機能）によるログイン処理
-- `app_users` テーブルとパスワード（ハッシュ）を照合するログインチェック
+- `app_users` テーブルとパスワード（ハッシュ）を照合するログインチェック（ユーザーモジュールの `LoginAccountContractField` が表と列を宣言）
+- 設定を足すだけで使える Entra ID / Google / AWS Cognito / OpenID Connect の外部ログインと、認証アプリ / メールの二要素認証（[Extras の認証ドキュメント](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras/blob/main/docs/Authentication.md)）
 
 Visual Studio 拡張のインストールやソリューション作成の基本手順は [クイックスタート](../quickstart/quickstart.md) と同じです。
 
@@ -73,7 +74,7 @@ Visual Studio 拡張のインストールやソリューション作成の基本
 
 <img src="../../Image/web/authorization/empty_auth_users.png" alt="AppUser モジュールのユーザー一覧" style="border: 1px solid #ccc;" width="800">
 
-パスワードはそのままの文字列では保存されません。PasswordHash フィールドによってハッシュ化され、`app_users` テーブルの `hash` / `salt` 列に保存されます。ユーザーを増やすには、この画面の「新規作成」でユーザー識別名・表示名・パスワードを登録するだけです。
+パスワードはそのままの文字列では保存されません。`AppUser` の `LoginAccountContractField` (ログインアカウント契約) がパスワード入力欄を指しており、保存時にハッシュ化されて `app_users` テーブルの `hash` / `salt` 列に保存されます。ユーザーを増やすには、この画面の「新規作成」でユーザー識別名・表示名・パスワードを登録するだけです。
 
 ここから先は通常のプロジェクトと同じように、モジュールを追加してアプリを作っていきます。認可設定の進め方は [チュートリアル: 認証を有効にする](../tutorials/tutorial_auth.md) を参照してください。
 

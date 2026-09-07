@@ -101,7 +101,8 @@ Codeer.LowCode.Blazor を触り始める前に、全体像を掴むためのセ�
 ### 認証・認可
 
 - [認証付きプロジェクトの始め方](JP/authorization/auth_getting_started.md) — ログイン機能はすべてのテンプレートに含まれる。初期ユーザーと、標準パターン集の認証・権限・承認サンプルの動かし方
-- [認証 / 認可の概要](JP/authorization/authorization.md)
+- [認証 / 認可の概要](JP/authorization/authorization.md) — 認可は本体、認証はテンプレート + MIT の Extras
+- [認証の全体像 (Extras)](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras/blob/main/docs/Authentication.md) — ログインアカウント契約・パスワード・[外部ログイン](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras/blob/main/docs/ExternalLogin.md) (Entra ID / Google / AWS Cognito / OpenID Connect)・[二要素認証](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras/blob/main/docs/TwoFactorLogin.md)
 
 ### AI 連携
 

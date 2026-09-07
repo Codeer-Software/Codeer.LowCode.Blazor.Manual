@@ -5,7 +5,7 @@
 
 | テンプレート | 内容 |
 |---|---|
-| `Codeer.LowCode.Blazor` | Blazor WebAssembly クライアント + ASP.NET Core サーバー + デザイナ。ログイン機能（Cookie 認証）を含む。**通常はこちら** |
+| `Codeer.LowCode.Blazor` | Blazor WebAssembly クライアント + ASP.NET Core サーバー + デザイナ。ログイン機能（Cookie 認証。外部 IdP・二要素認証は設定で追加）を含む。**通常はこちら** |
 | `Codeer.LowCode.Blazor.Maui` | .NET MAUI（Android / iOS）クライアントのみ。上のテンプレートで作ったサーバーに接続するスマートフォンアプリ |
 
 <img width=800 src="../../Image/Project_Templetes.png">
@@ -39,7 +39,7 @@
 ### WPF / WinForms・認証なしの構成
 
 WPF / WinForms のデスクトップアプリ構成、ログイン画面のない構成、マルチテナント構成は Visual Studio テンプレートとしては提供していません。
-[Starter リポジトリ](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Starter) の `Source/Hosts/` に参考用のホスト（`Wpf` / `WinForms` / `Normal` / `MultiTenant`）があります。ログイン画面だけを外したい場合は、同リポジトリの `CLAUDE.md`「認証を外す」の手順で Web ソリューションから認証部分を外してください。
+[Starter リポジトリ](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Starter) の `Source/Hosts/` に参考用のホスト（`Wpf` / `WinForms` / `MultiTenant`）があります。ログイン画面だけを外したい場合は、同リポジトリの `CLAUDE.md`「認証を外す」の手順で Web ソリューションから認証部分を外してください。
 
 ## デプロイ方法
 ### Web アプリの部分

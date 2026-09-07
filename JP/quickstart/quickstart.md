@@ -54,7 +54,7 @@ Visual Studio の「新しいプロジェクトの作成」から `Codeer.LowCod
 
 | テンプレート | 内容 |
 |---|---|
-| `Codeer.LowCode.Blazor` | Blazor WebAssembly クライアント + ASP.NET Core サーバー + デザイナ。ログイン機能（Cookie 認証。ユーザーテーブルでパスワードを照合）を最初から含む |
+| `Codeer.LowCode.Blazor` | Blazor WebAssembly クライアント + ASP.NET Core サーバー + デザイナ。ログイン機能（Cookie 認証。ユーザーテーブルでパスワードを照合。Entra ID などの外部ログインや二要素認証は設定で追加）を最初から含む |
 | `Codeer.LowCode.Blazor.Maui` | .NET MAUI（Android / iOS）クライアントのみ。上のテンプレートで作ったサーバーに接続するスマートフォンアプリ |
 
 ログイン機能はすべてのソリューションに含まれます。デザイナのテンプレートもすべてログインを前提に作られているので、Visual Studio 側で選び分ける必要はありません。

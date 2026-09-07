@@ -7,7 +7,7 @@
 - 認証 = **誰か**を特定する仕組み（ログイン）
 - 認可 = **何ができるか**を制御する仕組み（アクセス権）
 
-Codeer.LowCode.Blazor では、**認証はユーザーコード側**で実装し、**認可はデザイナで設定**します。認証は Cookie 認証のユーザーコードがテンプレートに含まれています。
+Codeer.LowCode.Blazor では、**認証はホストアプリ側** (テンプレートが生成するコードと MIT の Extras) で行い、**認可はデザイナで設定**します。認証は Cookie 認証のコードがテンプレートに含まれています ([認証の全体像](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras/blob/main/docs/Authentication.md))。
 
 ![認証・認可の全体像](../authorization/images/authorization.png)
 
@@ -46,7 +46,7 @@ Codeer.LowCode.Blazor では、**認証はユーザーコード側**で実装し
 | **UserName**（Text など） | 認証で使う ID |
 | **Rank** など任意のカラム | 権限レベルの判定に使う |
 
-Cookie 認証のテンプレートでは、`UserName` を ASP.NET Identity の `User.Identity.Name` と突き合わせて、該当ユーザーの行を特定します（ユーザーコード側の `ControllerExtensions` に実装済み）。
+Cookie 認証のテンプレートでは、ユーザーモジュールに置いた `LoginAccountContractField` (ログインアカウント契約) の `LoginName` が指すフィールドでログイン ID を照合し、該当ユーザーの行の Id を Cookie に載せます。
 
 ---
 
@@ -141,14 +141,15 @@ DataWrite: CurrentUser.Id.Value == this.Creator.Value
 Cookie 認証のテンプレートには次のような実装が含まれます:
 
 - `ModuleDataController` に `[Authorize, AutoValidateAntiforgeryToken]` が付与されている
-- `ControllerExtensions.GetCurrentUserIdAsync` で `User.Identity.Name` から `AppUser.Id` を解決
-- ログイン・ログアウト用の `AccountController`
+- `IAuthenticationContext.GetCurrentUserIdAsync` が Cookie からログイン中ユーザーの Id (ユーザーモジュールの `Id`) を返す
+- ログイン・ログアウト・外部 IdP・二要素認証のエンドポイントを持つ `AccountController` と、ログイン画面 (`login.html`)
+- ID/パスワード照合・外部 IdP・二要素認証の実装は [Codeer.LowCode.Blazor.Extras](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras/blob/main/docs/Authentication.md) (MIT)
 
 → 詳細: [認証・認可（リファレンス）](../authorization/authorization.md)
 
 ### 独自認証に差し替えたい場合
 
-ユーザーコード側を書き換えることで、社内 SSO・JWT・OAuth2 など任意の認証方式に対応できます。Codeer.LowCode.Blazor が要求するのは「現在のユーザーの Id を返せること」だけです。
+Entra ID / Google / AWS Cognito / OpenID Connect は設定だけで足せます ([外部ログイン](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras/blob/main/docs/ExternalLogin.md))。それ以外の社内 SSO・JWT などもホスト側のコードを書き換えれば対応できます。Codeer.LowCode.Blazor が要求するのは「現在のユーザーの Id を返せること」だけです。
 
 ---
 
