@@ -4,7 +4,7 @@
 
 **パスワード入力用のフィールド**。入力内容は伏せ字で表示され、確認入力との一致チェック機構も備えています。
 
-> **重要**: PasswordField は単体では DB に保存されません。**PasswordHashField** と組み合わせて、ハッシュ化された値を DB に書き込む仕組みになっています。詳細は [PasswordHashField との組み合わせ](#passwordhashfield-との組み合わせ) を参照。
+> **重要**: PasswordField は単体では DB に保存されません。テンプレートの AppUser では**ログインアカウント契約** (LoginAccountContractField、Extras) の「パスワード入力フィールド」に指定すると、保存時にサーバーがハッシュ / ソルトを作って契約の列に書きます。契約の無いモジュール (パスワード変更ダイアログなど) では **PasswordHashField** と組み合わせます。詳細は [PasswordHashField との組み合わせ](#passwordhashfield-との組み合わせ) を参照。
 
 ## いつ使うか
 
@@ -36,7 +36,7 @@
 | **OnDataChanged** | データ変更イベント | string | `""` | 値変更時のスクリプトイベント |
 | **IgnoreModification** | 変更判定から除外 | bool | `false` | 変更検知（IsModified）から除外 |
 
-> `DbColumn` は PasswordField にはありません。保存は次章の PasswordHashField が担います。
+> `DbColumn` は PasswordField にはありません。保存はログインアカウント契約または PasswordHashField (次章) が担います。
 
 ---
 

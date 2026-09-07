@@ -23,7 +23,7 @@
 | **default** | 詳細ページの標準レイアウト（削除・改名不可） |
 | **追加レイアウト** | ダイアログ・ListField・DetailList・TileList・ModuleField で使い分け可能 |
 
-追加レイアウトは「＋」ボタンで作成できます。
+追加レイアウトはレイアウト名のドロップダウン横の「追加」ボタンで作成できます（「名前変更」「削除」も同じ場所）。
 
 <img src="images/detail_multiple.png" alt="詳細複数" width="400" style="border: 1px solid;">
 

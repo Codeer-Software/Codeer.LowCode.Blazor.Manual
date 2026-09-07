@@ -1,17 +1,17 @@
-# Label‚ÌˆÊ’u‚ğ’²®‚·‚é
-## Š®¬ƒCƒ[ƒW
+# Labelã®ä½ç½®ã‚’èª¿æ•´ã™ã‚‹
+## å®Œæˆã‚¤ãƒ¡ãƒ¼ã‚¸
 
 <img width=600 src="../../Image/Tips_LabelPositionSetting_Image.png">
 
-## İ’èƒXƒeƒbƒv
+## è¨­å®šã‚¹ãƒ†ãƒƒãƒ—
 
-### 1. Designer‚Åİ’è‚·‚éLabel Field‚ğ‘I‘ğ‚µ‚Ü‚·
+### 1. Designerã§è¨­å®šã™ã‚‹Label Fieldã‚’é¸æŠã—ã¾ã™
 
-### 3. Document Outlineƒpƒlƒ‹‚ÅLabel/Field‚Ìe‚Å‚ ‚éColumn‚ğ‘I‘ğ‚µ‚ÄAOptionsƒpƒlƒ‹‚Ì**HorizontalAlignment**ƒvƒƒpƒeƒBA**VerticalAlignment**ƒvƒƒpƒeƒB‚É‚Ä”CˆÓ‚Ì’l‚ğ‘I‘ğ‚µ‚Ü‚·
+### 3. Document Outlineãƒ‘ãƒãƒ«ã§Label/Fieldã®è¦ªã§ã‚ã‚‹Columnã‚’é¸æŠã—ã¦ã€Optionsãƒ‘ãƒãƒ«ã®**HorizontalAlignment**ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã€**VerticalAlignment**ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã«ã¦ä»»æ„ã®å€¤ã‚’é¸æŠã—ã¾ã™
 
 <img width=800 src="../../Image/Tips_LabelPositionSetting_Field.png">
 
-## Qlî•ñF ŠÖ˜A‚·‚éƒy[ƒW
-- [ƒfƒUƒCƒi](../designer/designer.md)
+## å‚è€ƒæƒ…å ±ï¼š é–¢é€£ã™ã‚‹ãƒšãƒ¼ã‚¸
+- [ãƒ‡ã‚¶ã‚¤ãƒŠ](../designer/designer.md)
 - [Module](../module/module.md)
 - [Field](../fields/field.md)

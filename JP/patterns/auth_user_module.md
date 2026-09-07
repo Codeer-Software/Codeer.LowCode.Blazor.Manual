@@ -38,6 +38,8 @@ app_users  (プレーンなユーザーテーブル。ASP.NET Identity ではな
 
 - **AppUser モジュール**: 通常の CRUD モジュールとして `app_users` テーブルに紐づける。パスワードは PasswordField (平文入力欄。DB 列なし) に入力し、`LoginAccountContractField` (ログインアカウント契約) が保存時にハッシュ / ソルトを書く
 - **ログインアカウント契約 (`LoginAccountContractField`、Extras)** を AppUser の Fields に 1 つ置く。ログイン ID / 表示名 / 有効フラグ / パスワード入力欄と、ハッシュ・ソルトの列を宣言する。UI を持たない宣言だけのフィールドで、レイアウトには出さない (テンプレートの AppUser は配置済み)
+
+  <img src="../../Image/designer/login_account_contract_properties.png" alt="ログインアカウント契約のプロパティ (デザイナ)" style="border: 1px solid #ccc;" width="400">
 - **app.clprj** の `CurrentUserModuleDesignName: "AppUser"` を指定 → スクリプトの `CurrentUser` から AppUser インスタンスにアクセスできるようになる
 - **MyProfile** は表示専用モジュール (`DbTable: ""`)。`CurrentUser.表示名.Value` 等を Label/Text に流し込んで表示
 - **パスワード変更**は ChangePasswordDialog (同じ `app_users` テーブルを参照する別モジュール) を `ShowDialog` で開く

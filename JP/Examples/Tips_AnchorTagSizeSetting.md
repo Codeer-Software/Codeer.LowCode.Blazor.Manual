@@ -1,19 +1,19 @@
-# AnchorTag‚ÌƒTƒCƒY‚ğ’²®‚·‚é
-## Š®¬ƒCƒ[ƒW
+# AnchorTagã®ã‚µã‚¤ã‚ºã‚’èª¿æ•´ã™ã‚‹
+## å®Œæˆã‚¤ãƒ¡ãƒ¼ã‚¸
 
 <img width=600 src="../../Image/Tips_AnchorTagSizeSetting_Image.png">
 
-## İ’èƒXƒeƒbƒv
+## è¨­å®šã‚¹ãƒ†ãƒƒãƒ—
 
-### 1. Designer‚Åİ’è‚·‚éAnchorTag Field‚ğ‘I‘ğ‚µ‚Ü‚·
+### 1. Designerã§è¨­å®šã™ã‚‹AnchorTag Fieldã‚’é¸æŠã—ã¾ã™
 
-### 2. Generalƒpƒlƒ‹‚ÅStyle‚ğText‚Éİ’è‚µ‚Ü‚·
+### 2. Generalãƒ‘ãƒãƒ«ã§Styleã‚’Textã«è¨­å®šã—ã¾ã™
 
-### 3. Document Outlineƒpƒlƒ‹‚ÅAnchorTag‚Ìe‚Å‚ ‚éField‚ğ‘I‘ğ‚µ‚ÄAFontƒpƒlƒ‹‚Ì**FontSize**ƒvƒƒpƒeƒB‚ğ”CˆÓ‚Ì’l‚Åİ’è‚µ‚Ü‚·
+### 3. Document Outlineãƒ‘ãƒãƒ«ã§AnchorTagã®è¦ªã§ã‚ã‚‹Fieldã‚’é¸æŠã—ã¦ã€Fontãƒ‘ãƒãƒ«ã®**FontSize**ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’ä»»æ„ã®å€¤ã§è¨­å®šã—ã¾ã™
 
 <img width=800 src="../../Image/Tips_AnchorTagSizeSetting_Field.png">
 
-## Qlî•ñF ŠÖ˜A‚·‚éƒy[ƒW
-- [ƒfƒUƒCƒi](../designer/designer.md)
+## å‚è€ƒæƒ…å ±ï¼š é–¢é€£ã™ã‚‹ãƒšãƒ¼ã‚¸
+- [ãƒ‡ã‚¶ã‚¤ãƒŠ](../designer/designer.md)
 - [Module](../module/module.md)
 - [Field](../fields/field.md)
