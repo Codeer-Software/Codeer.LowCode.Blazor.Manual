@@ -2,32 +2,35 @@
 
 > 認証付きプロジェクトの立ち上げ方（テンプレートの選び方とサンプルの動かし方）は [認証付きプロジェクトの始め方](auth_getting_started.md) を参照してください。
 
-Codeer.LowCode.Blazor 本体が持つのは**認可**の機能です。**認証** (ログイン) はライブラリには含まれません。
-認証はテンプレートで作成したソリューション (ホストアプリ) の担当で、その実装は MIT ライセンスの拡張ライブラリ [Codeer.LowCode.Blazor.Extras](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras) が提供しています。
-テンプレートには Cookie 認証のログイン画面とサーバー側のコードが最初から入っており、次の方式をデザインと設定だけで使えます。
+## 認証と認可は別のものです
 
-| 方式 | 有効にする方法 | 詳細 |
+| | 何を決めるか | 担当 | このページでの扱い |
+|---|---|---|---|
+| **認証** (Authentication) | **誰が**ログインしたか。ID/パスワード、Entra ID などの外部ログイン、二要素認証 | **ライブラリの外**。テンプレートが生成するホストアプリと、MIT の拡張ライブラリ [Codeer.LowCode.Blazor.Extras](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras) | 次の節で Extras への案内だけ |
+| **認可** (Authorization) | ログインしたユーザーに**何を見せ、何を書かせるか** | **Codeer.LowCode.Blazor 本体**。デザイナで設定する | このページの本題 (「認可」以降) |
+
+Codeer.LowCode.Blazor 本体がやるのは認可だけです。本体が認証に求めるのは「ログイン中ユーザーの Id」を受け取ることだけで、
+それを app.clprj の Current User Module の行に結びつけて、以降の認可に使います。
+どの方式でログインしても認可の設定は同じで、認証方式を変えても認可の設定は変わりません。
+
+## 認証はライブラリの外 (Extras が提供)
+
+認証の実装は、Visual Studio テンプレートが生成するホストアプリ (ログイン画面と `api/account/*`) と、MIT ライセンスの Extras (ID/パスワード照合・外部 IdP・二要素認証) にあります。
+テンプレートで作ったソリューションには最初から入っていて、次の方式をデザインと appsettings だけで使えます。
+
+| 方式 | 有効にする方法 | 詳細 (Extras) |
 |---|---|---|
-| ID / パスワード | ユーザーモジュールの `LoginAccountContractField` (契約フィールド。テンプレートの `AppUser` に配置済み) | [認証の全体像](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras/blob/main/docs/Authentication.md) |
+| ID / パスワード | ユーザーモジュールの `LoginAccountContractField` (ログインアカウント契約。テンプレートの `AppUser` に配置済み) | [認証の全体像](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras/blob/main/docs/Authentication.md) |
 | Entra ID / Google / AWS Cognito / OpenID Connect | サーバーの appsettings に IdP の設定を書く | [外部ログイン](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras/blob/main/docs/ExternalLogin.md) |
 | 二要素認証 (認証アプリ TOTP / メールのワンタイムコード) | 契約フィールドに TOTP の列、またはメール送信先のフィールドを設定 | [二要素認証](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras/blob/main/docs/TwoFactorLogin.md) |
 
-どの方式でログインしても、本体に渡るのは「ログイン中ユーザーの Id」だけなので、以下の認可の設定は認証方式に影響されません。
-認証のコードはテンプレートが生成するソースと Extras のソース (MIT) なので、社内 SSO など独自の方式に差し替えることもできます。
+認証のコードはテンプレートのソースと Extras のソース (MIT) なので、社内 SSO など独自の方式に差し替えることもできます。
+**認証について知りたいときは、まず [認証の全体像 (Extras)](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras/blob/main/docs/Authentication.md) を読んでください。** このページの以降の内容は認証には関係しません。
 
-サーバーのコントローラは `[Authorize]` 付きで、`IAuthenticationContext.GetCurrentUserIdAsync` が Cookie からログイン中ユーザーの Id を返します。本体はこの Id を Current User Module の行に結びつけます。
+## 認可 (このページの内容)
 
-```cs
-[Authorize, AutoValidateAntiforgeryToken]
-[ApiController]
-[Route("api/module_data")]
-public class ModuleDataController : ControllerBase, IAuthenticationContext, IAsyncDisposable
-```
-
-## 認可
-認可に関しては基本は app.clprj で設定した Current User Module を使います。
-認証で取得する情報から Current User Module の Id を取得して、現在のユーザーの情報を取得します。
-現在のユーザーの情報を元に様々な認可を設定することができます。
+ここから先はすべて**認可**の設定です。本体はログイン中ユーザーの Id を app.clprj の Current User Module の行に結びつけ、
+その行の値 (`CurrentUser`) を元に「アプリに入れるか」「どの画面・モジュール・行・項目を見せるか、書かせるか」を判定します。
 ![image](images/authorization.png)
 
 ## 認可の全体像
