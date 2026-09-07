@@ -1,10 +1,11 @@
 using Codeer.LowCode.Blazor.Extras.Mail;
 using Codeer.LowCode.Blazor.Extras.Server.Mail;
-using LowCodeSamples.Server.Services;
 using Microsoft.AspNetCore.Mvc;
+using LowCodeSamples.Server.Services;
 
 namespace LowCodeSamples.Server.Controllers
 {
+    //メール送信 (MailField / BulkMailField) の受け口。ロジックは Extras.Server にあり、ここは結線だけを持つ
     [ApiController]
     [Route("api/mail")]
     public class MailController : ControllerBase, IAsyncDisposable
@@ -21,19 +22,25 @@ namespace LowCodeSamples.Server.Controllers
         public async ValueTask DisposeAsync()
             => await _dataService.DisposeAsync();
 
-        //単発送信 (デモサイトでは送信しない。プレビューで解決結果を確認できる)
+        //デモサイトではメールを送信しない (プレビューで解決結果を確認できる)
+        static void CheckCanUpdate()
+        {
+            if (!SystemConfig.Instance.CanUpdate) throw new Exception("デモ用のためメールは送信できません");
+        }
+
+        //単発送信
         [HttpPost]
         public async Task<MailSendResult> SendEmailAsync(MailSendRequest request)
         {
-            if (!SystemConfig.Instance.CanUpdate) throw new Exception("デモ用のためメールは送信できません");
+            CheckCanUpdate();
             return await CreateDispatcher().SendAsync(request);
         }
 
-        //一斉送信(宛先はサーバーで検索条件から解決。読み取り権限が効き、宛先一覧はクライアントに渡らない)
+        //一斉送信 (宛先はサーバーで検索条件から解決。読み取り権限が効き、宛先一覧はクライアントに渡らない)
         [HttpPost("bulk_search")]
         public async Task<MailSendResult> SendBulkSearchAsync(MailBulkSearchRequest request)
         {
-            if (!SystemConfig.Instance.CanUpdate) throw new Exception("デモ用のためメールは送信できません");
+            CheckCanUpdate();
             return await new MailBulkSearch(CreateDispatcher(), _dataService.ModuleDataIO, DesignerService.GetDesignData(),
                     e => _logger.LogError("{Error}", e))
                 .SendAsync(request);

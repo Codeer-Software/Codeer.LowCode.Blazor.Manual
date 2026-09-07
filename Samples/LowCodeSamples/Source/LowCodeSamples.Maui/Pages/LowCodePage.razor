@@ -1,0 +1,97 @@
+@page "/"
+@page "/{PageFrameName}"
+@page "/{PageFrameName}/{ModuleDesignName}"
+@page "/{PageFrameName}/{ModuleDesignName}/{Id}"
+@using LowCodeSamples.Client.Shared.Services
+@using Codeer.LowCode.Blazor.Components.AppParts.Page
+@using Codeer.LowCode.Blazor.RequestInterfaces
+@using Codeer.LowCode.Blazor.Utils
+@inject IAppInfoService AppInfoService
+@inject HttpClient HttpClient
+@inject NavigationManager NavigationManager
+@inject INavigationService NavigationService
+@inject Microsoft.JSInterop.IJSRuntime JSRuntime
+
+@if (_isValid)
+{
+  <LowCodePageComponent ModuleDesignName="@ModuleDesignName" PageFrameName="@PageFrameName" Id="@Id"></LowCodePageComponent>
+}
+else if (_connectionError != null)
+{
+  <div class="login-center">
+    <div>
+      <h1>Cannot reach the server</h1>
+      <p>@HttpClient.BaseAddress</p>
+      <p class="text-danger">@_connectionError</p>
+      <p>Check Server:BaseUrl in appsettings.json and that the server is running.</p>
+      <button class="btn btn-primary" @onclick="() => NavigationManager.Refresh(true)">Retry</button>
+    </div>
+  </div>
+}
+else
+{
+  <svg class="loading-progress">
+    <circle r="40%" cx="50%" cy="50%" />
+    <circle r="40%" cx="50%" cy="50%" />
+  </svg>
+  <div class="loading-progress-text"></div>
+  <div class="app-init-note" aria-live="polite">
+    App Initializing
+  </div>
+}
+
+@code {
+  [Parameter]
+  public string? PageFrameName { get; set; }
+
+  [Parameter]
+  public string? ModuleDesignName { get; set; }
+
+  [Parameter]
+  public string? Id { get; set; }
+
+  bool _isValid = false;
+  bool _stop = false;
+  string? _connectionError;
+
+  protected override async Task OnInitializedAsync()
+  {
+    _isValid = false;
+    await base.OnInitializedAsync();
+
+    //デモサイトは認証を持たず、サーバーが固定の操作ユーザーを返す (AccountController)。
+    //ここが失敗するのは接続の問題 (server down, wrong BaseUrl, cleartext blocked, ...) なので黙って待たずに表示する
+    try
+    {
+      using var response = await HttpClient.GetAsync("api/account/current_user");
+      if (!response.IsSuccessStatusCode)
+      {
+        _connectionError = $"{(int)response.StatusCode} {response.ReasonPhrase}";
+        _stop = true;
+        return;
+      }
+      var id = await response.Content.ReadFromJsonAsync<StringWrapper>();
+      AppInfoService.AsImplement().SetCurrentUserId(id?.Value ?? string.Empty);
+    }
+    catch (Exception e)
+    {
+      _connectionError = e.Message;
+      _stop = true;
+    }
+  }
+
+  protected override async Task OnParametersSetAsync()
+  {
+    if (_stop) return;
+    await base.OnParametersSetAsync();
+    await InitPage();
+  }
+
+  private async Task InitPage()
+  {
+    _isValid = false;
+    await AppInfoService.AsImplement().InitializeAppAsync();
+    await NavigationService.CompleteUrl(AppInfoService, PageFrameName, ModuleDesignName, JSRuntime);
+    _isValid = true;
+  }
+}

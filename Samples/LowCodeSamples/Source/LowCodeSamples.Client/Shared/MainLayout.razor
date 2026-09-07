@@ -1,6 +1,12 @@
 @inherits LayoutComponentBase
 @using Codeer.LowCode.Blazor.Components.AppParts.PageFrame
+@using Codeer.LowCode.Bindings.MudBlazor.Installer
+@using Codeer.LowCode.Bindings.Radzen.Blazor.Installer
 @using Sotsera.Blazor.Toaster
+
+@* MudBlazor / Radzen のプロバイダ (テーマ・ポップアップ・ダイアログ)。CSS は PageFrames/MudBlazor.css / RadzenBlazor.css がフレーム単位で読み込む *@
+<MudBlazorInstaller />
+<RadzenInstaller />
 
 <MainLayoutCore>
   <ToastContainer />

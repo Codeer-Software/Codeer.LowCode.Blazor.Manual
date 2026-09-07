@@ -1,9 +1,9 @@
-﻿using Codeer.LowCode.Blazor;
-using Codeer.LowCode.Blazor.Extras.Designs;
+using Codeer.LowCode.Blazor;
 using Codeer.LowCode.Blazor.Extras.Server.AI;
 using Codeer.LowCode.Blazor.Repository.Data;
-using LowCodeSamples.Server.Services;
+using Codeer.LowCode.Blazor.Extras.Designs;
 using Microsoft.AspNetCore.Mvc;
+using LowCodeSamples.Server.Services;
 
 namespace LowCodeSamples.Server.Controllers
 {
@@ -19,6 +19,7 @@ namespace LowCodeSamples.Server.Controllers
         public async ValueTask DisposeAsync()
             => await _dataService.DisposeAsync();
 
+        //デモサイト用: AI 解析の呼び出しは 1 日 1000 回まで
         static int _count = 0;
         static DateTime _lastTime = DateTime.Now;
         static void Check()

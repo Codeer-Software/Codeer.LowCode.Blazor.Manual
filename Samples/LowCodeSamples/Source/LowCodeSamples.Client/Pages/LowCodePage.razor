@@ -1,0 +1,72 @@
+@page "/"
+@page "/{PageFrameName}"
+@page "/{PageFrameName}/{ModuleDesignName}"
+@page "/{PageFrameName}/{ModuleDesignName}/{Id}"
+@using LowCodeSamples.Client.Shared.Services
+@using Codeer.LowCode.Blazor.Components.AppParts.Page
+@using Codeer.LowCode.Blazor.RequestInterfaces
+@using Codeer.LowCode.Blazor.Utils
+@inject IAppInfoService AppInfoService
+@inject HttpClient HttpClient
+@inject INavigationService NavigationService
+@inject Microsoft.JSInterop.IJSRuntime JSRuntime
+
+@if (_isValid)
+{
+  <LowCodePageComponent ModuleDesignName="@ModuleDesignName" PageFrameName="@PageFrameName" Id="@Id"></LowCodePageComponent>
+}
+else
+{
+  <svg class="loading-progress">
+    <circle r="40%" cx="50%" cy="50%" />
+    <circle r="40%" cx="50%" cy="50%" />
+  </svg>
+  <div class="loading-progress-text"></div>
+  <div class="app-init-note" aria-live="polite">
+    App Initializing
+  </div>
+}
+
+@code {
+  [Parameter]
+  public string? PageFrameName { get; set; }
+
+  [Parameter]
+  public string? ModuleDesignName { get; set; }
+
+  [Parameter]
+  public string? Id { get; set; }
+
+  bool _isValid = false;
+
+  protected override async Task OnInitializedAsync()
+  {
+    _isValid = false;
+    await base.OnInitializedAsync();
+
+    //デモサイトは認証を持たない。サーバーが固定の操作ユーザーを返す (AccountController)
+    try
+    {
+      var id = await HttpClient.GetFromJsonAsync<StringWrapper>("api/account/current_user");
+      AppInfoService.AsImplement().SetCurrentUserId(id?.Value ?? string.Empty);
+    }
+    catch
+    {
+      AppInfoService.AsImplement().SetCurrentUserId(string.Empty);
+    }
+  }
+
+  protected override async Task OnParametersSetAsync()
+  {
+    await base.OnParametersSetAsync();
+    await InitPage();
+  }
+
+  private async Task InitPage()
+  {
+    _isValid = false;
+    await AppInfoService.AsImplement().InitializeAppAsync();
+    await NavigationService.CompleteUrl(AppInfoService, PageFrameName, ModuleDesignName, JSRuntime);
+    _isValid = true;
+  }
+}

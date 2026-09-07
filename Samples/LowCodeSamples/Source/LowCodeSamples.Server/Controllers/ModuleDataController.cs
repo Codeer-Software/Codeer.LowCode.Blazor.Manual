@@ -1,17 +1,15 @@
-using Codeer.LowCode.Blazor;
 using Codeer.LowCode.Blazor.DataIO;
 using Codeer.LowCode.Blazor.Repository.Data;
 using Codeer.LowCode.Blazor.Repository.Match;
 using Codeer.LowCode.Blazor.RequestInterfaces;
 using Codeer.LowCode.Blazor.Utils;
-using Excel.Report.PDF;
+using MessagePack;
+using Microsoft.AspNetCore.Mvc;
 using LowCodeSamples.Client.Shared.Services;
 using LowCodeSamples.Server.Services;
 using Codeer.LowCode.Blazor.Extras.Server.BulkFile;
 using Codeer.LowCode.Blazor.Extras.Server.FileManagement;
 using Codeer.LowCode.Blazor.Extras.Server.Web;
-using MessagePack;
-using Microsoft.AspNetCore.Mvc;
 
 namespace LowCodeSamples.Server.Controllers
 {
@@ -26,6 +24,12 @@ namespace LowCodeSamples.Server.Controllers
 
         public async ValueTask DisposeAsync()
             => await _dataService.DisposeAsync();
+
+        //デモサイトはデータの更新を受け付けない (appsettings の CanUpdate)
+        static void CheckCanUpdate()
+        {
+            if (!SystemConfig.Instance.CanUpdate) throw new Exception("デモ用のためデータの更新はできません");
+        }
 
         [HttpGet("config")]
         public SystemConfigForFront GetSystemConfig()
@@ -53,7 +57,7 @@ namespace LowCodeSamples.Server.Controllers
         [HttpPost]
         public async Task<List<ModuleSubmitResult>> SubmitAsync()
         {
-            if (!SystemConfig.Instance.CanUpdate) throw new Exception("デモ用のためデータの更新はできません");
+            CheckCanUpdate();
             //FileFieldのDB列格納モードでファイル実体(byte[])を運ぶため、listの応答と同様にMessagePackで受ける
             using var memory = new MemoryStream();
             await Request.Body.CopyToAsync(memory);
@@ -69,7 +73,7 @@ namespace LowCodeSamples.Server.Controllers
         [HttpPost("submit_by_file")]
         public async Task<List<ModuleSubmitResult>> SubmitByFileAsync(string? moduleName)
         {
-            if (!SystemConfig.Instance.CanUpdate) throw new Exception("デモ用のためデータの更新はできません");
+            CheckCanUpdate();
             return await BulkFileTransfer.SubmitByFileAsync(DesignerService.GetDesignData(), _dataService.ModuleDataIO, moduleName, Request.Body);
         }
 
@@ -84,7 +88,7 @@ namespace LowCodeSamples.Server.Controllers
         [HttpPost("bulk_submit")]
         public async Task<IActionResult> BulkSubmitAsync(string? moduleName)
         {
-            if (!SystemConfig.Instance.CanUpdate) throw new Exception("デモ用のためデータの更新はできません");
+            CheckCanUpdate();
             return Content(await BulkFileTransfer.BulkSubmitAsync(_dataService.ModuleDataIO, moduleName, Request.Body), "application/json");
         }
 
@@ -108,13 +112,13 @@ namespace LowCodeSamples.Server.Controllers
         {
             var location = await _dataService.ModuleDataIO.FileFieldDataIO.GetFileLocation(moduleName!, id!, fieldName!);
             await _dataService.DbAccess.ClearAsync();
-            return this.FileWithETag((await StorageAccess.ReadFileAsync(SystemConfig.Instance.FileStorages, location)).ToArray(), "application/octet-stream");
+            return this.FileWithETag((await StorageAccess.ReadFileAsync(FileStorageTable.Storages, location)).ToArray(), "application/octet-stream");
         }
 
         [HttpPost("upload")]
         public async Task<Codeer.LowCode.Blazor.DataIO.FileInfo> UploadFileAsync(string? moduleName, string? fieldName, string? fileName)
         {
-            if (!SystemConfig.Instance.CanUpdate) throw new Exception("デモ用のためデータの更新はできません");
+            CheckCanUpdate();
             var info = _dataService.ModuleDataIO.FileFieldDataIO.GetFileSaveInfo(moduleName ?? string.Empty, fieldName ?? string.Empty);
             return await _dataService.TemporaryFileManager.AddFileAsync(info, fileName, Request.Body);
         }

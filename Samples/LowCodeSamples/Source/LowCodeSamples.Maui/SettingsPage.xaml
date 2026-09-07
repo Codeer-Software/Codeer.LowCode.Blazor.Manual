@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LowCodeSamples.Maui.SettingsPage"
+             Title="Settings">
+
+  <VerticalStackLayout Padding="24" Spacing="12">
+    <Label Text="Server URL" FontAttributes="Bold" />
+    <Entry x:Name="ServerUrlEntry" Keyboard="Url" Placeholder="http://192.168.1.10:5085/" />
+    <Label x:Name="ErrorLabel" TextColor="Red" IsVisible="False" Text="Enter a valid http or https URL." />
+    <Label x:Name="DefaultLabel" FontSize="12" TextColor="Gray" />
+    <HorizontalStackLayout Spacing="12">
+      <Button Text="Save" Clicked="OnSaveClicked" />
+      <Button Text="Reset to default" Clicked="OnResetClicked" />
+    </HorizontalStackLayout>
+  </VerticalStackLayout>
+
+</ContentPage>

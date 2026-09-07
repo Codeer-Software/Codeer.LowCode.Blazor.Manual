@@ -2,44 +2,46 @@
 <html lang="ja">
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <meta name="Codeer.LowCode.Bindings.MudBlazor::autoload" content="false" />
-    <meta name="Codeer.LowCode.Bindings.Radzen.Blazor::autoload" content="false" />
-    <title>LowCodeSamples</title>
-    <base href="/" />
-    <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
-    <link href="css/app.css" rel="stylesheet" />
-    <link rel="icon" type="image/png" href="favicon.png" />
-    <link rel="stylesheet" href="css/bootstrap-icons/bootstrap-icons.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
-    <link href="LowCodeSamples.Client.styles.css" rel="stylesheet" />
-    <link href="_content/Sotsera.Blazor.Toaster/toastr.min.css" rel="stylesheet" />
-    <link href="_content/IgniteUI.Blazor/themes/grid/light/bootstrap.css" rel="stylesheet" />
-    <link href="_content/IgniteUI.Blazor/themes/light/bootstrap.css" rel="stylesheet" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <!-- MudBlazor / Radzen の CSS は全フレームに影響するため自動読込を止め、PageFrames/MudBlazor.css / RadzenBlazor.css がフレーム単位で読み込む -->
+  <meta name="Codeer.LowCode.Bindings.MudBlazor::autoload" content="false" />
+  <meta name="Codeer.LowCode.Bindings.Radzen.Blazor::autoload" content="false" />
+  <title>LowCodeSamples</title>
+  <base href="/" />
+  <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
+  <link href="css/app.css" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="stylesheet" href="css/bootstrap-icons/bootstrap-icons.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+  <link href="LowCodeSamples.Client.styles.css" rel="stylesheet" />
+  <link href="_content/Sotsera.Blazor.Toaster/toastr.min.css" rel="stylesheet" />
+  <link href="_content/IgniteUI.Blazor/themes/grid/light/bootstrap.css" rel="stylesheet" />
+  <link href="_content/IgniteUI.Blazor/themes/light/bootstrap.css" rel="stylesheet" />
 </head>
 
 <body>
-    <div id="app">
-        <svg class="loading-progress">
-            <circle r="40%" cx="50%" cy="50%" />
-            <circle r="40%" cx="50%" cy="50%" />
-        </svg>
-        <div class="loading-progress-text"></div>
-    </div>
+  <div id="app">
+    <svg class="loading-progress">
+      <circle r="40%" cx="50%" cy="50%" />
+      <circle r="40%" cx="50%" cy="50%" />
+    </svg>
+    <div class="loading-progress-text"></div>
+  </div>
 
-    <div id="blazor-error-ui">
-        An unhandled error has occurred.
-        <a href="" class="reload">Reload</a>
-        <a class="dismiss">🗙</a>
-    </div>
-    <script src="_content/IgniteUI.Blazor/app.bundle.js"></script>
-    <script src="_content/MudBlazor/MudBlazor.min.js"></script>
-    <script src="_content/Heron.MudCalendar/Heron.MudCalendar.min.js" type="module"></script>
-    <script src="_content/Radzen.Blazor/Radzen.Blazor.js"></script>
-    <script src="_framework/blazor.webassembly.js"></script>
-    <script src="js/kjs-modules.js"></script>
+  <div id="blazor-error-ui">
+    An unhandled error has occurred.
+    <a href="" class="reload">Reload</a>
+    <a class="dismiss">🗙</a>
+  </div>
+  <script src="_content/IgniteUI.Blazor/app.bundle.js"></script>
+  <script src="_content/MudBlazor/MudBlazor.min.js"></script>
+  <script src="_content/Heron.MudCalendar/Heron.MudCalendar.min.js" type="module"></script>
+  <script src="_content/Radzen.Blazor/Radzen.Blazor.js"></script>
+  <script src="_framework/blazor.webassembly.js"></script>
+  <script src="js/kjs-modules.js"></script>
 </body>
+
 </html>
