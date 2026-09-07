@@ -39,7 +39,7 @@ CurrentUserModule に存在するユーザーのうち、ここで指定した�
 3. **Module の UserRead / UserWrite** — モジュール単位のアクセス
 4. **Module の DataRead / DataWrite** — データ行単位のアクセス
 
-詳しくは [認証・認可](../authorization/authorization.md) / [チュートリアル: 認証を有効にする](../tutorials/tutorial_auth.md)
+詳しくは [認証・認可](../authorization/authorization.md) / [チュートリアル: 認可を設定する](../tutorials/tutorial_auth.md)
 
 ---
 
@@ -48,4 +48,4 @@ CurrentUserModule に存在するユーザーのうち、ここで指定した�
 - [PageFrame](page_frame.md)
 - [Module 全体設定](../module/module_general.md)
 - [認証・認可](../authorization/authorization.md)
-- [チュートリアル: 認証を有効にする](../tutorials/tutorial_auth.md)
+- [チュートリアル: 認可を設定する](../tutorials/tutorial_auth.md)

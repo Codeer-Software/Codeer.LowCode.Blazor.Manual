@@ -1,9 +1,9 @@
-# 認証付きプロジェクトの始め方
+# ログインとユーザーの初期設定
 
-ログイン（認証）付きのアプリを作るときのプロジェクトの立ち上げ方を説明します。
+ログインは最初から入っています。この記事は、初期ユーザー・ユーザー管理・標準パターン集の認証 / 権限 / 承認サンプルの動かし方です。
 
 Codeer.LowCode.Blazor では、Visual Studio テンプレートで作るソリューションも、デザイナのテンプレートも、すべてログインを前提に作られています。「認証付きにするために何かを選ぶ」必要はなく、作ったらそのままログイン画面から始まります。
-認証・認可の仕組みそのものは [認証 / 認可の概要](authorization.md) を、認可設定の手順は [チュートリアル: 認証を有効にする](../tutorials/tutorial_auth.md) を参照してください。
+認証・認可の仕組みそのものは [認証 / 認可の概要](authorization.md) を、認可設定の手順は [チュートリアル: 認可を設定する](../tutorials/tutorial_auth.md) を参照してください。認証方式の追加 (Entra ID / Google / AWS Cognito / 二要素認証) は [Extras の認証ドキュメント](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras/blob/main/docs/Authentication.md) にあります。
 
 ## 全体の流れ
 
@@ -76,7 +76,7 @@ Visual Studio 拡張のインストールやソリューション作成の基本
 
 パスワードはそのままの文字列では保存されません。`AppUser` の `LoginAccountContractField` (ログインアカウント契約) がパスワード入力欄を指しており、保存時にハッシュ化されて `app_users` テーブルの `hash` / `salt` 列に保存されます。ユーザーを増やすには、この画面の「新規作成」でユーザー識別名・表示名・パスワードを登録するだけです。
 
-ここから先は通常のプロジェクトと同じように、モジュールを追加してアプリを作っていきます。認可設定の進め方は [チュートリアル: 認証を有効にする](../tutorials/tutorial_auth.md) を参照してください。
+ここから先は通常のプロジェクトと同じように、モジュールを追加してアプリを作っていきます。認可設定の進め方は [チュートリアル: 認可を設定する](../tutorials/tutorial_auth.md) を参照してください。
 
 ---
 
@@ -153,6 +153,7 @@ URL を直接入力して管理画面にアクセスしようとしても拒否�
 ## 関連ドキュメント
 
 - [認証 / 認可の概要](authorization.md) — 認可の仕組みと設定項目
-- [チュートリアル: 認証を有効にする](../tutorials/tutorial_auth.md) — 認可設定を段階的に組み込む手順
+- [チュートリアル: 認可を設定する](../tutorials/tutorial_auth.md) — 認可設定を段階的に組み込む手順
+- [認証の全体像 (Extras)](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras/blob/main/docs/Authentication.md) — ログインの仕組みと、外部 IdP・二要素認証の追加
 - [認証・権限・承認のパターン](../patterns/auth_patterns.md) — 各パターンの作り方の個別記事
 - [クイックスタート](../quickstart/quickstart.md) — Visual Studio テンプレートからの基本的な始め方

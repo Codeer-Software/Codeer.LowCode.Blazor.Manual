@@ -53,7 +53,7 @@ Codeer.LowCode.Blazor を触り始める前に、全体像を掴むためのセ�
 4. [スクリプトの基本](JP/tutorials/tutorial_script.md) — ボタンイベント・Field 操作・メッセージ表示・バリデーション
 5. [Excel 帳票と PDF 出力](JP/tutorials/tutorial_excel_pdf.md) — テンプレートで帳票を作り、PDF に変換
 6. [WebAPI 連携](JP/tutorials/tutorial_webapi.md) — 外部 API・カスタム Controller・JsonObject
-7. [認証を有効にする](JP/tutorials/tutorial_auth.md) — CurrentUserModule・アプリ/画面/モジュール/データ単位の認可
+7. [認可を設定する](JP/tutorials/tutorial_auth.md) — CurrentUserModule・アプリ/画面/モジュール/データ単位の認可（ログインは最初から入っている）
 
 ---
 
@@ -100,7 +100,7 @@ Codeer.LowCode.Blazor を触り始める前に、全体像を掴むためのセ�
 
 ### 認証・認可
 
-- [認証付きプロジェクトの始め方](JP/authorization/auth_getting_started.md) — ログイン機能はすべてのテンプレートに含まれる。初期ユーザーと、標準パターン集の認証・権限・承認サンプルの動かし方
+- [ログインとユーザーの初期設定](JP/authorization/auth_getting_started.md) — ログインはすべてのテンプレートに最初から入っている。初期ユーザーと、標準パターン集の認証・権限・承認サンプルの動かし方
 - [認証 / 認可の概要](JP/authorization/authorization.md) — 認可は本体、認証はテンプレート + MIT の Extras
 - [認証の全体像 (Extras)](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras/blob/main/docs/Authentication.md) — ログインアカウント契約・パスワード・[外部ログイン](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras/blob/main/docs/ExternalLogin.md) (Entra ID / Google / AWS Cognito / OpenID Connect)・[二要素認証](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras/blob/main/docs/TwoFactorLogin.md)
 

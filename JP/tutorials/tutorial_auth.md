@@ -1,8 +1,8 @@
-# チュートリアル: 認証を有効にする
+# チュートリアル: 認可を設定する
 
 **所要時間: 約 30 分**
 
-業務アプリに必須の認証・認可を段階的に組み込みます。
+ログインは最初から入っているので、ここでは**認可**（ログインしたユーザーに何を見せ、何を書かせるか）をデザイナで段階的に設定します。
 
 - 認証 = **誰か**を特定する仕組み（ログイン）
 - 認可 = **何ができるか**を制御する仕組み（アクセス権）
@@ -17,7 +17,7 @@ Codeer.LowCode.Blazor では、**認証はホストアプリ側** (テンプレ�
 
 - [はじめてのモジュール作成](first_module.md) を完了している
 - プロジェクトを Visual Studio テンプレート（`Codeer.LowCode.Blazor`）で作成している
-  （Cookie 認証のユーザーコードが含まれる。[認証付きプロジェクトの始め方](../authorization/auth_getting_started.md) 参照）
+  （ログインは最初から含まれる。初期ユーザーは [ログインとユーザーの初期設定](../authorization/auth_getting_started.md) 参照）
 
 ---
 
@@ -133,9 +133,9 @@ DataWrite: CurrentUser.Id.Value == this.Creator.Value
 
 ---
 
-## 認証まわりの実装（ユーザーコード）
+## 認証について（ライブラリの外）
 
-認証そのものは ASP.NET の標準機能で、テンプレートが生成するユーザーコードに実装されています。
+認証は Codeer.LowCode.Blazor 本体の機能ではなく、テンプレートが生成するホストのコードと MIT の Extras にあります。
 特別なカスタマイズが不要なら、テンプレートのまま使えます。
 
 Cookie 認証のテンプレートには次のような実装が含まれます:
@@ -145,7 +145,7 @@ Cookie 認証のテンプレートには次のような実装が含まれます:
 - ログイン・ログアウト・外部 IdP・二要素認証のエンドポイントを持つ `AccountController` と、ログイン画面 (`login.html`)
 - ID/パスワード照合・外部 IdP・二要素認証の実装は [Codeer.LowCode.Blazor.Extras](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras/blob/main/docs/Authentication.md) (MIT)
 
-→ 詳細: [認証・認可（リファレンス）](../authorization/authorization.md)
+→ 認証の詳細: [認証の全体像 (Extras)](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras/blob/main/docs/Authentication.md) / 認可の詳細: [認証・認可の概要](../authorization/authorization.md)
 
 ### 独自認証に差し替えたい場合
 
@@ -155,7 +155,7 @@ Entra ID / Google / AWS Cognito / OpenID Connect は設定だけで足せます 
 
 ## デプロイして確認する
 
-認証・認可の設定はデプロイ後にブラウザで次の順に確認します。
+認可の設定はデプロイ後にブラウザで次の順に確認します。
 
 1. **ログアウト状態でアクセス** → ログイン画面に飛ぶ
 2. **権限のないユーザーでログイン** → アプリ自体に入れない、または一部画面だけ表示される
@@ -168,7 +168,7 @@ Entra ID / Google / AWS Cognito / OpenID Connect は設定だけで足せます 
 
 ### Q. ログインはできるがアプリに入れない
 
-`app.clprj` の CurrentUserModule に該当ユーザーの行があるかを確認します。`User.Identity.Name` に対応する行がないと、どこにもアクセスできません。
+`app.clprj` の CurrentUserModule に該当ユーザーの行があるかを確認します。ログインした ID（ログインアカウント契約の `LoginName` が指すフィールド）に対応する行がないと、どこにもアクセスできません。
 
 ### Q. サイドバーのメニューが一部出ない
 
@@ -182,7 +182,7 @@ Module の `DataRead` を設定していないか、条件式が正しくない�
 
 ## 次に読む
 
-- [認証付きプロジェクトの始め方](../authorization/auth_getting_started.md) — 認証付きテンプレートの選び方とサンプルの動かし方
-- [認証・認可（リファレンス）](../authorization/authorization.md) — 詳細な設定項目
+- [ログインとユーザーの初期設定](../authorization/auth_getting_started.md) — 初期ユーザーと標準パターン集のサンプルの動かし方
+- [認証・認可の概要](../authorization/authorization.md) — 認可の詳細な設定項目
 - [PageFrame](../designer/page_frame.md) — 画面構成の設定
 - [app.clprj](../designer/app_clprj.md) — アプリ全体の設定

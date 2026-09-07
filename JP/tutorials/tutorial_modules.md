@@ -186,7 +186,7 @@ Recipe の行をクリックすると、その Recipe の CookingStep だけが�
 
 ## 次に読む
 
-- [チュートリアル: 認証を有効にする](tutorial_auth.md) — ログイン・権限を入れる
+- [チュートリアル: 認可を設定する](tutorial_auth.md) — 権限を設定する（ログインは最初から入っている）
 - [Link フィールド（リファレンス）](../fields/Link.md)
 - [ListField（リファレンス）](../fields/List.md)
 - [ModuleSearcher / BatchSearcher](../script/script_module_searcher.md)

@@ -140,4 +140,4 @@ Cookie 認証テンプレートのログイン処理に組み込まれている�
 - [Field 共通プロパティ](common_properties.md)
 - [Text](Text.md) — 通常の文字入力
 - [認証・認可](../authorization/authorization.md)
-- [チュートリアル: 認証を有効にする](../tutorials/tutorial_auth.md)
+- [チュートリアル: 認可を設定する](../tutorials/tutorial_auth.md)

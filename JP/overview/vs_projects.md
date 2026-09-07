@@ -36,7 +36,7 @@
 
 サーバー・デザイナ・ライセンスツールは Web ソリューション側のものを使います。デザインの変更はサーバー側のデプロイで反映されるため、ストアの更新は不要です。
 
-### WPF / WinForms・認証なしの構成
+### WPF / WinForms・ログイン画面なしの構成
 
 WPF / WinForms のデスクトップアプリ構成、ログイン画面のない構成、マルチテナント構成は Visual Studio テンプレートとしては提供していません。
 [Starter リポジトリ](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Starter) の `Source/Hosts/` に参考用のホスト（`Wpf` / `WinForms` / `MultiTenant`）があります。ログイン画面だけを外したい場合は、同リポジトリの `CLAUDE.md`「認証を外す」の手順で Web ソリューションから認証部分を外してください。
