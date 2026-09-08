@@ -1,5 +1,5 @@
 {
-  "Name": "ExtrasRichText",
+  "Name": "ExtrasMarkdown",
   "DataSourceName": "",
   "DbTable": "",
   "CanCreate": true,
@@ -7,7 +7,7 @@
   "CanDelete": true,
   "Fields": [
     {
-      "Text": "RichTextField",
+      "Text": "MarkdownField",
       "Icon": "",
       "IsHtml": false,
       "Style": "H2",
@@ -22,7 +22,7 @@
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
     },
     {
-      "Text": "書式付きテキストの編集フィールド。太字・斜体・色・フォントサイズ・リンク・リストなど HTML フォーマットに対応しています。",
+      "Text": "Markdown を入力・表示するフィールドです。値は Markdown のテキストのまま保存し、閲覧時は HTML に描画します。ツールバーで記法を挿入でき、[プレビュー] タブで見え方を確認できます。書き手が記法を知っている人や AI の文章向けで、記法を知らない利用者には RichTextField を使います。",
       "Icon": "",
       "IsHtml": false,
       "Style": "Default",
@@ -38,6 +38,9 @@
     },
     {
       "DbColumn": "",
+      "Placeholder": "Markdown で入力 (Enter は改行)",
+      "PreviewMode": "Tab",
+      "ShowToolbar": true,
       "DisplayName": "",
       "IsRequired": false,
       "OnDataChanged": "",
@@ -47,7 +50,7 @@
       "IsFocusSkip": false,
       "NextFocusField": "",
       "OnFocusMoving": "",
-      "TypeFullName": "Codeer.LowCode.Blazor.Extras.Designs.RichTextFieldDesign"
+      "TypeFullName": "Codeer.LowCode.Blazor.Extras.Designs.MarkdownFieldDesign"
     }
   ],
   "UserWriteCondition": {
