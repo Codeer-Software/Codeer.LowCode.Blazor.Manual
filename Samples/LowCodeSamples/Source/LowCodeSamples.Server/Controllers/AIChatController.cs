@@ -35,7 +35,7 @@ namespace LowCodeSamples.Server.Controllers
         public ActionResult<AIChatSendResponse> Send([FromBody] AIChatSendRequest request)
         {
             Check();
-            return Accepted(new AIChatSendResponse { RequestId = _jobs.Start(Owner, request.ConversationId, request.Message, request.Agent, request.DocumentFolder) });
+            return Accepted(new AIChatSendResponse { RequestId = _jobs.Start(Owner, request.ConversationId, request.Message, request.Agent, request.DocumentFolder, request.Transcript) });
         }
 
         [HttpGet("{requestId}")]
