@@ -14,6 +14,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using LowCodeSamples.Client.Shared.Samples;
 using LowCodeSamples.Server.Services;
+using LowCodeSamples.Server.AI;
 using LowCodeSamples.Server.Services.DataChangeHistory;
 using Codeer.LowCode.Blazor.Extras.Server.AI;
 using Codeer.LowCode.Blazor.Extras.Server.Mail;
@@ -68,6 +69,7 @@ SystemConfig.Instance.GraphApi = builder.Configuration.GetSection("GraphApi").Ge
 SystemConfig.Instance.SendGrid = builder.Configuration.GetSection("SendGrid").Get<SendGridSettings>() ?? new();
 SystemConfig.Instance.Gmail = builder.Configuration.GetSection("Gmail").Get<GmailSettings>() ?? new();
 SystemConfig.Instance.AISettings = builder.Configuration.GetSection("AISettings").Get<AISettings>() ?? new();
+SystemConfig.Instance.AIChat = builder.Configuration.GetSection("AIChat").Get<AIChatSettings>() ?? new();
 SystemConfig.Instance.DataSources.ToList().ForEach(e => e.ConnectionString = builder.Configuration.GetConnectionString(e.Name) ?? string.Empty);
 //AI のキーは接続文字列として設定する (Azure App Service の接続文字列設定に置くため)
 SystemConfig.Instance.AISettings.OpenAIKey = builder.Configuration.GetConnectionString("OpenAIKey") ?? SystemConfig.Instance.AISettings.OpenAIKey;

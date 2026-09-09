@@ -1,5 +1,6 @@
 using Codeer.LowCode.Blazor.SystemSettings;
 using LowCodeSamples.Client.Shared.Services;
+using LowCodeSamples.Server.AI;
 using LowCodeSamples.Server.Services.DataChangeHistory;
 using Codeer.LowCode.Blazor.Extras.Server.AI;
 using Codeer.LowCode.Blazor.Extras.Server.Mail;
@@ -34,6 +35,8 @@ namespace LowCodeSamples.Server.Services
         public SendGridSettings SendGrid { get; set; } = new();
         public GmailSettings Gmail { get; set; } = new();
         public AISettings AISettings { get; set; } = new();
+        //AIChatField のサーバー側 (AI/AIChatAgentTable)。AI が読むデータソース (デモは読み取り専用ユーザーの "AIChat")
+        public AIChatSettings AIChat { get; set; } = new();
         public SystemConfigForFront ForFront() => new SystemConfigForFront { CanScriptDebug = CanScriptDebug, UseHotReload = UseHotReload };
     }
 }
