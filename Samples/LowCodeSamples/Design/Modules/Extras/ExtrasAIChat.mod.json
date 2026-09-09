@@ -22,21 +22,19 @@
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
     },
     {
-      "Text": "データベースの内容について AI に日本語で質問できるフィールドです。サーバー側の Agent (RawDataAccessAgent) がモジュール定義と補足文書で業務の意味を確かめ、読み取り専用の接続で SQL を実行し、表や SVG グラフで答えます。このデモには架空の売上データ (2025 年 9 月〜2026 年 8 月、得意先 12 社、商品 10 品目、約 400 件の売上明細) が入っていて、メニューの「売上」「得意先」「商品」で中身を見られます。例: 「月別の売上高を棒グラフで」「得意先別の売上トップ 5 は？」「商品カテゴリ別の構成比を円グラフで」「今年 3 月に完了した売上を 5 件、リンク付きで」。会話の履歴は覚えているので「その中で PC だけだと？」のような追問もできます。デモサイトのため 1 日の利用回数に上限があります。読み取り専用の DB ユーザーで接続しているので、データの変更はできません。",
-      "Icon": "",
-      "IsHtml": false,
-      "Style": "Default",
-      "RelativeField": "",
-      "OnClick": "",
-      "Name": "Desc",
+      "ResourcePath": "",
+      "RawHtml": "<div class=\"alert alert-primary py-2 mb-0\">\n  <div class=\"fw-bold mb-1\">質問の例 (そのまま入力してみてください)</div>\n  <ul class=\"mb-1 fs-5\">\n    <li>月別の売上高を棒グラフで</li>\n    <li>得意先別の売上トップ 5 は？</li>\n    <li>商品カテゴリ別の構成比を円グラフで</li>\n    <li>今年 3 月に完了した売上を 5 件、リンク付きで</li>\n    <li>その中で PC だけだと？ (続けて聞けます)</li>\n  </ul>\n  <div class=\"small text-secondary\">データは左のメニューの「売上」「得意先」「商品」(架空の売上データ)。AI は読み取り専用の接続で SELECT だけを実行します。デモサイトのため 1 日の利用回数に上限があります。</div>\n</div>",
+      "Name": "Samples",
       "IgnoreModification": false,
       "OnValidateInput": "",
       "IsFocusSkip": false,
       "NextFocusField": "",
       "OnFocusMoving": "",
-      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.MarkupStringFieldDesign"
     },
     {
+      "Agent": "",
+      "DocumentFolder": "AIChat",
       "Height": 0,
       "TimeoutSeconds": 600,
       "MaxInputRows": 6,
@@ -45,9 +43,10 @@
       "Name": "Chat",
       "IgnoreModification": false,
       "OnValidateInput": "",
-      "TypeFullName": "Codeer.LowCode.Blazor.Extras.Designs.AIChatFieldDesign",
-      "Agent": "",
-      "DocumentFolder": "AIChat"
+      "IsFocusSkip": false,
+      "NextFocusField": "",
+      "OnFocusMoving": "",
+      "TypeFullName": "Codeer.LowCode.Blazor.Extras.Designs.AIChatFieldDesign"
     }
   ],
   "UserWriteCondition": {
@@ -65,9 +64,12 @@
   "DetailLayouts": {
     "": {
       "OnBeforeInitialization": "",
-      "OnAfterInitialization": "",
+      "OnAfterInitialization": "DetailLayoutDesign_OnAfterInitialization",
       "OnLocationChanging": "",
       "OnFieldDataChanged": "",
+      "FocusControlMode": "Inherit",
+      "IsFocusWrap": false,
+      "InitialFocusField": "",
       "DataOnlyFields": [],
       "ClassName": "",
       "Color": "",
@@ -137,7 +139,7 @@
             "Columns": [
               {
                 "Layout": {
-                  "FieldName": "Desc",
+                  "FieldName": "Samples",
                   "ContextMenu": "",
                   "ClassName": "",
                   "FontFamily": "",
