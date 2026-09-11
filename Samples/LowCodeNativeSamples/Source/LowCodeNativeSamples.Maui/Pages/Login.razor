@@ -1,0 +1,309 @@
+@page "/login"
+@layout Shared.EmptyLayout
+@inject HttpClient HttpClient
+@inject ServerConnection Server
+@inject NavigationManager NavigationManager
+
+<div class="login-center">
+  <div>
+    @* ロゴ・アプリ名・案内文はここに直接書く *@
+    <h1>ログイン</h1>
+    @if (_totp == null)
+    {
+      @if (_passwordEnabled)
+      {
+        <EditForm Model="_login" OnValidSubmit="LoginAsync">
+          <div class="mb-2">
+            ユーザー ID
+            <InputText @bind-Value="_login.Id" class="form-control" autocomplete="username" />
+          </div>
+          <div class="mb-2">
+            パスワード
+            <InputText @bind-Value="_login.Password" type="password" class="form-control" autocomplete="current-password" />
+          </div>
+          <div class="mb-3">
+            <InputCheckbox @bind-Value="_login.IsPersistent" id="IsPersistent" />
+            <label for="IsPersistent" class="ms-1">ログイン状態を保持する</label>
+          </div>
+          <button type="submit" class="btn btn-primary" disabled="@_busy">ログイン</button>
+        </EditForm>
+      }
+      @foreach (var provider in _providers)
+      {
+        <div class="mt-2">
+          <button type="button" class="btn btn-outline-primary w-100" disabled="@_busy" @onclick="() => ExternalLoginAsync(provider.Name)">@provider.DisplayName でログイン</button>
+        </div>
+      }
+    }
+    else
+    {
+      @* 二要素認証 (認証アプリ = setup / totp、メール = email)。パスワード成功後にコードを求める *@
+      <EditForm Model="_totp" OnValidSubmit="VerifyTotpAsync">
+        @if (_totp.Status == "setup")
+        {
+          <p class="mb-2">認証アプリで QR コードを読み取り、表示された 6 桁のコードを入力してください。</p>
+          <img src="data:image/png;base64,@_totp.QrPngBase64" alt="認証アプリ登録用の QR コード" class="border mb-2" style="width:200px;height:200px;" />
+          <div class="small text-muted mb-2">読み取れない場合はこのキーを手入力してください:<br /><code>@_totp.Secret</code></div>
+        }
+        else if (_totp.Status == "email")
+        {
+          <p class="mb-2">@_totp.MaskedEmail に認証コードを送りました。届いた 6 桁のコードを入力してください。</p>
+        }
+        else
+        {
+          <p class="mb-2">認証アプリに表示されている 6 桁のコードを入力してください。</p>
+        }
+        <div class="mb-3">
+          認証コード
+          <InputText @bind-Value="_totp.Code" class="form-control" inputmode="numeric" maxlength="6" autocomplete="one-time-code" />
+        </div>
+        <button type="submit" class="btn btn-primary" disabled="@_busy">確認</button>
+        <button type="button" class="btn btn-secondary ms-1" disabled="@_busy" @onclick="BackToLogin">戻る</button>
+      </EditForm>
+    }
+    @if (_failed)
+    {
+      <div class="text-danger mt-3">@(_errorMessage ?? "ログインに失敗しました")</div>
+    }
+  </div>
+</div>
+
+@code {
+  [SupplyParameterFromQuery]
+  public string? ReturnUrl { get; set; }
+
+  class LoginInfo
+  {
+    public string? Id { get; set; }
+    public string? Password { get; set; }
+    public bool IsPersistent { get; set; }
+    public string? TwoFactorCode { get; set; }
+  }
+
+  class LoginOptions
+  {
+    public bool Password { get; set; } = true;
+    public List<LoginProvider> Providers { get; set; } = new();
+  }
+
+  class LoginProvider
+  {
+    public string Name { get; set; } = string.Empty;
+    public string DisplayName { get; set; } = string.Empty;
+  }
+
+  //POST api/account/login の応答。二要素認証が無効なら status は "ok" だけ
+  class LoginResult
+  {
+    public string Status { get; set; } = "ok";
+    public string? Secret { get; set; }
+    public string? QrPngBase64 { get; set; }
+    public string? MaskedEmail { get; set; }
+  }
+
+  class TotpStep
+  {
+    public string Status { get; set; } = string.Empty;
+    public string? Secret { get; set; }
+    public string? QrPngBase64 { get; set; }
+    public string? MaskedEmail { get; set; }
+    public string? Code { get; set; }
+  }
+
+  readonly LoginInfo _login = new();
+  bool _passwordEnabled = true;
+  List<LoginProvider> _providers = new();
+  TotpStep? _totp;
+  bool _busy;
+  bool _failed;
+  string? _errorMessage;
+
+  protected override async Task OnInitializedAsync()
+  {
+    //Web のログイン画面と同じ選択肢: パスワードのフォームと、サーバーに設定された外部 IdP ごとのボタン
+    try
+    {
+      var options = await HttpClient.GetFromJsonAsync<LoginOptions>("api/account/login_options");
+      if (options != null)
+      {
+        _passwordEnabled = options.Password;
+        _providers = options.Providers;
+      }
+    }
+    catch { }
+  }
+
+  async Task LoginAsync()
+  {
+    if (string.IsNullOrEmpty(_login.Id) || string.IsNullOrEmpty(_login.Password))
+    {
+      _failed = true;
+      return;
+    }
+
+    _busy = true;
+    _failed = false;
+    _errorMessage = null;
+    try
+    {
+      _login.TwoFactorCode = null;
+      var response = await HttpClient.PostAsJsonAsync("api/account/login", _login);
+      if (!response.IsSuccessStatusCode)
+      {
+        _failed = true;
+        return;
+      }
+
+      //二要素認証が有効なら status が setup / totp (認証アプリ) か email (メール) で返り、まだサインインしていない
+      var result = await ReadResultAsync(response);
+      if (result.Status == "setup" || result.Status == "totp" || result.Status == "email")
+      {
+        _totp = new TotpStep { Status = result.Status, Secret = result.Secret, QrPngBase64 = result.QrPngBase64, MaskedEmail = result.MaskedEmail };
+        return;
+      }
+      if (result.Status == "send_failed")
+      {
+        _failed = true;
+        _errorMessage = "認証コードのメールを送れませんでした。管理者に連絡してください";
+        return;
+      }
+      if (result.Status != "ok")
+      {
+        _failed = true;
+        return;
+      }
+      SignedIn();
+    }
+    catch
+    {
+      _failed = true;
+    }
+    finally
+    {
+      _busy = false;
+    }
+  }
+
+  async Task VerifyTotpAsync()
+  {
+    if (_totp == null || string.IsNullOrWhiteSpace(_totp.Code))
+    {
+      _failed = true;
+      _errorMessage = "認証コードを入力してください";
+      return;
+    }
+
+    _busy = true;
+    _failed = false;
+    _errorMessage = null;
+    try
+    {
+      _login.TwoFactorCode = _totp.Code.Trim();
+      var response = await HttpClient.PostAsJsonAsync("api/account/login", _login);
+      if (!response.IsSuccessStatusCode)
+      {
+        _failed = true;
+        return;
+      }
+      var result = await ReadResultAsync(response);
+      if (result.Status != "ok")
+      {
+        _failed = true;
+        _errorMessage = "認証コードが正しくありません";
+        return;
+      }
+      SignedIn();
+    }
+    catch
+    {
+      _failed = true;
+    }
+    finally
+    {
+      _busy = false;
+    }
+  }
+
+  void BackToLogin()
+  {
+    _totp = null;
+    _failed = false;
+    _errorMessage = null;
+    _login.Password = null;
+    _login.TwoFactorCode = null;
+  }
+
+  static async Task<LoginResult> ReadResultAsync(HttpResponseMessage response)
+  {
+    try
+    {
+      return await response.Content.ReadFromJsonAsync<LoginResult>() ?? new LoginResult();
+    }
+    catch
+    {
+      return new LoginResult();
+    }
+  }
+
+  //外部 IdP: システムブラウザ (埋め込み WebView は Google が拒否する) でサーバーのチャレンジ URL を開く。
+  //サーバーは Web と同じ OIDC フローを完了し、使い捨てチケット付きで ServerSettings.LoginCallbackUrl へ戻す。
+  //チケットを ServerConnection が持つ認証 Cookie に交換する
+  async Task ExternalLoginAsync(string provider)
+  {
+    _busy = true;
+    _failed = false;
+    _errorMessage = null;
+    try
+    {
+      var authUrl = new Uri(Server.BaseAddress, $"api/account/login/{Uri.EscapeDataString(provider)}?mobile=true");
+      var result = await WebAuthenticator.Default.AuthenticateAsync(authUrl, new Uri(ServerSettings.LoginCallbackUrl));
+
+      if (result.Properties.TryGetValue("error", out var error))
+      {
+        _failed = true;
+        _errorMessage = error switch
+        {
+          "user_not_registered" => "このアカウントは登録されていません",
+          "guest_not_allowed" => "ゲストアカウントは使えません",
+          "domain_not_allowed" => "このアカウントのドメインは許可されていません",
+          _ => "ログインに失敗しました"
+        };
+        return;
+      }
+      if (!result.Properties.TryGetValue("ticket", out var ticket))
+      {
+        _failed = true;
+        return;
+      }
+
+      var response = await HttpClient.PostAsJsonAsync("api/account/login_ticket", new { Ticket = ticket });
+      if (!response.IsSuccessStatusCode)
+      {
+        _failed = true;
+        return;
+      }
+      SignedIn();
+    }
+    catch (TaskCanceledException)
+    {
+      //ユーザーがブラウザを閉じた
+    }
+    catch
+    {
+      _failed = true;
+    }
+    finally
+    {
+      _busy = false;
+    }
+  }
+
+  void SignedIn()
+  {
+    //ログイン前に発行された antiforgery トークンは匿名ユーザーのものなので取り直す
+    Server.ResetAntiforgeryToken();
+
+    var returnUrl = string.IsNullOrEmpty(ReturnUrl) || ReturnUrl.StartsWith("login") ? "/" : "/" + ReturnUrl.TrimStart('/');
+    NavigationManager.NavigateTo(returnUrl, true);
+  }
+}

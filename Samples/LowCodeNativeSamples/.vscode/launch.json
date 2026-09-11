@@ -1,0 +1,40 @@
+{
+  // VS Code launch settings (C# Dev Kit / ms-dotnettools.csharp). Default variant: Cookie.
+  // The public host is Cookie. Using another host under Source/Hosts (maintenance only)? Replace "Cookie" in this file (the Designer entry is shared).
+  // The Designer entry opens DesignProjects/Project/design; replace "Project" if you renamed the design project folder.
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Server",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build",
+      "program": "${workspaceFolder}/Source/LowCodeNativeSamples.Server/bin/Debug/net10.0/LowCodeNativeSamples.Server.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/Source/LowCodeNativeSamples.Server",
+      "stopAtEntry": false,
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ASPNETCORE_URLS": "https://localhost:7137;http://localhost:5085"
+      },
+      "serverReadyAction": {
+        "action": "openExternally",
+        "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+      },
+      "sourceFileMap": {
+        "/Views": "${workspaceFolder}/Views"
+      }
+    },
+    {
+      "name": "Designer",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build",
+      "program": "${workspaceFolder}/Source/LowCodeNativeSamples.Designer/bin/Debug/net10.0-windows/LowCodeNativeSamples.Designer.exe",
+      "args": ["${workspaceFolder}/DesignProjects/Project/design"],
+      "cwd": "${workspaceFolder}/Source/LowCodeNativeSamples.Designer",
+      "stopAtEntry": false,
+      "console": "internalConsole"
+    }
+  ]
+}

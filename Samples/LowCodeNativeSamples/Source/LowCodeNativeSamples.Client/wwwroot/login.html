@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <base href="/" />
+  <title>ログイン</title>
+
+  <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
+  <link href="css/app.css" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <style>
+    /* 見た目はここで変える。流れ (ID/パスワード → 二要素認証、外部 IdP のボタン) は login.js が担う。
+       タイトル・ロゴ・案内文はデザインの AppSettings > LoginPage から入る (要素の id は login.js が参照するので変えない) */
+    html, body {
+      height: 100%;
+    }
+    body {
+      background: #f3f4f6;
+    }
+    .login-center {
+      min-height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
+    }
+    .login-card {
+      width: 100%;
+      max-width: 400px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, .08);
+      padding: 40px 36px 32px;
+    }
+    .login-head {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    .login-head:empty {
+      display: none;
+    }
+    .login-head img {
+      max-width: 240px;
+      max-height: 80px;
+      margin-bottom: 12px;
+    }
+    .login-head h1 {
+      font-size: 1.25rem;
+      font-weight: 500;
+      margin: 0;
+    }
+    .login-head p {
+      font-size: .9rem;
+      margin: 8px 0 0;
+      white-space: pre-line;
+    }
+    .form-label {
+      font-size: .875rem;
+      margin-bottom: 4px;
+    }
+    .login-card .form-control {
+      padding: 10px 12px;
+    }
+    .login-card .btn {
+      width: 100%;
+      padding: 10px 12px;
+    }
+    .login-divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 20px 0;
+      color: #8a8f98;
+      font-size: .8rem;
+    }
+    .login-divider::before, .login-divider::after {
+      content: "";
+      flex: 1;
+      border-top: 1px solid #e3e5e8;
+    }
+    #Providers .btn {
+      margin-bottom: 8px;
+    }
+    .login-options {
+      margin-top: 16px;
+      font-size: .875rem;
+    }
+    #QrImage {
+      width: 180px;
+      height: 180px;
+      display: block;
+      margin: 0 auto 8px;
+    }
+    #TotpForm .btn-secondary {
+      margin-top: 8px;
+    }
+    /* login_options を読むまで本体を隠してちらつきを抑える */
+    body:not(.ready) .login-card {
+      visibility: hidden;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-center">
+    <div class="login-card">
+      <!-- ロゴ・アプリ名・案内文はここに直接書く (空なら何も出ない)。例:
+           <img src="images/logo.png" alt="" />
+           <h1>アプリ名</h1>
+           <p class="text-muted">案内文</p> -->
+      <div class="login-head"></div>
+
+      <!-- ID/パスワード (サーバーの AllowPasswordLogin が false なら出ない) -->
+      <form id="LoginForm" novalidate>
+        <div class="mb-3">
+          <label class="form-label" for="Id">ユーザー ID</label>
+          <input id="Id" name="Id" type="text" class="form-control" autocomplete="username" required />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="Password">パスワード</label>
+          <input id="Password" name="Password" type="password" class="form-control" autocomplete="current-password" required />
+        </div>
+        <button id="LoginButton" type="submit" class="btn btn-primary">ログイン</button>
+      </form>
+
+      <!-- 外部 IdP (サーバーに設定されたものだけ login.js がボタンを並べる。パスワードも出るときは区切り線付き) -->
+      <div id="ProviderDivider" class="login-divider" style="display:none;">または</div>
+      <div id="Providers"></div>
+
+      <!-- パスワード / 外部 IdP のどちらにも効く -->
+      <div id="Options" class="login-options form-check">
+        <input id="IsPersistent" name="IsPersistent" type="checkbox" class="form-check-input" />
+        <label for="IsPersistent" class="form-check-label">ログイン状態を保持する</label>
+      </div>
+
+      <!-- 二要素認証 (認証アプリ = LoginAccountContractField の TOTP 列 / メール = 同 TwoFactorEmail。パスワード成功後にこちらへ切り替わる) -->
+      <form id="TotpForm" novalidate style="display:none;">
+        <div id="TotpSetup" class="mb-3" style="display:none;">
+          <p class="small mb-2">認証アプリ (Google Authenticator、Microsoft Authenticator など) で QR コードを読み取り、表示された 6 桁のコードを入力してください。</p>
+          <img id="QrImage" alt="認証アプリ登録用の QR コード" class="border" />
+          <div class="small text-muted text-center">
+            読み取れない場合はこのキーを手入力してください<br />
+            <code id="SecretText"></code>
+          </div>
+        </div>
+        <p id="TotpPrompt" class="small mb-3" style="display:none;">認証アプリに表示されている 6 桁のコードを入力してください。</p>
+        <p id="EmailPrompt" class="small mb-3" style="display:none;"><span id="EmailAddress"></span> に認証コードを送りました。届いた 6 桁のコードを入力してください。</p>
+        <div class="mb-3">
+          <label class="form-label" for="TotpCode">認証コード</label>
+          <input id="TotpCode" name="TotpCode" type="text" class="form-control text-center" style="letter-spacing: .3em;"
+                 inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="one-time-code" required />
+        </div>
+        <button id="VerifyButton" type="submit" class="btn btn-primary">確認</button>
+        <button id="BackButton" type="button" class="btn btn-outline-secondary">戻る</button>
+      </form>
+
+      <div id="ErrorMessage" class="text-danger small mt-3" style="display:none;"></div>
+    </div>
+  </div>
+
+  <script src="login.js"></script>
+</body>
+</html>
