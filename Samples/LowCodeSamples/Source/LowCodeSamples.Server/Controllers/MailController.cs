@@ -28,12 +28,12 @@ namespace LowCodeSamples.Server.Controllers
             if (!SystemConfig.Instance.CanUpdate) throw new Exception("デモ用のためメールは送信できません");
         }
 
-        //単発送信
+        //単発送信 (ModuleDataIO を渡す = リクエストの MailField が今のユーザーに見えるときだけ送る)
         [HttpPost]
         public async Task<MailSendResult> SendEmailAsync(MailSendRequest request)
         {
             CheckCanUpdate();
-            return await CreateDispatcher().SendAsync(request);
+            return await CreateDispatcher().SendAsync(request, _dataService.ModuleDataIO);
         }
 
         //一斉送信 (宛先はサーバーで検索条件から解決。読み取り権限が効き、宛先一覧はクライアントに渡らない)

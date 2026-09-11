@@ -1,6 +1,7 @@
 using Codeer.LowCode.Blazor.Extras.AIChat;
 using Codeer.LowCode.Blazor.Extras.Server.AI.Chat;
 using LowCodeSamples.Server.AI;
+using LowCodeSamples.Server.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -8,11 +9,20 @@ namespace LowCodeSamples.Server.Controllers
 {
     //AIChatField の受け口。送信は即 requestId を返し (202)、クライアントは GET でポーリングする。
     //返事を作る Agent は AI/AIChatAgentTable (Agent 名 → Agent の対応表) で選ばれる。ロジックは Extras.Server にあり、ここは結線だけを持つ
+    //送信は ModuleDataIO を渡す = リクエストの AIChatField が今のユーザーに見えるときだけ受け付ける (アプリアクセス条件・モジュールの UserRead・フィールド読取権限)
     [ApiController]
     [Route("api/ai_chat")]
-    public class AIChatController : ControllerBase
+    public class AIChatController : ControllerBase, IAsyncDisposable
     {
         static AIChatJobStore _jobs => AIChatAgentTable.Jobs;
+
+        readonly DataService _dataService;
+
+        public AIChatController(DataService dataService)
+            => _dataService = dataService;
+
+        public async ValueTask DisposeAsync()
+            => await _dataService.DisposeAsync();
 
         //デモサイト用: AI チャットの送信は 1 日 500 回まで (AITextAnalyzeController と同じ簡易な数え方)
         static int _count = 0;
@@ -32,10 +42,10 @@ namespace LowCodeSamples.Server.Controllers
         string Owner => User.FindFirstValue(ClaimTypes.NameIdentifier) ?? User.Identity?.Name ?? string.Empty;
 
         [HttpPost]
-        public ActionResult<AIChatSendResponse> Send([FromBody] AIChatSendRequest request)
+        public async Task<ActionResult<AIChatSendResponse>> Send([FromBody] AIChatSendRequest request)
         {
             Check();
-            return Accepted(new AIChatSendResponse { RequestId = _jobs.Start(Owner, request.ConversationId, request.Message, request.Agent, request.DocumentFolder, request.Transcript) });
+            return Accepted(new AIChatSendResponse { RequestId = await _jobs.StartAsync(Owner, request, _dataService.ModuleDataIO) });
         }
 
         [HttpGet("{requestId}")]
