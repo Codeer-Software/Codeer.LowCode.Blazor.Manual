@@ -143,8 +143,6 @@ Codeer.LowCode.Blazor を触り始める前に、全体像を掴むためのセ�
 
 ### サードパーティ UI ライブラリとの連携
 
-- [MudBlazor サンプル](https://lowcodedemo.azurewebsites.net/MudBlazor/MudBlazorHome)
-- [Radzen.Blazor サンプル](https://lowcodedemo.azurewebsites.net/RadzenBlazor/RadzenBlazorHome)
 - [IgniteUI サンプル](https://lowcodedemo.azurewebsites.net/Bootstrap/ChartSample)
 
 ---

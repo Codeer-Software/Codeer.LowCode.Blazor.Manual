@@ -1,17 +1,18 @@
 using Codeer.LowCode.Blazor;
 using Codeer.LowCode.Blazor.Extras.Server.AI;
 using Codeer.LowCode.Blazor.Repository.Data;
-using Codeer.LowCode.Blazor.Extras.Designs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using LowCodeNativeSamples.Server.Services;
 
 namespace LowCodeNativeSamples.Server.Controllers
 {
+    //AITextAnalyzerField の受け口。ロジックは Extras.Server (AITextAnalyzeService) にあり、ここは結線だけを持つ
+    //moduleName / fieldName の AITextAnalyzerField が今のユーザーに見えるときだけ解析する (アプリアクセス条件・モジュールの UserRead・フィールド読取権限)。補足指示 (Remarks) はデザインから
     [Authorize, AutoValidateAntiforgeryToken]
     [ApiController]
     [Route("api/ai_text_analyze")]
-    public class AITextAnalyzeController : ControllerBase
+    public class AITextAnalyzeController : ControllerBase, IAsyncDisposable
     {
         readonly DataService _dataService;
 
@@ -29,9 +30,13 @@ namespace LowCodeNativeSamples.Server.Controllers
             memoryStream.Position = 0;
             try
             {
-                return await new AITextAnalyzeService(SystemConfig.Instance.AISettings).FileToDataAsync(
-                    _dataService.ModuleDataIO, DesignerService.GetDesignData().Modules,
-                    moduleName ?? string.Empty, GetRemarks(moduleName, fieldName), fileName, memoryStream);
+                return await new AITextAnalyzeService(SystemConfig.Instance.AISettings).AnalyzeFileAsync(
+                    _dataService.ModuleDataIO, DesignerService.GetDesignData().Modules, moduleName, fieldName, fileName, memoryStream);
+            }
+            catch (LowCodeException)
+            {
+                //権限・デザインの拒否はそのまま返す
+                throw;
             }
             catch
             {
@@ -44,22 +49,17 @@ namespace LowCodeNativeSamples.Server.Controllers
         {
             try
             {
-                return await new AITextAnalyzeService(SystemConfig.Instance.AISettings).TextToDataAsync(
-                    _dataService.ModuleDataIO, DesignerService.GetDesignData().Modules,
-                    moduleName ?? string.Empty, GetRemarks(moduleName, fieldName), text ?? string.Empty);
+                return await new AITextAnalyzeService(SystemConfig.Instance.AISettings).AnalyzeTextAsync(
+                    _dataService.ModuleDataIO, DesignerService.GetDesignData().Modules, moduleName, fieldName, text);
+            }
+            catch (LowCodeException)
+            {
+                throw;
             }
             catch
             {
                 throw new Exception("AI analysis failed. Retrying may succeed.");
             }
-        }
-
-        static string GetRemarks(string? moduleName, string? fieldName)
-        {
-            var mod = DesignerService.GetDesignData().Modules.Find(moduleName ?? string.Empty);
-            var field = mod?.Fields.FirstOrDefault(e => e.Name == fieldName) as AITextAnalyzerFieldDesign;
-            if (field == null) throw LowCodeException.Create($"Invalid Field {moduleName}.{fieldName}");
-            return field.Remarks;
         }
     }
 }

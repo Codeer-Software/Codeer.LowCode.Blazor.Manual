@@ -14,7 +14,7 @@ namespace LowCodeSamples.Server.Controllers
     [Route("api/ai_chat")]
     public class AIChatController : ControllerBase, IAsyncDisposable
     {
-        static AIChatJobStore _jobs => AIChatAgentTable.Jobs;
+        static AIChatService _aiChat => AIChatAgentTable.Service;
 
         readonly DataService _dataService;
 
@@ -45,18 +45,18 @@ namespace LowCodeSamples.Server.Controllers
         public async Task<ActionResult<AIChatSendResponse>> Send([FromBody] AIChatSendRequest request)
         {
             Check();
-            return Accepted(new AIChatSendResponse { RequestId = await _jobs.StartAsync(Owner, request, _dataService.ModuleDataIO) });
+            return Accepted(new AIChatSendResponse { RequestId = await _aiChat.StartAsync(Owner, request, _dataService.ModuleDataIO) });
         }
 
         [HttpGet("{requestId}")]
         public ActionResult<AIChatStatusResponse> Status(string requestId)
         {
-            var status = _jobs.GetStatus(Owner, requestId);
+            var status = _aiChat.GetStatus(Owner, requestId);
             return status == null ? NotFound() : status;
         }
 
         [HttpDelete("{requestId}")]
         public IActionResult Cancel(string requestId)
-            => _jobs.Cancel(Owner, requestId) ? NoContent() : NotFound();
+            => _aiChat.Cancel(Owner, requestId) ? NoContent() : NotFound();
     }
 }

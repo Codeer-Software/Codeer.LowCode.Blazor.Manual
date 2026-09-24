@@ -1,11 +1,6 @@
 using Azure.AI.OpenAI;
 using Blazor.KHandyInterop;
 using Codeer.LowCode.Bindings.ApexCharts.Designer;
-using Codeer.LowCode.Bindings.Fluent.Blazor.Designs;
-using Codeer.LowCode.Bindings.MudBlazor.Designs;
-using Codeer.LowCode.Bindings.MudBlazor.Installer;
-using Codeer.LowCode.Bindings.Radzen.Blazor.Designs;
-using Codeer.LowCode.Bindings.Radzen.Blazor.Installer;
 using Codeer.LowCode.Blazor.Components.AppParts.Loading;
 using Codeer.LowCode.Blazor.Designer;
 using Codeer.LowCode.Blazor.Designer.Extensibility;
@@ -18,9 +13,6 @@ using IgniteUI.Blazor.Controls;
 using LowCodeSamples.Designer.Lib.ModuleToClass;
 using Microsoft.Extensions.AI;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.FluentUI.AspNetCore.Components;
-using MudBlazor.Services;
-using Radzen;
 using System.ClientModel;
 using System.Configuration;
 using System.Windows;
@@ -62,22 +54,9 @@ public partial class App : DesignerApp
 
         BlazorRuntime.InstallBundleCss("LowCodeSamples.Client.Shared");
 
-        //サンプル固有: UI ライブラリのバインディング (Fluent UI / MudBlazor / Radzen / Ignite UI) とハンディターミナル (KHandy)
-        typeof(FluentTextFieldDesign).ToString();
-        typeof(Appearance).ToString();
-        MudBlazorLoader.LoadAssemblies();
-        RadzenLoader.LoadAssemblies();
-        Services.AddFluentUIComponents();
-        Services.AddMudServices();
-        Services.AddRadzenComponents();
+        //サンプル固有: UI ライブラリのバインディング (Ignite UI) とハンディターミナル (KHandy)
         Services.AddIgniteUIBlazor();
         Services.AddIgniteUIBlazor(typeof(IgbGridModule), typeof(IgbLegendModule), typeof(IgbCategoryChartModule));
-        BlazorRuntime.InstallBundleCss("Codeer.LowCode.Bindings.Fluent.Blazor");
-        BlazorRuntime.InstallAssemblyInitializer(typeof(FluentTextFieldDesign).Assembly);
-        BlazorRuntime.InstallAssemblyInitializer(typeof(MudTextFieldDesign).Assembly);
-        BlazorRuntime.InstallRenderProvider(typeof(MudBlazorInstaller));
-        BlazorRuntime.InstallAssemblyInitializer(typeof(RadzenTextFieldDesign).Assembly);
-        BlazorRuntime.InstallRenderProvider(typeof(RadzenInstaller));
         BlazorRuntime.InstallContentCss("IgniteUI.Blazor", "themes/light/bootstrap.css");
         BlazorRuntime.InstallContentCss("IgniteUI.Blazor", "themes/grid/light/bootstrap.css");
         BlazorRuntime.InstallContentScript("IgniteUI.Blazor", "app.bundle.js");

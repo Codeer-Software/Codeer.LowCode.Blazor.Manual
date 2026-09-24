@@ -10,9 +10,10 @@ namespace LowCodeNativeSamples.Server.Services
         public DbAccessor DbAccess { get; }
         public TemporaryFileManager TemporaryFileManager { get; }
         public CustomizedModuleDataIO ModuleDataIO { get; }
-        readonly IHttpContextAccessor _httpContextAccessor;
+        readonly IHttpContextAccessor? _httpContextAccessor;
+        readonly string? _fixedUserId;
 
-        public DataService(IHttpContextAccessor httpContextAccessor)
+        public DataService(IHttpContextAccessor? httpContextAccessor = null)
         {
             _httpContextAccessor = httpContextAccessor;
             DbAccess = new DbAccessor(SystemConfig.Instance.DataSources);
@@ -20,8 +21,12 @@ namespace LowCodeNativeSamples.Server.Services
             ModuleDataIO = new CustomizedModuleDataIO(DesignerService.GetDesignData(), this, DbAccess, TemporaryFileManager);
         }
 
+        //リクエストの外 (意味検索の再索引などバックグラウンドのジョブ) で、そのユーザーの権限のまま使うための DataService
+        public DataService(string userId) : this(httpContextAccessor: null)
+            => _fixedUserId = userId;
+
         public Task<string> GetCurrentUserIdAsync()
-            => Task.FromResult(GetCurrentUserId(_httpContextAccessor.HttpContext));
+            => Task.FromResult(_fixedUserId ?? GetCurrentUserId(_httpContextAccessor?.HttpContext));
 
         public static string GetCurrentUserId(HttpContext? httpContext)
             => httpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? string.Empty;

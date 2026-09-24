@@ -1,4 +1,4 @@
-﻿
+
 void OnSearchInitialization()
 {
     // ?delayed=true で遷移してきた場合は「遅延発注」フィルタを構築

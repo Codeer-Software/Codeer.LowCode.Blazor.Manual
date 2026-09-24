@@ -27,7 +27,7 @@ namespace LowCodeNativeSamples.Server.Controllers
         //単発送信
         [HttpPost]
         public async Task<MailSendResult> SendEmailAsync(MailSendRequest request)
-            => await CreateDispatcher().SendAsync(request);
+            => await CreateDispatcher().SendAsync(request, _dataService.ModuleDataIO);
 
         //一斉送信 (宛先はサーバーで検索条件から解決。読み取り権限が効き、宛先一覧はクライアントに渡らない)
         [HttpPost("bulk_search")]

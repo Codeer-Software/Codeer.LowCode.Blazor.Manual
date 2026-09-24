@@ -2,6 +2,7 @@ using Codeer.LowCode.Blazor.SystemSettings;
 using LowCodeNativeSamples.Client.Shared.Services;
 using LowCodeNativeSamples.Server.AI;
 using Codeer.LowCode.Blazor.Extras.Server.AI;
+using Codeer.LowCode.Blazor.Extras.Server.AI.Embedding;
 using Codeer.LowCode.Blazor.Extras.Server.Mail;
 using Codeer.LowCode.Blazor.Extras.Server.FileManagement;
 using Codeer.LowCode.Blazor.Extras.Server.Auth;
@@ -33,6 +34,9 @@ namespace LowCodeNativeSamples.Server.Services
         public AISettings AISettings { get; set; } = new();
         //AIChatField のサーバー側 (AI/AIChatAgentTable)。AI が読むデータソース等
         public AIChatSettings AIChat { get; set; } = new();
+        //SemanticSearchField (意味検索) の埋め込みプロバイダの呼び名 (AI/EmbeddingProviderTable の鍵)。プロバイダごとの設定は個別のセクションとして持つ
+        public SemanticSearchSettings SemanticSearch { get; set; } = new();
+        public AzureOpenAIEmbeddingSettings AzureOpenAIEmbedding { get; set; } = new();
         //ID/パスワードのログイン (表・列はユーザーモジュールのデザインから: IdField / LoginAccountContractField / PasswordHashField)。外部 IdP 専用にするなら false (ログイン画面はプロバイダのボタンだけになる)
         public bool AllowPasswordLogin { get; set; } = true;
         //外部 IdP (Entra ID / Google / AWS Cognito / OIDC) = 種類ごとの設定 (使うものだけ書けばよい)。実体 (IExternalLoginProvider) は Services/ExternalLoginTable が組み立てる

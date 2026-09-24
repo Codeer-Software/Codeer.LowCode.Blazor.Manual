@@ -5,6 +5,7 @@ using Codeer.LowCode.Blazor.DesignLogic;
 using Codeer.LowCode.Blazor.Repository.Data;
 using Codeer.LowCode.Blazor.Repository.Design;
 using Codeer.LowCode.Blazor.Extras.Services;
+using LowCodeSamples.Server.AI;
 using LowCodeSamples.Server.Services.DataChangeHistory;
 
 namespace LowCodeSamples.Server.Services
@@ -43,6 +44,8 @@ namespace LowCodeSamples.Server.Services
             if (moduleDesign == null) throw LowCodeException.Create("invalid design");
 
             PasswordHashHelper.ApplyPasswordHash(moduleDesign, data);
+            //SemanticSearchField の文章に埋め込みベクトルを付ける (新規で文章が無ければここで組み立てる = 一括取込)
+            await SemanticSearchIndex.Service.ApplyAsync(data, isNewData: true);
             var id = await base.AddAsync(transactionId, moduleSubmitId, data);
             await AddHistoryAsync(moduleDesign, transactionId, moduleSubmitId, ModuleDataChangeType.Add, id, data);
             return id;
@@ -54,7 +57,11 @@ namespace LowCodeSamples.Server.Services
             var moduleDesign = _designData.Modules.Find(datas.FirstOrDefault()?.Name ?? string.Empty);
             if (moduleDesign == null) throw LowCodeException.Create("invalid design");
 
-            foreach (var data in datas) PasswordHashHelper.ApplyPasswordHash(moduleDesign, data);
+            foreach (var data in datas)
+            {
+                PasswordHashHelper.ApplyPasswordHash(moduleDesign, data);
+                await SemanticSearchIndex.Service.ApplyAsync(data, isNewData: true);
+            }
             await base.BulkAddAsync(transactionId, datas);
         }
 
@@ -66,6 +73,8 @@ namespace LowCodeSamples.Server.Services
             PasswordHashHelper.ApplyPasswordHash(moduleDesign, data);
             var id = data.Fields.TryGetValue(SystemFieldNames.Id, out var field) ? (field as IdFieldData)?.Value ?? string.Empty : string.Empty;
             await AddHistoryAsync(moduleDesign, transactionId, moduleSubmitId, ModuleDataChangeType.Update, id, data);
+            //文章が送られてきたとき (対象フィールドが変わったとき・再索引) だけ埋め込みを付け直す
+            await SemanticSearchIndex.Service.ApplyAsync(data, isNewData: false);
             await base.UpdateAsync(transactionId, moduleSubmitId, data);
         }
 

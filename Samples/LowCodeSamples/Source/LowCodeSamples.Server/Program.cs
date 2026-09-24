@@ -1,7 +1,4 @@
 using Codeer.LowCode.Bindings.ApexCharts;
-using Codeer.LowCode.Bindings.Fluent.Blazor.Designs;
-using Codeer.LowCode.Bindings.MudBlazor.Installer;
-using Codeer.LowCode.Bindings.Radzen.Blazor.Installer;
 using Codeer.LowCode.Blazor.DbAccess;
 using Codeer.LowCode.Blazor.Extras;
 using Codeer.LowCode.Blazor.Json;
@@ -17,6 +14,7 @@ using LowCodeSamples.Server.Services;
 using LowCodeSamples.Server.AI;
 using LowCodeSamples.Server.Services.DataChangeHistory;
 using Codeer.LowCode.Blazor.Extras.Server.AI;
+using Codeer.LowCode.Blazor.Extras.Server.AI.Embedding;
 using Codeer.LowCode.Blazor.Extras.Server.Mail;
 using Codeer.LowCode.Blazor.Extras.Server.Excel;
 using Codeer.LowCode.Blazor.Extras.Server.FileManagement;
@@ -27,11 +25,6 @@ using Microsoft.AspNetCore.SignalR;
 typeof(CodeBehindSample).ToString();
 ApexChartsServerInitializer.Initialize();
 ExtrasServerInitializer.Initialize();
-//サンプル固有: UI ライブラリのバインディング
-typeof(FluentTextFieldDesign).ToString();
-typeof(Microsoft.FluentUI.AspNetCore.Components.Appearance).ToString();
-MudBlazorLoader.LoadAssemblies();
-RadzenLoader.LoadAssemblies();
 
 Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
@@ -70,6 +63,9 @@ SystemConfig.Instance.SendGrid = builder.Configuration.GetSection("SendGrid").Ge
 SystemConfig.Instance.Gmail = builder.Configuration.GetSection("Gmail").Get<GmailSettings>() ?? new();
 SystemConfig.Instance.AISettings = builder.Configuration.GetSection("AISettings").Get<AISettings>() ?? new();
 SystemConfig.Instance.AIChat = builder.Configuration.GetSection("AIChat").Get<AIChatSettings>() ?? new();
+//意味検索 (SemanticSearchField) の埋め込みプロバイダ: 呼び名は SemanticSearch.EmbeddingProvider、プロバイダ設定はそれぞれ独立したセクション (使うものだけ書けばよい)
+SystemConfig.Instance.SemanticSearch = builder.Configuration.GetSection("SemanticSearch").Get<SemanticSearchSettings>() ?? new();
+SystemConfig.Instance.AzureOpenAIEmbedding = builder.Configuration.GetSection("AzureOpenAIEmbedding").Get<AzureOpenAIEmbeddingSettings>() ?? new();
 SystemConfig.Instance.DataSources.ToList().ForEach(e => e.ConnectionString = builder.Configuration.GetConnectionString(e.Name) ?? string.Empty);
 //AI のキーは接続文字列として設定する (Azure App Service の接続文字列設定に置くため)
 SystemConfig.Instance.AISettings.OpenAIKey = builder.Configuration.GetConnectionString("OpenAIKey") ?? SystemConfig.Instance.AISettings.OpenAIKey;

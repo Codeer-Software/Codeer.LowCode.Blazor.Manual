@@ -48,11 +48,9 @@ PostgreSQL / Microsoft SQL Server / Oracle Database / SQLite
 
 ## サードパーティ UI ライブラリとの連携
 
-MudBlazor / Radzen.Blazor / IgniteUI と高い互換性があります。
+IgniteUI などのサードパーティ UI ライブラリと高い互換性があります。
 ローコードで作った画面の中にこれらのコンポーネントを埋め込めます。
 
-- [MudBlazor サンプル](https://lowcodedemo.azurewebsites.net/MudBlazor/MudBlazorHome)
-- [Radzen.Blazor サンプル](https://lowcodedemo.azurewebsites.net/RadzenBlazor/RadzenBlazorHome)
 - [IgniteUI サンプル](https://lowcodedemo.azurewebsites.net/Bootstrap/ChartSample)
 
 ---

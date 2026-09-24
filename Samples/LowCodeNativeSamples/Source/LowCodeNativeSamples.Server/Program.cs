@@ -15,6 +15,7 @@ using LowCodeNativeSamples.Server;
 using LowCodeNativeSamples.Server.Services;
 using LowCodeNativeSamples.Server.AI;
 using Codeer.LowCode.Blazor.Extras.Server.AI;
+using Codeer.LowCode.Blazor.Extras.Server.AI.Embedding;
 using Codeer.LowCode.Blazor.Extras.Server.Mail;
 using Codeer.LowCode.Blazor.Extras.Server.Excel;
 using Codeer.LowCode.Blazor.Extras.Server.FileManagement;
@@ -55,6 +56,9 @@ SystemConfig.Instance.SendGrid = builder.Configuration.GetSection("SendGrid").Ge
 SystemConfig.Instance.Gmail = builder.Configuration.GetSection("Gmail").Get<GmailSettings>() ?? new();
 SystemConfig.Instance.AISettings = builder.Configuration.GetSection("AISettings").Get<AISettings>() ?? new();
 SystemConfig.Instance.AIChat = builder.Configuration.GetSection("AIChat").Get<AIChatSettings>() ?? new();
+//意味検索 (SemanticSearchField) の埋め込みプロバイダ: 呼び名は SemanticSearch.EmbeddingProvider、プロバイダ設定はそれぞれ独立したセクション (使うものだけ書けばよい)
+SystemConfig.Instance.SemanticSearch = builder.Configuration.GetSection("SemanticSearch").Get<SemanticSearchSettings>() ?? new();
+SystemConfig.Instance.AzureOpenAIEmbedding = builder.Configuration.GetSection("AzureOpenAIEmbedding").Get<AzureOpenAIEmbeddingSettings>() ?? new();
 SystemConfig.Instance.AllowPasswordLogin = builder.Configuration.GetValue<bool?>("AllowPasswordLogin") ?? true;
 //外部 IdP の設定 (種類ごとのセクション。実体は Services/ExternalLoginTable が組み立てる)
 SystemConfig.Instance.EntraLogin = builder.Configuration.GetSection("EntraLogin").Get<EntraLoginSettings>() ?? new();

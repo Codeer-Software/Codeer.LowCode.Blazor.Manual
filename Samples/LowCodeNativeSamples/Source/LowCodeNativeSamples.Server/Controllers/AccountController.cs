@@ -82,7 +82,7 @@ namespace LowCodeNativeSamples.Server.Controllers
                 //メールは MailDispatcher 経由 (送信インフラの解決・開発環境の宛先リダイレクト)。履歴モジュールには残さない (コードを記録しない)
                 var dispatcher = new MailDispatcher(SystemConfig.Instance.Mail, MailSenderTable.Create);
                 var email = new EmailOtpLogin(SystemConfig.Instance.EmailOtpLogin,
-                    message => dispatcher.SendAsync(new Codeer.LowCode.Blazor.Extras.Mail.MailSendRequest { MailInfraName = SystemConfig.Instance.EmailOtpLogin.MailInfraName, Message = message }), _cache);
+                    message => dispatcher.SendAsync(SystemConfig.Instance.EmailOtpLogin.MailInfraName, message), _cache);
                 var result = await email.VerifyAsync(account.UserId, account.TwoFactorEmail ?? string.Empty, loginInfo.TwoFactorCode);
                 if (result.Status != EmailOtpLoginStatus.Ok) return Ok(result);
             }

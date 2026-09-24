@@ -3,6 +3,7 @@ using LowCodeSamples.Client.Shared.Services;
 using LowCodeSamples.Server.AI;
 using LowCodeSamples.Server.Services.DataChangeHistory;
 using Codeer.LowCode.Blazor.Extras.Server.AI;
+using Codeer.LowCode.Blazor.Extras.Server.AI.Embedding;
 using Codeer.LowCode.Blazor.Extras.Server.Mail;
 using Codeer.LowCode.Blazor.Extras.Server.FileManagement;
 
@@ -37,6 +38,9 @@ namespace LowCodeSamples.Server.Services
         public AISettings AISettings { get; set; } = new();
         //AIChatField のサーバー側 (AI/AIChatAgentTable)。AI が読むデータソース (デモは読み取り専用ユーザーの "AIChat")
         public AIChatSettings AIChat { get; set; } = new();
+        //SemanticSearchField (意味検索) の埋め込みプロバイダの呼び名 (AI/EmbeddingProviderTable の鍵)。プロバイダごとの設定は個別のセクションとして持つ
+        public SemanticSearchSettings SemanticSearch { get; set; } = new();
+        public AzureOpenAIEmbeddingSettings AzureOpenAIEmbedding { get; set; } = new();
         public SystemConfigForFront ForFront() => new SystemConfigForFront { CanScriptDebug = CanScriptDebug, UseHotReload = UseHotReload };
     }
 }
