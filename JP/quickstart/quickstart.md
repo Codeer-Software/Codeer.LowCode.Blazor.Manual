@@ -21,7 +21,9 @@ Visual Studio のテンプレートから、サンプル入りのプロジェク
 
 .NET SDK の確認、ソリューションの書き出しとビルド、空のデザインプロジェクトの作成、サーバーとデザイナの起動まで進みます。聞かれるのは不足ソフトを winget でインストールしてよいかだけです。Visual Studio は必須ではなく（VS Code 用の設定を同梱）、ライセンス登録なしでトライアルとして動きます。詳細は [Starter リポジトリの README](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Starter) を参照してください。
 
-そのあと画面（デザイン）を作る流れは [Claude Code でデザインプロジェクトを編集](../ai/claude_code_designer.md) と同じです。以下は Visual Studio で手動で始める手順です。
+あとは「商品マスタと受注入力の画面を作って」のように、作りたいアプリを Claude Code に伝えるだけです。使い方や疑問点も、そのまま Claude Code に聞けば答えてくれます。
+
+画面（デザイン）を作る流れの詳細は [Claude Code でデザインプロジェクトを編集](../ai/claude_code_designer.md) と同じです。以下は Visual Studio で手動で始める手順です。
 
 ---
 
