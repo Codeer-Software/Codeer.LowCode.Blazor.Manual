@@ -4,6 +4,7 @@ using Codeer.LowCode.Blazor.DataIO.Db;
 using Codeer.LowCode.Blazor.DesignLogic;
 using Codeer.LowCode.Blazor.Repository.Data;
 using Codeer.LowCode.Blazor.Repository.Design;
+using Codeer.LowCode.Blazor.Extras.Server.EditHistory;
 using Codeer.LowCode.Blazor.Extras.Services;
 using LowCodeSamples.Server.AI;
 using LowCodeSamples.Server.Services.DataChangeHistory;
@@ -27,6 +28,8 @@ namespace LowCodeSamples.Server.Services
             _designData = designData;
             _authenticationContext = authenticationContext;
             _dataChangeHistory = new DataChangeHistoryService(dbAccess, SystemConfig.Instance.DataChangeHistoryTableInfo.ToList());
+            //編集履歴: EditHistoryField を置いたモジュールの保存ごとに履歴モジュールへスナップショットを書き、履歴モジュールを読むときは Snapshot を読む人の権限に落とす (結線はこの 1 行)
+            AddInterceptor(new EditHistoryRecorder(designData));
         }
 
         static DateTime UtcNowWithoutTimeZone

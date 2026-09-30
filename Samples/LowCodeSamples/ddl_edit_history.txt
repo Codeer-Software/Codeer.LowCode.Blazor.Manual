@@ -1,0 +1,38 @@
+-- Codeer.LowCode.Blazor.Extras 編集履歴 サンプル用テーブル (PostgreSQL)
+-- サイドバー「編集履歴」の 受注 / 履歴一覧 で使用。
+-- 履歴モジュール (EditHistory) のテーブルは デザイナの Tools > 編集履歴のセットアップ が生成した DDL。
+-- 履歴はアプリからの保存でだけ作られる (INSERT 文では作られない) ため、受注のデモデータはアプリの画面から登録・編集して作る。
+
+-- 受注 (EditHistoryField を置いたモジュール。論理削除なので削除しても Id を保ったまま復活できる)
+CREATE TABLE edit_history_orders (
+    id SERIAL PRIMARY KEY,
+    order_no TEXT,
+    customer_name TEXT,
+    order_date DATE,
+    status TEXT,
+    amount NUMERIC,
+    note TEXT,
+    is_deleted BOOLEAN DEFAULT FALSE
+);
+
+-- 受注明細 (一緒に削除 = 受注の版に含まれる)
+CREATE TABLE edit_history_order_items (
+    id SERIAL PRIMARY KEY,
+    order_id INTEGER,
+    product_name TEXT,
+    qty NUMERIC,
+    unit_price NUMERIC,
+    is_deleted BOOLEAN DEFAULT FALSE
+);
+
+-- 編集履歴 (生成 DDL)
+CREATE TABLE edit_histories (
+  id BIGSERIAL PRIMARY KEY,
+  module_name TEXT,
+  data_id TEXT,
+  change_type TEXT,
+  snapshot TEXT,
+  user_id TEXT,
+  date_time TIMESTAMP
+);
+CREATE INDEX ix_edit_histories_target ON edit_histories (module_name, data_id);
