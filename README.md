@@ -7,17 +7,20 @@ Codeer.LowCode.Blazor は、**Blazor アプリにローコード機能を組み�
 
 [サンプルギャラリー](https://lowcodedemo.azurewebsites.net/) ・ [YouTube チュートリアル](https://youtu.be/MchuOxWYR1o?si=7I9FfQB55dP9ctY-) ・ [製品ページ](https://www.codeer.co.jp/LowCode)
 
-> **Claude Code ですぐに試せます**
->
-> 空のフォルダで [Claude Code](https://claude.com/claude-code) を起動し、こう伝えます:
->
-> ```
-> このURLを見て指示に従って https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Starter
-> ```
->
-> 必要なソフトの確認からアプリの作成・ビルド、Web アプリとデザイナの起動までを Claude Code が進めます。
-> あとは「商品マスタと受注入力の画面を作って」のように、作りたいアプリを伝えるだけです。使い方や疑問点も、そのまま Claude Code に聞けば答えてくれます。
-> Windows 専用です。試用にライセンス登録は不要です（デザイナはトライアルとして動作します）。詳しくは [Claude Code に環境構築を任せる](JP/quickstart/quickstart.md#claude-code-に環境構築を任せる)。
+---
+
+## Claude Code ですぐに試せます
+
+空のフォルダで [Claude Code](https://claude.com/claude-code) を起動し、こう伝えます:
+
+```
+このURLを見て指示に従って https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Starter
+```
+
+必要なソフトの確認からアプリの作成・ビルド、Web アプリとデザイナの起動までを Claude Code が進めます。
+あとは「商品マスタと受注入力の画面を作って」のように、作りたいアプリを伝えるだけです。**使い方や疑問点も、そのまま Claude Code に聞けば答えてくれます。**
+
+Windows 専用です。試用にライセンス登録は不要です（デザイナはトライアルとして動作します）。詳しくは [Claude Code に環境構築を任せる](JP/quickstart/quickstart.md#claude-code-に環境構築を任せる)。
 
 ---
 
