@@ -150,11 +150,11 @@ CLB で同等のテンプレートを 1 から組むときに重要な設計判�
 
 ### ガント / タスクボード Field は Extras パッケージ
 
-ガント・タスクボードは `Codeer.LowCode.Blazor.Extras` パッケージで提供される拡張 Field。CLB 標準には入っていないので、`app.clprj` の使用ライブラリに `Codeer.LowCode.Blazor.Extras` を追加して使います。インストール手順は [プロコード概要](../overview/procode.md)。
+ガント・タスクボードは `Codeer.LowCode.Blazor.Extras` パッケージで提供される拡張 Field。CLB 本体には含まれませんが、アプリテンプレートで作成したプロジェクトには最初から組み込まれているので、そのままツールボックスから配置できます。既存のプロジェクトに追加する場合は [プロコード概要](../overview/procode.md#extras--apexcharts-の導入) を参照。
 
 ### ステータスと進捗率の連動
 
-「完了」ステータスにしたら進捗率 100%、「未着手」にしたら 0% など、ステータスと進捗率を連動させたい場合は `task.mod.cs` の `Status.OnAfterValueChangedAsync` で `Progress.SetValueAsync(...)` を呼びます。逆に、進捗率が 100% になったら自動で「完了」にしたい場合は `Progress.OnAfterValueChangedAsync` 側で対応。
+「完了」ステータスにしたら進捗率 100%、「未着手」にしたら 0% など、ステータスと進捗率を連動させたい場合は `Status` の値変更イベント (`OnDataChanged`) に割り当てた `task.mod.cs` の関数で `Progress.Value = 100;` のように代入します。逆に、進捗率が 100% になったら自動で「完了」にしたい場合は `Progress` の `OnDataChanged` 側で対応。
 
 ### 中間テーブル（多対多）
 
@@ -177,8 +177,10 @@ CLB で同等のテンプレートを 1 から組むときに重要な設計判�
 
 ## 拡張ライブラリ
 
-- **`Codeer.LowCode.Bindings.ApexCharts`** — ダッシュボードのチャート（棒 / 円 / Donut / 横棒）
-- **`Codeer.LowCode.Blazor.Extras`** — ガントチャート Field / タスクボード Field
+- **[`Codeer.LowCode.Bindings.Blazor-ApexCharts`](https://github.com/Codeer-Software/Codeer.LowCode.Bindings.Blazor-ApexCharts)** — ダッシュボードのチャート（棒 / 円 / Donut / 横棒）
+- **[`Codeer.LowCode.Blazor.Extras`](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras)** — ガントチャート Field / タスクボード Field
+
+どちらもアプリテンプレートに最初から組み込まれています。
 
 ---
 
@@ -209,4 +211,5 @@ CLB で同等のテンプレートを 1 から組むときに重要な設計判�
 - [ヘッダ詳細 (1:N) パターン](../patterns/header_detail.md) — プロジェクト＋タスクの作り方
 - [自動保存パターン](../patterns/auto_save.md) — `AutoSubmitField` の使い方
 - [モジュールページ種別](../designer/page_types.md) — 1 モジュール × 複数 DetailLayout の構成
-- [プロコード概要](../overview/procode.md) — Extras パッケージの導入
+- [プロコード概要](../overview/procode.md#extras--apexcharts-の導入) — Extras / ApexCharts パッケージの導入
+- [可視化・ダッシュボードのパターン](../patterns/visualization_dashboard.md) — ガント・タスクボード・グラフの組み込み方

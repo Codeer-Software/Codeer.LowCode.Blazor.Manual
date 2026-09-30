@@ -42,6 +42,7 @@
 | **ModuleVariable** | モジュール変数 | string | `""` | 遷移先モジュールの決定に使う Field 名 |
 | **IdVariable** | Id変数 | string | `""` | 遷移先で参照する Id の Field 名 |
 | **OnClick** | クリックイベント | string | `""` | クリック時のスクリプト |
+| **IsHtml** | HTMLとして表示 | bool | `false` | 表示文字を HTML として表示する |
 | **IgnoreModification** | 変更判定から除外 | bool | `false` | 変更検知（IsModified）から除外 |
 
 ---

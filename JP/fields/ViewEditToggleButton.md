@@ -54,6 +54,8 @@
 | **ToEditText** | 編集ボタンのテキスト | string | `"Edit"` | 閲覧モード中に表示される（押すと編集に入る） |
 | **ToEditIcon** | 編集ボタンのアイコン | string | `""` | 同上 |
 | **Variant** | ボタンのスタイル | enum | `Primary` | [Button の Variant](Button.md#variantボタンのスタイル) 参照 |
+| **IsHtml** | HTMLとして表示 | bool | `false` | ボタンのテキストを HTML として表示する |
+| **ReloadOnSwitchToView** | 閲覧切替時にリロード | bool | `true` | 編集から閲覧に切り替えたとき、データを読み込み直す（保存していない編集内容は元に戻る） |
 | **IgnoreModification** | 変更判定から除外 | bool | `false` | 変更検知から除外 |
 
 現在のモードに応じて、`ToEditText/Icon` と `ToViewText/Icon` のどちらが表示されるかが自動で切り替わります。

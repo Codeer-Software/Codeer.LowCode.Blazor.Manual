@@ -51,8 +51,8 @@ void EmailField_OnDataChanged()
 ```csharp
 async Task SaveButton_OnClick()
 {
-    if (!await ValidateInput()) return;
-    if (await Submit())
+    if (!ValidateInput()) return;
+    if (Submit())
     {
         Toaster.Success("保存しました");
     }

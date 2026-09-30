@@ -70,6 +70,10 @@ soft_delete_items
 
 詳細は [DeleteArchiveField](../fields/DeleteArchive.md) を参照。
 
+## 関連: 変更の履歴を残して、消したデータを戻す (編集履歴)
+
+「誰がいつ何を変えたか」を版として残したい、削除したレコードを明細ごと戻したい場合は、Extras の [編集履歴 (EditHistoryField)](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras/blob/main/docs/EditHistory.md) を使う。保存・削除ごとにレコード全体が履歴モジュールへ記録され、版の一覧・この版に戻す・削除したレコードの復活ができる (論理削除のモジュールなら Id を保ったまま戻る)。
+
 ## 落とし穴
 
 - フィールド名は必ず `LogicalDelete` の綴り。`IsDeleted` 等の任意名だと CLB の自動動作が効かない

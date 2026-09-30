@@ -43,16 +43,16 @@ DesignFileDirectory設定(モジュール、サイドバー等のデータの場
     "SampleSQLite": "Data Source=wwwroot/serverdata/Data/sqlite_sample.db;Version=3;"
   }
   ```
-#### FileStorages設定(追加写真等のファイルを使用する場合)
+#### ファイル保存先の設定(追加写真等のファイルを使用する場合)
   ```json
-  "FileStorages": [
+  "FileSystemStorages": [
     {
       "Name": "Local",
-      "FileStorageType": "FileSystem",
       "Directory": "wwwroot/serverdata/Storages"
     }
   ]
 ```
+サーバーのフォルダ以外に、Azure Blob Storage (`AzureBlobStorages`)・Amazon S3 / S3 互換ストレージ (`S3Storages`) にも保存できます。設定項目は Extras の [FileStorage](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras/blob/main/docs/FileStorage.md) を参照してください。
 
 ### 2. サーバー側での設定
 appsettings.jsonに上記の一部の設定を置かずにサーバー側で設定する場合もあります。下記例をもって説明します。

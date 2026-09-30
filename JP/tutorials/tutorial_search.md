@@ -139,7 +139,7 @@ void AdvancedSearchButton_OnClick()
     // Search モジュールの「advanced」レイアウトをダイアログで開く
     var searcher = new Order();
     searcher.LayoutName = "advanced";
-    await searcher.ShowDialog();
+    searcher.ShowDialog();
 }
 ```
 
@@ -168,8 +168,8 @@ SearchField のプロパティで:
 | API | 用途 |
 |---|---|
 | `Search.SearchModule.XxxField.Value = ...` | 検索条件を直接設定 |
-| `await Search.ExecuteSearch()` | プログラム的に検索を実行 |
-| `await Search.ExecuteClear()` | 検索条件をクリア |
+| `Search.ExecuteSearch()` | プログラム的に検索を実行 |
+| `Search.ExecuteClear()` | 検索条件をクリア |
 | `Search.Condition` | 現在の検索条件（ModuleSearcher として） |
 
 ---

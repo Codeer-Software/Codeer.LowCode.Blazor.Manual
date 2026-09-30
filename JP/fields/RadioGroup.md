@@ -23,7 +23,7 @@ UI 上のラジオボタン群は [RadioButtonField](RadioButton.md) で表現�
 | DB 保存 | される | されない |
 | UI | 任意（配置なしでも動作） | このフィールドが実際のラジオボタン |
 | グループへの所属 | — | `GroupField` で RadioGroup を指定 |
-| 選択時の挙動 | 選択された RadioButton の `Value` が RadioGroup に代入される | クリックで親の `SetValueAsync(Value)` を呼ぶ |
+| 選択時の挙動 | 選択された RadioButton の `Value` が RadioGroup に代入される | クリックで親の `Value` に自分の値を設定 |
 
 ### 典型的な配置
 
@@ -68,6 +68,7 @@ RadioGroupField (Name = "Rank")    ← 値の本体、DB 列と対応
 |---|---|---|---|---|
 | **IsSimpleSearchParameter** | 簡易検索条件 | bool | `false` | 簡易検索の対象にする |
 | **AllowOrSearch** | OR検索を許可 | bool | `false` | 検索時の複数選択（OR）を許可 |
+| **OrSearchLayoutType** | OR検索の候補の並べ方 | enum | `Vertical` | OR 検索のチェックボックスの並べ方。`Vertical`（縦）: 1 行に 1 候補 / `Horizontal`（横(折り返し)）: 横に並べ、幅に収まらなければ折り返す |
 | **AllowEmptySearch** | 空検索を許可 | bool | `false` | 空での検索を許可する |
 | **OnSearchDataChanged** | 検索モードデータ変更イベント | string | `""` | 検索条件が変更された時のスクリプトイベント |
 
@@ -88,11 +89,16 @@ RadioGroupField (Name = "Rank")    ← 値の本体、DB 列と対応
 |---|---|---|
 | `Value` | string? | 現在選択されている値（= 選択中の RadioButton の `Value`） |
 | `DisplayText` | string? | 選択中の RadioButton の `Text` |
-| `DisplayTextAndValue` | IReadOnlyDictionary\<string, string\> | 候補（同じグループの RadioButton を走査して作られる辞書） |
-| `SearchValue` | string? | 検索値 |
-| `SearchValues` | List\<string\> | 複数選択検索値 |
-| `SearchIsEmpty` | bool? | 空検索 |
-| `IsInverted` | bool | NOT 検索 |
+| `SearchValue` | string? | 検索値（代入で設定） |
+| `SearchValues` | List\<string\> | 複数選択検索値（代入で設定） |
+| `SearchIsEmpty` | bool? | 空検索（代入で設定） |
+| `IsInverted` | bool | NOT 検索（読み取り専用。設定は `SetNotFlag`） |
+
+### メソッド
+
+| 名前 | 戻り値 | 説明 |
+|---|---|---|
+| `SetNotFlag(bool)` | Task | NOT 検索フラグを設定 |
 
 共通プロパティは [Field 共通プロパティ](common_properties.md) を参照。
 
@@ -103,10 +109,10 @@ RadioGroupField (Name = "Rank")    ← 値の本体、DB 列と対応
 var rank = RankGroup.Value;  // "A" / "B" / "C"
 
 // プログラム的に値を設定
-await RankGroup.SetValueAsync("A");
+RankGroup.Value = "A";
 
 // 検索条件を設定
-await RankGroup.SetSearchValueAsync("A");
+RankGroup.SearchValue = "A";
 ```
 
 ---
@@ -143,6 +149,8 @@ await RankGroup.SetSearchValueAsync("A");
 <img src="../../Image/web/fields/select/Select_search_or.png" alt="RadioGroupField Or検索" style="border: 1px solid;" width="400">
 
 候補がチェックボックスのリストに変わり、**複数選択** できます。選択した複数値のうちいずれかに一致するデータが対象（`OR` 結合）。モード切替で **不一致** にすれば「いずれにも一致しない」検索になります。
+
+チェックボックスの並べ方は `OrSearchLayoutType`（OR検索の候補の並べ方）で指定します。既定の `Vertical`（縦）は 1 行に 1 候補、`Horizontal`（横(折り返し)）は横に並べて幅に収まらなければ折り返します。
 
 検索全体の仕組みは [SearchField](Search.md#検索の仕組み) を参照。
 

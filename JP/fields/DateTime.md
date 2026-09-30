@@ -10,7 +10,7 @@
 - イベント開始日時・予約日時など時刻まで指定する場面
 - UTC 保存でタイムゾーンを意識した運用（`UTCとして保存`）
 
-日付だけなら [Date](Date.md)、時刻だけなら [Time](Time.md) を使ってください。
+日付だけなら [Date](Date.md)、時刻だけなら [Time](Time.md) を使ってください。DB 列がオフセット付きの日時型（SQL Server の `datetimeoffset` など）なら [DateTimeOffset](DateTimeOffset.md) を使います。
 
 ---
 
@@ -70,8 +70,8 @@
 CreatedAt.Value = DateTime.Now;
 
 // 過去 24 時間を検索
-await CreatedAt.SetSearchMinAsync(DateTime.Now.AddDays(-1));
-await CreatedAt.SetSearchMaxAsync(DateTime.Now);
+CreatedAt.SearchMin = DateTime.Now.AddDays(-1);
+CreatedAt.SearchMax = DateTime.Now;
 ```
 
 ---
@@ -114,9 +114,9 @@ DB には UTC で保存され、画面表示時には現地時刻に変換され
 ### スクリプトから
 
 ```csharp
-await CreatedAt.SetSearchMinAsync(new DateTime(2025, 1, 1, 0, 0, 0));
-await CreatedAt.SetSearchMaxAsync(new DateTime(2025, 12, 31, 23, 59, 59));
-await CreatedAt.SetSearchIsEmptyAsync(true);  // 空モード
+CreatedAt.SearchMin = new DateTime(2025, 1, 1, 0, 0, 0);
+CreatedAt.SearchMax = new DateTime(2025, 12, 31, 23, 59, 59);
+CreatedAt.SearchIsEmpty = true;  // 空モード
 ```
 
 検索全体の仕組みは [SearchField](Search.md#検索の仕組み) を参照。
@@ -128,4 +128,5 @@ await CreatedAt.SetSearchIsEmptyAsync(true);  // 空モード
 - [Field 共通プロパティ](common_properties.md)
 - [Date](Date.md) — 日付のみ
 - [Time](Time.md) — 時刻のみ
+- [DateTimeOffset](DateTimeOffset.md) — タイムゾーン付き日時
 - [SearchField](Search.md) — 検索全体の仕組み

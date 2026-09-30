@@ -43,9 +43,10 @@ Module の Root 要素は **Grid** です。多くの場合 Grid を基本にし
 1. **`IsAutoFillWrap`（Grid または Row）** — CSS Grid の `auto-fit` で均等折り返し。`MinWidth` 必須、カラム個別の `Width`/`MaxWidth` は無効
 2. **`IsProportionalScale`（Row）** — 行内の各列の `Width` を固定 px ではなく**比率**として扱い、行幅に合わせて列幅の比率を保ったまま拡大縮小（[下記](#列幅を比率で拡大縮小isproportionalscale) 参照）
 3. **`Width` 指定**（固定幅） — カラムは正確に指定 px に固定
-4. **`MinWidth` 指定** — 均等に伸び、最小幅を保証。`MaxWidth` を併用すると伸びすぎ防止
-5. **センタリングパターン** — 行が `[空 \| 中身 \| 空]` の 3 列構成のとき、中身カラムはコンテンツ幅にフィット
-6. **指定なし** — 均等に伸びてコンテンツが幅を決める
+4. **`IgnoreContentWidth`（中身のサイズで幅を広げない）** — 行の残り幅を均等に分け合った幅で確定し、中身の大きさでは広がらない。`MinWidth` / `MaxWidth` と併用可（[下記](#中身のサイズで幅を広げないignorecontentwidth) 参照）
+5. **`MinWidth` 指定** — 均等に伸び、最小幅を保証。`MaxWidth` を併用すると伸びすぎ防止
+6. **センタリングパターン** — 行が `[空 \| 中身 \| 空]` の 3 列構成のとき、中身カラムはコンテンツ幅にフィット
+7. **指定なし** — 均等に伸びてコンテンツが幅を決める
 
 | プロパティ | 用途 |
 |---|---|
@@ -54,6 +55,25 @@ Module の Root 要素は **Grid** です。多くの場合 Grid を基本にし
 | **MaxWidth** | 最大幅（`MinWidth` と併用） |
 | **IsAutoFillWrap** | 折り返し時に自動で均等割り（`MinWidth` 必須、`MaxWidth` は無効） |
 | **IsProportionalScale** | 行単位。各列の `Width` を比率として拡大縮小 |
+| **IgnoreContentWidth** | 中身のサイズで幅を広げない（`Width` 指定の列では効果なし） |
+| **AllowOverflow** | 幅が確定している列で、収まらない中身を切り取らずにはみ出して表示する |
+
+### 中身のサイズで幅を広げない（IgnoreContentWidth）
+
+幅を指定していない列は、中身（幅の広い ListField など）の大きさに合わせて広がります。その結果、行やページ全体が画面幅より広くなり、ページ全体に横スクロールが出ることがあります。
+
+Column の **「中身のサイズで幅を広げない」**（`IgnoreContentWidth: true`）を有効にすると、列幅は行の残り幅を分け合った幅で確定し、中身の大きさでは広がらなくなります。
+
+- 中身が ListField の場合は、ページではなく一覧の中で横スクロールします。ListField の列固定（`FixedColumnCount`）と組み合わせると、画面幅に対して列固定が自然に効きます
+- `MinWidth` / `MaxWidth` と併用すると、分け合う幅に下限・上限を付けられます
+- `Width` を指定した列では効果がありません（幅がすでに確定しているため）
+- `IsProportionalScale` の行には使えません（比率の行は全列に `Width` が必要）。センタリングパターンの中身の列に指定すると中央寄せが解除されます。`IsAutoFillWrap` の行では効果がありません
+
+### 幅が確定している列のはみ出し（AllowOverflow）
+
+`Width` を指定した列と `IgnoreContentWidth` の列は幅が先に決まるため、中身が収まらないことがあります。この場合、列からはみ出した部分は切り取られて表示されません（わずかな余裕はあります）。
+
+セル内からポップアップを出す場合など、はみ出して表示させたいときは Column の **「はみ出しを許可」**（`AllowOverflow: true`）を有効にします。はみ出した部分は周囲に重なって表示され、スクロールは発生しません。幅を指定していない列はもともと中身に合わせて広がるため、指定する必要はありません。
 
 ### 列幅を比率で拡大縮小（IsProportionalScale）
 
@@ -97,7 +117,7 @@ CSS 変数名・既定値の一覧は [カスタマイズ可能な CSS 変数](.
 | **ScrollDirection** | スクロール方向。`Unset` / `Vertical` / `Horizontal`。`Flags` なので `Vertical, Horizontal` の組合せ指定で両方向スクロール可 |
 | **IsFlowLayout** | 行・列構造を無視して横並び＋折り返しのフロー配置（[Wrap 系の使い分け](#wrap-系の使い分けisflowlayout--isautofillwrap--iswrap) 参照） |
 | **IsAutoFillWrap** | 全行を CSS Grid `auto-fit` で均等折り返し（`MinWidth` 必須。[Wrap 系の使い分け](#wrap-系の使い分けisflowlayout--isautofillwrap--iswrap) 参照） |
-| **OnKeyDown** | このグリッド内でキーが押された時のスクリプト（[OnKeyDown イベント](#onkeydown-イベント) 参照） |
+| **OnKeyDown** | **非推奨**（プロパティパネルには表示されません）。このグリッド内でキーが押された時のスクリプト。Enter キーでのフォーカス移動などは [フォーカス制御](focus_control.md) を使ってください（[OnKeyDown イベント](#onkeydown-イベント) 参照） |
 | **IsExpandable** / **ExpanderLabel** / **IsExpanderDefaultOpened** | 折りたたみグリッド機能。`IsExpandable` で折りたたみ可能になり、`ExpanderLabel` でヘッダ文言、`IsExpanderDefaultOpened` で初期状態（開く / 閉じる）を指定 |
 
 > **`.card` の背景透過**: `IsBordered` をオンにすると Bootstrap の `.card` クラスでレンダリングされますが、標準で `background-color: transparent` が当たっています。背景色を付けたい場合は `BackgroundColor` を明示的に設定してください。
@@ -114,12 +134,15 @@ CSS 変数名・既定値の一覧は [カスタマイズ可能な CSS 変数](.
 | **IsWrap** | 列が入りきらないときに折り返す |
 | **IsAutoFillWrap** | この行だけ `auto-fit` で均等折り返しにする（`MinWidth` 必須） |
 | **IsProportionalScale** | 列幅を比率で拡大縮小。各列の `Width` を比率として扱い、行幅に合わせてスケール（[詳細](#列幅を比率で拡大縮小isproportionalscale)） |
+| **KeepInFillAvailableGrid** | 最終行フィットモード時でも Grid 内に保持。`IsFillAvailable` で伸ばす末尾の行の中身が Button や Label のような高さの決まった要素のときにオンにする（[FillAvailable](#fillavailable残領域に広げる) 参照） |
 
 ### Column プロパティ
 
 | プロパティ | 説明 |
 |---|---|
 | **Width** / **MinWidth** / **MaxWidth** | 幅指定（[列幅の決定ルール](#列幅の決定ルール)参照） |
+| **IgnoreContentWidth** | 中身のサイズで幅を広げない（[詳細](#中身のサイズで幅を広げないignorecontentwidth)） |
+| **AllowOverflow** | はみ出しを許可（幅が確定しているカラムのみ。[詳細](#幅が確定している列のはみ出しallowoverflow)） |
 | **Padding** | カラム内のパディング（上下左右）。指定するとそのカラム個別の値になり、CSS 変数より優先される |
 | **BackgroundColor** | カラムの背景色 |
 | **BorderStyle** | 上下左右それぞれの罫線（太さ・色を辺ごとに指定）。指定すると `--default-column-border-padding-top/bottom`（既定 0.5rem）の上下パディングが追加される |
@@ -243,6 +266,7 @@ Grid の `IsFillAvailable` をオンにすると、**そのグリッドが Modul
 
 - 対象は `GridRowType = Normal` の行のうち最後のもの。`Header` / `Footer` の行は対象外
 - ListField を画面いっぱいの高さで表示したい場面でよく使います
+- 伸ばす行は既定では残り領域の高さに固定され、中身の ListField などが内側でスクロールします。中身が Button や Label のような高さの決まった要素で、Grid の枠をはみ出してしまう場合は、その行の **KeepInFillAvailableGrid**（最終行フィットモード時でも Grid 内に保持）をオンにします。行は残り領域の高さを最小として中身に合わせて伸び、収まらない分はページ全体のスクロールになります。ListField を置いた行でオンにすると画面下端まで広がらなくなるので、通常はオフのままにします
 
 <img src="images/layout/FillAvailable_design.png" alt="FillAvailable_design" width="400" style="border: 1px solid;">
 <img src="images/layout/FillAvailable.png" alt="FillAvailable" width="400" style="border: 1px solid;">
@@ -262,6 +286,8 @@ Grid の `IsFillAvailable` をオンにすると、**そのグリッドが Modul
 ---
 
 ## OnKeyDown イベント
+
+> **非推奨**: `OnKeyDown` はデザイナのプロパティパネルに表示されなくなりました。設定済みの既存デザインでは引き続き動作します。Enter キーで次の入力欄へ移動する、といったキー操作によるフォーカス移動は [フォーカス制御](focus_control.md) で設定してください。
 
 Grid の `OnKeyDown` プロパティにスクリプトを設定すると、そのグリッド内でキーが押された時に呼び出されます。Enter / Escape / Ctrl+S 等のキー操作に応じた処理を書けます。
 

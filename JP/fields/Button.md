@@ -8,7 +8,7 @@
 
 - 画面上で独自の処理をトリガーしたい時（データ計算、外部 API 呼び出しなど）
 - 画面遷移（`NavigationService.NavigateTo`）
-- Submit の前後に処理を挟みたい時（標準 Submit の代わりに Button + `await Submit()` を使う）
+- Submit の前後に処理を挟みたい時（標準 Submit の代わりに Button + `Submit()` を使う）
 
 ---
 
@@ -35,6 +35,7 @@
 | **ImageResourceSet** | 画像設定 | ButtonImageSet | - | 状態別の画像リソース |
 | **OnClick** | クリックイベント | string | `""` | クリック時のスクリプト |
 | **ShowTextInToolTip** | テキストをツールチップで表示 | bool | `false` | `Text` をツールチップに表示 |
+| **IsHtml** | HTMLとして表示 | bool | `false` | `Text` を HTML として表示する |
 | **IgnoreModification** | 変更判定から除外 | bool | `false` | 変更検知から除外 |
 
 > ButtonField は値を持たないため、`表示名` / `必須` / `DBカラム` はありません。
@@ -54,6 +55,8 @@
 | **Light** | 白系 | 目立たせたくない時 |
 | **Dark** | 黒系 | コントラスト重視 |
 | **Link** | 青文字 | テキストリンク風 |
+| **Text** | 黒文字 | 下線なしの文字だけのボタン |
+| **OutlinePrimary** / **OutlineSecondary** / **OutlineSuccess** / **OutlineDanger** / **OutlineWarning** / **OutlineInfo** / **OutlineLight** / **OutlineDark** | 枠線のみ | 上記の色の枠線と文字で、背景を塗らないボタン |
 
 ---
 
@@ -91,7 +94,7 @@
 // OnClick の基本形（デザイナで OnClick を設定したときの中身）
 void SaveButton_OnClick()
 {
-    if (await Submit())
+    if (Submit())
     {
         Toaster.Success("保存しました");
     }

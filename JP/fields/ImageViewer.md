@@ -75,7 +75,7 @@ CSS の `object-fit` と同じ仕様です。
 Logo.ResourcePath = IsDarkMode.Value ? "logo-dark.png" : "logo-light.png";
 
 // MemoryStream で画像を差し替える
-var stream = await GenerateChartAsync();
+var stream = Resources.GetMemoryStream("images/chart.png");
 Chart.SetMemoryStream("chart.png", stream);
 
 // クリックで拡大表示など

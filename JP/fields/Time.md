@@ -31,6 +31,7 @@
 | **Name** | 名前 | string | `""` | フィールド識別子 |
 | **DisplayName** | 表示名 | string | `""` | 画面表示用の名前 |
 | **DbColumn** | DBカラム | string | `""` | 対応する DB 列名 |
+| **Format** | フォーマット | string | `""` | 閲覧表示のフォーマット（例: `HH:mm`） |
 | **SaveAsUtc** | UTCとして保存 | bool | `false` | UTC で保存する |
 | **IsRequired** | 必須 | bool | `false` | 入力必須 |
 | **IsUpdateProtected** | 更新無効 | bool | `false` | 更新時に値を変更できないようにする |
@@ -70,8 +71,8 @@ if (OpenTime.Value > CloseTime.Value)
 }
 
 // 検索: 午前のみ
-await OpenTime.SetSearchMinAsync(new TimeOnly(0, 0));
-await OpenTime.SetSearchMaxAsync(new TimeOnly(12, 0));
+OpenTime.SearchMin = new TimeOnly(0, 0);
+OpenTime.SearchMax = new TimeOnly(12, 0);
 ```
 
 ---
@@ -99,8 +100,8 @@ await OpenTime.SetSearchMaxAsync(new TimeOnly(12, 0));
 中央の `～` ボタンから **空** / **空以外** が選べます。
 
 ```csharp
-await StartTime.SetSearchMinAsync(new TimeOnly(9, 0));
-await StartTime.SetSearchMaxAsync(new TimeOnly(17, 0));
+StartTime.SearchMin = new TimeOnly(9, 0);
+StartTime.SearchMax = new TimeOnly(17, 0);
 ```
 
 検索全体の仕組みは [SearchField](Search.md#検索の仕組み) を参照。

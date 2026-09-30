@@ -153,6 +153,38 @@ string lastUser;
 
 他モジュールからは `new MyMod().counter` のようにインスタンスを介して参照できます。
 
+#### static 関数と const 定数
+
+モジュールのインスタンス（Field やモジュール変数）に依存しない共通の処理や定数は、トップレベルに `static` 関数 / `const` 定数として定義できます。これらは**他のモジュールから `モジュール名.メンバー` で参照できる**ので、共通処理用のモジュール（例: `Common`）にまとめておく使い方ができます。
+
+```csharp
+// Common モジュールのスクリプト
+const decimal TaxRate = 0.1m;
+const string DefaultStatus = "Draft";
+const int MaxRows = 100 * 2;              // 定数式（リテラル・他の const・演算子・キャスト・列挙型のメンバー）が使える
+
+static decimal WithTax(decimal price)     // Field などを使わない関数
+{
+    return price * (1 + TaxRate);         // const と他の static 関数は使える
+}
+
+// 別のモジュール（Order など）のスクリプトから
+void OnPriceChanged()
+{
+    Total.Value = Common.WithTax(Price.Value ?? 0);
+    if (Status.Value == null) Status.Value = Common.DefaultStatus;
+}
+```
+
+| 種別 | 書き方 | 参照のしかた | 制約 |
+|---|---|---|---|
+| `const` 定数 | `const 型 名前 = 定数式;` | 同じモジュールでは `名前`、他のモジュールからは `モジュール名.名前`（インスタンス経由の `row.名前` も可） | 型はプリミティブ（`int` / `decimal` / `double` / `bool` など）・`string`・[列挙型](../designer/enums.md)のみ。`var` は不可。代入・`++` は不可。初期値は定数式のみ（関数呼び出しや Field の参照は不可）。宣言の順に評価されるので、後で宣言する const は参照できない |
+| `static` 関数 | `static 型 名前(引数) { ... }` | 同じモジュールでは `名前()`、他のモジュールからは `モジュール名.名前()`（インスタンス経由の `row.名前()` も可） | Field・レイアウト・モジュール変数・static でない関数・`this` は使えない（デザインチェックと実行時の両方でエラー）。const・他の static 関数・サービス（`Math` / `Logger` など）・`CurrentUser` は使える |
+
+- `モジュール名.〜` で参照できるのは **static 関数と const だけ**です。モジュール変数・static でない関数・Field は、従来どおり `new モジュール名()` のインスタンス経由で参照します
+- const の値はモジュールごとに 1 回だけ評価され、すべてのインスタンスで共有されます
+- static な**変数**（共有の書き換え可能な値）はありません。共有したい値は const にします
+
 ### 3.7 オブジェクト生成
 
 ```csharp
@@ -513,6 +545,7 @@ Home x = ...;           // ○（型として）
 new List<Home>()        // ○
 ModuleSearcher<Home>    // ○
 var v = Home;           // モジュール名としては解決されない（同名のローカル/Field がなければエラー）
+Home.F()                // ○ static 関数・const 定数だけは「モジュール名.メンバー」で参照できる（[static 関数と const 定数](#static-関数と-const-定数)）
 ```
 
 そのため、モジュール名と同名のローカル変数や Field を作っても `new X()` の型解析は壊れません。
@@ -526,7 +559,7 @@ var h = new Home();
 h.counter;     // Home の Field / Layout / モジュール変数 のみが対象（サービスや型は対象外）
 ```
 
-他モジュールのインスタンス経由でアクセスできるのは、そのモジュールの **Field / Layout / モジュール変数**です。`Logger` や `DateTime` のようなサービス・型は修飾アクセスの対象になりません。
+他モジュールのインスタンス経由でアクセスできるのは、そのモジュールの **Field / Layout / モジュール変数**（と static 関数・const 定数）です。`Logger` や `DateTime` のようなサービス・型は修飾アクセスの対象になりません。
 
 ### CurrentUser を変数名にしない
 
@@ -560,6 +593,7 @@ h.counter;     // Home の Field / Layout / モジュール変数 のみが対�
 
 - 各モジュール名を**型として**使える（`new Home()` など）
 - 各 Field 型（`TextField`、`NumberField` など）
+- [列挙型](../designer/enums.md)（`OrderStatus.Received` のように参照すると保存される値の文字列になる）
 
 ### サービス
 

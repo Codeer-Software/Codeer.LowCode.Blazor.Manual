@@ -34,8 +34,11 @@
 | **DisplayName** | 表示名 | string | `""` | 画面表示用の名前 |
 | **LayoutName** | レイアウト名 | string | `""` | 各行に使う Detail レイアウト名 |
 | **PagerPosition** | ページャーの位置 | enum | `Top` | ページャーの位置（`Top` / `Bottom`） |
+| **IsInMemoryPaging** | 全件ロードしてメモリ内でページング | bool | `false` | 全件を読み込み、画面内でページを切り替える（[List の説明](List.md#全件ロードしてメモリ内でページングisinmemorypaging) 参照） |
+| **ConfirmBeforePageChange** | ページ切り替え時に未保存変更の確認を出す | bool | `true` | 一覧に未保存の変更があるときにページを切り替えると、変更が失われる旨の確認を出す |
 | **UseIndexSort** | インデックスソート | bool | `false` | 表示順を Index として保存 |
 | **DeleteTogether** | 親テーブルと一緒に削除 | bool | `false` | 親データ削除時に一括削除 |
+| **ReplaceMode** | 洗い替え | enum | `None` | 保存時の入れ替え方式（`None` / `All` / `UpdateAsDeleteInsert`）。[List の説明](List.md#洗い替えreplacemode) 参照 |
 | **CanCreate** | 追加 | bool | `false` | 親画面から新規作成を許可 |
 | **CanUpdate** | 更新 | bool | `false` | 親画面から編集を許可 |
 | **CanDelete** | 削除 | bool | `false` | 親画面から削除を許可 |
@@ -71,8 +74,8 @@
 
 スクリプト API は [List](List.md#スクリプトから) と共通です（内部的にも同じ `ListField` ランタイムクラスを使用）。
 
-- プロパティ: `Rows` / `RowCount` / `SelectedIndex` / `Page` / `PageCount` / `TotalCount` / `Limit` / `AllowLoad` / `IsValid` / `SearchComparison`
-- メソッド: `AddRow` / `AddRows` / `InsertRow` / `InsertRows` / `UpdateRow` / `DeleteRow` / `DeleteAllRows` / `Reload` / `SetAdditionalCondition` / `SetSelectedIndexAsync` / `SetSearchComparisonAsync` / `ShowCustomDialog`
+- プロパティ: `Rows` / `RowCount` / `SelectedIndex` / `Page` / `PageCount` / `TotalCount` / `Limit` / `AllowLoad` / `IsValid` / `SearchComparison`（`SelectedIndex` / `SearchComparison` は代入で設定）
+- メソッド: `AddRow` / `AddRows` / `InsertRow` / `InsertRows` / `UpdateRow` / `DeleteRow` / `DeleteAllRows` / `Reload` / `SetAdditionalCondition` / `ShowCustomDialog`
 
 共通プロパティは [Field 共通プロパティ](common_properties.md) を参照。
 
@@ -108,10 +111,10 @@ DetailListField を**検索レイアウトに配置**すると、「親レコー
 
 ```csharp
 // 検索条件をプログラム的に設定
-await Orders.SetSearchComparisonAsync(MatchComparison.Exists);
+Orders.SearchComparison = MatchComparison.Exists;
 
 // 解除
-await Orders.SetSearchComparisonAsync(null);
+Orders.SearchComparison = null;
 ```
 
 `SearchComparison` に設定できる値は `Exists` / `NotExists` / `null` のみです。

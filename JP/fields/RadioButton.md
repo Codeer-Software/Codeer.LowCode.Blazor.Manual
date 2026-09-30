@@ -25,7 +25,7 @@
 ユーザー操作               内部の動き
 ───────                    ─────────
 [○ ランクA] ← クリック     RankA.SetCheck()
-                          └─ RankGroup.SetValueAsync("A")
+                          └─ RankGroup.Value = "A"
 [○ ランクB]
 [○ ランクC]
 ```
@@ -68,7 +68,7 @@ RadioButton 自体の `Value` プロパティ（スクリプト上で参照で�
 | 名前 | 型・戻り値 | 説明 |
 |---|---|---|
 | `Value` | bool | このラジオが現在選択されているか（親の値と `Design.Value` が一致すれば true） |
-| `SetCheck()` | void | このラジオを選択状態にする（親の `SetValueAsync` を呼び出す） |
+| `SetCheck()` | Task | このラジオを選択状態にする（親の RadioGroup の `Value` に自分の値を設定） |
 | `GetRadioGroupField()` | RadioGroupField? | 親の RadioGroupField を取得 |
 
 共通プロパティは [Field 共通プロパティ](common_properties.md) を参照。

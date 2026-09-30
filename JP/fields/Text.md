@@ -38,6 +38,7 @@
 | **MaxLength** | 最大文字数 | int? | null | 入力可能な最大文字数 |
 | **TextEditEmptyType** | 編集後の空文字の値 | enum | `StringEmpty` | 空入力時に `""` を保持するか `null` にするか |
 | **ShouldTrimAfterEdit** | 編集後にトリム | bool | `false` | 編集後に前後の空白を自動削除 |
+| **AutoTab** | 自動タブ(最大桁で次へ) | bool | `false` | `MaxLength` まで入力したら次の入力欄へ自動でフォーカスを移す（`MaxLength` の指定と、[フォーカス制御](../module/focus_control.md) が有効なレイアウトが必要） |
 | **IsRequired** | 必須 | bool | `false` | 入力必須 |
 | **IsUpdateProtected** | 更新無効 | bool | `false` | 更新時に値を変更できないようにする |
 | **OnDataChanged** | データ変更イベント | string | `""` | 値変更時のスクリプトイベント |
@@ -60,10 +61,10 @@
 
 | 名前 | 型 | 説明 |
 |---|---|---|
-| `Value` | string? | 入力値 |
-| `SearchValue` | string? | 検索値 |
-| `SearchComparison` | MatchComparison | 検索比較（`Equal` / `Like` のみ有効） |
-| `SearchIsEmpty` | bool? | 「空」を検索条件にする |
+| `Value` | string? | 入力値（代入で設定） |
+| `SearchValue` | string? | 検索値（代入で設定。`MaxLength` を超える文字数を設定するとエラーが表示される） |
+| `SearchComparison` | MatchComparison | 検索比較（`Equal` / `Like` のみ有効）。代入で設定 |
+| `SearchIsEmpty` | bool? | 「空」を検索条件にする（代入で設定） |
 
 共通プロパティ（IsEnabled / IsVisible / Color など）は [Field 共通プロパティ](common_properties.md) を参照。
 
@@ -82,8 +83,8 @@ if (string.IsNullOrEmpty(Name.Value))
 }
 
 // 検索条件を動的に設定
-await Name.SetSearchValueAsync("山田");
-await Name.SetSearchComparisonAsync(MatchComparison.Like);
+Name.SearchValue = "山田";
+Name.SearchComparison = MatchComparison.Like;
 ```
 
 ---
@@ -149,12 +150,12 @@ textarea として表示。`Rows` で表示行数を指定、`IsAutoFitRows: tru
 Name.SearchValue = "山田";
 
 // 比較演算子を変更（詳細検索時のみ）
-await Name.SetSearchComparisonAsync(MatchComparison.Equal);
+Name.SearchComparison = MatchComparison.Equal;
 
 // 「空白」モードに切り替え
-await Name.SetSearchIsEmptyAsync(true);   // 空
-await Name.SetSearchIsEmptyAsync(false);  // 空以外
-await Name.SetSearchIsEmptyAsync(null);   // 通常モードに戻す
+Name.SearchIsEmpty = true;   // 空
+Name.SearchIsEmpty = false;  // 空以外
+Name.SearchIsEmpty = null;   // 通常モードに戻す
 ```
 
 検索全体の仕組み（検索レイアウト・AND/OR・URL パラメータなど）は [SearchField](Search.md#検索の仕組み) を参照。

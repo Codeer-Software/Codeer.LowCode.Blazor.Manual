@@ -103,10 +103,10 @@ Module の各画面（詳細 / 一覧 / 検索）は**レイアウト**の中に
 
 ```csharp
 // 例: ボタンがクリックされたときの処理
-if (await Name.ValidateInput())
+if (Name.ValidateInput())
 {
-    await Submit();
-    await MessageBox.Show("保存しました");
+    Submit();
+    MessageBox.Show("保存しました");
 }
 ```
 

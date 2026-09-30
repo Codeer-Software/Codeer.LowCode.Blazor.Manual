@@ -5,9 +5,9 @@
 | 区分 | 提供元 | カスタマイズ |
 |---|---|---|
 | **組み込みサービス** | `Codeer.LowCode.Blazor` 本体 | 不可（言語仕様の一部） |
-| **テンプレート由来サービス** | VS テンプレートが出力する `WebApp.Client.Shared` | **書き換え・追加・削除すべて可能** |
+| **テンプレート由来サービス** | アプリテンプレートの `LowCodeApp.Client.Shared` が登録するもの（大半は拡張ライブラリ Extras が提供） | **登録の追加・削除・差し替えが可能** |
 
-テンプレート由来サービスは `AppInfoService` の中で `AddType` / `AddService` で登録されています。
+テンプレート由来サービスは `AppInfoService` のコンストラクタで登録されています（Extras のものは `ExtrasClientInitializer.Initialize(...)` がまとめて登録）。
 独自に追加したい場合は [スクリプトの拡張](script_extend.md) を参照してください。
 
 ---
@@ -25,7 +25,7 @@
 | `Logger.Error(string)` | `Task` | error レベル |
 
 ```csharp
-await Logger.Log("デバッグ情報: " + Name.Value);
+Logger.Log("デバッグ情報: " + Name.Value);
 ```
 
 ### MessageBox — モーダルダイアログ
@@ -40,10 +40,10 @@ OK が押されるまで処理を待ちます。
 | `MessageBox.ShowWithTitle(string title, string message, params DialogButton[] buttons)` | `Task<string>` | タイトル + スタイル付き |
 
 ```csharp
-var result = await MessageBox.Show("削除しますか？", "はい", "いいえ");
+var result = MessageBox.Show("削除しますか？", "はい", "いいえ");
 if (result == "はい") { ... }
 
-await MessageBox.Show("注意",
+MessageBox.Show("注意",
     new DangerButton { Text = "削除" },
     new SecondaryButton { Text = "キャンセル" });
 ```
@@ -64,6 +64,7 @@ await MessageBox.Show("注意",
 | `NavigationService.GetUniqueQueryParameters()` | `Dictionary<string, string>` | キーに対し最初の値だけ取る |
 | `NavigationService.GetQueryString()` | `string` | クエリ文字列を組み立て直す |
 | `NavigationService.Logout()` | `Task` | ログアウト |
+| `NavigationService.SetRecordPagingContext(...)` | `void` | 詳細画面の [レコードページ送り](../fields/RecordPaging.md#スクリプトで組んだ一覧から遷移する場合) に一覧の並びを登録する |
 
 | プロパティ | 型 | 説明 |
 |---|---|---|
@@ -88,8 +89,8 @@ if (qs.TryGetValue("id", out var id)) { ... }
 | `Resources.Localize(string text)` | `string` | 多言語リソースの引き当て |
 
 ```csharp
-using var stream = await Resources.GetMemoryStream("Templates/Invoice.xlsx");
-var template = await Resources.GetText("Templates/MailBody.txt");
+using var stream = Resources.GetMemoryStream("Templates/Invoice.xlsx");
+var template = Resources.GetText("Templates/MailBody.txt");
 ```
 
 ### BatchSearcher — 複数検索を 1 回のリクエストで実行
@@ -103,7 +104,7 @@ var template = await Resources.GetText("Templates/MailBody.txt");
 ```csharp
 var s1 = new ModuleSearcher<Customer>();
 var s2 = new ModuleSearcher<Order>();
-var response = await BatchSearcher.Execute(s1, s2);
+var response = BatchSearcher.Execute(s1, s2);
 
 var customers = response.GetAt(0);
 var orders = response.GetAt(1);
@@ -131,7 +132,39 @@ PageFrameService.LeftSideBarState.SetWidth(280);
 
 ## テンプレート由来サービス
 
-`Codeer.LowCode.Blazor.Templates` の VS テンプレートで作成したプロジェクトには、`WebApp.Client.Shared/ScriptObjects/` 配下に以下のサービスが含まれます。**ユーザコード側にあるので、必要に応じて拡張できます**。
+アプリテンプレートで作成したプロジェクトでは、`LowCodeApp.Client.Shared/Services/AppInfoService.cs` のコンストラクタで次のサービス・型がスクリプトに登録されています。
+大半は拡張ライブラリ [Codeer.LowCode.Blazor.Extras](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras) が提供し、`ExtrasClientInitializer.Initialize(...)` の 1 行でまとめて登録されます。
+
+| サービス / 型 | 提供元 | 用途 |
+|---|---|---|
+| `LoadingService` | 本体（テンプレートが登録） | 処理中インジケータの表示 |
+| `Toaster` | Extras | トースト通知 |
+| `WebApiService` / `WebApiResult` | Extras | 外部 API・追加 Controller の HTTP 呼び出し |
+| `Excel` / `ExcelCellIndex` | Extras | Excel テンプレートによる帳票作成と xlsx / PDF ダウンロード |
+| `BulkFileReader<モジュール>` | Extras | CSV / 固定長 / Excel ファイルの取込（スクリプトで加工してから保存する場合） |
+| `BulkFileTransferService` | Extras | 一括ダウンロードと一括保存 |
+
+Extras はソースを MIT で公開しているので、動作を変えたい場合はソースをコピーして改変したクラスを代わりに登録できます。独自のサービスを追加する方法は [スクリプトの拡張](script_extend.md) を参照してください。
+各オブジェクトの正確なシグネチャは、デザイナのスクリプトエディタの入力補完で確認できます。
+
+> 以前のテンプレートにあった `MailService`（メール送信）は削除されました。メールは Extras の MailField で送ります（[メールを送信する](../Examples/SendingMail.md)）。
+
+### LoadingService — 処理中インジケータ
+
+`StartLoading` で返るスコープを `using` で囲んだ間、画面に処理中インジケータを表示します。
+
+| メソッド | 戻り値 | 説明 |
+|---|---|---|
+| `LoadingService.StartLoading(int? delayTime)` | `LoadingScope` | インジケータ表示を開始する。`delayTime`（ミリ秒）を指定すると、その時間より長くかかったときだけ表示する |
+
+```csharp
+void SaveButton_OnClick()
+{
+    using var loading = LoadingService.StartLoading(1000);   // 1 秒以上かかるときだけ表示
+    var ret = this.Submit();
+    if (ret != true) Toaster.Error("保存に失敗しました");
+}
+```
 
 ### Toaster — トースト通知
 
@@ -139,9 +172,10 @@ PageFrameService.LeftSideBarState.SetWidth(280);
 
 | メソッド | 戻り値 | 説明 |
 |---|---|---|
-| `Toaster.Success(string)` | `void` | 成功通知 |
+| `Toaster.Success(string)` | `void` | 成功通知（表示中のトーストを消してから表示） |
+| `Toaster.Info(string)` | `void` | 情報通知 |
 | `Toaster.Warn(string)` | `void` | 警告通知 |
-| `Toaster.Error(string)` | `void` | エラー通知 |
+| `Toaster.Error(string)` | `void` | エラー通知（見逃さないよう長めに表示） |
 
 ```csharp
 Toaster.Success("保存しました");
@@ -154,10 +188,10 @@ Toaster.Error("入力エラーがあります");
 
 | メソッド | 戻り値 | 説明 |
 |---|---|---|
-| `WebApiService.Get(string url)` | `Task<WebApiResult>` | GET |
-| `WebApiService.Post(string url, JsonObject data)` | `Task<WebApiResult>` | POST |
-| `WebApiService.Put(string url, JsonObject data)` | `Task<WebApiResult>` | PUT |
-| `WebApiService.Delete(string url)` | `Task<WebApiResult>` | DELETE |
+| `WebApiService.Get(string url)` | `WebApiResult` | GET |
+| `WebApiService.Post(string url, JsonObject data)` | `WebApiResult` | POST |
+| `WebApiService.Put(string url, JsonObject data)` | `WebApiResult` | PUT |
+| `WebApiService.Delete(string url)` | `WebApiResult` | DELETE |
 
 `WebApiResult` のプロパティ:
 
@@ -167,7 +201,7 @@ Toaster.Error("入力エラーがあります");
 | `JsonObject` | `JsonObject` | レスポンス本文を JSON として保持 |
 
 ```csharp
-var result = await WebApiService.Get("/testapi/weather");
+var result = WebApiService.Get("/testapi/weather");
 if (result.StatusCode == 200)
 {
     foreach (var e in result.JsonObject)
@@ -179,19 +213,6 @@ if (result.StatusCode == 200)
 }
 ```
 
-### MailService — メール送信
-
-サーバー側の `/api/mail` を呼び出してメール送信します。`appsettings.json` の `MailSettings` を設定する必要があります。
-
-| メソッド | 戻り値 | 説明 |
-|---|---|---|
-| `MailService.SendEmail(string address, string subject, string message)` | `Task<bool>` | 成功/失敗 |
-
-```csharp
-var ok = await MailService.SendEmail("user@example.com", "件名", "本文");
-if (!ok) Toaster.Error("送信に失敗しました");
-```
-
 ### Excel — Excel テンプレートで帳票を作って Excel または PDF で配布
 
 帳票テンプレート（`.xlsx`）を読み込み、Module の値で穴埋めしてダウンロードさせる仕組みです。
@@ -199,7 +220,7 @@ if (!ok) Toaster.Error("送信に失敗しました");
 #### 生成
 
 ```csharp
-using var stream = await Resources.GetMemoryStream("Templates/Invoice.xlsx");
+using var stream = Resources.GetMemoryStream("Templates/Invoice.xlsx");
 using var excel = new Excel(stream, "請求書.xlsx");
 ```
 
@@ -207,13 +228,13 @@ using var excel = new Excel(stream, "請求書.xlsx");
 
 | メソッド | 戻り値 | 説明 |
 |---|---|---|
-| `OverWrite(Module data)` | `Task` | テンプレート内の `{Field名}` プレースホルダを Module の値で置換 |
+| `OverWrite(Module data)` | `void` | セルの内容全体が `$` で始まるセル（例: `$Name.Value`）を、Module から辿った値で置換 |
 | `FindCellByText(string text)` | `ExcelCellIndex?` | 指定テキストに一致するセルを検索 |
 | `SetCellValue(ExcelCellIndex cell, object value)` | `void` | セルに値をセット |
 | `CopyCells(ExcelCellIndex source, ExcelCellIndex destination, int rowCount, int colCount)` | `void` | セル範囲をコピー |
 | `AddImage(ExcelCellIndex cellIndex, Stream stream)` | `void` | 画像を貼り付け |
-| `Download()` | `Task<bool>` | Excel 形式でダウンロード（拡張子 `.xlsx`） |
-| `DownloadPdf()` | `Task<bool>` | PDF に変換してダウンロード（拡張子 `.pdf`） |
+| `Download()` | `bool` | Excel 形式でダウンロード（拡張子 `.xlsx`） |
+| `DownloadPdf()` | `bool` | PDF に変換してダウンロード（拡張子 `.pdf`） |
 | `Dispose()` | `void` | リソース解放（`using` 推奨） |
 
 `ExcelCellIndex` のプロパティ:
@@ -225,18 +246,55 @@ using var excel = new Excel(stream, "請求書.xlsx");
 
 `GetNext(int rowOffset, int columnOffset)` で相対位置のセルを取得できます。
 
+`OverWrite` のテンプレートの書き方:
+
+- 置換はセル単位。**セルの内容全体**が `$` で始まるとき、`$` の後ろを Module からの参照（スクリプトで `this` から辿るのと同じ名前。`フィールド名.Value` が基本形）として解決し、そのセルを値で置き換える（例: `$Title.Value` / `$OrderDate.Value` / `$Customer.DisplayText`）
+- 数値・日付は値のまま書き込まれる。桁区切りや日付の書式はテンプレートのセルの表示形式で決める
+- 解決できない参照のセルはそのまま残る
+- 「見積番号: $Id.Value」のように文字と混ぜたセルは置き換わらない。ラベルと値はセルを分ける
+
 ```csharp
-using var stream = await Resources.GetMemoryStream("Templates/Invoice.xlsx");
+using var stream = Resources.GetMemoryStream("Templates/Invoice.xlsx");
 using var excel = new Excel(stream, "請求書.xlsx");
 
-await excel.OverWrite(this);          // {NameField} 等のプレースホルダを置換
+excel.OverWrite(this);          // $Name.Value などと書いたセルを値で置換
 var cell = excel.FindCellByText("[小計]");
 if (cell != null) excel.SetCellValue(cell, 12345);
 
-await excel.DownloadPdf();
+excel.DownloadPdf();
 ```
 
 詳細は [チュートリアル: Excel 帳票と PDF 出力](../tutorials/tutorial_excel_pdf.md) を参照。
+
+### BulkFileReader / BulkFileTransferService — ファイルの一括取込・出力
+
+一覧ページの一括ダウンロード / 一括更新と同じ形式（Excel、またはモジュールに CSV・固定長の定義があればその形式）で、スクリプトからファイルを入出力します。
+取込のたびにコード変換・検証・行の除外などを挟みたい場合に使います。
+
+| メンバー | 説明 |
+|---|---|
+| `new BulkFileReader<モジュール>()` | 取込先モジュールを指定して作る（一度変数に受けてから使う） |
+| `reader.Read()` | ファイル選択ダイアログを開き、選ばれたファイルを解析する。キャンセルなら `false`。DB には書き込まない |
+| `reader.Items` | 解析した行（ファイルの行順）。値の参照・書き換えができる |
+| `reader.HasError` / `reader.ErrorText` / `reader.DownloadErrorText()` | 解釈できなかったセルの有無 / 詳細テキスト / 詳細をファイルでダウンロード |
+| `BulkFileTransferService.Submit(行のリスト)` | 行をまとめて 1 トランザクションで保存する。Id の有無で追加 / 更新を判定。保存した新規行の Id は返らない |
+| `BulkFileTransferService.Download(...)` | ModuleSearcher・検索フィールド・リストフィールドの条件、または行のリストをファイルでダウンロードする |
+
+```csharp
+void Import_OnClick()
+{
+    var reader = new BulkFileReader<注文>();
+    if (!reader.Read()) return;           // キャンセル
+    if (reader.HasError)
+    {
+        reader.DownloadErrorText();
+        return;
+    }
+    if (BulkFileTransferService.Submit(reader.Items)) Toaster.Success("取り込みました");
+}
+```
+
+取込ボタンは DB に結びつかない画面専用のモジュールに置くのが基本です。形式の定義と使い分けは [取込書出パターン](../patterns/import_export.md) を参照してください。
 
 ---
 
@@ -267,7 +325,7 @@ var body = new JsonObject();
 body["name"] = "山田";
 body["age"] = 30;
 
-var result = await WebApiService.Post("/api/users", body);
+var result = WebApiService.Post("/api/users", body);
 foreach (var item in result.JsonObject)
 {
     Logger.Log(item.id + ": " + item.name);

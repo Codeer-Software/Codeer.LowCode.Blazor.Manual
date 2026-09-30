@@ -35,6 +35,7 @@
 | **Icon** | アイコン | string | `""` | アイコン |
 | **Variant** | ボタンのスタイル | enum | `Primary` | [Button の Variant](Button.md#variantボタンのスタイル) 参照 |
 | **ImageResourceSet** | 画像設定 | ButtonImageSet | - | 状態別の画像リソース |
+| **IsHtml** | HTMLとして表示 | bool | `false` | `Text` を HTML として表示する |
 | **IgnoreModification** | 変更判定から除外 | bool | `false` | 変更検知から除外 |
 
 > `IsBlock` は固定 `true`（横幅いっぱい）です。
@@ -46,6 +47,11 @@
 1. クリック → `Module.CopyModuleAsync()` を呼び出し（現在のデータをコピーして新規モジュールインスタンスとして保持）
 2. 同じモジュール内に [AutoSubmitField](AutoSubmit.md) が配置されていれば、`ScheduleSubmit()` を呼んで自動保存
 3. AutoSubmit がなければコピー完了のトースト通知のみ（ユーザーはそのあと手動で保存）
+
+### コピーされる内容
+
+- Id・作成日時・更新日時などの System Field はコピーされません（新規データとして扱われます）
+- 一覧（[List](List.md) / [DetailList](DetailList.md) / [TileList](TileList.md)）の行は、その一覧の `CanCreate`（追加）・`CanUpdate`（更新）・`CanDelete`（削除）が**すべて `true`** のときだけコピーされます。参照するだけの一覧（どれかが `false`）の行はコピーされません。埋め込んだモジュール（[Module](Module.md)）の中の一覧も同じです
 
 ---
 

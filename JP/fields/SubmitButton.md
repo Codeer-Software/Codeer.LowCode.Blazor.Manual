@@ -9,7 +9,7 @@
 - 詳細画面で「登録」「更新」ボタンとして使う
 - 追加の処理を挟まず、そのまま DB 保存したい場合
 
-処理を挟みたい場合は [Button](Button.md) を使い、スクリプト内で `await Submit()` を呼び出します。
+処理を挟みたい場合は [Button](Button.md) を使い、スクリプト内で `Submit()` を呼び出します。
 
 ---
 
@@ -24,7 +24,7 @@
 
 > 検証ロジックを Field ごとにカスタマイズしたい場合は `OnValidateInput` プロパティを使います。詳細は [Field 共通プロパティの「入力検証」](common_properties.md#入力検証-onvalidateinput) を参照。
 
-スクリプトイベントは**ありません**（`OnClick` は持たない）。処理を挟みたい場合は [Button](Button.md) を使い、スクリプトから `await Submit()` を呼び出します。
+スクリプトイベントは**ありません**（`OnClick` は持たない）。処理を挟みたい場合は [Button](Button.md) を使い、スクリプトから `Submit()` を呼び出します。
 
 ---
 
@@ -49,6 +49,7 @@
 | **Icon** | アイコン | string | `""` | アイコン |
 | **Variant** | ボタンのスタイル | enum | `Primary` | Bootstrap 準拠のスタイル（`Primary` / `Success` / `Danger` など。[Button の Variant](Button.md#variantボタンのスタイル) 参照） |
 | **ImageResourceSet** | 画像設定 | ButtonImageSet | - | 状態別の画像リソース |
+| **IsHtml** | HTMLとして表示 | bool | `false` | `Text` を HTML として表示する |
 | **IgnoreModification** | 変更判定から除外 | bool | `false` | 変更検知から除外 |
 
 > SubmitButton は `OnClick` / `ShowTextInToolTip` / `IsRequired` / `DisplayName` などを持ちません。横幅は常に親要素いっぱいに広がります（`IsBlock = true` 固定）。
@@ -59,7 +60,7 @@
 
 スクリプト公開メンバーは共通の `IsEnabled` / `IsVisible` / `Color` などのみです。[Field 共通プロパティ](common_properties.md) を参照。
 
-独自処理を足したい場合は [Button](Button.md) + `await Submit()` への置き換えを検討してください。
+独自処理を足したい場合は [Button](Button.md) + `Submit()` への置き換えを検討してください。
 
 ---
 

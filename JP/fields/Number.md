@@ -61,10 +61,12 @@
 
 | 名前 | 型 | 説明 |
 |---|---|---|
-| `Value` | decimal? | 入力値 |
-| `SearchMin` | decimal? | 検索の最小値 |
-| `SearchMax` | decimal? | 検索の最大値 |
-| `SearchIsEmpty` | bool? | 「空」を検索条件にする |
+| `Value` | decimal? | 入力値（代入で設定。`MaxFractionDigits` を超える桁は切り捨て） |
+| `Min` | decimal? | 入力の最小値。初期値は `Min` プロパティの値。代入で変更できる（`null` で下限なし） |
+| `Max` | decimal? | 入力の最大値。初期値は `Max` プロパティの値。代入で変更できる（`null` で上限なし） |
+| `SearchMin` | decimal? | 検索の最小値（代入で設定） |
+| `SearchMax` | decimal? | 検索の最大値（代入で設定） |
+| `SearchIsEmpty` | bool? | 「空」を検索条件にする（代入で設定） |
 
 共通プロパティは [Field 共通プロパティ](common_properties.md) を参照。
 
@@ -82,8 +84,8 @@ if (Price.Value < 0)
 }
 
 // 検索の最小値・最大値を動的に設定
-await Price.SetSearchMinAsync(1000);
-await Price.SetSearchMaxAsync(10000);
+Price.SearchMin = 1000;
+Price.SearchMax = 10000;
 ```
 
 ### 入力中イベント（OnInput）
@@ -159,16 +161,18 @@ void Rating_OnInput(decimal? value)
 
 ```csharp
 // 下限を設定（≥）
-await Price.SetSearchMinAsync(1000m);
+Price.SearchMin = 1000m;
 
 // 上限を設定（≤）
-await Price.SetSearchMaxAsync(5000m);
+Price.SearchMax = 5000m;
 
 // 「空」モードに切り替え
-await Price.SetSearchIsEmptyAsync(true);   // 空
-await Price.SetSearchIsEmptyAsync(false);  // 空以外
-await Price.SetSearchIsEmptyAsync(null);   // 通常モードに戻す
+Price.SearchIsEmpty = true;   // 空
+Price.SearchIsEmpty = false;  // 空以外
+Price.SearchIsEmpty = null;   // 通常モードに戻す
 ```
+
+検索値にも入力と同じ制限がかかります。`MaxFractionDigits` を超える小数桁は切り捨てられ、`Min` / `Max` の範囲外の値を設定するとエラーが表示されます（検索自体は止まりません）。
 
 検索全体の仕組み（検索レイアウト・AND/OR・URL パラメータなど）は [SearchField](Search.md#検索の仕組み) を参照。
 

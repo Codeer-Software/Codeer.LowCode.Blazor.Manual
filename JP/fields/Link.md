@@ -78,12 +78,11 @@
 
 | 名前 | 型・戻り値 | 説明 |
 |---|---|---|
-| `Value` | string? | 選択されたリンク先の Id |
+| `Value` | string? | 選択されたリンク先の Id（代入で設定） |
 | `DisplayText` | string? | 選択されたリンク先の表示文字 |
-| `SearchValue` | string? | 検索値 |
-| `SearchIsEmpty` | bool? | 空検索 |
+| `SearchValue` | string? | 検索値（代入で設定） |
+| `SearchIsEmpty` | bool? | 空検索（代入で設定） |
 | `AllowReloadLinkData` | bool | リンク先データの自動再読込を許可 |
-| `SetValueAsync(string?)` | Task | 値を設定 |
 | `SetAdditionalCondition(ModuleSearcher)` | void | 検索の絞り込み条件を追加 |
 | `GetSearchConditionAssignedValue()` | SearchCondition | 変数を解決済みの検索条件を取得 |
 
@@ -101,7 +100,7 @@ void Category_OnDataChanged()
 }
 
 // プログラム的に値を設定
-await Customer.SetValueAsync(customerId);
+Customer.Value = customerId;
 ```
 
 ---
@@ -133,7 +132,7 @@ LinkField の検索 UI は **テキスト入力 + 検索ダイアログを開く
 Customer.SearchValue = "10";
 
 // 空モード
-await Customer.SetSearchIsEmptyAsync(true);
+Customer.SearchIsEmpty = true;
 ```
 
 検索全体の仕組みは [SearchField](Search.md#検索の仕組み) を参照。

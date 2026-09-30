@@ -31,6 +31,7 @@
 | **Name** | 名前 | string | `""` | フィールド識別子 |
 | **Style** | 表示スタイル | enum | `Default` | 見た目（`Default` / `H1` / `H2` / `H3` / `H4` / `H5` / `H6`） |
 | **Text** | テキスト | string | `"Label"` | 表示文字（複数行可） |
+| **IsHtml** | HTMLとして表示 | bool | `false` | `Text` を HTML として表示する（`<b>` などのタグが効く） |
 | **Icon** | アイコン | string | `""` | 表示するアイコン |
 | **RelativeField** | 関連フィールド | string | `""` | 関連付ける Field の Name（必須マーク連動・クリックフォーカスが効く） |
 | **OnClick** | クリックイベント | string | `""` | クリック時のスクリプト |

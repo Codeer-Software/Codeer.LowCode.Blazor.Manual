@@ -101,6 +101,7 @@ ModuleField は **永続化モード** と **テンポラリモード** の 2 �
 | `ModuleName` | string | 現在埋め込んでいるモジュール名 (`SetModule` で上書き済なら上書き値、未上書きなら Design 値) |
 | `ModuleLayoutName` | string | 現在使っているレイアウト名 (同上) |
 | `SetModule(moduleName, layoutName)` | Task | 埋め込むモジュール／レイアウトを動的に変更 (制約あり、後述) |
+| `RecreateChildModule()` | Task | 現在のモジュールで `ChildModule` を作り直す (編集中のデータは失われる) |
 
 共通プロパティは [Field 共通プロパティ](common_properties.md) を参照。
 
@@ -136,11 +137,11 @@ void Name_OnDataChanged()
 // テンポラリモードの ModuleField を動的に切り替える
 if (UserType.Value == "admin")
 {
-    await ProfilePanel.SetModule("AdminProfile", "");
+    ProfilePanel.SetModule("AdminProfile", "");
 }
 else
 {
-    await ProfilePanel.SetModule("UserProfile", "");
+    ProfilePanel.SetModule("UserProfile", "");
 }
 ```
 

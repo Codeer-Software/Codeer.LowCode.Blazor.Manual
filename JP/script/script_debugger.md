@@ -11,66 +11,23 @@
 `appsettings.Development.json` で指定できます。
 
 ```cs
-public class AppInfoService : IAppInfoService
-{
-    readonly NavigationManager _navigationManager;
-    readonly HttpService _http;
-    readonly ScriptRuntimeTypeManager _scriptRuntimeTypeManager = new();
-    readonly ToasterEx _toaster;
-    HubConnection? _hubConnection;
-    DesignData? _design;
-    DateTime _lastHotReload = DateTime.Now;
-    SystemConfigForFront? _config;
-
-    public ModuleData? CurrentUserData { get; private set; }
-
-    public string CurrentUserId { get; set; } = string.Empty;
-
-    public Guid Guid { get; set; } = Guid.NewGuid();
-
-    public event EventHandler OnHotReload = delegate { };
-
-    public bool IsDesignMode => false;
-
-    public DesignData GetDesignData() => _design ?? new();
-
-    // スクリプトデバッグの設定
-    public bool CanScriptDebug => _config?.CanScriptDebug == true;
+// LowCodeApp.Client.Shared/Services/AppInfoService.cs (アプリテンプレート)
+public bool CanScriptDebug => _config?.CanScriptDebug == true;
 ```
+
+`_config` はサーバーから取得した設定で、Server プロジェクトの `appsettings.Development.json` の `CanScriptDebug` がそのまま使われます。
 
 ```json
 {
-  "ConnectionStrings": {
-    "Main": "",
-    "SampleSQLite": "Data Source=C:\\Codeer.LowCode.Blazor.Local\\Data\\sqlite_sample.db;Version=3;"
-  },
-  "FileStorages": [
-    {
-      "Name": "Local",
-      "FileStorageType": "FileSystem",
-      "Directory": "C:\\Codeer.LowCode.Blazor.Local\\Storages"
-    }
-  ],
   "DesignFileDirectory": "C:\\Codeer.LowCode.Blazor.Local\\Designs",
-  "FontFileDirectory": "C:\\Codeer.LowCode.Blazor.Local\\Font",
   "UseHotReload": true,
   "CanScriptDebug": true, // スクリプトデバッグの設定
-  "IsLicenseAutoUpdate": true,
-  "IsLicenseAuthenticationByDomain": false,
-  "AISettings": {
-    "OpenAIEndPoint": "",
-    "OpenAIKey": "",
-    "ChatModel": "",
-    "DocumentAnalysisEndPoint": "",
-    "DocumentAnalysisKey": ""
-  },
-  "MailSettings": {
-    "Host": "",
-    "Port": "",
-    "SenderMailAddress": "",
-    "Password": "",
-    "SSL": ""
-  }
+  "FileSystemStorages": [
+    {
+      "Name": "Local",
+      "Directory": "C:\\Codeer.LowCode.Blazor.Local\\Storages"
+    }
+  ]
 }
 ```
 

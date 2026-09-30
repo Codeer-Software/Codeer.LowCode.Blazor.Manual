@@ -66,7 +66,7 @@ void SaveButton_OnClick()
         return;
     }
 
-    if (await Submit())
+    if (Submit())
     {
         Password.Clear();
         Toaster.Success("登録しました");

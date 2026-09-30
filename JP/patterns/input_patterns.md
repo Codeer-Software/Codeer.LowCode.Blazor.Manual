@@ -62,7 +62,7 @@
 
 <img src="../../Image/web/patterns/input_attach.png" alt="FileField でファイル添付" style="border: 1px solid #ccc;" width="800">
 
-`FileField` でレコードに任意のファイルを添付。サーバー側 `appsettings.json` の `TemporaryFileTableInfo` + 一時ファイルテーブル + `FileStorages` の 3 点セット設定が必要 (JSON だけでは動かない)。
+`FileField` でレコードに任意のファイルを添付。サーバー側 `appsettings.json` の `TemporaryFileTableInfo` + 一時ファイルテーブル + ファイル保存先 (`FileSystemStorages` など) の 3 点セット設定が必要 (JSON だけでは動かない)。保存先は Azure Blob Storage / Amazon S3 も選べる ([FileStorage (Extras)](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras/blob/main/docs/FileStorage.md))。
 
 **標準パターン集の対応**: サイドバー **`入力UX/添付 → `AttachmentSample``**
 

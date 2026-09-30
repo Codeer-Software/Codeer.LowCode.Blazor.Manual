@@ -71,8 +71,8 @@ OrderDate.Value = DateOnly.FromDateTime(DateTime.Today);
 
 // 今月のデータを検索
 var today = DateOnly.FromDateTime(DateTime.Today);
-await OrderDate.SetSearchMinAsync(new DateOnly(today.Year, today.Month, 1));
-await OrderDate.SetSearchMaxAsync(today);
+OrderDate.SearchMin = new DateOnly(today.Year, today.Month, 1);
+OrderDate.SearchMax = today;
 ```
 
 ---
@@ -126,13 +126,13 @@ await OrderDate.SetSearchMaxAsync(today);
 
 ```csharp
 // 開始日（以降）
-await BirthDate.SetSearchMinAsync(new DateOnly(1980, 1, 1));
+BirthDate.SearchMin = new DateOnly(1980, 1, 1);
 
 // 終了日（以前）
-await BirthDate.SetSearchMaxAsync(new DateOnly(1989, 12, 31));
+BirthDate.SearchMax = new DateOnly(1989, 12, 31);
 
 // 「空」モードに切り替え
-await BirthDate.SetSearchIsEmptyAsync(true);
+BirthDate.SearchIsEmpty = true;
 ```
 
 検索全体の仕組みは [SearchField](Search.md#検索の仕組み) を参照。

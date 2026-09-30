@@ -85,7 +85,7 @@ PasswordField.IsVisible = !IsAnonymous.Value;
 IsActive.Value = true;
 
 // 検索条件を設定
-await IsPublished.SetSearchValueAsync(true);
+IsPublished.SearchValue = true;
 ```
 
 ---
@@ -121,9 +121,9 @@ await IsPublished.SetSearchValueAsync(true);
 IsActive.SearchValue = true;
 
 // 「空」モード
-await IsActive.SetSearchIsEmptyAsync(true);   // 空
-await IsActive.SetSearchIsEmptyAsync(false);  // 空以外
-await IsActive.SetSearchIsEmptyAsync(null);   // 通常モード
+IsActive.SearchIsEmpty = true;   // 空
+IsActive.SearchIsEmpty = false;  // 空以外
+IsActive.SearchIsEmpty = null;   // 通常モード
 ```
 
 検索全体の仕組みは [SearchField](Search.md#検索の仕組み) を参照。

@@ -1,8 +1,8 @@
 # Document OutlineとPropertyパネル
 ## 概要
-Document OutlineとPropertyパネルは[Desinger](designer/designer.md)で[Module](module/module.md)を編集する際に使われます。
+Document OutlineとPropertyパネルは[デザイナ](../designer/designer.md)で[Module](module.md)を編集する際に使われます。
 
-詳細/一覧/検索レイアウトで[Field](fields/field.md)を選択したときは、Document Outlineパネルは現在選択中のFieldのDocumentにおける位置関係を表示します。
+詳細/一覧/検索レイアウトで[Field](../fields/field.md)を選択したときは、Document Outlineパネルは現在選択中のFieldのDocumentにおける位置関係を表示します。
 
 ## Document Outlineで選択中の種類別の設定可能項目
 現在選択中のFieldによって、Document Outlineパネルでできる操作が変わるとともに、Propertyパネルの設定項目も変わります。

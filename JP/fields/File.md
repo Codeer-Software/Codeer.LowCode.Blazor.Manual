@@ -32,10 +32,14 @@
 | **DisplayName** | 表示名 | string | `""` | 画面表示用の名前 |
 | **DbColumnFileName** | ファイル名のDBカラム | string | `""` | ファイル名を保存する DB 列 |
 | **DbColumnFileSize** | ファイルサイズのDBカラム | string | `""` | ファイルサイズ（バイト）を保存する DB 列 |
-| **DbColumnFileGuid** | ファイルGUIDのDBカラム | string | `""` | ストレージ上の識別 GUID を保存する DB 列 |
+| **DbColumnFileGuid** | ファイルGUIDのDBカラム（ファイル内容とどちらかを利用） | string | `""` | ストレージ上の識別 GUID を保存する DB 列 |
+| **DbColumnFileContent** | ファイル内容のDBカラム（GUIDとどちらかを利用） | string | `""` | ファイルの中身を保存する DB 列（バイナリ型）。指定すると File Storage を使わず DB に保存する（[下記](#ファイル内容を-db-に保存するdbcolumnfilecontent)） |
 | **StorageName** | ストレージ名 | string | `""` | 保存先の File Storage 名（`designer.settings.json` で定義） |
 | **MaxAllowedSize** | 最大サイズ | long? | `500MB`（未指定時） | 許容する最大バイト数 |
+| **AllowedExtensions** | 許可する拡張子 | string | `""` | 受け付けるファイルの拡張子（例: `pdf, jpg, png`）。空なら制限なし |
 | **ShowPreview** | プレビュー表示 | bool | `false` | 画像の場合にプレビューを表示 |
+| **PreviewWidth** | プレビュー幅 | double? | null | プレビュー画像の表示幅（px）。未指定ならフィールドの幅いっぱい |
+| **PreviewHeight** | プレビュー高さ | double? | null | プレビュー画像の表示高さ（px） |
 | **ObjectFit** | 画像の表示方法 | enum | `Contain` | プレビュー画像のフィット方式（`Contain` / `Cover` / `Fill` など） |
 | **IsUpdateProtected** | 更新無効 | bool | `false` | 更新時に値を変更できないようにする |
 | **OnDataChanged** | データ変更イベント | string | `""` | 値変更時のスクリプトイベント |
@@ -63,18 +67,23 @@ FileField は 3 つの情報を DB に保存します:
 
 ### File Storage の設定
 
-`designer.settings.json` の `FileStorages` でストレージを定義します:
+ストレージはサーバー (Server プロジェクト) の `appsettings.json` で定義します。アプリテンプレートでは保存先の種類ごとのセクションに書きます:
 
 ```json
-"FileStorages": [
+"FileSystemStorages": [
   {
-    "FileStorageType": "FileSystem",
-    "Name": "Local"
+    "Name": "Local",
+    "Directory": "C:\\Codeer.LowCode.Blazor.Local\\Storages"
   }
 ]
 ```
 
-FileField の `StorageName` にここで定義した名前を指定します。
+FileField の `StorageName` にここで定義した名前を指定します（デザイナで候補に出す名前は [designer.settings](../designer/designer_settings.md) の `FileStorageNames` に書きます）。
+Azure Blob Storage・Amazon S3（S3 互換を含む）などの保存先と設定項目は、Extras の [FileStorage](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras/blob/main/docs/FileStorage.md) を参照してください。
+
+### ファイル内容を DB に保存する（DbColumnFileContent）
+
+`DbColumnFileContent` にバイナリ型の DB 列（SQL Server の `varbinary(max)`、PostgreSQL の `bytea` など）を指定すると、ファイルの中身を File Storage ではなくその列に保存します。File Storage の設定と一時ファイル管理テーブルは不要になり、ファイルはデータの保存（Submit）と一緒に DB へ書き込まれます。`DbColumnFileGuid` と `DbColumnFileContent` はどちらか一方を使います。
 
 ### 一時ファイル管理テーブル
 
@@ -91,6 +100,29 @@ create table temporary_files
 
 ---
 
+## 許可する拡張子（AllowedExtensions）
+
+`pdf, jpg, png` のように拡張子を並べます。区切りはカンマ・セミコロン・空白・改行のどれでもよく、先頭のドット（`.pdf`）や大文字小文字は区別しません。
+
+- ファイル選択ダイアログには許可した拡張子のファイルだけが表示されます
+- ドラッグ＆ドロップやスクリプトの `SetFile` で許可していない拡張子のファイルを渡すとエラーになります。拡張子の無いファイルも受け付けません
+- 保存（Submit）時にもサーバーで同じ判定が行われます
+
+---
+
+## プレビューのサイズ（PreviewWidth / PreviewHeight）
+
+`ShowPreview` が `true` のときのプレビュー画像の大きさを指定します。
+
+| 指定 | 表示 |
+|---|---|
+| どちらも未指定 | フィールドの幅いっぱい |
+| `PreviewWidth` のみ | 指定した幅。高さは画像の縦横比に合わせる |
+| `PreviewHeight` のみ | 指定した高さ。幅は画像の縦横比に合わせる（フィールドの幅は超えない） |
+| 両方 | 指定した大きさの枠に固定。枠への収め方は `ObjectFit` に従う |
+
+---
+
 ## スクリプトから
 
 ### プロパティ・メソッド
@@ -98,9 +130,9 @@ create table temporary_files
 | 名前 | 型・戻り値 | 説明 |
 |---|---|---|
 | `FileName` | string? | ファイル名 |
-| `SearchFileName` | string? | 検索用ファイル名 |
+| `SearchFileName` | string? | 検索用ファイル名（代入で設定） |
 | `SearchFileNameComparison` | MatchComparison | ファイル名検索の比較方法（既定 `Like`） |
-| `SearchFileSizeMin` / `SearchFileSizeMax` | decimal? | サイズの範囲検索 |
+| `SearchFileSizeMin` / `SearchFileSizeMax` | decimal? | サイズの範囲検索（代入で設定） |
 | `SetFile(fileName, StreamContent)` | Task | ファイルをプログラム的に設定 |
 | `ClearFile()` | Task | ファイルをクリア |
 | `GetMemoryStream()` | Task<MemoryStream?> | ファイル内容を取得 |
@@ -114,18 +146,18 @@ create table temporary_files
 // ボタンでファイルをダウンロードさせる
 void DownloadButton_OnClick()
 {
-    await Attachment.Download();
+    Attachment.Download();
 }
 
 // ファイルの中身を読み取って処理する
-var stream = await Attachment.GetMemoryStream();
+var stream = Attachment.GetMemoryStream();
 if (stream != null)
 {
     // stream を使った処理
 }
 
 // プログラム的にファイルをセット（外部 API の応答ファイルなど）
-await Attachment.SetFile("report.pdf", streamContent);
+Attachment.SetFile("report.pdf", streamContent);
 ```
 
 ---

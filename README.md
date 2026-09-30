@@ -80,7 +80,7 @@ Codeer.LowCode.Blazor を触り始める前に、全体像を掴むためのセ�
 
 - [アプリ作成パターン一覧](JP/patterns/patterns.md)
 
-  標準パターン集 (`PatternShowcase`) を起点にした全パターンを網羅。A〜J の 10 カテゴリ (アプリの基本13個 / 検索 / リスト系 / 一覧ページ / ダイアログ・通知 / 画面レイアウト / 入力UX / 出力 / 別フレーム / **認証・権限・承認** 4個別) を「アプリの作り → データ構造 → モジュール構成 → CLB ではこう作る」の流れで解説
+  標準パターン集 (`PatternShowcase`) を起点にした全パターンを網羅。A〜K の 11 カテゴリ (アプリの基本13個 / 検索 / リスト系 / 一覧ページ / ダイアログ・通知 / 画面レイアウト / 入力UX / 可視化・ダッシュボード / 出力 / 別フレーム / **認証・権限・承認** 4個別) を「アプリの作り → データ構造 → モジュール構成 → CLB ではこう作る」の流れで解説
 
 ### 業務テンプレート（アプリのたたき台）
 
@@ -127,12 +127,32 @@ Codeer.LowCode.Blazor を触り始める前に、全体像を掴むためのセ�
 - [AI でクエリを作成](JP/ai/ai_query.md)
 - [Claude Code でデザインプロジェクトを編集](JP/ai/claude_code_designer.md)
 
+### Extras (拡張ライブラリ)
+
+[Codeer.LowCode.Blazor.Extras](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras) は、よく使うフィールド・業務機能・サーバー側の仕組みを追加する拡張ライブラリです (MIT。ソースを差し替え・改変できます)。
+アプリテンプレートで作成したプロジェクトには最初から組み込まれています。既存プロジェクトへの追加は [Extras のセットアップ](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras#セットアップ) を参照してください。
+
+| 分類 | 内容 | ドキュメント |
+|---|---|---|
+| フィールド | カレンダー / ガントチャート / タスクボード (カンバン) / リッチテキスト / Markdown / カラーピッカー / 画像マーカー / QR コード / 進捗バー・メーター / Enter キーでのフォーカス移動 / 画面の向き制御 | [提供フィールド一覧](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras#提供フィールド) |
+| 認証 | ログインアカウント契約・パスワード・外部ログイン (Entra ID / Google / AWS Cognito / OpenID Connect)・二要素認証 | [認証の全体像](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras/blob/main/docs/Authentication.md) / [外部ログイン](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras/blob/main/docs/ExternalLogin.md) / [二要素認証](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras/blob/main/docs/TwoFactorLogin.md) |
+| 業務機能: メール | レコードの値で 1 通送る MailField、名簿へ一斉送信する BulkMailField、送信履歴。担当者本人のアカウントで送る Windows アプリ MailSender | [メール送信](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras/blob/main/docs/Mail.md) / [MailSender](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras/blob/main/docs/MailSender.md) |
+| 業務機能: 承認フロー | 申請・承認・却下・差し戻し・取り下げ・再申請・回覧 | [承認フロー](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras/blob/main/docs/ApprovalFlow.md) |
+| 業務機能: 編集履歴 | 保存ごとにレコード全体 (明細込み) を版として記録。版の一覧・この版を表示・この版に戻す・削除したレコードの復活 | [編集履歴](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras/blob/main/docs/EditHistory.md) |
+| AI | AI とのチャット (DB を読んで集計・グラフで回答)・意味検索・帳票やテキストの解析と自動入力 | [AIChatField](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras/blob/main/docs/AIChatField.md) / [SemanticSearchField](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras/blob/main/docs/SemanticSearchField.md) / [AITextAnalyzerField](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras/blob/main/docs/AITextAnalyzerField.md) |
+| ファイルストレージ | FileField の保存先。サーバーのフォルダ / Azure Blob Storage / Amazon S3 (S3 互換を含む) | [FileStorage](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras/blob/main/docs/FileStorage.md) |
+| サーバー API の権限チェック | メール・承認・AI の API は、呼び出し元のフィールドがそのユーザーに見えるときだけ応じる | [サーバー API の権限チェック](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras/blob/main/docs/ServerApiAuthorization.md) |
+| 一括ファイル入出力 | 一覧の一括ダウンロード / 一括更新を CSV・固定長に切り替え、列の並び・外部列名・コード変換を宣言。詳細画面に置ける一括入出力ボタン、スクリプトでの取込・出力 | [取込書出パターン](JP/patterns/import_export.md) |
+| スクリプトオブジェクト | Excel (帳票・PDF) / WebApiService / Toaster / BulkFileReader / BulkFileTransferService | [組み込みサービスとテンプレート由来サービス](JP/script/script_services.md) |
+
 ### プロコード拡張
 
 - [プロコード概要](JP/overview/procode.md)
 - [ユーザーコード](JP/user_code/user_code.md)
 - [拡張サービスの登録と利用](JP/user_code/extension_services.md) — 自作サービスを DI 登録して Services.Provider / @inject で使う
 - [C# でのデータ取得ヘルパ](JP/user_code/module_data_io_extensions.md) — モジュールに対応した C# クラス + LINQ ライクな書き方でデータを読む
+- [プロコードでのデータ保存](JP/user_code/data_submit.md) — C# から追加・更新・削除する
+- [検索条件でまとめて削除する (SearchDelete)](JP/user_code/search_delete.md)
 
 ### 見た目・スタイル
 
@@ -158,6 +178,10 @@ Codeer.LowCode.Blazor を触り始める前に、全体像を掴むためのセ�
 
 ### サードパーティ UI ライブラリとの連携
 
+- [ApexCharts バインディング (Codeer.LowCode.Bindings.Blazor-ApexCharts)](https://github.com/Codeer-Software/Codeer.LowCode.Bindings.Blazor-ApexCharts) — [Blazor-ApexCharts](https://github.com/joadan/Blazor-ApexCharts) のグラフをフィールドとして配置できる (MIT)。アプリテンプレートには最初から組み込まれています
+  - 3 種のフィールド: [チャート](https://github.com/Codeer-Software/Codeer.LowCode.Bindings.Blazor-ApexCharts/blob/main/docs/ApexChart.md) (棒 / 折れ線 / 面 / ヒートマップ / 散布図など。複数系列・型の混在可) / [横棒チャート](https://github.com/Codeer-Software/Codeer.LowCode.Bindings.Blazor-ApexCharts/blob/main/docs/ApexHBarChart.md) / [ラジアルチャート](https://github.com/Codeer-Software/Codeer.LowCode.Bindings.Blazor-ApexCharts/blob/main/docs/ApexRadialChart.md) (ドーナツ / 円 / ポーラエリア)
+  - 検索条件で取得したモジュールのデータをそのまま系列にする。スクリプトから再読み込み・追加の検索条件・基準線 (アノテーション) を操作できる ([スクリプト API](https://github.com/Codeer-Software/Codeer.LowCode.Bindings.Blazor-ApexCharts/blob/main/docs/Scripting.md))
+  - 使い方の例: [可視化・ダッシュボードのパターン](JP/patterns/visualization_dashboard.md)
 - [IgniteUI サンプル](https://lowcodedemo.azurewebsites.net/Bootstrap/ChartSample)
 
 ---
@@ -173,6 +197,7 @@ Codeer.LowCode.Blazor を触り始める前に、全体像を掴むためのセ�
 - [designer.settings](JP/designer/designer_settings.md) — Data Source 等の設定
 - [PageFrame](JP/designer/page_frame.md) — アプリの外枠
 - [モジュールページ種別](JP/designer/page_types.md) — ListToDetail / List / Detail / Auto の使い分け
+- [列挙型（enum）](JP/designer/enums.md) — 決まった選択肢をプロジェクト全体で定義し、SelectField・スクリプトで共有する
 - [デザイナのカスタマイズ](JP/designer/designer-customize.md) — スクリプト API / メニュー / テンプレート / 外部 CSS・JS / アイコンの追加・ウィンドウタイトル 等
 - [検索コンポーネントのカスタマイズ](JP/designer/designer-match-customize.md)
 
@@ -183,6 +208,7 @@ Codeer.LowCode.Blazor を触り始める前に、全体像を掴むためのセ�
 - [詳細設定](JP/module/module_detail.md)
 - [一覧設定](JP/module/module_list.md)
 - [検索設定](JP/module/module_search.md)
+- [フォーカス制御](JP/module/focus_control.md) — Enter / Tab キーで入力欄を順に移動する
 - [Document Outline と Property パネル](JP/module/DocumentOutline.md)
 - [データモデルと Module の関係](JP/data_model/data-model.md)
 
@@ -202,6 +228,7 @@ Codeer.LowCode.Blazor を触り始める前に、全体像を掴むためのセ�
 - [BooleanField (ブール)](JP/fields/Boolean.md) — チェックボックス／スイッチ／トグル
 - [DateField (日付)](JP/fields/Date.md) — 日付のみ
 - [DateTimeField (日時)](JP/fields/DateTime.md) — 年月日＋時刻
+- [DateTimeOffsetField (タイムゾーン付き日時)](JP/fields/DateTimeOffset.md) — オフセット付きの日時
 - [TimeField (時刻)](JP/fields/Time.md) — 時刻のみ
 - [PasswordField (パスワード)](JP/fields/Password.md) — パスワード（PasswordHash と組み合わせ）
 - [FileField (ファイル)](JP/fields/File.md) — ファイルアップロード
@@ -228,6 +255,8 @@ Codeer.LowCode.Blazor を触り始める前に、全体像を掴むためのセ�
 - [TileListField (タイルリスト)](JP/fields/TileList.md) — タイル形式
 - [ListNumberField (リスト番号)](JP/fields/ListNumber.md) — 行番号列
 - [ListPagingField (ページ送り)](JP/fields/ListPaging.md) — ページャーを独立配置
+- [RecordPagingField (レコードページ送り)](JP/fields/RecordPaging.md) — 詳細画面で前後のレコードへ移動
+- [ListUpDownButtonField (リスト上下ボタン)](JP/fields/ListUpDownButton.md) — 一覧の行を上下に移動
 - [ModuleField (モジュール)](JP/fields/Module.md) — 他モジュールの埋め込み
 - [SearchField (検索)](JP/fields/Search.md) — 検索バー
 
@@ -248,6 +277,8 @@ Codeer.LowCode.Blazor を触り始める前に、全体像を掴むためのセ�
 
 - [ProCodeField (プロコード)](JP/fields/ProCode.md) — 独自 Blazor コンポーネント埋込
 - [OptimisticLockingField (楽観ロック)](JP/fields/OptimisticLocking.md) — 楽観ロック用 System Field
+- [DeleteArchiveField (削除時データ退避)](JP/fields/DeleteArchive.md) — 削除時に退避テーブルへコピーしてから物理削除する System Field
+- [ModuleSelectField (廃止)](JP/fields/ModuleSelect.md) — 旧バージョンのフィールド。LinkField / SelectField への移行案内
 
 #### DB 系（DB 操作に特化）
 

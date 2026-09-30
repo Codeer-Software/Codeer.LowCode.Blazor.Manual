@@ -109,16 +109,16 @@ void SaveButton_OnClick()
         return;
     }
 
-    if (!await ValidateInput()) return;
+    if (!ValidateInput()) return;
 
-    if (await Submit())
+    if (Submit())
     {
         Toaster.Success("保存しました");
     }
 }
 
 // ダイアログとして開く
-var result = await new EditDialog().ShowDialog();
+var result = new EditDialog().ShowDialog();
 ```
 
 ---

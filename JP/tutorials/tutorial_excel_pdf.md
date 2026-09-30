@@ -61,10 +61,10 @@ Excel のまま Download または PDF に変換して Download
 void ExportExcelButton_OnClick()
 {
     // テンプレートを Resource から取得
-    var templateStream = await Resources.GetMemoryStream("見積書テンプレート.xlsx");
+    using var templateStream = Resources.GetMemoryStream("見積書テンプレート.xlsx");
 
     // Excel オブジェクトを開く
-    using var excel = new Excel(templateStream);
+    using var excel = new Excel(templateStream, "見積書.xlsx");
 
     // セルにキーワードから値を書き込む
     var idCell = excel.FindCellByText("{{Id}}");
@@ -77,7 +77,7 @@ void ExportExcelButton_OnClick()
     excel.SetCellValue(excel.FindCellByText("{{Customer}}"), Customer.DisplayText);
 
     // ダウンロード
-    await excel.Download("見積書.xlsx");
+    excel.Download();
 }
 ```
 
@@ -88,14 +88,14 @@ Excel を開いて値を埋めたあと、PDF に変換して出力します。
 ```csharp
 void ExportPdfButton_OnClick()
 {
-    var templateStream = await Resources.GetMemoryStream("見積書テンプレート.xlsx");
-    using var excel = new Excel(templateStream);
+    using var templateStream = Resources.GetMemoryStream("見積書テンプレート.xlsx");
+    using var excel = new Excel(templateStream, "見積書.pdf");
 
     excel.SetCellValue(excel.FindCellByText("{{Id}}"), Id.Value);
     excel.SetCellValue(excel.FindCellByText("{{Date}}"), OrderDate.Value?.ToString("yyyy/MM/dd"));
 
     // PDF でダウンロード
-    await excel.DownloadPdf("見積書.pdf");
+    excel.DownloadPdf();
 }
 ```
 
@@ -108,8 +108,8 @@ void ExportPdfButton_OnClick()
 ```csharp
 void ExportExcelButton_OnClick()
 {
-    var templateStream = await Resources.GetMemoryStream("見積書テンプレート.xlsx");
-    using var excel = new Excel(templateStream);
+    using var templateStream = Resources.GetMemoryStream("見積書テンプレート.xlsx");
+    using var excel = new Excel(templateStream, "見積書.xlsx");
 
     // 明細行の先頭セル（品名列）を探す
     var startCell = excel.FindCellByText("{{ItemName}}");
@@ -123,19 +123,19 @@ void ExportExcelButton_OnClick()
         // 必要に応じてテンプレート行をコピー
         if (i > 0)
         {
-            excel.CopyCells(startCell.RowIndex, startCell.RowIndex + i);
+            excel.CopyCells(startCell, startCell.GetNext(i, 0), 1, 3);
         }
 
-        excel.SetCellValue(startCell.Offset(i, 0), row.ItemName.Value);
-        excel.SetCellValue(startCell.Offset(i, 1), row.Quantity.Value);
-        excel.SetCellValue(startCell.Offset(i, 2), row.UnitPrice.Value);
+        excel.SetCellValue(startCell.GetNext(i, 0), row.ItemName.Value);
+        excel.SetCellValue(startCell.GetNext(i, 1), row.Quantity.Value);
+        excel.SetCellValue(startCell.GetNext(i, 2), row.UnitPrice.Value);
     }
 
-    await excel.Download("見積書.xlsx");
+    excel.Download();
 }
 ```
 
-> 正確な API（`CopyCells` の引数、`Offset` の仕様）は環境によって異なる場合があります。実プロジェクトのサンプルを参照してください。
+> `CopyCells(コピー元, コピー先, 行数, 列数)` はセル範囲を書式ごとコピーします。`GetNext(行オフセット, 列オフセット)` は基準セルからずらしたセルを返します。ダウンロード時のファイル名は `new Excel(...)` の 2 番目の引数で決まります (PDF は拡張子が .pdf になります)。
 
 ---
 

@@ -44,6 +44,13 @@
 2. ListField の現在のページ情報（`Page` / `PageCount` / `TotalCount` / `LimitCount`）を参照して UI を描画
 3. ユーザーがページ番号をクリックすると ListField の `PagingAsync(page)` を呼び出し、リスト本体と同期してページを変更
 
+ページ切り替えの動きは対象リストの設定に従います。
+
+- 対象リストの `ConfirmBeforePageChange`（ページ切り替え時に未保存変更の確認を出す）が `true`（既定）で、リストに未保存の変更があるときは、ページを切り替える前に確認が出ます
+- 対象リストの `IsInMemoryPaging`（全件ロードしてメモリ内でページング）が `true` のときは、読み込み直さずに表示するページだけを切り替えます（確認は出ません）。詳しくは [List](List.md#全件ロードしてメモリ内でページングisinmemorypaging) を参照
+
+> 詳細画面で、一覧の並びのまま前後の**レコード**へ移動するページ送りは [RecordPaging](RecordPaging.md) を使います。
+
 ---
 
 ## スクリプトから
@@ -58,3 +65,4 @@
 
 - [Field 共通プロパティ](common_properties.md)
 - [List](List.md) / [DetailList](DetailList.md) / [TileList](TileList.md)
+- [RecordPaging](RecordPaging.md) — 詳細画面のレコードページ送り

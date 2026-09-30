@@ -2,7 +2,7 @@
 
 **所要時間: 約 30 分**
 
-[クイックスタート](quickstart.md)でサンプルを動かしたら、次は**自分で画面を作ってみる**ステップです。
+[クイックスタート](../quickstart/quickstart.md)でサンプルを動かしたら、次は**自分で画面を作ってみる**ステップです。
 DB テーブル 1 つに対応する、一覧・詳細・検索の 3 画面を作ります。
 
 > 動画で見たい方: [Module の基本的な作成方法と DB への接続（YouTube）](https://youtu.be/q7U9tQPOYXI?si=QreIPnTPalT2e1k5)
@@ -25,7 +25,7 @@ DB テーブル 1 つに対応する、一覧・詳細・検索の 3 画面を�
 
 ## 前提
 
-- [クイックスタート](quickstart.md) を完了していること
+- [クイックスタート](../quickstart/quickstart.md) を完了していること
 - Data Source が設定されていること（サンプルプロジェクトには SQLite が同梱済み）
 
 独自の DB を使う場合は、先に [designer.settings](../designer/designer_settings.md) で Data Source を登録してください。

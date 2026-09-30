@@ -44,6 +44,8 @@ sample_items
 
 `DeletedAt` / `Deleter` は論理削除のタイミングで動く監査用フィールド。詳細は [論理削除](soft_delete.md) を参照。
 
+これらのフィールドが持つのは「最後に誰がいつ」だけ。**変更前の値も含めて保存ごとの履歴を残したい**場合は、Extras の [編集履歴 (EditHistoryField)](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras/blob/main/docs/EditHistory.md) を使う (版の一覧で変更されたフィールドの「旧 → 新」を表示し、過去の版に戻せる)。
+
 ## 標準パターン集の対応
 
 サイドバー **`データ操作/作成日時・更新日時`** → `SystemFieldsSample`

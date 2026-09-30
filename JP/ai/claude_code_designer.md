@@ -86,6 +86,33 @@ claude
 
 Visual Studio のソリューション作成からデザイナの起動までを Claude Code に任せることもできます。空のフォルダで Claude Code を起動し、[Starter リポジトリ](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Starter) の URL を渡すだけです（[クイックスタート](../quickstart/quickstart.md#claude-code-に環境構築を任せる) 参照）。この場合、ワークスペースは `DesignProjects\<名前>\`（デザインプロジェクト本体は `design\`）に展開され、上の手順 1・2 は不要です。
 
+## ホスト側 (C#) の開発に Claude Code を使う (ClaudeCodeForDeveloper)
+
+画面・データ・スクリプトはデザインプロジェクトで作りますが、独自の Web API・保存時のサーバー処理・独自フィールド型・メールやファイル保存先の独自実装など、**ホスト (デザインプロジェクトを動かす C# のソリューション)** を変更したい場面もあります。そのための Claude Code 用の文書一式が **ClaudeCodeForDeveloper** です。
+
+[Starter リポジトリ](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Starter) の手順で環境を用意すると、アプリのフォルダ (ルート) は次の構成になります。
+
+```
+<ルート>\
+├── CLAUDE.md                    ← ホストの説明と作業ルール (Claude Code がルートで起動したときに読む)
+├── ClaudeCodeForDeveloper\      ← ホスト (C#) を触るときに Claude Code が読む文書
+│   ├── claude-code-setup.md     ←   環境構築の手順
+│   ├── _specs\                  ←   ライブラリの拡張点のリファレンス (デザイナが生成)
+│   └── _hooks\                  ←   デザインプロジェクト側のワークスペースを最新化するフック (デザイナが生成)
+├── .claude\                     ← Claude Code の許可設定・フック
+├── Source\                      ← ホストのソース (Server / Client / Client.Shared / Designer など)
+└── DesignProjects\<名前>\       ← デザインプロジェクトごとのワークスペース (この中の design\ がデザインプロジェクト本体)
+```
+
+- **ホストを変更するときはルートで、デザインを作るときは `DesignProjects\<名前>\` で** Claude Code を起動します。ルートで起動してもデザインは編集できます
+- `_specs\` には、独自フィールド型・スクリプトから呼べるサービスの追加・保存時の処理・独自 Web API など、ホスト側でできるカスタマイズの方法とライブラリの API がまとめられています。Claude Code はこれを読んで、テンプレートのどのファイルをどう変えるかを判断します
+- ホストの変更は最後の手段という方針で作業します。まず設定 (ローコード)、次にスクリプト、それでも足りないときだけ C# で、既製の機能 (Extras など) があればそれを使います
+- `_specs\` と `_hooks\` はデザイナの headless CLI `developer-workspace` が生成します。NuGet パッケージを更新したときは、次のコマンドで作り直してください (デザイナは GUI アプリのため、PowerShell では `Start-Process -Wait` で完了を待ちます)
+
+```powershell
+Start-Process -FilePath "<デザイナ exe のパス>" -Wait -ArgumentList @("developer-workspace", "<ルートフォルダ>")
+```
+
 ## 使い方の例
 
 準備が整ったら自然言語で指示を出します。

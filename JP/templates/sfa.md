@@ -145,7 +145,7 @@ CLB で同等のテンプレートを 1 から組むときに重要な設計判�
 
 ### KPI カードの「数値 + Donut」二重表示
 
-件数 / 金額の KPI を **数値とドーナツチャートで対比** することで、達成率が直感的に伝わります。Donut は「受注確定」「残り（予定）」の 2 値を渡すだけ。CLB の ApexCharts バインディング (`Codeer.LowCode.Bindings.ApexCharts`) でシンプルに組めます。
+件数 / 金額の KPI を **数値とドーナツチャートで対比** することで、達成率が直感的に伝わります。Donut は「受注確定」「残り（予定）」の 2 値を渡すだけ。CLB の ApexCharts バインディング (`Codeer.LowCode.Bindings.Blazor-ApexCharts`) でシンプルに組めます。
 
 ### フェーズ定義は JSON 編集で自社向けに
 

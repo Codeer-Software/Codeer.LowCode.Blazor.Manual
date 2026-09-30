@@ -33,7 +33,8 @@
 | **Name** | 名前 | string | `""` | フィールド識別子 |
 | **DisplayName** | 表示名 | string | `""` | 画面表示用の名前 |
 | **DbColumn** | DBカラム | string | `""` | 対応する DB 列名（Join 可） |
-| **Candidates** | 選択肢一覧 | List\<string\> | `[]` | 固定候補。1 行 1 候補、`"値,表示文字"` 形式 |
+| **EnumName** | 列挙型名 | string | `""` | デザインで定義した列挙型の名前。指定するとそのメンバーが候補になる（`Candidates`・モジュール候補より優先） |
+| **Candidates** | 選択肢一覧 | List\<string\> | `[]` | 固定候補。1 行 1 候補、`"表示文字,値"` 形式 |
 | **ValueVariable** | 値用変数 | string | `""` | モジュール候補で「値」として使う Field 名 |
 | **DisplayTextVariable** | 表示用変数 | string | `""` | モジュール候補で「表示文字」として使う Field 名 |
 | **EmptyCandidateType** | 空の選択肢の種別 | enum | `StringEmpty` | 未選択時の扱い |
@@ -48,6 +49,7 @@
 |---|---|---|---|---|
 | **IsSimpleSearchParameter** | 簡易検索条件 | bool | `false` | 簡易検索の対象にする |
 | **AllowOrSearch** | OR検索を許可 | bool | `false` | 検索時の複数選択（OR）を許可 |
+| **OrSearchLayoutType** | OR検索の候補の並べ方 | enum | `Vertical` | OR 検索のチェックボックスの並べ方。`Vertical`（縦）: 1 行に 1 候補 / `Horizontal`（横(折り返し)）: 横に並べ、幅に収まらなければ折り返す |
 | **AllowEmptySearch** | 空検索を許可 | bool | `false` | 空での検索を許可する |
 | **OnSearchDataChanged** | 検索モードデータ変更イベント | string | `""` | 検索条件が変更された時のスクリプトイベント |
 
@@ -69,13 +71,17 @@
 ### 固定候補（Candidates）
 
 シンプルに決め打ちの選択肢を並べたい場合。
-`値,表示文字` の形式で 1 行 1 候補を記述します。表示文字を省略すると値がそのまま表示されます。
+`表示文字,値` の形式で 1 行 1 候補を記述します。値を省略すると表示文字がそのまま値になります。
 
 ```
-A,選択肢 A
-B,選択肢 B
-C,選択肢 C
+選択肢 A,A
+選択肢 B,B
+選択肢 C,C
 ```
+
+### 列挙型（EnumName）
+
+デザインで定義した列挙型を候補にする場合は `EnumName` に列挙型名を指定します。列挙型のメンバーが候補になり、`Candidates` やモジュール候補より優先されます。
 
 ### モジュール候補（SearchCondition）
 
@@ -94,23 +100,24 @@ C,選択肢 C
 
 | 名前 | 型 | 説明 |
 |---|---|---|
-| `Value` | string? | 選択値 |
+| `Value` | string? | 選択値（`Category.Value = "A";` で設定） |
 | `DisplayText` | string? | 表示テキスト |
-| `SearchValue` | string? | 検索値 |
-| `SearchValues` | List\<string\> | 複数選択検索値 |
-| `SearchIsEmpty` | bool? | 空検索 |
-| `IsInverted` | bool | NOT 検索 |
+| `SearchValue` | string? | 検索値（代入で設定） |
+| `SearchValues` | List\<string\> | 複数選択検索値（代入で設定） |
+| `SearchIsEmpty` | bool? | 空検索（代入で設定） |
+| `IsInverted` | bool | NOT 検索（読み取り専用。設定は `SetNotFlag`） |
 | `AllowReloadLinkData` | bool | 候補の再読み込み許可 |
+| `AllowLoadCandidates` | bool | モジュール候補を読み込むか（既定 `true`）。`false` の間は候補を取得しない |
 
 ### メソッド
 
 | 名前 | 戻り値 | 説明 |
 |---|---|---|
-| `SetValueAsync(string?)` | Task | 値を設定 |
-| `SetCandidates(...)` | void | 候補を差し替える |
-| `ReloadCandidates()` | Task | 候補を再取得 |
+| `SetCandidates(params string[])` | void | 候補を差し替える（表示文字 = 値） |
+| `SetCandidates(Dictionary<string, string>)` | void | 候補を差し替える（キー = 表示文字、値 = 値） |
+| `ReloadCandidates()` | Task\<bool\> | モジュール候補を再取得 |
 | `SetAdditionalCondition(ModuleSearcher)` | void | 候補の絞り込み条件を追加 |
-| `SetNotFlag(bool)` | void | NOT 検索フラグを設定 |
+| `SetNotFlag(bool)` | Task | NOT 検索フラグを設定 |
 
 共通プロパティは [Field 共通プロパティ](common_properties.md) を参照。
 
@@ -125,16 +132,15 @@ void Status_OnDataChanged()
 
 // 候補を動的に差し替え
 Category.SetCandidates(new Dictionary<string, string> {
-    { "A", "カテゴリ A" },
-    { "B", "カテゴリ B" }
+    { "カテゴリ A", "A" },
+    { "カテゴリ B", "B" }
 });
-await Category.ReloadCandidates();
 
 // 他モジュール連携時、候補を条件で絞り込む
 var cond = new ModuleSearcher<Department>();
 cond.AddEquals(d => d.IsActive.Value, true);
 Assignee.SetAdditionalCondition(cond);
-await Assignee.ReloadCandidates();
+Assignee.ReloadCandidates();
 ```
 
 ---
@@ -174,6 +180,8 @@ await Assignee.ReloadCandidates();
 
 候補がチェックボックスのリストに変わり、**複数選択** できます。選択した複数値のうちいずれかに一致するデータが対象（`OR` 結合）。モード切替で **不一致** にすれば「いずれにも一致しない」検索になります。
 
+チェックボックスの並べ方は `OrSearchLayoutType`（OR検索の候補の並べ方）で指定します。既定の `Vertical`（縦）は 1 行に 1 候補、`Horizontal`（横(折り返し)）は横に並べて幅に収まらなければ折り返します。
+
 例: カテゴリで「アパレル」「家電」両方を選択 → どちらかのカテゴリの行を全部表示。
 
 ### スクリプトから
@@ -183,10 +191,10 @@ await Assignee.ReloadCandidates();
 Category.SearchValue = "アパレル";
 
 // 不一致（NOT）モード
-await Category.SetNotFlag(true);
+Category.SetNotFlag(true);
 
 // 空モード
-await Category.SetSearchIsEmptyAsync(true);
+Category.SearchIsEmpty = true;
 ```
 
 検索全体の仕組みは [SearchField](Search.md#検索の仕組み) を参照。

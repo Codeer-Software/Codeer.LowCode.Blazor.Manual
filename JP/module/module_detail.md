@@ -55,7 +55,13 @@
 |---|---|
 | **OnBeforeInitialization** | UI 初期化前のスクリプト |
 | **OnAfterInitialization** | UI 初期化後のスクリプト |
+| **OnLocationChanging**（ページ変更時イベント） | 詳細ページから別のページへ移動する直前に呼ばれるスクリプト。`bool` を返し、`false` を返すと移動を中止する（未保存の入力がある場合の確認などに使う）。同じページのままクエリ文字列だけが変わる場合は呼ばれない |
+| **OnFieldDataChanged**（フィールドデータ変更イベント） | このレイアウトのいずれかの Field の値が変わったときに呼ばれるスクリプト。引数 `fieldName` に変わった Field 名が渡る。個々の Field の `OnDataChanged` をまとめて 1 か所で扱いたいときに使う |
 | **DataOnlyFields** | UI には表示しないが、サーバーから取得する Field |
+| **ClassName**（クラス名（css）） | 詳細レイアウト全体に付ける CSS クラス名 |
+| **Color**（詳細全体の文字色） / **BackgroundColor**（背景色） | 詳細レイアウト全体の文字色・背景色。中の Grid・Field で指定しなければこの値が引き継がれる（[カスケード](layout.md#カスケードcolor--font--backgroundcolor)） |
+| **FontFamily**（フォント種類） / **FontSize**（フォントサイズ） | 詳細レイアウト全体のフォント。同じく中の要素に引き継がれる |
+| **FocusControlMode** / **IsFocusWrap** / **InitialFocusField** | Enter / Tab キーでのフォーカス移動の設定（[フォーカス制御](focus_control.md)） |
 
 ---
 
@@ -63,4 +69,5 @@
 
 - [Module 概要](module.md) / [全体設定](module_general.md)
 - [レイアウト](layout.md)
+- [フォーカス制御](focus_control.md)
 - [Document Outline と Property パネル](DocumentOutline.md)

@@ -44,11 +44,11 @@ public class DesignerSettings
 public class DeployInfo
 {
     public DeployMethodType DeployMethod { get; set; }
-    public string AppName { get; set; } = string.Empty;
     public string Directory { get; set; } = string.Empty;
     public string FTPSEndPoint { get; set; } = string.Empty;
     public string UserName { get; set; } = string.Empty;
     public string Password { get; set; } = string.Empty;
+    public bool AllowCliDeploy { get; set; }
 }
 ```
 
@@ -58,6 +58,7 @@ public class DeployInfo
 | **Directory** | 保存先ディレクトリ（FileSystem 時） |
 | **FTPSEndPoint** | FTPS エンドポイント（FTPS 時） |
 | **UserName** / **Password** | FTPS 認証情報 |
+| **AllowCliDeploy** | デザイナのコマンドライン（Claude Code などのツールから使う `deploy` コマンド）から、このデプロイ先へのデプロイを許可する。既定 `false`。デプロイ方式（FileSystem / FTPS）を問わず、`true` にしたデプロイ先だけがコマンドラインからデプロイできる |
 
 ### DataSource
 
@@ -67,6 +68,7 @@ public class DataSource
     public string Name { get; set; } = string.Empty;
     public DataSourceType DataSourceType { get; set; }
     public string ConnectionString { get; set; } = string.Empty;
+    public bool AllowCliSqlAccess { get; set; }
 }
 ```
 
@@ -75,6 +77,7 @@ public class DataSource
 | **Name** | 参照用の名前 |
 | **DataSourceType** | `SQLServer` / `PostgreSQL` / `Oracle` / `MySQL` / `SQLite` |
 | **ConnectionString** | 接続文字列（`ConnectionStrings` で別出しにすることが多い） |
+| **AllowCliSqlAccess** | デザイナのコマンドライン（Claude Code などのツールから使う `sql` コマンド）から、このデータソースへの SQL 実行を許可する。既定 `false`。本番 DB を誤って操作しないよう、開発用のデータソースだけ `true` にする |
 
 ---
 

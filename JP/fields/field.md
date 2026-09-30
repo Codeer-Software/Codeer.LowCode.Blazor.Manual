@@ -55,6 +55,7 @@ Module に Data Source を設定すると、ツールボックスに「DB フィ
 | [Boolean](Boolean.md) | 真偽値（チェック／スイッチ／トグル） |
 | [Date](Date.md) | 日付のみ |
 | [DateTime](DateTime.md) | 日時 |
+| [DateTimeOffset](DateTimeOffset.md) | タイムゾーン付き日時 |
 | [Time](Time.md) | 時刻のみ |
 | [Password](Password.md) | パスワード（確認入力チェック付き） |
 | [File](File.md) | ファイルアップロード（画像プレビュー対応） |
@@ -87,6 +88,8 @@ Module に Data Source を設定すると、ツールボックスに「DB フィ
 | [TileList](TileList.md) | 一覧（タイル形式、折り返し） |
 | [ListNumber](ListNumber.md) | 一覧内の行番号列 |
 | [ListPaging](ListPaging.md) | リストのページャーを独立配置 |
+| [RecordPaging](RecordPaging.md) | 詳細画面で一覧の並びのまま前後のレコードへ移動 |
+| [ListUpDownButton](ListUpDownButton.md) | 一覧の行を上下に移動するボタン |
 | [Module](Module.md) | 他モジュールを画面内に埋め込む |
 | [Search](Search.md) | 検索バー |
 

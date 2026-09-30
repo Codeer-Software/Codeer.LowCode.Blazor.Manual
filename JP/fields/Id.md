@@ -74,7 +74,8 @@ Id の値をどう決めるかで 3 つの方式があります。
 |---|---|---|
 | `Value` | string? | Id の値 |
 | `SearchValue` | string? | 検索値 |
-| `SearchComparison` | MatchComparison | 検索比較（`Equal` / `Like`） |
+| `SearchComparison` | MatchComparison | 検索比較（`Equal` / `Like`）。代入で設定 |
+| `SearchIsEmpty` | bool? | 「空」を検索条件にする（代入で設定） |
 
 共通プロパティは [Field 共通プロパティ](common_properties.md) を参照。
 
@@ -82,8 +83,8 @@ Id の値をどう決めるかで 3 つの方式があります。
 
 ```csharp
 // Id 検索条件を動的に設定
-await this.Id.SetSearchValueAsync("CUS-0001");
-await this.Id.SetSearchComparisonAsync(MatchComparison.Like);
+this.Id.SearchValue = "CUS-0001";
+this.Id.SearchComparison = MatchComparison.Like;
 
 // ModuleSearcher で Id を条件にする
 var searcher = new ModuleSearcher<Customer>();

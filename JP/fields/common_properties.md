@@ -14,6 +14,9 @@
 | **Name** | string | `""` | フィールド識別子。スクリプトや DB 列の参照で使う |
 | **IgnoreModification** | bool | `false` | 変更検知（IsModified）から除外する |
 | **OnValidateInput** | string | `""` | 入力検証スクリプト。Submit 時に呼ばれ、`bool` を返す（[入力検証](#入力検証-onvalidateinput) 参照） |
+| **IsFocusSkip**（フォーカス遷移スキップ） | bool | `false` | Enter / Tab キーでのフォーカス移動の対象から外す（[フォーカス制御](../module/focus_control.md#field-側のプロパティ)） |
+| **NextFocusField**（次のフォーカス先） | string | `""` | この Field の次にフォーカスを移動する Field 名。空なら配置順（[フォーカス制御](../module/focus_control.md#field-側のプロパティ)） |
+| **OnFocusMoving**（フォーカス遷移イベント） | string | `""` | この Field からフォーカスが移動する直前のスクリプト。`false` を返すと移動しない（[フォーカス制御](../module/focus_control.md#onfocusmoving)） |
 
 ### 値を持つ Field（ValueField 系）に共通
 
@@ -50,11 +53,11 @@
 | `IsValid` | bool | バリデーション結果 |
 | `ErrorText` | string | エラーメッセージ |
 | `SetError(string)` | void | エラーを設定 |
-| `ClearError()` | void | エラーをクリア |
+| `ClearError()` | void | エラーをクリア（List / DetailList / TileList・Module・Search の各 Field では、行や埋め込んだモジュールなど配下の Field のエラーもクリア） |
 | `Color` | string? | 文字色 |
 | `BackgroundColor` | string? | 背景色 |
 | `FontFamily` | string? | フォント名 |
-| `FontSize` | string? | フォントサイズ |
+| `FontSize` | int? | フォントサイズ |
 | `IsEnabled` | bool | 有効／無効 |
 | `IsVisible` | bool | 表示／非表示 |
 | `IsViewOnly` | bool | 編集可／読み取り専用 |
@@ -66,36 +69,45 @@
 | `HasFocus()` | Task<bool> | このフィールドがフォーカスを持っているか |
 | `GetClientRect()` | Task<Rect> | 画面上の矩形を取得 |
 | `SetError(string)` | void | エラーメッセージを設定（`IsValid` が false になる） |
-| `ClearError()` | void | エラーメッセージをクリア |
+| `ClearError()` | void | エラーメッセージをクリア（配下を持つ Field では配下もクリア。上記参照） |
 
 ### 値を持つ Field で使える
 
 | 名前 | 型・戻り値 | 説明 |
 |---|---|---|
-| `Value` | T? | 値を取得 |
-| `SetValueAsync(T?)` | Task | 値を設定（`Value = ...` と書いても同じ） |
+| `Value` | T? | 値の取得・設定（`Name.Value = "山田";` のように代入で設定） |
+| `SetInitialValue(T?)` | Task | 値を初期値として設定する。`Value` への代入と同じく値が反映され `OnDataChanged` も発生するが、変更扱い（`IsModified`）にならず、保存（Submit）の対象にもならない |
 
-### 範囲検索 Field (Number / Date / DateTime / Time) で使える
+> スクリプトでは、値や検索条件の設定はプロパティへの代入で書きます（`SetValueAsync(...)` などのメソッド名では呼び出せません）。
+
+```csharp
+// 新規画面の既定値を入れる（未保存の変更として扱われない）
+Status.SetInitialValue("draft");
+```
+
+### 範囲検索 Field (Number / Date / DateTime / DateTimeOffset / Time) で使える
 
 | 名前 | 型・戻り値 | 説明 |
 |---|---|---|
-| `SearchMin` | T? | 検索の最小値 |
-| `SearchMax` | T? | 検索の最大値 |
-| `SearchIsEmpty` | bool? | 「空」を検索条件にするか |
-| `SetSearchMinAsync(T?)` | Task | 最小値を設定 |
-| `SetSearchMaxAsync(T?)` | Task | 最大値を設定 |
-| `SetSearchIsEmptyAsync(bool?)` | Task | 空検索フラグを設定 |
+| `SearchMin` | T? | 検索の最小値（代入で設定） |
+| `SearchMax` | T? | 検索の最大値（代入で設定） |
+| `SearchIsEmpty` | bool? | 「空」を検索条件にするか（代入で設定） |
 
 ### 単一値の検索 Field (Text / Boolean / Select / Id など) で使える
 
 | 名前 | 型・戻り値 | 説明 |
 |---|---|---|
-| `SearchValue` | T? | 検索値 |
-| `SearchComparison` | MatchComparison | 比較方法（Equal, Like など） |
-| `SearchIsEmpty` | bool? | 「空」を検索条件にするか |
-| `SetSearchValueAsync(T?)` | Task | 検索値を設定 |
-| `SetSearchComparisonAsync(MatchComparison)` | Task | 比較方法を設定 |
-| `SetSearchIsEmptyAsync(bool?)` | Task | 空検索フラグを設定 |
+| `SearchValue` | T? | 検索値（代入で設定） |
+| `SearchComparison` | MatchComparison | 比較方法（Equal, Like など）。代入で設定（Text / Id） |
+| `SearchIsEmpty` | bool? | 「空」を検索条件にするか（代入で設定） |
+
+```csharp
+Price.SearchMin = 1000;
+Name.SearchValue = "山田";
+Name.SearchComparison = MatchComparison.Like;
+```
+
+検索値にも入力と同じ制限がかかります（Number の小数桁・`Min` / `Max`、Text の `MaxLength`）。詳細は各 Field のページを参照。
 
 ---
 

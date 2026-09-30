@@ -28,6 +28,17 @@ CurrentUserModule に存在するユーザーのうち、ここで指定した�
 
 これは**最も粗い粒度のアクセス制御**です。より細かい制御は [PageFrame](page_frame.md) や [Module](../module/module.md) の権限設定で行います。
 
+### 書込権限なし時の表示（WritePermissionDeniedBehavior）
+
+Module のユーザーによる認可（書き込み）や権限フィールドで書き込みできないとき、入力欄をどう見せるかをアプリ全体で指定します。
+
+| 値 | 見せ方 |
+|---|---|
+| `ViewOnly`（既定） | 読み取り専用の表示にする |
+| `Disabled` | 入力欄のまま無効化する |
+
+詳しくは [認証・認可](../authorization/authorization.md#--書き込み) 参照。
+
 ---
 
 ## 認可の階層

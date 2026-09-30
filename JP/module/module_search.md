@@ -34,6 +34,16 @@ Grid を入れ子にすることで、複雑な条件を組み立てられます
 
 ---
 
+## 検索レイアウトのプロパティ
+
+| プロパティ | 説明 |
+|---|---|
+| **OnSearchInitialization**（検索レイアウト初期化時のイベント） | 検索条件の初期値を設定するスクリプト。サイドバー等のメニューから一覧ページを開いたときに呼ばれる（[検索条件に初期値を設定](../Examples/Tips_SearchCriteriaInitialValueSetting.md)） |
+| **ShowDefaultSearchButtons**（デフォルト検索ボタン表示） | 検索条件の下に標準の検索ボタン・クリアボタンを表示する（既定: オン）。オフにすると表示されないので、ボタンを自分で配置する場合に使う |
+| **FocusControlMode** / **IsFocusWrap** | 検索条件の入力欄を Enter / Tab キーで移動する設定（[フォーカス制御](focus_control.md)） |
+
+---
+
 ## default レイアウトと追加レイアウト
 
 | レイアウト | 用途 |
@@ -50,4 +60,5 @@ Grid を入れ子にすることで、複雑な条件を組み立てられます
 - [Module 概要](module.md) / [全体設定](module_general.md)
 - [SearchField](../fields/Search.md)
 - [レイアウト](layout.md)
+- [フォーカス制御](focus_control.md)
 - [Tips: 検索条件に初期値を設定](../Examples/Tips_SearchCriteriaInitialValueSetting.md)

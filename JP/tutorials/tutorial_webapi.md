@@ -93,7 +93,7 @@ void SayHelloButton_OnClick()
     if (result.StatusCode == 200)
     {
         var message = result.JsonObject.message;
-        await MessageBox.Show(message);
+        MessageBox.Show(message);
     }
     else
     {

@@ -20,7 +20,7 @@ searcher.AddEquals(c => c.Email.Value, "user@example.com");
 searcher.AddLike(c => c.Name.Value, "山田");
 searcher.OrderBy(c => c.Id.Value);
 
-var customers = await searcher.Execute();   // List<Module>
+var customers = searcher.Execute();   // List<Module>
 foreach (var c in customers)
 {
     Logger.Log(c.Name.Value);
@@ -35,7 +35,7 @@ foreach (var c in customers)
 軽量な `ModuleData`（生のデータ）として取りたい場合は `ExecuteRaw` を使います。
 
 ```csharp
-var rawList = await searcher.ExecuteRaw();   // List<ModuleData>
+var rawList = searcher.ExecuteRaw();   // List<ModuleData>
 ```
 
 ---
@@ -87,7 +87,7 @@ var searcher = new ModuleSearcher<Customer>();
 searcher.AddEquals(c => c.Status.Value, "Active");
 searcher.AddConditions(orCondition);
 
-var list = await searcher.Execute();
+var list = searcher.Execute();
 ```
 
 ---
@@ -120,7 +120,7 @@ searcher.Select(c => c.Id.Value, c => c.Name.Value);
 
 ```csharp
 searcher.Limit(50);
-var list = await searcher.Execute();   // 最大 50 件
+var list = searcher.Execute();   // 最大 50 件
 ```
 
 ページングは `Limit` と `ExecutePage(pageIndex)` を併用します（`pageIndex` は 0 始まり、1 ページの件数は `Limit` の値）。
@@ -131,7 +131,7 @@ var searcher = new ModuleSearcher<Customer>();
 searcher.OrderBy(c => c.Id.Value);
 searcher.Limit(50);
 
-var result = await searcher.ExecutePage(0);   // 1 ページ目
+var result = searcher.ExecutePage(0);   // 1 ページ目
 var rows = result.Items;                       // 当該ページ（最大 50 件）
 var total = result.TotalCount;                 // 条件に一致する全件数（ページャー表示用）
 ```
@@ -139,7 +139,7 @@ var total = result.TotalCount;                 // 条件に一致する全件数
 `Module` 実体が不要な軽量処理では、生データ版の `ExecuteRawPage(pageIndex)`（戻り値 `ModuleDataPageResult`）を使います。
 
 ```csharp
-var result = await searcher.ExecuteRawPage(0);
+var result = searcher.ExecuteRawPage(0);
 var rows = result.Items;          // List<ModuleData>
 var total = result.TotalCount;
 ```
@@ -180,7 +180,7 @@ s1.AddEquals(c => c.Status.Value, "Active");
 var s2 = new ModuleSearcher<Order>();
 s2.AddGreaterThan(o => o.CreatedAt.Value, DateTime.Today.AddDays(-7));
 
-var response = await BatchSearcher.Execute(s1, s2);
+var response = BatchSearcher.Execute(s1, s2);
 
 var customers = response.GetAt(0);   // s1 の結果
 var orders = response.GetAt(1);      // s2 の結果
@@ -210,7 +210,7 @@ var orders = response.GetBy(s2);      // s2 の結果
 ```csharp
 var searcher = new ModuleSearcher<Customer>();
 searcher.AddEquals(c => c.Email.Value, EmailField.Value);
-var customer = await searcher.ExecuteFirstOrDefault();
+var customer = searcher.ExecuteFirstOrDefault();
 if (customer == null) return;
 // customer.Name.Value ...
 ```
@@ -224,7 +224,7 @@ if (customer == null) return;
 var searcher = new ModuleSearcher<Customer>();
 searcher.AddEquals(c => c.Status.Value, "Active");
 searcher.Limit(1);
-var page = await searcher.ExecuteRawPage(0);
+var page = searcher.ExecuteRawPage(0);
 var count = page.TotalCount;
 ```
 

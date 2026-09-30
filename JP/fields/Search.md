@@ -150,10 +150,10 @@ URL パラメータのキー名は `SearchUrlParameterKey` / `PageIndexUrlParame
 ```csharp
 // 検索バーの Field にアクセスして値を設定、検索実行
 Search.SearchModule.Name.SearchValue = "山田";
-await Search.ExecuteSearch();
+Search.ExecuteSearch();
 
 // 条件クリア
-await Search.ExecuteClear();
+Search.ExecuteClear();
 ```
 
 ---

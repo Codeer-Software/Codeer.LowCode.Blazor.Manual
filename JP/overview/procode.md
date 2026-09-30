@@ -3,6 +3,8 @@
 Codeer.LowCode.Blazor は Blazor のライブラリなので、**.NET / Blazor の通常のコードを自由に追加**できます。
 標準機能で足りない部分はプロコードで補完するのが基本の考え方です。
 
+自分でコードを書く前に、拡張ライブラリ [Extras](#extras--apexcharts-の導入)（カレンダー・ガント・メール送信・承認フロー・編集履歴・AI・CSV 入出力など）と ApexCharts バインディング（グラフ）に目的の機能が無いか確認してください。
+
 ## プロコードの 5 つの拡張パターン
 
 | パターン | 用途 | 使う基底クラス |
@@ -239,6 +241,20 @@ scriptRuntimeTypeManager.AddService(new WebApiService(http, logger));
 ```
 
 詳しくは [スクリプトの拡張](../script/script_extend.md) を参照。
+
+---
+
+## Extras / ApexCharts の導入
+
+次の 2 つの拡張ライブラリは、それ自体がここで説明した仕組み（カスタム Field・スクリプトへの登録・サーバー側のサービス）で作られた NuGet パッケージです。**アプリテンプレートで作成したプロジェクトには最初から組み込まれています**。
+
+| ライブラリ | 内容 | 導入手順 |
+|---|---|---|
+| [Codeer.LowCode.Blazor.Extras](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras) | 追加フィールド・認証・メール送信・承認フロー・編集履歴・AI・ファイルストレージ・一括ファイル入出力・スクリプトオブジェクト (Excel / WebApiService / Toaster など)。MIT | [セットアップ](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras#セットアップ) |
+| [Codeer.LowCode.Bindings.Blazor-ApexCharts](https://github.com/Codeer-Software/Codeer.LowCode.Bindings.Blazor-ApexCharts) | ApexCharts のグラフ (チャート / 横棒チャート / ラジアルチャート)。MIT | [インストール](https://github.com/Codeer-Software/Codeer.LowCode.Bindings.Blazor-ApexCharts#インストール) |
+
+古いテンプレートで作成したプロジェクトに追加する場合は、上のリンク先の手順に従って NuGet パッケージを入れ、`LowCodeApp.Client.Shared` / `LowCodeApp.Server` / `LowCodeApp.Designer` の 3 か所に初期化コードを追加します。
+機能の一覧は [README の Extras 節](../../README.md#extras-拡張ライブラリ) を参照してください。
 
 ---
 

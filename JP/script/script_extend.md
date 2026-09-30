@@ -3,7 +3,7 @@
 `.NET` のクラス・独自サービスをスクリプトから呼べるようにするには、
 ユーザーコードの `IAppInfoService` 実装の中で `ScriptRuntimeTypeManager` に登録します。
 
-VS テンプレートで作ったプロジェクトでは `WebApp.Client.Shared/Services/AppInfoService.cs` がその場所です。
+アプリテンプレートで作ったプロジェクトでは `LowCodeApp.Client.Shared/Services/AppInfoService.cs` のコンストラクタがその場所です（古いテンプレートでは `WebApp.Client.Shared/Services/AppInfoService.cs`）。
 
 ```csharp
 public class AppInfoService : IAppInfoServiceExtension
@@ -68,7 +68,7 @@ _scriptRuntimeTypeManager.AddService(new MyAppContext(...));
 スクリプト側:
 
 ```csharp
-var data = await WebApiService.Get("/testapi").JsonObject;
+var data = WebApiService.Get("/testapi").JsonObject;
 var user = MyAppContext.CurrentUser;
 ```
 
@@ -129,7 +129,7 @@ public class MyService
 スクリプト側:
 
 ```csharp
-await MyService.SendEmail("a@b", "subject", "body");
+MyService.SendEmail("a@b", "subject", "body");
 ```
 
 ---
@@ -167,7 +167,7 @@ _scriptRuntimeTypeManager.AddService(new WeatherApiService());
 ```csharp
 async Task ShowButton_OnClick()
 {
-    var result = await WeatherApiService.GetCurrent("Tokyo");
+    var result = WeatherApiService.GetCurrent("Tokyo");
     Toaster.Success($"{result.JsonObject.temp} ℃");
 }
 ```

@@ -87,7 +87,7 @@ void SaveButton_OnClick()
     }
 
     // 標準の Submit を実行
-    if (await Submit())
+    if (Submit())
     {
         Toaster.Success("保存しました");
     }
@@ -116,17 +116,17 @@ void SaveButton_OnClick()
     // 必須チェック
     if (string.IsNullOrEmpty(Name.Value))
     {
-        await MessageBox.Show("名前を入力してください");
+        MessageBox.Show("名前を入力してください");
         return;
     }
 
     // Module 全体の標準バリデーションも実行
-    if (!await ValidateInput())
+    if (!ValidateInput())
     {
         return;  // 失敗時は画面上にエラー表示されるので return だけでよい
     }
 
-    if (await Submit())
+    if (Submit())
     {
         Toaster.Success("保存しました");
     }
@@ -147,7 +147,7 @@ void SaveButton_OnClick()
 
 ```csharp
 Toaster.Success("完了しました");      // 数秒で消えるトースト
-await MessageBox.Show("よろしいですか？"); // await 必須、戻り値 string で押したボタン取得可
+MessageBox.Show("よろしいですか？"); // 必須、戻り値 string で押したボタン取得可
 Logger.Log("デバッグ情報: " + Name.Value); // 開発者ツールの Console へ
 ```
 

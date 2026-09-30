@@ -36,6 +36,9 @@
 | **FormControlStyle** | 入力スタイル | enum? | null | セル内の入力コントロールのスタイル |
 | **ApplyBackgroundToBoxInput** | Box: 行の背景色を入力欄に適用 | bool | `false` | 入力欄にも行背景色を適用 |
 | **PagerPosition** | ページャーの位置 | enum | `Top` | ページャーの位置（`Top` / `Bottom`） |
+| **IsInMemoryPaging** | 全件ロードしてメモリ内でページング | bool | `false` | 全件を読み込み、画面内でページを切り替える。[下記](#全件ロードしてメモリ内でページングisinmemorypaging) 参照 |
+| **ConfirmBeforePageChange** | ページ切り替え時に未保存変更の確認を出す | bool | `true` | 一覧に未保存の変更があるときにページを切り替えると、変更が失われる旨の確認を出す |
+| **FixedColumnCount** | 固定列数 | int | `0` | 横スクロール時に左から指定列数を固定表示する。1 行構成（セル結合なし）の List レイアウトで、固定する列すべてに幅が指定されている場合に有効 |
 | **UseIndexSort** | インデックスソート | bool | `false` | 表示順を Index として保存 |
 | **DeleteTogether** | 親テーブルと一緒に削除 | bool | `false` | 親データ削除時に一括削除 |
 | **ReplaceMode** | 洗い替え | enum | `None` | 保存時の入れ替え方式（`None` / `All` / `UpdateAsDeleteInsert`）。[下記](#洗い替えreplacemode) 参照 |
@@ -77,16 +80,16 @@
 
 | 名前 | 型 | 説明 |
 |---|---|---|
-| `Rows` | List\<Module\> | 全行のデータ |
-| `RowCount` | int | 行数 |
-| `SelectedIndex` | int | 選択されている行のインデックス（未選択時 -1） |
+| `Rows` | List\<Module\> | 保持している行のデータ（通常は表示中ページの行。`IsInMemoryPaging` のときは全ページの行） |
+| `RowCount` | int | `Rows` の行数 |
+| `SelectedIndex` | int | 選択されている行のインデックス（未選択時 -1）。`List.SelectedIndex = 0;` で選択行を変更 |
 | `Page` | int | 現在のページ |
 | `PageCount` | int | 総ページ数 |
 | `TotalCount` | int | 総件数 |
 | `Limit` | int? | ページあたりの件数（`SearchCondition.LimitCount`） |
 | `AllowLoad` | bool | ロードの可否 |
 | `IsValid` | bool | List 自身が `SetError` されておらず、かつ**全行の全 Field が IsValid** のとき true |
-| `SearchComparison` | MatchComparison? | 検索比較（`Exists` / `NotExists`） |
+| `SearchComparison` | MatchComparison? | 検索比較（`Exists` / `NotExists`）。代入で設定 |
 
 ### メソッド
 
@@ -104,8 +107,6 @@
 | `DeleteAllRows()` | Task | 全行削除 |
 | `Reload()` | Task | データを再取得 |
 | `SetAdditionalCondition(ModuleSearcher)` | Task | 検索条件を追加 |
-| `SetSelectedIndexAsync(int)` | Task | 選択行を変更 |
-| `SetSearchComparisonAsync(MatchComparison?)` | Task | 検索比較を設定 |
 | `ShowCustomDialog()` | Task | 独自のダイアログを表示 |
 
 共通プロパティは [Field 共通プロパティ](common_properties.md) を参照。
@@ -123,13 +124,90 @@ void List_OnSelectedIndexChanged()
 // 条件を追加してリロード
 var cond = new ModuleSearcher<Order>();
 cond.AddEquals(o => o.CustomerId.Value, CurrentCustomer.Id.Value);
-await List.SetAdditionalCondition(cond);
-await List.Reload();
+List.SetAdditionalCondition(cond);
+List.Reload();
 
 // プログラム的に行追加
-var newRow = await List.AddRow();
+var newRow = List.AddRow();
 newRow.Name.Value = "新規";
 ```
+
+### サマリー行・セル結合・ヘッダー文字
+
+合計行・小計行の追加、同じ値が続くセルの縦結合、ヘッダーの結合や文字の差し替えをスクリプトで行えます。いずれも**表示だけ**のもので、データとしては保存されません。集計値の計算はスクリプトで行い、ソートやページ切り替え・データ変更で並びが変わっても自動では追従しないため、`OnDataChanged` などで作り直します。表形式の List で表示されます。
+
+| 名前 | 戻り値 | 説明 |
+|---|---|---|
+| `AddSummaryRow()` | ListSummaryRow | 表の末尾に合計行を追加（表の下端に固定表示）。複数追加すると追加順に並ぶ |
+| `InsertSummaryRow(int afterRowIndex)` | ListSummaryRow | 指定したデータ行の直後に小計行を挿入 |
+| `ClearSummaryRows()` | void | 合計行・小計行をすべて消す |
+| `MergeRows(string fieldName, int startIndex, int rowCount)` | void | 指定列の `startIndex` 行目から `rowCount` 行を縦に結合（表示は先頭行の値） |
+| `MergeSameRows(string fieldName)` | void | 指定列で隣り合う同じ値のセルをまとめて縦に結合（呼んだ時点の並びで結合） |
+| `ClearRowMerges()` | void | 縦結合をすべて解除 |
+| `MergeHeaderColumns(string fieldName, int columnCount)` | void | 指定列から右へ `columnCount` 列分のヘッダーを結合（表示は起点列のラベル） |
+| `MergeHeaderColumns(string fieldName, int columnCount, string? text)` | void | 同上。結合したヘッダーに `text` を表示 |
+| `ClearHeaderMerges()` | void | ヘッダーの結合をすべて解除 |
+| `SetHeaderText(string fieldName, string? text)` | void | 指定列のヘッダー文字を差し替える（`null` で元に戻す） |
+| `ClearHeaderTexts()` | void | ヘッダー文字の差し替えをすべて解除 |
+
+- 縦結合・ヘッダー結合は 1 行構成（セル結合なし）の List レイアウトで有効です。縦結合は閲覧表示の列だけに効き、編集できる列は結合されません。小計行をまたぐ縦結合はその位置で分かれます
+- ヘッダー結合・サマリー行の列結合は、`FixedColumnCount` の固定列の境界をまたぐと無効です。結合したヘッダーはソート・列幅変更・列カスタマイズの操作対象になりません
+
+`ListSummaryRow`（`AddSummaryRow` / `InsertSummaryRow` の戻り値）のメンバー:
+
+| 名前 | 型・戻り値 | 説明 |
+|---|---|---|
+| `Color` | string | 行全体の文字色 |
+| `BackgroundColor` | string | 行全体の背景色 |
+| `SetText(string fieldName, string? text)` | void | 指定列のセルに文字を表示（空文字 / `null` で消す） |
+| `GetText(string fieldName)` | string | 指定列のセルの文字 |
+| `SetColor(string fieldName, string? color)` | void | 指定列のセルの文字色（行全体の指定より優先） |
+| `SetBackgroundColor(string fieldName, string? color)` | void | 指定列のセルの背景色（行全体の指定より優先） |
+| `SetHorizontalAlignment(string fieldName, HorizontalAlignment alignment)` | void | 指定列のセルの横位置（`Start` / `Center` / `End`。`Stretch` で列の設定に戻す） |
+| `MergeColumns(string fieldName, int columnCount)` | void | 指定列から右へ `columnCount` 列分のセルを結合 |
+
+```csharp
+// 明細の合計行を作り直す（OnDataChanged から呼ぶ）
+void Items_OnDataChanged()
+{
+    Items.ClearSummaryRows();
+    var total = 0;
+    foreach (var row in Items.Rows)
+    {
+        if (row.Amount.Value != null) total = total + row.Amount.Value;
+    }
+    var sum = Items.AddSummaryRow();
+    sum.MergeColumns("Code", 2);
+    sum.SetText("Code", "合計");
+    sum.SetText("Amount", total.ToString("#,0"));
+    sum.BackgroundColor = "#FFF8E1";
+}
+
+// ヘッダーを「項目」にまとめ、同じ分類が続くセルを縦に結合する
+Items.MergeHeaderColumns("Category", 2, "項目");
+Items.MergeSameRows("Category");
+```
+
+---
+
+## 全件ロードしてメモリ内でページング（IsInMemoryPaging）
+
+通常のページングは、ページを切り替えるたびにそのページのデータを読み込み直します。`IsInMemoryPaging` を `true` にすると、**条件に合うデータを最初に全件読み込み**、ページの切り替えは読み込み直さずに画面内で行います。
+
+| | 通常（`false`） | メモリ内ページング（`true`） |
+|---|---|---|
+| 読み込み | 表示中のページの分だけ | 全件 |
+| `SearchCondition.LimitCount` | 1 ページの件数（読み込み件数） | 1 ページの表示件数 |
+| ページ切り替え | 読み込み直す（未保存の変更は失われる） | 読み込み直さない（編集中の内容はページをまたいで残る） |
+| `Rows` / `RowCount` | 表示中のページの行 | 全ページの行 |
+| 行のインデックス（`SelectedIndex`・`OnDoubleClickRow` の `index` など） | 表示中のページ内の位置 | 全行の通し番号 |
+| `TotalCount` | 条件に合う総件数 | 保持している行数（行の追加・削除に追従） |
+| `Limit` | 1 ページの件数 | 1 ページの表示件数 |
+| ヘッダークリックのソート | 読み込み直す | 保持している行を画面内で並べ替える（DB の並び順と一致しないことがある） |
+
+- 明細を複数ページにまたがって編集し、まとめて保存したい一覧に向きます。全件を読み込むので、件数が多い一覧には向きません
+- 行を追加するとその行のページへ、入力エラーがあると最初のエラー行のページへ移動します
+- `ConfirmBeforePageChange` の確認は出ません（ページを切り替えても変更が失われないため）
 
 ---
 
@@ -181,10 +259,10 @@ ListField を**検索レイアウトに配置**すると、「親レコードを
 
 ```csharp
 // 検索条件をプログラム的に設定
-await Orders.SetSearchComparisonAsync(MatchComparison.Exists);
+Orders.SearchComparison = MatchComparison.Exists;
 
 // 解除
-await Orders.SetSearchComparisonAsync(null);
+Orders.SearchComparison = null;
 ```
 
 `SearchComparison` に設定できる値は `Exists` / `NotExists` / `null` のみです。
@@ -199,4 +277,7 @@ await Orders.SetSearchComparisonAsync(null);
 - [DetailList](DetailList.md) — カード形式で表示
 - [TileList](TileList.md) — タイル形式で表示
 - [ListNumber](ListNumber.md) — 行番号列
+- [ListPaging](ListPaging.md) — ページャーを別の場所に置く
+- [RecordPaging](RecordPaging.md) — 詳細画面で一覧の並びのまま前後のレコードへ移動
+- [ListUpDownButton](ListUpDownButton.md) — 行を上下に移動するボタン
 - [チュートリアル: モジュール連携](../tutorials/tutorial_modules.md)

@@ -13,7 +13,7 @@
 | **DataSource** | 対応する DB テーブル / View。[designer.settings](../designer/designer_settings.md) で事前に定義しておく |
 | **Options** | `作成` / `更新` / `削除` の有効化 |
 | **Access** | ユーザー・データ単位のアクセス制御。[認証・認可](../authorization/authorization.md) 参照 |
-| **Fields** | Module で使用する Field 一覧（ツールボックスからドロップで追加） |
+| **Fields** | Module で使用する Field 一覧（ツールボックスからドロップで追加）。一覧の上の入力欄に文字を入れると、Field の種類・名前・表示名・DB カラムのいずれかに部分一致する Field だけに絞り込める（空白区切りで複数語を入れると、すべてに一致するものだけ） |
 | **Scripts** | Module レベルのスクリプト関数 |
 
 ---
@@ -29,6 +29,8 @@ Module で使う Field をドラッグ＆ドロップで追加します。
 | **DB Fields** | DataSource が設定されている場合に、テーブルの列から自動で候補が出る |
 | **Rest Fields** | まだレイアウトに使用していない Field |
 | **Link Fields** | LinkField を作った場合、リンク先の Field |
+
+リンク先のさらに先の項目（例: `Order.Customer.RegionName` = 注文のリンク先の顧客の地域名）のような 2 段以上のパスを条件などで使う場合、途中のパス（`Order.Customer`）は自動で補われます。途中のパスを別途追加しておく必要はありません。
 | **Layout** | 詳細・検索画面で使う Grid / Canvas 等のレイアウト要素 |
 
 ---
