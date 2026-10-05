@@ -31,10 +31,11 @@ namespace LowCodeSamples.Client.Shared.Services
         public async Task<List<AggregateResult>> AggregateAsync(List<AggregateCondition> conditions)
         {
             var result = await _http.PostAsJsonReturnHttpResponseAsync($"/api/module_data/aggregate", conditions);
-            if (result == null) throw new InvalidOperationException("Aggregation failed.");
+            //失敗は空のリスト (理由は HttpService が通知する)
+            if (result == null) return new();
             using var memory = (MemoryStream)await result.Content.ReadAsStreamAsync();
             return MessagePackSerializer.Typeless.Deserialize(memory) as List<AggregateResult>
-                ?? throw new InvalidOperationException("Aggregation failed.");
+                ?? new();
         }
 
         public async Task<List<ModuleSubmitResult>?> SubmitAsync(List<ModuleSubmitData> data)

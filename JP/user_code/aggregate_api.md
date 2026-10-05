@@ -38,14 +38,15 @@ using Codeer.LowCode.Blazor.Aggregation;   // AggregateResult
 public async Task<List<AggregateResult>> AggregateAsync(List<AggregateCondition> conditions)
 {
     var result = await _http.PostAsJsonReturnHttpResponseAsync($"/api/module_data/aggregate", conditions);
-    if (result == null) throw new InvalidOperationException("Aggregation failed.");
+    //失敗は空のリスト (理由は HttpService が通知する)
+    if (result == null) return new();
     using var memory = (MemoryStream)await result.Content.ReadAsStreamAsync();
     return MessagePackSerializer.Typeless.Deserialize(memory) as List<AggregateResult>
-        ?? throw new InvalidOperationException("Aggregation failed.");
+        ?? new();
 }
 ```
 
-失敗したときは空のリストを返さず、例外にしてください (表やグラフがその場にエラーを出します)。渡した定義と同じ数の結果を返すのが約束です。
+成功したときは渡した定義と同じ数の結果を返すのが約束です。通信に失敗したときは空のリストを返してください (失敗の理由は通知に出ているので、表やグラフはその場に失敗したことだけを出します)。
 
 ## Windows アプリ (WPF / WinForms)
 
