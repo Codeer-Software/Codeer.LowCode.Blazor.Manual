@@ -101,6 +101,8 @@ Codeer.LowCode.Blazor を触り始める前に、全体像を掴むためのセ�
 
 - [Query フィールド](JP/db/query_field.md) — カスタム SQL で一覧を作る
 - [ExecuteSql フィールド](JP/db/execute_sql_field.md) — 任意の SQL を実行する
+- [集計 (ModuleAggregator)](JP/script/script_module_aggregator.md) — SQL を書かずに件数・合計などを DB でまとめる。表は [クロス集計フィールド](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras/blob/main/docs/CrossTabField.md)、グラフは [集計チャート](https://github.com/Codeer-Software/Codeer.LowCode.Bindings.Blazor-ApexCharts/blob/main/docs/ApexAggregateChart.md)
+- [集計 API の結線 (既存アプリ)](JP/user_code/aggregate_api.md) — 1.3.39 より前のテンプレートで作ったアプリで集計を使うとき
 
 ### スクリプトでよくやること（Tips）
 
@@ -138,6 +140,7 @@ Codeer.LowCode.Blazor を触り始める前に、全体像を掴むためのセ�
 | 認証 | ログインアカウント契約・パスワード・外部ログイン (Entra ID / Google / AWS Cognito / OpenID Connect)・二要素認証 | [認証の全体像](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras/blob/main/docs/Authentication.md) / [外部ログイン](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras/blob/main/docs/ExternalLogin.md) / [二要素認証](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras/blob/main/docs/TwoFactorLogin.md) |
 | 業務機能: メール | レコードの値で 1 通送る MailField、名簿へ一斉送信する BulkMailField、送信履歴。担当者本人のアカウントで送る Windows アプリ MailSender | [メール送信](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras/blob/main/docs/Mail.md) / [MailSender](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras/blob/main/docs/MailSender.md) |
 | 業務機能: 承認フロー | 申請・承認・却下・差し戻し・取り下げ・再申請・回覧 | [承認フロー](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras/blob/main/docs/ApprovalFlow.md) |
+| 業務機能: クロス集計 | 行の項目 × 列の項目 で件数・合計・平均などを集計した表 (DB で集計・権限は一覧と同じ)。行・列の合計と総計、割合表示、セルから明細へ、利用者が自分用に行・列・値を組み替えるカスタマイズ | [クロス集計](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras/blob/main/docs/CrossTabField.md) |
 | 業務機能: 編集履歴 | 保存ごとにレコード全体 (明細込み) を版として記録。版の一覧・この版を表示・この版に戻す・削除したレコードの復活 | [編集履歴](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras/blob/main/docs/EditHistory.md) |
 | 監査ログ | 「いつ・誰が・どこから・何に・何をして・どうなったか」をサーバーが全 API で記録 (ログインの成功/失敗・参照・保存・取込・出力・メール送信・権限拒否・起動/停止・デザインの版)。appsettings だけで有効化。上場企業の内部統制 (J-SOX) / ISMS の証跡向け | [監査ログ](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras/blob/main/docs/AuditLog.md) |
 | AI | AI とのチャット (DB を読んで集計・グラフで回答)・意味検索・帳票やテキストの解析と自動入力 | [AIChatField](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras/blob/main/docs/AIChatField.md) / [SemanticSearchField](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras/blob/main/docs/SemanticSearchField.md) / [AITextAnalyzerField](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras/blob/main/docs/AITextAnalyzerField.md) |

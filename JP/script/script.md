@@ -96,8 +96,9 @@ var info = customer.GetInfo();
 3. **構文・型・名前解決の詳細** → [スクリプト構文リファレンス](script_syntax.md)
 4. **使えるサービスの一覧** → [組み込みサービスとテンプレート由来サービス](script_services.md)
 5. **他モジュールの検索** → [ModuleSearcher / BatchSearcher](script_module_searcher.md)
-6. **独自の型・サービスを足す** → [スクリプトの拡張](script_extend.md)
-7. **デバッグ** → [スクリプトデバッガ](script_debugger.md)
+6. **集計 (件数・合計などを DB でまとめる)** → [ModuleAggregator / BatchAggregator](script_module_aggregator.md)
+7. **独自の型・サービスを足す** → [スクリプトの拡張](script_extend.md)
+8. **デバッグ** → [スクリプトデバッガ](script_debugger.md)
 
 ---
 

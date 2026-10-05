@@ -29,6 +29,8 @@ Windowsアプリ（クライアントサーバー）<br>
 | IUIService | ユーザーインターフェース関連のサービス。ダイアログの表示、通知の送信などのUI操作を提供します。|
 | ILogger | ログのサービス。|
 
+集計の機能 (ModuleAggregator・クロス集計・集計チャート) を使うには、IModuleDataService の `AggregateAsync` とサーバーの受け口が必要です。1.3.39 より前のテンプレートで作ったアプリは [集計 API の結線](aggregate_api.md) を参照してください。
+
 ## Server
 サーバーサイドでは以下のインターフェイスを実装して渡します。
 | インターフェイス | 説明 |

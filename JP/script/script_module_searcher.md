@@ -228,6 +228,8 @@ var page = searcher.ExecuteRawPage(0);
 var count = page.TotalCount;
 ```
 
+状態ごと・月ごとなど、まとめた単位の件数や合計が欲しいときは [ModuleAggregator](script_module_aggregator.md) を使います (DB で集計するので行を読み込みません)。
+
 ### List コンポーネントの絞り込みに使う
 
 ```csharp
@@ -243,6 +245,7 @@ OrderListField.Reload();
 ## 関連項目
 
 - [スクリプト概要](script.md)
+- [ModuleAggregator / BatchAggregator](script_module_aggregator.md) ─ 件数・合計などの集計
 - [スクリプト構文リファレンス](script_syntax.md)
 - [組み込みサービスとテンプレート由来サービス](script_services.md)
 - [チュートリアル: モジュール連携](../tutorials/tutorial_modules.md)
