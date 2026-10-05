@@ -27,6 +27,8 @@ Codeer.LowCode.Blazor 本体がやるのは認可だけです。本体が認証�
 認証のコードはテンプレートのソースと Extras のソース (MIT) なので、社内 SSO など独自の方式に差し替えることもできます。
 **認証について知りたいときは、まず [認証の全体像 (Extras)](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras/blob/main/docs/Authentication.md) を読んでください。** このページの以降の内容は認証には関係しません。
 
+ログインの成功・失敗や、認可で拒否された操作を含めて「誰がいつ何をしたか」を記録する**監査ログ**も Extras のサーバー機能です (appsettings だけで有効化) → [監査ログ (Extras)](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras/blob/main/docs/AuditLog.md)。
+
 ## 認可 (このページの内容)
 
 ここから先はすべて**認可**の設定です。本体はログイン中ユーザーの Id を app.clprj の Current User Module の行に結びつけ、

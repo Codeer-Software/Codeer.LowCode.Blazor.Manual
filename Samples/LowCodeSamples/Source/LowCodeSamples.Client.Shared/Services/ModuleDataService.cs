@@ -1,3 +1,4 @@
+using Codeer.LowCode.Blazor.Aggregation;
 using Codeer.LowCode.Blazor.DataIO;
 using Codeer.LowCode.Blazor.Extras.Services;
 using Codeer.LowCode.Blazor.Repository.Data;
@@ -25,6 +26,15 @@ namespace LowCodeSamples.Client.Shared.Services
             using var memory = (MemoryStream)await result!.Content.ReadAsStreamAsync();
             var obj = MessagePackSerializer.Typeless.Deserialize(memory);
             return obj as List<Paging<ModuleData>> ?? new();
+        }
+
+        public async Task<List<AggregateResult>> AggregateAsync(List<AggregateCondition> conditions)
+        {
+            var result = await _http.PostAsJsonReturnHttpResponseAsync($"/api/module_data/aggregate", conditions);
+            if (result == null) throw new InvalidOperationException("Aggregation failed.");
+            using var memory = (MemoryStream)await result.Content.ReadAsStreamAsync();
+            return MessagePackSerializer.Typeless.Deserialize(memory) as List<AggregateResult>
+                ?? throw new InvalidOperationException("Aggregation failed.");
         }
 
         public async Task<List<ModuleSubmitResult>?> SubmitAsync(List<ModuleSubmitData> data)

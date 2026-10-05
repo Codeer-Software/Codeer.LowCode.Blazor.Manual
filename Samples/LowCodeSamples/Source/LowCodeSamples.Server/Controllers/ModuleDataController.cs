@@ -66,6 +66,13 @@ namespace LowCodeSamples.Server.Controllers
             return await _dataService.ModuleDataIO.SubmitWithTransactionAsync(data!);
         }
 
+        [HttpPost("aggregate")]
+        public async Task<IActionResult> AggregateAsync(List<AggregateCondition> conditions)
+        {
+            var results = await _dataService.ModuleDataIO.AggregateAsync(conditions);
+            return File(new MemoryStream(MessagePackSerializer.Typeless.Serialize(results)), "application/octet-stream");
+        }
+
         [HttpPost("list_file")]
         public async Task<IActionResult> GetListFileAsync(SearchCondition? condition)
             => Ok(await BulkFileTransfer.GetListFileAsync(DesignerService.GetDesignData(), _dataService.ModuleDataIO, condition!));

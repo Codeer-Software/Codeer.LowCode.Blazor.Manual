@@ -49,6 +49,7 @@ public class DeployInfo
     public string UserName { get; set; } = string.Empty;
     public string Password { get; set; } = string.Empty;
     public bool AllowCliDeploy { get; set; }
+    public string HistoryDirectory { get; set; } = string.Empty;
 }
 ```
 
@@ -59,6 +60,7 @@ public class DeployInfo
 | **FTPSEndPoint** | FTPS エンドポイント（FTPS 時） |
 | **UserName** / **Password** | FTPS 認証情報 |
 | **AllowCliDeploy** | デザイナのコマンドライン（Claude Code などのツールから使う `deploy` コマンド）から、このデプロイ先へのデプロイを許可する。既定 `false`。デプロイ方式（FileSystem / FTPS）を問わず、`true` にしたデプロイ先だけがコマンドラインからデプロイできる |
+| **HistoryDirectory** | 送信履歴フォルダ。指定すると、デプロイのたびに、送る App.zip を `版の先頭 16 桁_UTC 日時_マシン名.zip` という名前でこのフォルダに保存してから送る（保存できなければ送らない）。版は zip の SHA-256 で、サーバーの監査ログに残る「デザインの版」と同じ値なので、監査ログの行からその時に動いていた App.zip を特定できる。空なら保存しない。本番など記録を残したいデプロイ先にだけ指定する |
 
 ### DataSource
 
