@@ -1,0 +1,138 @@
+<style>
+  .dh { font-family: inherit; color: #1f2937; }
+  .dh-hero { background: linear-gradient(120deg, #052767 0%, #1b6f9a 55%, #2ac0af 100%); color: #fff; border-radius: 12px; padding: 32px 32px 28px; margin-bottom: 28px; }
+  .dh-hero p { color: #fff !important; }
+  .dh-hero h1 { font-size: 2.1rem; font-weight: 700; margin: 0 0 10px; color: #fff; }
+  .dh-hero .dh-lead { font-size: 1.25rem; margin: 0 0 12px; }
+  .dh-hero .dh-sub { opacity: .9; margin: 0 0 20px; line-height: 1.7; }
+  .dh-btns { display: flex; flex-wrap: wrap; gap: 10px; }
+  .dh-btns a { display: inline-block; padding: 8px 18px; border-radius: 999px; text-decoration: none; font-weight: 600; }
+  .dh-btns a.dh-primary { background: #fff; color: #052767; }
+  .dh-btns a.dh-ghost { border: 1px solid rgba(255,255,255,.8); color: #fff; }
+  .dh-btns a:hover { opacity: .85; }
+  .dh-note { font-size: .85rem; opacity: .85; margin: 16px 0 0; }
+  .dh-sec { margin: 0 0 28px; }
+  .dh-sec h2 { font-size: 1.3rem; font-weight: 700; margin: 0 0 4px; color: #052767; border-left: 5px solid #2ac0af; padding-left: 10px; }
+  .dh-sec .dh-sec-sub { color: #6b7280; margin: 0 0 12px 15px; font-size: .9rem; }
+  .dh-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 16px; }
+  .dh-card { display: flex; flex-direction: column; background: #fff; border: 1px solid #e5e7eb; border-radius: 10px; overflow: hidden; text-decoration: none; color: inherit; transition: box-shadow .15s, transform .15s; }
+  .dh-card:hover { box-shadow: 0 6px 18px rgba(5,39,103,.15); transform: translateY(-2px); color: inherit; }
+  .dh-card img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top left; border-bottom: 1px solid #eef0f3; background: #f8fafc; }
+  .dh-card .dh-body { padding: 10px 12px 12px; }
+  .dh-card .dh-title { font-weight: 700; margin: 0 0 4px; font-size: 1rem; }
+  .dh-card .dh-desc { margin: 0; font-size: .85rem; color: #4b5563; line-height: 1.55; }
+  .dh-tag { display: inline-block; font-size: .7rem; font-weight: 700; color: #0f766e; background: #ccfbf1; border-radius: 4px; padding: 1px 6px; margin-left: 6px; vertical-align: middle; }
+  .dh-try { border: 1px solid #d0d7e2; border-radius: 10px; padding: 18px 22px; margin: 0 0 28px; background: #f8fafc; }
+  .dh-try h2 { font-size: 1.2rem; font-weight: 700; margin: 0 0 8px; color: #052767; }
+  .dh-try p { margin: 0 0 8px; line-height: 1.7; }
+  .dh-try-prompt { display: flex; align-items: center; gap: 8px; background: #1f2937; border-radius: 6px; padding: 10px 12px; margin: 4px 0 12px; }
+  .dh-try-prompt code { color: #e5e7eb; background: none; font-size: .9rem; flex: 1; word-break: break-all; }
+  .dh-try-prompt button { border: 1px solid #9ca3af; background: #374151; color: #fff; border-radius: 4px; padding: 4px 12px; font-size: .85rem; white-space: nowrap; }
+  .dh-try .dh-try-note { font-size: .85rem; color: #6b7280; margin: 0; }
+  @media (max-width: 600px) {
+    .dh-hero { padding: 22px 18px; }
+  .dh-hero h1 { font-size: 1.6rem; }
+    .dh-hero .dh-lead { font-size: 1.05rem; }
+    .dh-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .dh-card .dh-desc { display: none; }
+  }
+</style>
+
+<div class="dh">
+  <div class="dh-hero">
+    <h1>Codeer.LowCode.Blazor</h1>
+    <p class="dh-lead">業務アプリを、ノーコードの速さとプロコードの自由さで。</p>
+    <p class="dh-sub">このデモサイトは、すべて Codeer.LowCode.Blazor のデザイナで作られています。<br />気になる機能のカードを開いて、実際に触ってみてください。</p>
+    <div class="dh-btns">
+      <a class="dh-primary" href="https://www.codeer.co.jp/LowCode" target="_blank" rel="noopener">製品ページ・お問い合わせ</a>
+      <a class="dh-ghost" href="https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Manual/blob/main/JP/introduction/installation.md" target="_blank" rel="noopener">始め方</a>
+      <a class="dh-ghost" href="https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Manual" target="_blank" rel="noopener">マニュアル</a>
+      <a class="dh-ghost" href="https://www.youtube.com/watch?v=beSwbdIh4Is" target="_blank" rel="noopener">紹介動画</a>
+    </div>
+    <p class="dh-note">※ デモのため、データの登録・更新・メール送信はサーバーで止めています。画面の動きはそのまま確認できます。</p>
+  </div>
+
+  <div class="dh-try">
+    <h2>Claude Code ですぐに試せます</h2>
+    <p>空のフォルダで <a href="https://claude.com/claude-code" target="_blank" rel="noopener">Claude Code</a> を起動し、こう伝えます:</p>
+    <div class="dh-try-prompt">
+      <code id="dh-try-text">このURLを見て指示に従って https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Starter</code>
+      <button type="button" onclick="navigator.clipboard.writeText(document.getElementById('dh-try-text').innerText).then(() => { this.innerText = 'コピーしました'; setTimeout(() => { this.innerText = 'コピー'; }, 2000); })">コピー</button>
+    </div>
+    <p>必要なソフトの確認からアプリの作成・ビルド、Webアプリとデザイナの起動までを Claude Code が進めます。あとは「商品マスタと受注入力の画面を作って」のように、作りたいアプリを伝えるだけです。</p>
+    <p>使い方や疑問点も、そのまま Claude Code に聞けば答えてくれます。</p>
+    <p class="dh-try-note">※ Windows 専用です。試用にライセンス登録は不要です（デザイナはトライアルとして動作します）。<br />※ 詳しくは <a href="https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Starter" target="_blank" rel="noopener">Codeer.LowCode.Blazor.Starter</a> をご覧ください。</p>
+  </div>
+
+  <div class="dh-sec">
+    <h2>AI</h2>
+    <p class="dh-sec-sub">業務データに AI を組み合わせる機能です。</p>
+    <div class="dh-grid">
+      <a class="dh-card" href="/Bootstrap/AITest1"><img src="/api/module_data/resource?resource=Home/ocr.jpg" alt="" loading="lazy" /><div class="dh-body"><p class="dh-title">AI-OCR</p><p class="dh-desc">名刺・請求書・レシートの画像から、項目を読み取って入力します。</p></div></a>
+      <a class="dh-card" href="/Bootstrap/ExtrasAIChat"><img src="/api/module_data/resource?resource=Home/aichat.jpg" alt="" loading="lazy" /><div class="dh-body"><p class="dh-title">AI チャット</p><p class="dh-desc">「得意先別の売上トップ 5 は？」と聞くと、DB を調べて表やグラフで答えます。</p></div></a>
+      <a class="dh-card" href="/Bootstrap/ExtrasAIChatModuleAccess"><img src="/api/module_data/resource?resource=Home/aichat_auth.jpg" alt="" loading="lazy" /><div class="dh-body"><p class="dh-title">権限つき AI チャット</p><p class="dh-desc">画面と同じ権限でデータを読むので、見せてはいけないデータは答えません。</p></div></a>
+      <a class="dh-card" href="/Bootstrap/ExtrasSemanticInquiry"><img src="/api/module_data/resource?resource=Home/semantic.jpg" alt="" loading="lazy" /><div class="dh-body"><p class="dh-title">意味検索</p><p class="dh-desc">言葉が一致しなくても、意味の近いデータを探します。</p></div></a>
+    </div>
+  </div>
+
+  <div class="dh-sec">
+    <h2>業務でよく使う機能</h2>
+    <p class="dh-sec-sub">承認・集計・履歴・帳票など、業務アプリに必要な仕組みを部品として用意しています。</p>
+    <div class="dh-grid">
+      <a class="dh-card" href="/Bootstrap/EditHistoryOrder"><img src="/api/module_data/resource?resource=Home/edithistory.jpg" alt="" loading="lazy" /><div class="dh-body"><p class="dh-title">編集履歴</p><p class="dh-desc">誰がいつ何を変えたかを記録。版の差分確認と復元ができます。</p></div></a>
+      <a class="dh-card" href="/Bootstrap/WorkflowGuide"><img src="/api/module_data/resource?resource=Home/approval.jpg" alt="" loading="lazy" /><div class="dh-body"><p class="dh-title">承認フロー</p><p class="dh-desc">申請・承認・却下・差し戻し。金額で経路が変わる多段承認や合議にも対応。</p></div></a>
+      <a class="dh-card" href="/Bootstrap/FourPartForm"><img src="/api/module_data/resource?resource=Home/report.jpg" alt="" loading="lazy" /><div class="dh-body"><p class="dh-title">Excel 帳票・PDF</p><p class="dh-desc">Excel で作ったテンプレートに画面のデータを流し込み、PDF を作ります。</p></div></a>
+      <a class="dh-card" href="/Bootstrap/MailNotice"><img src="/api/module_data/resource?resource=Home/mail.jpg" alt="" loading="lazy" /><div class="dh-body"><p class="dh-title">メール一斉送信</p><p class="dh-desc">名簿の宛先ごとに差し込みしたメールを送信。送信前のプレビュー付き。</p></div></a>
+      <a class="dh-card" href="/Bootstrap/CrossTabDemo"><img src="/api/module_data/resource?resource=Home/crosstab.jpg" alt="" loading="lazy" /><div class="dh-body"><p class="dh-title">クロス集計</p><p class="dh-desc">担当者 × 四半期などの集計表。行・列の組み替えも画面から。</p></div></a>
+      <a class="dh-card" href="/Bootstrap/AggregateChartDemo"><img src="/api/module_data/resource?resource=Home/aggchart.jpg" alt="" loading="lazy" /><div class="dh-body"><p class="dh-title">集計チャート</p><p class="dh-desc">DB で集計してグラフに。件数が増えても軽く動きます。</p></div></a>
+      <a class="dh-card" href="/Bootstrap/Inquiry"><img src="/api/module_data/resource?resource=Home/sqlagg.jpg" alt="" loading="lazy" /><div class="dh-body"><p class="dh-title">SQL での集計</p><p class="dh-desc">SQL を書いて、その結果を画面に表示。集計期間などの条件は画面から渡せます。</p></div></a>
+    </div>
+  </div>
+
+  <div class="dh-sec">
+    <h2>基本の画面づくり</h2>
+    <p class="dh-sec-sub">入力部品・一覧・レイアウトを並べて DB につなぐだけで、画面ができあがります。動きはスクリプトで足せます。</p>
+    <div class="dh-grid">
+      <a class="dh-card" href="/Bootstrap/ControlSample"><img src="/api/module_data/resource?resource=Home/control.jpg" alt="" loading="lazy" /><div class="dh-body"><p class="dh-title">入力部品</p><p class="dh-desc">テキスト・数値・日付・選択・ファイルなどの標準部品。</p></div></a>
+      <a class="dh-card" href="/Bootstrap/TileListPage"><img src="/api/module_data/resource?resource=Home/list.jpg" alt="" loading="lazy" /><div class="dh-body"><p class="dh-title">一覧</p><p class="dh-desc">複数行・詳細・タイル・分割・その場で編集の 5 つの見せ方。</p></div></a>
+      <a class="dh-card" href="/Bootstrap/LayoutSampleShelfCar"><img src="/api/module_data/resource?resource=Home/layout.jpg" alt="" loading="lazy" /><div class="dh-body"><p class="dh-title">自由なレイアウト</p><p class="dh-desc">グリッド・キャンバス・タブを組み合わせて画面を作ります。</p></div></a>
+      <a class="dh-card" href="/Bootstrap/Goods"><img src="/api/module_data/resource?resource=Home/db.jpg" alt="" loading="lazy" /><div class="dh-body"><p class="dh-title">DB 連携</p><p class="dh-desc">テーブルにつなぐだけで一覧・検索・登録・更新。SQL のクエリも使えます。</p></div></a>
+      <a class="dh-card" href="/Bootstrap/ScriptSample"><img src="/api/module_data/resource?resource=Home/script.jpg" alt="" loading="lazy" /><div class="dh-body"><p class="dh-title">スクリプト</p><p class="dh-desc">C# とほぼ同じ書き方。入力補完とデバッガ付き。</p></div></a>
+    </div>
+  </div>
+
+  <div class="dh-sec">
+    <h2>拡張部品</h2>
+    <p class="dh-sec-sub">カレンダーやガントチャートなど、業務でよく使う高機能な部品です。ツールボックスから置くだけで使えます。</p>
+    <div class="dh-grid">
+      <a class="dh-card" href="/Bootstrap/ExtrasCalendar"><img src="/api/module_data/resource?resource=Home/calendar.jpg" alt="" loading="lazy" /><div class="dh-body"><p class="dh-title">カレンダー</p><p class="dh-desc">月・週・日の表示。クリックで予定の追加・編集。</p></div></a>
+      <a class="dh-card" href="/Bootstrap/ExtrasGantt"><img src="/api/module_data/resource?resource=Home/gantt.jpg" alt="" loading="lazy" /><div class="dh-body"><p class="dh-title">ガントチャート</p><p class="dh-desc">ドラッグで期間を変更。タスク間の依存関係も表示。</p></div></a>
+      <a class="dh-card" href="/Bootstrap/ExtrasTaskBoard"><img src="/api/module_data/resource?resource=Home/taskboard.jpg" alt="" loading="lazy" /><div class="dh-body"><p class="dh-title">タスクボード</p><p class="dh-desc">カンバン形式。カードをドラッグしてステータスを変更。</p></div></a>
+      <a class="dh-card" href="/Bootstrap/ExtrasMarkerList"><img src="/api/module_data/resource?resource=Home/marker.jpg" alt="" loading="lazy" /><div class="dh-body"><p class="dh-title">画像マーカー</p><p class="dh-desc">図面や写真の上にピンを置いて、情報をひも付けます。</p></div></a>
+      <a class="dh-card" href="/Bootstrap/ExtrasRichText"><img src="/api/module_data/resource?resource=Home/richtext.jpg" alt="" loading="lazy" /><div class="dh-body"><p class="dh-title">リッチテキスト</p><p class="dh-desc">太字・色・サイズ・リンクなど、書式付きの文章を入力・保存。</p></div></a>
+      <a class="dh-card" href="/Bootstrap/ExtrasMarkdown"><img src="/api/module_data/resource?resource=Home/markdown.jpg" alt="" loading="lazy" /><div class="dh-body"><p class="dh-title">Markdown</p><p class="dh-desc">Markdown で入力し、プレビューで見え方を確認。</p></div></a>
+      <a class="dh-card" href="/Bootstrap/ApexChart"><img src="/api/module_data/resource?resource=Home/apex.jpg" alt="" loading="lazy" /><div class="dh-body"><p class="dh-title">グラフ</p><p class="dh-desc">棒・折れ線・面・ドーナツ・ヒートマップなど。</p></div></a>
+    </div>
+  </div>
+
+  <div class="dh-sec">
+    <h2>プロコード・デザイン</h2>
+    <p class="dh-sec-sub">ノーコードで足りないところは C# で作り込めます。見た目は CSS で変えられます。</p>
+    <div class="dh-grid">
+      <a class="dh-card" href="/Bootstrap/BubbleListComponent"><img src="/api/module_data/resource?resource=Home/procode.jpg" alt="" loading="lazy" /><div class="dh-body"><p class="dh-title">プロコード</p><p class="dh-desc">Blazor のコンポーネントや C# のコードを画面に組み込めます。</p></div></a>
+      <a class="dh-card" href="/Fluent/ControlSample"><img src="/api/module_data/resource?resource=Home/theme.jpg" alt="" loading="lazy" /><div class="dh-body"><p class="dh-title">デザインの切り替え</p><p class="dh-desc">CSS で見た目を変えられます。Bootstrap・Fluent・Material など。</p></div></a>
+    </div>
+  </div>
+
+  <div class="dh-sec">
+    <h2>活用例</h2>
+    <p class="dh-sec-sub">部品を組み合わせて作った、画面やアプリの例です。</p>
+    <div class="dh-grid">
+      <a class="dh-card" href="/Bootstrap/FactoryDashboard"><img src="/api/module_data/resource?resource=Home/dashboard.jpg" alt="" loading="lazy" /><div class="dh-body"><p class="dh-title">工場ダッシュボード</p><p class="dh-desc">稼働率・不良率などを 1 画面に。</p></div></a>
+      <a class="dh-card" href="/ProjectManagement/ProjectManagementHome"><img src="/api/module_data/resource?resource=Home/pm.jpg" alt="" loading="lazy" /><div class="dh-body"><p class="dh-title">プロジェクト管理</p><p class="dh-desc">プロジェクト・タスク・メンバーの管理と進捗の見える化。</p></div></a>
+      <a class="dh-card" href="/SFA/SFAHome"><img src="/api/module_data/resource?resource=Home/sfa.jpg" alt="" loading="lazy" /><div class="dh-body"><p class="dh-title">営業支援 (SFA)</p><p class="dh-desc">商談・活動履歴の管理と、要対応の商談の抽出。</p></div></a>
+      <a class="dh-card" href="/InventoryManagement/InventoryManagementHome"><img src="/api/module_data/resource?resource=Home/inventory.jpg" alt="" loading="lazy" /><div class="dh-body"><p class="dh-title">在庫管理</p><p class="dh-desc">入庫・出庫・棚卸し・発注と、要発注品の抽出。</p></div></a>
+      <a class="dh-card" href="/KHandy/FigureSample1"><img src="/api/module_data/resource?resource=Home/handy.jpg" alt="" loading="lazy" /><div class="dh-body"><p class="dh-title">ハンディー端末</p><p class="dh-desc">現場の小さな画面向けのレイアウト。タブレット向けもあります。</p></div></a>
+    </div>
+  </div>
+</div>
