@@ -2,8 +2,8 @@
 -- total_stock_amount     : 総在庫金額（inventory.current_stock × product.unit_price の合計）
 -- stock_out_count        : 在庫切れ件数（current_stock <= 0 の組合せ数）
 -- reorder_count          : 要発注件数（inventory.current_stock < product.reorder_point の組合せ数）
--- month_receiving_count  : 今月の入庫件数
--- month_shipping_count   : 今月の出庫件数
+-- month_receiving_count  : 対象月の入庫件数
+-- month_shipping_count   : 対象月の出庫件数
 -- pending_order_count    : 発注中件数（status='発注中' or '一部入庫'）
 -- pending_order_amount   : 発注残金額（未完了発注の残数量×単価合計）
 -- delayed_order_count    : 遅延発注件数（希望納期超過 かつ 未完了）
@@ -19,8 +19,8 @@ SELECT
      JOIN product p ON p.id = inv.product_id
      WHERE p.reorder_point IS NOT NULL
        AND inv.current_stock < p.reorder_point) AS reorder_count,
-    (SELECT COUNT(*) FROM receiving WHERE date_trunc('month', receiving_date) = date_trunc('month', CURRENT_DATE)) AS month_receiving_count,
-    (SELECT COUNT(*) FROM shipping WHERE date_trunc('month', shipping_date) = date_trunc('month', CURRENT_DATE)) AS month_shipping_count,
+    (SELECT COUNT(*) FROM receiving WHERE date_trunc('month', receiving_date) = to_date(@target_month::text || '-01', 'YYYY-MM-DD')) AS month_receiving_count,
+    (SELECT COUNT(*) FROM shipping WHERE date_trunc('month', shipping_date) = to_date(@target_month::text || '-01', 'YYYY-MM-DD')) AS month_shipping_count,
     (SELECT COUNT(*) FROM purchase_order
      WHERE status IN ('発注中', '一部入庫')) AS pending_order_count,
     (SELECT COALESCE(SUM((COALESCE(pod.quantity, 0) - COALESCE(pod.received_quantity, 0)) * COALESCE(pod.unit_price, 0)), 0)
@@ -30,4 +30,4 @@ SELECT
     (SELECT COUNT(*) FROM purchase_order
      WHERE status IN ('発注中', '一部入庫')
        AND desired_delivery_date IS NOT NULL
-       AND desired_delivery_date < CURRENT_DATE) AS delayed_order_count
+       AND desired_delivery_date < LEAST(CURRENT_DATE, (to_date(@target_month::text || '-01', 'YYYY-MM-DD') + interval '1 month' - interval '1 day')::date)) AS delayed_order_count

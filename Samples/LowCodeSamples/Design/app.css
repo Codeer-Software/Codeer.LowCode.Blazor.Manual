@@ -157,3 +157,12 @@
   border-color: #0d6efd;
   background: rgba(13, 110, 253, 0.06);
 }
+
+/* サイドバーの項目は折り返さない (収まらないときは末尾を … で省略) */
+.sidebar-nav a.nav-link,
+.sidebar-nav a.nav-link > span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}

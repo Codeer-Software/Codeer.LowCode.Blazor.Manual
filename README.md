@@ -186,7 +186,7 @@ Codeer.LowCode.Blazor を触り始める前に、全体像を掴むためのセ�
   - 3 種のフィールド: [チャート](https://github.com/Codeer-Software/Codeer.LowCode.Bindings.Blazor-ApexCharts/blob/main/docs/ApexChart.md) (棒 / 折れ線 / 面 / ヒートマップ / 散布図など。複数系列・型の混在可) / [横棒チャート](https://github.com/Codeer-Software/Codeer.LowCode.Bindings.Blazor-ApexCharts/blob/main/docs/ApexHBarChart.md) / [ラジアルチャート](https://github.com/Codeer-Software/Codeer.LowCode.Bindings.Blazor-ApexCharts/blob/main/docs/ApexRadialChart.md) (ドーナツ / 円 / ポーラエリア)
   - 検索条件で取得したモジュールのデータをそのまま系列にする。スクリプトから再読み込み・追加の検索条件・基準線 (アノテーション) を操作できる ([スクリプト API](https://github.com/Codeer-Software/Codeer.LowCode.Bindings.Blazor-ApexCharts/blob/main/docs/Scripting.md))
   - 使い方の例: [可視化・ダッシュボードのパターン](JP/patterns/visualization_dashboard.md)
-- [IgniteUI サンプル](https://lowcodedemo.azurewebsites.net/Bootstrap/ChartSample)
+- [IgniteUI サンプル](https://lowcodedemo.azurewebsites.net/Main/ChartSample)
 
 ---
 

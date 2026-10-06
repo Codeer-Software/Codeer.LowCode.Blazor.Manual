@@ -11,7 +11,7 @@ void OnBeforeInitialization()
 void OnAfterInitialization()
 {
     using var suspend = SuspendNotifyStateChanged();
-    対象年月.Value = DateTime.Today;
+    対象年月.Value = GetLatestActivityDate();
     UpdateTargetMonthString();
     ReloadAll();
 }
@@ -45,4 +45,21 @@ void ReloadAll()
     フェーズ別予測金額チャート.Reload();
     営業担当者別受注金額チャート.Reload();
     担当者別活動件数チャート.Reload();
+}
+
+// デモデータの最新の活動がある日 (無ければ今日)
+DateTime GetLatestActivityDate()
+{
+    var s = new ModuleSearcher<活動履歴>();
+    s.Select(e => e.活動日時);
+    var list = s.Execute();
+    DateTime? latest = null;
+    foreach (var row in list)
+    {
+        var d = row.活動日時.Value;
+        if (d == null) continue;
+        if (latest == null || d > latest) latest = d;
+    }
+    if (latest == null) return DateTime.Today;
+    return ((DateTime)latest).Date;
 }

@@ -16,6 +16,12 @@
         "QueryPagingType": "None",
         "Parameters": [
           {
+            "IsParameter": true,
+            "Name": "target_month",
+            "DbType": "TEXT",
+            "DbParameterDirection": "Input"
+          },
+          {
             "IsParameter": false,
             "Name": "total_stock_amount",
             "DbType": "INTEGER",
@@ -287,7 +293,7 @@
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
     },
     {
-      "Text": "今月の入庫件数",
+      "Text": "対象月の入庫件数",
       "Icon": "",
       "IsHtml": false,
       "Style": "H5",
@@ -302,7 +308,7 @@
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
     },
     {
-      "Text": "今月の出庫件数",
+      "Text": "対象月の出庫件数",
       "Icon": "",
       "IsHtml": false,
       "Style": "H5",
@@ -406,6 +412,29 @@
       "NextFocusField": "",
       "OnFocusMoving": "",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ButtonFieldDesign"
+    },
+    {
+      "DbColumn": "target_month",
+      "IsMultiline": false,
+      "IsAutoFitRows": false,
+      "Placeholder": "",
+      "TextEditEmptyType": "StringEmpty",
+      "ShouldTrimAfterEdit": false,
+      "AutoTab": false,
+      "IsUpdateProtected": false,
+      "IsSimpleSearchParameter": false,
+      "AllowEmptySearch": false,
+      "OnSearchDataChanged": "",
+      "DisplayName": "",
+      "IsRequired": false,
+      "OnDataChanged": "",
+      "Name": "対象年月",
+      "IgnoreModification": false,
+      "OnValidateInput": "",
+      "IsFocusSkip": false,
+      "NextFocusField": "",
+      "OnFocusMoving": "",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
     }
   ],
   "UserWriteCondition": {
