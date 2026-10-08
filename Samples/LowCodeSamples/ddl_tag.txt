@@ -1,0 +1,43 @@
+-- Codeer.LowCode.Blazor.Extras タグ (TagField) サンプル用テーブル (PostgreSQL)
+-- サイドバー「業務でよく使う機能 > タグ > 得意先」で使用。
+-- tag_customer_tags は デザイナの Tools > タグのセットアップ (tag-setup --target TagCustomer) が生成した DDL。
+
+-- 得意先 (TagField を置いたモジュール)
+CREATE TABLE tag_customers (
+    id SERIAL PRIMARY KEY,
+    name TEXT,
+    industry TEXT,
+    owner TEXT,
+    note TEXT
+);
+
+-- タグ付け (1 行 = 得意先に付いたタグ 1 つ。得意先を消せば一緒に消える)
+CREATE TABLE tag_customer_tags (
+  id BIGSERIAL PRIMARY KEY,
+  owner_id BIGINT NOT NULL,
+  name VARCHAR(200) NOT NULL
+);
+CREATE UNIQUE INDEX ux_tag_customer_tags_owner_id_name ON tag_customer_tags (owner_id, name);
+CREATE INDEX ix_tag_customer_tags_name ON tag_customer_tags (name);
+ALTER TABLE tag_customer_tags ADD CONSTRAINT fk_tag_customer_tags_owner_id FOREIGN KEY (owner_id) REFERENCES tag_customers (id) ON DELETE CASCADE;
+
+-- デモデータ
+INSERT INTO tag_customers (name, industry, owner, note) VALUES
+('青山商事', 'Wholesale', '佐藤', '2026 年の展示会で名刺交換。年内に提案予定。'),
+('大阪フーズ', 'Manufacturing', '鈴木', '既存顧客。保守契約あり。'),
+('北陸精機', 'Manufacturing', '佐藤', '工場の見学を依頼中。'),
+('湘南システムズ', 'IT', '田中', 'パートナー候補。'),
+('東京リテール', 'Retail', '鈴木', '店舗向けの在庫管理を検討中。'),
+('札幌サービス', 'Service', '田中', '問い合わせのみ。'),
+('名古屋物流', 'Wholesale', '佐藤', '大口。四半期ごとに訪問。'),
+('福岡デザイン', 'IT', '鈴木', '紹介経由。');
+
+INSERT INTO tag_customer_tags (owner_id, name) VALUES
+(1, '展示会2026'), (1, '新規'), (1, '提案中'),
+(2, '既存'), (2, '保守契約'), (2, 'VIP'),
+(3, '展示会2026'), (3, '提案中'),
+(4, 'パートナー'), (4, '新規'),
+(5, '新規'), (5, '提案中'), (5, '展示会2026'),
+(6, '問い合わせ'),
+(7, '既存'), (7, 'VIP'), (7, '大口'),
+(8, '新規'), (8, '紹介');
