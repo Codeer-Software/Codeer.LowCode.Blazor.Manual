@@ -1,4 +1,4 @@
-{
+﻿{
   "Name": "TagCustomer",
   "DataSourceName": "Main",
   "DbTable": "tag_customers",
@@ -253,7 +253,7 @@
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
     },
     {
-      "Text": "得意先にタグを付けて分類し、タグで探すデモです。検索のタグ欄に 1 つ以上のタグを入れ、「すべて含む」「いずれかを含む」で絞り込めます。一覧の列のタグも、得意先を開いたときのタグも、同じ入力欄で足し外しできます。",
+      "Text": "得意先にタグを付けて分類し、タグで探すデモです。検索のタグ欄に 1 つ以上のタグを入れ、「すべて含む」「いずれかを含む」で絞り込めます。得意先を開くと、タグを足し外しできます（文字を打つと、ほかの得意先に付いているタグが候補に出ます）。",
       "Icon": "",
       "IsHtml": false,
       "Style": "Default",
@@ -932,7 +932,111 @@
         "OnKeyDown": "",
         "Rows": [
           {
-            "IsWrap": true,
+            "IsWrap": false,
+            "IsAutoFillWrap": false,
+            "Margin": {
+              "Bottom": 0
+            },
+            "GridRowType": "Normal",
+            "CanResize": false,
+            "BackgroundColor": "",
+            "KeepInFillAvailableGrid": false,
+            "IsProportionalScale": false,
+            "IsRowMarginRemoved": false,
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "NameLabel",
+                  "ContextMenu": "",
+                  "ClassName": "",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "0c31a2ce-5c8a-417d-9f91-478649100455",
+                  "BackgroundColor": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "IgnoreContentWidth": false,
+                "Padding": {},
+                "BackgroundColor": "",
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "CanResize": false,
+                "AllowOverflow": false,
+                "Border": "None",
+                "Width": 260
+              },
+              {
+                "Layout": {
+                  "FieldName": "IndustryLabel",
+                  "ContextMenu": "",
+                  "ClassName": "",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "0c31a2ce-5c8a-417d-9f91-478649100455",
+                  "BackgroundColor": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "IgnoreContentWidth": false,
+                "Padding": {},
+                "BackgroundColor": "",
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "CanResize": false,
+                "AllowOverflow": false,
+                "Border": "None",
+                "Width": 220
+              },
+              {
+                "Layout": {
+                  "FieldName": "TagsLabel",
+                  "ContextMenu": "",
+                  "ClassName": "",
+                  "FontFamily": "",
+                  "Color": "",
+                  "Name": "0c31a2ce-5c8a-417d-9f91-478649100455",
+                  "BackgroundColor": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "IgnoreContentWidth": false,
+                "Padding": {},
+                "BackgroundColor": "",
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "CanResize": false,
+                "AllowOverflow": false,
+                "Border": "None",
+                "Width": 460
+              },
+              {
+                "IgnoreContentWidth": false,
+                "Padding": {},
+                "BackgroundColor": "",
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "CanResize": false,
+                "AllowOverflow": false,
+                "Border": "None"
+              }
+            ]
+          },
+          {
+            "IsWrap": false,
             "IsAutoFillWrap": false,
             "Margin": {},
             "GridRowType": "Normal",
@@ -964,7 +1068,8 @@
                 },
                 "CanResize": false,
                 "AllowOverflow": false,
-                "Border": "None"
+                "Border": "None",
+                "Width": 260
               },
               {
                 "Layout": {
@@ -973,7 +1078,7 @@
                   "ClassName": "",
                   "FontFamily": "",
                   "Color": "",
-                  "Name": "cd6e2d48-8813-49f2-a1e1-c1a9ebe9e2e7",
+                  "Name": "0c31a2ce-5c8a-417d-9f91-478649100455",
                   "BackgroundColor": "",
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
@@ -988,7 +1093,8 @@
                 },
                 "CanResize": false,
                 "AllowOverflow": false,
-                "Border": "None"
+                "Border": "None",
+                "Width": 220
               },
               {
                 "Layout": {
@@ -997,10 +1103,25 @@
                   "ClassName": "",
                   "FontFamily": "",
                   "Color": "",
-                  "Name": "7742b5f4-70db-41c6-9450-8f31e53d1526",
+                  "Name": "0c31a2ce-5c8a-417d-9f91-478649100455",
                   "BackgroundColor": "",
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
+                "IgnoreContentWidth": false,
+                "Padding": {},
+                "BackgroundColor": "",
+                "BorderStyle": {
+                  "LeftColor": "",
+                  "TopColor": "",
+                  "RightColor": "",
+                  "BottomColor": ""
+                },
+                "CanResize": false,
+                "AllowOverflow": false,
+                "Border": "None",
+                "Width": 460
+              },
+              {
                 "IgnoreContentWidth": false,
                 "Padding": {},
                 "BackgroundColor": "",
@@ -1106,7 +1227,111 @@
                   "OnKeyDown": "",
                   "Rows": [
                     {
-                      "IsWrap": true,
+                      "IsWrap": false,
+                      "IsAutoFillWrap": false,
+                      "Margin": {
+                        "Bottom": 0
+                      },
+                      "GridRowType": "Normal",
+                      "CanResize": false,
+                      "BackgroundColor": "",
+                      "KeepInFillAvailableGrid": false,
+                      "IsProportionalScale": false,
+                      "IsRowMarginRemoved": false,
+                      "Columns": [
+                        {
+                          "Layout": {
+                            "FieldName": "NameLabel",
+                            "ContextMenu": "",
+                            "ClassName": "",
+                            "FontFamily": "",
+                            "Color": "",
+                            "Name": "5f1e4f40-d1ea-4f43-8bfe-fa1068269720",
+                            "BackgroundColor": "",
+                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                          },
+                          "IgnoreContentWidth": false,
+                          "Padding": {},
+                          "BackgroundColor": "",
+                          "BorderStyle": {
+                            "LeftColor": "",
+                            "TopColor": "",
+                            "RightColor": "",
+                            "BottomColor": ""
+                          },
+                          "CanResize": false,
+                          "AllowOverflow": false,
+                          "Border": "None",
+                          "Width": 260
+                        },
+                        {
+                          "Layout": {
+                            "FieldName": "IndustryLabel",
+                            "ContextMenu": "",
+                            "ClassName": "",
+                            "FontFamily": "",
+                            "Color": "",
+                            "Name": "5f1e4f40-d1ea-4f43-8bfe-fa1068269720",
+                            "BackgroundColor": "",
+                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                          },
+                          "IgnoreContentWidth": false,
+                          "Padding": {},
+                          "BackgroundColor": "",
+                          "BorderStyle": {
+                            "LeftColor": "",
+                            "TopColor": "",
+                            "RightColor": "",
+                            "BottomColor": ""
+                          },
+                          "CanResize": false,
+                          "AllowOverflow": false,
+                          "Border": "None",
+                          "Width": 220
+                        },
+                        {
+                          "Layout": {
+                            "FieldName": "TagsLabel",
+                            "ContextMenu": "",
+                            "ClassName": "",
+                            "FontFamily": "",
+                            "Color": "",
+                            "Name": "5f1e4f40-d1ea-4f43-8bfe-fa1068269720",
+                            "BackgroundColor": "",
+                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                          },
+                          "IgnoreContentWidth": false,
+                          "Padding": {},
+                          "BackgroundColor": "",
+                          "BorderStyle": {
+                            "LeftColor": "",
+                            "TopColor": "",
+                            "RightColor": "",
+                            "BottomColor": ""
+                          },
+                          "CanResize": false,
+                          "AllowOverflow": false,
+                          "Border": "None",
+                          "Width": 460
+                        },
+                        {
+                          "IgnoreContentWidth": false,
+                          "Padding": {},
+                          "BackgroundColor": "",
+                          "BorderStyle": {
+                            "LeftColor": "",
+                            "TopColor": "",
+                            "RightColor": "",
+                            "BottomColor": ""
+                          },
+                          "CanResize": false,
+                          "AllowOverflow": false,
+                          "Border": "None"
+                        }
+                      ]
+                    },
+                    {
+                      "IsWrap": false,
                       "IsAutoFillWrap": false,
                       "Margin": {},
                       "GridRowType": "Normal",
@@ -1138,7 +1363,8 @@
                           },
                           "CanResize": false,
                           "AllowOverflow": false,
-                          "Border": "None"
+                          "Border": "None",
+                          "Width": 260
                         },
                         {
                           "Layout": {
@@ -1147,7 +1373,7 @@
                             "ClassName": "",
                             "FontFamily": "",
                             "Color": "",
-                            "Name": "093050f0-88c9-43a9-bd46-f785a2f2054f",
+                            "Name": "5f1e4f40-d1ea-4f43-8bfe-fa1068269720",
                             "BackgroundColor": "",
                             "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                           },
@@ -1162,7 +1388,8 @@
                           },
                           "CanResize": false,
                           "AllowOverflow": false,
-                          "Border": "None"
+                          "Border": "None",
+                          "Width": 220
                         },
                         {
                           "Layout": {
@@ -1171,10 +1398,25 @@
                             "ClassName": "",
                             "FontFamily": "",
                             "Color": "",
-                            "Name": "1f8d13f3-bce0-4190-8d0d-58ca5834bd2e",
+                            "Name": "5f1e4f40-d1ea-4f43-8bfe-fa1068269720",
                             "BackgroundColor": "",
                             "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                           },
+                          "IgnoreContentWidth": false,
+                          "Padding": {},
+                          "BackgroundColor": "",
+                          "BorderStyle": {
+                            "LeftColor": "",
+                            "TopColor": "",
+                            "RightColor": "",
+                            "BottomColor": ""
+                          },
+                          "CanResize": false,
+                          "AllowOverflow": false,
+                          "Border": "None",
+                          "Width": 460
+                        },
+                        {
                           "IgnoreContentWidth": false,
                           "Padding": {},
                           "BackgroundColor": "",
