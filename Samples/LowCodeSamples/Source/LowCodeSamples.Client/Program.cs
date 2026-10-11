@@ -13,7 +13,12 @@ builder.Services.AddSharedServices();
 builder.Services.AddScoped<INavigationService, NavigationService>();
 
 //デモサイトは認証を持たないため antiforgery トークンも無く、素の HttpClient でよい
-builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+builder.Services.AddScoped(sp => new HttpClient
+{
+    BaseAddress = new Uri(builder.HostEnvironment.BaseAddress),
+    //大きな添付 (動画など) のアップロードが既定の 100 秒で切れないようにする
+    Timeout = TimeSpan.FromMinutes(30)
+});
 
 //サンプル固有: UI ライブラリ (Ignite UI) のサービス登録
 builder.Services.AddIgniteUIBlazor();

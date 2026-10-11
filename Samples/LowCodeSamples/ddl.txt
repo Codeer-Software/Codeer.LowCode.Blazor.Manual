@@ -11,6 +11,13 @@ CREATE TABLE menu_files (
     file_name text NULL,
     file_size integer NULL
 );
+CREATE TABLE file_preview_samples (
+    id SERIAL PRIMARY KEY,
+    title text NULL,
+    file_guid uuid NULL,
+    file_name text NULL,
+    file_size integer NULL
+);
 CREATE TABLE authors (
     id SERIAL PRIMARY KEY,
     full_name TEXT,

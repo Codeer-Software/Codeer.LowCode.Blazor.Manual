@@ -64,6 +64,11 @@ appsettings.jsonに上記の一部の設定を置かずにサーバー側で設�
 **ターゲットサイト → 構成エディター → セッション:System.webServer/aspNetCore → environmentVariables**
 <img width=800 src="../../Image/Deploy_IIS.png">
 
+#### アップロードの上限
+添付ファイル (FileField) の大きさの上限は、フィールドの `MaxAllowedSize` (未指定なら既定の 500MB) で決まり、サーバーが要求ごとに適用します。
+IIS の要求フィルタは既定で本文を 30MB で止めるため、テンプレートの `web.config` でその上限を外しています (発行フォルダに含まれます)。
+自分で `web.config` を用意している場合は `system.webServer/security/requestFiltering/requestLimits` の `maxAllowedContentLength` を上げてください。
+
 ### Nginx (Linux)
 
 #### Nginx, Asp.NET Coreのruntime等はインストール済みの環境とします。
@@ -112,6 +117,8 @@ server {
         }
 }
 ```
+添付ファイルの大きさの上限はフィールドの `MaxAllowedSize` (未指定なら既定の 500MB) でサーバーが判定しますが、Nginx の `client_max_body_size` (既定 1MB) が先に止めます。
+大きい添付を使う場合は `server` または `location` に `client_max_body_size 500M;` のように上限を足してください。Azure の Application Gateway や Front Door など、他のリバースプロキシを前段に置く場合も同じように本文の上限を確認してください。
 #### 5. BlazorAppのサービスを起動し、Nginxを再起動して完了です
 ```shell
 sudo systemctl start blazorapp

@@ -35,7 +35,7 @@
 | **LayoutName** | レイアウト名 | string | `""` | 各行に使う Detail レイアウト名 |
 | **PagerPosition** | ページャーの位置 | enum | `Top` | ページャーの位置（`Top` / `Bottom`） |
 | **IsInMemoryPaging** | 全件ロードしてメモリ内でページング | bool | `false` | 全件を読み込み、画面内でページを切り替える（[List の説明](List.md#全件ロードしてメモリ内でページングisinmemorypaging) 参照） |
-| **ConfirmBeforePageChange** | ページ切り替え時に未保存変更の確認を出す | bool | `true` | 一覧に未保存の変更があるときにページを切り替えると、変更が失われる旨の確認を出す |
+| **ConfirmBeforePageChange** | 未保存の変更を破棄する前に確認を出す (ページ切り替え・ソート・検索) | bool | `true` | 一覧に未保存の変更があるときに、ページ切り替え・列ヘッダーのソート・検索の実行/クリアの前に、変更が失われる旨の確認を出す |
 | **UseIndexSort** | インデックスソート | bool | `false` | 表示順を Index として保存 |
 | **DeleteTogether** | 親テーブルと一緒に削除 | bool | `false` | 親データ削除時に一括削除 |
 | **ReplaceMode** | 洗い替え | enum | `None` | 保存時の入れ替え方式（`None` / `All` / `UpdateAsDeleteInsert`）。[List の説明](List.md#洗い替えreplacemode) 参照 |

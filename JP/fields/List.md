@@ -37,7 +37,7 @@
 | **ApplyBackgroundToBoxInput** | Box: 行の背景色を入力欄に適用 | bool | `false` | 入力欄にも行背景色を適用 |
 | **PagerPosition** | ページャーの位置 | enum | `Top` | ページャーの位置（`Top` / `Bottom`） |
 | **IsInMemoryPaging** | 全件ロードしてメモリ内でページング | bool | `false` | 全件を読み込み、画面内でページを切り替える。[下記](#全件ロードしてメモリ内でページングisinmemorypaging) 参照 |
-| **ConfirmBeforePageChange** | ページ切り替え時に未保存変更の確認を出す | bool | `true` | 一覧に未保存の変更があるときにページを切り替えると、変更が失われる旨の確認を出す |
+| **ConfirmBeforePageChange** | 未保存の変更を破棄する前に確認を出す (ページ切り替え・ソート・検索) | bool | `true` | 一覧に未保存の変更があるときに、ページ切り替え・列ヘッダーのソート・検索の実行/クリアの前に、変更が失われる旨の確認を出す |
 | **FixedColumnCount** | 固定列数 | int | `0` | 横スクロール時に左から指定列数を固定表示する。1 行構成（セル結合なし）の List レイアウトで、固定する列すべてに幅が指定されている場合に有効 |
 | **UseIndexSort** | インデックスソート | bool | `false` | 表示順を Index として保存 |
 | **DeleteTogether** | 親テーブルと一緒に削除 | bool | `false` | 親データ削除時に一括削除 |
@@ -207,7 +207,7 @@ Items.MergeSameRows("Category");
 
 - 明細を複数ページにまたがって編集し、まとめて保存したい一覧に向きます。全件を読み込むので、件数が多い一覧には向きません
 - 行を追加するとその行のページへ、入力エラーがあると最初のエラー行のページへ移動します
-- `ConfirmBeforePageChange` の確認は出ません（ページを切り替えても変更が失われないため）
+- ページ切り替え・ソートでは `ConfirmBeforePageChange` の確認は出ません（変更が失われないため）。検索の実行/クリアは読み込み直すので出ます
 
 ---
 
