@@ -1,0 +1,47 @@
+-- 意味検索 (SemanticSearchField) で添付ファイルの中身も探すデモ: 社内文書の検索 (ExtrasSemanticDocument)
+-- PostgreSQL + pgvector。添付は DB 列格納 (FileField の DbColumnFileContent = file_content bytea) なので、ファイルの保存先 (ストレージ) の設定は要らない。
+-- 文書はすべて架空 (サンプル商事株式会社)。添付の元ファイルは demo_files/semantic_document/ にある (file_name はそのフォルダのファイル名と同じ)。
+--
+-- 入れ方 (デモ DB に適用する人が行う):
+--   1. この CREATE TABLE と INSERT を流す (添付の中身 file_content はまだ空)
+--        LowCodeSamples.Designer.exe sql "<Design フォルダ>" --datasource Main --file ddl_semantic_document.txt
+--   2. 添付の中身を入れる SQL を作って流す (ファイルを base64 にして UPDATE する。巨大な文字列をここに直書きしないため)
+--        powershell -ExecutionPolicy Bypass -File demo_files\semantic_document\make_content_sql.ps1 -OutFile C:\Temp\semantic_document_content.sql
+--        LowCodeSamples.Designer.exe sql "<Design フォルダ>" --datasource Main --file C:\Temp\semantic_document_content.sql
+--   3. 索引を付ける: サーバーを反映した後に「社内文書の検索」で文書を開き、下の「索引の無い文書に索引を付ける」を 1 回押す
+--      (SemanticSearchField の ReindexMissing。添付の中身を取り出して文章を作り、埋め込みベクトルまで付ける。索引のある行は何もしない)
+--   AI チャット: SQL で読む「AI チャット」(RawDataAccess) は読み取り専用ロール ai_chat_reader (ddl_ai_chat.txt) で接続するので、末尾の GRANT で
+--   この表を読めるようにする (添付の実体 file_content は渡さない = 列を限った GRANT)。意味検索 (search_records) は文章の列 search_text を返すので、AI が添付の中身で答えられる。
+--   「権限つき AI チャット」(ModuleDataAccess) は画面と同じ権限で読むので GRANT は要らない (文章の列は書き込み専用なので、見つけた文書のリンクまでを答える)。
+
+CREATE EXTENSION IF NOT EXISTS vector;
+
+CREATE TABLE IF NOT EXISTS semantic_documents (
+    id              SERIAL PRIMARY KEY,
+    title           TEXT,
+    category        TEXT,
+    file_name       TEXT,
+    file_size       BIGINT,
+    file_guid       UUID,
+    file_content    BYTEA,
+    search_text     TEXT,
+    search_vector   TEXT,
+    search_vector_v vector(1536) GENERATED ALWAYS AS (search_vector::vector) STORED
+);
+CREATE INDEX IF NOT EXISTS semantic_documents_vector_idx ON semantic_documents USING hnsw (search_vector_v vector_cosine_ops);
+
+-- 2 回流しても二重に入らないよう、file_guid が無い行だけ入れる
+INSERT INTO semantic_documents (title, category, file_name, file_guid)
+SELECT v.title, v.category, v.file_name, v.file_guid::uuid FROM (VALUES
+('出張旅費規程', '規程', '出張旅費規程.pdf', 'b3f1c2a0-5d1e-4c55-9a41-0d6a7c1e2f01'),
+('就業規則 (抜粋)', '規程', '就業規則_抜粋.docx', 'b3f1c2a0-5d1e-4c55-9a41-0d6a7c1e2f02'),
+('製品仕様書 HT-200', '製品資料', '製品仕様書_HT-200.docx', 'b3f1c2a0-5d1e-4c55-9a41-0d6a7c1e2f03'),
+('2026年度 価格表', '製品資料', '価格表_2026年度.xlsx', 'b3f1c2a0-5d1e-4c55-9a41-0d6a7c1e2f04'),
+('9月 営業定例会議', '議事録', '営業定例会議_2026-09.txt', 'b3f1c2a0-5d1e-4c55-9a41-0d6a7c1e2f05'),
+('社内システム よくある質問', 'FAQ', '社内システムFAQ.md', 'b3f1c2a0-5d1e-4c55-9a41-0d6a7c1e2f06'),
+('情報セキュリティ研修', '研修資料', '情報セキュリティ研修.pptx', 'b3f1c2a0-5d1e-4c55-9a41-0d6a7c1e2f07')
+) AS v (title, category, file_name, file_guid)
+WHERE NOT EXISTS (SELECT 1 FROM semantic_documents d WHERE d.file_guid = v.file_guid::uuid);
+
+-- SQL で読む AI チャット (ai_chat_reader) に読ませる列
+GRANT SELECT (id, title, category, file_name, file_size, search_text, search_vector_v) ON semantic_documents TO ai_chat_reader;

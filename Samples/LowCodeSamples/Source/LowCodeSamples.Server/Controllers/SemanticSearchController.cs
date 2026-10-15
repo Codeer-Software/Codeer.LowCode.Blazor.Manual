@@ -9,7 +9,7 @@ namespace LowCodeSamples.Server.Controllers
 {
     //SemanticSearchField (意味検索) の再索引 API。フィールドのスクリプト Reindex / ReindexMissing の受け口。
     //開始は即 requestId を返し (202)、クライアントは GET で進捗をポーリングする (AIChatController と同じ形)。ロジックは Extras.Server にあり、ここは結線だけを持つ
-    //開始はリクエストの ModuleDataIO で入口を検査する = その SemanticSearchField を今のユーザーが読めるときだけ受け付ける (アプリアクセス条件・モジュールの UserRead・フィールド読取権限)。
+    //開始はリクエストの ModuleDataIO で入口を検査する = その SemanticSearchField に今のユーザーが書けるときだけ受け付ける (アプリアクセス条件・モジュールの UserWrite・フィールドの書き込み権限)。
     //行の読み書きはバックグラウンドで、今のユーザーの権限を持つ別の DataService で行う (読める行だけ・書ける行だけ)
     [ApiController]
     [Route("api/semantic_search/reindex")]

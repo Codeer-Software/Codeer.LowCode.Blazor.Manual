@@ -40,8 +40,8 @@ namespace LowCodeSamples.Server.Controllers
         public async Task<IActionResult> GetDesignData()
         {
             await LicenseService.UpdateAsync(Request);
-            await _dataService.ModuleDataIO.CheckAppAuthorization();
-            return this.FileWithETag(DesignerService.GetDesignDataForFront(await _dataService.ModuleDataIO.GetCurrentUser()), "application/octet-stream");
+            await _dataService.ModuleDataIO.AuthorizationChecker.CheckAppAccessAsync();
+            return this.FileWithETag(DesignerService.GetDesignDataForFront(await _dataService.ModuleDataIO.AuthorizationChecker.GetCurrentUserAsync()), "application/octet-stream");
         }
 
         [HttpPost("list")]
