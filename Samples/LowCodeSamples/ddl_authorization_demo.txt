@@ -1,0 +1,59 @@
+-- 認可 (権限) のデモ用の社員名簿 (PostgreSQL)
+-- サイドバー「セキュリティ > 認可 (権限)」(DemoAuthorization) で使用。
+-- 同じ表を「条件なしの画面 (DemoAuthzEmployeeAll)」と「権限の条件を付けた画面 (DemoAuthzEmployee)」で並べて表示する。
+-- ログインする社員は app_user_id で app_users.id (AppUser) と対応する (ログインしない社員は NULL)。上長 (manager_user_id) も app_users.id。
+-- 「自分と同じ部署の行だけ」の判定には、ログインユーザーの所属部署の表 (demo_authz_user_departments) を使う。
+-- デモの操作ユーザーは 佐藤 花子 (app_users.id = 2・営業部 課長) に固定されている。
+-- 何度流しても同じ (表があれば作らない・行が 1 行でもあれば入れない)。
+--   LowCodeSamples.Designer.exe sql "<Design フォルダ>" --datasource Main --file ddl_authorization_demo.txt
+
+CREATE TABLE IF NOT EXISTS demo_authz_employees (
+  id serial PRIMARY KEY,
+  name text NOT NULL,
+  department text NOT NULL,
+  title text,
+  app_user_id text,
+  manager_user_id text,
+  monthly_salary numeric,
+  evaluation text
+);
+
+-- 見本の行 (14 行・3 部署)
+INSERT INTO demo_authz_employees (name, department, title, app_user_id, manager_user_id, monthly_salary, evaluation)
+SELECT v.name, v.department, v.title, v.app_user_id, v.manager_user_id, v.monthly_salary, v.evaluation FROM (VALUES
+(1, '鈴木 一郎', '営業部', '部長', '3', '5', 620000, 'A'),
+(2, '佐藤 花子', '営業部', '課長', '2', '3', 520000, 'A'),
+(3, '山田 太郎', '営業部', '主任', '1', '2', 410000, 'B'),
+(4, '小林 翔太', '営業部', '一般', NULL, '2', 330000, 'B'),
+(5, '加藤 さくら', '営業部', '一般', NULL, '2', 310000, 'S'),
+(6, '吉田 大輔', '営業部', '主任', NULL, '3', 400000, 'A'),
+(7, '渡辺 健', '開発部', '部長', '6', '5', 650000, 'A'),
+(8, '松本 拓也', '開発部', '課長', NULL, '6', 530000, 'B'),
+(9, '井上 真央', '開発部', '一般', NULL, '6', 350000, 'A'),
+(10, '木村 蓮', '開発部', '一般', NULL, '6', 320000, 'B'),
+(11, '中村 由美', '管理部', '部長', '7', '5', 600000, 'S'),
+(12, '高橋 次郎', '管理部', '課長', '4', '7', 500000, 'B'),
+(13, '林 美穂', '管理部', '主任', NULL, '7', 380000, 'A'),
+(14, '清水 結衣', '管理部', '一般', NULL, '4', 300000, 'B')
+) AS v(seq, name, department, title, app_user_id, manager_user_id, monthly_salary, evaluation)
+WHERE NOT EXISTS (SELECT 1 FROM demo_authz_employees)
+ORDER BY v.seq;
+
+-- ログインユーザー (app_users.id) の所属部署
+CREATE TABLE IF NOT EXISTS demo_authz_user_departments (
+  id serial PRIMARY KEY,
+  app_user_id text NOT NULL,
+  department text NOT NULL
+);
+
+INSERT INTO demo_authz_user_departments (app_user_id, department)
+SELECT v.app_user_id, v.department FROM (VALUES
+(1, '1', '営業部'),
+(2, '2', '営業部'),
+(3, '3', '営業部'),
+(4, '4', '管理部'),
+(5, '6', '開発部'),
+(6, '7', '管理部')
+) AS v(seq, app_user_id, department)
+WHERE NOT EXISTS (SELECT 1 FROM demo_authz_user_departments)
+ORDER BY v.seq;

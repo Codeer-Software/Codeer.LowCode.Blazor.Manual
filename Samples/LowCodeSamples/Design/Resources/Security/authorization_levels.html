@@ -1,0 +1,37 @@
+<style>
+  .az { color: #1f2937; }
+  .az-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin: 4px 0 14px; padding: 0; list-style: none; }
+  .az-step { background: #f8fafc; border: 1px solid #d0d7e2; border-top: 4px solid #1b6f9a; border-radius: 8px; padding: 10px 12px 12px; }
+  .az-step .az-no { display: inline-block; min-width: 22px; height: 22px; line-height: 22px; text-align: center; border-radius: 11px; background: #052767; color: #fff; font-size: .75rem; font-weight: 700; margin-right: 6px; }
+  .az-step .az-name { font-weight: 700; color: #052767; }
+  .az-step .az-sub { font-size: .8rem; color: #4b5563; }
+  .az-step ul { margin: 6px 0 0; padding-left: 1.1em; font-size: .88rem; line-height: 1.55; }
+  .az-step .az-ex { margin: 6px 0 0; font-size: .8rem; color: #4b5563; line-height: 1.5; }
+  .az-step.az-demo { border-top-color: #2ac0af; background: #f0fdfa; }
+  .az-step .az-tag { display: inline-block; font-size: .7rem; font-weight: 700; color: #0f766e; background: #ccfbf1; border-radius: 4px; padding: 1px 6px; margin-left: 4px; vertical-align: middle; }
+  .az-points { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 10px; margin: 0; padding: 0; list-style: none; }
+  .az-points li { border-left: 4px solid #2ac0af; background: #fff; padding: 6px 10px; font-size: .9rem; line-height: 1.6; }
+  .az-points b { color: #052767; }
+</style>
+<div class="az">
+  <ol class="az-steps">
+    <li class="az-step"><span class="az-no">1</span><span class="az-name">アプリ</span> <span class="az-sub">(アプリ全体)</span>
+      <ul><li>アプリに入れるユーザー</li></ul>
+      <p class="az-ex">例: 有効なユーザーだけ</p></li>
+    <li class="az-step"><span class="az-no">2</span><span class="az-name">ページフレーム</span> <span class="az-sub">(画面の枠とメニュー)</span>
+      <ul><li>そのページフレームを表示できるユーザー</li></ul>
+      <p class="az-ex">例: 管理画面の枠は管理者だけ</p></li>
+    <li class="az-step az-demo"><span class="az-no">3</span><span class="az-name">モジュール</span> <span class="az-sub">(画面とデータの単位)</span><span class="az-tag">下で実演</span>
+      <ul><li>ユーザーの条件: 読めるユーザー・書けるユーザー (書けないユーザーには読み取り専用で表示)</li>
+        <li>データの条件: 読める行・書ける行</li></ul>
+      <p class="az-ex">例: 自分と同じ部署の社員の行だけ読める</p></li>
+    <li class="az-step az-demo"><span class="az-no">4</span><span class="az-name">フィールド</span> <span class="az-sub">(項目)</span><span class="az-tag">下で実演</span>
+      <ul><li>権限フィールドで、項目ごとに読める・書ける (読めない項目は書けない)</li></ul>
+      <p class="az-ex">例: 月給・評価は本人と直属の上長だけ読める</p></li>
+  </ol>
+  <ul class="az-points">
+    <li><b>判定はサーバーで行われます</b><br />入力欄が消える・読み取り専用になるのは利用者への案内で、守っているのはサーバーです。スクリプトや直接のリクエストで画面の制御を回避しても、サーバーが拒否します。</li>
+    <li><b>表示以外の操作にも効きます</b><br />Excel / CSV の一括出力・一括入力、ファイルのダウンロードにも同じ条件が効きます。読めない項目は検索条件や並べ替えにも使えません。</li>
+    <li><b>AI チャットにも</b><br />権限つき AI チャット (ログインユーザーの権限でデータを読む方式) では、画面と同じ権限がそのまま効きます。</li>
+  </ul>
+</div>
