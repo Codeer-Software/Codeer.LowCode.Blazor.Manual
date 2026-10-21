@@ -158,6 +158,7 @@ Codeer.LowCode.Blazor を触り始める前に、全体像を掴むためのセ�
 - [C# でのデータ取得ヘルパ](JP/user_code/module_data_io_extensions.md) — モジュールに対応した C# クラス + LINQ ライクな書き方でデータを読む
 - [プロコードでのデータ保存](JP/user_code/data_submit.md) — C# から追加・更新・削除する
 - [検索条件でまとめて削除する (SearchDelete)](JP/user_code/search_delete.md)
+- [バッチ処理（ジョブ）](JP/user_code/batch_job.md) — 通常の .NET で書き、作ったモジュールをそのまま使う。定期実行・画面のボタンから起動
 
 ### 見た目・スタイル
 
@@ -270,6 +271,7 @@ Codeer.LowCode.Blazor を触り始める前に、全体像を掴むためのセ�
 - [ButtonField (ボタン)](JP/fields/Button.md) — クリックでスクリプト実行
 - [SubmitButtonField (サブミットボタン)](JP/fields/SubmitButton.md) — 標準の登録・更新
 - [AutoSubmitField (自動サブミット)](JP/fields/AutoSubmit.md) — 変更を自動で保存
+- [JobTriggerField (ジョブトリガー)](JP/fields/JobTrigger.md) — ボタンでサーバーのジョブ（バッチ処理）を実行
 - [CopyModuleButtonField (モジュールコピーボタン)](JP/fields/CopyModuleButton.md) — データをコピーして新規作成
 - [ViewEditToggleButtonField (閲覧編集切り替えボタン)](JP/fields/ViewEditToggleButton.md) — 閲覧／編集モードのトグル
 - [ContextMenuField (コンテキストメニュー)](JP/fields/ContextMenu.md) — 右クリックメニュー

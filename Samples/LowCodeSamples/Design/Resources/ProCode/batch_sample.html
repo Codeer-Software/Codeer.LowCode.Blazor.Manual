@@ -1,0 +1,69 @@
+<style>
+  .bj { font-family: inherit; color: #1f2937; }
+  .bj-wrap { display: flex; flex-wrap: wrap; gap: 28px; align-items: flex-start; }
+  .bj-code { flex: 1 1 460px; min-width: 0; max-width: 620px; }
+  .bj-code .bj-file { font-size: .8rem; color: #6b7280; margin: 0 0 4px; }
+  .bj-code pre { background: #1f2937; color: #e5e7eb; border-radius: 10px; padding: 16px 18px; margin: 0 0 16px; font-size: .85rem; line-height: 1.6; overflow-x: auto; white-space: pre; }
+  .bj-code .k { color: #93c5fd; }
+  .bj-code .s { color: #fcd34d; }
+  .bj-code .c { color: #9ca3af; }
+  .bj-flow { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 0 0 8px; }
+  .bj-step { flex: 1 1 140px; background: #f3f4f6; border: 1px solid #e5e7eb; border-radius: 8px; padding: 10px 12px; font-size: .85rem; line-height: 1.5; }
+  .bj-step b { display: block; color: #052767; margin-bottom: 2px; }
+  .bj-arrow { color: #2ac0af; font-weight: 700; }
+  .bj-info { flex: 1 1 340px; min-width: 0; }
+  .bj-info h3 { font-size: 1.05rem; font-weight: 700; color: #052767; margin: 0 0 8px; border-left: 4px solid #2ac0af; padding-left: 8px; }
+  .bj-info ul { margin: 0 0 20px; padding-left: 1.2em; line-height: 1.75; }
+  .bj-info li { margin-bottom: 2px; }
+  .bj-info code { font-size: .85em; background: #f3f4f6; border-radius: 4px; padding: 1px 4px; }
+  .bj-info .bj-note { font-size: .85rem; color: #6b7280; line-height: 1.7; margin: 0; }
+</style>
+
+<div class="bj">
+  <div class="bj-wrap">
+    <div class="bj-code">
+      <div class="bj-flow">
+        <div class="bj-step"><b>起動</b>タスクスケジューラ・Azure WebJobs・画面のボタン</div>
+        <span class="bj-arrow">&rarr;</span>
+        <div class="bj-step"><b>ジョブ (C#)</b>処理を .NET で書く</div>
+        <span class="bj-arrow">&rarr;</span>
+        <div class="bj-step"><b>ローコードの部品</b>画面と同じモジュールで読み書き</div>
+      </div>
+      <p class="bj-file">Jobs/CloseOrdersJob.cs (例: 締め処理)</p>
+<pre><span class="k">public class</span> CloseOrdersJob : IJob
+{
+    <span class="k">public string</span> Name =&gt; <span class="s">"CloseOrders"</span>;
+
+    <span class="k">public async</span> Task&lt;<span class="k">string</span>?&gt; RunAsync(DataService data, <span class="k">string</span>[] args)
+    {
+        <span class="c">//画面で作った「受注」モジュールをそのまま検索</span>
+        <span class="k">var</span> page = <span class="k">await</span> data.ModuleDataIO.GetListAsync(
+            <span class="k">new</span> SearchCondition(<span class="s">"Order"</span>), 0);
+
+        <span class="c">//... 締めの処理。保存も同じモジュールで</span>
+        <span class="c">//(権限・編集履歴などは画面から保存したときと同じ)</span>
+
+        <span class="k">return</span> <span class="s">$"{page.TotalCount} 件を締めました"</span>;
+    }
+}</pre>
+<pre><span class="c">REM 起動 (タスクスケジューラ・Azure WebJobs など)</span>
+dotnet LowCodeApp.Server.dll job CloseOrders</pre>
+    </div>
+
+    <div class="bj-info">
+      <h3>作り方</h3>
+      <ul>
+        <li>ジョブは C# のクラスを 1 つ書くだけ (<code>IJob</code> を実装)。登録は要りません</li>
+        <li>デザイナで作ったモジュールを、モジュール名・フィールド名でそのまま読み書きできます</li>
+        <li>権限・保存時の処理・編集履歴など、画面から保存したときと同じ仕組みが働きます</li>
+        <li>Web サーバーと同じプログラム・同じ設定で動くので、バッチ用のプロジェクトや接続設定を別に用意する必要はありません</li>
+      </ul>
+      <h3>起動の仕方</h3>
+      <ul>
+        <li>定期実行: Windows のタスクスケジューラ、Azure App Service の WebJobs など</li>
+        <li>画面から: ジョブトリガー (ボタン) で、画面の内容を渡して実行。終わるまで待って結果を通知する・起動だけして戻る、のどちらも選べます</li>
+      </ul>
+      <p class="bj-note">※ このデモサイトではジョブは動かしていません。ジョブの仕組みはアプリのテンプレートにソースコードとして含まれています。詳しくはマニュアルの <a href="https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Manual/blob/main/JP/user_code/batch_job.md" target="_blank" rel="noopener">バッチ処理（ジョブ）</a> を参照してください。</p>
+    </div>
+  </div>
+</div>
