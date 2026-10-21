@@ -12,11 +12,11 @@
 | 起動 | 使いどころ |
 |---|---|
 | コマンドライン（タスクスケジューラ・Azure WebJobs など） | 夜間の締め処理・定期的な取り込みなど、決まった時刻に動かす |
-| 画面のボタン（[ジョブトリガー](../fields/JobTrigger.md)） | 画面の内容を渡して、その場で実行する |
+| 画面のボタン（[ジョブトリガー](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras/blob/main/docs/JobTriggerField.md)。拡張ライブラリ Extras のフィールド） | 画面の内容を渡して、その場で実行する |
 
 ジョブの仕組みはアプリのテンプレート（Web サーバー）の `Server/Jobs` フォルダにソースコードとして入っています。詳しい約束（引数・終了コード・制限）は同じフォルダの `README.md` にあります。
 
-> テンプレート 1.3.51 以降で作ったアプリに入っています。それより前に作ったアプリは [Codeer.LowCode.Blazor.Starter](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Starter) の `Source/Hosts/Cookie/LowCodeApp.Server/Jobs` と `Program.cs` の `job` の分岐を取り込んでください。
+> アプリのテンプレート 1.3.53.0 以降で作ったアプリに入っています（Codeer.LowCode.Blazor 1.3.53・Codeer.LowCode.Blazor.Extras / Extras.Server 0.23.0 以降）。それより前に作ったアプリは [Codeer.LowCode.Blazor.Starter](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Starter) の `Source/Hosts/Cookie/LowCodeApp.Server` から `Jobs/`・`Controllers/JobController.cs`・`Program.cs` の `job` の分岐を取り込み、Extras.Server を 0.23.0 以降に上げてください。
 
 ---
 
@@ -89,7 +89,7 @@ dotnet %HOME%\site\wwwroot\LowCodeApp.Server.dll job <ジョブ名>
 
 ## 画面のボタンから起動する
 
-モジュールに [ジョブトリガー](../fields/JobTrigger.md) を置き、ジョブ名を設定します。ボタンを押すと、画面の内容（JSON）を渡してジョブを実行します。
+モジュールに [ジョブトリガー](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras/blob/main/docs/JobTriggerField.md)（拡張ライブラリ Extras の `JobTriggerField`）を置き、ジョブ名を設定します。ボタンを押すと、画面の内容（JSON）を渡してジョブを実行します。
 
 - 終わるまで待って結果を通知する（既定）か、起動だけしてすぐ戻る（非同期）かを選べます
 - ジョブはサーバーの別プロセスとして動きます

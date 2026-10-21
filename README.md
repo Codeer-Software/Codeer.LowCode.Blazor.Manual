@@ -271,7 +271,6 @@ Codeer.LowCode.Blazor を触り始める前に、全体像を掴むためのセ�
 - [ButtonField (ボタン)](JP/fields/Button.md) — クリックでスクリプト実行
 - [SubmitButtonField (サブミットボタン)](JP/fields/SubmitButton.md) — 標準の登録・更新
 - [AutoSubmitField (自動サブミット)](JP/fields/AutoSubmit.md) — 変更を自動で保存
-- [JobTriggerField (ジョブトリガー)](JP/fields/JobTrigger.md) — ボタンでサーバーのジョブ（バッチ処理）を実行
 - [CopyModuleButtonField (モジュールコピーボタン)](JP/fields/CopyModuleButton.md) — データをコピーして新規作成
 - [ViewEditToggleButtonField (閲覧編集切り替えボタン)](JP/fields/ViewEditToggleButton.md) — 閲覧／編集モードのトグル
 - [ContextMenuField (コンテキストメニュー)](JP/fields/ContextMenu.md) — 右クリックメニュー
