@@ -1,1393 +1,504 @@
 {
   "Name": "Dashboard",
-  "DataSourceName": "",
-  "DbTable": "",
-  "CanCreate": true,
-  "CanUpdate": true,
-  "CanDelete": true,
   "Fields": [
     {
-      "SeriesType": "Bar",
       "Series": {
         "Series": [
           {
-            "Name": "実績",
-            "Color": "",
-            "Type": "Line"
+            "Name": "実績"
           },
           {
-            "Name": "目標",
-            "Color": "",
-            "Type": "Line"
+            "Name": "目標"
           }
         ]
       },
-      "FullWidthBar": false,
-      "ShowXAxisGrid": false,
-      "ShowYAxisGrid": true,
       "SearchCondition": {
-        "SelectFields": [],
-        "SortConditions": [],
-        "SortFieldVariable": "",
-        "SortDescending": false,
         "ModuleName": "日別の集計データ",
         "Condition": {
-          "IsOrMatch": false,
-          "IsNot": false,
-          "Children": [],
           "Name": "",
           "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
         }
       },
-      "DisplayName": "",
       "CategoryField": "date",
       "CategoryFormat": "yyyy/MM/dd",
-      "SeriesFractionDigits": 2,
-      "ShowLegend": true,
       "Name": "日別の集計",
-      "IgnoreModification": false,
-      "OnValidateInput": "",
-      "IsFocusSkip": false,
-      "NextFocusField": "",
-      "OnFocusMoving": "",
       "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexChartFieldDesign"
     },
     {
       "SeriesType": "Pie",
       "SeriesField": "パーセンテージ",
       "SearchCondition": {
-        "SelectFields": [],
-        "SortConditions": [],
-        "SortFieldVariable": "",
-        "SortDescending": false,
         "ModuleName": "不良原因ごとの割合データ",
         "Condition": {
-          "IsOrMatch": false,
-          "IsNot": false,
-          "Children": [],
           "Name": "",
           "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
         }
       },
-      "DisplayName": "",
       "CategoryField": "名前",
-      "SeriesFractionDigits": 2,
-      "ShowLegend": true,
       "Name": "不良原因毎の割合",
-      "IgnoreModification": false,
-      "OnValidateInput": "",
-      "IsFocusSkip": false,
-      "NextFocusField": "",
-      "OnFocusMoving": "",
       "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexRadialChartFieldDesign"
     },
     {
-      "SeriesType": "Bar",
       "Series": {
         "Series": [
           {
             "Name": "注文数",
-            "Color": "",
             "Type": "Bar"
           },
           {
             "Name": "納品数",
-            "Color": "",
             "Type": "Bar"
           }
         ]
       },
-      "FullWidthBar": false,
-      "ShowXAxisGrid": false,
-      "ShowYAxisGrid": true,
       "SearchCondition": {
-        "SelectFields": [],
-        "SortConditions": [],
-        "SortFieldVariable": "",
-        "SortDescending": false,
         "ModuleName": "受注数と納品数データ",
         "Condition": {
-          "IsOrMatch": false,
-          "IsNot": false,
-          "Children": [],
           "Name": "",
           "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
         }
       },
-      "DisplayName": "",
       "CategoryField": "date",
       "CategoryFormat": "yyyy/MM/dd",
-      "SeriesFractionDigits": 2,
       "ShowLegend": false,
       "Name": "受注数と納品数",
-      "IgnoreModification": false,
-      "OnValidateInput": "",
-      "IsFocusSkip": false,
-      "NextFocusField": "",
-      "OnFocusMoving": "",
       "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexChartFieldDesign"
     },
     {
       "Text": "",
-      "Icon": "",
-      "IsHtml": false,
-      "Style": "Default",
       "RelativeField": "受注数と納品数",
-      "OnClick": "",
       "Name": "受注数と納品数Label",
-      "IgnoreModification": false,
-      "OnValidateInput": "",
-      "IsFocusSkip": false,
-      "NextFocusField": "",
-      "OnFocusMoving": "",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
     },
     {
       "Text": "",
-      "Icon": "",
-      "IsHtml": false,
-      "Style": "Default",
       "RelativeField": "日別の集計",
-      "OnClick": "",
       "Name": "日別の集計Label",
-      "IgnoreModification": false,
-      "OnValidateInput": "",
-      "IsFocusSkip": false,
-      "NextFocusField": "",
-      "OnFocusMoving": "",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
     },
     {
       "Text": "",
-      "Icon": "",
-      "IsHtml": false,
-      "Style": "Default",
       "RelativeField": "不良原因毎の割合",
-      "OnClick": "",
       "Name": "不良原因毎の割合Label",
-      "IgnoreModification": false,
-      "OnValidateInput": "",
-      "IsFocusSkip": false,
-      "NextFocusField": "",
-      "OnFocusMoving": "",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
     },
     {
-      "SeriesType": "Bar",
       "Series": {
         "Series": [
           {
             "Name": "frequency",
-            "Color": "",
             "Type": "Bar"
           }
         ]
       },
       "FullWidthBar": true,
-      "ShowXAxisGrid": false,
-      "ShowYAxisGrid": true,
       "SearchCondition": {
-        "SelectFields": [],
-        "SortConditions": [],
-        "SortFieldVariable": "",
-        "SortDescending": false,
         "ModuleName": "Histogram",
         "Condition": {
-          "IsOrMatch": false,
-          "IsNot": false,
-          "Children": [],
           "Name": "",
           "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
         }
       },
-      "DisplayName": "",
       "CategoryField": "range",
-      "SeriesFractionDigits": 2,
-      "ShowLegend": true,
       "Name": "ApexChart5",
-      "IgnoreModification": false,
-      "OnValidateInput": "",
-      "IsFocusSkip": false,
-      "NextFocusField": "",
-      "OnFocusMoving": "",
       "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexChartFieldDesign"
     },
     {
-      "SeriesType": "Bar",
       "Series": {
         "Series": [
           {
             "Name": "sample_mean",
-            "Color": "#000000",
-            "Type": "Line"
+            "Color": "#000000"
           },
           {
             "Name": "xbar_ucl",
-            "Color": "#0000FF",
-            "Type": "Line"
+            "Color": "#0000FF"
           },
           {
             "Name": "xbar_lcl",
-            "Color": "#0000FF",
-            "Type": "Line"
+            "Color": "#0000FF"
           },
           {
             "Name": "xbar_cl",
-            "Color": "#FF0000",
-            "Type": "Line"
+            "Color": "#FF0000"
           }
         ]
       },
-      "FullWidthBar": false,
-      "ShowXAxisGrid": false,
-      "ShowYAxisGrid": true,
       "SearchCondition": {
-        "SelectFields": [],
-        "SortConditions": [],
-        "SortFieldVariable": "",
-        "SortDescending": false,
         "ModuleName": "XRData",
         "Condition": {
-          "IsOrMatch": false,
-          "IsNot": false,
-          "Children": [],
           "Name": "",
           "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
         }
       },
-      "DisplayName": "",
       "CategoryField": "sample_group",
-      "SeriesFractionDigits": 2,
-      "ShowLegend": true,
       "Name": "ApexChart4",
-      "IgnoreModification": false,
-      "OnValidateInput": "",
-      "IsFocusSkip": false,
-      "NextFocusField": "",
-      "OnFocusMoving": "",
       "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexChartFieldDesign"
     },
     {
-      "SeriesType": "Bar",
       "Series": {
         "Series": [
           {
             "Name": "sample_range",
-            "Color": "#000000",
-            "Type": "Line"
+            "Color": "#000000"
           },
           {
             "Name": "R_ucl",
-            "Color": "#0000FF",
-            "Type": "Line"
+            "Color": "#0000FF"
           },
           {
             "Name": "R_lcl",
-            "Color": "#0000FF",
-            "Type": "Line"
+            "Color": "#0000FF"
           },
           {
             "Name": "R_cl",
-            "Color": "#FF0000",
-            "Type": "Line"
+            "Color": "#FF0000"
           }
         ]
       },
-      "FullWidthBar": false,
-      "ShowXAxisGrid": false,
-      "ShowYAxisGrid": true,
       "SearchCondition": {
-        "SelectFields": [],
-        "SortConditions": [],
-        "SortFieldVariable": "",
-        "SortDescending": false,
         "ModuleName": "XRData",
         "Condition": {
-          "IsOrMatch": false,
-          "IsNot": false,
-          "Children": [],
           "Name": "",
           "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
         }
       },
-      "DisplayName": "",
       "CategoryField": "sample_group",
-      "SeriesFractionDigits": 2,
-      "ShowLegend": true,
       "Name": "ApexChart41",
-      "IgnoreModification": false,
-      "OnValidateInput": "",
-      "IsFocusSkip": false,
-      "NextFocusField": "",
-      "OnFocusMoving": "",
       "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexChartFieldDesign"
     },
     {
       "Text": "ヒストグラム",
-      "Icon": "",
-      "IsHtml": false,
-      "Style": "Default",
       "RelativeField": "ApexChart5",
-      "OnClick": "",
       "Name": "ApexChart5Label",
-      "IgnoreModification": false,
-      "OnValidateInput": "",
-      "IsFocusSkip": false,
-      "NextFocusField": "",
-      "OnFocusMoving": "",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
     },
     {
       "Text": "x̄管理図",
-      "Icon": "",
-      "IsHtml": false,
-      "Style": "Default",
       "RelativeField": "ApexChart4",
-      "OnClick": "",
       "Name": "ApexChart4Label",
-      "IgnoreModification": false,
-      "OnValidateInput": "",
-      "IsFocusSkip": false,
-      "NextFocusField": "",
-      "OnFocusMoving": "",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
     },
     {
       "Text": "R管理図",
-      "Icon": "",
-      "IsHtml": false,
-      "Style": "Default",
       "RelativeField": "ApexChart41",
-      "OnClick": "",
       "Name": "ApexChart41Label",
-      "IgnoreModification": false,
-      "OnValidateInput": "",
-      "IsFocusSkip": false,
-      "NextFocusField": "",
-      "OnFocusMoving": "",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
     },
     {
-      "Style": "Text",
-      "Target": "Url",
       "ShouldOpenInNewTab": true,
-      "Icon": "",
       "TitleText": "Codeer.LowCode.Bindings.Blazor-ApexCharts",
-      "TitleVariable": "",
-      "ImageResourcePath": "",
-      "PageFrame": "",
-      "Module": "",
-      "ModuleVariable": "",
-      "IdVariable": "",
       "Url": "https://github.com/Codeer-Software/Codeer.LowCode.Bindings.Blazor-ApexCharts",
-      "OnClick": "",
-      "IsHtml": false,
       "Name": "Title",
-      "IgnoreModification": false,
-      "OnValidateInput": "",
-      "IsFocusSkip": false,
-      "NextFocusField": "",
-      "OnFocusMoving": "",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.AnchorTagFieldDesign"
     }
   ],
-  "UserWriteCondition": {
-    "ModuleName": ""
-  },
-  "UserReadCondition": {
-    "ModuleName": ""
-  },
-  "DataWriteCondition": {
-    "ModuleName": ""
-  },
-  "DataReadCondition": {
-    "ModuleName": ""
-  },
   "DetailLayouts": {
     "": {
-      "OnBeforeInitialization": "",
-      "OnAfterInitialization": "",
-      "OnLocationChanging": "",
-      "OnFieldDataChanged": "",
-      "FocusControlMode": "Inherit",
-      "IsFocusWrap": false,
-      "InitialFocusField": "",
-      "DataOnlyFields": [],
-      "ClassName": "",
-      "Color": "",
-      "BackgroundColor": "",
-      "FontFamily": "",
       "Layout": {
         "Name": "",
-        "Padding": {},
-        "IsBordered": false,
-        "UseBorderedShrinkWrap": false,
-        "IsExpandable": false,
-        "ExpanderLabel": "",
-        "IsExpanderDefaultOpened": false,
-        "IsFlowLayout": false,
-        "IsAutoFillWrap": false,
-        "IsFillAvailable": false,
-        "ScrollDirection": "Unset",
-        "OnKeyDown": "",
         "Rows": [
           {
-            "IsWrap": false,
-            "IsAutoFillWrap": false,
-            "Margin": {},
-            "GridRowType": "Normal",
-            "CanResize": false,
-            "BackgroundColor": "",
-            "KeepInFillAvailableGrid": false,
-            "IsProportionalScale": false,
-            "IsRowMarginRemoved": false,
             "Columns": [
               {
                 "Layout": {
                   "FieldName": "Title",
-                  "ContextMenu": "",
-                  "ClassName": "",
-                  "FontFamily": "",
                   "FontSize": 30,
-                  "Color": "",
                   "Name": "",
-                  "BackgroundColor": "",
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
-                "IgnoreContentWidth": false,
-                "Padding": {},
-                "BackgroundColor": "",
-                "BorderStyle": {
-                  "LeftColor": "",
-                  "TopColor": "",
-                  "RightColor": "",
-                  "BottomColor": ""
-                },
-                "HorizontalAlignment": "Center",
-                "CanResize": false,
-                "AllowOverflow": false,
-                "Border": "None"
+                "HorizontalAlignment": "Center"
               }
             ]
           },
           {
-            "IsWrap": false,
-            "IsAutoFillWrap": false,
-            "Margin": {},
-            "GridRowType": "Normal",
-            "CanResize": false,
-            "BackgroundColor": "",
-            "KeepInFillAvailableGrid": false,
-            "IsProportionalScale": false,
-            "IsRowMarginRemoved": false,
             "Columns": [
               {
                 "Layout": {
                   "Name": "",
-                  "Padding": {},
-                  "IsBordered": false,
-                  "UseBorderedShrinkWrap": false,
-                  "IsExpandable": false,
-                  "ExpanderLabel": "",
-                  "IsExpanderDefaultOpened": false,
-                  "IsFlowLayout": false,
-                  "IsAutoFillWrap": false,
-                  "IsFillAvailable": false,
-                  "ScrollDirection": "Unset",
-                  "OnKeyDown": "",
                   "Rows": [
                     {
-                      "IsWrap": false,
-                      "IsAutoFillWrap": false,
                       "Margin": {
                         "Bottom": 0
                       },
-                      "GridRowType": "Normal",
-                      "CanResize": false,
-                      "BackgroundColor": "",
-                      "KeepInFillAvailableGrid": false,
-                      "IsProportionalScale": false,
                       "IsRowMarginRemoved": true,
                       "Columns": [
                         {
                           "Layout": {
                             "FieldName": "日別の集計Label",
-                            "ContextMenu": "",
-                            "ClassName": "",
-                            "FontFamily": "",
                             "FontWeight": "Bold",
-                            "Color": "",
                             "Name": "",
-                            "BackgroundColor": "",
                             "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                           },
-                          "IgnoreContentWidth": false,
-                          "Padding": {},
-                          "BackgroundColor": "",
-                          "BorderStyle": {
-                            "LeftColor": "",
-                            "TopColor": "",
-                            "RightColor": "",
-                            "BottomColor": ""
-                          },
                           "VerticalAlignment": "Bottom",
-                          "CanResize": false,
-                          "AllowOverflow": false,
-                          "Background": "",
-                          "Border": "None"
+                          "Background": ""
                         }
                       ]
                     },
                     {
-                      "IsWrap": false,
-                      "IsAutoFillWrap": false,
                       "Height": 350,
-                      "Margin": {},
-                      "GridRowType": "Normal",
-                      "CanResize": false,
-                      "BackgroundColor": "",
-                      "KeepInFillAvailableGrid": false,
-                      "IsProportionalScale": false,
-                      "IsRowMarginRemoved": false,
                       "Columns": [
                         {
                           "Layout": {
                             "FieldName": "日別の集計",
-                            "ContextMenu": "",
-                            "ClassName": "",
-                            "FontFamily": "",
-                            "Color": "",
                             "Name": "",
-                            "BackgroundColor": "",
                             "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                           },
-                          "IgnoreContentWidth": false,
-                          "Padding": {},
-                          "BackgroundColor": "",
-                          "BorderStyle": {
-                            "LeftColor": "",
-                            "TopColor": "",
-                            "RightColor": "",
-                            "BottomColor": ""
-                          },
-                          "CanResize": false,
-                          "AllowOverflow": false,
-                          "Background": "",
-                          "Border": "None"
+                          "Background": ""
                         }
                       ]
                     }
                   ],
-                  "BackgroundColor": "",
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
                 },
-                "IgnoreContentWidth": false,
-                "Padding": {},
-                "BackgroundColor": "",
-                "BorderStyle": {
-                  "LeftColor": "",
-                  "TopColor": "",
-                  "RightColor": "",
-                  "BottomColor": ""
-                },
-                "CanResize": false,
-                "AllowOverflow": false,
-                "Background": "",
-                "Border": "None"
+                "Background": ""
               },
               {
                 "Layout": {
                   "Name": "",
-                  "Padding": {},
-                  "IsBordered": false,
-                  "UseBorderedShrinkWrap": false,
-                  "IsExpandable": false,
-                  "ExpanderLabel": "",
-                  "IsExpanderDefaultOpened": false,
-                  "IsFlowLayout": false,
-                  "IsAutoFillWrap": false,
-                  "IsFillAvailable": false,
-                  "ScrollDirection": "Unset",
-                  "OnKeyDown": "",
                   "Rows": [
                     {
-                      "IsWrap": false,
-                      "IsAutoFillWrap": false,
                       "Margin": {
                         "Bottom": 0
                       },
-                      "GridRowType": "Normal",
-                      "CanResize": false,
-                      "BackgroundColor": "",
-                      "KeepInFillAvailableGrid": false,
-                      "IsProportionalScale": false,
                       "IsRowMarginRemoved": true,
                       "Columns": [
                         {
                           "Layout": {
                             "FieldName": "不良原因毎の割合Label",
-                            "ContextMenu": "",
-                            "ClassName": "",
-                            "FontFamily": "",
                             "FontWeight": "Bold",
-                            "Color": "",
                             "Name": "",
-                            "BackgroundColor": "",
                             "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                           },
-                          "IgnoreContentWidth": false,
-                          "Padding": {},
-                          "BackgroundColor": "",
-                          "BorderStyle": {
-                            "LeftColor": "",
-                            "TopColor": "",
-                            "RightColor": "",
-                            "BottomColor": ""
-                          },
                           "VerticalAlignment": "Bottom",
-                          "CanResize": false,
-                          "AllowOverflow": false,
-                          "Background": "",
-                          "Border": "None"
+                          "Background": ""
                         }
                       ]
                     },
                     {
-                      "IsWrap": false,
-                      "IsAutoFillWrap": false,
                       "Height": 350,
-                      "Margin": {},
-                      "GridRowType": "Normal",
-                      "CanResize": false,
-                      "BackgroundColor": "",
-                      "KeepInFillAvailableGrid": false,
-                      "IsProportionalScale": false,
-                      "IsRowMarginRemoved": false,
                       "Columns": [
                         {
                           "Layout": {
                             "FieldName": "不良原因毎の割合",
-                            "ContextMenu": "",
-                            "ClassName": "",
-                            "FontFamily": "",
-                            "Color": "",
                             "Name": "",
-                            "BackgroundColor": "",
                             "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                           },
-                          "IgnoreContentWidth": false,
-                          "Padding": {},
-                          "BackgroundColor": "",
-                          "BorderStyle": {
-                            "LeftColor": "",
-                            "TopColor": "",
-                            "RightColor": "",
-                            "BottomColor": ""
-                          },
-                          "CanResize": false,
-                          "AllowOverflow": false,
-                          "Background": "",
-                          "Border": "None"
+                          "Background": ""
                         }
                       ]
                     }
                   ],
-                  "BackgroundColor": "",
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
                 },
-                "IgnoreContentWidth": false,
-                "Padding": {},
-                "BackgroundColor": "",
-                "BorderStyle": {
-                  "LeftColor": "",
-                  "TopColor": "",
-                  "RightColor": "",
-                  "BottomColor": ""
-                },
-                "CanResize": false,
-                "AllowOverflow": false,
-                "Background": "",
-                "Border": "None"
+                "Background": ""
               }
             ]
           },
           {
-            "IsWrap": false,
-            "IsAutoFillWrap": false,
-            "Margin": {},
-            "GridRowType": "Normal",
-            "CanResize": false,
-            "BackgroundColor": "",
-            "KeepInFillAvailableGrid": false,
-            "IsProportionalScale": false,
-            "IsRowMarginRemoved": false,
             "Columns": [
               {
                 "Layout": {
                   "Name": "",
-                  "Padding": {},
-                  "IsBordered": false,
-                  "UseBorderedShrinkWrap": false,
-                  "IsExpandable": false,
-                  "ExpanderLabel": "",
-                  "IsExpanderDefaultOpened": false,
-                  "IsFlowLayout": false,
-                  "IsAutoFillWrap": false,
-                  "IsFillAvailable": false,
-                  "ScrollDirection": "Unset",
-                  "OnKeyDown": "",
                   "Rows": [
                     {
-                      "IsWrap": false,
-                      "IsAutoFillWrap": false,
                       "Margin": {
                         "Bottom": 0
                       },
-                      "GridRowType": "Normal",
-                      "CanResize": false,
-                      "BackgroundColor": "",
-                      "KeepInFillAvailableGrid": false,
-                      "IsProportionalScale": false,
                       "IsRowMarginRemoved": true,
                       "Columns": [
                         {
                           "Layout": {
                             "FieldName": "受注数と納品数Label",
-                            "ContextMenu": "",
-                            "ClassName": "",
-                            "FontFamily": "",
                             "FontWeight": "Bold",
-                            "Color": "",
                             "Name": "",
-                            "BackgroundColor": "",
                             "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                           },
-                          "IgnoreContentWidth": false,
-                          "Padding": {},
-                          "BackgroundColor": "",
-                          "BorderStyle": {
-                            "LeftColor": "",
-                            "TopColor": "",
-                            "RightColor": "",
-                            "BottomColor": ""
-                          },
                           "VerticalAlignment": "Bottom",
-                          "CanResize": false,
-                          "AllowOverflow": false,
-                          "Background": "",
-                          "Border": "None"
+                          "Background": ""
                         }
                       ]
                     },
                     {
-                      "IsWrap": false,
-                      "IsAutoFillWrap": false,
                       "Height": 350,
-                      "Margin": {},
-                      "GridRowType": "Normal",
-                      "CanResize": false,
-                      "BackgroundColor": "",
-                      "KeepInFillAvailableGrid": false,
-                      "IsProportionalScale": false,
-                      "IsRowMarginRemoved": false,
                       "Columns": [
                         {
                           "Layout": {
                             "FieldName": "受注数と納品数",
-                            "ContextMenu": "",
-                            "ClassName": "",
-                            "FontFamily": "",
-                            "Color": "",
                             "Name": "",
-                            "BackgroundColor": "",
                             "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                           },
-                          "IgnoreContentWidth": false,
-                          "Padding": {},
-                          "BackgroundColor": "",
-                          "BorderStyle": {
-                            "LeftColor": "",
-                            "TopColor": "",
-                            "RightColor": "",
-                            "BottomColor": ""
-                          },
-                          "CanResize": false,
-                          "AllowOverflow": false,
-                          "Background": "",
-                          "Border": "None"
+                          "Background": ""
                         }
                       ]
                     }
                   ],
-                  "BackgroundColor": "",
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
                 },
-                "IgnoreContentWidth": false,
-                "Padding": {},
-                "BackgroundColor": "",
-                "BorderStyle": {
-                  "LeftColor": "",
-                  "TopColor": "",
-                  "RightColor": "",
-                  "BottomColor": ""
-                },
-                "CanResize": false,
-                "AllowOverflow": false,
-                "Background": "",
-                "Border": "None"
+                "Background": ""
               }
             ]
           },
           {
-            "IsWrap": false,
-            "IsAutoFillWrap": false,
-            "Margin": {},
-            "GridRowType": "Normal",
-            "CanResize": false,
-            "BackgroundColor": "",
-            "KeepInFillAvailableGrid": false,
-            "IsProportionalScale": false,
-            "IsRowMarginRemoved": false,
             "Columns": [
               {
                 "Layout": {
                   "Name": "",
-                  "Padding": {},
-                  "IsBordered": false,
-                  "UseBorderedShrinkWrap": false,
-                  "IsExpandable": false,
-                  "ExpanderLabel": "",
-                  "IsExpanderDefaultOpened": false,
-                  "IsFlowLayout": false,
-                  "IsAutoFillWrap": false,
-                  "IsFillAvailable": false,
-                  "ScrollDirection": "Unset",
-                  "OnKeyDown": "",
                   "Rows": [
                     {
-                      "IsWrap": false,
-                      "IsAutoFillWrap": false,
                       "Margin": {
                         "Bottom": 0
                       },
-                      "GridRowType": "Normal",
-                      "CanResize": false,
-                      "BackgroundColor": "",
-                      "KeepInFillAvailableGrid": false,
-                      "IsProportionalScale": false,
                       "IsRowMarginRemoved": true,
                       "Columns": [
                         {
                           "Layout": {
                             "FieldName": "ApexChart5Label",
-                            "ContextMenu": "",
-                            "ClassName": "",
-                            "FontFamily": "",
-                            "Color": "",
                             "Name": "",
-                            "BackgroundColor": "",
                             "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                           },
-                          "IgnoreContentWidth": false,
-                          "Padding": {},
-                          "BackgroundColor": "",
-                          "BorderStyle": {
-                            "LeftColor": "",
-                            "TopColor": "",
-                            "RightColor": "",
-                            "BottomColor": ""
-                          },
-                          "VerticalAlignment": "Bottom",
-                          "CanResize": false,
-                          "AllowOverflow": false,
-                          "Border": "None"
+                          "VerticalAlignment": "Bottom"
                         }
                       ]
                     },
                     {
-                      "IsWrap": false,
-                      "IsAutoFillWrap": false,
                       "Height": 350,
-                      "Margin": {},
-                      "GridRowType": "Normal",
-                      "CanResize": false,
-                      "BackgroundColor": "",
-                      "KeepInFillAvailableGrid": false,
-                      "IsProportionalScale": false,
-                      "IsRowMarginRemoved": false,
                       "Columns": [
                         {
                           "Layout": {
                             "FieldName": "ApexChart5",
-                            "ContextMenu": "",
-                            "ClassName": "",
-                            "FontFamily": "",
-                            "Color": "",
                             "Name": "",
-                            "BackgroundColor": "",
                             "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                          },
-                          "IgnoreContentWidth": false,
-                          "Padding": {},
-                          "BackgroundColor": "",
-                          "BorderStyle": {
-                            "LeftColor": "",
-                            "TopColor": "",
-                            "RightColor": "",
-                            "BottomColor": ""
-                          },
-                          "CanResize": false,
-                          "AllowOverflow": false,
-                          "Border": "None"
+                          }
                         }
                       ]
                     }
                   ],
-                  "BackgroundColor": "",
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
-                },
-                "IgnoreContentWidth": false,
-                "Padding": {},
-                "BackgroundColor": "",
-                "BorderStyle": {
-                  "LeftColor": "",
-                  "TopColor": "",
-                  "RightColor": "",
-                  "BottomColor": ""
-                },
-                "CanResize": false,
-                "AllowOverflow": false,
-                "Border": "None"
+                }
               }
             ]
           },
           {
-            "IsWrap": false,
-            "IsAutoFillWrap": false,
-            "Margin": {},
-            "GridRowType": "Normal",
-            "CanResize": false,
-            "BackgroundColor": "",
-            "KeepInFillAvailableGrid": false,
-            "IsProportionalScale": false,
-            "IsRowMarginRemoved": false,
             "Columns": [
               {
                 "Layout": {
                   "Name": "",
-                  "Padding": {},
-                  "IsBordered": false,
-                  "UseBorderedShrinkWrap": false,
-                  "IsExpandable": false,
-                  "ExpanderLabel": "",
-                  "IsExpanderDefaultOpened": false,
-                  "IsFlowLayout": false,
-                  "IsAutoFillWrap": false,
-                  "IsFillAvailable": false,
-                  "ScrollDirection": "Unset",
-                  "OnKeyDown": "",
                   "Rows": [
                     {
-                      "IsWrap": false,
-                      "IsAutoFillWrap": false,
                       "Margin": {
                         "Bottom": 0
                       },
-                      "GridRowType": "Normal",
-                      "CanResize": false,
-                      "BackgroundColor": "",
-                      "KeepInFillAvailableGrid": false,
-                      "IsProportionalScale": false,
                       "IsRowMarginRemoved": true,
                       "Columns": [
                         {
                           "Layout": {
                             "FieldName": "ApexChart4Label",
-                            "ContextMenu": "",
-                            "ClassName": "",
-                            "FontFamily": "",
-                            "Color": "",
                             "Name": "",
-                            "BackgroundColor": "",
                             "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                           },
-                          "IgnoreContentWidth": false,
-                          "Padding": {},
-                          "BackgroundColor": "",
-                          "BorderStyle": {
-                            "LeftColor": "",
-                            "TopColor": "",
-                            "RightColor": "",
-                            "BottomColor": ""
-                          },
-                          "VerticalAlignment": "Bottom",
-                          "CanResize": false,
-                          "AllowOverflow": false,
-                          "Border": "None"
+                          "VerticalAlignment": "Bottom"
                         }
                       ]
                     },
                     {
-                      "IsWrap": false,
-                      "IsAutoFillWrap": false,
                       "Height": 350,
-                      "Margin": {},
-                      "GridRowType": "Normal",
-                      "CanResize": false,
-                      "BackgroundColor": "",
-                      "KeepInFillAvailableGrid": false,
-                      "IsProportionalScale": false,
-                      "IsRowMarginRemoved": false,
                       "Columns": [
                         {
                           "Layout": {
                             "FieldName": "ApexChart4",
-                            "ContextMenu": "",
-                            "ClassName": "",
-                            "FontFamily": "",
-                            "Color": "",
                             "Name": "",
-                            "BackgroundColor": "",
                             "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                          },
-                          "IgnoreContentWidth": false,
-                          "Padding": {},
-                          "BackgroundColor": "",
-                          "BorderStyle": {
-                            "LeftColor": "",
-                            "TopColor": "",
-                            "RightColor": "",
-                            "BottomColor": ""
-                          },
-                          "CanResize": false,
-                          "AllowOverflow": false,
-                          "Border": "None"
+                          }
                         }
                       ]
                     }
                   ],
-                  "BackgroundColor": "",
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
-                },
-                "IgnoreContentWidth": false,
-                "Padding": {},
-                "BackgroundColor": "",
-                "BorderStyle": {
-                  "LeftColor": "",
-                  "TopColor": "",
-                  "RightColor": "",
-                  "BottomColor": ""
-                },
-                "CanResize": false,
-                "AllowOverflow": false,
-                "Border": "None"
+                }
               }
             ]
           },
           {
-            "IsWrap": false,
-            "IsAutoFillWrap": false,
-            "Margin": {},
-            "GridRowType": "Normal",
-            "CanResize": false,
-            "BackgroundColor": "",
-            "KeepInFillAvailableGrid": false,
-            "IsProportionalScale": false,
-            "IsRowMarginRemoved": false,
             "Columns": [
               {
                 "Layout": {
                   "Name": "",
-                  "Padding": {},
-                  "IsBordered": false,
-                  "UseBorderedShrinkWrap": false,
-                  "IsExpandable": false,
-                  "ExpanderLabel": "",
-                  "IsExpanderDefaultOpened": false,
-                  "IsFlowLayout": false,
-                  "IsAutoFillWrap": false,
-                  "IsFillAvailable": false,
-                  "ScrollDirection": "Unset",
-                  "OnKeyDown": "",
                   "Rows": [
                     {
-                      "IsWrap": false,
-                      "IsAutoFillWrap": false,
                       "Margin": {
                         "Bottom": 0
                       },
-                      "GridRowType": "Normal",
-                      "CanResize": false,
-                      "BackgroundColor": "",
-                      "KeepInFillAvailableGrid": false,
-                      "IsProportionalScale": false,
                       "IsRowMarginRemoved": true,
                       "Columns": [
                         {
                           "Layout": {
                             "FieldName": "ApexChart41Label",
-                            "ContextMenu": "",
-                            "ClassName": "",
-                            "FontFamily": "",
-                            "Color": "",
                             "Name": "",
-                            "BackgroundColor": "",
                             "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                           },
-                          "IgnoreContentWidth": false,
-                          "Padding": {},
-                          "BackgroundColor": "",
-                          "BorderStyle": {
-                            "LeftColor": "",
-                            "TopColor": "",
-                            "RightColor": "",
-                            "BottomColor": ""
-                          },
-                          "VerticalAlignment": "Bottom",
-                          "CanResize": false,
-                          "AllowOverflow": false,
-                          "Border": "None"
+                          "VerticalAlignment": "Bottom"
                         }
                       ]
                     },
                     {
-                      "IsWrap": false,
-                      "IsAutoFillWrap": false,
                       "Height": 350,
-                      "Margin": {},
-                      "GridRowType": "Normal",
-                      "CanResize": false,
-                      "BackgroundColor": "",
-                      "KeepInFillAvailableGrid": false,
-                      "IsProportionalScale": false,
-                      "IsRowMarginRemoved": false,
                       "Columns": [
                         {
                           "Layout": {
                             "FieldName": "ApexChart41",
-                            "ContextMenu": "",
-                            "ClassName": "",
-                            "FontFamily": "",
-                            "Color": "",
                             "Name": "",
-                            "BackgroundColor": "",
                             "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                          },
-                          "IgnoreContentWidth": false,
-                          "Padding": {},
-                          "BackgroundColor": "",
-                          "BorderStyle": {
-                            "LeftColor": "",
-                            "TopColor": "",
-                            "RightColor": "",
-                            "BottomColor": ""
-                          },
-                          "CanResize": false,
-                          "AllowOverflow": false,
-                          "Border": "None"
+                          }
                         }
                       ]
                     }
                   ],
-                  "BackgroundColor": "",
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
-                },
-                "IgnoreContentWidth": false,
-                "Padding": {},
-                "BackgroundColor": "",
-                "BorderStyle": {
-                  "LeftColor": "",
-                  "TopColor": "",
-                  "RightColor": "",
-                  "BottomColor": ""
-                },
-                "CanResize": false,
-                "AllowOverflow": false,
-                "Border": "None"
+                }
               }
             ]
           }
         ],
-        "BackgroundColor": "",
         "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
       }
     }
   },
-  "ListLayouts": {
-    "": {
-      "HeaderTitle": "",
-      "DataOnlyFields": [],
-      "FocusControlMode": "Inherit",
-      "IsFocusWrap": false,
-      "OnBeforeInitialization": "",
-      "OnAfterInitialization": "",
-      "OnFieldDataChanged": "",
-      "Elements": [
-        [
-          {
-            "FieldName": "",
-            "ContextMenu": "",
-            "Label": "",
-            "IsMaxWidthFixed": false,
-            "ColumnSpan": 1,
-            "RowSpan": 1,
-            "TextWrap": "Unset",
-            "CanResize": false,
-            "CanUserSort": true,
-            "ClassName": "",
-            "FontFamily": "",
-            "Color": "",
-            "BackgroundColor": "",
-            "DetailLayoutName": "",
-            "ListElementComponent": ""
-          }
-        ]
-      ]
-    }
-  },
   "SearchLayouts": {
     "": {
-      "OnSearchInitialization": "",
-      "ShowDefaultSearchButtons": true,
-      "FocusControlMode": "Inherit",
-      "IsFocusWrap": false,
       "Layout": {
-        "Operator": "And",
         "Name": "SearchGridLayout",
-        "Padding": {},
-        "IsBordered": false,
-        "UseBorderedShrinkWrap": false,
         "IsExpandable": true,
         "ExpanderLabel": "検索条件",
-        "IsExpanderDefaultOpened": false,
-        "IsFlowLayout": false,
-        "IsAutoFillWrap": false,
-        "IsFillAvailable": false,
-        "ScrollDirection": "Unset",
-        "OnKeyDown": "",
         "Rows": [
           {
-            "IsWrap": false,
-            "IsAutoFillWrap": false,
-            "Margin": {},
-            "GridRowType": "Normal",
-            "CanResize": false,
-            "BackgroundColor": "",
-            "KeepInFillAvailableGrid": false,
-            "IsProportionalScale": false,
-            "IsRowMarginRemoved": false,
             "Columns": [
               {
-                "IgnoreContentWidth": false,
-                "Padding": {},
-                "BackgroundColor": "",
-                "BorderStyle": {
-                  "LeftColor": "",
-                  "TopColor": "",
-                  "RightColor": "",
-                  "BottomColor": ""
-                },
-                "CanResize": false,
-                "AllowOverflow": false,
-                "Background": "",
-                "Border": "None"
+                "Background": ""
               },
               {
-                "IgnoreContentWidth": false,
-                "Padding": {},
-                "BackgroundColor": "",
-                "BorderStyle": {
-                  "LeftColor": "",
-                  "TopColor": "",
-                  "RightColor": "",
-                  "BottomColor": ""
-                },
-                "CanResize": false,
-                "AllowOverflow": false,
-                "Background": "",
-                "Border": "None"
+                "Background": ""
               },
               {
-                "IgnoreContentWidth": false,
-                "Padding": {},
-                "BackgroundColor": "",
-                "BorderStyle": {
-                  "LeftColor": "",
-                  "TopColor": "",
-                  "RightColor": "",
-                  "BottomColor": ""
-                },
-                "CanResize": false,
-                "AllowOverflow": false,
-                "Background": "",
-                "Border": "None"
+                "Background": ""
               },
               {
-                "IgnoreContentWidth": false,
-                "Padding": {},
-                "BackgroundColor": "",
-                "BorderStyle": {
-                  "LeftColor": "",
-                  "TopColor": "",
-                  "RightColor": "",
-                  "BottomColor": ""
-                },
-                "CanResize": false,
-                "AllowOverflow": false,
-                "Background": "",
-                "Border": "None"
+                "Background": ""
               }
             ]
           }
         ],
-        "BackgroundColor": "",
         "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.SearchGridLayoutDesign"
       }
     }
   },
-  "LinkFieldNames": [],
-  "UseListPageSubmitButton": false,
   "ListPageFieldDesign": {
-    "LayoutName": "",
     "CanNavigateToDetail": true,
-    "NavigateModuleUrlSegment": "",
-    "CanCustomizeColumns": false,
-    "FixedColumnCount": 0,
-    "ApplyBackgroundToBoxInput": false,
-    "DisplayName": "",
     "SearchCondition": {
-      "LimitCount": 50,
-      "SelectFields": [],
-      "SortConditions": [],
-      "SortFieldVariable": "",
-      "SortDescending": false,
-      "ModuleName": ""
+      "LimitCount": 50
     },
-    "IsInMemoryPaging": false,
-    "ConfirmBeforePageChange": true,
     "PagerPosition": "Bottom",
-    "ReplaceMode": "None",
-    "DeleteTogether": false,
-    "CanCreate": false,
-    "CanUpdate": false,
-    "CanDelete": false,
-    "CanUserSort": true,
-    "CanSelect": false,
-    "UseIndexSort": false,
-    "OnDataChanged": "",
-    "OnSearchDataChanged": "",
-    "OnSelectedIndexChanged": "",
-    "OnSelectedIndexChanging": "",
-    "OnDoubleClickRow": "",
     "Name": "",
-    "IgnoreModification": false,
-    "OnValidateInput": "",
-    "IsFocusSkip": false,
-    "NextFocusField": "",
-    "OnFocusMoving": "",
     "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ListFieldDesign"
-  },
-  "CanBulkDataUpdate": false,
-  "CanBulkDataDownload": false,
-  "PageTitle": ""
+  }
 }

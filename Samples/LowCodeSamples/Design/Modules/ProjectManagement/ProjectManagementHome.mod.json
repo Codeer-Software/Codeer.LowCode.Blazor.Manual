@@ -1,32 +1,20 @@
 {
   "Name": "ProjectManagementHome",
-  "DataSourceName": "",
-  "DbTable": "",
   "CanCreate": false,
-  "CanUpdate": true,
   "CanDelete": false,
   "Fields": [
     {
-      "SeriesType": "Bar",
       "Series": {
         "Series": [
           {
             "Name": "平均進捗率",
-            "Color": "",
             "Type": "Bar"
           }
         ]
       },
       "SearchCondition": {
-        "SelectFields": [],
-        "SortConditions": [],
-        "SortFieldVariable": "",
-        "SortDescending": false,
         "ModuleName": "q_プロジェクト別進捗率",
         "Condition": {
-          "IsOrMatch": false,
-          "IsNot": false,
-          "Children": [],
           "Name": "",
           "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
         }
@@ -34,17 +22,10 @@
       "DisplayName": "プロジェクト別進捗率",
       "CategoryField": "プロジェクト名",
       "SeriesFractionDigits": 0,
-      "ShowLegend": true,
       "Name": "ApexHBarChart",
-      "IgnoreModification": false,
-      "OnValidateInput": "",
-      "IsFocusSkip": false,
-      "NextFocusField": "",
-      "OnFocusMoving": "",
       "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexHBarChartFieldDesign"
     },
     {
-      "SeriesType": "Bar",
       "Series": {
         "Series": [
           {
@@ -54,22 +35,12 @@
           }
         ]
       },
-      "FullWidthBar": false,
-      "ShowXAxisGrid": false,
-      "ShowYAxisGrid": true,
       "SearchCondition": {
-        "SelectFields": [],
-        "SortConditions": [],
-        "SortFieldVariable": "",
-        "SortDescending": false,
         "ModuleName": "q_プロジェクト別遅延件数",
         "Condition": {
-          "IsOrMatch": false,
-          "IsNot": false,
           "Children": [
             {
               "SearchTargetVariable": "対象年月.Value",
-              "Comparison": "Equal",
               "Variable": "対象年月文字列.Value",
               "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.FieldVariableMatchCondition"
             }
@@ -83,29 +54,17 @@
       "SeriesFractionDigits": 0,
       "ShowLegend": false,
       "Name": "プロジェクト別遅延件数チャート",
-      "IgnoreModification": false,
-      "OnValidateInput": "",
-      "IsFocusSkip": false,
-      "NextFocusField": "",
-      "OnFocusMoving": "",
       "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexChartFieldDesign"
     },
     {
       "SeriesType": "Donut",
       "SeriesField": "件数",
       "SearchCondition": {
-        "SelectFields": [],
-        "SortConditions": [],
-        "SortFieldVariable": "",
-        "SortDescending": false,
         "ModuleName": "q_今月タスク消化率",
         "Condition": {
-          "IsOrMatch": false,
-          "IsNot": false,
           "Children": [
             {
               "SearchTargetVariable": "対象年月.Value",
-              "Comparison": "Equal",
               "Variable": "対象年月文字列.Value",
               "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.FieldVariableMatchCondition"
             }
@@ -117,17 +76,10 @@
       "DisplayName": "対象月のタスク消化率",
       "CategoryField": "カテゴリ",
       "SeriesFractionDigits": 0,
-      "ShowLegend": true,
       "Name": "今月タスク消化率チャート",
-      "IgnoreModification": false,
-      "OnValidateInput": "",
-      "IsFocusSkip": false,
-      "NextFocusField": "",
-      "OnFocusMoving": "",
       "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexRadialChartFieldDesign"
     },
     {
-      "SeriesType": "Bar",
       "Series": {
         "Series": [
           {
@@ -137,22 +89,12 @@
           }
         ]
       },
-      "FullWidthBar": false,
-      "ShowXAxisGrid": false,
-      "ShowYAxisGrid": true,
       "SearchCondition": {
-        "SelectFields": [],
-        "SortConditions": [],
-        "SortFieldVariable": "",
-        "SortDescending": false,
         "ModuleName": "q_部署別未完了タスク数",
         "Condition": {
-          "IsOrMatch": false,
-          "IsNot": false,
           "Children": [
             {
               "SearchTargetVariable": "対象年月.Value",
-              "Comparison": "Equal",
               "Variable": "対象年月文字列.Value",
               "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.FieldVariableMatchCondition"
             }
@@ -164,451 +106,97 @@
       "DisplayName": "部署別 対象月の未完了タスク数",
       "CategoryField": "部署名",
       "SeriesFractionDigits": 0,
-      "ShowLegend": true,
       "Name": "部署別未完了タスク数チャート",
-      "IgnoreModification": false,
-      "OnValidateInput": "",
-      "IsFocusSkip": false,
-      "NextFocusField": "",
-      "OnFocusMoving": "",
       "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexChartFieldDesign"
     },
     {
-      "DbColumn": "",
-      "Format": "",
       "IsYearMonthOnly": true,
-      "IsUpdateProtected": false,
-      "IsSimpleSearchParameter": false,
-      "AllowEmptySearch": false,
-      "OnSearchDataChanged": "",
       "DisplayName": "対象年月",
-      "IsRequired": false,
       "OnDataChanged": "対象年月_OnDataChanged",
       "Name": "対象年月",
-      "IgnoreModification": false,
-      "OnValidateInput": "",
-      "IsFocusSkip": false,
-      "NextFocusField": "",
-      "OnFocusMoving": "",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.DateFieldDesign"
     },
     {
-      "DbColumn": "",
-      "IsMultiline": false,
-      "IsAutoFitRows": false,
-      "Placeholder": "",
-      "TextEditEmptyType": "StringEmpty",
-      "ShouldTrimAfterEdit": false,
-      "AutoTab": false,
-      "IsUpdateProtected": false,
-      "IsSimpleSearchParameter": false,
-      "AllowEmptySearch": false,
-      "OnSearchDataChanged": "",
-      "DisplayName": "",
-      "IsRequired": false,
-      "OnDataChanged": "",
       "Name": "対象年月文字列",
-      "IgnoreModification": false,
-      "OnValidateInput": "",
-      "IsFocusSkip": false,
-      "NextFocusField": "",
-      "OnFocusMoving": "",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
     }
   ],
-  "UserWriteCondition": {
-    "ModuleName": ""
-  },
-  "UserReadCondition": {
-    "ModuleName": ""
-  },
-  "DataWriteCondition": {
-    "ModuleName": ""
-  },
-  "DataReadCondition": {
-    "ModuleName": ""
-  },
   "DetailLayouts": {
     "": {
       "OnBeforeInitialization": "OnBeforeInitialization",
       "OnAfterInitialization": "OnAfterInitialization",
-      "OnLocationChanging": "",
-      "OnFieldDataChanged": "",
-      "FocusControlMode": "Inherit",
-      "IsFocusWrap": false,
-      "InitialFocusField": "",
-      "DataOnlyFields": [],
-      "ClassName": "",
-      "Color": "",
-      "BackgroundColor": "",
-      "FontFamily": "",
       "Layout": {
         "Name": "",
-        "Padding": {},
-        "IsBordered": false,
-        "UseBorderedShrinkWrap": false,
-        "IsExpandable": false,
-        "ExpanderLabel": "",
-        "IsExpanderDefaultOpened": false,
-        "IsFlowLayout": false,
-        "IsAutoFillWrap": false,
-        "IsFillAvailable": false,
-        "ScrollDirection": "Unset",
-        "OnKeyDown": "",
         "Rows": [
           {
-            "IsWrap": false,
-            "IsAutoFillWrap": false,
-            "Margin": {},
-            "GridRowType": "Normal",
-            "CanResize": false,
-            "BackgroundColor": "",
-            "KeepInFillAvailableGrid": false,
-            "IsProportionalScale": false,
-            "IsRowMarginRemoved": false,
             "Columns": [
               {
                 "Layout": {
                   "FieldName": "対象年月",
-                  "ContextMenu": "",
-                  "ClassName": "",
-                  "FontFamily": "",
-                  "Color": "",
                   "Name": "",
-                  "BackgroundColor": "",
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
-                "IgnoreContentWidth": false,
-                "Padding": {},
-                "BackgroundColor": "",
-                "BorderStyle": {
-                  "LeftColor": "",
-                  "TopColor": "",
-                  "RightColor": "",
-                  "BottomColor": ""
-                },
-                "CanResize": false,
-                "AllowOverflow": false,
-                "Border": "None",
                 "Width": 200
               }
             ]
           },
           {
-            "IsWrap": false,
-            "IsAutoFillWrap": false,
             "Height": 300,
-            "Margin": {},
-            "GridRowType": "Normal",
-            "CanResize": false,
-            "BackgroundColor": "",
-            "KeepInFillAvailableGrid": false,
-            "IsProportionalScale": false,
-            "IsRowMarginRemoved": false,
             "Columns": [
               {
                 "Layout": {
                   "FieldName": "ApexHBarChart",
-                  "ContextMenu": "",
-                  "ClassName": "",
-                  "FontFamily": "",
-                  "Color": "",
                   "Name": "",
-                  "BackgroundColor": "",
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                },
-                "IgnoreContentWidth": false,
-                "Padding": {},
-                "BackgroundColor": "",
-                "BorderStyle": {
-                  "LeftColor": "",
-                  "TopColor": "",
-                  "RightColor": "",
-                  "BottomColor": ""
-                },
-                "CanResize": false,
-                "AllowOverflow": false,
-                "Border": "None"
+                }
               }
             ]
           },
           {
-            "IsWrap": false,
-            "IsAutoFillWrap": false,
             "Height": 320,
-            "Margin": {},
-            "GridRowType": "Normal",
-            "CanResize": false,
-            "BackgroundColor": "",
-            "KeepInFillAvailableGrid": false,
-            "IsProportionalScale": false,
-            "IsRowMarginRemoved": false,
             "Columns": [
               {
                 "Layout": {
                   "FieldName": "プロジェクト別遅延件数チャート",
-                  "ContextMenu": "",
-                  "ClassName": "",
-                  "FontFamily": "",
-                  "Color": "",
                   "Name": "",
-                  "BackgroundColor": "",
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                },
-                "IgnoreContentWidth": false,
-                "Padding": {},
-                "BackgroundColor": "",
-                "BorderStyle": {
-                  "LeftColor": "",
-                  "TopColor": "",
-                  "RightColor": "",
-                  "BottomColor": ""
-                },
-                "CanResize": false,
-                "AllowOverflow": false,
-                "Border": "None"
+                }
               },
               {
                 "Layout": {
                   "FieldName": "今月タスク消化率チャート",
-                  "ContextMenu": "",
-                  "ClassName": "",
-                  "FontFamily": "",
-                  "Color": "",
                   "Name": "",
-                  "BackgroundColor": "",
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                },
-                "IgnoreContentWidth": false,
-                "Padding": {},
-                "BackgroundColor": "",
-                "BorderStyle": {
-                  "LeftColor": "",
-                  "TopColor": "",
-                  "RightColor": "",
-                  "BottomColor": ""
-                },
-                "CanResize": false,
-                "AllowOverflow": false,
-                "Border": "None"
+                }
               }
             ]
           },
           {
-            "IsWrap": false,
-            "IsAutoFillWrap": false,
             "Height": 320,
-            "Margin": {},
-            "GridRowType": "Normal",
-            "CanResize": false,
-            "BackgroundColor": "",
-            "KeepInFillAvailableGrid": false,
-            "IsProportionalScale": false,
-            "IsRowMarginRemoved": false,
             "Columns": [
               {
                 "Layout": {
                   "FieldName": "部署別未完了タスク数チャート",
-                  "ContextMenu": "",
-                  "ClassName": "",
-                  "FontFamily": "",
-                  "Color": "",
                   "Name": "",
-                  "BackgroundColor": "",
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                },
-                "IgnoreContentWidth": false,
-                "Padding": {},
-                "BackgroundColor": "",
-                "BorderStyle": {
-                  "LeftColor": "",
-                  "TopColor": "",
-                  "RightColor": "",
-                  "BottomColor": ""
-                },
-                "CanResize": false,
-                "AllowOverflow": false,
-                "Border": "None"
+                }
               }
             ]
           }
         ],
-        "BackgroundColor": "",
         "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
       }
     }
   },
   "ListLayouts": {
     "": {
-      "HeaderTitle": "",
-      "DataOnlyFields": [],
-      "FocusControlMode": "Inherit",
-      "IsFocusWrap": false,
-      "OnBeforeInitialization": "",
-      "OnAfterInitialization": "",
-      "OnFieldDataChanged": "",
       "Elements": [
         [
           {
-            "FieldName": "",
-            "ContextMenu": "",
-            "Label": "",
-            "IsMaxWidthFixed": false,
-            "ColumnSpan": 1,
-            "RowSpan": 1,
-            "TextWrap": "Unset",
-            "CanResize": true,
-            "CanUserSort": true,
-            "ClassName": "",
-            "FontFamily": "",
-            "Color": "",
-            "BackgroundColor": "",
-            "DetailLayoutName": "",
-            "ListElementComponent": ""
+            "CanResize": true
           }
         ]
       ]
     }
-  },
-  "SearchLayouts": {
-    "": {
-      "OnSearchInitialization": "",
-      "ShowDefaultSearchButtons": true,
-      "FocusControlMode": "Inherit",
-      "IsFocusWrap": false,
-      "Layout": {
-        "Operator": "And",
-        "Name": "SearchGridLayout",
-        "Padding": {},
-        "IsBordered": false,
-        "UseBorderedShrinkWrap": false,
-        "IsExpandable": true,
-        "ExpanderLabel": "検索条件",
-        "IsExpanderDefaultOpened": false,
-        "IsFlowLayout": false,
-        "IsAutoFillWrap": false,
-        "IsFillAvailable": false,
-        "ScrollDirection": "Unset",
-        "OnKeyDown": "",
-        "Rows": [
-          {
-            "IsWrap": false,
-            "IsAutoFillWrap": false,
-            "Margin": {},
-            "GridRowType": "Normal",
-            "CanResize": false,
-            "BackgroundColor": "",
-            "KeepInFillAvailableGrid": false,
-            "IsProportionalScale": false,
-            "IsRowMarginRemoved": false,
-            "Columns": [
-              {
-                "IgnoreContentWidth": false,
-                "Padding": {},
-                "BackgroundColor": "",
-                "BorderStyle": {
-                  "LeftColor": "",
-                  "TopColor": "",
-                  "RightColor": "",
-                  "BottomColor": ""
-                },
-                "CanResize": false,
-                "AllowOverflow": false,
-                "Border": "None"
-              },
-              {
-                "IgnoreContentWidth": false,
-                "Padding": {},
-                "BackgroundColor": "",
-                "BorderStyle": {
-                  "LeftColor": "",
-                  "TopColor": "",
-                  "RightColor": "",
-                  "BottomColor": ""
-                },
-                "CanResize": false,
-                "AllowOverflow": false,
-                "Border": "None"
-              },
-              {
-                "IgnoreContentWidth": false,
-                "Padding": {},
-                "BackgroundColor": "",
-                "BorderStyle": {
-                  "LeftColor": "",
-                  "TopColor": "",
-                  "RightColor": "",
-                  "BottomColor": ""
-                },
-                "CanResize": false,
-                "AllowOverflow": false,
-                "Border": "None"
-              },
-              {
-                "IgnoreContentWidth": false,
-                "Padding": {},
-                "BackgroundColor": "",
-                "BorderStyle": {
-                  "LeftColor": "",
-                  "TopColor": "",
-                  "RightColor": "",
-                  "BottomColor": ""
-                },
-                "CanResize": false,
-                "AllowOverflow": false,
-                "Border": "None"
-              }
-            ]
-          }
-        ],
-        "BackgroundColor": "",
-        "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.SearchGridLayoutDesign"
-      }
-    }
-  },
-  "LinkFieldNames": [],
-  "UseListPageSubmitButton": false,
-  "ListPageFieldDesign": {
-    "LayoutName": "",
-    "CanNavigateToDetail": true,
-    "NavigateModuleUrlSegment": "",
-    "CanCustomizeColumns": false,
-    "FixedColumnCount": 0,
-    "ApplyBackgroundToBoxInput": false,
-    "DisplayName": "",
-    "SearchCondition": {
-      "LimitCount": 50,
-      "SelectFields": [],
-      "SortConditions": [],
-      "SortFieldVariable": "",
-      "SortDescending": false,
-      "ModuleName": ""
-    },
-    "IsInMemoryPaging": false,
-    "ConfirmBeforePageChange": true,
-    "PagerPosition": "Top",
-    "ReplaceMode": "None",
-    "DeleteTogether": false,
-    "CanCreate": false,
-    "CanUpdate": false,
-    "CanDelete": true,
-    "CanUserSort": true,
-    "CanSelect": false,
-    "UseIndexSort": false,
-    "OnDataChanged": "",
-    "OnSearchDataChanged": "",
-    "OnSelectedIndexChanged": "",
-    "OnSelectedIndexChanging": "",
-    "OnDoubleClickRow": "",
-    "Name": "",
-    "IgnoreModification": false,
-    "OnValidateInput": "",
-    "IsFocusSkip": false,
-    "NextFocusField": "",
-    "OnFocusMoving": "",
-    "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ListFieldDesign"
-  },
-  "CanBulkDataUpdate": false,
-  "CanBulkDataDownload": false,
-  "PageTitle": ""
+  }
 }

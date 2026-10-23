@@ -1,106 +1,45 @@
 {
   "Name": "AggregateChartDemo",
-  "DataSourceName": "",
-  "DbTable": "",
   "CanCreate": false,
   "CanUpdate": false,
   "CanDelete": false,
   "Fields": [
     {
-      "Name": "Heading",
-      "IgnoreModification": false,
-      "OnValidateInput": "",
-      "IsFocusSkip": false,
-      "NextFocusField": "",
-      "OnFocusMoving": "",
-      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign",
       "Text": "集計チャート",
-      "Icon": "",
-      "IsHtml": false,
       "Style": "H2",
-      "RelativeField": "",
-      "OnClick": ""
+      "Name": "Heading",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
     },
     {
-      "Name": "Desc",
-      "IgnoreModification": false,
-      "OnValidateInput": "",
-      "IsFocusSkip": false,
-      "NextFocusField": "",
-      "OnFocusMoving": "",
-      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign",
       "Text": "同じ売上データを DB で集計してグラフにしています (行を全部読み込まないので件数が増えても軽い)。棒や点にマウスを乗せると値を表示します。上の絞り込みは「担当者別 売上ランキング」に効きます。各グラフの右上の「集計のカスタマイズ」で、カテゴリ・系列・集計方法・グラフの種類を自由に組み替えられます (組み替えた内容はこのブラウザに保存され、「設計に戻す」で元に戻せます)。",
-      "Icon": "",
-      "IsHtml": false,
-      "Style": "",
-      "RelativeField": "",
-      "OnClick": ""
+      "Name": "Desc",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
     },
     {
+      "Series": {
+        "Series": [
+          {
+            "Name": "Amount"
+          }
+        ]
+      },
+      "SeriesGroupField": "Category",
+      "SeriesFractionDigits": 0,
       "SearchCondition": {
-        "SelectFields": [],
-        "SortConditions": [],
-        "SortFieldVariable": "",
-        "SortDescending": false,
         "ModuleName": "CrossTabDemoSale"
       },
       "DisplayName": "年度四半期別 売上 (カテゴリ別)",
       "CategoryField": "SoldOn",
       "CategoryDateUnit": "Quarter",
       "FiscalYearStartMonth": 4,
-      "CategoryOrder": "Field",
-      "CategoryLimit": 0,
-      "ShowLegend": true,
       "CanCustomize": true,
       "Name": "QuarterByCategory",
-      "IgnoreModification": false,
-      "OnValidateInput": "",
-      "IsFocusSkip": false,
-      "NextFocusField": "",
-      "OnFocusMoving": "",
-      "Series": {
-        "Series": [
-          {
-            "Function": "Sum",
-            "Name": "Amount",
-            "Title": "",
-            "Type": "Bar",
-            "Color": ""
-          }
-        ]
-      },
-      "SeriesGroupField": "Category",
-      "SeriesFractionDigits": 0,
-      "ShowXAxisGrid": false,
-      "ShowYAxisGrid": true,
       "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexAggregateChartFieldDesign"
     },
     {
-      "SearchCondition": {
-        "SelectFields": [],
-        "SortConditions": [],
-        "SortFieldVariable": "",
-        "SortDescending": false,
-        "ModuleName": "CrossTabDemoSale"
-      },
-      "DisplayName": "月別 売上推移",
-      "CategoryField": "SoldOn",
-      "CategoryDateUnit": "Month",
-      "FiscalYearStartMonth": 1,
-      "CategoryOrder": "Field",
-      "CategoryLimit": 0,
-      "ShowLegend": false,
-      "CanCustomize": true,
-      "Name": "MonthlyTrend",
-      "IgnoreModification": false,
-      "OnValidateInput": "",
-      "IsFocusSkip": false,
-      "NextFocusField": "",
-      "OnFocusMoving": "",
       "Series": {
         "Series": [
           {
-            "Function": "Sum",
             "Name": "Amount",
             "Title": "売上金額",
             "Type": "Area",
@@ -108,525 +47,209 @@
           }
         ]
       },
-      "SeriesGroupField": "",
       "SeriesFractionDigits": 0,
-      "ShowXAxisGrid": false,
-      "ShowYAxisGrid": true,
+      "SearchCondition": {
+        "ModuleName": "CrossTabDemoSale"
+      },
+      "DisplayName": "月別 売上推移",
+      "CategoryField": "SoldOn",
+      "CategoryDateUnit": "Month",
+      "ShowLegend": false,
+      "CanCustomize": true,
+      "Name": "MonthlyTrend",
       "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexAggregateChartFieldDesign"
     },
     {
-      "Name": "RankingSearch",
-      "IgnoreModification": false,
-      "OnValidateInput": "",
-      "IsFocusSkip": false,
-      "NextFocusField": "",
-      "OnFocusMoving": "",
-      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.SearchFieldDesign",
       "ResultsViewFieldName": "TopReps",
-      "LayoutName": "",
-      "OnSearched": "",
-      "UserUrlParameter": false,
-      "SearchUrlParameterKey": "",
-      "PageIndexUrlParameterKey": "",
-      "SearchInitializationTriggerUrlParameter": ""
+      "Name": "RankingSearch",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.SearchFieldDesign"
     },
     {
+      "Series": {
+        "Series": [
+          {
+            "Name": "Amount",
+            "Title": "売上金額",
+            "Color": "#00E396"
+          }
+        ]
+      },
+      "SeriesFractionDigits": 0,
       "SearchCondition": {
-        "SelectFields": [],
-        "SortConditions": [],
-        "SortFieldVariable": "",
-        "SortDescending": false,
         "ModuleName": "CrossTabDemoSale"
       },
       "DisplayName": "担当者別 売上ランキング",
       "CategoryField": "Rep",
-      "CategoryDateUnit": "None",
-      "FiscalYearStartMonth": 1,
       "CategoryOrder": "ValueDescending",
       "CategoryLimit": 10,
       "ShowLegend": false,
       "CanCustomize": true,
       "Name": "TopReps",
-      "IgnoreModification": false,
-      "OnValidateInput": "",
-      "IsFocusSkip": false,
-      "NextFocusField": "",
-      "OnFocusMoving": "",
-      "Series": {
-        "Series": [
-          {
-            "Function": "Sum",
-            "Name": "Amount",
-            "Title": "売上金額",
-            "Type": "Bar",
-            "Color": "#00E396"
-          }
-        ]
-      },
-      "SeriesGroupField": "",
-      "SeriesFractionDigits": 0,
       "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexAggregateHBarChartFieldDesign"
     },
     {
+      "SeriesType": "Donut",
+      "SeriesFunction": "Sum",
+      "SeriesField": "Amount",
       "SearchCondition": {
-        "SelectFields": [],
-        "SortConditions": [],
-        "SortFieldVariable": "",
-        "SortDescending": false,
         "ModuleName": "CrossTabDemoSale"
       },
       "DisplayName": "カテゴリ別 売上構成",
       "CategoryField": "Category",
-      "CategoryDateUnit": "None",
-      "FiscalYearStartMonth": 1,
-      "CategoryOrder": "Field",
-      "CategoryLimit": 0,
-      "ShowLegend": true,
       "CanCustomize": true,
       "Name": "CategoryShare",
-      "IgnoreModification": false,
-      "OnValidateInput": "",
-      "IsFocusSkip": false,
-      "NextFocusField": "",
-      "OnFocusMoving": "",
-      "SeriesType": "Donut",
-      "SeriesFunction": "Sum",
-      "SeriesField": "Amount",
       "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexAggregateRadialChartFieldDesign"
     },
     {
       "SearchCondition": {
-        "SelectFields": [],
-        "SortConditions": [],
-        "SortFieldVariable": "",
-        "SortDescending": false,
         "ModuleName": "CrossTabDemoSale"
       },
       "DisplayName": "チャネル別 件数",
       "CategoryField": "Channel",
-      "CategoryDateUnit": "None",
-      "FiscalYearStartMonth": 1,
-      "CategoryOrder": "Field",
-      "CategoryLimit": 0,
-      "ShowLegend": true,
       "CanCustomize": true,
       "Name": "ChannelShare",
-      "IgnoreModification": false,
-      "OnValidateInput": "",
-      "IsFocusSkip": false,
-      "NextFocusField": "",
-      "OnFocusMoving": "",
-      "SeriesType": "Pie",
-      "SeriesFunction": "Count",
-      "SeriesField": "",
       "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexAggregateRadialChartFieldDesign"
     },
     {
-      "SearchCondition": {
-        "SelectFields": [],
-        "SortConditions": [],
-        "SortFieldVariable": "",
-        "SortDescending": false,
-        "ModuleName": "CrossTabDemoSale"
-      },
-      "DisplayName": "地域別 売上 (チャネル別)",
-      "CategoryField": "Rep.Region",
-      "CategoryDateUnit": "None",
-      "FiscalYearStartMonth": 1,
-      "CategoryOrder": "Field",
-      "CategoryLimit": 0,
-      "ShowLegend": true,
-      "CanCustomize": true,
-      "Name": "RegionByChannel",
-      "IgnoreModification": false,
-      "OnValidateInput": "",
-      "IsFocusSkip": false,
-      "NextFocusField": "",
-      "OnFocusMoving": "",
       "Series": {
         "Series": [
           {
-            "Function": "Sum",
-            "Name": "Amount",
-            "Title": "",
-            "Type": "Bar",
-            "Color": ""
+            "Name": "Amount"
           }
         ]
       },
       "SeriesGroupField": "Channel",
       "SeriesFractionDigits": 0,
-      "ShowXAxisGrid": false,
-      "ShowYAxisGrid": true,
+      "SearchCondition": {
+        "ModuleName": "CrossTabDemoSale"
+      },
+      "DisplayName": "地域別 売上 (チャネル別)",
+      "CategoryField": "Rep.Region",
+      "CanCustomize": true,
+      "Name": "RegionByChannel",
       "TypeFullName": "Codeer.LowCode.Bindings.ApexCharts.Designs.ApexAggregateChartFieldDesign"
     }
   ],
-  "UserWriteCondition": {
-    "ModuleName": ""
-  },
-  "UserReadCondition": {
-    "ModuleName": ""
-  },
-  "DataWriteCondition": {
-    "ModuleName": ""
-  },
-  "DataReadCondition": {
-    "ModuleName": ""
-  },
   "DetailLayouts": {
     "": {
-      "OnBeforeInitialization": "",
-      "OnAfterInitialization": "",
-      "OnLocationChanging": "",
-      "OnFieldDataChanged": "",
-      "FocusControlMode": "Inherit",
-      "IsFocusWrap": false,
-      "InitialFocusField": "",
-      "DataOnlyFields": [],
-      "ClassName": "",
-      "Color": "",
-      "BackgroundColor": "",
-      "FontFamily": "",
       "Layout": {
         "Name": "",
-        "Padding": {},
-        "IsBordered": false,
-        "UseBorderedShrinkWrap": false,
-        "IsExpandable": false,
-        "ExpanderLabel": "",
-        "IsExpanderDefaultOpened": false,
-        "IsFlowLayout": false,
-        "IsAutoFillWrap": false,
-        "IsFillAvailable": false,
-        "ScrollDirection": "Unset",
-        "OnKeyDown": "",
         "Rows": [
           {
-            "IsWrap": false,
-            "IsAutoFillWrap": false,
-            "Margin": {},
-            "GridRowType": "Normal",
-            "CanResize": false,
-            "BackgroundColor": "",
-            "KeepInFillAvailableGrid": false,
-            "IsProportionalScale": false,
-            "IsRowMarginRemoved": false,
             "Columns": [
               {
                 "Layout": {
                   "FieldName": "Heading",
-                  "ContextMenu": "",
-                  "ClassName": "",
-                  "FontFamily": "",
-                  "Color": "",
                   "Name": "",
-                  "BackgroundColor": "",
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
-                "IgnoreContentWidth": true,
-                "Padding": {},
-                "BackgroundColor": "",
-                "BorderStyle": {
-                  "LeftColor": "",
-                  "TopColor": "",
-                  "RightColor": "",
-                  "BottomColor": ""
-                },
-                "CanResize": false,
-                "AllowOverflow": false,
-                "Border": "None"
+                "IgnoreContentWidth": true
               }
             ]
           },
           {
-            "IsWrap": false,
-            "IsAutoFillWrap": false,
-            "Margin": {},
-            "GridRowType": "Normal",
-            "CanResize": false,
-            "BackgroundColor": "",
-            "KeepInFillAvailableGrid": false,
-            "IsProportionalScale": false,
-            "IsRowMarginRemoved": false,
             "Columns": [
               {
                 "Layout": {
                   "FieldName": "Desc",
-                  "ContextMenu": "",
-                  "ClassName": "",
-                  "FontFamily": "",
-                  "Color": "",
                   "Name": "",
-                  "BackgroundColor": "",
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
-                "IgnoreContentWidth": true,
-                "Padding": {},
-                "BackgroundColor": "",
-                "BorderStyle": {
-                  "LeftColor": "",
-                  "TopColor": "",
-                  "RightColor": "",
-                  "BottomColor": ""
-                },
-                "CanResize": false,
-                "AllowOverflow": false,
-                "Border": "None"
+                "IgnoreContentWidth": true
               }
             ]
           },
           {
-            "IsWrap": false,
-            "IsAutoFillWrap": false,
+            "Height": 360,
             "Margin": {
               "Top": 16
             },
-            "GridRowType": "Normal",
-            "CanResize": false,
-            "BackgroundColor": "",
-            "KeepInFillAvailableGrid": false,
-            "IsProportionalScale": false,
-            "IsRowMarginRemoved": false,
             "Columns": [
               {
                 "Layout": {
                   "FieldName": "QuarterByCategory",
-                  "ContextMenu": "",
-                  "ClassName": "",
-                  "FontFamily": "",
-                  "Color": "",
                   "Name": "",
-                  "BackgroundColor": "",
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
-                "IgnoreContentWidth": true,
-                "Padding": {},
-                "BackgroundColor": "",
-                "BorderStyle": {
-                  "LeftColor": "",
-                  "TopColor": "",
-                  "RightColor": "",
-                  "BottomColor": ""
-                },
-                "CanResize": false,
-                "AllowOverflow": false,
-                "Border": "None"
-              }
-            ],
-            "Height": 360
-          },
-          {
-            "IsWrap": false,
-            "IsAutoFillWrap": false,
-            "Margin": {},
-            "GridRowType": "Normal",
-            "CanResize": false,
-            "BackgroundColor": "",
-            "KeepInFillAvailableGrid": false,
-            "IsProportionalScale": false,
-            "IsRowMarginRemoved": false,
-            "Columns": [
-              {
-                "Layout": {
-                  "FieldName": "MonthlyTrend",
-                  "ContextMenu": "",
-                  "ClassName": "",
-                  "FontFamily": "",
-                  "Color": "",
-                  "Name": "",
-                  "BackgroundColor": "",
-                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                },
-                "IgnoreContentWidth": true,
-                "Padding": {},
-                "BackgroundColor": "",
-                "BorderStyle": {
-                  "LeftColor": "",
-                  "TopColor": "",
-                  "RightColor": "",
-                  "BottomColor": ""
-                },
-                "CanResize": false,
-                "AllowOverflow": false,
-                "Border": "None"
-              }
-            ],
-            "Height": 300
-          },
-          {
-            "IsWrap": false,
-            "IsAutoFillWrap": false,
-            "Margin": {
-              "Top": 16
-            },
-            "GridRowType": "Normal",
-            "CanResize": false,
-            "BackgroundColor": "",
-            "KeepInFillAvailableGrid": false,
-            "IsProportionalScale": false,
-            "IsRowMarginRemoved": false,
-            "Columns": [
-              {
-                "Layout": {
-                  "FieldName": "RankingSearch",
-                  "ContextMenu": "",
-                  "ClassName": "",
-                  "FontFamily": "",
-                  "Color": "",
-                  "Name": "",
-                  "BackgroundColor": "",
-                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                },
-                "IgnoreContentWidth": true,
-                "Padding": {},
-                "BackgroundColor": "",
-                "BorderStyle": {
-                  "LeftColor": "",
-                  "TopColor": "",
-                  "RightColor": "",
-                  "BottomColor": ""
-                },
-                "CanResize": false,
-                "AllowOverflow": false,
-                "Border": "None"
+                "IgnoreContentWidth": true
               }
             ]
           },
           {
-            "IsWrap": false,
-            "IsAutoFillWrap": false,
-            "Margin": {},
-            "GridRowType": "Normal",
-            "CanResize": false,
-            "BackgroundColor": "",
-            "KeepInFillAvailableGrid": false,
-            "IsProportionalScale": false,
-            "IsRowMarginRemoved": false,
+            "Height": 300,
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "MonthlyTrend",
+                  "Name": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "IgnoreContentWidth": true
+              }
+            ]
+          },
+          {
+            "Margin": {
+              "Top": 16
+            },
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "RankingSearch",
+                  "Name": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "IgnoreContentWidth": true
+              }
+            ]
+          },
+          {
+            "Height": 360,
             "Columns": [
               {
                 "Layout": {
                   "FieldName": "TopReps",
-                  "ContextMenu": "",
-                  "ClassName": "",
-                  "FontFamily": "",
-                  "Color": "",
                   "Name": "",
-                  "BackgroundColor": "",
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
-                "IgnoreContentWidth": true,
-                "Padding": {},
-                "BackgroundColor": "",
-                "BorderStyle": {
-                  "LeftColor": "",
-                  "TopColor": "",
-                  "RightColor": "",
-                  "BottomColor": ""
-                },
-                "CanResize": false,
-                "AllowOverflow": false,
-                "Border": "None"
+                "IgnoreContentWidth": true
               },
               {
                 "Layout": {
                   "FieldName": "CategoryShare",
-                  "ContextMenu": "",
-                  "ClassName": "",
-                  "FontFamily": "",
-                  "Color": "",
                   "Name": "",
-                  "BackgroundColor": "",
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
                 "Width": 420,
-                "IgnoreContentWidth": true,
-                "Padding": {},
-                "BackgroundColor": "",
-                "BorderStyle": {
-                  "LeftColor": "",
-                  "TopColor": "",
-                  "RightColor": "",
-                  "BottomColor": ""
-                },
-                "CanResize": false,
-                "AllowOverflow": false,
-                "Border": "None"
+                "IgnoreContentWidth": true
               }
-            ],
-            "Height": 360
+            ]
           },
           {
-            "IsWrap": false,
-            "IsAutoFillWrap": false,
-            "Margin": {},
-            "GridRowType": "Normal",
-            "CanResize": false,
-            "BackgroundColor": "",
-            "KeepInFillAvailableGrid": false,
-            "IsProportionalScale": false,
-            "IsRowMarginRemoved": false,
+            "Height": 340,
             "Columns": [
               {
                 "Layout": {
                   "FieldName": "ChannelShare",
-                  "ContextMenu": "",
-                  "ClassName": "",
-                  "FontFamily": "",
-                  "Color": "",
                   "Name": "",
-                  "BackgroundColor": "",
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
                 "Width": 420,
-                "IgnoreContentWidth": true,
-                "Padding": {},
-                "BackgroundColor": "",
-                "BorderStyle": {
-                  "LeftColor": "",
-                  "TopColor": "",
-                  "RightColor": "",
-                  "BottomColor": ""
-                },
-                "CanResize": false,
-                "AllowOverflow": false,
-                "Border": "None"
+                "IgnoreContentWidth": true
               },
               {
                 "Layout": {
                   "FieldName": "RegionByChannel",
-                  "ContextMenu": "",
-                  "ClassName": "",
-                  "FontFamily": "",
-                  "Color": "",
                   "Name": "",
-                  "BackgroundColor": "",
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
-                "IgnoreContentWidth": true,
-                "Padding": {},
-                "BackgroundColor": "",
-                "BorderStyle": {
-                  "LeftColor": "",
-                  "TopColor": "",
-                  "RightColor": "",
-                  "BottomColor": ""
-                },
-                "CanResize": false,
-                "AllowOverflow": false,
-                "Border": "None"
+                "IgnoreContentWidth": true
               }
-            ],
-            "Height": 340
+            ]
           }
         ],
-        "BackgroundColor": "",
         "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
       }
     }
-  },
-  "LinkFieldNames": [],
-  "UseListPageSubmitButton": false,
-  "CanBulkDataUpdate": false,
-  "CanBulkDataDownload": false,
-  "PageTitle": ""
+  }
 }

@@ -7,58 +7,17 @@
   "CanDelete": false,
   "Fields": [
     {
-      "Name": "Id",
-      "IgnoreModification": false,
-      "OnValidateInput": "",
-      "IsFocusSkip": false,
-      "NextFocusField": "",
-      "OnFocusMoving": "",
-      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.IdFieldDesign",
       "DbColumn": "id",
-      "Placeholder": "",
-      "IsManualInput": false,
-      "CompositeIdVariables": [],
-      "CompositeIdSeparator": "",
-      "IsUpdateProtected": false,
-      "IsSimpleSearchParameter": false,
-      "AllowEmptySearch": false,
-      "OnSearchDataChanged": "",
-      "DisplayName": "",
-      "IsRequired": false,
-      "OnDataChanged": ""
+      "Name": "Id",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.IdFieldDesign"
     },
     {
-      "Name": "Name",
-      "IgnoreModification": false,
-      "OnValidateInput": "",
-      "IsFocusSkip": false,
-      "NextFocusField": "",
-      "OnFocusMoving": "",
-      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign",
       "DbColumn": "name",
-      "IsMultiline": false,
-      "IsAutoFitRows": false,
-      "Placeholder": "",
-      "TextEditEmptyType": "StringEmpty",
-      "ShouldTrimAfterEdit": false,
-      "AutoTab": false,
-      "IsUpdateProtected": false,
-      "IsSimpleSearchParameter": false,
-      "AllowEmptySearch": false,
-      "OnSearchDataChanged": "",
       "DisplayName": "顧客",
-      "IsRequired": false,
-      "OnDataChanged": ""
+      "Name": "Name",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
     },
     {
-      "Name": "Industry",
-      "IgnoreModification": false,
-      "OnValidateInput": "",
-      "IsFocusSkip": false,
-      "NextFocusField": "",
-      "OnFocusMoving": "",
-      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.SelectFieldDesign",
-      "EnumName": "",
       "Candidates": [
         "製造,MFG",
         "小売,RETAIL",
@@ -68,92 +27,28 @@
         "金融,FINANCE",
         "物流,LOGI"
       ],
-      "SearchCondition": {
-        "SelectFields": [],
-        "SortConditions": [],
-        "SortFieldVariable": "",
-        "SortDescending": false,
-        "ModuleName": ""
-      },
-      "ValueVariable": "",
-      "DisplayTextVariable": "",
       "DbColumn": "industry",
-      "EmptyCandidateType": "StringEmpty",
-      "AllowOrSearch": false,
       "OrSearchLayoutType": "Horizontal",
-      "IsUpdateProtected": false,
-      "IsSimpleSearchParameter": false,
       "AllowEmptySearch": true,
-      "OnSearchDataChanged": "",
       "DisplayName": "業種",
-      "IsRequired": false,
-      "OnDataChanged": ""
+      "Name": "Industry",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.SelectFieldDesign"
     }
   ],
-  "UserWriteCondition": {
-    "ModuleName": ""
-  },
-  "UserReadCondition": {
-    "ModuleName": ""
-  },
-  "DataWriteCondition": {
-    "ModuleName": ""
-  },
-  "DataReadCondition": {
-    "ModuleName": ""
-  },
   "ListLayouts": {
     "": {
-      "HeaderTitle": "",
-      "DataOnlyFields": [],
-      "FocusControlMode": "Inherit",
-      "IsFocusWrap": false,
-      "OnBeforeInitialization": "",
-      "OnAfterInitialization": "",
-      "OnFieldDataChanged": "",
       "Elements": [
         [
           {
             "FieldName": "Name",
-            "ContextMenu": "",
-            "Label": "顧客",
-            "IsMaxWidthFixed": false,
-            "ColumnSpan": 1,
-            "RowSpan": 1,
-            "TextWrap": "Unset",
-            "CanResize": false,
-            "CanUserSort": true,
-            "ClassName": "",
-            "FontFamily": "",
-            "Color": "",
-            "BackgroundColor": "",
-            "DetailLayoutName": "",
-            "ListElementComponent": ""
+            "Label": "顧客"
           },
           {
             "FieldName": "Industry",
-            "ContextMenu": "",
-            "Label": "業種",
-            "IsMaxWidthFixed": false,
-            "ColumnSpan": 1,
-            "RowSpan": 1,
-            "TextWrap": "Unset",
-            "CanResize": false,
-            "CanUserSort": true,
-            "ClassName": "",
-            "FontFamily": "",
-            "Color": "",
-            "BackgroundColor": "",
-            "DetailLayoutName": "",
-            "ListElementComponent": ""
+            "Label": "業種"
           }
         ]
       ]
     }
-  },
-  "LinkFieldNames": [],
-  "UseListPageSubmitButton": false,
-  "CanBulkDataUpdate": false,
-  "CanBulkDataDownload": false,
-  "PageTitle": ""
+  }
 }
