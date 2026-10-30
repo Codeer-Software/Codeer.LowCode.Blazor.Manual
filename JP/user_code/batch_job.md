@@ -47,7 +47,7 @@ public class CloseOrdersJob : IJob
 - 失敗は例外を投げます（終了コードが 1 になり、画面のボタンから起動したときは例外のメッセージがエラーの通知に出ます）
 - 書き込みは `data.ModuleDataIO` で行ってください。SQL を直接実行すると編集履歴などが付きません
 
-テンプレートには例として `SampleJob.cs` が入っています。
+完成形の例はテンプレートの `Server/Jobs/README.md` にあります。
 
 ## 権限（誰として動くか）
 

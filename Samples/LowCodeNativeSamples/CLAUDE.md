@@ -69,7 +69,7 @@
   - `Services/MailSenderTable.cs` — 送信インフラ名 → `IMailSender`（Smtp / GraphApi / Gmail）
   - `AI/AIChatAgentTable.cs`（Cookie）— AIChatField の Agent 名 → `IAIChatAgent`。既定（空 / `RawDataAccess`）は Extras.Server の `RawDataAccessAgent`（AI がアプリの DB を読み取り専用 SQL で集計・グラフ化して答える。`AISettings` の Azure OpenAI が必要）。受け口は `Controllers/AIChatController.cs`。補足文書はデザインプロジェクトの `Resources/{DocumentFolder}/*.md|*.txt`（本体の `DesignDataFileManager.GetResourceTexts` で読む）
   - `Services/DataService.cs` — 1 リクエスト分の DB アクセス・現在ユーザー（`IAuthenticationContext`）
-  - `Controllers/TestAPIController.cs` — 独自 Web API を足すときの雛形
+  - `Controllers/` — Web API。独自の API を足すときは `ExtrasController.cs` と同じ形（`[Authorize]`・`[AutoValidateAntiforgeryToken]` を付け、`DataService` を注入する）
 - `LowCodeNativeSamples.Client`: Blazor WebAssembly。`Pages/LowCodePage.razor` がローコードページのホスト
 - `LowCodeNativeSamples.Client.Shared`: クライアント共通サービス（`AppInfoService`/`ModuleDataService`/`NavigationServiceBase`）。
   Web・デスクトップ・モバイルで共有。**独自フィールド型・ProCode コンポーネント・スクリプト用サービスはここに置く**
@@ -156,7 +156,7 @@ Tools メニュー（DDL 生成）か CCFD の `sql` CLI で作る。DB プロ�
 | 画面の一部を Blazor で書く / スクリプトの代わりに C# | `Client.Shared/Samples/ProCodeComponentSample.razor`（ProCodeField）/ `CodeBehindSample.cs`（コードビハインド。クラス名＝モジュール名）を写す |
 | スクリプトから呼べるサービス・型 | `Client.Shared/Services/AppInfoService.cs` と `Designer/App.xaml.cs` の両方で `ScriptRuntimeTypeManager.AddService / AddType` |
 | 保存・更新時の処理 | `Server/Services/CustomizedModuleDataIO.cs` の override |
-| 独自 Web API | `Server/Controllers/` に Controller を追加（`TestAPIController` が雛形）。スクリプトからは Extras の `WebApiService` で呼ぶ（`_script_catalog.md` に載る） |
+| 独自 Web API | `Server/Controllers/` に Controller を追加（`ExtrasController` と同じ形。`[Authorize]`・`[AutoValidateAntiforgeryToken]` を付け、`DataService` を注入する）。スクリプトからは Extras の `WebApiService` で呼ぶ（`_script_catalog.md` に載る） |
 | ファイル保存先・メール送信の独自実装 | `IFileStorage` → `FileStorageTable`、`IMailSender` → `MailSenderTable` に 1 行 |
 | AI チャットの独自 Agent | `IAIChatAgent` を実装して `Server/AI/AIChatAgentTable.cs` に 1 行。AIChatField のデザインの `Agent` にその名前を書く |
 | デザイナのメニュー・チェック・テンプレート | `Designer/App.xaml.cs`（`DesignerEnvironment.AddMainMenu` / `AddCustomDesignCheckHandler` / `ProjectCatalog.Add`）。テンプレート・headless verb の登録は `base.OnStartup(e)` より前 |
