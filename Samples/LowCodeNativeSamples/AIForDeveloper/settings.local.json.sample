@@ -1,0 +1,77 @@
+{
+  "_README": "ホストソリューションのルート用・マシン固有の許可とフックの雛形 (ホストのテンプレートが持つ。手で編集しない)。デザイナの developer-workspace (CLI) が <デザイナexeのパス> をこの exe のパスに置き換えて .claude/settings.local.json を生成し、既存なら hooks 節とここにある CLI 許可だけを更新する (ユーザーが足した許可は残る)。同じ内容から Codex 用の .codex/hooks.json と .codex/rules/codeer-lowcode.rules も作る。配布・共有しない (Claude Code がローカル上書きとして読む)。許可: デザイナ exe の headless サブコマンド (designcheck / sql / rename-* / field-catalog / script-catalog / defaults / template-* / ai-refresh / ai-workspace / developer-workspace / deploy / api / poco / license-status / selenium-test-init / pageobject / 拡張フィールドのセットアップ approval-setup / mail-setup / edit-history-setup / audit-log-setup / tag-setup) と dotnet build / test / run、node / npm install / npx playwright (開発サーバーの起動と Playwright によるブラウザ確認用)。sql は DB 側 designer.settings.json で AllowCliSqlAccess:true のデータソースだけが実行対象になり、deploy は designer.settings.Development.json で AllowCliDeploy:true のデプロイ先だけに送れる。フック: SessionStart と UserPromptSubmit で AIForDeveloper/hooks/refresh-design-workspaces.ps1 を呼び、DesignProjects/*/ の各ワークスペースにある .claude/refresh-ai-workspace.ps1 (デザイナ更新の検知と AIForDesigner/ の作り直し、ライセンスの確認) を代わりに実行する。PreToolUse (Write / Edit / MultiEdit) では AIForDeveloper/hooks/license-guard-root.ps1 が、DesignProjects/*/ 配下への編集を各ワークスペースの .claude/license-guard.ps1 (デザインを編集できないライセンスなら止める) に委ねる。これでルートで起動した Claude Code からデザインを編集しても、デザインプロジェクトのフォルダで起動したときと同じ許可・自動更新・ライセンスの制限が効く。",
+  "permissions": {
+    "allow": [
+      "Bash(\"<デザイナexeのパス>\" designcheck:*)",
+      "Bash(\"<デザイナexeのパス>\" sql:*)",
+      "Bash(\"<デザイナexeのパス>\" rename-field:*)",
+      "Bash(\"<デザイナexeのパス>\" rename-module:*)",
+      "Bash(\"<デザイナexeのパス>\" rename-pageframe:*)",
+      "Bash(\"<デザイナexeのパス>\" rename-layout:*)",
+      "Bash(\"<デザイナexeのパス>\" rename-enum:*)",
+      "Bash(\"<デザイナexeのパス>\" rename-enum-member:*)",
+      "Bash(\"<デザイナexeのパス>\" rename-batch:*)",
+      "Bash(\"<デザイナexeのパス>\" field-catalog:*)",
+      "Bash(\"<デザイナexeのパス>\" script-catalog:*)",
+      "Bash(\"<デザイナexeのパス>\" defaults:*)",
+      "Bash(\"<デザイナexeのパス>\" template-list:*)",
+      "Bash(\"<デザイナexeのパス>\" template-extract:*)",
+      "Bash(\"<デザイナexeのパス>\" template-create:*)",
+      "Bash(\"<デザイナexeのパス>\" ai-refresh:*)",
+      "Bash(\"<デザイナexeのパス>\" ai-workspace:*)",
+      "Bash(\"<デザイナexeのパス>\" developer-workspace:*)",
+      "Bash(\"<デザイナexeのパス>\" deploy:*)",
+      "Bash(\"<デザイナexeのパス>\" api:*)",
+      "Bash(\"<デザイナexeのパス>\" poco:*)",
+      "Bash(\"<デザイナexeのパス>\" license-status:*)",
+      "Bash(\"<デザイナexeのパス>\" selenium-test-init:*)",
+      "Bash(\"<デザイナexeのパス>\" pageobject:*)",
+      "Bash(\"<デザイナexeのパス>\" approval-setup:*)",
+      "Bash(\"<デザイナexeのパス>\" mail-setup:*)",
+      "Bash(\"<デザイナexeのパス>\" edit-history-setup:*)",
+      "Bash(\"<デザイナexeのパス>\" audit-log-setup:*)",
+      "Bash(\"<デザイナexeのパス>\" tag-setup:*)",
+      "Bash(dotnet build:*)",
+      "Bash(dotnet test:*)",
+      "Bash(dotnet run:*)",
+      "Bash(node:*)",
+      "Bash(npm install:*)",
+      "Bash(npx playwright:*)"
+    ]
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -File \"AIForDeveloper/hooks/refresh-design-workspaces.ps1\" \"<デザイナexeのパス>\"",
+            "timeout": 600
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -File \"AIForDeveloper/hooks/refresh-design-workspaces.ps1\" \"<デザイナexeのパス>\"",
+            "timeout": 600
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -File \"AIForDeveloper/hooks/license-guard-root.ps1\" \"<デザイナexeのパス>\""
+          }
+        ]
+      }
+    ]
+  }
+}

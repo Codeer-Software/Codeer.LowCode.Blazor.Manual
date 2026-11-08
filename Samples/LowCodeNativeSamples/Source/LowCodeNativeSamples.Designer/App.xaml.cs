@@ -33,7 +33,7 @@ public partial class App : DesignerApp
         //load dll.
         typeof(LowCodeNativeSamples.Client.Shared.Services.AppInfoService).ToString();
 
-        //プロジェクトテンプレートと claude-workspace verb は headless CLI からも参照されるため、
+        //プロジェクトテンプレートと ai-workspace verb は headless CLI からも参照されるため、
         //headless 分岐が走る base.OnStartup より前に登録する (冪等)。
         DesignerStandard.SetupHeadless();
         ApexChartsDesignerInitializer.Initialize(BlazorRuntime);

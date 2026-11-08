@@ -1,6 +1,6 @@
 # Project.md（プロジェクト固有ルール）
 
-このデザインプロジェクト固有の前提を書く（ユーザー所有・ワークスペース更新で上書きされない）。Claude Code は毎回これを読んで従う。`ClaudeCodeForDesigner/` の汎用ルールはここには書かない（プロジェクト固有のことだけ）。
+このデザインプロジェクト固有の前提を書く（ユーザー所有・ワークスペース更新で上書きされない）。Claude Code は毎回これを読んで従う。`AIForDesigner/` の汎用ルールはここには書かない（プロジェクト固有のことだけ）。
 
 ## 接続先 DB / データソース
 
@@ -14,12 +14,12 @@
 
 ## 命名規約
 
-- （テーブル / 列 / モジュール / フィールドの命名ルール。`ClaudeCodeForDesigner/Docs/DatabaseGuidelines.md` の標準と違う点があれば明記）
+- （テーブル / 列 / モジュール / フィールドの命名ルール。`AIForDesigner/Docs/DatabaseGuidelines.md` の標準と違う点があれば明記）
 
 ## 業務ルール
 
 - iPad Air（横 1180×820 / 縦 820×1180）で MAUI アプリとして見せる営業支援（SFA）デモ。ナビはサイドバーではなく**ヘッダ型**（`Main.frm.json` の `Header.IsVisible: true` / `Left.IsVisible: false`）
-- モジュールは SFA テンプレート（`ClaudeCodeForDesigner/_samples/SFA`）由来。データソースは `Main`、クエリ SQL は PostgreSQL 版（`../LowCodeSamples/Design/Modules/SFA/クエリ`）に差し替え済み。`Home.mod.cs` の対象年月は `yyyy-MM` 形式（PostgreSQL の `to_char` に合わせる）
+- モジュールは SFA テンプレート（`AIForDesigner/_samples/SFA`）由来。データソースは `Main`、クエリ SQL は PostgreSQL 版（`../LowCodeSamples/Design/Modules/SFA/クエリ`）に差し替え済み。`Home.mod.cs` の対象年月は `yyyy-MM` 形式（PostgreSQL の `to_char` に合わせる）
 - ダッシュボード（Home）の 1〜2 行目と商談詳細の 1 行目は縦向きで折り返す（`IsWrap` + `MinWidth`）ように変更済み
 
 ## 既存資産

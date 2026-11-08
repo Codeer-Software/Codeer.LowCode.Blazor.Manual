@@ -1,17 +1,17 @@
-# Claude Code ワークスペース (ClaudeCodeForDesigner)
+# Claude Code ワークスペース (AIForDesigner)
 
 Claude Code で Codeer.LowCode.Blazor のデザインファイル (JSON / SQL / C# スクリプト) を作成・編集するためのワークスペースは、
 **デザイナから展開する方式**に変わりました。このリポジトリからのコピー配布は終了しています。
 
 ## 使い方
 
-1. デザイナ (1.3.15 以降) のメニュー **Tools > Claude Code Workspace** を実行し、展開先 (ワークスペース専用の**空のフォルダ**) を選ぶ
+1. デザイナ (1.3.15 以降) のメニュー **Tools > AI Workspace** を実行し、展開先 (ワークスペース専用の**空のフォルダ**) を選ぶ
 2. 展開したフォルダの中にデザインプロジェクトを置く (先にプロジェクトを開いた状態で展開しても、あとから作成してもよい)
 3. 展開されたフォルダで Claude Code を起動する
 
-- ワークスペースの内容 (CLAUDE.md・リファレンス一式・フック) は展開したデザイナと同一バージョンになります。デザイナや拡張ライブラリを更新すると、次の Claude Code セッションでフックが検知してリファレンス一式 (`ClaudeCodeForDesigner/`) を自動更新します (`Project.md` などユーザーが書いたファイルは保持されます)
+- ワークスペースの内容 (CLAUDE.md・リファレンス一式・フック) は展開したデザイナと同一バージョンになります。デザイナや拡張ライブラリを更新すると、次の Claude Code セッションでフックが検知してリファレンス一式 (`AIForDesigner/`) を自動更新します (`Project.md` などユーザーが書いたファイルは保持されます)
 - デザイナ exe のパスや許可設定 (`.claude/settings.local.json`) は展開時に自動で焼き込まれるため、手作業のセットアップは不要です
-- headless で使う場合は `<デザイナexe> claude-workspace "<展開先>"` でも同じことができます
+- headless で使う場合は `<デザイナexe> ai-workspace "<展開先>"` でも同じことができます
 
 詳しい手順は [Claude Code でデザインプロジェクトを編集する](../JP/ai/claude_code_designer.md) を参照してください。
 

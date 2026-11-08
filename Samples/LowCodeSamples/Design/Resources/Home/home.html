@@ -26,9 +26,13 @@
   .dh-try h2 { font-size: 1.2rem; font-weight: 700; margin: 0 0 8px; color: #052767; }
   .dh-try p { margin: 0 0 8px; line-height: 1.7; }
   .dh-try-prompt { display: flex; align-items: center; gap: 8px; background: #1f2937; border-radius: 6px; padding: 10px 12px; margin: 4px 0 12px; }
-  .dh-try-prompt code { color: #e5e7eb; background: none; font-size: .9rem; flex: 1; word-break: break-all; }
-  .dh-try-prompt button { border: 1px solid #9ca3af; background: #374151; color: #fff; border-radius: 4px; padding: 4px 12px; font-size: .85rem; white-space: nowrap; }
+  .dh-try-prompt code { color: #e5e7eb; background: none; font-size: .9rem; flex: 1; word-break: break-all; user-select: all; cursor: text; }
+  .dh-try-prompt .dh-try-hint { color: #9ca3af; font-size: .8rem; white-space: nowrap; }
   .dh-try .dh-try-note { font-size: .85rem; color: #6b7280; margin: 0; }
+  .dh-try-tools { list-style: none; margin: 0 0 12px; padding: 0; display: grid; gap: 6px; }
+  .dh-try-tools li { font-size: .9rem; line-height: 1.6; }
+  .dh-try-tools li a { font-weight: 700; margin-right: 8px; white-space: nowrap; }
+  .dh-try-tools li span { color: #4b5563; }
   @media (max-width: 600px) {
     .dh-hero { padding: 22px 18px; }
   .dh-hero h1 { font-size: 1.6rem; }
@@ -53,15 +57,20 @@
   </div>
 
   <div class="dh-try">
-    <h2>Claude Code ですぐに試せます</h2>
-    <p>空のフォルダで <a href="https://claude.com/claude-code" target="_blank" rel="noopener">Claude Code</a> を起動し、こう伝えます:</p>
+    <h2>AI に作らせて、すぐに試せます</h2>
+    <p>Claude Code・Codex・GitHub Copilot のどれでも始められます。空のフォルダを開いて、こう伝えるだけです:</p>
     <div class="dh-try-prompt">
-      <code id="dh-try-text">このURLを見て指示に従って https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Starter</code>
-      <button type="button" onclick="navigator.clipboard.writeText(document.getElementById('dh-try-text').innerText).then(() => { this.innerText = 'コピーしました'; setTimeout(() => { this.innerText = 'コピー'; }, 2000); })">コピー</button>
+      <code>このURLを見て指示に従って https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Starter</code>
+      <span class="dh-try-hint">クリックで全文を選択</span>
     </div>
-    <p>必要なソフトの確認からアプリの作成・ビルド、Webアプリとデザイナの起動までを Claude Code が進めます。あとは「商品マスタと受注入力の画面を作って」のように、作りたいアプリを伝えるだけです。</p>
-    <p>使い方や疑問点も、そのまま Claude Code に聞けば答えてくれます。</p>
-    <p class="dh-try-note">※ Windows 専用です。試用にライセンス登録は不要です（デザイナはトライアルとして動作します）。<br />※ 詳しくは <a href="https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Starter" target="_blank" rel="noopener">Codeer.LowCode.Blazor.Starter</a> をご覧ください。</p>
+    <ul class="dh-try-tools">
+      <li><a href="https://claude.com/claude-code" target="_blank" rel="noopener">Claude Code</a><span>空のフォルダで起動して、上の一文を伝えます。</span></li>
+      <li><a href="https://openai.com/codex" target="_blank" rel="noopener">Codex</a><span>Codex のアプリまたは IDE 拡張で作業フォルダを開いて伝えます（ChatGPT のチャット画面ではなく Codex を使います）。</span></li>
+      <li><a href="https://github.com/features/copilot" target="_blank" rel="noopener">GitHub Copilot</a><span>VS Code で作業フォルダを開き、Copilot Chat の Agent モードで伝えます。</span></li>
+    </ul>
+    <p>必要なソフトの確認からアプリの作成・ビルド、Webアプリとデザイナの起動までを AI が進めます。あとは「商品マスタと受注入力の画面を作って」のように、作りたいアプリを伝えるだけです。AI が作った画面や設定は、デザイナで確認・修正できます。</p>
+    <p>専用の AI は不要で、特定の AI 製品にも依存しません。使い方や疑問点も、そのまま AI に聞けば答えてくれます。</p>
+    <p class="dh-try-note">※ デザイナが WPF アプリのため、開発環境は Windows 専用です。.NET 10 SDK が必要です（無い場合は AI が導入を提案します）。<br />※ 試用にライセンス登録は不要です（デザイナはトライアルとして動作します）。各 AI ツールの利用料金・条件は、それぞれのサービスに従います。<br />※ Codex・Copilot では、作業フォルダへの書き込みや GitHub・nuget.org への接続の許可を求められることがあります。<br />※ 詳しくは <a href="https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Starter" target="_blank" rel="noopener">Codeer.LowCode.Blazor.Starter</a> をご覧ください。</p>
   </div>
 
   <div class="dh-sec">

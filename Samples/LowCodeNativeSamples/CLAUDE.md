@@ -9,7 +9,7 @@
 ## 最初にやること（空フォルダから始めたとき）
 
 ユーザーが「この URL（リポジトリ）を見て指示に従って」「セットアップして」と言ってきて、まだビルドも起動もしていない状態なら、
-**[ClaudeCodeForDeveloper/claude-code-setup.md](ClaudeCodeForDeveloper/claude-code-setup.md) を読んで、その手順を上から実行する**（環境確認 → 取得 → ビルド →
+**[AIForDeveloper/claude-code-setup.md](AIForDeveloper/claude-code-setup.md) を読んで、その手順を上から実行する**（環境確認 → 取得 → ビルド →
 デザインプロジェクト作成 → Claude Code ワークスペース展開 → サーバーとデザイナの起動）。質問は最小限、既定値で一本道。
 
 ## このフォルダで Claude Code ができること（優先順）
@@ -21,15 +21,16 @@
 <ROOT>/
 ├── CLAUDE.md                        ← この文書 (ホスト側の説明・作業ルール)
 ├── .claude/                         ← Claude Code の設定。settings.json (共通・コミット済み) と settings.local.json (デザイナ exe パス入りの許可・フック。developer-workspace が生成。gitignore)
-├── ClaudeCodeForDeveloper/          ← ホスト (C#) を触る Claude Code 向けの文書
+├── AIForDeveloper/                  ← ホスト (C#) を触る Claude Code 向けの文書
 │   ├── claude-code-setup.md         ←   セットアップ手順 (コミット済み・Claude Code が実行する)
-│   ├── _specs/                      ←   ライブラリの拡張点リファレンス (デザイナの developer-workspace が生成。gitignore)
-│   └── _hooks/                      ←   ルート用フック (DesignProjects/*/ のワークスペースを巡回して最新化。同上)
+│   ├── settings.local.json.sample   ←   ルートの許可・フックの雛形 (コミット済み。developer-workspace が exe パスを入れて .claude/settings.local.json を作る)
+│   ├── hooks/                       ←   ルート用フック (DesignProjects/*/ のワークスペースを巡回して最新化。コミット済み)
+│   └── _specs/                      ←   ライブラリの拡張点リファレンス (デザイナの developer-workspace が生成。gitignore)
 ├── Source/                          ← ホストのソース (C#: LowCodeNativeSamples.sln / Server / Client / Client.Shared / Designer / LicenseRegisterCli)。最後の手段
 ├── DesignProjects/                  ← デザインプロジェクト (画面・データ・スクリプト)。1 フォルダ = 1 デザイン
 │   └── <デザイン名>/                ←   Claude Code ワークスペース (デザイン担当者はここで起動)
 │       ├── CLAUDE.md                ←     デザイン作業の規約 (デザイナが生成)
-│       ├── ClaudeCodeForDesigner/   ←     デザインの作り方・仕様・カタログ (デザイナが自動生成。手で編集しない)
+│       ├── AIForDesigner/   ←     デザインの作り方・仕様・カタログ (デザイナが自動生成。手で編集しない)
 │       ├── Project.md               ←     このデザイン固有のルール (ユーザー所有。守る)
 │       ├── ddl/  docs/              ←     テーブル定義 SQL / このデザイン固有の文書
 │       └── design/                  ←     デザイン本体 (app.clprj / Modules / PageFrames …)。デザイナが開く・デプロイされる範囲
@@ -38,20 +39,20 @@
 ```
 
 1. **画面・データ構造・業務ルールの追加変更 → `DesignProjects/<デザイン名>/design/` を編集する（ローコード）。** やり方は
-   そのフォルダの `CLAUDE.md` と `ClaudeCodeForDesigner/CLAUDE.md`（**着手前に必ず読む**。ルートで起動した Claude Code がデザインを触るときも同じ）。
+   そのフォルダの `CLAUDE.md` と `AIForDesigner/CLAUDE.md`（**着手前に必ず読む**。ルートで起動した Claude Code がデザインを触るときも同じ）。
    デザインの変更に C# の再ビルドは要らない。反映はデザイナの「送信」か CLI の `deploy`
 2. **設定で表せないことだけスクリプト（`*.mod.cs`）。最小限に。** スクリプトを書く前に「既存フィールド／プロパティで代替できないか」を必ず問う
 3. **C#（このリポジトリの `Source/`）を触るのは最後の手段。** フィールド型そのものが無い・性能をコードで改善したい・独自 API / 外部連携が要る、
-   などローコードの範囲で不可能と確定したときだけ。やり方は下の「ホストのカスタマイズ」と `ClaudeCodeForDeveloper/_specs/HostCustomization.md`
+   などローコードの範囲で不可能と確定したときだけ。やり方は下の「ホストのカスタマイズ」と `AIForDeveloper/_specs/HostCustomization.md`
 
 **サンプルを土台にしない・頼まれていないものを作らない**: ユーザーのアプリは `Empty` から作った `DesignProjects/Project/`（セットアップ既定。フォルダはリネームしてよい）。
-サンプル集（`DesignProjects/PatternShowcase/`）はユーザーが希望したときだけ別のデザインプロジェクトとして展開し、そこに増築しない。参考実装は各ワークスペースの `ClaudeCodeForDesigner/_samples/` に常にある。
+サンプル集（`DesignProjects/PatternShowcase/`）はユーザーが希望したときだけ別のデザインプロジェクトとして展開し、そこに増築しない。参考実装は各ワークスペースの `AIForDesigner/_samples/` に常にある。
 既存のデザインがサンプル由来なのにユーザーが自分のアプリを求めたら、空のプロジェクトから作り直すことを提案して確認する（下の「デザインプロジェクトの切り替え」）。
 
-**自動テスト (Selenium)**: ユーザーが求めたら `DesignProjects/<デザイン名>/ClaudeCodeForDesigner/Docs/SeleniumTestGuide.md` の手順で。デザイナの `selenium-test-init` がテストプロジェクトの雛形（WebDriverManager / DataManager / ログイン / スモークテスト）を展開し、`pageobject` が PageObject を生成する。テスト対象はユーザーのデザインプロジェクトで、置き場は `Source/LowCodeNativeSamples.SeleniumTest`（`LowCodeNativeSamples.sln` に追加する）。
+**自動テスト (Selenium)**: ユーザーが求めたら `DesignProjects/<デザイン名>/AIForDesigner/Docs/SeleniumTestGuide.md` の手順で。デザイナの `selenium-test-init` がテストプロジェクトの雛形（WebDriverManager / DataManager / ログイン / スモークテスト）を展開し、`pageobject` が PageObject を生成する。テスト対象はユーザーのデザインプロジェクトで、置き場は `Source/LowCodeNativeSamples.SeleniumTest`（`LowCodeNativeSamples.sln` に追加する）。
 
-`ClaudeCodeForDeveloper/_specs/` が無い（セットアップ前・パッケージ更新後）なら `developer-workspace`、デザインプロジェクトの `ClaudeCodeForDesigner/` が無いなら
-`claude-workspace` で展開する（コマンドは `ClaudeCodeForDeveloper/claude-code-setup.md` の Step 5 / Step 7）。
+`AIForDeveloper/_specs/` が無い（セットアップ前・パッケージ更新後）なら `developer-workspace`、デザインプロジェクトの `AIForDesigner/` が無いなら
+`ai-workspace` で展開する（コマンドは `AIForDeveloper/claude-code-setup.md` の Step 5 / Step 7）。
 
 ### 認証を外す（前段のリバースプロキシや Easy Auth で守られている等、ログイン画面が要らないとき）
 
@@ -77,7 +78,7 @@
 - `LowCodeNativeSamples.Designer`: ビジュアルデザイナ（WPF）。デザインファイル（JSON/SQL/C# スクリプト）を編集する。
   `App.xaml.cs` が拡張の登録場所（テンプレート・ツールメニュー・スクリプト型・AI チャット）。
   exe は `Source/LowCodeNativeSamples.Designer/bin/Debug/net10.0-windows/LowCodeNativeSamples.Designer.exe`。
-  GUI を出さない CLI（`designcheck` / `sql` / `rename-*` / `template-create` / `deploy` / `api` / `claude-workspace` …）を持つ。
+  GUI を出さない CLI（`designcheck` / `sql` / `rename-*` / `template-create` / `deploy` / `api` / `ai-workspace` …）を持つ。
   **GUI サブシステムの exe なので PowerShell からは `Start-Process -Wait` で呼び、結果は `--out` の JSON で受ける**
 - `LowCodeNativeSamples.Maui`: Android / iOS クライアント（.NET MAUI + BlazorWebView。`Source/LowCodeNativeSamples.Maui`）。サーバーはこのアプリをホストしないので `LowCodeNativeSamples.Server`（`https` プロファイル）を先に起動する。既定の接続先は `appsettings.json` の `https://10.0.2.2:7137/`（Android エミュレータから見た PC の localhost。実機は LAN アドレス）で、アプリの Settings 画面からも変えられる。ログイン（Cookie / 外部 IdP の `lowcodeapp://auth` コールバック）・証明書・起動手順は `README.md`
 
@@ -133,21 +134,21 @@ Tools メニュー（DDL 生成）か CCFD の `sql` CLI で作る。DB プロ�
 サーバーが読むのは最後にデプロイしたもの。
 
 - **表示を切り替える**: 見たいデザインを `deploy "DesignProjects/<名>/design" --out Local/deploy.json` でデプロイし直す（App.zip が上書きされる。サーバー再起動は不要、ホットリロードで反映）。標準テンプレートどうしなら接続文字列の変更は要らない（ホストの appsettings に全テンプレートのデータソースが入っている）
-- **サンプル集を追加する**（ユーザーが「サンプルを見たい」と言ったとき）: `template-create --name PatternShowcase --out-dir DesignProjects/PatternShowcase/design --data-dir Local/Data --deploy-dir Local/Designs --out Local/tc.json` → `claude-workspace DesignProjects/PatternShowcase --project design`。これで表示はサンプルに切り替わるので、ユーザーのアプリに戻すときは上の deploy
+- **サンプル集を追加する**（ユーザーが「サンプルを見たい」と言ったとき）: `template-create --name PatternShowcase --out-dir DesignProjects/PatternShowcase/design --data-dir Local/Data --deploy-dir Local/Designs --out Local/tc.json` → `ai-workspace DesignProjects/PatternShowcase --project design`。これで表示はサンプルに切り替わるので、ユーザーのアプリに戻すときは上の deploy
 - **サンプル集を消す**: デザイナを終了 → `DesignProjects/PatternShowcase/` を削除 → `Local/Data/sqlite_patterns_v*.db` を削除 → ユーザーのアプリを deploy し直す
 
 新しいデザインプロジェクトを作って切り替える手順（DESIGNER_EXE = `Source/LowCodeNativeSamples.Designer/bin/Debug/net10.0-windows/LowCodeNativeSamples.Designer.exe`。GUI 系 exe なので `Start-Process -Wait` + `--out`）:
 
 1. 作る: `template-create --name Empty --out-dir DesignProjects/<アプリ名>/design --data-dir Local/Data --deploy-dir Local/Designs --out Local/tc.json`
    （テンプレートはすべて Cookie 認証向けで AppUser と admin/admin を含む。`template-list` で一覧。テンプレート付属の SQLite が `Local/Data` に置かれ、`design/designer.settings.Development.json` の接続文字列がそこを指し、`Local/Designs/App.zip` が**この新しいデザインで上書き**される）
-2. ワークスペースを展開: `claude-workspace DesignProjects/<アプリ名> --project design --out Local/cw.json`（`CLAUDE.md` / `ClaudeCodeForDesigner/` / `Project.md` / `ddl/` / `docs/` ができる）
+2. ワークスペースを展開: `ai-workspace DesignProjects/<アプリ名> --project design --out Local/cw.json`（`CLAUDE.md` / `AIForDesigner/` / `Project.md` / `ddl/` / `docs/` ができる）
 3. サーバーの `appsettings.Development.json` の `ConnectionStrings` を確認する。標準テンプレートのデータソース名（`SampleSQLite` / `PatternsSQLite` / `Inventory` / `Sfa` / `ProjectManagement`）と DB ファイル名は既に入っているので、標準テンプレートから作ったデザインなら変更不要。自前のデータソース名や DB にしたときだけ、`DataSources[]`（`appsettings.json`）と接続文字列を足す。サーバーを再起動
 4. 以後のデザイン作業は `DesignProjects/<アプリ名>/` で Claude Code を起動して行う。`.vscode/launch.json` の Designer 構成のフォルダも差し替える
 
 
 ## ホストのカスタマイズ（C#・最後の手段）
 
-やり方の詳細と正確な API は `ClaudeCodeForDeveloper/_specs/HostCustomization.md`（デザイナの `developer-workspace` が生成。ライブラリ側の拡張点。無ければ `Start-Process -Wait` で `LowCodeNativeSamples.Designer.exe developer-workspace <ROOT> --out <json>` を実行して生成する）。
+やり方の詳細と正確な API は `AIForDeveloper/_specs/HostCustomization.md`（デザイナの `developer-workspace` が生成。ライブラリ側の拡張点。無ければ `Start-Process -Wait` で `LowCodeNativeSamples.Designer.exe developer-workspace <ROOT> --out <json>` を実行して生成する）。
 シグネチャは推測せず `LowCodeNativeSamples.Designer.exe api --type <FullName> --out <md>` で確認する（`Start-Process -Wait` で呼ぶ）。デザイナに載っていないサーバー側ライブラリ（`Codeer.LowCode.Blazor.Extras.Server` / `Codeer.LowCode.Blazor.DbAccess`）は `--assembly` に Server の `bin/Debug/net10.0/` にある dll のパスを渡す。
 
 | やりたいこと | 場所 |
@@ -171,7 +172,7 @@ Tools メニュー（DDL 生成）か CCFD の `sql` CLI で作る。DB プロ�
 - **ビルドが通る状態で止める。** C# を触ったら `dotnet build Source/LowCodeNativeSamples.sln` を最後に実行する
 - リネームは `LowCodeNativeSamples` の一括置換（ファイル名・フォルダ名・中身）。`x:Class`、`*.styles.css` のリンクも対象
 
-## 初回セットアップの手順（手動で行う場合の要約。Claude Code は ClaudeCodeForDeveloper/claude-code-setup.md）
+## 初回セットアップの手順（手動で行う場合の要約。Claude Code は AIForDeveloper/claude-code-setup.md）
 
 1. サーバープロジェクトの `appsettings.Development.json`: 接続文字列、`DesignFileDirectory`、`FileSystemStorages`。
    既定は `C:\Codeer.LowCode.Blazor.Local\...` を指す

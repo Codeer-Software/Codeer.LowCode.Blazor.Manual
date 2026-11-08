@@ -2,32 +2,25 @@
   .ls { font-family: inherit; color: #1f2937; }
   .ls-wrap { display: flex; flex-wrap: wrap; gap: 28px; align-items: flex-start; }
   .ls-stage { flex: 0 1 500px; min-width: 0; width: 100%; max-width: 500px; background: #f3f4f6; border-radius: 12px; padding: 20px 16px 28px; box-sizing: border-box; }
-  .ls-radio { position: absolute; opacity: 0; pointer-events: none; }
-  .ls-tabs { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin: 0 0 16px; }
-  .ls-tabs label { cursor: pointer; font-size: .8rem; padding: 4px 12px; border-radius: 999px; border: 1px solid #c7ccd4; background: #fff; color: #374151; margin: 0; user-select: none; }
-  #ls-s1:checked ~ .ls-tabs label[for="ls-s1"],
-  #ls-s2:checked ~ .ls-tabs label[for="ls-s2"],
-  #ls-s3:checked ~ .ls-tabs label[for="ls-s3"] { background: #052767; border-color: #052767; color: #fff; }
+  .ls-step { display: table; margin: 0 auto 10px; font-size: .8rem; padding: 4px 12px; border-radius: 999px; background: #052767; color: #fff; }
+  .ls-card + .ls-step { margin-top: 24px; }
   .ls-card { position: relative; width: 100%; max-width: 400px; margin: 0 auto; background: #fff; border-radius: 12px; box-shadow: 0 8px 24px rgba(0, 0, 0, .08); padding: 40px 36px 32px; box-sizing: border-box; }
   .ls-badge { position: absolute; top: 12px; right: 12px; font-size: .7rem; font-weight: 700; color: #92400e; background: #fef3c7; border-radius: 4px; padding: 2px 8px; }
   .ls-head { text-align: center; margin-bottom: 24px; }
   .ls-head .ls-logo { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 10px; background: linear-gradient(135deg, #052767, #2ac0af); margin-bottom: 10px; }
   .ls-head h1 { font-size: 1.25rem; font-weight: 500; margin: 0; color: #1f2937; }
-  .ls-p2, .ls-p3 { display: none; }
-  #ls-s2:checked ~ .ls-card .ls-p1, #ls-s3:checked ~ .ls-card .ls-p1 { display: none; }
-  #ls-s2:checked ~ .ls-card .ls-p2 { display: block; }
-  #ls-s3:checked ~ .ls-card .ls-p3 { display: block; }
   .ls-field { margin-bottom: 16px; }
   .ls-label { display: block; font-size: .875rem; margin-bottom: 4px; color: #212529; }
   .ls-input { display: block; width: 100%; box-sizing: border-box; padding: 10px 12px; font-size: 1rem; line-height: 1.5; color: #212529; background: #fff; border: 1px solid #dee2e6; border-radius: .375rem; outline: none; }
   .ls-input.ls-code { text-align: center; letter-spacing: .3em; }
+  .ls-input.ls-placeholder { color: #9ca3af; }
   .ls-btn { display: block; width: 100%; box-sizing: border-box; padding: 10px 12px; font-size: 1rem; line-height: 1.5; border-radius: .375rem; cursor: default; text-align: center; }
   .ls-btn-primary { color: #fff; background: #0d6efd; border: 1px solid #0d6efd; }
   .ls-btn-secondary { color: #6c757d; background: #fff; border: 1px solid #6c757d; margin-top: 8px; }
   .ls-divider { display: flex; align-items: center; gap: 12px; margin: 20px 0; color: #8a8f98; font-size: .8rem; }
   .ls-divider::before, .ls-divider::after { content: ""; flex: 1; border-top: 1px solid #e3e5e8; }
   .ls-idp { display: flex; align-items: center; justify-content: center; gap: 12px; width: 100%; box-sizing: border-box; height: 41px; padding: 0 12px; margin-bottom: 8px; background: #fff; cursor: default; white-space: nowrap; }
-  .ls-idp svg { flex: 0 0 auto; display: block; }
+  .ls-idp img { flex: 0 0 auto; display: block; }
   .ls-ms { border: 1px solid #8c8c8c; border-radius: 0; color: #5e5e5e; font-family: "Segoe UI", "Segoe UI Web", system-ui, sans-serif; font-weight: 600; font-size: 15px; }
   .ls-google { height: 40px; border: 1px solid #747775; border-radius: 4px; color: #1f1f1f; font-family: Roboto, Arial, sans-serif; font-weight: 500; font-size: 14px; gap: 10px; }
   .ls-other { border: 1px solid #8c8c8c; border-radius: 4px; color: #374151; font-family: "Segoe UI", "Segoe UI Web", system-ui, sans-serif; font-size: 15px; font-weight: 600; }
@@ -48,20 +41,12 @@
 <div class="ls">
   <div class="ls-wrap">
     <div class="ls-stage">
-      <input type="radio" name="ls-step" id="ls-s1" class="ls-radio" checked />
-      <input type="radio" name="ls-step" id="ls-s2" class="ls-radio" />
-      <input type="radio" name="ls-step" id="ls-s3" class="ls-radio" />
-      <div class="ls-tabs">
-        <label for="ls-s1">ログイン</label>
-        <label for="ls-s2">2 段目: 認証アプリ</label>
-        <label for="ls-s3">2 段目: メールのコード</label>
-      </div>
-
+      <span class="ls-step">ログイン</span>
       <div class="ls-card">
         <span class="ls-badge">見本</span>
         <div class="ls-head">
           <span class="ls-logo">
-            <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5l-8-3zm-1.2 14.2-3.5-3.5 1.4-1.4 2.1 2.1 4.6-4.6 1.4 1.4-6 6z"/></svg>
+            <img src="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2222%22 height=%2222%22 viewBox=%220 0 24 24%22%3E%3Cpath fill=%22%23fff%22 d=%22M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5l-8-3zm-1.2 14.2-3.5-3.5 1.4-1.4 2.1 2.1 4.6-4.6 1.4 1.4-6 6z%22/%3E%3C/svg%3E" width="22" height="22" alt="" />
           </span>
           <h1>サンプル商事 業務ポータル</h1>
         </div>
@@ -70,59 +55,68 @@
         <div class="ls-p1">
           <div class="ls-field">
             <span class="ls-label">ユーザー ID</span>
-            <input class="ls-input" type="text" value="sato@example.co.jp" readonly tabindex="-1" aria-label="ユーザー ID (見本)" />
+            <span class="ls-input">sato@example.co.jp</span>
           </div>
           <div class="ls-field">
             <span class="ls-label">パスワード</span>
-            <input class="ls-input" type="password" value="password" readonly tabindex="-1" aria-label="パスワード (見本)" />
+            <span class="ls-input">••••••••</span>
           </div>
-          <button type="button" class="ls-btn ls-btn-primary" tabindex="-1">ログイン</button>
+          <span class="ls-btn ls-btn-primary">ログイン</span>
 
           <div class="ls-divider">または</div>
 
-          <button type="button" class="ls-idp ls-ms" tabindex="-1">
-            <svg width="21" height="21" viewBox="0 0 21 21" aria-hidden="true"><rect x="1" y="1" width="9" height="9" fill="#F25022"/><rect x="11" y="1" width="9" height="9" fill="#7FBA00"/><rect x="1" y="11" width="9" height="9" fill="#00A4EF"/><rect x="11" y="11" width="9" height="9" fill="#FFB900"/></svg>
+          <span class="ls-idp ls-ms">
+            <img src="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2221%22 height=%2221%22 viewBox=%220 0 21 21%22%3E%3Crect x=%221%22 y=%221%22 width=%229%22 height=%229%22 fill=%22%23F25022%22/%3E%3Crect x=%2211%22 y=%221%22 width=%229%22 height=%229%22 fill=%22%237FBA00%22/%3E%3Crect x=%221%22 y=%2211%22 width=%229%22 height=%229%22 fill=%22%2300A4EF%22/%3E%3Crect x=%2211%22 y=%2211%22 width=%229%22 height=%229%22 fill=%22%23FFB900%22/%3E%3C/svg%3E" width="21" height="21" alt="" />
             <span>Microsoft でサインイン</span>
-          </button>
-          <button type="button" class="ls-idp ls-google" tabindex="-1">
-            <svg width="20" height="20" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/><path fill="none" d="M0 0h48v48H0z"/></svg>
+          </span>
+          <span class="ls-idp ls-google">
+            <img src="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2220%22 height=%2220%22 viewBox=%220 0 48 48%22%3E%3Cpath fill=%22%23EA4335%22 d=%22M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z%22/%3E%3Cpath fill=%22%234285F4%22 d=%22M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z%22/%3E%3Cpath fill=%22%23FBBC05%22 d=%22M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z%22/%3E%3Cpath fill=%22%2334A853%22 d=%22M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z%22/%3E%3Cpath fill=%22none%22 d=%22M0 0h48v48H0z%22/%3E%3C/svg%3E" width="20" height="20" alt="" />
             <span>Google でサインイン</span>
-          </button>
-          <button type="button" class="ls-idp ls-other" tabindex="-1">
-            <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><circle cx="7.5" cy="12" r="4.5" fill="none" stroke="#4b5563" stroke-width="2"/><path d="M12 12h10M18 12v4M21 12v3" fill="none" stroke="#4b5563" stroke-width="2" stroke-linecap="round"/></svg>
+          </span>
+          <span class="ls-idp ls-other">
+            <img src="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2220%22 height=%2220%22 viewBox=%220 0 24 24%22%3E%3Ccircle cx=%227.5%22 cy=%2212%22 r=%224.5%22 fill=%22none%22 stroke=%22%234b5563%22 stroke-width=%222%22/%3E%3Cpath d=%22M12 12h10M18 12v4M21 12v3%22 fill=%22none%22 stroke=%22%234b5563%22 stroke-width=%222%22 stroke-linecap=%22round%22/%3E%3C/svg%3E" width="20" height="20" alt="" />
             <span>Amazon Cognito でサインイン</span>
-          </button>
-          <button type="button" class="ls-idp ls-other" tabindex="-1">
-            <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 21V5.5L12 3l8 2.5V21" fill="none" stroke="#4b5563" stroke-width="2" stroke-linejoin="round"/><path d="M9 21v-4h6v4M8.5 8h2M13.5 8h2M8.5 12h2M13.5 12h2M2 21h20" fill="none" stroke="#4b5563" stroke-width="2" stroke-linecap="round"/></svg>
+          </span>
+          <span class="ls-idp ls-other">
+            <img src="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2220%22 height=%2220%22 viewBox=%220 0 24 24%22%3E%3Cpath d=%22M4 21V5.5L12 3l8 2.5V21%22 fill=%22none%22 stroke=%22%234b5563%22 stroke-width=%222%22 stroke-linejoin=%22round%22/%3E%3Cpath d=%22M9 21v-4h6v4M8.5 8h2M13.5 8h2M8.5 12h2M13.5 12h2M2 21h20%22 fill=%22none%22 stroke=%22%234b5563%22 stroke-width=%222%22 stroke-linecap=%22round%22/%3E%3C/svg%3E" width="20" height="20" alt="" />
             <span>会社の ID でサインイン</span>
-          </button>
+          </span>
 
           <div class="ls-options"><span class="ls-check"></span><span>ログイン状態を保持する</span></div>
         </div>
+      </div>
 
-        <!-- 2 段目: 認証アプリ -->
+      <!-- 2 段目: 認証アプリ -->
+      <span class="ls-step">2 段目: 認証アプリ</span>
+      <div class="ls-card">
+        <span class="ls-badge">見本</span>
         <div class="ls-p2">
           <p class="ls-prompt">認証アプリに表示されている 6 桁のコードを入力してください。</p>
           <div class="ls-field">
             <span class="ls-label">認証コード</span>
-            <input class="ls-input ls-code" type="text" value="" placeholder="000000" readonly tabindex="-1" aria-label="認証コード (見本)" />
+            <span class="ls-input ls-code ls-placeholder">000000</span>
           </div>
-          <button type="button" class="ls-btn ls-btn-primary" tabindex="-1">確認</button>
-          <button type="button" class="ls-btn ls-btn-secondary" tabindex="-1">戻る</button>
+          <span class="ls-btn ls-btn-primary">確認</span>
+          <span class="ls-btn ls-btn-secondary">戻る</span>
         </div>
 
-        <!-- 2 段目: メールのワンタイムコード -->
+      </div>
+
+      <!-- 2 段目: メールのワンタイムコード -->
+      <span class="ls-step">2 段目: メールのコード</span>
+      <div class="ls-card">
+        <span class="ls-badge">見本</span>
         <div class="ls-p3">
           <p class="ls-prompt">s***@example.co.jp に認証コードを送りました。届いた 6 桁のコードを入力してください。</p>
           <div class="ls-field">
             <span class="ls-label">認証コード</span>
-            <input class="ls-input ls-code" type="text" value="" placeholder="000000" readonly tabindex="-1" aria-label="認証コード (見本)" />
+            <span class="ls-input ls-code ls-placeholder">000000</span>
           </div>
-          <button type="button" class="ls-btn ls-btn-primary" tabindex="-1">確認</button>
-          <button type="button" class="ls-btn ls-btn-secondary" tabindex="-1">戻る</button>
+          <span class="ls-btn ls-btn-primary">確認</span>
+          <span class="ls-btn ls-btn-secondary">戻る</span>
         </div>
       </div>
-      <p class="ls-caption">見本です。入力欄やボタンを押しても何も起きません。上の切り替えで 2 段目の画面を表示します。</p>
+      <p class="ls-caption">見本です。入力欄やボタンは動きません。</p>
     </div>
 
     <div class="ls-info">
