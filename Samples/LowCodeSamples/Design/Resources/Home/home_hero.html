@@ -1,0 +1,47 @@
+<style>
+  .dh { font-family: inherit; color: #1f2937; }
+  .dh-hero { background: linear-gradient(120deg, #052767 0%, #1b6f9a 55%, #2ac0af 100%); color: #fff; border-radius: 12px; padding: 32px 32px 28px; margin-bottom: 28px; }
+  .dh-hero p { color: #fff !important; }
+  .dh-hero h1 { font-size: 2.1rem; font-weight: 700; margin: 0 0 10px; color: #fff; }
+  .dh-hero .dh-lead { font-size: 1.25rem; margin: 0 0 12px; }
+  .dh-hero .dh-sub { opacity: .9; margin: 0 0 20px; line-height: 1.7; }
+  .dh-btns { display: flex; flex-wrap: wrap; gap: 10px; }
+  .dh-btns a { display: inline-block; padding: 8px 18px; border-radius: 999px; text-decoration: none; font-weight: 600; }
+  .dh-btns a.dh-primary { background: #fff; color: #052767; }
+  .dh-btns a.dh-ghost { border: 1px solid rgba(255,255,255,.8); color: #fff; }
+  .dh-btns a:hover { opacity: .85; }
+  .dh-note { font-size: .85rem; opacity: .85; margin: 16px 0 0; }
+  .dh-sec { margin: 0 0 28px; }
+  .dh-sec h2 { font-size: 1.3rem; font-weight: 700; margin: 0 0 4px; color: #052767; border-left: 5px solid #2ac0af; padding-left: 10px; }
+  .dh-sec .dh-sec-sub { color: #6b7280; margin: 0 0 12px 15px; font-size: .9rem; }
+  .dh-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 16px; }
+  .dh-card { display: flex; flex-direction: column; background: #fff; border: 1px solid #e5e7eb; border-radius: 10px; overflow: hidden; text-decoration: none; color: inherit; transition: box-shadow .15s, transform .15s; }
+  .dh-card:hover { box-shadow: 0 6px 18px rgba(5,39,103,.15); transform: translateY(-2px); color: inherit; }
+  .dh-card img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top left; border-bottom: 1px solid #eef0f3; background: #f8fafc; }
+  .dh-card .dh-body { padding: 10px 12px 12px; }
+  .dh-card .dh-title { font-weight: 700; margin: 0 0 4px; font-size: 1rem; }
+  .dh-card .dh-desc { margin: 0; font-size: .85rem; color: #4b5563; line-height: 1.55; }
+  .dh-tag { display: inline-block; font-size: .7rem; font-weight: 700; color: #0f766e; background: #ccfbf1; border-radius: 4px; padding: 1px 6px; margin-left: 6px; vertical-align: middle; }
+  @media (max-width: 600px) {
+    .dh-hero { padding: 22px 18px; }
+  .dh-hero h1 { font-size: 1.6rem; }
+    .dh-hero .dh-lead { font-size: 1.05rem; }
+    .dh-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .dh-card .dh-desc { display: none; }
+  }
+</style>
+
+<div class="dh">
+  <div class="dh-hero">
+    <h1>Codeer.LowCode.Blazor</h1>
+    <p class="dh-lead">業務アプリを、ノーコードの速さとプロコードの自由さで。</p>
+    <p class="dh-sub">このデモサイトは、すべて Codeer.LowCode.Blazor のデザイナで作られています。<br />気になる機能のカードを開いて、実際に触ってみてください。</p>
+    <div class="dh-btns">
+      <a class="dh-primary" href="https://www.codeer.co.jp/LowCode" target="_blank" rel="noopener">製品ページ・お問い合わせ</a>
+      <a class="dh-ghost" href="https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Manual/blob/main/JP/introduction/installation.md" target="_blank" rel="noopener">始め方</a>
+      <a class="dh-ghost" href="https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Manual" target="_blank" rel="noopener">マニュアル</a>
+      <a class="dh-ghost" href="https://www.youtube.com/watch?v=beSwbdIh4Is" target="_blank" rel="noopener">紹介動画</a>
+    </div>
+    <p class="dh-note">※ デモのため、データの登録・更新・メール送信はサーバーで止めています。画面の動きはそのまま確認できます。</p>
+  </div>
+</div>

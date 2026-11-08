@@ -2,6 +2,33 @@
   "Name": "Home",
   "Fields": [
     {
+      "ResourcePath": "Home/home_hero.html",
+      "Name": "Hero",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.MarkupStringFieldDesign"
+    },
+    {
+      "RawHtml": "<h2 class=\"dh-try-title\">AI に作らせて、すぐに試せます</h2><p class=\"dh-try-lead\">Claude Code・Codex・GitHub Copilot のどれでも始められます。空のフォルダを開いて、こう伝えるだけです:</p>",
+      "Name": "TryHead",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.MarkupStringFieldDesign"
+    },
+    {
+      "RawHtml": "<code class=\"dh-try-code\">このURLを見て指示に従って https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Starter</code>",
+      "Name": "TryPrompt",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.MarkupStringFieldDesign"
+    },
+    {
+      "Text": "コピー",
+      "Variant": "Secondary",
+      "OnClick": "CopyButton_OnClick",
+      "Name": "CopyButton",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ButtonFieldDesign"
+    },
+    {
+      "RawHtml": "<ul class=\"dh-try-tools\">\n  <li><a href=\"https://claude.com/claude-code\" target=\"_blank\" rel=\"noopener\">Claude Code</a><span>空のフォルダで起動して、上の一文を伝えます。</span></li>\n  <li><a href=\"https://openai.com/codex\" target=\"_blank\" rel=\"noopener\">Codex</a><span>Codex のアプリまたは IDE 拡張で作業フォルダを開いて伝えます（ChatGPT のチャット画面ではなく Codex を使います）。</span></li>\n  <li><a href=\"https://github.com/features/copilot\" target=\"_blank\" rel=\"noopener\">GitHub Copilot</a><span>VS Code で作業フォルダを開き、Copilot Chat の Agent モードで伝えます。</span></li>\n</ul>\n<p>必要なソフトの確認からアプリの作成・ビルド、Webアプリとデザイナの起動までを AI が進めます。あとは「商品マスタと受注入力の画面を作って」のように、作りたいアプリを伝えるだけです。AI が作った画面や設定は、デザイナで確認・修正できます。</p>\n<p>専用の AI は不要で、特定の AI 製品にも依存しません。使い方や疑問点も、そのまま AI に聞けば答えてくれます。</p>\n<p class=\"dh-try-note\">※ デザイナが WPF アプリのため、開発環境は Windows 専用です。.NET 10 SDK が必要です（無い場合は AI が導入を提案します）。<br />※ 試用にライセンス登録は不要です（デザイナはトライアルとして動作します）。各 AI ツールの利用料金・条件は、それぞれのサービスに従います。<br />※ Codex・Copilot では、作業フォルダへの書き込みや GitHub・nuget.org への接続の許可を求められることがあります。<br />※ 詳しくは <a href=\"https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Starter\" target=\"_blank\" rel=\"noopener\">Codeer.LowCode.Blazor.Starter</a> をご覧ください。</p>",
+      "Name": "TryBody",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.MarkupStringFieldDesign"
+    },
+    {
       "ResourcePath": "Home/home.html",
       "Name": "Catalog",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.MarkupStringFieldDesign"
@@ -13,6 +40,99 @@
         "Name": "",
         "Rows": [
           {
+            "Margin": {
+              "Bottom": 0
+            },
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "Hero",
+                  "Name": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                }
+              }
+            ]
+          },
+          {
+            "Margin": {
+              "Bottom": 28
+            },
+            "Columns": [
+              {
+                "Layout": {
+                  "Name": "",
+                  "IsBordered": true,
+                  "BackgroundColor": "#f8fafc",
+                  "Padding": {
+                    "Top": 18,
+                    "Bottom": 18,
+                    "Left": 22,
+                    "Right": 22
+                  },
+                  "Rows": [
+                    {
+                      "Margin": {
+                        "Bottom": 0
+                      },
+                      "Columns": [
+                        {
+                          "Layout": {
+                            "FieldName": "TryHead",
+                            "Name": "",
+                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "Margin": {
+                        "Top": 4,
+                        "Bottom": 12
+                      },
+                      "Columns": [
+                        {
+                          "Layout": {
+                            "FieldName": "TryPrompt",
+                            "Name": "",
+                            "ClassName": "dh-try-prompt",
+                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                          }
+                        },
+                        {
+                          "Layout": {
+                            "FieldName": "CopyButton",
+                            "Name": "",
+                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                          },
+                          "Width": 120,
+                          "VerticalAlignment": "Middle"
+                        }
+                      ]
+                    },
+                    {
+                      "Margin": {
+                        "Bottom": 0
+                      },
+                      "Columns": [
+                        {
+                          "Layout": {
+                            "FieldName": "TryBody",
+                            "Name": "",
+                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                          }
+                        }
+                      ]
+                    }
+                  ],
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
+                }
+              }
+            ]
+          },
+          {
+            "Margin": {
+              "Bottom": 0
+            },
             "Columns": [
               {
                 "Layout": {

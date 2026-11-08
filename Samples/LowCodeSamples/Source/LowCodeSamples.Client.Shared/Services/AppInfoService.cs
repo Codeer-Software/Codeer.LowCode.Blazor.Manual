@@ -59,6 +59,7 @@ namespace LowCodeSamples.Client.Shared.Services
 
             //サンプル固有: KHandy (ハンディターミナル) の JS ブリッジをスクリプトから使う (KHandy / HandyTablet フレーム)
             _scriptRuntimeTypeManager.AddService(new KJS(js));
+            _scriptRuntimeTypeManager.AddService(new Clipboard(js));
         }
         public void SetCurrentUserId(string id) => CurrentUserId = id;
 
