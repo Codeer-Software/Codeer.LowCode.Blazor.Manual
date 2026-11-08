@@ -170,8 +170,15 @@
 /* === Home: AI に作らせて、すぐに試せます === */
 .dh-try-title { font-size: 1.2rem; font-weight: 700; margin: 0 0 8px; color: #052767; }
 .dh-try-lead { margin: 0; line-height: 1.7; color: #1f2937; }
-.dh-try-prompt { background: #1f2937; border-radius: 6px; padding: 10px 12px; }
-.dh-try-code { display: block; color: #e5e7eb; background: none; font-size: .9rem; word-break: break-all; user-select: all; }
+/* プロンプト枠 (TryPromptBox): 背景色は Grid の BackgroundColor。角丸と、nested-flush の負マージンの打ち消し (見出しの文字と左端を揃える) */
+[data-name="TryPromptBox"][data-layout="grid"].nested-flush { margin-left: 0; margin-right: 0; }
+[data-name="TryPromptBox"] > .border-0 { border-radius: 6px; overflow: hidden; }
+.dh-try-code { display: block; color: #f0f0f0; background: none; font-family: Consolas, "Courier New", monospace; font-size: 15px; word-break: break-all; user-select: all; }
+[data-name="TryPromptBox"] .cl-btn-wrap > .btn,
+[data-name="TryPromptBox"] .cl-btn-wrap > .btn.btn-secondary { background-color: transparent; border: 1px solid #888; color: #f0f0f0; border-radius: 4px; padding: 4px 12px; font-size: 14px; }
+[data-name="TryPromptBox"] .cl-btn-wrap > .btn:hover,
+[data-name="TryPromptBox"] .cl-btn-wrap > .btn:active,
+[data-name="TryPromptBox"] .cl-btn-wrap > .btn:focus-visible { background-color: #333; border-color: #888; color: #f0f0f0; }
 .dh-try-tools { list-style: none; margin: 0 0 12px; padding: 0; display: grid; gap: 6px; }
 .dh-try-tools li { font-size: .9rem; line-height: 1.6; }
 .dh-try-tools li a { font-weight: 700; margin-right: 8px; white-space: nowrap; }
