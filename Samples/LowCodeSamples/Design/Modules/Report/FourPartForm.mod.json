@@ -175,7 +175,8 @@
                             "FieldName": "画像表示",
                             "Name": "",
                             "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                          }
+                          },
+                          "MinWidth": 200
                         },
                         {
                           "Layout": {
@@ -210,10 +211,12 @@
                             ],
                             "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
                           },
-                          "Width": 400,
-                          "VerticalAlignment": "Middle"
+                          "VerticalAlignment": "Middle",
+                          "MinWidth": 240,
+                          "MaxWidth": 400
                         }
-                      ]
+                      ],
+                      "IsWrap": true
                     }
                   ],
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
@@ -252,125 +255,223 @@
             "Columns": [
               {
                 "Layout": {
-                  "FieldName": "取引先Label",
-                  "FontWeight": "Bold",
                   "Name": "",
-                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                  "Rows": [
+                    {
+                      "Margin": {
+                        "Bottom": 0
+                      },
+                      "Columns": [
+                        {
+                          "Layout": {
+                            "FieldName": "取引先Label",
+                            "FontWeight": "Bold",
+                            "Name": "",
+                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                          },
+                          "Width": 120,
+                          "VerticalAlignment": "Middle"
+                        },
+                        {
+                          "Layout": {
+                            "FieldName": "取引先",
+                            "Name": "",
+                            "IsViewOnly": true,
+                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                          },
+                          "VerticalAlignment": "Middle"
+                        }
+                      ]
+                    }
+                  ],
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
                 },
-                "Width": 120,
-                "VerticalAlignment": "Middle"
+                "MinWidth": 300
               },
               {
                 "Layout": {
-                  "FieldName": "取引先",
                   "Name": "",
-                  "IsViewOnly": true,
-                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                  "Rows": [
+                    {
+                      "Margin": {
+                        "Bottom": 0
+                      },
+                      "Columns": [
+                        {
+                          "Layout": {
+                            "FieldName": "納入先Label",
+                            "FontWeight": "Bold",
+                            "Name": "",
+                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                          },
+                          "Width": 120,
+                          "VerticalAlignment": "Middle"
+                        },
+                        {
+                          "Layout": {
+                            "FieldName": "納入先",
+                            "Name": "",
+                            "IsViewOnly": true,
+                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                          },
+                          "VerticalAlignment": "Middle"
+                        }
+                      ]
+                    }
+                  ],
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
                 },
-                "VerticalAlignment": "Middle"
+                "MinWidth": 300
               },
               {
                 "Layout": {
-                  "FieldName": "納入先Label",
-                  "FontWeight": "Bold",
                   "Name": "",
-                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                  "Rows": [
+                    {
+                      "Margin": {
+                        "Bottom": 0
+                      },
+                      "Columns": [
+                        {
+                          "Layout": {
+                            "FieldName": "注文日Label",
+                            "FontWeight": "Bold",
+                            "Name": "",
+                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                          },
+                          "Width": 120,
+                          "VerticalAlignment": "Middle"
+                        },
+                        {
+                          "Layout": {
+                            "FieldName": "注文日",
+                            "Name": "",
+                            "IsViewOnly": true,
+                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                          },
+                          "VerticalAlignment": "Middle"
+                        }
+                      ]
+                    }
+                  ],
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
                 },
-                "Width": 120,
-                "VerticalAlignment": "Middle"
-              },
-              {
-                "Layout": {
-                  "FieldName": "納入先",
-                  "Name": "",
-                  "IsViewOnly": true,
-                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                },
-                "VerticalAlignment": "Middle"
-              },
-              {
-                "Layout": {
-                  "FieldName": "注文日Label",
-                  "FontWeight": "Bold",
-                  "Name": "",
-                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                },
-                "Width": 120,
-                "VerticalAlignment": "Middle"
-              },
-              {
-                "Layout": {
-                  "FieldName": "注文日",
-                  "Name": "",
-                  "IsViewOnly": true,
-                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                },
-                "VerticalAlignment": "Middle"
+                "MinWidth": 300
               },
               {}
-            ]
+            ],
+            "IsWrap": true
           },
           {
             "Columns": [
               {
                 "Layout": {
-                  "FieldName": "注文番号Label",
-                  "FontWeight": "Bold",
                   "Name": "",
-                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                  "Rows": [
+                    {
+                      "Margin": {
+                        "Bottom": 0
+                      },
+                      "Columns": [
+                        {
+                          "Layout": {
+                            "FieldName": "注文番号Label",
+                            "FontWeight": "Bold",
+                            "Name": "",
+                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                          },
+                          "Width": 120,
+                          "VerticalAlignment": "Middle"
+                        },
+                        {
+                          "Layout": {
+                            "FieldName": "注文番号",
+                            "Name": "",
+                            "IsViewOnly": true,
+                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                          },
+                          "VerticalAlignment": "Middle"
+                        }
+                      ]
+                    }
+                  ],
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
                 },
-                "Width": 120,
-                "VerticalAlignment": "Middle"
+                "MinWidth": 300
               },
               {
                 "Layout": {
-                  "FieldName": "注文番号",
                   "Name": "",
-                  "IsViewOnly": true,
-                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                  "Rows": [
+                    {
+                      "Margin": {
+                        "Bottom": 0
+                      },
+                      "Columns": [
+                        {
+                          "Layout": {
+                            "FieldName": "納品書番号Label",
+                            "FontWeight": "Bold",
+                            "Name": "",
+                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                          },
+                          "Width": 120,
+                          "VerticalAlignment": "Middle"
+                        },
+                        {
+                          "Layout": {
+                            "FieldName": "納品書番号",
+                            "Name": "",
+                            "IsViewOnly": true,
+                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                          },
+                          "VerticalAlignment": "Middle"
+                        }
+                      ]
+                    }
+                  ],
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
                 },
-                "VerticalAlignment": "Middle"
+                "MinWidth": 300
               },
               {
                 "Layout": {
-                  "FieldName": "納品書番号Label",
-                  "FontWeight": "Bold",
                   "Name": "",
-                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                  "Rows": [
+                    {
+                      "Margin": {
+                        "Bottom": 0
+                      },
+                      "Columns": [
+                        {
+                          "Layout": {
+                            "FieldName": "希望納期Label",
+                            "FontWeight": "Bold",
+                            "Name": "",
+                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                          },
+                          "Width": 120,
+                          "VerticalAlignment": "Middle"
+                        },
+                        {
+                          "Layout": {
+                            "FieldName": "希望納期",
+                            "Name": "",
+                            "IsViewOnly": true,
+                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                          },
+                          "VerticalAlignment": "Middle"
+                        }
+                      ]
+                    }
+                  ],
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
                 },
-                "Width": 120,
-                "VerticalAlignment": "Middle"
-              },
-              {
-                "Layout": {
-                  "FieldName": "納品書番号",
-                  "Name": "",
-                  "IsViewOnly": true,
-                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                },
-                "VerticalAlignment": "Middle"
-              },
-              {
-                "Layout": {
-                  "FieldName": "希望納期Label",
-                  "FontWeight": "Bold",
-                  "Name": "",
-                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                },
-                "Width": 120,
-                "VerticalAlignment": "Middle"
-              },
-              {
-                "Layout": {
-                  "FieldName": "希望納期",
-                  "Name": "",
-                  "IsViewOnly": true,
-                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                },
-                "VerticalAlignment": "Middle"
+                "MinWidth": 300
               },
               {}
-            ]
+            ],
+            "IsWrap": true
           },
           {
             "Columns": [
@@ -384,9 +485,10 @@
                   "Name": "",
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
-                "Width": 150,
                 "HorizontalAlignment": "End",
-                "VerticalAlignment": "Middle"
+                "VerticalAlignment": "Middle",
+                "MinWidth": 100,
+                "MaxWidth": 150
               },
               {
                 "Layout": {
@@ -395,9 +497,10 @@
                   "IsViewOnly": true,
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
-                "Width": 150,
                 "HorizontalAlignment": "End",
-                "VerticalAlignment": "Middle"
+                "VerticalAlignment": "Middle",
+                "MinWidth": 120,
+                "MaxWidth": 150
               }
             ]
           },
@@ -408,7 +511,8 @@
                   "FieldName": "四連伝票明細リスト",
                   "Name": "",
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                }
+                },
+                "IgnoreContentWidth": true
               }
             ]
           }

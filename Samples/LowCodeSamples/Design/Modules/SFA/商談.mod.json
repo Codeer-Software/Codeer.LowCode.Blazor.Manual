@@ -243,7 +243,8 @@
                   "Name": "",
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
-                "Width": 450
+                "MinWidth": 240,
+                "MaxWidth": 450
               },
               {
                 "Layout": {
@@ -270,9 +271,11 @@
                   "Name": "",
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
-                "Width": 150
+                "MinWidth": 100,
+                "MaxWidth": 150
               }
-            ]
+            ],
+            "IsWrap": true
           },
           {
             "Columns": [
@@ -317,7 +320,8 @@
                               }
                             ],
                             "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
-                          }
+                          },
+                          "MinWidth": 150
                         },
                         {
                           "Layout": {
@@ -351,7 +355,8 @@
                             ],
                             "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
                           },
-                          "Width": 200
+                          "MinWidth": 170,
+                          "MaxWidth": 200
                         },
                         {
                           "Layout": {
@@ -385,7 +390,8 @@
                             ],
                             "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
                           },
-                          "Width": 100
+                          "MinWidth": 100,
+                          "MaxWidth": 100
                         },
                         {
                           "Layout": {
@@ -419,9 +425,11 @@
                             ],
                             "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
                           },
-                          "Width": 150
+                          "MinWidth": 150,
+                          "MaxWidth": 150
                         }
-                      ]
+                      ],
+                      "IsWrap": true
                     },
                     {
                       "Columns": [
@@ -430,16 +438,19 @@
                             "FieldName": "受注失注理由",
                             "Name": "",
                             "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                          }
+                          },
+                          "MinWidth": 250
                         },
                         {
                           "Layout": {
                             "FieldName": "商談メモ",
                             "Name": "",
                             "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                          }
+                          },
+                          "MinWidth": 250
                         }
-                      ]
+                      ],
+                      "IsWrap": true
                     }
                   ],
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
@@ -454,7 +465,8 @@
                   "FieldName": "検索",
                   "Name": "",
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                }
+                },
+                "MinWidth": 200
               },
               {
                 "Layout": {
@@ -465,7 +477,8 @@
                 "Width": 150,
                 "VerticalAlignment": "Middle"
               }
-            ]
+            ],
+            "IsWrap": true
           },
           {
             "Columns": [
@@ -474,7 +487,8 @@
                   "FieldName": "活動履歴リスト",
                   "Name": "",
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                }
+                },
+                "IgnoreContentWidth": true
               }
             ]
           }
@@ -490,37 +504,44 @@
           {
             "FieldName": "案件名",
             "Label": "案件名",
-            "CanResize": true
+            "CanResize": true,
+            "Width": 160
           },
           {
             "FieldName": "顧客Id",
             "Label": "顧客",
-            "CanResize": true
+            "CanResize": true,
+            "Width": 150
           },
           {
             "FieldName": "商談責任者Id",
             "Label": "商談責任者",
-            "CanResize": true
+            "CanResize": true,
+            "Width": 97
           },
           {
             "FieldName": "ステータス",
             "Label": "ステータス",
-            "CanResize": true
+            "CanResize": true,
+            "Width": 97
           },
           {
             "FieldName": "確度",
             "Label": "確度(%)",
-            "CanResize": true
+            "CanResize": true,
+            "Width": 74
           },
           {
             "FieldName": "予測金額",
             "Label": "予測金額(円)",
-            "CanResize": true
+            "CanResize": true,
+            "Width": 108
           },
           {
             "FieldName": "受注予定日",
             "Label": "受注予定日",
-            "CanResize": true
+            "CanResize": true,
+            "Width": 97
           }
         ]
       ]
@@ -566,11 +587,13 @@
                     }
                   ],
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
-                }
+                },
+                "MinWidth": 300
               },
               {},
               {}
-            ]
+            ],
+            "IsWrap": true
           },
           {
             "Columns": [
@@ -606,7 +629,8 @@
                     }
                   ],
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
-                }
+                },
+                "MinWidth": 170
               },
               {
                 "Layout": {
@@ -640,7 +664,8 @@
                     }
                   ],
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
-                }
+                },
+                "MinWidth": 170
               },
               {
                 "Layout": {
@@ -674,7 +699,8 @@
                     }
                   ],
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
-                }
+                },
+                "MinWidth": 170
               },
               {
                 "Layout": {
@@ -708,9 +734,11 @@
                     }
                   ],
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
-                }
+                },
+                "MinWidth": 170
               }
-            ]
+            ],
+            "IsWrap": true
           }
         ],
         "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.SearchGridLayoutDesign"
