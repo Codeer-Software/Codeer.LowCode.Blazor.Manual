@@ -32,7 +32,7 @@ Codeer.LowCode.Blazor は、**Blazor アプリにローコード機能を組み�
 
 ## 対応 DB
 
-PostgreSQL / Microsoft SQL Server / Oracle Database / SQLite
+PostgreSQL / Microsoft SQL Server / Oracle Database / MySQL / SQLite
 
 ---
 
