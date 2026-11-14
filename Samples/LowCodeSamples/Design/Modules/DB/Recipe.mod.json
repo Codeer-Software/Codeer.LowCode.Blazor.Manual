@@ -253,7 +253,8 @@
                   "Name": "",
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
-                "Width": 300
+                "MinWidth": 200,
+                "MaxWidth": 300
               },
               {
                 "Layout": {
@@ -261,16 +262,19 @@
                   "Name": "",
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
-                "Width": 150
+                "MinWidth": 100,
+                "MaxWidth": 150
               },
               {
                 "Layout": {
                   "FieldName": "Author.Email",
                   "Name": "",
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                }
+                },
+                "MinWidth": 150
               }
-            ]
+            ],
+            "IsWrap": true
           },
           {
             "Height": 29,
@@ -285,7 +289,8 @@
                   "FieldName": "IngredientList",
                   "Name": "",
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                }
+                },
+                "IgnoreContentWidth": true
               }
             ]
           },
@@ -302,7 +307,8 @@
                   "FieldName": "CookingStepList",
                   "Name": "",
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                }
+                },
+                "IgnoreContentWidth": true
               }
             ]
           },
@@ -337,13 +343,16 @@
             "Width": 100
           },
           {
-            "FieldName": "Recipename"
+            "FieldName": "Recipename",
+            "Width": 144
           },
           {
-            "FieldName": "Servingsize"
+            "FieldName": "Servingsize",
+            "Width": 108
           },
           {
-            "FieldName": "Author.Fullname"
+            "FieldName": "Author.Fullname",
+            "Width": 145
           }
         ]
       ]
@@ -389,7 +398,8 @@
                     }
                   ],
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
-                }
+                },
+                "MinWidth": 150
               },
               {
                 "Layout": {
@@ -424,7 +434,8 @@
                     }
                   ],
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
-                }
+                },
+                "MinWidth": 150
               },
               {
                 "Layout": {
@@ -460,7 +471,8 @@
                   ],
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
                 },
-                "Width": 130
+                "MinWidth": 130,
+                "MaxWidth": 130
               },
               {
                 "Layout": {
@@ -495,9 +507,11 @@
                     }
                   ],
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
-                }
+                },
+                "MinWidth": 150
               }
-            ]
+            ],
+            "IsWrap": true
           }
         ],
         "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.SearchGridLayoutDesign"

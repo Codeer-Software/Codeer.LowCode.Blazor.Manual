@@ -184,3 +184,52 @@
 .dh-try-tools li a { font-weight: 700; margin-right: 8px; white-space: nowrap; }
 .dh-try-tools li span { color: #4b5563; }
 .dh-try-note { font-size: .85rem; color: #6b7280; margin: 0; }
+
+/* === スマホ幅 (ハンバーガーメニューになる幅): ページ左右の余白を詰める === */
+@media (max-width: 575.98px) {
+  main .lowcode-page.lowcode-page { padding-left: 12px; padding-right: 12px; }
+}
+
+/* === スマホ対応: G3 === */
+@media (max-width: 575.98px) {
+  /* グラフのページ見出しの長いリンク (区切りの無い英字列) を折り返す */
+  [data-module="ApexChart"] [data-name="Title"] a,
+  [data-module="Dashboard"] [data-name="Title"] a { overflow-wrap: anywhere; }
+  /* バブル (プロコードのコンポーネント): 見出しと期間・並び替えの欄を縦に並べる */
+  main .lowcode-page .bubble-page header { flex-wrap: wrap; }
+  /* キャンバス (図面・工場の図など): 縮められないので、スマホではキャンバスの中を横スクロール。
+     キャンバスの ScrollDirection だと PC でも中身が数十 px はみ出す図でスクロールバーが出るので、スマホ幅だけにする */
+  main .lowcode-page .canvas-root { overflow-x: auto; }
+}
+
+/* === スマホ対応: G1 === */
+@media (max-width: 575.98px) {
+  /* 認可: 左右 2 段の社員名簿 (列の MinWidth 600) を、画面幅に合わせて縦に積む */
+  .lowcode-page[data-module="DemoAuthorization"] .grid-column[style*="min-width: 600px"] { min-width: 100% !important; }
+  /* 承認フローの見出しの長い英字列 (Codeer.LowCode.Blazor.Extras) を折り返す */
+  .lowcode-page[data-module="WorkflowGuide"] [data-name="Title"] label { overflow-wrap: anywhere; }
+}
+
+/* === スマホ対応: G2 === */
+@media (max-width: 575.98px) {
+  /* 一覧ページの表: 画面より広い表は表の中で横スクロールさせる (本文ごと横に流さない)。
+     列固定 (FixedColumnCount) は一覧の高さが画面の残りに固定され、スマホでは検索欄で埋まって行が見えなくなるので使わない */
+  main .lowcode-page [data-system="list-field"] > .list-frame > div:has(> table) { overflow-x: auto; }
+  /* 一覧ページの見出し: 右の空の欄と 2 等分されて半分の幅で折り返すので、空の欄を詰める */
+  main .lowcode-page h4.row > .col.text-end:empty { display: none; }
+  /* 一覧の下の件数表示とページ番号: 1 行に収まらないときは折り返す (件数が左に切れないように) */
+  main .lowcode-page [data-system="list-field"] > .list-frame > .d-flex.justify-content-end { flex-wrap: wrap; }
+  main .lowcode-page [data-system="list-field"] > .list-frame > .d-flex.justify-content-end > .text-end { white-space: nowrap; }
+  /* タイルの幅 (TileWidth) が画面より広いタイル一覧: タイルリスト (一覧ページ, 400px) とコントロールのファイルのプレビュー (360px) を画面幅の 1 列に */
+  main .lowcode-page [data-system="list-field"] .tile-container[style*="400px"],
+  .lowcode-page[data-module="ControlSample"] [data-name="ファイルプレビュー"] .tile-container { grid-template-columns: minmax(0, 1fr) !important; }
+  /* 分割リスト: 左右 2 段 (一覧 | 詳細) を縦に積む。行の IsWrap は画面下端まで広げる (IsFillAvailable) 一覧の内部スクロールを PC で壊すため使えない */
+  .lowcode-page[data-module="SplitList"] .grid-row:has(> .grid-column [data-name="LeftList"]) { flex-wrap: wrap; }
+  .lowcode-page[data-module="SplitList"] .grid-row:has(> .grid-column [data-name="LeftList"]) > .grid-column { min-width: 100%; }
+}
+
+/* === スマホ対応: G4 === */
+@media (max-width: 575.98px) {
+  /* パネルメニュー: 画像リンク (200px の画像) を列の幅 (最小 100px) に縮めて 3 列に並べる */
+  .lowcode-page[data-module="PanelMenu"] .field-layout img { max-width: 100%; height: auto; }
+}

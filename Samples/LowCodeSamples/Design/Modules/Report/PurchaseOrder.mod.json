@@ -133,7 +133,8 @@
                             "FieldName": "画像表示",
                             "Name": "",
                             "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                          }
+                          },
+                          "MinWidth": 200
                         },
                         {
                           "Layout": {
@@ -197,9 +198,11 @@
                             ],
                             "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
                           },
-                          "Width": 400
+                          "MinWidth": 240,
+                          "MaxWidth": 400
                         }
-                      ]
+                      ],
+                      "IsWrap": true
                     }
                   ],
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
@@ -244,9 +247,10 @@
                   "Name": "",
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
-                "Width": 200,
                 "HorizontalAlignment": "End",
-                "VerticalAlignment": "Middle"
+                "VerticalAlignment": "Middle",
+                "MinWidth": 100,
+                "MaxWidth": 200
               },
               {
                 "Layout": {
@@ -255,9 +259,10 @@
                   "IsViewOnly": true,
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
                 },
-                "Width": 200,
                 "HorizontalAlignment": "End",
-                "VerticalAlignment": "Middle"
+                "VerticalAlignment": "Middle",
+                "MinWidth": 120,
+                "MaxWidth": 200
               }
             ]
           },
@@ -268,7 +273,8 @@
                   "FieldName": "発注書明細リスト",
                   "Name": "",
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                }
+                },
+                "IgnoreContentWidth": true
               }
             ]
           }
