@@ -4,6 +4,8 @@
 
 スクリプトをステップ実行できます。Web アプリ側で `CanScriptDebug` を `true` にする必要があります。
 
+[Job スクリプト](script_job.md)（サーバーで動くスクリプト）はブレークポイントで止まりません。動きは `Logger` の出力と失敗の文言で追います。
+
 ## 設定
 
 `IAppInfoService` の `CanScriptDebug` で `true` を返すと利用可能になります。

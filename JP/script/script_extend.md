@@ -165,7 +165,7 @@ _scriptRuntimeTypeManager.AddService(new WeatherApiService());
 #### 3. スクリプトで使う
 
 ```csharp
-async Task ShowButton_OnClick()
+void ShowButton_OnClick()
 {
     var result = WeatherApiService.GetCurrent("Tokyo");
     Toaster.Success($"{result.JsonObject.temp} ℃");

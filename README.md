@@ -104,6 +104,11 @@ Codeer.LowCode.Blazor を触り始める前に、全体像を掴むためのセ�
 - [集計 (ModuleAggregator)](JP/script/script_module_aggregator.md) — SQL を書かずに件数・合計などを DB でまとめる。表は [クロス集計フィールド](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras/blob/main/docs/CrossTabField.md)、グラフは [集計チャート](https://github.com/Codeer-Software/Codeer.LowCode.Bindings.Blazor-ApexCharts/blob/main/docs/ApexAggregateChart.md)
 - [集計 API の結線 (既存アプリ)](JP/user_code/aggregate_api.md) — 1.3.39 より前のテンプレートで作ったアプリで集計を使うとき
 
+### サーバー側の処理（バッチ・定期実行）
+
+- [Job スクリプト](JP/script/script_job.md) — 締め・一括更新・帳票作成・メール送信などのサーバー側の処理を、C# を書かずにデザイナの中でスクリプトとして書く。画面のボタンからも定期実行でも動かせる
+- [バッチ処理（ジョブ）](JP/user_code/batch_job.md) — コマンドライン・タスクスケジューラ・Azure WebJobs からの起動、サービスアカウント、C# で書くジョブ
+
 ### スクリプトでよくやること（Tips）
 
 - [Text フィールドを読み取り専用にする](JP/Examples/Tips_IsViewOnly.md)
@@ -146,6 +151,7 @@ Codeer.LowCode.Blazor を触り始める前に、全体像を掴むためのセ�
 | 監査ログ | 「いつ・誰が・どこから・何に・何をして・どうなったか」をサーバーが全 API で記録 (ログインの成功/失敗・参照・保存・取込・出力・メール送信・権限拒否・起動/停止・デザインの版)。appsettings だけで有効化。上場企業の内部統制 (J-SOX) / ISMS の証跡向け | [監査ログ](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras/blob/main/docs/AuditLog.md) |
 | AI | AI とのチャット (DB を読んで集計・グラフで回答)・意味検索・帳票やテキストの解析と自動入力 | [AIChatField](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras/blob/main/docs/AIChatField.md) / [SemanticSearchField](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras/blob/main/docs/SemanticSearchField.md) / [AITextAnalyzerField](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras/blob/main/docs/AITextAnalyzerField.md) |
 | ファイルストレージ | FileField の保存先。サーバーのフォルダ / Azure Blob Storage / Amazon S3 (S3 互換を含む) | [FileStorage](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras/blob/main/docs/FileStorage.md) |
+| ジョブトリガー | 画面のボタンからジョブ (Job スクリプト・C# のジョブ) を実行。画面の値を渡し、結果を受け取る | [JobTriggerField](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras/blob/main/docs/JobTriggerField.md) |
 | サーバー API の権限チェック | メール・承認・AI の API は、呼び出し元のフィールドがそのユーザーに見えるときだけ応じる | [サーバー API の権限チェック](https://github.com/Codeer-Software/Codeer.LowCode.Blazor.Extras/blob/main/docs/ServerApiAuthorization.md) |
 | 一括ファイル入出力 | 一覧の一括ダウンロード / 一括更新を CSV・固定長に切り替え、列の並び・外部列名・コード変換を宣言。詳細画面に置ける一括入出力ボタン、スクリプトでの取込・出力 | [取込書出パターン](JP/patterns/import_export.md) |
 | スクリプトオブジェクト | Excel (帳票・PDF) / WebApiService / Toaster / BulkFileReader / BulkFileTransferService | [組み込みサービスとテンプレート由来サービス](JP/script/script_services.md) |
@@ -158,7 +164,7 @@ Codeer.LowCode.Blazor を触り始める前に、全体像を掴むためのセ�
 - [C# でのデータ取得ヘルパ](JP/user_code/module_data_io_extensions.md) — モジュールに対応した C# クラス + LINQ ライクな書き方でデータを読む
 - [プロコードでのデータ保存](JP/user_code/data_submit.md) — C# から追加・更新・削除する
 - [検索条件でまとめて削除する (SearchDelete)](JP/user_code/search_delete.md)
-- [バッチ処理（ジョブ）](JP/user_code/batch_job.md) — 通常の .NET で書き、作ったモジュールをそのまま使う。定期実行・画面のボタンから起動
+- [バッチ処理（ジョブ）](JP/user_code/batch_job.md) — C# で書くジョブ (`IJob`)。作ったモジュールをそのまま使う。定期実行・画面のボタンからの起動・サービスアカウント (デザイナで書く場合は [Job スクリプト](JP/script/script_job.md))
 
 ### 見た目・スタイル
 
@@ -300,6 +306,7 @@ Codeer.LowCode.Blazor を触り始める前に、全体像を掴むためのセ�
 - [ModuleSearcher / BatchSearcher](JP/script/script_module_searcher.md) — 他モジュールの検索
 - [スクリプトの拡張](JP/script/script_extend.md) — `AddType` / `AddService` で独自サービスを足す
 - [スクリプトデバッガ](JP/script/script_debugger.md)
+- [Job スクリプト](JP/script/script_job.md) — サーバーで動くスクリプト。一括更新・帳票作成・メール送信などをデザイナの中で書き、画面のボタンや定期実行で動かす
 
 ### プロジェクト構成
 

@@ -18,6 +18,8 @@ Codeer.LowCode.Blazor のスクリプトは、**C# とほぼ同じ構文で書�
 
 スクリプトはデザイナのプロパティパネルから入って、専用エディタで編集します。
 
+画面ではなくサーバーで動く処理（一括更新・帳票作成・メール送信など）も、同じ言語で書けます。→ [Job スクリプト](script_job.md)
+
 ---
 
 ## イベントハンドラの命名規則
@@ -46,10 +48,10 @@ void EmailField_OnDataChanged()
 
 ## 同期と非同期
 
-戻り値が `Task` / `Task<T>` のメソッドは **`await` を付けて呼び出します**。
+スクリプトには **`async` / `await` を書きません**。非同期のメソッド（戻り値が `Task` / `Task<T>` のもの）も、そのまま呼べば終わるまで待って結果が返ります。
 
 ```csharp
-async Task SaveButton_OnClick()
+void SaveButton_OnClick()
 {
     if (!ValidateInput()) return;
     if (Submit())
@@ -59,10 +61,10 @@ async Task SaveButton_OnClick()
 }
 ```
 
-メソッド名に `Async` が付いていなくても、戻り値が `Task` なら対象です。
-ハンドラ自体も非同期処理を含むなら `async Task` にします。
+- ハンドラは `void` で書きます（`async Task` にはしません）
+- `await` を書くとエラーになります
 
-> 内部的には `Submit` / `ShowDialog` / `MessageBox.Show` / `ValidateInput` など多くの API が非同期です。
+> 内部的には `Submit` / `ShowDialog` / `MessageBox.Show` / `ValidateInput` など多くの API が非同期ですが、スクリプトでは同期のメソッドと同じように書けます。
 
 ---
 
@@ -99,6 +101,7 @@ var info = customer.GetInfo();
 6. **集計 (件数・合計などを DB でまとめる)** → [ModuleAggregator / BatchAggregator](script_module_aggregator.md)
 7. **独自の型・サービスを足す** → [スクリプトの拡張](script_extend.md)
 8. **デバッグ** → [スクリプトデバッガ](script_debugger.md)
+9. **サーバーで動く処理を書く** → [Job スクリプト](script_job.md)
 
 ---
 

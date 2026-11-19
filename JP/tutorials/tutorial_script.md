@@ -100,7 +100,7 @@ void SaveButton_OnClick()
 
 **ポイント**:
 
-- `Submit()` は非同期メソッドなので **`await` をつける**
+- `Submit()` は非同期メソッドだが、**`await` は書かずそのまま呼ぶ**（終わるまで待って結果が返る）
 - 戻り値は `bool`（DB 保存に成功したかどうか）
 - 失敗時は画面上の Field に自動でバリデーションエラーが表示される
 
@@ -201,10 +201,10 @@ SubmitButton.IsEnabled = ValidateInput();
 
 ## トラブルシューティング
 
-### Q. `await` を付け忘れてエラー
+### Q. `await` を書いたらエラーになる
 
-非同期メソッド（`Submit()`, `MessageBox.Show()`, `ValidateInput()` など）は必ず `await` を付けます。
-メソッド名に `Async` が付いていなくても、戻り値が `Task` ならすべて対象です。
+スクリプトには `async` / `await` を書きません。非同期メソッド（`Submit()`, `MessageBox.Show()`, `ValidateInput()` など）も、`await` を付けずにそのまま呼びます（終わるまで待って結果が返ります）。
+ハンドラも `async Task` ではなく `void` で書きます。
 
 ### Q. スクリプト内で Field 名の補完が効かない
 
