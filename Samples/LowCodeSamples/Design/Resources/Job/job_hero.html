@@ -1,0 +1,47 @@
+<style>
+  .jh { font-family: inherit; color: #1f2937; }
+  .jh-hero { background: linear-gradient(120deg, #052767 0%, #0b6f8f 60%, #2ac0af 100%); color: #fff; border-radius: 14px; padding: 26px 28px; margin: 0 0 18px; }
+  .jh-hero h2 { font-size: 1.7rem; font-weight: 800; margin: 0 0 8px; line-height: 1.35; }
+  .jh-hero p { margin: 0; font-size: 1rem; line-height: 1.75; opacity: .95; }
+  .jh-uses { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 0; }
+  .jh-uses span { background: rgba(255,255,255,.16); border: 1px solid rgba(255,255,255,.35); border-radius: 999px; padding: 3px 12px; font-size: .85rem; }
+  .jh-h { font-size: 1.1rem; font-weight: 700; color: #052767; margin: 0 0 10px; border-left: 4px solid #2ac0af; padding-left: 8px; }
+  .jh-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 12px; margin: 0 0 20px; }
+  .jh-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 14px 16px; box-shadow: 0 1px 2px rgba(0,0,0,.04); }
+  .jh-card i { font-size: 1.5rem; color: #2ac0af; }
+  .jh-card b { display: block; color: #052767; font-size: 1rem; margin: 4px 0 4px; }
+  .jh-card p { margin: 0; font-size: .87rem; line-height: 1.65; color: #4b5563; }
+  .jh-cmp { width: 100%; border-collapse: separate; border-spacing: 0; margin: 0 0 6px; font-size: .9rem; }
+  .jh-cmp th { text-align: left; padding: 8px 12px; font-weight: 700; }
+  .jh-cmp th.a { background: #f3f4f6; color: #6b7280; border-radius: 10px 0 0 0; width: 46%; }
+  .jh-cmp th.b { background: #052767; color: #fff; border-radius: 0 10px 0 0; }
+  .jh-cmp td { padding: 8px 12px; border-bottom: 1px solid #e5e7eb; line-height: 1.5; }
+  .jh-cmp td.a { color: #6b7280; background: #fafafa; }
+  .jh-cmp td.b { color: #052767; font-weight: 600; background: #f0fbf9; }
+  .jh-cmp td.b i { color: #2ac0af; margin-right: 6px; }
+</style>
+<div class="jh">
+  <div class="jh-hero">
+    <h2>バッチ処理も、ローコードで。</h2>
+    <p>毎朝の集計、月次の締め、帳票の作成と配信。これまで専用のプログラムを開発していた定期処理 (バッチ) を、画面と同じスクリプトで作れます。下のデモの帳票バッチは、スクリプト 100 行足らずです。</p>
+    <div class="jh-uses"><span>月次の締め・集計</span><span>請求書の一括作成</span><span>期限前のリマインドメール</span><span>在庫の点検と発注候補</span><span>夜間のデータ取り込み</span><span>古いデータの整理</span></div>
+  </div>
+  <p class="jh-h">うれしいこと</p>
+  <div class="jh-cards">
+    <div class="jh-card"><i class="bi bi-pencil-square"></i><b>画面と同じ書き方</b><p>新しく覚えることはありません。画面のスクリプトと同じ言語・同じ部品で書けて、入力補完と設計チェックが書き間違いを教えてくれます。</p></div>
+    <div class="jh-card"><i class="bi bi-box-seam"></i><b>作ったモジュールがそのまま使える</b><p>DB の接続設定や SQL を書き直す必要はありません。画面で作ったモジュールを、モジュール名・フィールド名で検索・保存できます。</p></div>
+    <div class="jh-card"><i class="bi bi-shield-check"></i><b>権限も編集履歴もそのまま</b><p>権限・保存時の処理・編集履歴など、画面から保存したときと同じ仕組みがバッチでも働きます。二重に作り込む必要はありません。</p></div>
+    <div class="jh-card"><i class="bi bi-arrow-counterclockwise"></i><b>失敗しても安心</b><p>途中で失敗したら、それまでの書き込みはまとめて取り消されます。中途半端なデータが残りません。</p></div>
+    <div class="jh-card"><i class="bi bi-file-earmark-spreadsheet"></i><b>帳票もメールもスクリプトから</b><p>Excel 帳票・PDF の作成、メール送信、添付ファイルの読み書きまで、スクリプトから呼ぶだけです。</p></div>
+    <div class="jh-card"><i class="bi bi-rocket-takeoff"></i><b>配るのはデザインだけ</b><p>バッチ用のプロジェクトも、ビルドも要りません。Job は画面と一緒にデザインとして配られ、Web サーバーと同じプログラム・同じ設定で動きます。</p></div>
+  </div>
+  <p class="jh-h">これまでの作り方と比べると</p>
+  <table class="jh-cmp">
+    <tr><th class="a">これまでのバッチ開発</th><th class="b">ローコードの Job</th></tr>
+    <tr><td class="a">バッチ用のプログラムを別に開発する</td><td class="b"><i class="bi bi-check-circle-fill"></i>デザイナで Job を追加して、スクリプトを書くだけ</td></tr>
+    <tr><td class="a">DB の接続設定と SQL を用意する</td><td class="b"><i class="bi bi-check-circle-fill"></i>画面で作ったモジュールをそのまま検索・保存</td></tr>
+    <tr><td class="a">権限や履歴の処理をバッチ側にも作り込む</td><td class="b"><i class="bi bi-check-circle-fill"></i>画面と同じ仕組みが自動で働く</td></tr>
+    <tr><td class="a">帳票・メールの仕組みを別に組み込む</td><td class="b"><i class="bi bi-check-circle-fill"></i>Excel 帳票・PDF・メールをスクリプトから呼ぶだけ</td></tr>
+    <tr><td class="a">ビルドしてサーバーに配置する</td><td class="b"><i class="bi bi-check-circle-fill"></i>デザインを更新するだけ</td></tr>
+  </table>
+</div>

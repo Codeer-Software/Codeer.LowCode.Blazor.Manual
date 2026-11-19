@@ -3,15 +3,9 @@
   "DataSourceName": "Main",
   "Fields": [
     {
-      "Style": "H2",
-      "Text": "バッチ処理 (Job)",
-      "Name": "DemoTitle",
-      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
-    },
-    {
-      "Text": "毎朝の集計・帳票作成・メール配信のような定期処理も、画面と同じスクリプトで作れます。デザイナで Job を作り、モジュール名・フィールド名でデータを読み書きするだけ。作った Job はスケジューラから定期実行でき、画面のボタンからも呼べます。",
-      "Name": "DemoDesc",
-      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+      "ResourcePath": "Job/job_hero.html",
+      "Name": "Hero",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.MarkupStringFieldDesign"
     },
     {
       "ResourcePath": "Job/job_demo.html",
@@ -20,7 +14,7 @@
     },
     {
       "Style": "H5",
-      "Text": "実際に動かしてみる",
+      "Text": "実際に動かしてみる (在庫を点検して、発注候補表を作るバッチ)",
       "Name": "RunHead",
       "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
     },
@@ -119,21 +113,11 @@
             "Columns": [
               {
                 "Layout": {
-                  "FieldName": "DemoTitle",
+                  "FieldName": "Hero",
                   "Name": "",
                   "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                }
-              }
-            ]
-          },
-          {
-            "Columns": [
-              {
-                "Layout": {
-                  "FieldName": "DemoDesc",
-                  "Name": "",
-                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
-                }
+                },
+                "IgnoreContentWidth": true
               }
             ]
           },
@@ -374,7 +358,7 @@
               }
             ],
             "Margin": {
-              "Top": 0,
+              "Top": 16,
               "Bottom": 24
             }
           },

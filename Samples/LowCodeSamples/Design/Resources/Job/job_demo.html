@@ -1,5 +1,6 @@
 <style>
   .jd { font-family: inherit; color: #1f2937; }
+  .jd-h { font-size: 1.1rem; font-weight: 700; color: #052767; margin: 0 0 10px; border-left: 4px solid #2ac0af; padding-left: 8px; }
   .jd-flow { display: flex; flex-wrap: wrap; align-items: stretch; gap: 8px; margin: 4px 0 18px; }
   .jd-step { flex: 1 1 160px; background: #f3f4f6; border: 1px solid #e5e7eb; border-radius: 8px; padding: 10px 12px; font-size: .85rem; line-height: 1.5; }
   .jd-step b { display: block; color: #052767; margin-bottom: 2px; }
@@ -18,6 +19,7 @@
 </style>
 
 <div class="jd">
+  <p class="jd-h">このデモの中身</p>
   <div class="jd-flow">
     <div class="jd-step"><b>起動</b>毎朝 6:00 にスケジューラから / 画面のボタンから</div>
     <span class="jd-arrow">&rarr;</span>
@@ -29,7 +31,7 @@
   </div>
   <div class="jd-wrap">
     <div class="jd-code">
-      <p class="jd-file">Jobs/ReorderReport.job.cs (この Job の全文)</p>
+      <p class="jd-file">Jobs/ReorderReport.job.cs (上のデモで動いた Job の全文)</p>
 <pre><span class="k">string</span> Run(JobArguments args)
 {
     <span class="c">// 1. 発注点を下回った商品 (在庫管理の「要発注品」。不足の大きい順) を読む</span>
@@ -126,19 +128,17 @@
 }</pre>
     </div>
     <div class="jd-info">
-      <h3>作り方</h3>
-      <ul>
-        <li>デザイナで Job を追加し、<code>Run</code> を書くだけ。画面のスクリプトと同じ書き方です</li>
-        <li>検索・追加・更新・削除は、作ったモジュールをそのまま使います。権限・保存時の処理・編集履歴も画面から保存したときと同じです</li>
-        <li>途中で失敗すると、それまでの書き込みはまとめて取り消されます</li>
-        <li>Excel 帳票・メール送信・添付ファイルもスクリプトから使えます</li>
-        <li>デザイナが入力補完と設計チェックで書き間違いを教えてくれます</li>
-      </ul>
       <h3>起動の仕方</h3>
       <ul>
-        <li>定期実行: <code>dotnet LowCodeApp.Server.dll job ReorderReport</code> を、Windows のタスクスケジューラ・cron・Azure などに登録</li>
-        <li>画面から: ジョブトリガーのボタンで実行。結果 (件数や作ったファイル) を画面に返せます</li>
-        <li>Web サーバーと同じプログラム・同じ設定で動くので、バッチ用のプロジェクトや接続設定を別に用意する必要はありません</li>
+        <li><b>定期実行</b>: <code>dotnet LowCodeApp.Server.dll job ReorderReport</code> を、Windows のタスクスケジューラ・cron・Azure などに登録するだけ</li>
+        <li><b>画面から</b>: ジョブトリガーのボタンで実行。件数や作ったファイルなど、結果を画面に返せます (上のデモ)</li>
+        <li>終わるまで待つ・起動だけして戻る、のどちらも選べます</li>
+      </ul>
+      <h3>運用も考えてあります</h3>
+      <ul>
+        <li>誰の権限で動かすかを Job ごとに決められます (専用のアカウントで実行)</li>
+        <li>スクリプトからログを出せます。失敗した理由は画面にも通知されます</li>
+        <li>スクリプトで足りない処理は、同じ仕組みのまま C# でも書けます</li>
       </ul>
     </div>
   </div>
