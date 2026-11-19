@@ -60,6 +60,14 @@ namespace LowCodeSamples.Client.Shared.Services
                 ? $"api/module_data/download?moduleName={Uri.EscapeDataString(moduleName)}&fieldName={Uri.EscapeDataString(fieldName)}&id={Uri.EscapeDataString(id)}"
                 : null;
 
+        //未保存の添付 (Job が作った一時ファイルなど) を Guid で読む
+        public async Task<MemoryStream?> DownloadTemporaryFile(string moduleName, string fieldName, Guid guid, string? fileName)
+        {
+            var result = await _http.GetAsync($"/api/module_data/download_temporary?moduleName={Uri.EscapeDataString(moduleName)}&fieldName={Uri.EscapeDataString(fieldName)}&guid={guid}&fileName={Uri.EscapeDataString(fileName ?? string.Empty)}", false);
+            if (result == null) return null;
+            return (MemoryStream)await result.Content.ReadAsStreamAsync();
+        }
+
         public async Task<MemoryStream?> GetListFileAsync(SearchCondition condition)
         {
             var result = await _http.PostAsJsonReturnHttpResponseAsync($"/api/module_data/list_file", condition);

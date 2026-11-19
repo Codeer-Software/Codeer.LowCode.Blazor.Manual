@@ -124,6 +124,15 @@ namespace LowCodeSamples.Server.Controllers
             return this.FileWithETag(await StorageAccess.OpenReadAsync(FileStorageTable.Storages, location), location);
         }
 
+        //未保存の添付 (Job が作った一時ファイルなど) のダウンロード
+        [HttpGet("download_temporary")]
+        public async Task<IActionResult> DownloadTemporaryFileAsync(string? moduleName, string? fieldName, Guid guid, string? fileName)
+        {
+            var location = await _dataService.ModuleDataIO.FileFieldDataIO.GetTemporaryFileLocation(moduleName ?? string.Empty, fieldName ?? string.Empty, guid, fileName);
+            await _dataService.DbAccess.ClearAsync();
+            return this.FileWithETag(await StorageAccess.OpenReadAsync(FileStorageTable.Storages, location), location);
+        }
+
         [HttpPost("upload")]
         public async Task<Codeer.LowCode.Blazor.DataIO.FileInfo> UploadFileAsync(string? moduleName, string? fieldName, string? fileName)
         {

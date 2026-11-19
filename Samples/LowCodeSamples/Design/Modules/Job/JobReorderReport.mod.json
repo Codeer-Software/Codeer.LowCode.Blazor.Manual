@@ -1,0 +1,130 @@
+{
+  "Name": "JobReorderReport",
+  "Fields": [
+    {
+      "Name": "作成日時",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.DateTimeFieldDesign"
+    },
+    {
+      "Format": "#,##0",
+      "Name": "品目数",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.NumberFieldDesign"
+    },
+    {
+      "Format": "#,##0",
+      "Name": "仕入先数",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.NumberFieldDesign"
+    },
+    {
+      "Format": "#,##0",
+      "Name": "合計金額",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.NumberFieldDesign"
+    },
+    {
+      "SearchCondition": {
+        "ModuleName": "JobReorderReportLine",
+        "Condition": {
+          "Name": "",
+          "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
+        }
+      },
+      "Name": "明細",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ListFieldDesign"
+    },
+    {
+      "SearchCondition": {
+        "ModuleName": "JobReorderReportSupplier",
+        "Condition": {
+          "Name": "",
+          "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
+        }
+      },
+      "Name": "仕入先別",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ListFieldDesign"
+    }
+  ],
+  "DetailLayouts": {
+    "": {
+      "Layout": {
+        "Name": "",
+        "Rows": [
+          {
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "作成日時",
+                  "Name": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                }
+              }
+            ]
+          },
+          {
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "品目数",
+                  "Name": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                }
+              }
+            ]
+          },
+          {
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "仕入先数",
+                  "Name": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                }
+              }
+            ]
+          },
+          {
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "合計金額",
+                  "Name": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                }
+              }
+            ]
+          },
+          {
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "明細",
+                  "Name": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                }
+              }
+            ]
+          },
+          {
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "仕入先別",
+                  "Name": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                }
+              }
+            ]
+          }
+        ],
+        "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
+      }
+    }
+  },
+  "ListPageFieldDesign": {
+    "SearchCondition": {
+      "LimitCount": 50
+    },
+    "PagerPosition": "Bottom",
+    "Name": "",
+    "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ListFieldDesign"
+  }
+}

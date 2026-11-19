@@ -1,0 +1,47 @@
+{
+  "Name": "JobReorderReportSupplier",
+  "Fields": [
+    {
+      "Name": "仕入先",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.TextFieldDesign"
+    },
+    {
+      "Format": "#,##0'品目'",
+      "Name": "品目数",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.NumberFieldDesign"
+    },
+    {
+      "Format": "'¥'#,##0",
+      "Name": "金額",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.NumberFieldDesign"
+    }
+  ],
+  "ListLayouts": {
+    "": {
+      "Elements": [
+        [
+          {
+            "FieldName": "仕入先",
+            "Width": 220
+          },
+          {
+            "FieldName": "品目数",
+            "Width": 100
+          },
+          {
+            "FieldName": "金額",
+            "Width": 140
+          }
+        ]
+      ]
+    }
+  },
+  "ListPageFieldDesign": {
+    "SearchCondition": {
+      "LimitCount": 50
+    },
+    "PagerPosition": "Bottom",
+    "Name": "",
+    "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ListFieldDesign"
+  }
+}

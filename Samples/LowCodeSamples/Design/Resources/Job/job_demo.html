@@ -1,0 +1,145 @@
+<style>
+  .jd { font-family: inherit; color: #1f2937; }
+  .jd-flow { display: flex; flex-wrap: wrap; align-items: stretch; gap: 8px; margin: 4px 0 18px; }
+  .jd-step { flex: 1 1 160px; background: #f3f4f6; border: 1px solid #e5e7eb; border-radius: 8px; padding: 10px 12px; font-size: .85rem; line-height: 1.5; }
+  .jd-step b { display: block; color: #052767; margin-bottom: 2px; }
+  .jd-arrow { color: #2ac0af; font-weight: 700; align-self: center; }
+  .jd-wrap { display: flex; flex-wrap: wrap; gap: 28px; align-items: flex-start; }
+  .jd-code { flex: 1 1 520px; min-width: 0; max-width: 760px; }
+  .jd-code .jd-file { font-size: .8rem; color: #6b7280; margin: 0 0 4px; }
+  .jd-code pre { background: #1f2937; color: #e5e7eb; border-radius: 10px; padding: 16px 18px; margin: 0; font-size: .8rem; line-height: 1.55; overflow: auto; max-height: 460px; white-space: pre; }
+  .jd-code .k { color: #93c5fd; }
+  .jd-code .s { color: #fcd34d; }
+  .jd-code .c { color: #9ca3af; }
+  .jd-info { flex: 1 1 300px; min-width: 0; }
+  .jd-info h3 { font-size: 1.05rem; font-weight: 700; color: #052767; margin: 0 0 8px; border-left: 4px solid #2ac0af; padding-left: 8px; }
+  .jd-info ul { margin: 0 0 18px; padding-left: 1.2em; line-height: 1.75; }
+  .jd-info code { font-size: .85em; background: #f3f4f6; border-radius: 4px; padding: 1px 4px; }
+</style>
+
+<div class="jd">
+  <div class="jd-flow">
+    <div class="jd-step"><b>起動</b>毎朝 6:00 にスケジューラから / 画面のボタンから</div>
+    <span class="jd-arrow">&rarr;</span>
+    <div class="jd-step"><b>集める</b>在庫・商品マスタを検索 (画面と同じモジュール)</div>
+    <span class="jd-arrow">&rarr;</span>
+    <div class="jd-step"><b>まとめる</b>仕入先ごとに品目数・金額を集計</div>
+    <span class="jd-arrow">&rarr;</span>
+    <div class="jd-step"><b>届ける</b>Excel 帳票を作ってメール添付 / ダウンロード</div>
+  </div>
+  <div class="jd-wrap">
+    <div class="jd-code">
+      <p class="jd-file">Jobs/ReorderReport.job.cs (この Job の全文)</p>
+<pre><span class="k">string</span> Run(JobArguments args)
+{
+    <span class="c">// 1. 発注点を下回った商品 (在庫管理の「要発注品」。不足の大きい順) を読む</span>
+    <span class="k">var</span> search = <span class="k">new</span> ModuleSearcher&lt;q_要発注品&gt;();
+    <span class="k">var</span> items = search.ExecuteRaw();
+    <span class="k">if</span> (items.Count == 0) Fail(<span class="s">&quot;発注が必要な商品はありません&quot;</span>);
+
+    <span class="c">// 2. 単価は商品マスタから</span>
+    <span class="k">var</span> prices = <span class="k">new</span> Dictionary&lt;<span class="k">string</span>, <span class="k">decimal</span>&gt;();
+    <span class="k">var</span> productSearch = <span class="k">new</span> ModuleSearcher&lt;商品&gt;();
+    <span class="k">foreach</span> (<span class="k">var</span> product <span class="k">in</span> productSearch.ExecuteRaw())
+    {
+        prices[product.商品コード.Value] = product.単価.Value ?? 0;
+    }
+
+    <span class="c">// 3. 仕入先ごとにまとめて、帳票のデータ (明細と仕入先別の小計) を作る</span>
+    <span class="k">var</span> supplierNames = <span class="k">new</span> List&lt;<span class="k">string</span>&gt;();
+    <span class="k">foreach</span> (<span class="k">var</span> item <span class="k">in</span> items)
+    {
+        <span class="k">var</span> name = item.仕入先名.Value ?? <span class="s">&quot;(仕入先未設定)&quot;</span>;
+        <span class="k">if</span> (!supplierNames.Contains(name)) supplierNames.Add(name);
+    }
+
+    <span class="k">var</span> report = <span class="k">new</span> JobReorderReport.Data();
+    report.作成日時 = <span class="k">new</span> DateTimeFieldData(DateTime.Now);
+    report.明細 = <span class="k">new</span> ListFieldData();
+    report.仕入先別 = <span class="k">new</span> ListFieldData();
+    <span class="k">var</span> suppliers = <span class="k">new</span> JsonObject();
+    <span class="k">decimal</span> total = 0;
+    <span class="k">foreach</span> (<span class="k">var</span> supplierName <span class="k">in</span> supplierNames)
+    {
+        <span class="k">decimal</span> itemCount = 0;
+        <span class="k">decimal</span> amountSum = 0;
+        <span class="k">foreach</span> (<span class="k">var</span> item <span class="k">in</span> items)
+        {
+            <span class="k">if</span> ((item.仕入先名.Value ?? <span class="s">&quot;(仕入先未設定)&quot;</span>) == supplierName)
+            {
+                <span class="k">var</span> quantity = item.推奨数量.Value ?? 0;
+                <span class="k">var</span> price = prices.ContainsKey(item.商品コード.Value) ? prices[item.商品コード.Value] : 0;
+                <span class="k">var</span> line = <span class="k">new</span> JobReorderReportLine.Data();
+                line.仕入先 = <span class="k">new</span> TextFieldData(supplierName);
+                line.倉庫 = <span class="k">new</span> TextFieldData(item.倉庫名.Value);
+                line.商品コード = <span class="k">new</span> TextFieldData(item.商品コード.Value);
+                line.品名 = <span class="k">new</span> TextFieldData(item.品名.Value);
+                line.現在庫 = <span class="k">new</span> NumberFieldData(item.現在庫.Value);
+                line.発注点 = <span class="k">new</span> NumberFieldData(item.発注点.Value);
+                line.推奨数量 = <span class="k">new</span> NumberFieldData(quantity);
+                line.単価 = <span class="k">new</span> NumberFieldData(price);
+                line.金額 = <span class="k">new</span> NumberFieldData(quantity * price);
+                report.明細.Children.Add(line);
+                itemCount += 1;
+                amountSum += quantity * price;
+            }
+        }
+
+        <span class="k">var</span> summary = <span class="k">new</span> JobReorderReportSupplier.Data();
+        summary.仕入先 = <span class="k">new</span> TextFieldData(supplierName);
+        summary.品目数 = <span class="k">new</span> NumberFieldData(itemCount);
+        summary.金額 = <span class="k">new</span> NumberFieldData(amountSum);
+        report.仕入先別.Children.Add(summary);
+
+        <span class="c">// 画面に返す仕入先別の小計</span>
+        <span class="k">var</span> summaryJson = <span class="k">new</span> JsonObject();
+        summaryJson.Name = supplierName;
+        summaryJson.Count = itemCount;
+        summaryJson.Amount = amountSum;
+        suppliers.Add(summaryJson);
+        total += amountSum;
+    }
+    report.品目数 = <span class="k">new</span> NumberFieldData(items.Count);
+    report.仕入先数 = <span class="k">new</span> NumberFieldData(supplierNames.Count);
+    report.合計金額 = <span class="k">new</span> NumberFieldData(total);
+
+    <span class="c">// 4. Excel のテンプレートに書き込み、起動した人に渡すファイルにする</span>
+    <span class="c">//    (本番でメールにするなら excel.ToAttachment(&quot;発注候補表.xlsx&quot;) を MailService.Send の添付に)</span>
+    <span class="k">var</span> result = <span class="k">new</span> JsonObject();
+    <span class="k">using</span> (<span class="k">var</span> excel = <span class="k">new</span> Excel(Resources.GetMemoryStream(<span class="s">&quot;Job/ReorderReport.xlsx&quot;</span>), <span class="s">&quot;ReorderReport.xlsx&quot;</span>))
+    {
+        excel.OverWrite(report);
+        <span class="k">var</span> file = FileService.SaveTemporary(<span class="s">&quot;JobDemo&quot;</span>, <span class="s">&quot;帳票&quot;</span>, <span class="s">$&quot;発注候補表_{DateTime.Now:yyyyMMdd_HHmm}.xlsx&quot;</span>, excel.ToMemoryStream());
+        result.FileGuid = file.FileGuid;
+        result.FileName = file.FileName;
+        result.FileSize = file.FileSize;
+    }
+
+    <span class="c">// 5. 画面に結果を返す</span>
+    result.ItemCount = items.Count;
+    result.SupplierCount = supplierNames.Count;
+    result.Total = total;
+    result.Suppliers = suppliers;
+    args.Result = result;
+    Logger.Log(<span class="s">$&quot;発注候補表: {items.Count} 品目 / {supplierNames.Count} 社 / {total} 円&quot;</span>);
+    <span class="k">return</span> <span class="s">$&quot;発注候補表を作りました ({items.Count} 品目・{supplierNames.Count} 社)&quot;</span>;
+}</pre>
+    </div>
+    <div class="jd-info">
+      <h3>作り方</h3>
+      <ul>
+        <li>デザイナで Job を追加し、<code>Run</code> を書くだけ。画面のスクリプトと同じ書き方です</li>
+        <li>検索・追加・更新・削除は、作ったモジュールをそのまま使います。権限・保存時の処理・編集履歴も画面から保存したときと同じです</li>
+        <li>途中で失敗すると、それまでの書き込みはまとめて取り消されます</li>
+        <li>Excel 帳票・メール送信・添付ファイルもスクリプトから使えます</li>
+        <li>デザイナが入力補完と設計チェックで書き間違いを教えてくれます</li>
+      </ul>
+      <h3>起動の仕方</h3>
+      <ul>
+        <li>定期実行: <code>dotnet LowCodeApp.Server.dll job ReorderReport</code> を、Windows のタスクスケジューラ・cron・Azure などに登録</li>
+        <li>画面から: ジョブトリガーのボタンで実行。結果 (件数や作ったファイル) を画面に返せます</li>
+        <li>Web サーバーと同じプログラム・同じ設定で動くので、バッチ用のプロジェクトや接続設定を別に用意する必要はありません</li>
+      </ul>
+    </div>
+  </div>
+</div>

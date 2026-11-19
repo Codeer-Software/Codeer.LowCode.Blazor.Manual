@@ -1,0 +1,406 @@
+{
+  "Name": "JobDemo",
+  "DataSourceName": "Main",
+  "Fields": [
+    {
+      "Style": "H2",
+      "Text": "バッチ処理 (Job)",
+      "Name": "DemoTitle",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Text": "毎朝の集計・帳票作成・メール配信のような定期処理も、画面と同じスクリプトで作れます。デザイナで Job を作り、モジュール名・フィールド名でデータを読み書きするだけ。作った Job はスケジューラから定期実行でき、画面のボタンからも呼べます。",
+      "Name": "DemoDesc",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "ResourcePath": "Job/job_demo.html",
+      "Name": "Explain",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.MarkupStringFieldDesign"
+    },
+    {
+      "Style": "H5",
+      "Text": "実際に動かしてみる",
+      "Name": "RunHead",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Text": "在庫管理デモのデータを読み、発注点を下回った商品を仕入先ごとにまとめた「発注候補表」(Excel) を作ります。データは変更しません。",
+      "Name": "RunDesc",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Text": "発注候補表を作成 (Job を実行)",
+      "Variant": "Primary",
+      "OnClick": "実行ボタン_OnClick",
+      "Name": "実行ボタン",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ButtonFieldDesign"
+    },
+    {
+      "JobName": "ReorderReport",
+      "ShowButton": false,
+      "UseSubmitData": false,
+      "ProcessType": "InProcess",
+      "Name": "発注候補表Job",
+      "TypeFullName": "Codeer.LowCode.Blazor.Extras.Designs.JobTriggerFieldDesign"
+    },
+    {
+      "Format": "#,##0'品目'",
+      "Name": "品目数",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.NumberFieldDesign"
+    },
+    {
+      "RelativeField": "品目数",
+      "Text": "発注候補",
+      "Name": "品目数Label",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Format": "#,##0'社'",
+      "Name": "仕入先数",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.NumberFieldDesign"
+    },
+    {
+      "RelativeField": "仕入先数",
+      "Text": "仕入先",
+      "Name": "仕入先数Label",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Format": "'¥'#,##0",
+      "Name": "合計金額",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.NumberFieldDesign"
+    },
+    {
+      "RelativeField": "合計金額",
+      "Text": "推奨発注金額",
+      "Name": "合計金額Label",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "Name": "帳票",
+      "StorageName": "Azure",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FileFieldDesign"
+    },
+    {
+      "RelativeField": "帳票",
+      "Text": "作成した Excel",
+      "Name": "帳票Label",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    },
+    {
+      "SearchCondition": {
+        "ModuleName": "JobReorderReportSupplier",
+        "Condition": {
+          "Name": "",
+          "TypeFullName": "Codeer.LowCode.Blazor.Repository.Match.MultiMatchCondition"
+        }
+      },
+      "CanUserSort": false,
+      "Name": "仕入先別",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ListFieldDesign"
+    },
+    {
+      "RelativeField": "仕入先別",
+      "Text": "仕入先別の内訳",
+      "Name": "仕入先別Label",
+      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.LabelFieldDesign"
+    }
+  ],
+  "DetailLayouts": {
+    "": {
+      "DataOnlyFields": [
+        "発注候補表Job"
+      ],
+      "Layout": {
+        "Name": "",
+        "Rows": [
+          {
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "DemoTitle",
+                  "Name": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                }
+              }
+            ]
+          },
+          {
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "DemoDesc",
+                  "Name": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                }
+              }
+            ]
+          },
+          {
+            "Columns": [
+              {
+                "Layout": {
+                  "Name": "",
+                  "IsBordered": true,
+                  "Padding": {
+                    "Top": 12,
+                    "Bottom": 12,
+                    "Left": 16,
+                    "Right": 16
+                  },
+                  "Rows": [
+                    {
+                      "Columns": [
+                        {
+                          "Layout": {
+                            "FieldName": "RunHead",
+                            "Name": "",
+                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "Columns": [
+                        {
+                          "Layout": {
+                            "FieldName": "RunDesc",
+                            "Name": "",
+                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "Columns": [
+                        {
+                          "Layout": {
+                            "FieldName": "実行ボタン",
+                            "Name": "",
+                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                          },
+                          "HorizontalAlignment": "Start"
+                        }
+                      ]
+                    },
+                    {
+                      "Columns": [
+                        {
+                          "Layout": {
+                            "Name": "",
+                            "Rows": [
+                              {
+                                "Columns": [
+                                  {
+                                    "Layout": {
+                                      "FieldName": "品目数Label",
+                                      "Name": "",
+                                      "Color": "#6c757d",
+                                      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "Columns": [
+                                  {
+                                    "Layout": {
+                                      "FieldName": "品目数",
+                                      "Name": "",
+                                      "FontSize": 24,
+                                      "FontWeight": "Bold",
+                                      "Color": "#052767",
+                                      "IsViewOnly": true,
+                                      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                                    }
+                                  }
+                                ]
+                              }
+                            ],
+                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
+                          },
+                          "MinWidth": 140
+                        },
+                        {
+                          "Layout": {
+                            "Name": "",
+                            "Rows": [
+                              {
+                                "Columns": [
+                                  {
+                                    "Layout": {
+                                      "FieldName": "仕入先数Label",
+                                      "Name": "",
+                                      "Color": "#6c757d",
+                                      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "Columns": [
+                                  {
+                                    "Layout": {
+                                      "FieldName": "仕入先数",
+                                      "Name": "",
+                                      "FontSize": 24,
+                                      "FontWeight": "Bold",
+                                      "Color": "#052767",
+                                      "IsViewOnly": true,
+                                      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                                    }
+                                  }
+                                ]
+                              }
+                            ],
+                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
+                          },
+                          "MinWidth": 140
+                        },
+                        {
+                          "Layout": {
+                            "Name": "",
+                            "Rows": [
+                              {
+                                "Columns": [
+                                  {
+                                    "Layout": {
+                                      "FieldName": "合計金額Label",
+                                      "Name": "",
+                                      "Color": "#6c757d",
+                                      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "Columns": [
+                                  {
+                                    "Layout": {
+                                      "FieldName": "合計金額",
+                                      "Name": "",
+                                      "FontSize": 24,
+                                      "FontWeight": "Bold",
+                                      "Color": "#052767",
+                                      "IsViewOnly": true,
+                                      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                                    }
+                                  }
+                                ]
+                              }
+                            ],
+                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
+                          },
+                          "MinWidth": 140
+                        }
+                      ],
+                      "IsWrap": true
+                    },
+                    {
+                      "Columns": [
+                        {
+                          "Layout": {
+                            "Name": "",
+                            "Rows": [
+                              {
+                                "Columns": [
+                                  {
+                                    "Layout": {
+                                      "FieldName": "帳票Label",
+                                      "Name": "",
+                                      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "Columns": [
+                                  {
+                                    "Layout": {
+                                      "FieldName": "帳票",
+                                      "Name": "",
+                                      "IsViewOnly": true,
+                                      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                                    }
+                                  }
+                                ]
+                              }
+                            ],
+                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "Columns": [
+                        {
+                          "Layout": {
+                            "Name": "",
+                            "Rows": [
+                              {
+                                "Columns": [
+                                  {
+                                    "Layout": {
+                                      "FieldName": "仕入先別Label",
+                                      "Name": "",
+                                      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "Columns": [
+                                  {
+                                    "Layout": {
+                                      "FieldName": "仕入先別",
+                                      "Name": "",
+                                      "IsViewOnly": true,
+                                      "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                                    },
+                                    "IgnoreContentWidth": true
+                                  }
+                                ]
+                              }
+                            ],
+                            "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
+                          }
+                        }
+                      ]
+                    }
+                  ],
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
+                }
+              }
+            ],
+            "Margin": {
+              "Top": 0,
+              "Bottom": 24
+            }
+          },
+          {
+            "Columns": [
+              {
+                "Layout": {
+                  "FieldName": "Explain",
+                  "Name": "",
+                  "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.FieldLayoutDesign"
+                },
+                "IgnoreContentWidth": true
+              }
+            ]
+          }
+        ],
+        "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.GridLayoutDesign"
+      }
+    }
+  },
+  "ListPageFieldDesign": {
+    "SearchCondition": {
+      "LimitCount": 50
+    },
+    "PagerPosition": "Bottom",
+    "Name": "",
+    "TypeFullName": "Codeer.LowCode.Blazor.Repository.Design.ListFieldDesign"
+  }
+}
