@@ -33,7 +33,7 @@ namespace LowCodeSamples.Server.Jobs
                 GetResource = DesignerService.GetResource,
                 InvokerUserId = userId,
                 FileStorage = data.TemporaryFileManager,
-            }, name, [input], new ScriptLogger(logger));
+            }, name, [input], new JobScriptLogger(logger));
             if (!result.Succeeded)
             {
                 //失敗の文言は画面に出る。Fail の理由と本体の文言 (検証・権限など) はそのまま、それ以外は固定の文言 (原文はスクリプトの位置や DB の例外を含むのでログだけに出す)
@@ -41,20 +41,6 @@ namespace LowCodeSamples.Server.Jobs
                 throw new InvalidOperationException(result.Exception is LowCodeException ? result.Exception.Message : "ジョブでエラーが発生しました。");
             }
             return new JobRuntimeResult { Message = result.Message, ResultJson = result.ResultJson };
-        }
-
-        //スクリプトの Logger の出し先 (アプリのログ)
-        sealed class ScriptLogger(ILogger logger) : Codeer.LowCode.Blazor.RequestInterfaces.ILogger
-        {
-            public Task Log(string message) => Write(LogLevel.Information, message);
-            public Task Warn(string message) => Write(LogLevel.Warning, message);
-            public Task Error(string message) => Write(LogLevel.Error, message);
-
-            Task Write(LogLevel level, string message)
-            {
-                logger.Log(level, "{Message}", message);
-                return Task.CompletedTask;
-            }
         }
     }
 }

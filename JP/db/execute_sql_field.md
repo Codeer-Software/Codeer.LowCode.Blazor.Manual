@@ -56,7 +56,26 @@ SQL ごとに設定できます（書き込みできる条件で判定します�
 実行はデータを対象にしない操作のため、条件にはログインユーザーの値（CurrentUser）だけが使えます。
 
 SQL 文の内容は Codeer.LowCode.Blazor からは判断できないため、**データによる認可（行の条件）と項目単位の権限は SQL の内容には効きません。**
-行や項目で絞りたい場合は SQL の WHERE で絞ってください（ログインユーザーの値を持つフィールドをモジュールに置き、パラメータとして SQL に渡します）。
+行や項目で絞りたい場合は SQL の WHERE で絞ってください。
+
+ユーザーで絞りたい場合は、予約パラメータ **`current_user_id`** を使ってください。
+サーバーが常にログインユーザーの Id を渡すため、画面から送る値と違って利用者が変更できず、権限として使えます。
+Parameter 一覧に `current_user_id`（DbType はユーザー Id 列に合わせる）を登録して SQL で参照します。対応するフィールドをモジュールに置く必要はありません。
+
+```sql
+UPDATE orders SET approved = 1
+WHERE id = @id AND owner_id = @current_user_id
+```
+
+部署やロールなど Id 以外のユーザーの値で絞る場合は、SQL の中でユーザーのテーブルを参照します。
+
+```sql
+UPDATE orders SET approved = 1
+WHERE id = @id
+  AND dept = (SELECT dept FROM app_users WHERE id = @current_user_id)
+```
+
+ログインユーザーの値を持つフィールドをモジュールに置いてパラメータで渡す方法もありますが、画面から送る値なので権限の判定には使わないでください。
 
 `Standalone` の ExecuteSqlField を持つモジュールにデータによる認可を設定していると、デザインチェックが知らせます。
 権限フィールドの条件にデータ自身の値を使っている場合も同様です。
