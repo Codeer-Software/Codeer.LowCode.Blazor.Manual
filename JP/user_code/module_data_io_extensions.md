@@ -134,4 +134,3 @@ var orders    = result.GetAt<Order>(1);   // 渡した順番（インデック�
 
 - これらのヘルパは**読み取り**用です。ページングは扱わず「条件にマッチする全データ」を取得します。件数を抑えたいときは `Take` を使ってください。細かいページ制御が必要な場合は `ModuleDataIO.GetListAsync(condition, pageIndex)` を直接使います。
 - 書き込み（追加・更新・削除）は [プロコードでのデータ保存（追加・更新・削除）](data_submit.md) を参照してください。
-- 検索条件に一致するデータをまとめて削除したい場合は [検索条件でまとめて削除する（SearchDelete）](search_delete.md) を参照してください。

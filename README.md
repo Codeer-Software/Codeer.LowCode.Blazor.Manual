@@ -163,7 +163,6 @@ Codeer.LowCode.Blazor を触り始める前に、全体像を掴むためのセ�
 - [拡張サービスの登録と利用](JP/user_code/extension_services.md) — 自作サービスを DI 登録して Services.Provider / @inject で使う
 - [C# でのデータ取得ヘルパ](JP/user_code/module_data_io_extensions.md) — モジュールに対応した C# クラス + LINQ ライクな書き方でデータを読む
 - [プロコードでのデータ保存](JP/user_code/data_submit.md) — C# から追加・更新・削除する
-- [検索条件でまとめて削除する (SearchDelete)](JP/user_code/search_delete.md)
 - [バッチ処理（ジョブ）](JP/user_code/batch_job.md) — C# で書くジョブ (`IJob`)。作ったモジュールをそのまま使う。定期実行・画面のボタンからの起動・サービスアカウント (デザイナで書く場合は [Job スクリプト](JP/script/script_job.md))
 
 ### 見た目・スタイル

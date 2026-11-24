@@ -72,11 +72,9 @@ submit.Delete.Add(new ModuleDeleteInfo { ModuleName = "Customer", Id = "123" });
 await Module.Services.ModuleDataService.SubmitAsync(new List<ModuleSubmitData> { submit });
 ```
 
-検索条件に一致するデータをまとめて削除したい場合は [検索条件でまとめて削除する（SearchDelete）](search_delete.md) を使います。
-
 ## まとめて実行する／トランザクション
 
-- 1 つの `ModuleSubmitData` に `Add` / `Update` / `Delete` / `SearchDelete` を混在させられます。複数の `ModuleSubmitData` を一度に渡すこともできます。
+- 1 つの `ModuleSubmitData` に `Add` / `Update` / `Delete` を混在させられます。複数の `ModuleSubmitData` を一度に渡すこともできます。
 - これらは **1 つのトランザクション**で実行されます。途中で失敗した場合はすべて巻き戻り、一部だけ反映された状態は残りません。
 
 ## 結果の確認
@@ -103,6 +101,5 @@ if (results == null || results.Any(r => !string.IsNullOrEmpty(r.ExceptionMessage
 
 ## 関連
 
-- [検索条件でまとめて削除する（SearchDelete）](search_delete.md)
 - [C# でのデータ取得ヘルパ](module_data_io_extensions.md)
 - [プロコード](../overview/procode.md)

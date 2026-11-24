@@ -56,4 +56,3 @@ CustomizedModuleDataIOカスタマイズポイント<br>
 
 `ModuleSubmitData` を組み立てて、データの追加・更新・削除を行えます。
 [プロコードでのデータ保存（追加・更新・削除）](data_submit.md) を参照してください。
-検索条件に一致するデータをまとめて削除する [SearchDelete](search_delete.md) もあります。
